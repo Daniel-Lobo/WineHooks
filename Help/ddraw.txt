@@ -1,0 +1,14 @@
+::Title::user::
+%directdraw%
+%Sound%
+%Input%
+%CPU%     
+   
+::link::dinput->https://en.wikipedia.org/wiki/DirectInput
+::link::wfog->https://github.com/narzoul/DDrawCompat/commit/4dc1c70f4113721c523b29f05cd8537fa41e3564
+::link::DDcompat->https://github.com/narzoul/DDrawCompat
+::link::ucyborg->https://github.com/UCyborg/LegacyD3DResolutionHack 
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+::link::libreto_xbrz->https://github.com/libretro/common-shaders/blob/master/xbrz/shaders/xbrz-freescale.cg
+::link::D3DFMT_A8->https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/texld---ps-2-0
+::link::vista_shaders->https://docs.microsoft.com/en-us/windows-hardware/drivers/display/converting-the-direct3d-fixed-function-state

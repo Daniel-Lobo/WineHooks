@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(read_height, ContrastGame.exe, 8B 40 08 89 51 04 89 41 08 8B CF E8)
+aobscanmodule(read_height2, ContrastGame.exe, 8B 57 5C 89 44 24 50 89 4C 24 54 89 54 24 58)
+aobscanmodule(movment, ContrastGame.exe, F3 0F 11 43 5C 8B 08 89 4B 60 8B 50 04)
+registersymbol(read_height)
+alloc(fly, 512)
+label(height_add)
+label(read_height_ret)
+label(read_height_code)
+label(read_height2_ret)
+label(read_height2_code)
+label(movment_code)
+label(movment_ret)
+label(movment_og)
+registersymbol(height_add)
+label(fly_flag)
+registersymbol(fly_flag)
+
+fly:
+height_add:
+  db 00 00 00 00
+fly_flag:
+  db 00 00 00 00
+
+read_height_code:
+  mov [height_add], eax
+  add [height_add], 8
+  mov eax,[eax+08]
+  mov [ecx+04],edx
+jmp read_height_ret
+
+read_height2_code:
+  mov [height_add], edi
+  add [height_add], 5c
+  mov edx,[edi+5C]
+  mov [esp+50],eax
+jmp read_height2_ret
+
+movment_code:
+  cmp [fly_flag], 0
+  je movment_og
+  push ebx
+  add ebx, 5c
+  cmp ebx [height_add]
+  pop ebx
+  je movment_ret
+movment_og:
+  movss [ebx+5C],xmm0
+jmp movment_ret
+
+read_height:
+  jmp read_height_code
+  nop
+read_height_ret:
+
+read_height2:
+  jmp read_height2_code
+  nop
+  nop
+read_height2_ret:
+
+movment:
+  jmp movment_code
+movment_ret:
+
+[disable]
+read_height:
+  db 8B 40 08 89 51 04 89 41 08 8B CF E8
+read_height2:
+  db 8B 57 5C 89 44 24 50 89 4C 24 54 89 54 24 58
+movment:
+  db F3 0F 11 43 5C 8B 08 89 4B 60 8B 50 04
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"F - Fly mode"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+fly_flag:
+  db 01 00 00 00
+
+[disable]
+fly_flag:
+  db 00 00 00 00
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>4</ID>
+              <Description>"R - fly up"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5</ID>
+              <Description>"V - fly down"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"y_pos"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>[height_add]</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>luminaries</Description>
+      <AddressString>ContrastGame.exe+8EEEC</AddressString>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>8B</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>54</Byte>
+        <Byte>24</Byte>
+        <Byte>04</Byte>
+        <Byte>89</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>

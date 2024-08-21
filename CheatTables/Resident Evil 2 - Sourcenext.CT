@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"H - inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+bio2.exe+DCACF:
+  nop
+  nop
+
+[disable]
+bio2.exe+DCACF:
+  sub si,cx
+
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(kill, 128)
+label(kill_ret)
+
+kill:
+  mov [ebx+00000156],00
+jmp kill_ret
+
+bio2.exe+D3C08:
+  jmp kill
+  nop
+kill_ret:
+
+[disable]
+bio2.exe+D3C08:
+   sub [ebx+00000156],dx
+dealloc(*)
+
+
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(ammo, 64)
+label(ammo_ret)
+label(ammo_og)
+
+ammo:
+  cmp [eax*4+bio2.exe+58ED35],cl
+  jb ammo_og
+jmp ammo_ret
+
+ammo_og:
+  mov [eax*4+bio2.exe+58ED35],cl
+jmp ammo_ret
+
+bio2.exe+10251E:
+  jmp ammo
+  nop
+  nop
+ammo_ret:
+
+[disable]
+bio2.exe+10251E:
+  mov [eax*4+bio2.exe+58ED35],cl
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"I - inf Ink ribbons"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+bio2.exe+C668C:
+  nop
+  nop
+
+[disable]
+bio2.exe+C668C:
+  dec cl
+
+
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Left Overs"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"HP"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>bio2.exe+58A046</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: Retail, Soucenext, 1.1
+</Comments>
+</CheatTable>

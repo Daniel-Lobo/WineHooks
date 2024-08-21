@@ -1,0 +1,297 @@
+::Tab::Graphics...|...Graphics|Sound|Input|File System|CPU::
+
+::Graphics...Tab::
+::BOOL::layeroff::Disable passthrough layer::General compatibility option. Try 
+this if the game doesn't work::
+::Graphics...Tab::
+::BOOL::4K::Enable 4k resolution::Increases the maximum resolution of DirectX 7 and earlier games from 
+2048x2048 to 8192x8192::
+::parent::4K_details::
+::HIDDEN::4K_datailed::Details::Adapted from a|ucyborg ^ here|a::
+
+::parent::Graphics..._div::
+::BOOL::DDRefcountfix::Fix DirectDraw reference count::Fixes a few games that fail to start with the 
+program. No need to enable this otherwise::
+
+::parent::DDRefcountfix_details::
+::HIDDEN::DDRefcountfix_datailed::Details::This is not actually a directdraw 
+bug, it happens|n because the program holds an extra reference to 
+the|n directdraw object, which can sometimes cause problems|n with games the check 
+the value returned by the|n IDirectDraw&rarr;Release method::
+
+::parent::Graphics..._div::
+::BOOL::WFG::W-Fog fix::Fixes non working fog in some games:: 
+
+::BOOL::GAVM::Video memory reporting fix::Fixes 3D acceleration some games:: 
+
+::parent::WFG_details::
+::HIDDEN::WFG_datailed::Details::Adapted from a|wfog ^ here|a::
+
+::parent::Graphics..._div::
+::BOOL::WSTL::Hide window border::Fixes some games that have the window tile bar and frame still visible 
+in fullscreen
+
+::parent::Graphics..._div::
+::BOOL::DMWM::Disable Maximized windowed mode::::
+::parent::DMWM_details::
+::HIDDEN::DMWM_Detailed::Details::
+Advantages
+<ul> 
+l|Fixes poor performance</li>
+l|Fixes rendering bugs</li>
+l|Fixes non-working gamma\brightness calibration</li></ul>
+DrawBacks:<ul> 
+l|FMVs might not play</li>
+l|You can get a black screen on games the put another window - for FMV playback
+or to display common windows controls|n - on top of the DirectDraw window</li>
+l| Alt-tabing may not work ot take very long</li>
+l|If the game freezes, you might need to logoff</li></ul>::
+
+::parent::Graphics..._div::
+::BOOL::Gamma::Gamma control fix::Fixes non-working gamma\brightness calibration
+<br>b| Important Remark:|b If the game freezes you might need to
+a|gammatool ^ reset your desktop gamma |a::
+::parent::Gamma_details::
+::HIDDEN::Gamma_datailed::Details::This can restore gamma calibration without
+disableing|n maximized windowed mode. It does so by translating|n DirectDraw calls
+to GDI.|n The drawback to this is that the new gamma settings|n will affect the 
+entire desktop, but if the game terminates|n correctly, the original settings are 
+restored::
+
+::parent::Graphics..._div::
+::BOOL::FLTR::Texture Filter Override::Force nearest neighbor magnification and 16x 
+anisotropic minification. This offers the best sharpness\smoothness with the least
+aliasing\blurring. With the transiton to wine, at the moment, this might not work 
+properlly on Direct3D 1 and 2 unlesss combinet with SSAA. This issue will be fixed 
+on the next "stable" release
+
+::parent::Graphics..._div::
+::BOOL::MNGR::Manage texture locks - DirectX 6 only::
+This was created to fix dynamic lights causing low frame rate on Shogo and Slave
+Zero and might fix games with similar problems 
+
+::parent::Graphics..._div::
+::BOOL::FHAL::Force software transform and lighting - DirectX 7 only::
+This was 
+created to fix missing polygons on Zanzarah. It may fix similar bugs on other DirectX 7 
+games and for such old games will probably not impact the frame rate
+    
+::parent::...Graphics_div::
+::BOOL::32bit::Forced 32 bit display mode::::
+::parent::32bit_details::
+::HIDDEN::32bit_Detailed::Details::
+<ul> 
+l| Fixes poor performance</li>
+l| Fixes rendering bugs</li>
+l| Reduces color banding</li>
+l| Fixes wrong colors on 8 bit display modes on seven and vista</li>
+l| If combined with a|gototab_HD ^ forced resolution|a, fix glitches on display mode changes
+which also become instant
+</li></ul> 
+
+::parent::32bit_details::
+::BOOL::Safe::Single core directdraw::This is an alternative to the
+a<gototab_cpu_singlecore -- Single core affinity>a option witch frequently
+causes sound artifacts
+::parent::Safe_details::
+::HIDDEN::Safe_Detailed::Details::This sets the affinity of any threads doing|n 
+directdraw calls to the last proccessor core.|n Even if the game doesn't need 
+this, the|n program sometimes does - because the|n directdraw hooks are not thread 
+safe.|n If your game sends you a series of message|n boxes complaining|n that it is out
+of memory, try this 
+
+::parent::32bit_details::
+::BOOL::DisableFontAA::Disable GDI font anti-aliasing::
+Use this if you get a pink outline on texts, which will look more pixelated, 
+but new options for filtering will be added 
+in the future to fix it  
+
+::parent::32bit_details::
+::BOOL::z24::Force 24 bit z buffer::This can fix z-fighting. If the game 
+manipulates the zbuffer using directdraw, there may be an 
+impact on performance
+
+::parent::32bit_details::
+::BOOL::READ::Allow CPU reads on the Direct3D render target::Games 
+usually read the Direct3D render target to do things as
+create textures to use as backgrounds for menus, create thumbnails for saved 
+games or take screenshots|n::
+
+::parent::READ_details::
+::BOOL::CPY::Discard unmodified pixels::If 
+a|gototab_HD ^ forced resolution|a is enabled, prevents the Direct3D 
+render target from being downsampled making the game to look aliased\pixelated 
+
+::parent::32bit_details::
+::TEXTID::Optimizations::Optimizations::Try these if 
+i<forced 32 bit display mode>i, or i<forced resolution>i 
+inpact the frame rate|n::
+
+::parent::Optimizations_Details::
+wip<::BOOL::SCLR::Allow partial Primary Surface updates - helpfull on DirectDraw games::
+Unfortunately, can cause artifacts on some games when 
+forced resolution\xBRz scaling is enabled::>wip 
+
+::parent::32bit_details::
+::BOOL::DLY::Delay render target updates - helpfull on Direct3D Games:::: 
+
+::parent::32bit_details::
+::BOOL::SYS::Lockable proxies on system memory::::
+    
+::parent::32bit_details::
+::BOOL::HD::Forced resolution::...::
+::parent::HD_details::
+::HIDDEN::HD_Detailed::Details::
+Games are forced to run at your desktop 
+resolution, but the aspect|n ratio is kept accordingly to the one of the 
+resolution the game requests.|n 2D games are simply upscaled with nearest 
+neighbor sampling<br> 
+<ul> 
+l| Force games to run at higher resolutions they don't support</li>
+l| Fixes games that support higher resolutions, but shrink their Menus\HUDs at 
+higher resolutions</li>
+l| Fixes crashes in some games - because it limits the number of resolutions 
+enumerated</li>
+l| Fixes glitches on display mode changes which also become instant</li></ul>
+::
+
+::BOOL::GDI::GDI hooks::Fixes FMVs not being scaled correctly in some games
+
+::parent::HD_details::
+::BOOL::NEFS::Non exclusive fullscreen::
+::parent::NEFS_details::
+::HIDDEN::NEFSDetailed::Details::
+My implementation of maximized 
+windowed mode, with different results form microsoft's
+<ul> 
+l| Fixes poor performance</li>
+l| Fixes rendering bugs</li>
+l| Alt-tabing is faster and becomes possible in games on which it normally isn't.|n 
+The  game window remains always visible, but you can put another windows on top 
+of it</ul> 
+DrawBacks:<ul> 
+l| FMVs might not play</li>
+l| You can get a black screen on games the put another window - for FMV playback
+or to display common windows|n controls - on top of the DirectDraw window</li></ul> 
+:: 
+   
+::parent::HD_details::
+::RADIOHEAD::SSAA::Super Sampling ::
+::parent::SSAA_details::
+::RADIO::SSAA=False::SSAA::Disabled::
+::RADIO::SSAA=1::SSAA::Integer scaling - Fixes scaling artifacts::::
+::RADIO::SSAA=2::SSAA::Integer scaling and anti-aliasing::::
+::RADIO::SSAA=4::SSAA::Integer scaling and high quality anti-aliasing:::: 
+
+::parent::SSAA_details:: 
+::TEXT::When using super sampling, try to configure the game resolution so that 
+it will be half of, or the same as your desktop. Anything in 
+between will increased the workload on the
+GPU without an increase in anti-aliasing quality::
+
+::parent::SSAA_details::     
+::BOOL::BLT3D::Use Direct3D for blits::Try this to fix scaling 
+artifacts if supersampling is not enough to fix, or introduces them. This option 
+has no effect if supersampling is not enabled  
+
+::parent::HD_details::
+::BOOL::DSR::Dynamic super resolution::
+Chooses the maximum resolution enumerated by the display instead of the 
+desktop's
+::  
+         
+::parent::HD_details::
+::BOOL::WHKS::Fix window size::
+Enable this if the game window is not correctly resized to cover the entire 
+monitor area
+
+::parent::HD_details::
+::BOOL::HLFPX::Half pixel offset::Fixes bad tiling of textures on polygons draw in screen space::        
+
+::BOOL::MHKS::Mouse hooks::
+Enable this if the game registers the mouse position incorrectly
+
+::RADIOHEAD::MCLP::Mouse clip fix::
+::parent::MCLP_details::
+::RADIO::MCLP=0::MCLP::Disabled::::
+::RADIO::MCLP=2::MCLP::Untrap mouse::Check this if the mouse
+gets trapped in the top left corner of the screen::
+::RADIO::MCLP=1::MCLP::Constrain clip area::Check this if the mouse gets lost
+out of the screen when you move it to far down or to the sides:::: 
+ 
+::parent::Graphics..._div:: 
+::BOOL::SXTY::Force 60 Hertz::On monitors with higher refresh rates, this will 
+be useful to limit a game's frame rate to 60 - or 30, using the 
+b|force VSync: half refresh rate|b option bellow 
+
+::RADIOHEAD::SYNC::Force VSYnc::
+::parent::SYNC_details::
+::TEXT::Windows 10 always forces VSync on DirectX 7 and earlier unless 
+a|gototab_NEFS ^ non-exclusive fullscreen|a or
+a|gototab_DMWM ^ disable maximized window mode|a are enabled. Regardless, the 
+b|half refresh rate|b option is still useful 
+to limit some games to 30 FPS::
+::RADIO::SYNC=0::SYNC::Disabled::::
+::RADIO::SYNC=1::SYNC::Enabled::
+::RADIO::SYNC=2::SYNC::Half refresh rate:: 
+ 
+::parent::Graphics..._div::
+::BOOL::Textswap.e::Texture swapping::
+Click a|tswaptuto ^ here |a for the details |n::    
+
+::parent::Textswap.e_details::
+::%_Textswap_%::
+
+::parent::Textswap.e_details::
+::RADIOHEAD::Textswap.path::Path::
+::parent::Textswap.path_details::
+::RADIO::Textswap.path=Textures/VOKSI::Textswap.path::a|tswap_link=VOKSI ^ %__path__%Textures\VOKSI |a::::
+::RADIO::Textswap.path=Textures/CPY::Textswap.path::a|tswap_link=CPY ^ %__path__%Textures\CPY |a::
+::RADIO::Textswap.path=Textures/CODEX::Textswap.path::a|tswap_link=CODEX ^ %__path__%Textures\CODEX |a:: 
+::RADIO::Textswap.path=Textures/SKIDROW::Textswap.path::a|tswap_link=SKIDROW ^ %__path__%Textures\SKIDROW |a::::
+::RADIO::Textswap.path=Textures/RELOADED::Textswap.path::a|tswap_link=RELOADED ^ %__path__%Textures\RELOADED |a::
+::RADIO::Textswap.path=Textures/EMPRESS::Textswap.path::a|tswap_link=EMPRESS ^ %__path__%Textures\EMPRESS |a:: 
+::parent::Textswap.e_details::
+::BOOL::Textswap.l::Monitor video memory locks::A few games might need this. Try
+this if you can dump textures but not replace them. Leave it alone otherwise
+as it can decrease performance::
+::BOOL::Textswap.dly::Delay texture releases::This fixes crashes in Die by the 
+sword and Oulaws on levels with rivers\waterfals::
+::BOOL::Textswap.A8Fix::Alpha textures fix - DX7 only::
+  This was created to fix fonts on 
+  Blade of darkness and may solve other bugs on other games that use alpha only 
+  textures.
+::parent::Textswap.A8Fix_details::  
+::HIDDEN::Textswap.A8Fix_detailed::Details::  
+{b 
+  The correct rendering of fonts on Blade of darkness depends on alpha 
+  textures returning 1.0 for the color channels when sampled on the pixel stage. 
+  With the introduction of the programable pipeline, the default value of 
+  the color channels in alpha only textures on the pixel shader was changed to 
+  [D3DFMT_A8 0.0]:
+  On windows vista - and latter, the  Direct3D runtimes implement the fixed 
+  function pipeline with [vista_shaders shaders]. What  
+  I'm guessing happened here was that, at that point, the MS programers did not correctly
+  replicated the fixed function alpha textures behavior on the pixel shaders 
+  emulating the fixed function pipeline.   
+  This fix is applied by replacing alpha only textures with full RGBA textures 
+  with the color channels set to 255  
+}
+::parent::Textswap.e_details::  
+::BOOL::Textswap.a::Auto dump textures - WIP::Dumps textures while you play.
+The auto dump option is automatically disabled every time you load the game 
+page:: 
+::parent::Textswap.a_details::
+::HIDDEN::Textswap.a_detailed::Details::
+{b 
+    Without pixel shaders or render to texture - which was supported by Direct3D
+    since Direct3D 2, but not by most cards of the time - DirectX 7 and
+    earlier games often employ the CPU to generate new unique textures every 
+    frame to render dynamic effects such as shadow and light maps or water ripples. 
+    Auto dump is impractical in such games generating an enormous 
+    amount of dumps and making them unplayable. An option to dump all 
+    textures at once will be added in the future to handle such games
+}::
+::parent::Textswap.e_details::
+::TEXT::|n::
+::%_Textswap_Compiler%::

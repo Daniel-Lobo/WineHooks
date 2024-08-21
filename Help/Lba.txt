@@ -1,0 +1,66 @@
+::Title::Little Big Adventure
+::
+{h1 Fixes and improvements} 
+{i Unfiltered or [gototab_...graphics_xBR xBRz] scaling} 
+{i A new save system that makes more sense}
+{i Support for Xinput gamepads with screen relative analog movement}
+{nfo b|Planed|b: Fix the non working individual volume controls}
+
+{b {nfo} ==[ Supported versions]== 
+Ment to be used with a|Lbawin ^ Lbawin version 0.8.1|a}
+
+{b {i} ==[ [gototab_...graphics_xBR xBRz] scaling... ]==
+...looks very good on this game, not only on the 
+backgrounds, but also on the 3D models, so i can't recommend it enough }
+ 
+{b {nfo} ==[If you enable [gototab_...graphics_xBR xBRz scaling] ]== 
+You should also enable
+the a|gototab_...graphics_SCLR ^ allow partial primary surface updates|a option, 
+or the game might slow down on some parts depending on your computer specs}
+
+{b {nfo} ==[New save system]==
+To use the new save system, you first have to create a save named b|auto|b, or 
+containing the word b|auto|b and make sure there will always be only one save 
+file named likewise||n
+
+From there on, the game will always update that file when it autosaves. You can 
+create other saves with the i| copy savegame option|i and later, if you load that
+save and continue to play, the game will update your progress in the 
+i| b|auto|bsave|i file, not in the file you loaded>>n
+
+Note: saves with names smaller then 4 characters will be ignored by the new
+save system} 
+
+{b {nfo} ==[Xinput gamepads]==
+If you have a Xinput gamepad, it will work with the following layout: ||n
+
+<table>
+<tr><td> Confirm\Center screen  </td><td style='text-Align:right;'> A&nbsp               </td><td>  B&nbsp                </td><td>  Cancel\Pause menu </td></tr>
+<tr><td> Interact\Talk          </td><td style='text-Align:right;'>  X&nbsp              </td><td>  Y&nbsp                </td><td>   Shoot magic ball </td></tr>
+<tr><td> Behavior menu          </td><td style='text-Align:right;'> left Button&nbsp     </td><td>   right Button&nbsp    </td><td>   Behavior action  </td></tr>
+<tr><td> Hollomap               </td><td style='text-Align:right;'>  left Trigger&nbsp   </td><td>  right Trigger&nbsp    </td><td>   Inventory        </td></tr>
+<tr><td> Zoom                   </td><td style='text-Align:right;'>  back&nbsp           </td><td>  start&nbsp            </td><td>  Options           </td></tr>  																	
+</table> |n
+
+Use the dpad to navigate menus and move twinsen||n
+
+Use the left analog stick for screen relative movement with 1024 possible angles||n 
+
+Note: while Lbawin by itself supports screen relative movement, it only allows
+eight different angles, making it hard to aim and even navigate in some screens}
+
+{b {nfo} ==[Looping CD music]== 
+If yo have trouble with the CD music, check the 
+a|gototab_sound_WNMM.mci ^ MCI emulation|a option. You can also have looping CD music 
+on a|pex_old ^ version 6 and earlier|a of this program ||n
+In the future, I also plan on fixing the non working volume controls}
+
+ 
+%directdraw%
+%Sound%
+%CPU% 
+
+::link::Lbawin->https://www.magicball.net/downloads/programs/lbawin
+::link::midi->https://en.wikipedia.org/wiki/MIDI
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+::link::pex_old->https://1drv.ms/u/s!ApHOE-Ru-xkG5VkiNUkN_3MZd5RI

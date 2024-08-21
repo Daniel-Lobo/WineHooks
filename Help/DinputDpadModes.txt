@@ -1,0 +1,11 @@
+b<Modes:>b
+<ul>
+<li>b<Dpad:>b The dpad behaves as it normally does</li> 
+
+<li>b<Keyboard:>b The dpad emulates four keyboard keys or mouse 
+buttons  
+configured in the <i>b<Up>b</i>, <i>b<Down>b</i>, <i>b<Left>b</i> and <i>b<Right>b</i>
+columns
+<ul>
+<br><br>
+<p style='text-align:right; margin-bottom:-10px;'> CLICK ANYWHERE TO CLOSE <p>

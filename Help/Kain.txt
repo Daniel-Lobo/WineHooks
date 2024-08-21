@@ -1,0 +1,49 @@
+Title::Legacy of Kain: Blood Omen::
+{h1 Fixes and improvements} 
+{f Fixes the FMVs b| color bug|b on windows 7 and vista}
+{f Fixes artifacts in the mouse cursor}
+{f Gets the game running at the correct speed} 
+{i Nearest neighbor or a|gototab_...Graphics_xBR ^ xBRz|a scaling }
+{i [goto_NoScan Deinterlaced FMVs]}
+{i %Xinput% }
+
+{b {f} ==[Installing and running the game]==
+
+To get the game to run, you will also need this a|raul ^ patch|a which also
+includes an installer for the game
+}
+
+{b {i} ==[PS1 quality audio]==
+
+[sound This] mod enhances the audio quality using the audio assets from the 
+PS1 version, but honestly, I can't tell the difference  
+}
+
+{b {i} ==[PS1 quality FMVs]==
+
+[video This] mod replaces the FMVs with the ones from the PS1, but on my 
+system, i can't get it to run following the instructions in the read.me file, so
+i implemented my own player for the improved FMVs. Here's how to use it||n
+{nfo Download the [video FMVs mod] and install only the -[.bik]- files and nothing 
+else} 
+{nfo Download [vlc these vlc binaries] and extract 
+the -[vlc]- folder to -[peixoto\program]- }
+{nfo Enable [gototab_...graphics_NEFS non-exclusive fullscreen]}
+}
+
+::Section::Settings::
+::BOOL::NoScan::Deinterlace FMVs::::
+
+::BOOL::FMV::Keep FMV size::FMVs play at their original 640x480 size, centered on
+the screen
+
+%ddraw%
+
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+::link::raul->http://cubanraul.altervista.org/kain/index.htm
+::link::sound->https://www.moddb.com/mods/hq-audio-patch::
+::link::video->https://www.moddb.com/mods/hq-bink-video-patch::
+::link::vlc->https://1drv.ms/u/s!ApHOE-Ru-xkGgZkfKZM0FSoYX1gsQg?e=WCVaff::
+
+        
+

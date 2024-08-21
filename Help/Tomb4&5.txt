@@ -1,0 +1,64 @@
+Title::Tomb Raider 4 and 5::
+{h1 Fixes and improvements}
+{f Fixes lag to access the inventory} 
+{f Hides the window border on windows 10} 
+{f Fixes the missing loading screens in TR5 }
+{i Aspect ratio and field of view correction in widescreen resolutions} 
+
+
+{i %Xinput% } 
+{i %Textures%} 
+{i %ModsLink% }
+
+ 
+{b {nfo} ==[Supported versions]==
+This patch was tested with the the CD versions of the games patched with the 
+[multipatch Tomb Raider Series XP\Vista Multi Patch]. Digital versions might
+work as long as you install the 
+[multipatch Tomb Raider Series XP\Vista Multi Patch] ||n
+
+ On my computer, windows defender causes trouble with the MultiPatch PCtomb5.exe.
+If your game fails to start, add that file to the windows defender exclusions 
+list }
+
+{b {f} ==[Failed to setup DirectX error]==
+If you encounter this problem, hold shift when you start any of the games with 
+this program to run their respective setups
+}          
+  
+{b {f} ==[TR5 freezes after the eidos FMV]==  
+if you encounter this bug, 
+use the a|gototab_input_j2k.u ^ Xinput to keyboard emulation|a option
+and then every time you play, unplug your gamepad before you start and plug 
+it again at the title screen} 
+
+{b {f} ==[Widescreen fix]==
+The widescreen fix is calculated and applied automatically when you start the game. If you 
+change the resolution while playing, you will need to reset the widescreen fix. To 
+do it, press tab and wait until you hear a|ON ^ this sound|a, then enter and leave
+the inventory}
+
+{b {i} ==[HQ FMVs]== 
+
+a|fish ^ GoldfishGam3r|a has created high quality remasters of the TR4 FMVs
+which can be downloaded from a|HQFMV ^ here|a. ||n
+
+HQ FMVs require an 
+additional download of [vlc these vlc binaries]. After downloading them, extract 
+the -[vlc]- folder to -[peixoto\program]- >>n
+
+HQ FMVs also require [gototab_...graphics_NEFS non-exclusive 
+fullscreen]. If you encounter problems with the FMVs even with 
+[gototab_...graphics_NEFS non-exclusive fullscreen] enabled,
+[patreon let me know] so i can fix it       
+} 
+
+::%ddraw%::
+
+::link::HQFMV->http://www.tombraiderforums.com/showthread.php?t=218446&page=3
+::link::forum->http://www.tombraiderforums.com/index.php
+::link::multipatch->http://www.tombraiderchronicles.com/tr2/fixes.html
+::link::fish->http://www.tombraiderforums.com/member.php?u=53452
+::link::Klite->https://www.codecguide.com/download_kl.htm
+::link::patreon->https://www.buymeacoffee.com/Peixoto
+::link::vlc->https://1drv.ms/u/s!ApHOE-Ru-xkGgZkfKZM0FSoYX1gsQg?e=WCVaff::

@@ -1,0 +1,20 @@
+::Title::Prince of Persia Sands of Time::
+{h1 Fixes and improvements} 
+{f Gets fog working correctly}
+{i Disables a postprocess blur shader that the game employs}
+{i [gototab_graphics_HD Forced resolution] while not absolutely
+necessary, allows a<gototab_graphics_SSAA -- super sampling anti aliasing>a}
+{i %Xinput%}
+{i %TexturesC%}
+
+{b {f} ==[Fog fix]==
+The fog fix is simply an ini edit, as described [fog here] }
+
+{b {nfo} ==[Blur fix]==
+Don't disable the a|gototab_graphics_PixelSwap ^ pixel shader swapping|a option 
+or the post-fx blur won't be removed}
+ 
+%DX9%
+
+::link::wide->http://ps2wide.net/pc.html#popst::
+::link::fog->https://steamcommunity.com/app/13600/discussions/0/846940247752900485/::

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"F - inf Feathers"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+{$lua}
+mono_compile_method(mono_findMethod('Assembly-CSharp', 'Player', 'UseFeather'))
+
+{$asm}
+Player:UseFeather+10:
+  nop
+
+[disable]
+Player:UseFeather+10:
+  dec eax
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: GOG, 1.9 v3
+Feathers: 4 bytes. Same value as seen in the HUD </Comments>
+</CheatTable>
