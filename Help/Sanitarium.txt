@@ -1,0 +1,18 @@
+::Title::Sanitarium:: 
+{h1 Fixes and improvements} 
+{f Easy installtion on 64 bit systems - details bellow}
+{i Nearest neighbor or [gototab_...graphics_xBR xBR] scaling }
+{i Deinterlaced FMVs}
+{f Fixes jerky mouse movent in the menu}
+{f Fixes crashes on multicore processors}
+{f Fixes flicker on the mouse cursor when you move it arround }
+   
+{b {f} ==[Click [InstallShield5 here] to install the game on a 64 bit system]==
+}  
+  
+::section::Settings::
+
+::BOOL::FMV::Keep FMVs size::If checked, FMVs play at their original 
+640x480 size, centered on the screen||n
+%ddraw%
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family

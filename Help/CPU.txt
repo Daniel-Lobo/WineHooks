@@ -1,0 +1,40 @@
+::File SystemTab:: 
+  
+::parent::File System_div:: 
+::__mods__::
+
+::CPUTab::
+::BOOL::singlecore::Single core affinity::
+This will set the process affinity only to the logical CPU core of the highest 
+index. Even if the game doesn't need this, the autohotkey interpreter sometimes does.
+If your game sends you a series of message boxes complaining that it is out of
+memory, enable this    
+
+::BOOL::HRT::High resolution timers::
+This can fix low or choppy frame rate on some games
+::parent::HRT_details::
+::HIDDEN::HRT_datailed::Details::Adapted from a|DDcompat ^ here|a, but with a 
+safer approach that doesn't affect the entire system::
+
+::parent::CPU_div::
+::BOOL::QPCFix::QueryPerformanceCounter Fix::
+Also fixes low or choppy frame rate on some games. If a game starts to show 
+issues only after the computer has been running for a while, it probably need 
+this. For some games it might be necessary to combine this feature and the one
+above::
+::parent::QPCFix_details::
+::HIDDEN::QPCFix_datailed::Details::This hooks the QueryPerformanceCounter|n 
+function and changes its behavior so it will|n report not the number of counts since|n 
+windows had started, but since|n the current process was started::
+
+::parent::CPU_div::
+::BOOL::rnm::Disable shims::This clears compatibility flags set on the HKCM
+registry secion that override flags set by the user and render the two options 
+bellow inefective. GOG installers sometimes set these flags and this breaks their 
+CD audio emulation, and therefore the music, in some games
+
+::parent::CPU_div::
+::section::EndOfSettings::
+
+::link::DDcompat->https://github.com/narzoul/DDrawCompat 
+::link::xlive->https://en.wikipedia.org/wiki/Games_for_Windows_%E2%80%93_Live::

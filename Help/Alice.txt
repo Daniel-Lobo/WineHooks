@@ -1,0 +1,31 @@
+Title::American McGee's Alice::
+{h1 Fixes and improvements}
+{i Persistent FOV correction in widescreen. The FOV won't reset all the time as it 
+happens if it is changed via console or config files}
+{i Automatic resolution setup for the retail version} 
+{i  %Textures% }
+
+{b {nfo}
+==[If you have the original CD version]== Make sure it is configured to run in 
+fullscreen before you start it with the program. That version will be 
+forced to run at your desktop resolution with no extra setup required}
+
+::BOOL::custom_fov::Custom fov::If this is not checked, the fov is automatically calculated:: 
+::FLOAT::f::Custom fov value::90-170-1::Only applies if the option above is enabled
+::BOOL::DSR::Dynamic super resolution::The game will run at the highest resolution available instead of the desktop's - Retail version only:: 
+
+::%_Textswap_%:: 
+
+::TEXT::|n b<DirectSound>b::
+::BOOL::Dsnd.e::DirectSound Hooks::Restores EAX - 1 and 2 - reverb and 
+positional sound. This is a work in progress feature but on the next update -
+0.10.11, eax 3 and 4 will be added and reverb will be improved. Positional sound 
+however will remain very basic for the moment, distance attenuation, sound cones 
+and a simple left and right panning|n::
+
+::section::endofsettings::
+
+
+
+
+

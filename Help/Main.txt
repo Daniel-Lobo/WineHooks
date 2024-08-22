@@ -1,0 +1,358 @@
+::Title::AHK Injector help file::
+
+_AHKI_ is an application i've created so i could write DirectX hooks with a 
+scripting language - a|ahk ^ AutoHotkey|a, making it easy to patch old games
+to run properly or better on new versions of windows||n
+
+At the moment, _AHKI_ includes only a few game patches, but more will come in the 
+future. Click the a|GAMESTAB ^ Games|a tab, to start using those patches||n 
+
+Beyond the patches already included, it's also possible to use _AHKI_ as a 
+command line program and take advantage of some of its functionalities in other 
+games. Those functionalities are:||n
+
+l|Change textures in Direct3DX 1-7 and OpenglGl 1.1-2.0 games|n
+l|Force games that use DirectInput to correctly recognize the 
+dpad and triggers (as two independent buttons) on Xinput controllers (Xbox 360, 
+Xbox One and similar controllers)|n
+l|Manage mods with hooks. This way there is no need to overwrite a game's files to 
+install a mod or to move files around to switch between mods|n 
+l|Force games to keep their saves at b|CSIDL_PERSONAL\Games|b, so you can backup most 
+of your saves just by saving a copy of that folder
+l|Fix the color bug on 8bit color modes on windows 7 and vista
+l|Fix gamma correction on windows 8 and later
+l|Hide the visible window border in fullscreen on some games on windows 8 and latter
+l|Force games to run in a single processor - some games and in some cases 
+a|ahkdll ^ AutoHotkey.dll |a need this||n
+
+More features and later versions of Direct3D and OpenGl will be added in the 
+future. Very soon, i plan to include a front end and commands for some features
+(aready included in some patches) that fix bad performance on windows 8 and 10 
+and force games to run in HD and 32 bit color depth ||n
+
+This document describes the command line arguments accepted by _AHKI_. 
+ 
+::Section::-target  
+::command b|-target|bi informs the path of the target application. e.g.:||n  
+
+b|-target "c:\Path\to\the\game\game.exe"|bi||n
+
+paths must always be absolute, but the program recognizes the tags:|n
+b|p?|b  &#8594 Parent directory of Injector.exe|n
+b|c?|b  &#8594 Current directory of Injector.exe|n
+b|d?|b  &#8594 Your "My documents" folder||n
+
+e.g.: b|-mods "c?\some\folder\mygame.exe"|b 
+  
+::Section::-d3D
+
+::Command b|-d3D|bi informs the version of Direct3D the target game uses, that 
+can be:||n
+
+b|-d3D 1|bi  for DirectX 2 and 3 games|n
+b|-d3D 2|bi  for DirectX 5 games|n
+b|-d3D 3|bi  for DirectX 6 games|n
+b|-d3D 7|bi  for DirectX 7 games|n
+b|-d3D -1|bi  for OpenGl games||n
+
+Features like texture replacement will only work if the correct Direct3D version 
+is specified|n
+
+::Section::-textswap::Command b|-textswap|bi informs a series of options (separated with semicolons)
+relevant to texture replacement. These options can be broken in multiple lines 
+in batch scrips, but you will have to end each line with a caret. e.g.:||n
+
+b|-textSwap ^|n
+samples=4;^|n
+thumbnail=256;^|n
+path=Some\Folder;^|n
+next=pgup;^|n
+prev=pgdn;^|n
+quick=shift;^|n
+dump=home;^|n
+switch=end;^|n
+color_switch=del;^|n
+samples=4^|n
+nopopins|b ||n
+
+Let's see how you can replace textures in a game and you should understand the 
+meaning of these options||n
+
+i|b|Replacing textures:|b|i||n
+
+l|Press b|switch|b during gameplay and now you will see a thumbnail of size 
+b|thumbnail|b in  the top left corner of the screen with one of the textures 
+currently loaded. In DirectX 5, 6 and 7 games, the texture in the thumbnail is also
+disabled in the game||n
+
+l|Use the b| next|b and b|prev|b keys to browse all currently loaded textures 
+(hold b|quick|b to browse them more quickly). 
+When you find a texture you want to modify, press b|dump|b to dump that texture
+to disk||n
+
+l|Textures will be dumped to b|path|b\Dumps and named dump0.dds, dump1.dds, 
+dump2.dds and so on||n
+
+l|DO NOT MODIFY texture dumps. You can only rename them if you like||n
+
+l|Copy the texture dump you want to modify to b|path|b\Replacements and keep
+the same name for both files. Now you can modify the file in  b|path|b\Replacements 
+and the changes will reflect in game||n
+
+l|For DirectX games, the program can correctly dump textures and load replacements
+in the R5G6B5, X1R5G5B5, A1R5G5B5, A4R4G4B4 and A8R8G8B8 pixel formats. The 
+program will always set green (0x07e0) or black (0) as the a|ckey ^ colorkey|a for 
+R5G6B5 and X1R5G5B5 replacements, respectively, but there is no guarantee that
+the textures will be displayed with transparency even in formats with an alpha 
+channel||n
+ 
+l|For OpenGl games, the program can correctly dump and load replacements
+in the A8B8G8R8 and A8R8G8B8 pixel formats. B8G8R8 textures can also be dumped, 
+but are converted to R8G8B8, since .dds files doesn't support the B8G8R8 format.
+R8G8B8 textures can also be loaded as replacements||n 
+
+i|b|Distributing texture packs|b|i||n
+
+l|When you're ready to distribute your textures, use the b|compiler.exe|b 
+program (folder tools) to merge all texture dumps into a single file, dump._dds.
+You can distribute only dump._dds without need to include the original dumps. 
+The replacements, obviously, must be included||n
+
+l|The texture compiler has no GUI, simply double click on it and it will compile
+all the .dds files in wherever folder it is in. The compiler samples
+4 lines in each texture, that can be changed with the command line: e.g.: 
+Compiler.exe -s 16 would use 16 samples. Use larger samples if you get any 
+promiscuous dump\replacement matches||n
+
+The remaining options mean||n
+
+b|samples|b  &#8594 leave this at the default (4) unless you get any dumps that 
+end up being replaced by the wrong texture. In that case, increase it to 8 or 16
+- this only affects non compiled dump||n
+b| nopopins|b  &#8594 in DirectX games, if this is omitted or set to false, _AHKI_ never 
+attempts to load more then one texture at each frame, this prevents or minimizes 
+stuttering if several texture are loaded simultaneously, but new textures 
+i|pop in |i over the old ones||n
+
+Texture swapping can cause a hit on performance
+(beyond the time needed to load the new textures) on more demanding DirectX 6 or
+DirectX 7 games. That should be optimized in future updates. At the moment, _AHKI_
+doesn't handle lost surfaces, so 'alt-tabbing' or changing resolution may cause new 
+textures to be completely black, that also will be fixed in the future||n
+
+::Section::-controller::Command b|-controller|b decides how Xinput buttons are
+translated to Dinput. Like in the b|-textswap|b command, configuration can be 
+broken in multiple lines in  batch scrips, but you will have to end each line
+with a caret. e.g.:||n
+
+b|-controller ^|n
+A=1;B=2;X=3;Y=4;^|n
+LEFT_SHOULDER=5;^|n
+RIGHT_SHOULDER=6;^|n
+bLeftTrigger=7;^|n
+bRightTrigger=8;^|n
+back=9;start=10;^|n
+LEFT_THUMB=11;^|n
+RIGHT_THUMB=12;^|n
+deadzone=0.25|b ^||n
+
+The option b|deadzone|b should fix a few DirectX 6 games (like Soul Reaver or 
+Tomb Raider 5) that have problems with the analog stick. If it doesn't, set it 
+to 1.0 and use the dpad||n
+
+Remember that for some games, you have to make sure that your controller is set 
+as the prefered device or it won't work at all. To do so, connect your 
+controller and go to the a|device ^ devices and printers|a page in the control 
+panel||n 
+
+::Section::-mods and -basepath::Commands b|-mods|b and b|-basepath|b decide the
+paths from where mods should be loaded. If those commands are supplied, the 
+injected script will build a list of files in those paths and, whenever the game
+tries to load a file that has a counterpart with the same name in one of those 
+paths, it will force the game to load the file in that list instead||n
+
+command b|-mods|b decides a folder or list or folders where mods should be looked for||n
+
+e.g: b|-mods "some\folder"|b or b|-mods "some\folder;another\folder;yet\another\folder"|b||n
+
+When two versions of the same file exist in different directories, the file to be 
+loaded will be that in the last folder in the folders list||n
+
+Paths can be absolute or relative to the target application, but you can also use
+the tags:|n
+b|p?|b  &#8594 Parent directory of Injector.exe|n
+b|c?|b  &#8594 Current directory of Injector.exe|n
+b|d?|b  &#8594 Your i|My documents|i folder|n
+b|%~2|b &#8594 The directory of the target program - this one won't work if you start the 
+batch file directly, you must click the games tab and use this program to launch it||n 
+
+e.g: b|-mods "c?\some\folder"|b||n
+
+You can also prepend a colon (:) to the indicated folder path. That will cause a
+GUI to appear prompting you to select zero or more subfolders inside the 
+indicated folder. Each of those folder must contain a mod and the ones
+you select will be active for that play section||n
+
+e.g: b|-mods ":d?\some\folder"|b||n
+                               
+command b|-basepath|b is optional and specifies a path to prepend to the path or paths 
+specified in the b|-mods|b command ||n
+
+e.g.: b|-basepath "common\directory" -mods "some\folder;another\folder;yet\another\folder"|b||n
+
+would make files to be looked at:||n
+
+b|common\directory\some\folder &nbsp&nbsp  common\directory\another\folder|b and &nbsp 
+b|common\directory\yet\another\folder|b||n
+
+b|-basepath|b also supports the same tags as b|-mods|b||n
+
+NOTES: If you set mods to be searched in the same directory or in a directory that
+contains the folder assigned to hold texture dumps and replacements, those 
+textures won't be replaced||n
+
+If you use the colon only indicate one folder, use a absolute path and
+don't use the b|-basepath|b command|n
+
+::Section::/Saves or -Saves/::
+These commands are used to force games to keep their saves at|n
+b|CSIDL_PERSONAL\Games\Name.of.The.Game's.Executable|b||n
+
+Later, if you format or change your computer, just backup and restore that folder
+and your games will correctly recognize the saves, as long as you use them with _AHKI_||n
+
+Use command b|&#47saves|b if the game saves at one of the locations bellow||n
+
+l|CSIDL_APPDATA
+l|CSIDL_LOCAL_APPDATA 
+l|CSIDL_COMMON_APPDATA or
+l|CSIDL_PERSONAL (in this case, saves are sent simply to CSIDL_PERSONAL\Games)||n
+
+Use command b|-saves/ path\to\saves\folder|b if the games keeps a folder (anywhere)
+to put its saves at. Two things are important when using this command:||n
+
+l|b|path\to\saves\folder|b must be empty, if you already have saves 
+there, move them to:|n
+CSIDL_PERSONAL\Games\Name.of.The.Game's.Executable||n 
+
+l|Keep the injector (console window) opened while the 
+game runs. If you don't do that, lazy uninstallers (GOG uninstallers for example) 
+may delete your saves even though they are really in another place||n
+
+b|path\to\saves\folder|b also supports tags and if it is a 
+relative path, it is treated as relative to the the target application||n 
+
+Some games stores their saves paths in the registry or in a ini file (unreal engine,
+resident evil 1 and 2). In this case, use command b|-script|b to modify the registry 
+or ini file. You don't need to be a programer to do that. Scripts are written using 
+a|ahk ^ AutoHotkey|a and Autohotkey's commands b|regwrite|b and b| iniwrite|b are
+very simple to use||n
+         	
+::Section::-script::     
+The option b|-script|b informs the path (absolute of relative to the injector path) of a script that
+can be run by the injector, injected in the taget application, or both||n
+
+If the script contains the comment line <font color="green"> &nbsp&nbsp ;REMOTE SCRIPT START </font>||n
+
+all the lines after this comment will be injected in the target application and the 
+lines before it will be run by the injector (in a separate thread). If the script doesn't
+contains that comment, the whole script will be run by the injector
+
+::Section::/Gamma::
+On windows 10, gamma or brightness controls in some games won't work and those 
+games might look very dark, use command b|/gamma |b to solve that problem||n 
+
+In some i| lazy|i games (or when a game crashes), the injector (console window) is responsible 
+for restoring the default gamma settings of your monitor after you close your game, 
+so leave it opened and wait until it cloes itself after playing||n
+
+If the injector fails to restore the gamma settings of 
+your desktop (some times it takes a few seconds), use a|gammatool ^ this|a
+
+::Section::/8bitColorfix::
+Command b|/8bitColorfix|b will enable a fix for 8 bit color modes on win 7 and Vista. 
+8 bit color mode is common on FMVs. So far this feature was only tested 
+in Legacy of Kain
+
+::Section::/hideBorder::
+This command hides the window border in fullscreen on windows 8 and latter
+
+::Section::-args::
+Command b|-args|b informs the command line arguments that should be passed to 
+the target application. Enclose those parameters in double quotes. e.g.:||n
+
+b|-args "argument1 argument2 argument3"|b 
+
+::Section::/no_argv0::
+Either my code is wrong or some games don't like to receive their path as the first 
+command line argument. If a game fails to start, try this command
+
+::Section::/singlecore::
+This command sets the affinity of the target application to a single core in the
+machine. The command tries to set the affinity to processor 4, if one doesn't
+exist, it fails and then tries to set the affinity to processor 2
+
+::Section::-compatlayer::
+This command sets the compatibility settings for the target program. e.g.:||n
+
+b|-compatlayer "win95 DISABLETHEMES"|b  
+
+::Section::-error_log::
+The option b|-error_log|b decides a path, with the file name, of a file where errors 
+will be logged. If a relative path is supplied, it will be relative to the target 
+application directory. If this command is not used, error.log is saved in the same 
+folder as the injector. This command also supports tags. e.g.:||n
+
+b|-error_log some\folder\error.log|b or||n
+
+b|-error_log c:\some\folder\error.txt|b  or||n
+
+b|-error_log d?\my_game\my_game.txt|b
+
+::Section::-icon or /icon::
+Use commands b|/icon|b or b|-icon path\to\an\icon.ico|b to specify an icon to 
+be used in _AHKI_'s console window, or disable the icon in that window
+
+::Section::Credits\Licence\Support::
+All code by Peixoto, for support visit this thread|n
+<a id="peixoto" href="javascript:dummy()">http://ahkscript.org/boards/viewtopic.php?f=6&t=9341</a>||n
+
+This program would not exist without a|ahk ^ AutoHotkey|a and a|ahkdll ^ AutoHotkey dll |a 
+with it's outstanding C structure parser. This program also uses Shajul's a|GUID ^ GUID.ahk|a||n
+
+The 8bit mode color fix was translated from the one in the DirectDraw wrapper created by 
+a|ddraww ^ Aqrit|a||n
+
+<strike>API hooks are done using a|detours ^ Microsoft Detours|a, therefore you can not 
+sell any applications derived for this program (unless you have a detours licence)
+</strike>. _AHKI_ now uses a|minhook ^ Minhook|a, which is licenced under the 
+a|_bsd ^ BSD 2 licence|a ||n
+
+For non commercial purposes, this program is free to use, modify or distribute with two 
+extra restrictions:||n
+
+1) Don't redistribute unmodified versions, simply link to the thread were the program was 
+   released:|n <a id="peixoto" href="javascript:dummy()">http://ahkscript.org/boards/viewtopic.php?f=6&t=9341</a>||n
+   
+2) If you distribute a program the uses code from this one, include the due credits in
+   your readme file or "about" menu and add the address of the release thread in the 
+   credits||n
+   
+DONATIONS are WELCOME !||n
+
+<input id="Donate" type="image" 
+src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif"/>   
+<br><br>        		
+
+::link::AHK->http://www.autohotkey.com/
+::link::CE->http://www.cheatengine.org/
+::link::AHKdll->http://www.autohotkey.com/board/topic/39588-autohotkeydll/
+::link::ddraww->http://bitpatch.com/ddwrapper.html
+::link::GUID->https://github.com/shajul/Autohotkey/blob/master/Library/GUID.ahk
+::link::detours->http://research.microsoft.com/en-us/projects/detours/
+::link::slink->https://msdn.microsoft.com/en-us/library/windows/desktop/aa365680%28v=vs.85%29.aspx
+::link::ckey->https://en.wikipedia.org/wiki/Chroma_key  
+::link::dgVoodoo->http://dege.fw.hu/ 
+::link::minhook->https://www.nuget.org/packages/minhook
+::link::_bsd->http://opensource.org/licenses/bsd-license.php
+::link::gammatool->Tools\Gamma.exe 128\1  

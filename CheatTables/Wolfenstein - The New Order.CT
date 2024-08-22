@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"H - inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+//WolfNewOrder_x64.exe+62D992:
+  //db 90 90 90 90
+WolfNewOrder_x64.exe+62D996:
+  db 90 90 90 90 90
+
+[disable]
+//WolfNewOrder_x64.exe+62D992:
+  //subss xmm0,xmm1
+WolfNewOrder_x64.exe+62D996:
+  movss [rbx+08],xmm0
+
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+WolfNewOrder_x64.exe+4FDAA4:
+  subss xmm0,xmm0
+
+[disable]
+WolfNewOrder_x64.exe+4FDAA4:
+  subss xmm0,xmm6
+
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(inf_ammo_trampoline, 16, WolfNewOrder_x64.exe+96C7CA)
+alloc(inf_ammo, 128)
+label(inf_ammo_retpoint)
+label(exit)
+
+inf_ammo:
+  cmp edx, 00
+  jl exit
+  add [rcx+20], edx
+exit:
+  mov rbx,rcx
+  jmp inf_ammo_retpoint
+
+inf_ammo_trampoline:
+  jmp inf_ammo
+
+WolfNewOrder_x64.exe+96C7CA:
+  jmp inf_ammo_trampoline
+  nop
+inf_ammo_retpoint:
+
+WolfNewOrder_x64.exe+9660A2:
+ nop
+ nop
+
+[disable]
+WolfNewOrder_x64.exe+96C7CA:
+  add [rcx+20], edx
+  mov rbx,rcx
+
+WolfNewOrder_x64.exe+9660A2:  // laser
+  sub eax,ebx
+
+dealloc(*)
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version:  Epic, 1.3.1
+HP:       Float. Same as shown on the HUD
+Enemy HP: Float. Helmet soldier, 80. Unmaned robot, 1700
+Bullets:  4 bytes. Same as shown on the HUD. 
+                   Different adress for laser. Laser max is 400
+</Comments>
+</CheatTable>

@@ -1,0 +1,23 @@
+::SoundTab::
+::BOOL::WNMM.MCI::MCI emulation|n::
+This can be used to get CD audio working correctly, but after enabling it will 
+have to use a|WMP ^ windows media player|a to rip the CD audio tracks. It's a
+very simple procedure, but pay attention to the following:||n 
+<ul>l|Rip tracks in the wav format. It's the only format supported, files will 
+be big, but will maintain CD	quality</li>
+l| By default  a|WMP ^ winddows media player|a will name ripped tracks as:|n 
+01 Track 1.wav, 02 Track 2.wav... 12 Track 12.wav... and so on</li>
+Keep that naming convention or, if necessary, rename files acordinglly then paste all files in
+the game's directory</ul>|n 
+
+
+::parent::Sound_div::
+::TEXT::b<DirectSound>b::
+::BOOL::Dsnd.e::DirectSound Hooks::Restores [eax EAX] - 1, 2 and 3 - and 
+positional sound. Positional sound 
+is very basic at the moment, distance attenuation, sound cones
+and a simple left and right panning. EAX's reverb sounds good, with good mufleling too|n::
+
+::link::WMP->wmplayer.exe::::
+::link::eax->https://en.wikipedia.org/wiki/Environmental_Audio_Extensions::
+::link::DSOAL->https://www.nexusmods.com/newvegas/mods/65094::

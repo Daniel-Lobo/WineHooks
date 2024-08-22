@@ -1,0 +1,38 @@
+::Title::Onimusha
+::{h1 Fixes and improvements} 
+{f Forces the game to run at the correct speed}
+{f Fixes the game's incorrect aspect ratio}
+{f Restores missing shadows}
+{f If you have a Xinput gamepad, makes FMVs skippable using the back button }
+{f Solves a very frustrating crash just before the final boss}
+{i Forces the game to run - pillarboxed - at your desktop resolution. Ultra-wide 
+and 4K supported}
+{i Forces the FMVs to play with english audio - there are no subtitles on FMVs}
+{i %Xinput% }
+{i %TexturesC%}
+
+{b {nfo} ==[Supported versions]==
+This will only work with the Hong Kong version with a|patch ^ patch 1.02|a ||n    
+
+The Hong Kong version can be played completely in english, except for the title and 
+load screens, but you have o configure the language before you start a new game.
+This a|video ^ video|a shows (at 0:10) how to configure the game with 
+english audio and texts
+}
+
+::Section::Settings::
+
+
+
+::BOOL::FMV::FMV scale::Scale FMVs. If disabled, FMVs play at their original 
+size
+::BOOL::Crashfix::Crash Fix::Check this if your game crashes just before the 
+final boss. This may be broken due to recent changes in the program. If it 
+doesn't work for you, contact me a|peixoto ^ here|a and send me a save before
+the boss
+
+%DX8% 
+|n
+
+::link::video->https://www.youtube.com/watch?v=KFHtApE0W5U::
+::link::patch->https://community.pcgamingwiki.com/files/file/1183-onimusha-warlords-patches-101-and-102/::

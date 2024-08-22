@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"H - inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(hp, TombRaider.exe, 66 0F 6E 41 18)
+registersymbol(hp)
+alloc(hp_new, 512)
+label(player)
+label(orig_code)
+label(hp_ret_point)
+
+hp_new:
+  db 00 00 00 00
+player:
+  cmp [ecx+144],1
+  jne orig_code
+  push [ecx+18]
+  pop [hp_new]
+  mov [ecx+18],12c
+
+orig_code:
+  movd xmm0,[ecx+18]
+jmp hp_ret_point
+
+hp:
+  jmp player
+hp_ret_point:
+
+[DISABLE]
+dealloc(hp_new)
+unregistersymbol(hp)
+hp:
+  db 66 0F 6E 41 18
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(hp_check, TombRaider.exe, 83 78 18 00 C6 45 F8 01 7E 04)
+registersymbol(hp_check)
+alloc(hp_check_new, 512)
+label(orig_code)
+label(hp_check_ret_point)
+
+hp_check_new:
+  cmp [eax+144],1
+  je orig_code
+  mov [eax+18], 0
+orig_code:
+  cmp dword ptr [eax+18],00
+  mov byte ptr [ebp-08],01
+jmp hp_check_ret_point
+
+
+hp_check:
+  jmp hp_check_new
+  nop
+  nop
+  nop
+hp_check_ret_point:
+
+[DISABLE]
+dealloc(hp_check_new)
+unregistersymbol(hp_check)
+hp_check:
+  db 83 78 18 00 C6 45 F8 01 7E 04
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"P - gain skill Points"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(skills, TombRaider.exe, 8B 80 6C 23 00 00 C3 33 C0 8B 80 6C 23 00 00)
+registersymbol(skills)
+alloc(skills_flag, 512)
+label(skills_code)
+label(skills_orig_code)
+label(skills_ret_point)
+
+skills_flag:
+  db 00 00 00 01
+skills_code:
+  cmp [skills_flag], 00
+  je skills_orig_code
+  add [eax+0000236C], 01
+  mov [skills_flag], 00
+skills_orig_code:
+  mov eax,[eax+0000236C]
+jmp skills_ret_point
+
+skills:
+  jmp skills_code
+  nop
+skills_ret_point:
+
+[DISABLE]
+skills:
+  db 8B 80 6C 23 00 00 C3 33 C0 8B 80 6C 23 00 00
+unregistersymbol(skills)
+dealloc(skills_flag)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"G - Gain salvage"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+registersymbol(salvage)
+aobscanmodule(salvage, TombRaider.exe, C2 04 00 85 C0 74 F5 66 8B 40 08)
+alloc(new_salvage, 512)
+label(salvage_ret_point)
+label(orig_code)
+
+new_salvage:
+  cmp edi, 1
+  jne orig_code
+  add [eax+08], 64
+orig_code:
+  mov ax,[eax+08]
+  pop esi
+jmp salvage_ret_point
+
+salvage+7:
+  jmp new_salvage
+salvage_ret_point:
+
+[disable]
+salvage+7:
+  mov ax,[eax+08]
+  pop esi
+
+unregistersymbol(salvage)
+dealloc(new_salvage)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+TombRaider.exe+477EE5:
+nop
+nop
+nop
+
+[disable]
+TombRaider.exe+477EE5:
+mov [eax],si
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: Epic, 1.01.0.0
+HP:             Float.    Full HP starts at 300, code shared with enemies
+Ammo:           2 bytes.  Same as the value seen on the HUD 
+Salvage:        2 bytes.  Same as the value seen on the HUD and upgrade menu, read code shared with ammo 
+Skill Points:   4 bytes.  Same as the value seen on the HUD and upgrade menu
+</Comments>
+</CheatTable>

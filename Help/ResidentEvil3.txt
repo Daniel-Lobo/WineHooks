@@ -1,0 +1,25 @@
+::Title::Resident Evil 3::
+Features:||n 
+
+l| This patch will allow you to use a| re3_restore ^ this mod|a to improve
+the quality of the 2D backgrounds, which by default are 16 bit 640x480 or 
+320x240 to 32 bit 640x480. Doesn't seem much, but makes a good difference |n
+
+l| %Xinput% 
+
+::Section::Important remarks::
+If you want to modify the game's textures yourself, contact 
+a| re3_restore ^ these guys |a for instructions||n
+
+With this patch, you must use i|esc|i to skip the FMVs, not the map key 
+(i|m|i by default) ||n
+
+To configure your controller, once you have started the game, press F2 to bring
+up the GUI and right click on the commands boxes to be able to edit them 
+||n
+
+::Section::Settings::
+::FLOAT::FMVScale::FMV scale:: - controls the size of the FMVs|n 
+ 
+::link:: re3_restore->http://www.moddb.com/mods/resident-evil-3-restoration-project
+::link::edit->https://www.gamefaqs.com/boards/431704-resident-evil-3-nemesis/44522106

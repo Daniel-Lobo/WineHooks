@@ -1,0 +1,44 @@
+::Title::DeusEx, Rune and Unreal Gold::
+Features:||n
+
+l|Solves the problem that the user interface and heads up display keep getting smaller 
+as the resolution gets higher
+l|Fov correction 
+l|%Texturesb%
+
+::Section::Before you start::
+
+l|Select the renderer of your choosing then restart the game using the patch. 
+Change the resolution to %smallres%. The game will run at your desktop 
+resolution, but the GUIs and HUDs will be almost as big as they would at 640x480
+
+::Section::Important remarks::
+
+l|With the OpenGl renderer on DeusEx, a lighting bug is triggered everytime you 
+enter the display settings menu. Therefore, after you configure the resolution,
+you will have to restart the game ||n
+
+l|With the OpenGl and Direct3D 7 renderers, if any of the games crash, you will 
+need to a|gammatool ^ reset your desktop gamma |a ||n
+
+l|The OpenGl, Direct3D 7 and Direct3D 8 renderers are only available for unreal
+gold after you install a|227i ^ patch 227i |a ||n
+
+l|The Direct3D 7 renderer is listed simply as Direct3D and on Unreal Gold 
+suffers from stuttering if texture swapping is enabled ||n
+
+::Section::Settings::
+::BOOL::fovfix::FOV fix::Check this and the patch will edit your i| user.ini |i 
+file with the appropriate field of view for you monitor. For Unreal, this will 
+only work if you download a|227i ^ patch 227i |a |n  
+ 
+::Section::EndOfSettings::
+
+::BOOL::TextureSwap::Texture swapping<ul class="uses">
+l|Click a|tswaptuto ^ here |a for the details |n:: 
+
+::parent::TextureSwap_details::
+::%_Textswap_%:: 
+
+
+::link::227i->http://www.oldunreal.com/oldunrealpatches.html

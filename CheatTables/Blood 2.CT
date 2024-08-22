@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"R - Reset"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(hit_mem, 512)
+label(hit)
+label(hit_retadd)
+label(enemy)
+label(inf_hp_flag)
+label(ez_kill_flag)
+label(orig_code)
+label(player_hit)
+label(player)
+label(player_code)
+label(player_ret)
+registersymbol(player)
+registersymbol(inf_hp_flag)
+registersymbol(ez_kill_flag)
+registersymbol(hit)
+
+hit_mem:
+player:
+  db 00 00 00 00
+inf_hp_flag:
+  db 00 00 00 00
+ez_kill_flag:
+  db 00 00 00 00
+hit:
+  cmp esi [player]
+  je player_hit
+  cmp [rsp+44], 0
+  je enemy
+player_hit:
+  cmp [inf_hp_flag], 00
+  je orig_code
+  fstp dword ptr [esi+2C]
+  fstp dword ptr [esi+30]
+  mov [esi+2C], (float)100
+jmp hit_retadd
+
+enemy:
+  cmp [ez_kill_flag], 00
+  je orig_code
+  fstp dword ptr [esi+2C]
+  fstp dword ptr [esi+30]
+  mov [esi+2C], (float)0
+jmp hit_retadd
+
+player_code:
+  fld dword ptr [esi+0000016C]
+  push esi
+  pop [player]
+  add [player], 0000016C
+  sub [player], 2C
+jmp player_ret
+
+orig_code:
+  fstp dword ptr [esi+2C]
+  fstp dword ptr [esi+30]
+jmp hit_retadd
+
+object.lto+511EE:
+  jmp hit
+  nop
+hit_retadd:
+
+object.lto+7B3BD:
+  jmp player_code
+  nop
+player_ret:
+
+[disable]
+object.lto+511EE:
+  fstp dword ptr [esi+2C]
+  fstp dword ptr [esi+30]
+
+object.lto+7B3BD:
+  fld dword ptr [esi+0000016C]
+
+dealloc(*)
+unregistersymbol(*)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>14</ID>
+          <Description>"H - inf HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+inf_hp_flag:
+  db 00 00 00 01
+
+[disable]
+inf_hp_flag:
+  db 00 00 00 00
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>15</ID>
+          <Description>"K - easy Kills"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+ez_kill_flag:
+  db 00 00 00 01
+
+[disable]
+ez_kill_flag:
+  db 00 00 00 00
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"HP"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>player</Address>
+          <Offsets>
+            <Offset>2c</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+object.lto+6EE9F:
+  fstp st(0)
+  nop
+  nop
+  nop
+  nop
+  nop
+
+object.lto+5AA4F:
+  nop
+  nop
+  nop
+
+[disable]
+object.lto+6EE9F:
+  fstp dword ptr [ecx+edx*4+000000A4]
+
+object.lto+5AA4F:
+  fst dword ptr [esi+30]
+
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: Retail, 2.2.24
+</Comments>
+</CheatTable>

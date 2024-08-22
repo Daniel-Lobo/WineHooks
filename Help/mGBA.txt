@@ -1,0 +1,48 @@
+::Title::[_mGBA mGBA] - Game Boy Color and Game Boy Advance emulator::
+{h1 Fixes and improvements} 
+{i Allows [_xBR xBRz] upscaling, which is a little bit better then the 
+[_xBR xBR] shader
+supported by mGBA. [_xBR xBRz] implementation <strike> shamefully copied 
+</strike> adapted from [libreto_xbrz here] }
+{f [gototab_input_j2k.u Keyboard emulation with a Xinput Gamepad] details bellow}
+{b
+    {nfo} ==[Mode toggle]==
+    You can use -[Q]- key to cicle through three different modes ||n
+    <ul>
+    l| [_xBR xBRz] disabled. Aspect ratio controled by mGBA
+    l| [_xBR xBRz] enabled. Game Boy Advance aspect ratio
+    l| [_xBR xBRz] enabled. Game Color aspect ratio
+    </ul>
+}
+{b
+     {nfo} ==[[gototab_input_j2k.u Keyboard emulation with a Xinput Gamepad]]==
+     {nfo This is usefull to configure shortcuts to save\load states
+     since, although mGBA supports shortcuts on the gamepad, it constantly crashes 
+     when you try to access the save\load menus with the gamepad} 
+     {nfo [gototab_input_j2k.u A profile] is already configured, but disabled. 
+     If you choose to enable it, don't forget 
+     to clear all mBGA's gamepad biddings - including shortcuts} 
+}
+{b
+     {f} ==[mGBA crashes when you try to start a game]==
+     This happens sometimes and I don't understand why yet, but it can be fixed 
+     by deleting the -[portable.ini]- and -[QT.ini]- files in mGBA's folder.
+     Note that mGBA also must be configured for OpenGL output 
+}
+{b
+     {f} ==[Horizontal lines on windows mode]==
+     Adjust the window to a wider aspect ratio
+}
+
+
+::section::Settings::
+::BOOL::J2K.u::a|dinput ^ DirectInput to Xinput|a translation:: 
+Change how a<dinput--Xinput gamepads>a are recognized by the game::
+::parent::J2K.u_details::
+::%DinputEmu%::
+ 
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+::link::libreto_xbrz->https://github.com/libretro/common-shaders/blob/master/xbrz/shaders/xbrz-freescale.cg
+::link::_mGBA->https://mgba.io/
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+::link::libreto_xbrz->https://github.com/libretro/common-shaders/blob/master/xbrz/shaders/xbrz-freescale.cg::

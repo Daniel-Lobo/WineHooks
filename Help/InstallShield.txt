@@ -1,0 +1,18 @@
+The b| InstallShield|b tool allows you too install 
+games using old InstallShield 16-bit installers on 64-bit systems||n
+
+To use them, simply click on the Install button above and follow the instructions 
+on screen ||n
+
+You can inspect if a game uses a 16-bit InstallShield installer by left clicking
+on the setup executable file and selecting i|properties|i. On the i|details|i tab 
+you will find the i|Product name|i: InstallShield. Don't forget to check the 
+i|Product version|i to select the corresponding tool||n
+
+I haven't retro-engineered the InstallShield 16-bit installers, these tools are 
+merely automatizing the method described a|shield ^ here|a, but also employing 
+symbolic links - shortcuts - to avoid having to copy files arround, and also 
+fixing some registry entries that may be set incorrectly because the installer
+doesn't run directly from the CDRom ||n 
+
+::link::shield->https://reactos.org/forum/viewtopic.php?t=10988

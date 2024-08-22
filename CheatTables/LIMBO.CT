@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Auto - Gravity"</Description>
+      <Options moAlwaysHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(gravity, limbo.exe, 8B 98 18 01 00 00)
+registersymbol(gravity)
+alloc(grav_new, 64)
+registersymbol(grav_new)
+label(grav_code)
+label(grav_ret)
+
+grav_new:
+  db 00 00 00 00
+grav_code:
+  mov [grav_new], eax
+  mov ebx,[eax+00000118]
+jmp grav_ret
+
+gravity:
+  jmp grav_code
+  nop
+grav_ret:
+
+[disable]
+gravity:
+  mov ebx,[eax+00000118]
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"VGrav"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>[grav_new]+118</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"HGrav"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>[grav_new]+114</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"F - hold to Float mode, use &lt; and &gt; to float left or right"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>read grav</Description>
+      <AddressString>LIMBO.exe+10DBDA</AddressString>
+      <Before>
+        <Byte>04</Byte>
+        <Byte>D9</Byte>
+        <Byte>E0</Byte>
+        <Byte>D9</Byte>
+        <Byte>18</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>41</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>E0</Byte>
+        <Byte>D9</Byte>
+        <Byte>58</Byte>
+        <Byte>04</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>read grav exclusive</Description>
+      <AddressString>LIMBO.exe+110D3D</AddressString>
+      <Before>
+        <Byte>11</Byte>
+        <Byte>8B</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>49</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>89</Byte>
+        <Byte>10</Byte>
+        <Byte>89</Byte>
+        <Byte>48</Byte>
+        <Byte>04</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>read grav exclusive 2</Description>
+      <AddressString>LIMBO.exe+1A513F</AddressString>
+      <Before>
+        <Byte>A8</Byte>
+        <Byte>14</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>98</Byte>
+        <Byte>18</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>89</Byte>
+        <Byte>6C</Byte>
+        <Byte>24</Byte>
+        <Byte>1C</Byte>
+        <Byte>89</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <Comments>Info about this table:
+</Comments>
+</CheatTable>

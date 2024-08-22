@@ -1,0 +1,41 @@
+::Title::Martian Gothic: Unification::
+
+{h1 Fixes and improvements}
+{f Fixes the game not responding to gamepad input}
+{f Fixes a graphics glitch when you change characters }
+{f Fixes gamma calibration not working}
+{i Forces the game to run - pillarboxed - at your desktop resolution. Ultra-wide 
+and 4K supported}            
+{i Forces the game to run in 32 bit color depth} 
+{i %Xinput%}                          
+{i %Textures%}
+
+{b {f} ==[Patching your game]==
+{nfo Before you can play, there are other patches you'll need that can be download 
+from a|patch ^ here|a}
+
+{nfo You will need to install at least the i|d3drm.dll|i file
+and the i|generic fixer|i}
+
+{nfo The official patches released by creative reality (included in the link 
+above) are optional}
+
+{nfo You have to install the generic fixer after 
+installing the official patches and you will have to run those installers
+with admin privileges if your game is installed in a protected folder like 
+Program Files(x86)}
+
+{nfo Also note that peixoto's patch was not tested with the official 2.0 patch, only with
+the unpatched game and with the 3.0 patch}}  
+
+{b {f} ==[Gamma calibration fix]==
+This fix will cause the gamma level set by the game to affect the entire desktop
+so if the game crashes at anytime, you might need to 
+a|gammatool ^ reset your desktop gamma |a} 
+
+::Section::Settings::
+::BOOL::gpadfix::Gamepad fix::Fixes the game not responding to gamepad input
+::%ddraw%:: 
+
+ 
+::link::patch->https://1drv.ms/u/s!ApHOE-Ru-xkGgW_Aj4IjuLD7_sXh?e=TXDn9w

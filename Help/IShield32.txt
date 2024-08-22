@@ -1,0 +1,6 @@
+::Title::InstallShield Notification::
+>>nThis entry is merely a notification>>n
+
+Currently, this program has an unsolved conflict with 32 bit InstallShield 
+installers. If you're trying to install a game or software while this program is
+running and the installer window never pops up, close this program 

@@ -1,0 +1,54 @@
+::Title::Resident Evil 2::
+{h1 Fixes and improvements} 
+{f Fixes the -[Failed to initialize DirectX]- error}
+{f More consistent frame rate}
+{f Hides the window border on fullscreen}
+{i [gototab_...graphics_HD Forced resolution]}
+{i %Textures%   }
+{i %Xinput%  }
+{i %ModsLink%  }  
+
+{WARN
+     <b>WARNIG</b><br>
+     The way to play Resident Evil 2 today is using 
+     <a id='REbirth' class='warning_link' href='javascript:dummy()'>Resident Evil 2 Classic REbirth</a>      
+     <br>If you want to play with this patch for some reazon, and it doesn't work with the lattest
+     release, try <a id='old_version_redirect' class='warning_link' href='javascript:dummy()'>version 0.10.11</a>   
+}         
+
+{b {nfo} ==[Supported versions]==
+This is meant for the sourcenext version only. An  
+english translation for that version is available 
+[english here]. Versions [oldversion 0.10.2 and earlier] of this program have 
+entries for the original game release  }
+
+{b {nfo} ==[ [gototab_...graphics_HD Forced resolution] ]==   
+will crash the game in windowed mode. Switch to fullscreen - F8 key -
+before playing the game with this patch}     
+ 
+{b {f}   ==[ If the game slows down on the ineventory screen ]==  
+Enable [gototab_...graphics_sys lockable proxies on system memory]  }
+
+::section::Settings::
+::BOOL::dsnd.e::Disable music::  
+::BOOL::FMV::Scale FMVs::If unchecked, FMVs play at their original 640x480 size,
+centered on the screen>>n
+ 
+::%ddraw%:: 
+
+
+::Mods::There is a small community that over the years have created simple mods
+and reskins for Resident Evil 2, which you can download from a|oldmods ^ here|a,
+a|_newmods ^ here|a or a|moddb ^ here|a
+
+::link::REbirth->https://classicrebirth.com/index.php/downloads/resident-evil-2-classic-rebirth/
+::link::moddb->http://www.moddb.com/
+::link::forum->http://re123.bplaced.net/board/viewtopic.php?f=21&t=192
+::link::SCRIPT1->run regedit.exe
+exitapp::
+::link::oldmods->http://z4.invisionfree.com/Resident_Evil_1_2_3/	 
+::link::_newmods->http://re123.bplaced.net
+::link::english->http://re123.bplaced.net/board/viewtopic.php?f=22&t=64
+::link::forum->http://re123.bplaced.net/board/viewforum.php?f=21
+::link::square_fix->https://1drv.ms/u/s!ApHOE-Ru-xkGgW0-q1PNri_-dpX5
+::link::oldversion->https://1drv.ms/u/s!ApHOE-Ru-xkG5VkiNUkN_3MZd5RI::

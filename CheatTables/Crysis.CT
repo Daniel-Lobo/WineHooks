@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(hit_newmem, 512)
+label(player)
+label(player_code)
+label(player_retadd)
+label(hit_code)
+label(hit_retadd)
+label(enemy)
+label(hp_flag)
+label(kill_flag)
+registersymbol(hp_flag)
+registersymbol(kill_flag)
+
+hit_newmem:
+hp_flag:
+  db 00 00 00 00
+kill_flag:
+  db 00 00 00 00
+player:
+  db 00 00 00 00
+player_code:
+  movss xmm1,[esi+40]
+  mov [player], esi
+jmp player_retadd
+
+hit_code:
+  movss [esi+40],xmm0
+  cmp esi, [player]
+  jne enemy
+  cmp [hp_flag], 00
+  je hit_retadd
+  mov [esi+40],(float)200
+jmp hit_retadd
+
+enemy:
+  cmp [kill_flag], 00
+  je hit_retadd
+  mov [esi+40],(float)0
+jmp hit_retadd
+
+CryGame.dll+64014:
+  jmp player_code
+player_retadd:
+
+CryGame.CryModuleGetMemoryInfo+AC77:
+  jmp hit_code
+hit_retadd:
+
+[disable]
+CryGame.dll+64014:
+  movss xmm1,[esi+40]
+CryGame.CryModuleGetMemoryInfo+AC77:
+  movss [esi+40],xmm0
+dealloc(*)
+
+
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"K - easy Kills"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+kill_flag:
+  db 00 00 00 01
+
+[disable]
+kill_flag:
+  db 00 00 00 00
+
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"H - inf HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+hp_flag:
+  db 00 00 00 01
+
+[disable]
+hp_flag:
+  db 00 00 00 00
+
+
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+CryGame.dll+13DC83:
+  mov edx,[esp+20]
+  nop
+  nop
+  nop
+
+[disable]
+CryGame.dll+13DC83:
+  mov edx,[esp+20]
+  mov [eax+14],edx
+
+
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"P - inf suit Power"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+CryGame.dll+4D529:
+  nop
+  nop
+  nop
+  nop
+  nop
+
+[disable]
+CryGame.dll+4D529:
+  movss [esi+34],xmm0
+
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: GOG, 1.1.1.6156, crysis 1 launcher - https://github.com/ccomrade/c1-launcher/releases/tag/v3 
+</Comments>
+</CheatTable>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"T - Teleport"</Description>
+      <Options moAlwaysHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>14</ID>
+          <Description>"Auto - Position"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+aobscan(Boy_UpdatePhysics, 48 8B 4D E0 48 89 08 48 8B 55 A8)
+registersymbol(Boy_UpdatePhysics)
+alloc(Boy_UpdatePhysics_new, 128, Boy:UpdatePhysics)
+label(Boy_UpdatePhysics_ret)
+label(Boy_UpdatePhysics_code)
+label(y)
+label(x)
+label(copy_of_xmm1)
+registersymbol(y)
+registersymbol(x)
+
+Boy_UpdatePhysics_new:
+copy_of_xmm1:
+  db 00 00 00 00
+y:
+  db 00 00 00 00 00 00 00 00
+x:
+  db 00 00 00 00 00 00 00 00
+Boy_UpdatePhysics_code:
+  mov rcx,[rbp-20]
+  mov [rax],rcx
+  mov [x], rax
+  mov [y], rax
+  add [y], 4
+jmp Boy_UpdatePhysics_ret
+
+Boy_UpdatePhysics:
+  jmp Boy_UpdatePhysics_code
+  nop
+  nop
+Boy_UpdatePhysics_ret:
+
+
+[disable]
+Boy_UpdatePhysics:
+  db 48 8B 4D E0 48 89 08 48 8B 55 A8
+dealloc(*)
+
+
+
+
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>15</ID>
+              <Description>"Y"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>y</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>16</ID>
+              <Description>"X"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>x</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Change of mov [rax],rcx</Description>
+      <AddressString>9142A592</AddressString>
+      <Before>
+        <Byte>10</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>4D</Byte>
+        <Byte>30</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>CE</Byte>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov rax,r15</Description>
+      <AddressString>4C9A73EC</AddressString>
+      <Before>
+        <Byte>EB</Byte>
+        <Byte>03</Byte>
+        <Byte>45</Byte>
+        <Byte>33</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>49</Byte>
+        <Byte>8B</Byte>
+        <Byte>C7</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8D</Byte>
+        <Byte>65</Byte>
+        <Byte>F0</Byte>
+        <Byte>41</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of jmp BoyJumpState:JumpAllowed+cc</Description>
+      <AddressString>502E73E7</AddressString>
+      <Before>
+        <Byte>C7</Byte>
+        <Byte>4D</Byte>
+        <Byte>0F</Byte>
+        <Byte>B6</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>EB</Byte>
+        <Byte>03</Byte>
+      </Actual>
+      <After>
+        <Byte>45</Byte>
+        <Byte>33</Byte>
+        <Byte>FF</Byte>
+        <Byte>49</Byte>
+        <Byte>8B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov [rax],rcx</Description>
+      <AddressString>5F7EFE45</AddressString>
+      <Before>
+        <Byte>10</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>4D</Byte>
+        <Byte>C8</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8D</Byte>
+        <Byte>65</Byte>
+        <Byte>D0</Byte>
+        <Byte>41</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [rax],rcx</Description>
+      <AddressString>5EE30032</AddressString>
+      <Before>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>48</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>48</Byte>
+        <Byte>04</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [rax],rcx</Description>
+      <AddressString>5EF4E3C4</AddressString>
+      <Before>
+        <Byte>10</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>4D</Byte>
+        <Byte>E0</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>55</Byte>
+        <Byte>A8</Byte>
+        <Byte>4C</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [rax],rcx</Description>
+      <AddressString>5EFDC5D2</AddressString>
+      <Before>
+        <Byte>10</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>4D</Byte>
+        <Byte>30</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>CE</Byte>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <Comments>Boy:set_pos+22 
+</Comments>
+</CheatTable>

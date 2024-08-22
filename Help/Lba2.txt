@@ -1,0 +1,97 @@
+::Title::Little Big Adventure 2
+::
+{h1 Fixes and improvements}
+{f Gets the installer working on 64 bit systems}  
+{f Solves an audio bug that mutes all sounds in the game}
+{i Unfiltered or [gototab_...graphics_xBR xBRz] scaling}  
+{i Better support for Xinput gamepads with screen relative analog movement, 
+some bugs fixed and all buttons\axes correctly recognised by the game}
+
+{b {f} ==[ Installing the game on a 64 bit system]== 
+The game uses a 16 bit installer that doesn't work on 64 bit systems, to install 
+the game on a 64 bit system, click a| InstallShield3 ^ here|a.  
+}
+
+{b {nfo} ==[ Supported versions]== 
+I have developed this patch with the european version: b|Lba2.exe|b. The USA 
+version, b|Twinsen.exe|b, might work, but the screen relative analog movement and 
+the fixes for some controller bugs will be disabled }
+ 
+{b {f} ==[Missing audio fix]== 
+I have fixed a bug that causes the sound to disappears shortly afer you load a 
+game. If my fix don't work for you, visit a|sndfix ^ this thread|a and 
+download a replacement for the game's i|miles sound system dll|i: b|mss32.dll|b.
+Version 5.0p is reported to work well with the game} 
+
+{b {i} ==[Xinput gamepads]==  
+
+{nfo b|Screen relative analog movement|b |n
+To use the left stick for screen relative analog movement, you have to keep the 
+keyboard i|up arrow|i key configured to move twinsen forward, which is the default}
+
+{nfo b|Other commands|b |n
+
+The remaining buttons\sticks\triggers\dpad must be configured in the game's 
+i<configure keyboard>i menu. Everything will be recognised except the left stick.
+The triggers which are normally recognised as up and down on the same axis, will
+be recognised as buttons}
+
+{f b|Bug fixes|b <ul>
+l|The bug that causes the car to refuse to turn might still happen with the 
+keyboard, but will most likely be fixed with the gamepad in the european version
+
+l|The game sometimes "forgets" to check for gamepad input, the program fixes this 
+bug  in the european version. In the USA version this can be fixed simply by entering
+and leaving the i<configure keyboard>i menu} }
+
+%directdraw%
+%Sound%
+%CPU% 
+  
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+::link::sndfix->http://www.vogons.org/viewtopic.php?f=13&t=11330#p122108
+
+::link:: INSTALL_SCRIPT->#persistent
+if (A_OsVersion = "WinXP")
+{
+   msgbox, 16, ,Can only install on vista and latter
+   exitapp  
+}
+DriveGet, drives, list, CDROM
+LBA2=
+for k, v in strsplit(drives)
+    fileexist(v ":\LBA2\LBA2.exe") ? LBA2 := v
+if not LBA2
+{
+    msgbox, 16, ,Please insert the game's CD ROM
+    exitapp   
+} 
+if not (dest := ui_GetDestinationFolder("Games\Little Big Adventure 2",,,False))
+    exitapp
+
+filecreatedir, %dest%  
+copy := ["Lba2.exe", "mss32.dll", "SMACKW32.dll"]
+loop, %LBA2%:\LBA2\*.* 
+{
+    name := A_loopFileName
+    if (instr(name, ".HQR") or instr(name, ".ILE") or instr(name, ".OBL"))
+        copy.insert(name)
+} 
+IProgressDialog.__New(,"Little Big Adventure 2 installation", "Copying file:",, True)
+for, k, v in copy
+{
+	IProgressDialog.SetLine(2, dest "\" v, 1) 
+	filecopy, %LBA2%:\LBA2\%v%, %dest%\%v%, 1
+}
+IProgressDialog.SetLine(1, "Finishing install", 1) 
+IProgressDialog.SetLine(2, "", 1) 
+fileread, cfg, %LBA2%:\LBA2\Lba2.cfg
+stringreplace, cfg, cfg, Language:, Language: English
+stringreplace, cfg, cfg, LanguageCD:, LanguageCD: English
+FileDelete, %dest%\Lba2.cfg
+FileAppend, %cfg%, %dest%\Lba2.cfg
+IProgressDialog.hide()
+msgbox, 64,, Done! 
+exitapp  
+
+

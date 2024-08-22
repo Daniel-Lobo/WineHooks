@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"H - inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+registersymbol(player_hit)
+aobscanmodule(player_hit, "Iconoclasts.exe", F2 0F 5C C1 F2 0F 11 81 50 06 00 00)
+alloc(player_hp, 512)
+label(store_xmm0)
+label(player_hit_new_code)
+label(player_hit_ret_point)
+
+player_hp:
+  dq (double)100
+store_xmm0:
+  db 00 00 00 00 00 00 00 00
+player_hit_new_code:
+  movsd [store_xmm0], xmm0
+  movsd xmm0, [player_hp]
+  movsd [ecx+00000650],xmm0
+  movsd xmm0, [store_xmm0]
+  subsd xmm0,xmm1
+jmp player_hit_ret_point
+
+player_hit:
+  jmp player_hit_new_code
+  db 90 90 90 90 90 90 90
+player_hit_ret_point:
+
+[disable]
+player_hit:
+  db F2 0F 5C C1 F2 0F 11 81 50 06 00 00
+unregistersymbol(player_hit)
+dealloc(player_hp)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+registersymbol(enemy_hit)
+aobscanmodule(enemy_hit, "Iconoclasts.exe", F2 0F 5C C1 F2 0F 11 81 20 06 00 00)
+alloc(enemy_hp, 512)
+label(enemy_store_xmm0)
+label(enemy_hit_new_code)
+label(enemy_hit_ret_point)
+
+enemy_hp:
+  dq (double)0.0
+enemy_store_xmm0:
+  db 00 00 00 00 00 00 00 00
+enemy_hit_new_code:
+  movsd [enemy_store_xmm0], xmm0
+  movsd xmm0, [enemy_hp]
+  movsd [ecx+00000620],xmm0
+  movsd xmm0, [enemy_store_xmm0]
+  subsd xmm0,xmm1
+jmp enemy_hit_ret_point
+
+enemy_hit:
+  jmp enemy_hit_new_code
+  db 90 90 90 90 90 90 90
+enemy_hit_ret_point:
+
+[disable]
+enemy_hit:
+  db F2 0F 5C C1 F2 0F 11 81 20 06 00 00
+unregistersymbol(enemy_hit)
+dealloc(enemy_hp)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"B - inf Breath"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+registersymbol(breath)
+registersymbol(underwater)
+aobscanmodule(breath, "Iconoclasts.exe", F2 0F 5C C1 F2 0F 11 80 98 06 00 00 0F 57 C0) // smoke
+aobscanmodule(underwater, "Iconoclasts.exe", F2 0F 5C C1 F2 0F 11 81 98 06 00 00 0F 57 C0 8B 87 68 07 00 00)
+alloc(max_breath, 512)
+label(breath_xmm0)
+label(breath_new_code)
+label(breath_ret_point)
+label(water_new_code)
+label(water_ret_point)
+
+max_breath:
+  dq (double)1000
+breath_xmm0:
+  db 00 00 00 00 00 00 00 00
+breath_new_code:
+  movsd [breath_xmm0], xmm0
+  movsd xmm0, [max_breath]
+  movsd [ecx+00000698],xmm0
+  movsd xmm0, [breath_xmm0]
+  subsd xmm0,xmm1
+jmp breath_ret_point
+
+water_new_code:
+  movsd [breath_xmm0], xmm0
+  movsd xmm0, [max_breath]
+  movsd [ecx+00000698],xmm0
+  movsd xmm0, [breath_xmm0]
+  subsd xmm0,xmm1
+jmp water_ret_point
+
+breath:
+  jmp breath_new_code
+  db 90 90 90 90 90 90 90
+breath_ret_point:
+
+underwater:
+  jmp water_new_code
+  db 90 90 90 90 90 90 90
+water_ret_point:
+
+[disable]
+underwater:
+  db F2 0F 5C C1 F2 0F 11 81 98 06 00 00 0F 57 C0 8B 87 68 07 00 00
+breath:
+  db F2 0F 5C C1 F2 0F 11 80 98 06 00 00
+unregistersymbol(breath)
+unregistersymbol(underwater)
+dealloc(max_breath)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: GOG, 1.0 
+HP:        Double. Full HP is 100
+Enemy HP:  Double. 10 for each hit needed to kill, e.g.: 'slime' monster on stage 1: 4 hits, HP 40
+Breath:    Double. Full Breath is 1000, several adresses write to breath underwater dependig on whether 
+                   Robin is standig stil, swimming or swimming fast, if the adress that writes to 
+                   the variable when she's standing still is mofified to always set the breath to 
+                   1000, its not necessary to modify the others, a diferent sigle value writes to 
+                   breath on smoke 
+</Comments>
+</CheatTable>
