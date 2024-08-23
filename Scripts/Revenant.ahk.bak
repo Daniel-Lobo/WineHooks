@@ -1,0 +1,25 @@
+;REMOTE SCRIPT START
+
+logerr(IDirectDraw4.Hook("SetDisplayMode"))
+logerr(IDirectDrawSurface4.Hook("AddAttachedSurface"))
+logerr(IDirectDrawSurface4.Hook("GetAttachedSurface"))
+
+AltIDirectDraw4_SetDisplayMode(p1, p2, p3, p4, p5, p6)
+{	
+	return dllcall(IDirectDraw4.SetDisplayMode, uint, p1, int, 1366, int, 768, int, p4, int, p5, int, p6)
+	return r
+} 
+
+IDirectDrawSurface4_AddAttachedSurface(p1, p2)
+{
+	dllcall(IDirectDrawSurface4.AddAttachedSurface, uint, p1, uint, p2)
+	return 0
+}
+
+ALtIDirectDrawSurface4_GetAttachedSurface(p1, p2, p3)
+{
+	logerr("called ")
+	r :=  dllcall(IDirectDrawSurface4.GetAttachedSurface, uint, p1, uint, p2, uint, p3)
+	logerr( r ddraw.err[r . ""])
+	return r
+}

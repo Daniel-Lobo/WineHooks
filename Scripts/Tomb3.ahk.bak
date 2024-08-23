@@ -1,0 +1,212 @@
+﻿h_game := Get_process_handle(g_globals.target_name)
+print()
+
+if g_globals.target_name = "Tomb3.exe"
+{
+	v_res := 0x004D790C
+	projection_add  := 0x004020ae
+	viewpot_add     := 0x00402048		
+} else {
+	v_res           := 0x004D07FC
+	projection_add  := 0x0040207E
+	viewpot_add     := 0x00402018	
+}
+
+sleep, 2000
+gosub wide
+
+~Tab::	
+	wide:
+	aspect := (g_globals.PSXAspect) ? 320/200 * 3/4 : 4/3
+	HRes := round(read_process_memory(h_game, v_res, "int") * aspect)
+	while not (HRes > 0)
+		HRes := round(read_process_memory(h_game, v_res, "int") * aspect)
+	;print("->" round(read_process_memory(h_game, 0x0047031c, "int") * 4/3) "`n")
+	print("Hres" hres "`n")
+	projection := ""
+	viewport := ""
+	projection := new CodeCave(h_game, projection_add,  memlib_String2Bytearray("68 " memlib_Number2String(HRes, "int", False) "DB 04 24 83 C4 04"))
+	soundplay, % projection.switch()	
+	viewport := new CodeInjection(h_game, viewpot_add, memlib_String2Bytearray("B8 " trim(memlib_Number2String(HRes, "int", False))))
+	soundplay, % viewport.switch()		
+return
+
+;REMOTE SCRIPT START
+if not g_globals.config.mods {
+	InitFileHooks((g_globals.config.mods := "?"))
+}
+
+g_globals.config.FMV_scale += 0.
+logErr(IDirectDrawSurface.hook("QueryInterface"))	
+logerr(IDirect3DDevice2.Hook("BeginScene"))
+logErr(IDirect3DDevice2.dllHook("DrawPrimitive", "DrawPrimitive2Hook"))
+HDHOOKS_DATA.p_DrawPrimitive := IDirect3DDevice2.DrawPrimitive
+HDHOOKS_DATA.pCallback := registercallback("vertexTransformCallback", "F")
+HDHOOKS_DATA.fix_screencoords := True
+
+g_globals.pInitHDHooks2 := dllcall("GetProcAddress", uint, dllcall("GetModuleHandle", str, "peixoto.dll"), astr, "InitHDHooks2")
+dllcall(g_globals.pInitHDHooks2, uint, HDHOOKS_DATA[])	
+
+if g_globals.config.create_links
+{
+	links := ["savegame.0"]
+	loop, 15
+		links.insert("savegame." A_index)
+	CreateLinksCollection(links)
+}	
+
+if (g_globals.config.target_name = "tomb3.exe")
+{
+	global Level_add  := 0x004C561C
+	global Level_addB := 0x00633F50
+	global title_add  := 0x006A1BAC
+} else {
+	global Level_add  := 0x0062CE34
+	global title_add  := 0x0069AA30 
+}
+
+Alt_CreateSurface(pIDirectDraw, pSurfaceDesc, ppSurface, pIUnknown)
+{
+	static SurfaceDesc, pddraw
+	SurfaceDesc ?: SurfaceDesc := ddSurfaceDesc.clone()		
+	SurfaceDesc[] := pSurfaceDesc 	
+	
+	caps := SurfaceDesc.ddsCaps.dwCaps
+	if (SurfaceDesc.ddsCaps.dwCaps & DDSCAPS_PRIMARYSURFACE) and ! (SurfaceDesc.ddsCaps.dwCaps & DDSCAPS_3DDEVICE) and (g_globals.config.deinterlace or g_globals.config.HD)
+	{
+		if dllcall(IDirectDraw2.SetDisplayMode, uint, pIDirectDraw, uint, g_globals.desktop.w, uint, g_globals.desktop.h, uint, 16, uint, 0, uint, 0) 
+			dllcall(IDirectDraw.SetDisplayMode, uint, pIDirectDraw, uint, g_globals.desktop.w, uint, g_globals.desktop.h, uint, 16) 
+		ComputeResolutionCorrections(640, 480)
+		_rect_setscale(g_globals.config.FMV_scale)		
+	}	
+	r := __IDirectDraw_CreateSurface(pIDirectDraw, pSurfaceDesc, ppSurface, pIUnknown, A_eventInfo)	
+			
+	if (SurfaceDesc.ddsCaps.dwCaps & DDSCAPS_PRIMARYSURFACE) and not r
+	{
+		/* The DirectDrawCreate_hook should get the IDirectDraw Interface, but with that 
+		 * interface we can't create textures for some reazon
+		 */
+					
+		if (g_globals.config.deinterlace or g_globals.config.HD)
+		{
+			if ! (caps & DDSCAPS_3DDEVICE)
+			{
+				g_globals.surrogateD  := new SurrogateDevice3((640<<16)|480)
+				g_globals.surrogate  := new SurrogateSurface4("RG6B", (640<<16)|480, True)
+				(g_globals.config.deinterlace) ? g_globals.deinterlace_shader := d3D9_DDI_CreatePixelShader(g_d3D9_DDI.shader_code, "vLineBlending")
+				isobject(g_globals.deinterlace_shader) ? d3D9_DDI_SetShaderOverride(g_globals.deinterlace_shader):logerr(g_globals.deinterlace_shader)
+				g_globals.rpl := ""	
+				g_globals.FMV_rect := struct(rect)
+				g_globals.FMV_rect.top   := 0, g_globals.FMV_rect.left := 0
+				g_globals.FMV_rect.right := 640, g_globals.FMV_rect.bottom := 480
+				dllcall(IDirectDrawSurface.blt, uint, g_globals.primary, uint, 0, uint, 0, uint, 0, uint
+											  , DDBLT_COLORFILL, uint, DDBLTFX[], uint) 	
+			} else {
+				g_globals.surrogate_dev  := ""	
+				g_globals.surrogate_devb := ""				
+			}
+		}
+	}	
+	return r
+}
+
+vertexTransformCallback(pDevice2, n_vertices, pVertices)
+{
+	static TL_VERTEX := struct("float x; float y; float z; float rhw; DWORD color; DWORD specular; float u; float v;") 
+	TL_VERTEX[] := pVertices
+	if (TL_VERTEX.z > 0.99) 
+		return true			
+}
+
+AltIDirect3DDevice2_BeginScene(p1)
+{
+	return dllcall(IDirect3DDevice2.BeginScene, uint, p1)	
+	static inv_prev := 1, blt, cut_prev
+	inInventory := numget(title_add+0, "uint")	
+	;cut := numget(Level_add+4, "uint")	
+		
+	if (inInventory = 1) 
+	{
+		if (inInventory != inv_prev) 
+		{
+			g_globals.requested_res := ""
+			g_globals.background := new SurrogateSurface()
+					 
+			blt := dllcall(IDirectDrawSurface.Blt, uint, g_globals.background.Surface
+			    		  , uint, 0, uint, g_Globals.primary, uint, 0
+						  , uint, DDBLTFAST_NOCOLORKEY, uint, DDBLTFX[], uint)	
+			printl("blt " blt ddraw.result[blt . ""])			
+		}			
+		blt := dllcall(IDirectDrawSurface.Blt, uint, g_globals.rendertarget
+				  , uint, 0, uint,g_globals.background.Surface, uint, 0
+				  , uint, DDBLTFAST_NOCOLORKEY, uint, DDBLTFX[], uint)				
+	}	
+		
+	HDHOOKS_DATA.callback := False
+	if (inInventory = 1) and isobject(g_globals.background) and blt = 0
+		HDHOOKS_DATA.callback := True	
+	dllcall(g_globals.pInitHDHooks2, uint, HDHOOKS_DATA[]) 
+	
+	;cut_prev := cut
+	inv_prev := inInventory		
+	r := dllcall(IDirect3DDevice2.BeginScene, uint, p1)	
+	return r
+}
+
+AltIDirectDrawSurface_QueryInterface(p1, p2, p3)
+{
+	r := dllcall(IDirectDrawSurface.QueryInterface, uint, p1, uint, p2, uint, p3, uint)		
+	if ((GUID := StringFromIID(p2)) = ddraw.IID_IDirectdrawSurface3)
+	{
+		TextSwapLibSwapBack2()				
+	}
+	if (p1 = g_globals.primary) and (g_globals.config.deinterlace or g_globals.config.HD)
+	{
+		IDirectDrawSurface2.PatchVtable("lock")
+		IDirectDrawSurface2.PatchVtable("Unlock")		
+	} return r
+}
+
+Alt_lock(p1, p2, p3, p4, p5)
+{
+	(GetSurfaceCaps(p1) & DDSCAPS_PRIMARYSURFACE) ? p1 := g_globals.Surrogate.Surface
+	r := dllcall(IDirectDrawSurface.lock, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint)	
+	return r
+}	
+
+Alt_Unlock(p1, p2)
+{
+	(GetSurfaceCaps(p1) & DDSCAPS_PRIMARYSURFACE) ? p1 := g_globals.Surrogate.Surface
+	r := dllcall(IDirectDrawSurface.Unlock, uint, p1, uint, p2)
+	if (p1 = g_globals.surrogate.surface)
+	{
+		DEVICE3_RECT.Texture := g_globals.surrogate.Texture2
+		DEVICE3_RECT.Device3 := g_globals.surrogateD.Device3
+		d3D9_DDI_SetShaderOverride(g_globals.deinterlace_shader)
+		dllcall(g_globals.Dev3_DrawRect, uint, DEVICE3_RECT[], uint, g_globals.FMV_rect[], float, 0, uint)
+		d3D9_DDI_RestoreShader()
+		dllcall(IDirectDrawSurface.blt, uint, g_globals.primary, uint,  _rect[]
+		                              , uint, g_globals.surrogateD.surface, uint, 0
+									  , uint, DDBLTFAST_NOCOLORKEY | DDBLT_WAIT, uint, 0, uint)	
+	}
+	return r
+}
+
+AltCreateFileA(p1, p2, p3, p4, p5, p6, p7)
+{
+	file := strget(p1, "CP0")
+	if instr(file, ".rpl")
+	{
+		stringreplace, mp4, file, .rpl, .bik
+		if fileexist(mp4)
+		{
+			winget, hWin, ID, Tomb Raider III
+			PlayFMVOnWindow(mp4, hWin, g_globals.config.FMV_scale)
+			return -1			
+		}			
+	}		
+	VarSetCapacity(stringU, strlen(file)*2)
+	strput(file, &stringU, "UTF-16")
+	r := CreateFileW(&stringU, p2, p3, p4, p5, p6, p7)	
+	return r
+}

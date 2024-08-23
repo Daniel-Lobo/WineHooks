@@ -1,0 +1,37 @@
+h_game := Get_process_handle((g_.rnm) ? "_revenant.exe" : "revenant.exe")
+
+if (h_game)
+{
+	if (read_process_memory(h_game, 0x4a6115, "uchar") = 0x74)
+		write_process_memory(h_game, 0x4a6115, "uchar", 0xEB)
+}
+
+;REMOTE SCRIPT START
+iniread, soft, revenant.ini, Options, Software3D
+g_.s.soft := (soft="Yes" or g_.s.soft=1) ? True :False
+logerr(IDirect3DDevice3.Hook("GetClipStatus"))
+
+
+AltIDirectDrawSurface_AddAttachedSurface(p1, p2)
+{
+	if (GetSurfaceCaps(p2) & DDSCAPS_ZBUFFER)
+	{	
+		(g_.s.soft) ?: p1 := g_.proxies.flp.surface
+		if (g_.cfg.XBR)
+		{
+			dllcall(IDirectDrawSurface.AddAttachedSurface, uint, g_.proxies.prim.surface4, uint, p2)
+			return dllcall(IDirectDrawSurface.AddAttachedSurface, uint, g_.proxies.dev.surface4, uint, p2)
+		}
+		g_.proxies.z := new zprx(p1, p2)
+		p2           := g_.proxies.z.Surface
+	}
+	return dllcall(IDirectDrawSurface.AddAttachedSurface, uint, p1, uint, p2)
+}
+		
+AltIDirect3D3_CreateDevice(p1, p2, p3, p4, p5)
+{
+	r := IDirect3D3_CreateDevice(p1, p2, p3, p4, p5)
+	g_.rtrgt := ""
+	return r
+}
+	

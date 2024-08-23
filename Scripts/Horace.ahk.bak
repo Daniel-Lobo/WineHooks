@@ -1,0 +1,11 @@
+Loop
+{
+	while (GetKeyState("s", "p"))
+	{
+		SendEvent, a
+		sleep 450
+	}
+}
+;REMOTE SCRIPT START
+
+

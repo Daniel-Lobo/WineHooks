@@ -1,0 +1,20 @@
+;REMOTE SCRIPT START
+/*
+Alt_SwapBuffers(hDC)
+{
+	Winclose, Curtain 
+	x := (GL_HOOKS.HD_W-GL_HOOKS.HD_H*4/3)/2
+	dllcall(gl.p.glViewport, int, x, int, 0, int, GL_HOOKS.HD_W-x*2, int, GL_HOOKS.HD_H)
+	return SwapBuffers(hDC)
+}
+*/
+
+
+AltMoveWindow(p1, p2, p3, p4, p5, p6)
+{
+	Winclose, Curtain 
+	SetupGl(p4, p5)
+	;glViewport(0, 0, p4, p5)
+	return MoveWindow(p1, p2, p3, p4, p5, p6)
+}
+
