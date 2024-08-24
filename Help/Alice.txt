@@ -17,11 +17,8 @@ forced to run at your desktop resolution with no extra setup required}
 ::%_Textswap_%:: 
 
 ::TEXT::|n b<DirectSound>b::
-::BOOL::Dsnd.e::DirectSound Hooks::Restores EAX - 1 and 2 - reverb and 
-positional sound. This is a work in progress feature but on the next update -
-0.10.11, eax 3 and 4 will be added and reverb will be improved. Positional sound 
-however will remain very basic for the moment, distance attenuation, sound cones 
-and a simple left and right panning|n::
+::BOOL::Dsnd.e::DirectSound Hooks::Restores EAX - 1, 2 and 3 - and positional sound. Positional sound is very basic at the moment, 
+distance attenuation, sound cones and a simple left and right panning. EAX's reverb sounds good, with good mufleling too|n::
 
 ::section::endofsettings::
 

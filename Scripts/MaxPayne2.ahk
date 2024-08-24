@@ -1,4 +1,4 @@
-﻿;REMOTE SCRIPT START
+;REMOTE SCRIPT START
 logerr(IDirect3DDevice8.UnHook("DrawPrimitiveUp"))	
 ; pointer is bad after unhooking
 dvc                                 := new ComInterfaceWrapper(D3D8.IDirect3DDevice8, IDirect3DDevice8.p, True)

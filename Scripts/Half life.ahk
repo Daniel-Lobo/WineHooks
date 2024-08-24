@@ -1,4 +1,4 @@
-﻿;REMOTE SCRIPT START
+;REMOTE SCRIPT START
 d             := Desk()
 GL_HOOKS.H    := 540
 GL_HOOKS.W    := 540*d.w/d.h

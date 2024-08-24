@@ -1,4 +1,4 @@
-﻿/* 3D accelleration fix: nopes a "je..." after a "test eax, eax" which is the returnb adress
+/* 3D accelleration fix: nopes a "je..." after a "test eax, eax" which is the returnb adress
  * for a IDirectDraw::GetAvailableVidMem call. The GetAvailableVidMem hook should fix this,
  * no ideo why i doesn' t
  */

@@ -1,8 +1,10 @@
 ::Tab::Graphics...|...Graphics|Sound|Input|File System|CPU::
 
 ::Graphics...Tab::
-::BOOL::layeroff::Disable passthrough layer::General compatibility option. Try 
-this if the game doesn't work::
+::BOOL::layeroff::Disable passthrough layer::This is a thin layer between the game and the directdraw\direct3d implementation, 
+meant to help with the ongoing effort to make the program compatible with [wine wine] on both windows and linux.
+This is a work in progress and some games might need this disabled::
+with a game::
 ::Graphics...Tab::
 ::BOOL::4K::Enable 4k resolution::Increases the maximum resolution of DirectX 7 and earlier games from 
 2048x2048 to 8192x8192::
@@ -59,11 +61,6 @@ entire desktop, but if the game terminates|n correctly, the original settings ar
 restored::
 
 ::parent::Graphics..._div::
-::BOOL::FLTR::Texture Filter Override::Force nearest neighbor magnification and 16x 
-anisotropic minification. This offers the best sharpness\smoothness with the least
-aliasing\blurring. With the transiton to wine, at the moment, this might not work 
-properlly on Direct3D 1 and 2 unlesss combinet with SSAA. This issue will be fixed 
-on the next "stable" release
 
 ::parent::Graphics..._div::
 ::BOOL::MNGR::Manage texture locks - DirectX 6 only::
@@ -120,7 +117,7 @@ games or take screenshots|n::
 ::parent::READ_details::
 ::BOOL::CPY::Discard unmodified pixels::If 
 a|gototab_HD ^ forced resolution|a is enabled, prevents the Direct3D 
-render target from being downsampled making the game to look aliased\pixelated 
+render target from being downsampled making the game to look aliased\pixelated. This is broken on the beta and won't have the desired effect 
 
 ::parent::32bit_details::
 ::TEXTID::Optimizations::Optimizations::Try these if 
@@ -295,3 +292,5 @@ page::
 ::parent::Textswap.e_details::
 ::TEXT::|n::
 ::%_Textswap_Compiler%::
+
+::link::wine->https://www.winehq.org/::

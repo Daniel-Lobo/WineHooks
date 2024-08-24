@@ -1,4 +1,4 @@
-﻿;REMOTE SCRIPT START
+;REMOTE SCRIPT START
 ;#include %A_ScriptDir%\src\dsound.hooks.txt
 ;logerr(GetDirectSound())
 ;logerr(GetDirectSound8())	
