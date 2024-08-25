@@ -15,7 +15,7 @@ override is enabled|a  ||n
 ::BOOL::blur::Disable blur::
 ::BOOL::dessat::Disable black'n white::
 ::BOOL::noise::Disable noise::
-::BOOL::textfix::Fix missing textures||n::
+::BOOL::textfix::Fix missing textures::
   
 
 

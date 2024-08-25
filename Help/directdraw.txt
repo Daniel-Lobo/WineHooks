@@ -152,7 +152,7 @@ enumerated</li>
 l| Fixes glitches on display mode changes which also become instant</li></ul>
 ::
 
-::BOOL::GDI::GDI hooks::Fixes FMVs not being scaled correctly in some games
+::BOOL::GDI::GDI hooks::Fixes 2D graphics (most of the time FMVs) not being scaled correctly in some games
 
 ::parent::HD_details::
 ::BOOL::NEFS::Non exclusive fullscreen::

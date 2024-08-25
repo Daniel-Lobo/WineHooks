@@ -8,14 +8,10 @@
 ::BOOL::dxvk::Use [__dxvk dxvx]::
 
 ::parent::Graphics_div::
-::RADIOHEAD::SYNC::Force V-Sync::
-::parent::SYNC_details::
-::RADIO::SYNC=0::SYNC::Disabled::::
-::RADIO::SYNC=1::SYNC::Force V-sync::
-::RADIO::SYNC=2::SYNC::Force V-sync and double buffering::::
+::BOOL::SYNC::Force triple buffering::VSync is always forced on all Direct3D 9 games
   
 ::parent::Graphics_div::
-::BOOL::FLTR::Texture Filter Override::Force nearest neighbor magnification and 16x 
+::_BOOL_::FLTR::Texture Filter Override::Force nearest neighbor magnification and 16x 
 anisotropic minification. This offers the best sharpness\smoothness with the least
 aliasing\blurring::
 
@@ -89,7 +85,7 @@ not sufficient to resize the game window correctly::
 ::BOOL::MHKS::Mouse hooks::
 Enable this if the game registers the mouse position incorrectly 
 
-::BOOL::BLNK::Wait vertical blank::
+::_BOOL_::BLNK::Wait vertical blank::
 Enable this if the game doesn't register mouse clicks, even if it registers the mouse 
 position correctly. This can happen when mouse hooks and vsync are enabled       
 

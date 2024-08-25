@@ -10,8 +10,8 @@ a<gototab_graphics_SSAA -- super sampling anti aliasing>a}
 
 ::RADIOHEAD::s_FMVfix::FMV fix mode::
 ::parent::s_FMVfix_details::
-::RADIO::s_FMVfix=Registry::s_FMVfix::Registry::::
-::RADIO::s_FMVfix=DShowHooks::s_FMVfix::DirectShow Hooks>>n::::
+::RADIO::s_FMVfix=Registry::s_FMVfix::Registry::
+::RADIO::s_FMVfix=DShowHooks::s_FMVfix::DirectShow Hooks::::
  
 
 %DX8% 
