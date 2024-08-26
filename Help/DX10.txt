@@ -5,12 +5,12 @@
 ::GraphicsTab::
 
 ::parent::Graphics_div::  
-::BOOL::VSNC::Force Vsync ||n::
+::BOOL::VSNC::Force Vsync::
 
 ::parent::Graphics_div::  
        
 ::parent::Graphics_div::
-wip<::RADIOHEAD::HD::Upscaling::>wip 
+wip<::RADIOHEAD::HD::Upscaling<br> &ensp;&ensp; Debug only feature, here is not benefit of using this in any Direct3D 10 game at the moment<br> 
 ::parent::HD_details::
 wip<::RADIO::HD=0::HD::Disabled::::
 wip<::RADIO::HD=UPSCALE::HD::Nearest neighbor upscaling:::: >wip 

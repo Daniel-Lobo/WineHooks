@@ -5,7 +5,7 @@
 ::GraphicsTab::
 
 ::parent::Graphics_div::
-::BOOL::dxvk::Use [__dxvk dxvx]::
+::_BOOL_::dxvk::Use [__dxvk dxvx]::
 
 ::parent::Graphics_div::
 ::BOOL::SYNC::Force triple buffering::VSync is always forced on all Direct3D 9 games

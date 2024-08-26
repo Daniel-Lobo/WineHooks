@@ -6,9 +6,10 @@
 ::RADIOHEAD::HD::Upscaling::
 ::parent::HD_details::
 ::RADIO::HD=0::HD::Disabled::::
+::RADIO::HD=UPSCALE|USEINTEROP|AMDFSR::HD::[AMD_FSR FidelityFx super resolution]&ensp;upscaling::::
+::TEXT::<b>The remaining options are for debug, you can ignore them</b>::
 wip<::RADIO::HD=USEINTEROP::HD::Interop::::>wip   
-wip<::RADIO::HD=UPSCALE|USEINTEROP::HD::Nearest neighbor upscaling::::>wip 
-::RADIO::HD=UPSCALE|USEINTEROP|AMDFSR::HD::[AMD_FSR FidelityFx super resolution] upscaling::::
+wip<::RADIO::HD=UPSCALE|USEINTEROP::HD::Nearest neighbor upscaling::::>wip
 ::TEXT::{b
 {nfo b|FidelityFx super resolution|b can be used to upscale games running on a 
 resolution smaller than your monitor's with an algorithm that tries to minimize
