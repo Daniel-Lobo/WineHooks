@@ -6,8 +6,8 @@
 dir = lfs.currentdir()
 pex = string.gsub(dir, "Cheats", "peixoto64.dll")
 p   = loadPlugin(pex)
-stringlist_add(getAutoAttachList(),"sr2.exe")
-loadTable("Legacy of Kain - Soul Reaver 2.ct")
+stringlist_add(getAutoAttachList(),"AVP2.exe")
+loadTable("C:\\Users\\Peixoto\\Documents\\WineHooks\\CheatTables\\Aliens vs Predator 2.ct")
 --[[print(pex)]]--
 </LuaScript>
 </CheatTable>
