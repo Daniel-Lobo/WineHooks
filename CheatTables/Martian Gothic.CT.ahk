@@ -1,55 +1,110 @@
-#NoEnv  
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-#include CEpluginLib.ahk
-#persistent
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"H - inf HP"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(bullets, 128)
+label(bullets_ret)
 
-CETrainer.help := 
-(
-"455x100
-======================================================
-GAIN SAVES
-When active, gives you one extra save each time you access the save game menu
-======================================================
-"
-)
+bullets:
+  mov word ptr[eax+0075197C],63
+  jmp bullets_ret
 
-
-global HP       := new CEEntry("H - inf HP")
-global Saves    := new CEEntry("G - Gain Save")
-global Ammo     := new CEEntry("B - inf Bullets")
-global Matlock  := new CEEntry("Matlock HP")
-global Kenzo    := new CEEntry("Kenzo HP")
-global Karne    := new CEEntry("Karne HP")
-class MartinTrainer extends CETrainer
-{       
-    OnLoop() 
-    {    
-        if CETrainer.keyevent("G") > 0  	
-        {		
-            this.Speak(Saves.Toogle("Infinite Saves"))	
-        }
-
-        else if CETrainer.keyevent("B") > 0  	
-        {		
-            this.Speak(Ammo.Toogle("Infinite ammo"))	
-        } 
-
-        else if CETrainer.keyevent("h") > 0  	
-        {		
-                this.Speak(HP.Toogle("Infinite HP"))	
-        } 
-
-        if (HP.IsFrozen())
-        {   
-            Matlock.SetValue(100)
-            Kenzo.SetValue(100)
-            Karne.SetValue(80)
-        }	
-    }        
-}
-MartinTrainer.__init().TrainerLoop("martian gothic.exe", 100)
-return
+004079F0:
+jmp bullets
+nop
+nop
+bullets_ret:
 
 
+[disable]
+004079F0:
+add [eax+0075197C],cx
+dealloc(*)
 
 
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"G - Gain save"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(gain_saves, 128)
+label(gain_saves_retadd)
+
+gain_saves:
+  add byte ptr [edx+"martian gothic.exe"+1BB51E], 1
+  mov al,[edx+"martian gothic.exe"+1BB51E]
+jmp gain_saves_retadd
+
+martian gothic.exe+E773:
+  jmp gain_saves
+  nop
+gain_saves_retadd:
+
+[disable]
+martian gothic.exe+E773:
+  mov al,[edx+"martian gothic.exe"+1BB51E]
+dealloc(*)
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"Left Overs"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>31</ID>
+          <Description>"SavesCount[0]"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>"martian gothic.exe"+1BB51f</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>32</ID>
+          <Description>"SavesCount[-1]"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>"martian gothic.exe"+1BB52b</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"Matlock HP"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"martian gothic.exe"+1BE630</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Kenzo HP"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"martian gothic.exe"+1BDB6C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"Karne HP"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"martian gothic.exe"+1BD0A8</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: Retail, patch 3
+</Comments>
+</CheatTable>

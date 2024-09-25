@@ -9,16 +9,20 @@
 
 ::parent::Graphics_div::  
        
-::parent::Graphics_div::
-wip<::RADIOHEAD::HD::Upscaling<br> &ensp;&ensp; Debug only feature, here is not benefit of using this in any Direct3D 10 game at the moment<br> 
+::RADIOHEAD::HD::Forced resolution::
 ::parent::HD_details::
-wip<::RADIO::HD=0::HD::Disabled::::
-wip<::RADIO::HD=UPSCALE::HD::Nearest neighbor upscaling:::: >wip 
-wip<::RADIO::HD=UPSCALE|USEINTEROP::HD::Inteop::::>wip      
-wip<::RADIO::HD=UPSCALE|USEINTEROP|AMDFSR::HD::[AMD_FSR FidelityFx super resolution] upscaling and proxies (debug)::::>wip  
-wip<::RADIO::HD=UPSCALE|USEINTEROP|AMDFSR|USEPROXIES::HD::[AMD_FSR FidelityFx super resolution] upscaling::|n::>wip  
-
-
+::RADIO::HD=0::HD::Disabled::::   
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES::HD::Enabled::::
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAA::HD::Enabled +  
+Super sampling anti aliasing::::    
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAAHQ::HD::Enabled + 
+High quality super sampling anti aliasing:::: 
+::TEXT::{b
+	<b>WIP</b><br>
+	Some simpler unity games work.<br> 
+	This feature will be the major focus after adoption of wine dlls for Direct3D 7 and earlier is finished
+}|n 
+    
 ::parent::HD_details::
 ::_RLMT_::RLMT::Limit resolutions::0-10-1::
 ::parent::RLMT_details::

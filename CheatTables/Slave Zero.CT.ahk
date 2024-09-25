@@ -1,46 +1,93 @@
-#NoEnv  
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-#include CEpluginLib.ahk
-#persistent
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"H - inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(hp, 128)
+label(hp_ret)
 
-CETrainer.help := 
-(
-"500x60
- Cheats need to be reset eveytime you complete a level or load a save
-"
-)
+hp:
+  mov [edx+000000F4], (float)100
+  fld dword ptr [edx+000000F4]
+jmp hp_ret
 
-global HP         := new CEEntry("H - inf HP")
-global ammo       := new CEEntry("B - inf Bullets")
-global hp_state   := 0
-global ammo_state := 0
+zplayer.dll+C92B:
+  nop
+  nop
+  nop
 
-class SlaveZeroTrainer extends CETrainer
-{
-    OnLoop() 
-    {                            
-        if CETrainer.keyevent("h") > 0 
-        {   
-            this.Open("d3d_SlaveZero.exe")	
-            this.Speak(HP.Toogle("Infinite HP"))
-            hp_state := HP.IsFrozen()           
-        }
-        else if CETrainer.keyevent("b") > 0  	
-        {	
-            this.Open("d3d_SlaveZero.exe")		
-            this.Speak(ammo.Toogle("Infinite ammo"))	
-            ammo_state := ammo.IsFrozen()
-            
-        }         
-        else if CETrainer.keyevent("R") > 0  	
-        {	
-            return
-        }  
-    }        
-}
-SlaveZeroTrainer.__init().TrainerLoop("d3d_SlaveZero.exe", 100)
-return
+zplayer.dll+39BB:
+  jmp hp
+  nop
+hp_ret:
+
+[disable]
+zplayer.dll+C92B:
+  fsub dword ptr [ebp+20]
+zplayer.dll+39BB:
+  fld dword ptr [edx+000000F4]
+dealloc(*)
 
 
 
 
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(ammo, 128)
+label(ammo_ret)
+label(missle)
+label(missle_ret)
+
+ammo:
+  push [eax+00002C98+4]
+  pop [eax+00002C98]
+jmp ammo_ret
+
+missle:
+  cmp [edi+ebx*4+00000284],eax
+  ja missle_ret
+  mov [edi+ebx*4+00000284],eax
+jmp missle_ret
+
+whud.dll+4C53:
+  jmp ammo
+  nop
+ammo_ret:
+
+zplayer.dll+A919:
+  jmp missle
+  nop
+  nop
+missle_ret:
+
+[disable]
+whud.dll+4C53:
+  mov [eax+00002C98],edx
+
+zplayer.dll+A919:
+  mov [edi+ebx*4+00000284],eax
+
+dealloc(*)
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: Retail + update + d3d patch
+</Comments>
+</CheatTable>

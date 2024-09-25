@@ -1,52 +1,128 @@
-#NoEnv  
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-#include CEpluginLib.ahk
-#persistent
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(hit, 128)
+label(hp_flag)
+label(kill_flag)
+registersymbol(hp_flag)
+registersymbol(kill_flag)
+label(player)
+label(player_code)
+label(player_ret)
+label(hit_code)
+label(hit_og)
+label(enemy)
 
-CETrainer.help := 
-(
-"620x60
- After you start the game, wait until you start a level and hear the windows ding only then cheats can be activated
-"
-)
+hit:
+hp_flag:
+  db 00 00 00 00
+kill_flag:
+  db 00 00 00 00
+player:
+  db 00 00 00 00
+player_code:
+  fld dword ptr [ebp+000001DC]
+  push ebp
+  pop [player]
+  add [player], 1DC
+jmp player_ret
 
-global __Auto     := new CEEntry("Auto")
-global __reset    := new CEEntry("R - Reset")
-global HP       := new CEEntry("H - inf HP")
-global EZKills  := new CEEntry("K - easy kills")
-global ammo     := new CEEntry("B - inf Bullets")
+hit_code:
+  push edi
+  add edi, 44
+  cmp edi, [player]
+  pop edi
+  jne enemy
+  cmp [hp_flag], 00
+  je hit_og
+  fld dword ptr [edi+44]
+jmp hit_ret
 
-class ShogoTrainer extends CETrainer
-{
-    OnLoop() 
-    {    
-        if (!__Auto.IsFrozen())
-		{
-            this.open("Client.exe")
-            __Auto.SetFrozen(1, 1)	
-            if __Auto.IsFrozen() 
-                this.Playsound(1)		
-		}
-                
-        if CETrainer.keyevent("h") > 0 
-        {   
-            this.Speak(HP.Toogle("Infinite HP"))
-        }			        
+enemy:
+  cmp [kill_flag], 00
+  je hit_og
+  fld dword ptr [edi+44]
+  fsub dword ptr [edi+44]
+jmp hit_ret
 
-        else if CETrainer.keyevent("k") > 0  	
-        {		
-            this.Speak(EZKills.Toogle("One hit kills"))	
-        }   
-        
-        else if CETrainer.keyevent("b") > 0  	
-        {		
-            this.Speak(ammo.Toogle("Infinite Bullets"))	
-        }  
-    }        
-}
-ShogoTrainer.__init().TrainerLoop("client.exe", 100)
-return
+hit_og:
+  fld dword ptr [edi+44]
+  fsub dword ptr [esp+7C]
+jmp hit_ret
+
+object.ObjectDLLSetup+75FB:
+  jmp player_code
+  nop
+player_ret:
+
+object.lto+23E50:
+  jmp hit_code
+  nop
+  nop
+hit_ret:
+
+[disable]
+object.ObjectDLLSetup+75FB:
+  fld dword ptr [ebp+000001DC]
+
+object.lto+23E50:
+  fld dword ptr [edi+44]
+  fsub dword ptr [esp+7C]
+dealloc(*)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"H - inf HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+hp_flag:
+  db 00 00 00 01
+
+[disable]
+hp_flag:
+  db 00 00 00 00
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"K - easy Kills"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+kill_flag:
+  db 00 00 00 01
+
+[disable]
+kill_flag:
+  db 00 00 00 00
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+object.lto+66CD4:
+  nop
 
 
+[disable]
+object.lto+66CD4:
+  dec eax
 
-
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: Retail, 2.2</Comments>
+</CheatTable>

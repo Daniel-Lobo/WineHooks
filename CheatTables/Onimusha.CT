@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>34</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"H - inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+004D5595:
+db 90 90 90 90 90 90 90
+
+[disable]
+004D5595:
+mov [008BF6E8],si
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(easy_kill, 512)
+label(easy_kill_ret_point)
+
+easy_kill:
+  sub [esi+00000EE8],7fff
+jmp easy_kill_ret_point
+
+0047EAD0:
+  jmp easy_kill
+  nop
+  nop
+easy_kill_ret_point:
+
+[disable]
+0047EAD0:
+sub [esi+00000EE8],ax
+dealloc(easy_kill)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"M - inf Magic"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+// Fire
+004DE3E6:
+db 90 90 90 90 90 90 90
+
+004DE1F9:
+db 90 90 90 90 90 90 90
+
+[disable]
+004DE1F9:
+sub [008BE79A],cx
+
+// Fire
+004DE3E6:
+sub [008BE79C],cx
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"X - gain XP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(inf_xp, 512)
+label(inf_xp_code)
+label(inf_xp_ret_point)
+
+inf_xp:
+  db 00 00 00 01
+inf_xp_code:
+  mov eax,[008BE5E4]
+  cmp [inf_xp], 00
+  mov [inf_xp], 00
+  je inf_xp_ret_point
+  add [008BE5E4], c8
+  //mov eax,[008BE5E4]
+  mov [008BE5E0], eax
+jmp inf_xp_ret_point
+
+0052683B:
+  jmp inf_xp_code
+inf_xp_ret_point:
+
+[disable]
+0052683B:
+mov eax,[008BE5E4]
+dealloc(inf_xp)
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>22</ID>
+      <Description>"Left Overs"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>18</ID>
+          <Description>"Bullets"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>OnimuPC.exe+4BE63D</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"Burst Bullets"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>OnimuPC.exe+4BE641</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>16</ID>
+          <Description>"Kunai"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>OnimuPC.exe+4BE645</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"Fire Arrows"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>OnimuPC.exe+4BE635</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"Normal Arrows"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>OnimuPC.exe+4BE631</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>21</ID>
+          <Description>"1.0 wind"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OnimuPC.exe+49B1DE</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"Fire Magic"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BE79C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"Lightning Magic"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BE79A</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>15</ID>
+          <Description>"Max Magic"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BDFEA</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Health"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BF6E8</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>14</ID>
+          <Description>"Max Health"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BF6E6</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"xp"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OnimuPC.exe+3AD528</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>29</ID>
+          <Description>"xp display"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BE5E4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>31</ID>
+          <Description>"xp ??"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>OnimuPC.exe+35A910</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>32</ID>
+          <Description>"Real XP"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BE5E0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>33</ID>
+          <Description>"xp numeric dislay"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BE5E4</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Inf points"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+004AB4CA:
+nop
+nop
+nop
+nop
+nop
+nop
+
+004AB485:
+nop
+nop
+nop
+nop
+nop
+nop
+
+
+[DISABLE]
+//89 15 28D57A00
+004AB4CA:
+mov [007AD528],edx
+
+004AB485:
+mov [007AD528],edi
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"Playtime"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BDFE0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"# saves"</Description>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BDFDC</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>0</ID>
+          <Description>"All menus"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>OnimuPC.exe+3AE0BC</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"All menus (-inventory)"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>OnimuPC.exe+4BE60C</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: Honk Kong Retail, 1.02 - https://community.pcgamingwiki.com/files/file/1183-onimusha-warlords-patches-101-and-102/
+</Comments>
+</CheatTable>

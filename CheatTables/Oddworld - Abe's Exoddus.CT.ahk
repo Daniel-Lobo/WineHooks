@@ -1,114 +1,117 @@
-﻿#NoEnv
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-#include CEpluginLib.ahk
-#persistent
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"G - inf Grenades"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+Exoddus.exe.text+4E71B:
+  nop
+  nop
 
-CETrainer.help := 
-(
-"740x280
-=========================================================================================
-INVULNERABILITY
-Adapted from here: https://www.youtube.com/watch?v=1BHu_lNHX8U
-=========================================================================================
+Exoddus.exe.text+55DD6:
+  nop
+  nop
 
-=========================================================================================
-LEVEL AND FMV SELECT
-These are just macros for the game's built in cheats and will just work on the main menu. Just hold shift and then 'L' or 'F' and 
-keep both down until the senquence of keys that activates the cheat completes
-=========================================================================================`
+[disable]
+Exoddus.exe.text+4E71B:
+  dec al
 
-=========================================================================================
-ZERO CASUALTIES
-Casualities are turned into scapes
-=========================================================================================
-"
-)
-
-global dead         := new CEEntry("Casualities")
-global spcaped      := new CEEntry("Escapees")
-global invulnerable := new CEEntry("I - Invulnerable")
-global grenades     := new CEEntry("G - inf Grenades")
-;exoddus: https://www.youtube.com/watch?v=1BHu_lNHX8U
-
-class key
-{
-    __new(key, interval=100)
-    {
-        this.vk            := GetKeyVK(key)
-		this.sc            := GetKeySC(key)
-        this.extended_flag := instr("shift up down left right", key) ? 0x0001 : 0
-        this.interval      := interval
-    }
-    send()
-    {
-        interval := this.interval
-        dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.extended_flag, uint, 0)
-        sleep, % interval
-        dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.extended_flag|0x0002, uint, 0)
-    }
-    senddown()
-    {
-        dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.extended_flag, uint, 0)        
-    }
-    sendup()
-    {
-        dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.extended_flag|0x0002, uint, 0)        
-    }
-}
-
-class ExoddusTrainer extends CETrainer
-{    
-	OnLoop()
-	{
-        if CETrainer.keyevent("i") > 0	
-        {		
-            this.speak(invulnerable.Toogle("Invulnerability"))         
-        }
-
-        if CETrainer.keyevent("g") > 0	
-        {	    
-            this.speak(grenades.Toogle("infinite granades"))           
-        }   
-        
-        if CETrainer.keyevent("z") > 0	
-        {	
-            spcaped.SetValue(spcaped.GetValue(512)+dead.GetValue(512))           
-            dead.SetValue(0)
-            this.PlaySound(1)
-        } 
-
-        if GetKeyState("shift", "P")
-        {  
-            if CETrainer.keyevent("L") > 0		
-            {	            
-                for i, k in ["Down", "Right", "Left", "Right", "Left", "Right", "Left", "UP"]
-                {
-                    new key(k).send()
-                }                              
-            }	
-            else if CETrainer.keyevent("F") > 0		
-            {	   
-                for i, k in ["Up", "Left", "Right", "Left", "Right", "Left", "Right", "Down"]
-                {
-                    new key(k).send()
-                }                                                        
-            }	
-            else if CETrainer.keyevent("N") > 0		
-            {	   
-                for i, k in ["Left", "Right", "Up", "Down", "Left", "Right"]
-                {
-                        new key(k).send()
-                }                                                        
-            }	 
-        }       	
-	}
-}
-
-ExoddusTrainer.__init().TrainerLoop("Exoddus.exe", 100)
-return
+Exoddus.exe.text+55DD6: // Trow when crouching
+  dec al
 
 
 
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>27</ID>
+      <Description>"I - Invulnerable"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+Exoddus.exe.text+2128A:
+  db 90 90 90 90 90 90 90
 
+Exoddus.exe.text+212B3:
+  db 90 90 90 90 90 90 90
 
+Exoddus.exe.text+45D28:
+  db 90 90 90 90 90 90 90
 
+Exoddus.exe.text+4AAD7:
+  db 90 90 90 90
+
+Exoddus.exe.text+4B0A3:
+  db 90 90
+
+Exoddus.exe.text+4BA44:
+  db 90 90 90 90 90 90
+
+[disable]
+Exoddus.exe.text+2128A:
+  mov ax,[esi+00000114]
+
+Exoddus.exe.text+212B3:
+  mov [esi+00000114],ax
+
+Exoddus.exe.text+45D28:
+  test byte ptr [ecx+00000114],40
+
+Exoddus.exe.text+4AAD7:
+test byte ptr [ecx+24],04
+
+Exoddus.exe.text+4B0A3:
+  test bl,dl
+
+Exoddus.exe.text+4BA44:
+  mov [esi+0000010C],edx
+dealloc(*)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"Shift + L - select Level"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"Shift + F - view Fmsvs"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"Shift + N - Next checkpoint"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"Z - Zero casualities"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>30</ID>
+          <Description>"Escapees"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>Exoddus.exe+1C1F52</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>31</ID>
+          <Description>"casualities"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>005C1F50</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

@@ -1,85 +1,293 @@
-﻿#NoEnv
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-#include CEpluginLib.ahk
-#persistent
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(y_code, unravel.exe, F3 0F 58 68 3C F3 0F 58 48 38)
+aobscanmodule(xy_code, unravel.exe, 48 89 42 38 41 FF C2)
+registersymbol(y_code)
+registersymbol(xy_code)
+alloc(y_trampoline, 16, y_code)
+alloc(xy_trampoline, 16, xy_code)
+alloc(y_new, 128)
+alloc(y_new, 128)
+label(y_newcode)
+label(y_offset)
+label(x_offset)
+label(y_ret)
+label(pos)
+label(fly_flag)
+label(copy_of_xmm5)
+label(xy_new)
+label(xy_ret)
+label(xy_og)
+registersymbol(fly_flag)
+registersymbol(pos)
+registersymbol(y_offset)
+registersymbol(x_offset)
 
-CETrainer.help :=
-(
-"400x210
-===============================================
-FLOAT
-With float mode active use the arrows to move up or down, left or right
+y_new:
+y_offset:
+  dd (float)0.000
+x_offset:
+  dd (float)0.000
+fly_flag:
+  db 00 00 00 00
+pos:
+  db 00 00 00 00 00 00 00 00
+copy_of_xmm5:
+  db 00 00 00 00
+copy_of_xmm4:
+  db 00 00 00 00
+y_newcode:
+  movss [copy_of_xmm5], xmm5
+  mov [pos], rax
+  addss xmm5,[rax+3C]
+  cmp dword ptr [fly_flag], 00
+  jmp y_ret
+  movss xmm5, [rax+3c]
+  addss xmm5, [y_offset]
+  movss [rax+3c], xmm5
+  movss xmm5, [copy_of_xmm5]
+jmp y_ret
 
-Float is disabled by holding ""s"" which is the default key to make the
-yarny hold it's tail, so it won't die from the fall - any height will kill
-it otherwise
-===============================================
-"
-)
+xy_new:
+  inc r10d
+  cmp dword ptr [fly_flag], 00
+  je xy_og
+  cmp [pos], rdx
+  jne xy_og
+  movss [copy_of_xmm5], xmm5
+  movss xmm5, [rdx+3c]
+  addss xmm5, [y_offset]
+  movss [rdx+3c], xmm5
+  movss xmm5, [copy_of_xmm5]
+  movss xmm5, [rdx+38]
+  addss xmm5, [x_offset]
+  movss [rdx+38], xmm5
+  movss xmm5, [copy_of_xmm5]
+  jmp xy_ret
+xy_og:
+  mov [rdx+38],rax
+jmp xy_ret
 
-global __auto    := new CEEntry("Auto")
-global fly       := new CEEntry("F - Float mode")
-global fly_down  := new CEEntry("float down")
-global fly_up    := new CEEntry("float up")
-global fly_left  := new CEEntry("float left")
-global fly_right := new CEEntry("float right")
+y_trampoline:
+  jmp y_newcode
 
-class UnravelTrainer extends CETrainer
-{
-    OnLoop()
-	{
-        if (!__auto.IsFrozen())
-        {
-            this.open("Unravel.exe")
-            __auto.SetFrozen(1, 0)
-            if (__auto.IsFrozen())
-                this.PlaySound(1)
-        }
+xy_trampoline:
+  jmp xy_new
 
-        if (CETrainer.keyevent("f") > 0	)
-        {
-            if (not fly.IsFrozen())
-                fly.SetFrozen(1, 1)
-        }
-        if (CETrainer.keyevent("S") > 0	)
-        {
-            if (fly.IsFrozen())
-            {
-                sleep, 1000
-                fly.SetFrozen(0, 1)
-            }
-        }
+y_code:
+  jmp y_trampoline
+y_ret:
 
-        __up := CETrainer.keyevent("up")
-        if (__up > 0)
-            fly_up.SetFrozen(1, 1)
-        else if (__up < 0)
-            fly_up.SetFrozen(0, 1)
+xy_code:
+  jmp xy_trampoline
+  nop
+  nop
+xy_ret:
 
-        __down := CETrainer.keyevent("down")
-        if (__down > 0)
-            fly_down.SetFrozen(1, 1)
-        else if (__down < 0)
-            fly_down.SetFrozen(0, 1)
+[disable]
+y_code:
+  db F3 0F 58 68 3C F3 0F 58 48 38
+xy_code:
+  db 48 89 42 38 41 FF C2
+unregistersymbol(y_code)
+dealloc(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>24</ID>
+          <Description>"F - Float mode"</Description>
+          <Options moAlwaysHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+fly_flag:
+  db 00 00 00 01
 
-        __left := CETrainer.keyevent("left")
-        if (__left > 0)
-            fly_left.SetFrozen(1, 1)
-        else if (__left < 0)
-            fly_left.SetFrozen(0, 1)
+[disable]
+fly_flag:
+  db 00 00 00 00
 
-        __right := CETrainer.keyevent("right")
-        if (__right > 0)
-            fly_right.SetFrozen(1, 1)
-        else if (__right < 0)
-            fly_right.SetFrozen(0, 1)
-	}
-}
-UnravelTrainer.__init().TrainerLoop("Unravel.exe", 100)
-return
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>26</ID>
+              <Description>"float down"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[enable]
+y_offset:
+  dd (float)-0.02
+
+[disable]
+y_offset:
+  dd (float)0.000
 
 
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>27</ID>
+              <Description>"float up"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[enable]
+y_offset:
+  dd (float)0.02
 
+[disable]
+y_offset:
+  dd (float)0.000
 
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>28</ID>
+              <Description>"float left"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[enable]
+x_offset:
+  dd (float)-0.03
 
+[disable]
+x_offset:
+  dd (float)0.00
 
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>29</ID>
+              <Description>"float right"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[enable]
+x_offset:
+  dd (float)0.03
+
+[disable]
+x_offset:
+  dd (float)0.000
+
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>25</ID>
+          <Description>"Vertical pos"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>pos</Address>
+          <Offsets>
+            <Offset>3c</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Change of mov [rbx+38],rax</Description>
+      <AddressString>Unravel.exe+19ABFAB</AddressString>
+      <Before>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>50</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>43</Byte>
+        <Byte>38</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>74</Byte>
+        <Byte>24</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov [rbx+38],rax</Description>
+      <AddressString>Unravel.exe+19AEDF2</AddressString>
+      <Before>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>50</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>43</Byte>
+        <Byte>38</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>74</Byte>
+        <Byte>24</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [rbx+38],rax</Description>
+      <AddressString>Unravel.exe+19ABFAB</AddressString>
+      <Before>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>50</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>43</Byte>
+        <Byte>38</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>74</Byte>
+        <Byte>24</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [rbx+38],rax</Description>
+      <AddressString>Unravel.exe+19AEDF2</AddressString>
+      <Before>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>50</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>43</Byte>
+        <Byte>38</Byte>
+      </Actual>
+      <After>
+        <Byte>0F</Byte>
+        <Byte>28</Byte>
+        <Byte>74</Byte>
+        <Byte>24</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>

@@ -9,39 +9,25 @@
 ::BOOL::DBLBFF::Force Triple Buffering::
        
 ::parent::Graphics_div::
-::RADIOHEAD::HD::Upscaling::
+::RADIOHEAD::HD::Forced resolution::
 ::parent::HD_details::
-::RADIO::HD=0::HD::Disabled::::
-::RADIO::HD=UPSCALE::HD::Nearest neighbor upscaling:::: 
-::TEXT::<b>The remaining options are for debug, you can ignore them</b>::
-::RADIO::HD=UPSCALE|USEINTEROP|AMDFSR::HD::[AMD_FSR FidelityFx super resolution]&ensp; upscaling:::: 
-wip<::RADIO::HD=UPSCALE|USEINTEROP::HD::Inteop::::>wip      
-wip<::RADIO::HD=UPSCALE|USEINTEROP|AMDFSR|USEPROXIES::HD::[AMD_FSR FidelityFx super resolution]&ensp;upscaling and proxies (debug)::::>wip  
-wip<::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES::HD::HD proxies (debug)::::>wip  
+::RADIO::HD=0::HD::Disabled::::   
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES::HD::Enabled::::
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAA::HD::Enabled +  
+Super sampling anti aliasing::::    
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAAHQ::HD::Enabled + 
+High quality super sampling anti aliasing:::: 
 ::TEXT::{b
-{nfo b|FidelityFx super resolution|b can be used to upscale games running on a 
-resolution smaller than your monitor's with an algorithm that tries to minimize
-the quality loss for running in a lower resolution. The objective is to gain 
-performance for running the game on a smaller resolution}
-{nfo b|FidelityFx super resolution|b in most cases needs the 
-[gototab_graphics_RLMT limit resolutions] option bellow enabled. See that option to 
-learn how to correcttly configure peixoto's patch to use b|FidelityFx super resolution|b}
-{nfo At present, b|FidelityFx super resolution|b breaks gamma correction in some games|b}
+	<b>WIP</b><br>
+	Some simpler unity games work.<br> 
+	This feature will be the major focus after adoption of wine dlls for Direct3D 7 and earlier is finished
 }|n 
     
 ::parent::HD_details::
 ::_RLMT_::RLMT::Limit resolutions::0-10-1::
 ::parent::RLMT_details::
-::TEXT::{b
-  {nfo Needed for most games. Select the resolution you want the game to run at 
-  before being upscaled}
-  {nfo  Match the resolution you configure the game at with the 
-  one selected here, and Peixoto's patch will upscale it from that resolution to 
-  your monitor's with the
-  [AMD_FSR FidelityFx super resolution] algorithm}
-}|n 
-
-::BOOL::GAMMA::Gamma correction::Use this if upscaling makes the game too dark::
+::TEXT::{nfo Needed for most games. Without this, if you configure the game at a resolution lower then your desktop's, it will 
+keep the desktop resolution, but render intenally at the lower one and forced resolution won't have effect}
 
 ::BOOL::WHKS::Fix window size::Check this if the game window is not correctly
 resized 
