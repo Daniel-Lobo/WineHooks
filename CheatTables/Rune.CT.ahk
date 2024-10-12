@@ -1,129 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="42">
-  <CheatEntries>
-    <CheatEntry>
-      <ID>12</ID>
-      <Description>"Table Help"</Description>
-      <GroupHeader>1</GroupHeader>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>9</ID>
-      <Description>"Auto - Core.dll+37002"</Description>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[enable]
-alloc(new_mem, 512)
-registersymbol(inf_hp_flag)
-registersymbol(inf_rune_flag)
-label(inf_hp_flag)
-label(easy_kill_flag)
-label(inf_rune_flag)
-label(player)
-label(rune_power)
-label(enemy)
-label(orig_code)
-label(ret_point)
+﻿#NoEnv  
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+#include CEpluginLib.ahk
+#persistent
 
-new_mem:
-inf_hp_flag:
-  db 00 00 00 00
-easy_kill_flag:
-  db 00 00 00 00
-inf_rune_flag:
-  db 00 00 00 00
+CETrainer.help := 
+(
+"620x240
+==========================================================================
+LIMITATIONS
+Rune is one of those games where one piece of code accesses multiple data and the heuristics to discern what 
+data is what is never perfect, so the cheats may fail here and there
+==========================================================================
 
-player:
-  sub eax,edx
-  cmp [edi+68], f
-  jne rune_power
-  cmp [edi+6c], f
-  jne rune_power
-  cmp [edi+1c], 4b
-  jne rune_power
-  cmp [edi+24], 4b
-  jne rune_power
-  cmp [inf_hp_flag], 00
-  je orig_code
+==========================================================================
+EASY KILLS\INFINITE RUNE POWER
+I could not develop a one hit kill cheat for this one, but the inf power can make up for it, even with the undead
+after you get a weapon with an incediary power. The 1st one you can't miss is the Roman sword, but there's also 
+an axe before that, see this: 
+https://steamcommunity.com/sharedfiles/filedetails/?id=398935934
+==========================================================================
+"
+)
 
-  mov [edi+10],64
-  mov [edi],64
-  mov edi,eax
-jmp ret_point
+global common_code  := new CEEntry("Auto - Core.dll+37002")
+global HPoints      := new CEEntry("H - inf HP")
+global RPower       := new CEEntry("P - inf rune Power")
+class RuneTrainer extends CETrainer
+{
+	OnLoop() 
+	{
+		common_code.SetFrozen(1, True)
+		
+		if CETrainer.keyevent("h") > 0				
+		this.Speak(HPoints.Toogle("Infinite HP"))		
 
-enemy:
-  jmp rune_power
-  mov [edi],0
-  mov edi,eax
-jmp ret_point
+		if CETrainer.keyevent("P") > 0				
+		this.Speak(RPower.Toogle("Infinite Rune power"))		
+	}
+}
+RuneTrainer.TrainerLoop("Rune.exe", 100)
+return
 
-rune_power:
-  cmp [edi+60], f
-  jne orig_code
-  cmp [edi+64], f
-  jne orig_code
-  cmp [edi+1c], 4b
-  jne orig_code
-  cmp [edi+24], 4b
-  jne orig_code
-  cmp [inf_rune_flag], 00
-  je orig_code
 
-  mov [edi],64
-  mov edi,eax
-jmp ret_point
-
-orig_code:
-  mov [edi],eax
-  mov edi,eax
-jmp ret_point
-
-Core.dll+37002:
-  jmp player
-  nop
-ret_point:
-
-[disable]
-Core.dll+37002:
-  sub eax,edx
-  mov [edi],eax
-  mov edi,eax
-unregistersymbol(inf_hp_flag)
-unregistersymbol(inf_rune_flag)
-dealloc(new_mem)
-
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>10</ID>
-          <Description>"H - inf HP"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[enable]
-inf_hp_flag:
-  db 00 00 00 01
-
-[disable]
-inf_hp_flag:
-  db 00 00 00 00
-
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>11</ID>
-          <Description>"P - inf rune Power"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[enable]
-inf_rune_flag:
-  db 00 00 00 01
-
-[disable]
-inf_rune_flag:
-  db 00 00 00 00
-
-</AssemblerScript>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-  </CheatEntries>
-  <UserdefinedSymbols/>
-  <Comments>Version: Retail, 1.07
-</Comments>
-</CheatTable>

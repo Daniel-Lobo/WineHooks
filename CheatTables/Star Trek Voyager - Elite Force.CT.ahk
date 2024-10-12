@@ -1,164 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="42">
-  <CheatEntries>
-    <CheatEntry>
-      <ID>13</ID>
-      <Description>"Table Help"</Description>
-      <GroupHeader>1</GroupHeader>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>6</ID>
-      <Description>"Auto"</Description>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[enable]
-alloc(hit, 125)
-label(hit_code)
-registersymbol(hit_code)
-label(enemy)
-label(hp_flag)
-label(kill_flag)
-registersymbol(hp_flag)
-registersymbol(kill_flag)
-label(hit_ret)
+﻿#NoEnv  
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+#include CEpluginLib.ahk
+#persistent
 
-hit:
-hp_flag:
-  db 00 00 00 00
-kill_flag:
-  db 00 00 00 00
-hit_code:
-  mov [esi+0000021C],edx
-  push esi
-  add esi, 21c
-  cmp esi, 20286c14
-  pop esi
-  jne enemy
-  cmp [hp_flag], 00
-  je hit_ret
-  mov [esi+0000021C],64
-jmp hit_ret
+CETrainer.help := 
+(
+"575x120
+ Wait unil you hear the winddows ding to activate the cheats, that will happen as soon as you load a save 
+ or start a new game
 
-enemy:
-  cmp [kill_flag], 00
-  je hit_ret
-  mov [esi+0000021C],0
-jmp hit_ret
+ Leave the 'reset' entries alone. The're threre to reset the cheats automatically every time you clear a level, 
+ load a save or start a new game
+"
+)
 
-efgamex86.dll+5E9E4:
-  jmp hit_code
-  nop
-hit_ret:
+global __auto     := new CEEntry("Auto")
+global Reset      := new CEEntry("Auto reset")
+global HP         := new CEEntry("H - inf HP")
+global EZKills    := new CEEntry("K - easy kills")
+global InfAmmo    := new CEEntry("B - inf Bullets")
+global ammoreset  := new CEEntry("Auto reset - ammo")
+class voyagerTainer extends CETrainer
+{            
+	OnLoop()
+	{        
+		if (!__auto.IsFrozen())
+        {
+            this.Open("stvoy.exe")
+            __auto.SetFrozen(1, 1)	    
+            if __auto.IsFrozen()
+                this.PlaySound(1)            
+        }
+		if CETrainer.keyevent("h") > 0	
+		{	
+			this.Speak(HP.Toogle("Infinite HP"))	
+		}	
+		else if CETrainer.keyevent("k") > 0				
+		{	
+			this.Speak(EZKills.Toogle("One hit kills"))	
+		}
+		else if CETrainer.keyevent("b") > 0	
+		{	
+			this.Speak(InfAmmo.Toogle("Infinite ammo"))	
+		}	
+        if (HP.IsFrozen() or EZKills.IsFrozen())
+        {	
+            Reset.SetFrozen(0, 1)
+            Reset.SetFrozen(1, 1)	
+        }    
+        if (InfAmmo.IsFrozen())
+        {	
+            ammoreset.SetFrozen(0, 1)
+            ammoreset.SetFrozen(1, 1)	
+        }       
+	}
+}
 
-[disable]
-efgamex86.dll+5E9E4:
-  mov [esi+0000021C],edx
-
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>9</ID>
-          <Description>"H - inf HP"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[enable]
-hp_flag:
-  db 00 00 00 01
+voyagerTainer.__Init().TrainerLoop("stvoy.exe", 100)
+return
 
 
-[disable]
-hp_flag:
-  db 00 00 00 00
 
 
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>10</ID>
-          <Description>"K - easy Kills"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[enable]
-kill_flag:
-  db 00 00 00 01
-
-
-[disable]
-kill_flag:
-  db 00 00 00 00
-
-
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>11</ID>
-          <Description>"Auto reset"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[enable]
-efgamex86.dll+5E9E4:
-  jmp hit_code
-  nop
-
-
-[disable]
-efgamex86.dll+5E9E4:
-  jmp hit_code
-  nop
-
-
-</AssemblerScript>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>7</ID>
-      <Description>"B - inf Bullets"</Description>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[enable]
-efgamex86.dll+14323:
-  nop
-  nop
-
-
-[disable]
-efgamex86.dll+14323:
-  sub edx,edi
-
-
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>12</ID>
-          <Description>"Auto reset - ammo"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[enable]
-efgamex86.dll+14323:
-  nop
-  nop
-
-
-[disable]
-efgamex86.dll+14323:
-  nop
-  nop
-
-
-</AssemblerScript>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>8</ID>
-      <Description>"Left Overs"</Description>
-      <Options moHideChildren="1"/>
-      <GroupHeader>1</GroupHeader>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>5</ID>
-          <Description>"HP"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>efgamex86.dll+286C14</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-  </CheatEntries>
-  <UserdefinedSymbols/>
-  <Comments>Version: GOG, 1.2</Comments>
-</CheatTable>

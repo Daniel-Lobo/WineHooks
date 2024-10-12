@@ -1,0 +1,2538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <Forms>
+    <UDF1 Class="TCEForm" Encoding="Ascii85">(6CY=,At8ujroxIXwpNb*9Hy9C[^VbDU(G{XflC9u?idB2zvodWUV91ZOF6rfjW7Ca%+K7NH{zQ=ajL?Y5*84^?/1=%byI_#CQ7xlu[xbH,WYX!a?}*lq%:ImMc}KSSb1!7rz$DGZv}/?s*jYj]G0@By!%RvgJjHYE@yF2@9MVE)*b9r0jB[vff1+g1iV(B:yFedFw/$Gy.+/:4]_Si]WBL,f$xeb0Cd+.v?1I6Cr+lE^zpKQF)oO]U%4)E{Ancn]dXuVM=3+dk7jXXCTyGY)0.6TAiMx%S-)hsf4#Z3}tF-xEvE8N7:A9,1Ms[CYZ3S6=qxsh%#X,]X!LHp+y=:nPfW1](PU4q1CoBW,RBOIK-tvW=MUAk5*#@ww^1):Zk5.#In[qn2OLYlwIT}OPkGa;!@q6oI@KVEI;k7Z45NVmb.=T14ZiN^@-U%=?YbEU(_{mO,o[R/utghn[S-A-c)KWnMP1=e2?[nl.@i5Oa(]K7V(]HLzwsYl2XppT4)Pxs*ah4P@qUr*Z@6hY/9zOra.57.OlB[zXS:XB{pe$+ww4x[.fzb2DYvGj0!acl{eE}jtAURRBBXJ^W%1(R4d!E[AJX6B2LvIP5auc-^TX[_A(;^rAt@{#pKxRl2LCG_AzP,T[s5lu?)MGs.WtKQ;9Sk^;shzv#@78Y(LIeRr{4{K3g_FpZ%9^0?IGj*teJ0aqzSEqO$gX00</UDF1>
+  </Forms>
+  <CheatEntries>
+    <CheatEntry>
+      <ID>24224</ID>
+      <Description>"God of War"</Description>
+      <Color>6260EC</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87494</ID>
+      <Description>"Version: Steam | 0.1.0"</Description>
+      <Color>90B5D0</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87499</ID>
+      <Description>"-----------------------------------------------------------"</Description>
+      <Color>554E4B</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87500</ID>
+      <Description>"Compact Mode"</Description>
+      <Color>7C7570</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$lua}
+
+if syntaxcheck then return end
+
+[ENABLE]
+
+function cycleFullCompact( sender, force )
+  local state = not( compactmenuitem.Caption == 'Compact View Mode' )
+  if force ~= nil then
+    state = not force
+  end
+  compactmenuitem.Caption = state and 'Compact View Mode' or 'Full View Mode'
+  getMainForm().Splitter1.Visible = state
+  getMainForm().Panel4.Visible = state
+  getMainForm().Panel5.Visible = state
+end
+
+function addCompactMenu()
+  if compactmenualreadyexists then return end
+    local parent = getMainForm().Menu.Items
+    compactmenuitem = createMenuItem( parent )
+    parent.add( compactmenuitem )
+    compactmenuitem.Caption = 'Compact View Mode'
+    compactmenuitem.OnClick = cycleFullCompact
+    compactmenualreadyexists = 'yes'
+end
+
+addCompactMenu()
+cycleFullCompact( nil, true )
+return "assert (true)"
+
+[DISABLE]
+
+cycleFullCompact( nil, false )
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87496</ID>
+      <Description>"[ Initialize ]"</Description>
+      <Options moHideChildren="1"/>
+      <Color>A96974</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+function stopExec( s )
+  error( print( string.format( "\r\n&gt;&gt; %s &lt;&lt;", s ) ) )
+end
+
+function aobScanEx( aob )
+  -- thanks panraven for this function!
+  -- https://forum.cheatengine.org/viewtopic.php?t=577536
+  -- simplified for my needs
+  -- scan the entire memory space: e = nil or '*X*W'
+  -- scan only executable code: e = nil or '+X'
+  local p, a, n, s, e = nil or '+X', nil or fsmNotAligned, nil or '0', getAddress( process ) or 0x0, ( getAddress( process ) + getModuleSize( process ) ) or 0xffffffffffffffff
+  local ms = pb and createMemScan( pb ) or createMemScan()
+  local fl = createFoundList( ms )
+  ms.firstScan( soExactValue, vtByteArray, nil, aob, nil, s, e, p, a, n, true, false, false, false )
+  ms.waitTillDone()
+  fl.initialize()
+  local result = nil
+  if fl ~= nil and fl.getCount() &gt; 0 then
+    result = createStringlist()
+    for i = 1, fl.getCount() do result.add( fl.getAddress( i - 1 ) ) end
+  end
+  fl.destroy()
+  ms.destroy()
+  return result
+end
+
+function string.fromhex( s )
+  return ( s:gsub( '..', function ( cc )
+    return string.char( tonumber( cc, 16 ) )
+  end ) )
+end
+
+function aobScanSmall( aob, s, e )
+  local i = byteTableToString( readBytes( s, e, true ) ):find( string.fromhex( aob ), 1, true )
+  if i == nil then i = 1 end
+  return ( s + i - 1 )
+end
+
+local _script = [[[ENABLE]
+
+  alloc( LuaFuncs, 0x1000 )
+  registersymbol( LuaFuncs )
+
+  label( StringExec )
+  registersymbol( StringExec )
+  label( szNull )
+  label( @L00000001 )
+  label( @L00000002 )
+
+  label( ScriptExec )
+  registersymbol( ScriptExec )
+  label( @L00000003 )
+
+  LuaFuncs:
+  db 90
+  align 10 CC
+
+  StringExec:
+  mov [rsp+8],rbx
+  push rdi
+  sub rsp,30
+  mov rbx,rcx
+  // get heroa00-&gt;lua_state
+  mov rax,g_goPlayer
+  mov rax,[rax]
+  mov rax,[rax+8]
+  mov rax,[rax+8]
+  mov rax,[rax+200]
+  lea rax,[rax-20]
+  mov rax,[rax+58]
+  //
+  mov rdi,rax
+  test rax,rax
+  je short @L00000002
+  mov r8,-1
+
+  @L00000001:
+  inc r8
+  cmp byte ptr [rbx+r8],0
+  jne short @L00000001
+  mov qword ptr [rsp+20],0
+  mov r9,szNull
+  mov rdx,rbx
+  mov rcx,rdi
+  call _luaL_loadbufferx
+  test eax,eax
+  jne short @L00000002
+  mov qword ptr [rsp+28],0
+  mov qword ptr [rsp+20],0
+  xor r9d,r9d
+  lea r8d,[rax-1]
+  xor edx,edx
+  mov rcx,rdi
+  call _lua_pcallk
+  test eax,eax
+  jne short @L00000002
+  mov al,1
+  mov rbx,[rsp+40]
+  add rsp,30
+  pop rdi
+  ret
+
+  @L00000002:
+  mov rbx,[rsp+40]
+  xor al,al
+  add rsp,30
+  pop rdi
+  ret
+
+  align 10 CC
+
+  szNull:
+  dq 0
+
+  align 10 CC
+
+  ScriptExec:
+  mov [rsp+8],rbx
+  push rdi
+  sub rsp,30
+  mov rdi,rcx
+  // get heroa00-&gt;lua_state
+  mov rax,g_goPlayer
+  mov rax,[rax]
+  mov rax,[rax+8]
+  mov rax,[rax+8]
+  mov rax,[rax+200]
+  lea rax,[rax-20]
+  mov rax,[rax+58]
+  //
+  mov rbx,rax
+  test rax,rax
+  je short @L00000003
+  xor r8d,r8d
+  mov rdx,rdi
+  mov rcx,rax
+  call _luaL_loadfilex
+  test eax,eax
+  jne short @L00000003
+  xor eax,eax
+  mov [rsp+28],rax
+  mov [rsp+20],rax
+  xor r9d,r9d
+  lea r8d,[rax-1]
+  xor edx,edx
+  mov rcx,rbx
+  call _lua_pcallk
+  test eax,eax
+  jne short @L00000003
+  mov al,1
+  mov rbx,[rsp+40]
+  add rsp,30
+  pop rdi
+  ret
+
+  @L00000003:
+  mov rbx,[rsp+40]
+  xor al,al
+  add rsp,30
+  pop rdi
+  ret
+
+  align 10 CC
+
+]]..[[[DISABLE]
+
+  unregistersymbol( ScriptExec )
+  unregistersymbol( StringExec )
+  dealloc( LuaFuncs )
+  unregistersymbol( LuaFuncs )
+
+]]
+
+function command( s )
+  executeCodeEx( 0, nil, getAddressSafe( "StringExec" ), s )
+end
+
+function script( s )
+  executeCodeEx( 0, nil, getAddressSafe( "ScriptExec" ), s )
+end
+
+[ENABLE]
+
+local sl, u, t = 0
+
+-- get BuildId
+local aob_to_BuildId = "4C8D0D????????488BD74C8D05????????488BCBE8????????488B8C"
+sl = aobScanEx( aob_to_BuildId )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_to_BuildId' not found." ) end
+t = tonumber( sl[0], 16 )
+local BuildId = readString( t + readInteger( t + 0x3, true ) + 0x7, 60000 )
+
+-- find the table record by matching strings, rather than direct record description/id
+for i = 0, AddressList.Count - 1 do
+  mr = AddressList[i]
+  if mr.Parent == nil then
+    if string.match( mr.Description, "Version:" ) then
+      break
+    end
+  end
+end
+local TableBuildId = mr.Description
+TableBuildId = string.match( TableBuildId, 'Version: Steam | (.*)' )
+
+-- check the two and warn the user
+if TableBuildId ~= BuildId then
+  showMessage( "This table is designed for BuildId: \r\n&gt;&gt; " .. TableBuildId .. "\r\n\r\nYours is: \r\n&gt;&gt; " .. BuildId .. "\r\n\r\nThe script will now enable, though I can't guarantee everything will work properly." )
+end
+
+-- scan time!
+local aob_to_InventoryReader = "418B45??4183C7??418B4D??4D"
+sl = aobScanEx( aob_to_InventoryReader )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_to_InventoryReader' not found." ) end
+t = tonumber( sl[0], 16 )
+unregisterSymbol( "InventoryReader" )
+registerSymbol( "InventoryReader", t, true )
+
+-- leads to "Health_Kratos" region
+local aob_goPlayer = "488B35????????4885F674??488B4E??E8????????F30F"
+sl = aobScanEx( aob_goPlayer )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_goPlayer' not found." ) end
+t = tonumber( sl[0], 16 )
+u = t + readInteger( t + 0x3, true ) + 0x7
+unregisterSymbol( "g_goPlayer" )
+registerSymbol( "g_goPlayer", u, true )
+u = t + 0x10
+u = u + readInteger( u + 0x1, true ) + 0x5
+u = aobScanSmall( "4883C208", u, 0x100 )
+u = aobScanSmall( "F30F5E", u, 0x100 )
+unregisterSymbol( "QueryHealth" )
+registerSymbol( "QueryHealth", u, true )
+
+local aob_in_UpdateHealth = "8079??00488BD9440F29"
+sl = aobScanEx( aob_in_UpdateHealth )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_in_UpdateHealth' not found." ) end
+t = tonumber( sl[0], 16 )
+u = aobScanSmall( "F30F11", t, 0x100 )
+unregisterSymbol( "UpdateHealth" )
+registerSymbol( "UpdateHealth", u, true )
+
+local aob_luaL_loadbufferx = "4883EC??488B4424??48895424??48"
+sl = aobScanEx( aob_luaL_loadbufferx )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_luaL_loadbufferx' not found." ) end
+t = tonumber( sl[0], 16 )
+unregisterSymbol( "_luaL_loadbufferx" )
+registerSymbol( "_luaL_loadbufferx", t, true )
+
+local aob_luaL_loadfilex = "E8????????83FFFFB9030000008BD00F45F1"
+sl = aobScanEx( aob_luaL_loadfilex )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_luaL_loadfilex' not found." ) end
+t = tonumber( sl[0], 16 )
+t = t + readInteger( t + 0x1, true ) + 0x5
+unregisterSymbol( "_luaL_loadfilex" )
+registerSymbol( "_luaL_loadfilex", t, true )
+
+local aob_lua_pcallk = "458D41FEE8????????33D2488BCB85C00F94C2"
+sl = aobScanEx( aob_lua_pcallk )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_lua_pcallk' not found." ) end
+t = tonumber( sl[0], 16 ) + 0x4
+t = t + readInteger( t + 0x1, true ) + 0x5
+unregisterSymbol( "_lua_pcallk" )
+registerSymbol( "_lua_pcallk", t, true )
+
+-- let's use trampolines: jumping is always done via 5-to-14 bytes traversals
+local gameModule = getAddress( process )
+local offset = 0x550
+t = gameModule + offset
+fullAccess( t, 0x1000 - offset )
+executeCodeEx( 0, nil, getAddressSafe( "RtlZeroMemory" ), t, 0x1000 - offset )
+unregisterSymbol( "Trampolines" )
+registerSymbol( "Trampolines", t, true )
+
+result, disableinfo = autoAssemble( _script )
+
+[DISABLE]
+
+autoAssemble( _script, disableinfo )
+
+-- clean-up
+local t = getAddressSafe( "Trampolines" )
+local offset = 0x550
+executeCodeEx( 0, nil, getAddressSafe( "RtlZeroMemory" ), t, 0x1000 - offset )
+unregisterSymbol( "Trampolines" )
+
+autoAssemble([[
+
+  unregistersymbol( _lua_pcallk )
+  unregistersymbol( _luaL_loadfilex )
+  unregistersymbol( _luaL_loadbufferx )
+  unregistersymbol( UpdateHealth )
+  unregistersymbol( QueryHealth )
+  unregistersymbol( g_goPlayer )
+  unregistersymbol( InventoryReader )
+
+]])
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>87605</ID>
+          <Description>"God Mode"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">// Trampolines+00
+// Trampolines+10
+
+[ENABLE]
+
+alloc( HealthHook, 0x1000 )
+registersymbol( HealthHook )
+label( QueryHealthHook )
+registersymbol( QueryHealthHook )
+label( QueryHealth_o )
+registersymbol( QueryHealth_o )
+label( MaxHealth )
+registersymbol( MaxHealth )
+label( UpdateHealthHook )
+registersymbol( UpdateHealthHook )
+label( UpdateHealth_o )
+registersymbol( UpdateHealth_o )
+
+HealthHook:
+db CC
+
+align 10 CC
+
+QueryHealthHook:
+
+// at this spot, our RCX is already Kratos' Health pointer; why? because outside of this function..
+/*
+GoW.exe+5E5FAE - 48 8B 35 83F2C601     - mov rsi,[g_goPlayer] { (7FF3B75918D0) }
+GoW.exe+5E5FB5 - 48 85 F6              - test rsi,rsi
+GoW.exe+5E5FB8 - 74 27                 - je GoW.exe+5E5FE1
+GoW.exe+5E5FBA - 48 8B 4E 08           - mov rcx,[rsi+08]
+GoW.exe+5E5FBE - E8 2D961300           - call GoW.exe+71F5F0 &lt;&lt; our function
+*/
+// bottom line, no need for extra checks on RCX (if it's our player's health or not)
+// at the spot of the hook we already have the Health (including Idunn Apple upgrades) calculated in xmm0
+// note that the __this ptr is in RAX, not RCX (due to the calculations)
+
+movss [MaxHealth],xmm0     // store MaxHealth for later use
+movss [rax+388],xmm0       // update health to max all the time
+QueryHealth_o:
+readmem( QueryHealth, 7 )  // original code
+jmp far QueryHealth+7
+
+align 10 CC
+
+MaxHealth:
+dd 0
+
+align 10 CC
+
+UpdateHealthHook:
+mov rax,g_goPlayer
+mov rax,[rax]
+test rax,rax
+je short @f
+  mov rax,[rax+8]
+  test rax,rax
+  je short @f
+    lea rax,[rax+388]
+    lea rax,[rax-20]
+    cmp rax,rbx
+    jne short @f
+      movss xmm15,[MaxHealth]
+      movss [rbx+20],xmm15
+UpdateHealth_o:
+readmem( UpdateHealth, 5 )
+jmp far UpdateHealth+5
+
+Trampolines+00:
+jmp far QueryHealthHook
+
+align 10 CC
+
+Trampolines+10:
+jmp far UpdateHealthHook
+
+align 10 CC
+
+QueryHealth:
+jmp Trampolines+00
+nop 2
+
+UpdateHealth:
+jmp Trampolines+10
+
+[DISABLE]
+
+QueryHealth:
+readmem( QueryHealth_o, 7 )
+
+UpdateHealth:
+readmem( UpdateHealth_o, 5 )
+
+unregistersymbol( UpdateHealth_o )
+unregistersymbol( UpdateHealthHook )
+unregistersymbol( QueryHealth_o )
+unregistersymbol( MaxHealth )
+unregistersymbol( QueryHealthHook )
+dealloc( HealthHook )
+unregistersymbol( HealthHook )
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87590</ID>
+          <Description>"Hook Inventory Reader"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">// Trampolines+20
+
+[ENABLE]
+
+alloc( InventoryReaderHook, 0x1000 )
+registersymbol( InventoryReaderHook )
+label( InventoryReader_o )
+registersymbol( InventoryReader_o )
+label( pTable )
+registersymbol( pTable )
+
+InventoryReaderHook:
+mov rcx,016E187833871D3E // Hacksilver (internal: Hacksilver )
+cmp rax,rcx
+jne short @f
+  mov [pTable+00],r13
+@@:
+mov rcx,023036E1D415A119 // Soft Svartalfheim Steel (internal: ReinforcementCommon )
+cmp rax,rcx
+jne short @f
+  mov [pTable+08],r13
+@@:
+mov rcx,03E89437752A9A4A // Solid Svartalfheim Steel (internal: ReinforcementUncommon )
+cmp rax,rcx
+jne short @f
+  mov [pTable+10],r13
+@@:
+mov rcx,03F49E711B81F634 // Hardened Svartalfheim Steel (internal: ReinforcementRare )
+cmp rax,rcx
+jne short @f
+  mov [pTable+18],r13
+@@:
+mov rcx,03F0DDBA03E6CE37 // Aegir's Gold (internal: BoatLoot )
+cmp rax,rcx
+jne short @f
+  mov [pTable+20],r13
+@@:
+mov rcx,0301741DB374CDE4 // Frozen Flame (internal: AxeReinforcement )
+cmp rax,rcx
+jne short @f
+  mov [pTable+28],r13
+@@:
+mov rcx,03F6A02F3B31EE0D // Dust of Realms (internal: TalismanReinforcement )
+cmp rax,rcx
+jne short @f
+  mov [pTable+30],r13
+@@:
+mov rcx,0065F9F9E69EAECC // World Serpent Scale Fragment (internal: HiltReinforcement1 )
+cmp rax,rcx
+jne short @f
+  mov [pTable+38],r13
+@@:
+mov rcx,0084A83FB24F4CFD // Leiptr Alloy (internal: LeiptrAlloy )
+cmp rax,rcx
+jne short @f
+  mov [pTable+40],r13
+@@:
+mov rcx,019A5962FFE5FAF8 // Corrupted Remnant (internal: UB_Token )
+cmp rax,rcx
+jne short @f
+  mov [pTable+48],r13
+@@:
+mov rcx,027813962AA4FD9C // XP (internal: EconomyXP)
+cmp rax,rcx
+jne short @f
+  mov [pTable+50],r13
+InventoryReader_o:
+readmem( InventoryReader, 8 )
+jmp far InventoryReader+8
+
+align 10 CC
+
+pTable:
+dq 0
+
+Trampolines+20:
+jmp far InventoryReaderHook
+
+align 10 CC
+
+InventoryReader:
+jmp Trampolines+20
+nop 3
+
+[DISABLE]
+
+InventoryReader:
+readmem( InventoryReader_o, 8 )
+
+unregistersymbol( pTable )
+unregistersymbol( InventoryReader_o )
+dealloc( InventoryReaderHook )
+unregistersymbol( InventoryReaderHook )
+
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>87591</ID>
+              <Description>"Hacksilver"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87607</ID>
+              <Description>"Soft Svartalfheim Steel"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+8</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87608</ID>
+              <Description>"Solid Svartalfheim Steel"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+10</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87616</ID>
+              <Description>"Hardened Svartalfheim Steel"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+18</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87609</ID>
+              <Description>"Aegir's Gold"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+20</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87610</ID>
+              <Description>"Frozen Flame"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+28</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87613</ID>
+              <Description>"Dust of Realms"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+30</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87612</ID>
+              <Description>"World Serpent Scale Fragment"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+38</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87611</ID>
+              <Description>"Leiptr Alloy"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+40</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87614</ID>
+              <Description>"Corrupted Remnant"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+48</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87592</ID>
+              <Description>"XP"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pTable+50</Address>
+              <Offsets>
+                <Offset>30</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87498</ID>
+          <Description>"Toggle Console UDF"</Description>
+          <Color>8000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+function trim( s )
+  return s:find'^%s*$' and '' or s:match'^%s*(.*%S)'
+end
+
+function UDF1_InputKeyUp( sender, key )
+  if isKeyPressed( VK_SHIFT ) then
+    if key == VK_RETURN then
+      local text = sender.Lines.Text
+      if text and #text &gt; 0 then
+        text = trim( text )
+        UDF1.Log.Append( text .. '\r\n' )
+        --text = text:gsub( "\r\n", "\n" )
+        command( text )
+        sender.Lines.Text = nil
+      end
+    end
+  end
+  return key
+end
+
+function UDF1_ClearClick( sender )
+  strings_clear( memo_getLines( UDF1_Log ) )
+end
+
+function ClearDebugLog()
+  strings_clear( memo_getLines( UDF1_Log ) )
+end
+
+function CloseLog()
+  ClearDebugLog()
+  form_hide( UDF1 )
+end
+
+function ShowLog()
+  form_show( UDF1 )
+end
+
+function UDF1_FormClose( sender )
+  ScriptEntry = addresslist_getMemoryRecordByDescription( getAddressList(), "Toggle Console UDF" )
+  memoryrecord_unfreeze( ScriptEntry )
+  return caHide
+end
+
+[ENABLE]
+
+ShowLog()
+
+[DISABLE]
+
+CloseLog()
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"[ Debug ]"</Description>
+      <Options moHideChildren="1"/>
+      <Color>BAA5F3</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>87618</ID>
+          <Description>"Hacksilver"</Description>
+          <ShowAsSigned>1</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>GoW.exe+1393480</Address>
+          <Offsets>
+            <Offset>1C0+30</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87589</ID>
+          <Description>"XP"</Description>
+          <ShowAsSigned>1</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>GoW.exe+1393480</Address>
+          <Offsets>
+            <Offset>30</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87593</ID>
+          <Description>"Get Player &amp; Health"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+[ENABLE]
+
+local sl, t = 0
+
+-- leads to "Health_Kratos" region
+local aob_goPlayer = "488B35????????4885F674??488B4E??E8????????F30F"
+sl = aobScanEx( aob_goPlayer )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_goPlayer' not found." ) end
+t = tonumber( sl[0], 16 )
+t = t + readInteger( t + 0x3, true ) + 0x7
+unregisterSymbol( "g_goPlayer" )
+registerSymbol( "g_goPlayer", t, true )
+
+[DISABLE]
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>87594</ID>
+              <Description>"goPlayer"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>8 Bytes</VariableType>
+              <Address>g_goPlayer</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87595</ID>
+              <Description>"Health"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>g_goPlayer</Address>
+              <Offsets>
+                <Offset>388</Offset>
+                <Offset>8</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87597</ID>
+              <Description>"bGod1"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>g_goPlayer</Address>
+              <Offsets>
+                <Offset>388-20+39</Offset>
+                <Offset>8</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87598</ID>
+              <Description>"bGod2"</Description>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>g_goPlayer</Address>
+              <Offsets>
+                <Offset>388-20+3A</Offset>
+                <Offset>8</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87599</ID>
+          <Description>"God Mode"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">// Trampolines+00
+
+[ENABLE]
+
+alloc( UpdateHealthHook, 0x1000 )
+registersymbol( UpdateHealthHook )
+label( UpdateHealth_o )
+registersymbol( UpdateHealth_o )
+
+UpdateHealthHook:
+push rax
+mov rax,g_goPlayer
+mov rax,[rax]
+test rax,rax
+je short @f
+  mov rax,[rax+8]
+  test rax,rax
+  je short @f
+    lea rax,[rax+388]
+    lea rax,[rax-20]
+    cmp rax,rcx
+    jne short @f
+      mov rdx,[rcx+18]
+      add rdx,8
+      movss xmm0,[rdx+10]      // Max_Health
+      mov rdx,[rcx+18]
+      add rdx,38
+      addss xmm0,[rdx+10]      // Health_Upgrades
+      movss [rbx+20],xmm0
+      mov byte ptr [rcx+39],1
+      mov byte ptr [rcx+3A],1
+@@:
+pop rax
+UpdateHealth_o:
+readmem( UpdateHealth, 7 )
+jmp far UpdateHealth+7
+
+align 10 CC
+
+Trampolines+00:
+jmp far UpdateHealthHook
+
+align 10 CC
+
+UpdateHealth:
+jmp Trampolines+00
+nop 2
+
+[DISABLE]
+
+UpdateHealth:
+readmem( UpdateHealth_o, 7 )
+
+unregistersymbol( UpdateHealth_o )
+dealloc( UpdateHealthHook )
+unregistersymbol( UpdateHealthHook )
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87615</ID>
+          <Description>"Hash Inventory String"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+[ENABLE]
+
+local t = allocateMemory( 0x1000 )
+unregisterSymbol( "HashMe" )
+registerSymbol( "HashMe", t, true )
+
+autoAssemble([[
+
+  label( HashMe_null )
+  label( HashMe_loop )
+
+  HashMe:
+  sub rsp,28
+  xor r11,r11
+  mov r9,rcx
+  movzx r8d,byte ptr [r9]
+  test r8l,r8l
+  je short HashMe_null
+    inc r9
+    test r8l,r8l
+    je short HashMe_null
+      HashMe_loop:
+      movzx edx,r8l
+      lea r9,[r9+1]
+      sub r8l,61
+      cmp r8l,19
+      movzx r8d,byte ptr [r9-1]
+      lea eax,[rdx-20]
+      movzx ecx,al
+      cmova ecx,edx
+      movzx eax,cl
+      add rax,r11
+      imul r11,rax,401
+      mov rax,r11
+      shr rax,6
+      xor r11,rax
+      test r8l,r8l
+      jne short HashMe_loop
+      jmp short +3
+  HashMe_null:
+  xor rax,rax
+  add rsp,28
+  ret
+
+]])
+
+local s = t + 0x500
+local input = inputQuery( 'Gimme a string', '', '' )
+if input ~= nil then
+  writeString( s, input )
+  writeBytes( s+#input, 0 )
+  local hash = executeCodeEx( 0, nil, getAddressSafe( "HashMe" ), s )
+  printf( "%016X", hash )
+end
+deAlloc( getAddressSafe( "HashMe" ) )
+unregisterSymbol( "HashMe" )
+return "assert(true)"
+
+[DISABLE]
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87623</ID>
+          <Description>"Hash PERM_DATA String"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+[ENABLE]
+
+local t = allocateMemory( 0x1000 )
+unregisterSymbol( "PermHashMe" )
+registerSymbol( "PermHashMe", t, true )
+
+autoAssemble([[
+
+  PermHashMe:
+  sub rsp,28
+  xor r9d,r9d
+  lea r10,[rcx+1]
+  mov al,[rcx]
+  @@:
+    movzx r8d,al
+    lea r10,[r10+1]
+    sub al,61
+    cmp al,19
+    lea ecx,[r8-20]
+    movzx edx,cl
+    cmova edx,r8d
+    movzx eax,dl
+    add rax,r9
+    imul r9,rax,401
+    mov rax,r9
+    shr rax,6
+    xor r9,rax
+    movzx eax,byte ptr [r10-1]
+    test al,al
+    jne short @b
+    mov rax,r9
+    jmp short +3
+  xor rax,rax
+  add rsp,28
+  ret
+
+]])
+
+local s = t + 0x500
+local input = inputQuery( 'Gimme a string', '', '' )
+if input ~= nil then
+  writeString( s, input )
+  writeBytes( s+#input, 0 )
+  local hash = executeCodeEx( 0, nil, getAddressSafe( "PermHashMe" ), s )
+  printf( "%016X", hash )
+end
+deAlloc( getAddressSafe( "PermHashMe" ) )
+unregisterSymbol( "PermHashMe" )
+return "assert(true)"
+
+[DISABLE]
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87619</ID>
+          <Description>"Lua Hook Test Thread"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+alloc( TestThread, 0x1000, $process )
+registersymbol( TestThread )
+//CreateThread( TestThread )
+label( TestThreadOff )
+registersymbol( TestThreadOff )
+label( TestThread_loop )
+
+label( Test_do )
+label( pBuffer )
+label( szNull )
+label( @L00000001 )
+label( @L00000002 )
+label( _lua_pcallk )
+
+TestThread:
+sub rsp,28
+
+TestThread_loop:
+mov rcx,A
+call Sleep
+
+cmp [TestThreadOff],1
+jne short @f
+  add rsp,28
+  mov [TestThreadOff],2
+  ret
+@@:
+
+  mov rcx,6E // VK_DECIMAL
+  call user32.GetAsyncKeyState
+  test ax,ax
+  je short @f
+
+    mov rcx,pBuffer
+    call Test_do
+    mov rcx,C8
+    call Sleep
+
+  @@:
+  jmp TestThread_loop
+
+align 10 CC
+
+Test_do:
+mov [rsp+8],rbx
+push rdi
+sub rsp,30
+mov rbx,rcx
+//
+mov rax,g_goPlayer
+mov rax,[rax]
+mov rax,[rax+8]
+mov rax,[rax+8]
+mov rax,[rax+200]
+lea rax,[rax-20]
+mov rax,[rax+58]
+//
+test rax,rax
+je short @L00000002
+mov r8,-1
+mov rdi,rax
+
+@L00000001:
+inc r8
+cmp byte ptr [rbx+r8],0
+jne short @L00000001
+mov qword ptr [rsp+20],0
+mov r9,szNull
+mov rdx,rbx
+mov rcx,rdi
+call GoW.exe+9D8A00 // luaL_loadbufferx
+test eax,eax
+jne short @L00000002
+mov qword ptr [rsp+28],0 // comment these for pcall
+mov qword ptr [rsp+20],0 // comment these for pcall
+xor r9d,r9d
+lea r8d,[rax-1]
+xor edx,edx
+mov rcx,rdi
+call GoW.exe+9D5250 // lua_pcallk
+//call short _lua_pcallk
+//call GoW.exe+9EE4E0 // pcall
+test eax,eax
+jne short @L00000002
+mov al,1
+mov rbx,[rsp+40]
+add rsp,30
+pop rdi
+ret
+
+@L00000002:
+mov rbx,[rsp+40]
+xor al,al
+add rsp,30
+pop rdi
+ret
+
+align 10 CC
+
+_lua_pcallk:
+mov [rsp+8],rbx
+push rdi
+sub rsp,20
+lea eax,[rdx+1]
+mov rbx,rcx
+mov rcx,[rcx+10]
+mov edi,r8d
+movsxd rdx,eax
+shl rdx,4
+sub rcx,rdx
+mov rdx,[rsp+50]
+test rdx,rdx
+je short @f
+cmp word ptr [rbx+44],0
+jne short @f
+mov rax,[rbx+20]
+mov [rax+38],rdx
+mov rax,[rbx+20]
+mov [rax+30],r9d
+mov r9d,1
+jmp short +3
+@@:
+xor r9d,r9d
+mov rdx,rcx
+mov rcx,rbx
+call GoW.exe+9DE680 // luaD_call
+cmp edi,-1
+jne short @f
+mov rax,[rbx+20]
+mov rcx,[rbx+10]
+cmp [rax+08],rcx
+jae short @f
+mov [rax+08],rcx
+@@:
+mov rbx,[rsp+30]
+add rsp,20
+pop rdi
+ret
+
+align 10 CC
+
+szNull:
+dq 0
+
+align 10 CC
+
+TestThreadOff:
+dd 0
+
+align 10 CC
+
+pBuffer:
+db 'game.Wallets.AddResource("HERO", "Hacksilver", 100, "NO_TELEMETRY")',0
+
+align 10 CC
+
+[DISABLE]
+
+{$lua}
+
+if( syntaxcheck == false ) then --actual execution
+  local starttime = getTickCount()
+
+if readInteger( "TestThreadOff" ) == 0 then --could be 2 already
+  writeInteger( "TestThreadOff", 1 ) --tell the thread to kill itself
+end
+
+while( getTickCount() &lt; starttime + 1000 ) and ( readInteger( "TestThreadOff" ) ~= 2 ) do --wait till it has finished
+  sleep( 20 )
+end
+
+if( getTickCount() &gt; starttime + 1000 ) then --could happen when the window is shown
+  showMessage( 'Disabling the thread failed!' )
+  error( 'Thread disabling failed!' )
+end
+  sleep( 1 )
+end
+
+{$asm}
+
+unregistersymbol( pHash )
+unregistersymbol( TestThreadOff )
+unregistersymbol( TestThread )
+dealloc( TestThread )
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87622</ID>
+          <Description>"lua_state"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <ShowAsSigned>1</ShowAsSigned>
+          <VariableType>8 Bytes</VariableType>
+          <Address>pState</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87621</ID>
+          <Description>"Get WALLETS_PERM_DATA Instance"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+[ENABLE]
+
+local gameModule = getAddressSafe( process )
+local str = gameModule + 0xDFE528
+local getFunc = gameModule + 0x1D8F80
+local t = executeCodeEx( 0, nil, getFunc, str, 0, 0x2CF )
+printf( "%X", t )
+
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87624</ID>
+          <Description>"ASM Test Thread Template"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+alloc( TestThread, 0x1000, $process )
+registersymbol( TestThread )
+CreateThread( TestThread )
+label( TestThreadOff )
+registersymbol( TestThreadOff )
+label( TestThread_loop )
+
+label( Test_do )
+label( pBuffer )
+label( pHash )
+registersymbol( pHash )
+label( pStrA )
+label( pStrB )
+
+TestThread:
+sub rsp,28
+
+TestThread_loop:
+mov rcx,A
+call Sleep
+
+cmp [TestThreadOff],1
+jne short @f
+  add rsp,28
+  mov [TestThreadOff],2
+  ret
+@@:
+
+  mov rcx,6E // VK_DECIMAL
+  call user32.GetAsyncKeyState
+  test ax,ax
+  je short @f
+
+    call Test_do
+    mov rcx,C8
+    call Sleep
+
+  @@:
+  jmp TestThread_loop
+
+align 10 CC
+
+Test_do:
+sub rsp,E8
+mov rbx,pHash
+mov rbx,[rbx]
+call GoW.exe+8B5CE0 // get RESOURCES_PERM_DATA instance
+mov rsi,rax
+mov rsi,[rax+10]
+mov rdx,rbx
+mov r8d,[rax+18]
+mov rcx,rsi
+call GoW.exe+284090 // gets id
+test eax,eax
+je short @f
+  movsxd rcx,eax
+  add rcx,rcx
+  mov edi,[rsi+rcx*8]
+  mov byte ptr [rsp+28],0
+  mov rax,pBuffer
+  mov [rsp+20],rax
+  mov r9d,1
+  mov r8d,1 // let's use 1
+  mov edx,edi
+  mov rcx,GoW.exe+4E83EA0
+  mov rcx,[rcx]
+  call GoW.exe+6CF3D0
+@@:
+add rsp,E8
+ret
+
+align 10 CC
+
+pStrA:
+db 'draugr00',0
+
+align 10 CC
+
+pStrB:
+db 'EnemyLoot',0
+
+align 10 CC
+
+TestThreadOff:
+dd 0
+
+align 10 CC
+
+pBuffer:
+dq 0
+dq pStrA
+dq pStrB
+dq 0
+
+align 10 CC
+
+pHash:
+dq 0
+
+align 10 CC
+
+[DISABLE]
+
+{$lua}
+
+if( syntaxcheck == false ) then --actual execution
+  local starttime = getTickCount()
+
+if readInteger( "TestThreadOff" ) == 0 then --could be 2 already
+  writeInteger( "TestThreadOff", 1 ) --tell the thread to kill itself
+end
+
+while( getTickCount() &lt; starttime + 1000 ) and ( readInteger( "TestThreadOff" ) ~= 2 ) do --wait till it has finished
+  sleep( 20 )
+end
+
+if( getTickCount() &gt; starttime + 1000 ) then --could happen when the window is shown
+  showMessage( 'Disabling the thread failed!' )
+  error( 'Thread disabling failed!' )
+end
+  sleep( 1 )
+end
+
+{$asm}
+
+unregistersymbol( pHash )
+unregistersymbol( TestThreadOff )
+unregistersymbol( TestThread )
+dealloc( TestThread )
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>87625</ID>
+              <Description>"testhash"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <ShowAsSigned>1</ShowAsSigned>
+              <VariableType>8 Bytes</VariableType>
+              <Address>pHash</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87626</ID>
+          <Description>"[ Initialize ] -- version calling AddResource directly; just in case"</Description>
+          <Options moHideChildren="1"/>
+          <Color>C0C0C0</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+function stopExec( s )
+  error( print( string.format( "\r\n&gt;&gt; %s &lt;&lt;", s ) ) )
+end
+
+function aobScanEx( aob )
+  -- thanks panraven for this function!
+  -- https://forum.cheatengine.org/viewtopic.php?t=577536
+  -- simplified for my needs
+  -- scan the entire memory space: e = nil or '*X*W'
+  -- scan only executable code: e = nil or '+X'
+  local p, a, n, s, e = nil or '+X', nil or fsmNotAligned, nil or '0', getAddress( process ) or 0x0, ( getAddress( process ) + getModuleSize( process ) ) or 0xffffffffffffffff
+  local ms = pb and createMemScan( pb ) or createMemScan()
+  local fl = createFoundList( ms )
+  ms.firstScan( soExactValue, vtByteArray, nil, aob, nil, s, e, p, a, n, true, false, false, false )
+  ms.waitTillDone()
+  fl.initialize()
+  local result = nil
+  if fl ~= nil and fl.getCount() &gt; 0 then
+    result = createStringlist()
+    for i = 1, fl.getCount() do result.add( fl.getAddress( i - 1 ) ) end
+  end
+  fl.destroy()
+  ms.destroy()
+  return result
+end
+
+function string.fromhex( s )
+  return ( s:gsub( '..', function ( cc )
+    return string.char( tonumber( cc, 16 ) )
+  end ) )
+end
+
+function aobScanSmall( aob, s, e )
+  local i = byteTableToString( readBytes( s, e, true ) ):find( string.fromhex( aob ), 1, true )
+  if i == nil then i = 1 end
+  return ( s + i - 1 )
+end
+
+local _script = [[[ENABLE]
+
+  alloc( LuaFuncs, 0x1000 )
+  registersymbol( LuaFuncs )
+
+  label( StringExec )
+  registersymbol( StringExec )
+  label( szNull )
+  label( @L00000001 )
+  label( @L00000002 )
+
+  label( ScriptExec )
+  registersymbol( ScriptExec )
+  label( @L00000003 )
+
+  label( pState )
+  registersymbol( pState )
+
+  LuaFuncs:
+  db 90
+  align 10 CC
+
+  StringExec:
+  mov [rsp+8],rbx
+  push rdi
+  sub rsp,30
+  mov rbx,rcx
+  mov rax,pState // use a call if you can get it
+  mov rax,[rax]
+  mov rdi,rax
+  test rax,rax
+  je short @L00000002
+  mov r8,-1
+
+  @L00000001:
+  inc r8
+  cmp byte ptr [rbx+r8],0
+  jne short @L00000001
+  mov qword ptr [rsp+20],0
+  mov r9,szNull
+  mov rdx,rbx
+  mov rcx,rdi
+  call GoW.exe+9D8A00 // _luaL_loadbufferx
+  test eax,eax
+  jne short @L00000002
+  mov qword ptr [rsp+28],0
+  mov qword ptr [rsp+20],0
+  xor r9d,r9d
+  lea r8d,[rax-1]
+  xor edx,edx
+  mov rcx,rdi
+  call short _lua_pcallk
+  test eax,eax
+  jne short @L00000002
+  mov al,1
+  mov rbx,[rsp+40]
+  add rsp,30
+  pop rdi
+  ret
+
+  @L00000002:
+  mov rbx,[rsp+40]
+  xor al,al
+  add rsp,30
+  pop rdi
+  ret
+
+  align 10 CC
+
+  szNull:
+  dq 0
+
+  align 10 CC
+
+  ScriptExec:
+  mov [rsp+8],rbx
+  push rdi
+  sub rsp,30
+  mov rdi,rcx
+  mov rax,pState // use a call if you can get it
+  mov rax,[rax]
+  mov rbx,rax
+  test rax,rax
+  je short @L00000003
+  xor r8d,r8d
+  mov rdx,rdi
+  mov rcx,rax
+  call GoW.exe+9D8A60 // _luaL_loadfilex
+  test eax,eax
+  jne short @L00000003
+  xor eax,eax
+  mov [rsp+28],rax
+  mov [rsp+20],rax
+  xor r9d,r9d
+  lea r8d,[rax-1]
+  xor edx,edx
+  mov rcx,rbx
+  call short _lua_pcallk
+  test eax,eax
+  jne short @L00000003
+  mov al,1
+  mov rbx,[rsp+40]
+  add rsp,30
+  pop rdi
+  ret
+
+  @L00000003:
+  mov rbx,[rsp+40]
+  xor al,al
+  add rsp,30
+  pop rdi
+  ret
+
+  align 10 CC
+
+  _lua_pcallk:
+  mov [rsp+8],rbx
+  push rdi
+  sub rsp,20
+  lea eax,[rdx+1]
+  mov rbx,rcx
+  mov rcx,[rcx+10]
+  mov edi,r8d
+  movsxd rdx,eax
+  shl rdx,4
+  sub rcx,rdx
+  mov rdx,[rsp+50]
+  test rdx,rdx
+  je short @f
+  cmp word ptr [rbx+44],0
+  jne short @f
+  mov rax,[rbx+20]
+  mov [rax+38],rdx
+  mov rax,[rbx+20]
+  mov [rax+30],r9d
+  mov r9d,1
+  jmp short +3
+  @@:
+  xor r9d,r9d
+  mov rdx,rcx
+  mov rcx,rbx
+  call GoW.exe+9DE680 // luaD_call
+  cmp edi,-1
+  jne short @f
+  mov rax,[rbx+20]
+  mov rcx,[rbx+10]
+  cmp [rax+08],rcx
+  jae short @f
+  mov [rax+08],rcx
+  @@:
+  mov rbx,[rsp+30]
+  add rsp,20
+  pop rdi
+  ret
+
+  align 10 CC
+
+  pState:
+  dq 0
+
+  align 10 CC
+
+]]..[[[DISABLE]
+
+  unregistersymbol( ScriptExec )
+  unregistersymbol( StringExec )
+  dealloc( LuaFuncs )
+  unregistersymbol( LuaFuncs )
+
+]]
+
+function command( s )
+  executeCodeEx( 0, nil, getAddressSafe( "StringExec" ), s )
+end
+
+function script( s )
+  executeCodeEx( 0, nil, getAddressSafe( "ScriptExec" ), s )
+end
+
+[ENABLE]
+
+local sl, u, t = 0
+
+-- get BuildId
+local aob_to_BuildId = "4C8D0D????????488BD74C8D05????????488BCBE8????????488B8C"
+sl = aobScanEx( aob_to_BuildId )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_to_BuildId' not found." ) end
+t = tonumber( sl[0], 16 )
+local BuildId = readString( t + readInteger( t + 0x3, true ) + 0x7, 60000 )
+
+-- find the table record by matching strings, rather than direct record description/id
+for i = 0, AddressList.Count - 1 do
+  mr = AddressList[i]
+  if mr.Parent == nil then
+    if string.match( mr.Description, "Version:" ) then
+      break
+    end
+  end
+end
+local TableBuildId = mr.Description
+TableBuildId = string.match( TableBuildId, 'Version: Steam | (.*)' )
+
+-- check the two and warn the user
+if TableBuildId ~= BuildId then
+  showMessage( "This table is designed for BuildId: \r\n&gt;&gt; " .. TableBuildId .. "\r\n\r\nYours is: \r\n&gt;&gt; " .. BuildId .. "\r\n\r\nThe script will now enable, though I can't guarantee everything will work properly." )
+end
+
+-- scan time!
+local aob_to_InventoryReader = "418B45??4183C7??418B4D??4D"
+sl = aobScanEx( aob_to_InventoryReader )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_to_InventoryReader' not found." ) end
+t = tonumber( sl[0], 16 )
+unregisterSymbol( "InventoryReader" )
+registerSymbol( "InventoryReader", t, true )
+
+-- leads to "Health_Kratos" region
+local aob_goPlayer = "488B35????????4885F674??488B4E??E8????????F30F"
+sl = aobScanEx( aob_goPlayer )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_goPlayer' not found." ) end
+t = tonumber( sl[0], 16 )
+u = t + readInteger( t + 0x3, true ) + 0x7
+unregisterSymbol( "g_goPlayer" )
+registerSymbol( "g_goPlayer", u, true )
+u = t + 0x10
+u = u + readInteger( u + 0x1, true ) + 0x5
+u = aobScanSmall( "4883C208", u, 0x100 )
+u = aobScanSmall( "F30F5E", u, 0x100 )
+unregisterSymbol( "QueryHealth" )
+registerSymbol( "QueryHealth", u, true )
+
+local aob_in_UpdateHealth = "8079??00488BD9440F29"
+sl = aobScanEx( aob_in_UpdateHealth )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_in_UpdateHealth' not found." ) end
+t = tonumber( sl[0], 16 )
+u = aobScanSmall( "F30F11", t, 0x100 )
+unregisterSymbol( "UpdateHealth" )
+registerSymbol( "UpdateHealth", u, true )
+
+local aob_to_ResourcesPermDataGetInst = "4C8D6B??BDFFFFFFFF4883C3??E8????????4885C0"
+sl = aobScanEx( aob_to_ResourcesPermDataGetInst )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_to_ResourcesPermDataGetInst' not found." ) end
+t = tonumber( sl[0], 16 ) + 0xD
+t = t + readInteger( t + 0x1, true ) + 0x5
+unregisterSymbol( "ResourcesPermData_GetInstance" )
+registerSymbol( "ResourcesPermData_GetInstance", t, true )
+
+local aob_to_ResourceGetId = "E8????????85C078??4863C84803C98B3CCEC1E81F"
+sl = aobScanEx( aob_to_ResourceGetId )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_to_ResourceGetId' not found." ) end
+t = tonumber( sl[0], 16 )
+t = t + readInteger( t + 0x1, true ) + 0x5
+unregisterSymbol( "Resource_GetId" )
+registerSymbol( "Resource_GetId", t, true )
+
+local aob_to_FirstWallet = "488B2D????????807C2E??000F84????????4533FFC6442E"
+sl = aobScanEx( aob_to_FirstWallet )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_to_FirstWallet' not found." ) end
+t = tonumber( sl[0], 16 )
+t = t + readInteger( t + 0x3, true ) + 0x7
+unregisterSymbol( "FirstWallet" )
+registerSymbol( "FirstWallet", t, true )
+
+local aob_to_AddResource = "4C894C24??41B101E8????????4883C438C3"
+sl = aobScanEx( aob_to_AddResource )
+if not sl or sl.Count &lt; 1 then stopExec( "'aob_to_AddResource' not found." ) end
+t = tonumber( sl[0], 16 ) + 0x8
+t = t + readInteger( t + 0x1, true ) + 0x5
+unregisterSymbol( "AddResource" )
+registerSymbol( "AddResource", t, true )
+
+t = allocateMemory( 0x1000 )
+unregisterSymbol( "_AddResource" )
+registerSymbol( "_AddResource", t, true )
+
+autoAssemble([[
+
+  label( _itemhash)
+  registersymbol(_itemhash)
+  label( _itemquantity)
+  registersymbol(_itemquantity)
+
+  _AddResource:
+  sub rsp,178
+  mov rbx,_itemhash
+  mov rbx,[rbx]
+  call ResourcesPermData_GetInstance // get RESOURCES_PERM_DATA instance
+  mov rsi,rax
+  mov rsi,[rax+10]
+  mov rdx,rbx
+  mov r8d,[rax+18]
+  mov rcx,rsi
+  call Resource_GetId // gets id
+  test eax,eax
+  je short @f
+    movsxd rcx,eax
+    add rcx,rcx
+    mov edi,[rsi+rcx*8]
+    mov byte ptr [rsp+28],0
+    mov [rsp+20],0
+    mov r9d,1
+    mov r8,_itemquantity
+    mov r8d,[r8]
+    mov edx,edi
+    mov rcx,FirstWallet
+    mov rcx,[rcx]
+    call AddResource
+  @@:
+  add rsp,178
+  ret
+
+  align 10 CC
+
+  _itemhash:
+  dq 5AE80674D240529E
+
+  align 10 CC
+
+  _itemquantity:
+  dd 1
+
+  align 10 CC
+
+]])
+
+-- let's use trampolines: jumping is always done via 5-to-14 bytes traversals
+local gameModule = getAddress( process )
+local offset = 0x550
+t = gameModule + offset
+fullAccess( t, 0x1000 - offset )
+executeCodeEx( 0, nil, getAddressSafe( "RtlZeroMemory" ), t, 0x1000 - offset )
+unregisterSymbol( "Trampolines" )
+registerSymbol( "Trampolines", t, true )
+
+result, disableinfo = autoAssemble( _script )
+
+[DISABLE]
+
+autoAssemble( _script, disableinfo )
+
+-- clean-up
+local t = getAddressSafe( "Trampolines" )
+local offset = 0x550
+executeCodeEx( 0, nil, getAddressSafe( "RtlZeroMemory" ), t, 0x1000 - offset )
+unregisterSymbol( "Trampolines" )
+
+autoAssemble([[
+
+  unregistersymbol( AddResource )
+  unregistersymbol( FirstWallet )
+  unregistersymbol( Resource_GetId )
+  unregistersymbol( ResourcesPermData_GetInstance )
+  unregistersymbol( UpdateHealth )
+  unregistersymbol( QueryHealth )
+  unregistersymbol( g_goPlayer )
+  unregistersymbol( InventoryReader )
+
+]])
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>87627</ID>
+              <Description>"God Mode"</Description>
+              <Options moHideChildren="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">// Trampolines+00
+// Trampolines+10
+
+[ENABLE]
+
+alloc( HealthHook, 0x1000 )
+registersymbol( HealthHook )
+label( QueryHealthHook )
+registersymbol( QueryHealthHook )
+label( QueryHealth_o )
+registersymbol( QueryHealth_o )
+label( MaxHealth )
+registersymbol( MaxHealth )
+label( UpdateHealthHook )
+registersymbol( UpdateHealthHook )
+label( UpdateHealth_o )
+registersymbol( UpdateHealth_o )
+
+HealthHook:
+db CC
+
+align 10 CC
+
+QueryHealthHook:
+
+// at this spot, our RCX is already Kratos' Health pointer; why? because outside of this function..
+/*
+GoW.exe+5E5FAE - 48 8B 35 83F2C601     - mov rsi,[g_goPlayer] { (7FF3B75918D0) }
+GoW.exe+5E5FB5 - 48 85 F6              - test rsi,rsi
+GoW.exe+5E5FB8 - 74 27                 - je GoW.exe+5E5FE1
+GoW.exe+5E5FBA - 48 8B 4E 08           - mov rcx,[rsi+08]
+GoW.exe+5E5FBE - E8 2D961300           - call GoW.exe+71F5F0 &lt;&lt; our function
+*/
+// bottom line, no need for extra checks on RCX (if it's our player's health or not)
+// at the spot of the hook we already have the Health (including Idunn Apple upgrades) calculated in xmm0
+// note that the __this ptr is in RAX, not RCX (due to the calculations)
+
+movss [MaxHealth],xmm0     // store MaxHealth for later use
+movss [rax+388],xmm0       // update health to max all the time
+QueryHealth_o:
+readmem( QueryHealth, 7 )  // original code
+jmp far QueryHealth+7
+
+align 10 CC
+
+MaxHealth:
+dd 0
+
+align 10 CC
+
+UpdateHealthHook:
+mov rax,g_goPlayer
+mov rax,[rax]
+test rax,rax
+je short @f
+  mov rax,[rax+8]
+  test rax,rax
+  je short @f
+    lea rax,[rax+388]
+    lea rax,[rax-20]
+    cmp rax,rbx
+    jne short @f
+      movss xmm15,[MaxHealth]
+      movss [rbx+20],xmm15
+UpdateHealth_o:
+readmem( UpdateHealth, 5 )
+jmp far UpdateHealth+5
+
+Trampolines+00:
+jmp far QueryHealthHook
+
+align 10 CC
+
+Trampolines+10:
+jmp far UpdateHealthHook
+
+align 10 CC
+
+QueryHealth:
+jmp Trampolines+00
+nop 2
+
+UpdateHealth:
+jmp Trampolines+10
+
+[DISABLE]
+
+QueryHealth:
+readmem( QueryHealth_o, 7 )
+
+UpdateHealth:
+readmem( UpdateHealth_o, 5 )
+
+unregistersymbol( UpdateHealth_o )
+unregistersymbol( UpdateHealthHook )
+unregistersymbol( QueryHealth_o )
+unregistersymbol( MaxHealth )
+unregistersymbol( QueryHealthHook )
+dealloc( HealthHook )
+unregistersymbol( HealthHook )
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87628</ID>
+              <Description>"Hook Inventory Reader"</Description>
+              <Options moHideChildren="1"/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript Async="1">// Trampolines+20
+
+[ENABLE]
+
+alloc( InventoryReaderHook, 0x1000 )
+registersymbol( InventoryReaderHook )
+label( InventoryReader_o )
+registersymbol( InventoryReader_o )
+label( pTable )
+registersymbol( pTable )
+
+InventoryReaderHook:
+mov rcx,016E187833871D3E // Hacksilver (internal: Hacksilver )
+cmp rax,rcx
+jne short @f
+  mov [pTable+00],r13
+@@:
+mov rcx,023036E1D415A119 // Soft Svartalfheim Steel (internal: ReinforcementCommon )
+cmp rax,rcx
+jne short @f
+  mov [pTable+08],r13
+@@:
+mov rcx,03E89437752A9A4A // Solid Svartalfheim Steel (internal: ReinforcementUncommon )
+cmp rax,rcx
+jne short @f
+  mov [pTable+10],r13
+@@:
+mov rcx,03F49E711B81F634 // Hardened Svartalfheim Steel (internal: ReinforcementRare )
+cmp rax,rcx
+jne short @f
+  mov [pTable+18],r13
+@@:
+mov rcx,03F0DDBA03E6CE37 // Aegir's Gold (internal: BoatLoot )
+cmp rax,rcx
+jne short @f
+  mov [pTable+20],r13
+@@:
+mov rcx,0301741DB374CDE4 // Frozen Flame (internal: AxeReinforcement )
+cmp rax,rcx
+jne short @f
+  mov [pTable+28],r13
+@@:
+mov rcx,03F6A02F3B31EE0D // Dust of Realms (internal: TalismanReinforcement )
+cmp rax,rcx
+jne short @f
+  mov [pTable+30],r13
+@@:
+mov rcx,0065F9F9E69EAECC // World Serpent Scale Fragment (internal: HiltReinforcement1 )
+cmp rax,rcx
+jne short @f
+  mov [pTable+38],r13
+@@:
+mov rcx,0084A83FB24F4CFD // Leiptr Alloy (internal: LeiptrAlloy )
+cmp rax,rcx
+jne short @f
+  mov [pTable+40],r13
+@@:
+mov rcx,019A5962FFE5FAF8 // Corrupted Remnant (internal: UB_Token )
+cmp rax,rcx
+jne short @f
+  mov [pTable+48],r13
+@@:
+mov rcx,027813962AA4FD9C // XP (internal: EconomyXP)
+cmp rax,rcx
+jne short @f
+  mov [pTable+50],r13
+InventoryReader_o:
+readmem( InventoryReader, 8 )
+jmp far InventoryReader+8
+
+align 10 CC
+
+pTable:
+dq 0
+
+Trampolines+20:
+jmp far InventoryReaderHook
+
+align 10 CC
+
+InventoryReader:
+jmp Trampolines+20
+nop 3
+
+[DISABLE]
+
+InventoryReader:
+readmem( InventoryReader_o, 8 )
+
+unregistersymbol( pTable )
+unregistersymbol( InventoryReader_o )
+dealloc( InventoryReaderHook )
+unregistersymbol( InventoryReaderHook )
+
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>87629</ID>
+                  <Description>"Hacksilver"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87630</ID>
+                  <Description>"Soft Svartalfheim Steel"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+8</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87631</ID>
+                  <Description>"Solid Svartalfheim Steel"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+10</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87632</ID>
+                  <Description>"Hardened Svartalfheim Steel"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+18</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87633</ID>
+                  <Description>"Aegir's Gold"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+20</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87634</ID>
+                  <Description>"Frozen Flame"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+28</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87635</ID>
+                  <Description>"Dust of Realms"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+30</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87636</ID>
+                  <Description>"World Serpent Scale Fragment"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+38</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87637</ID>
+                  <Description>"Leiptr Alloy"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+40</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87638</ID>
+                  <Description>"Corrupted Remnant"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+48</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87639</ID>
+                  <Description>"XP"</Description>
+                  <ShowAsSigned>1</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>pTable+50</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87640</ID>
+              <Description>"Add Resource (still in testing; may crash your ass! if so, reload game and try again)"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+[ENABLE]
+
+local AddResource = getAddressSafe( "_AddResource" )
+if AddResource ~= nil then
+  executeCodeEx( 0, nil, AddResource )
+end
+--return "assert(true)"
+
+[DISABLE]
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>87641</ID>
+                  <Description>"Item Hash"</Description>
+                  <DropDownList DisplayValueAsItem="1">5AE80674D240529E:Hacksilver
+EBEF66DC3B2D8223:Gunnr's Helm
+EBEF66DC3B2D8630:Göndul's Helmet
+EBEF66DC3B2D9A41:Gierdriful's Helmet
+EBEF66DC3B2D9E56:Kara's Helmet
+EBEF66DC3B2D9267:Ròta's Helmet
+EBEF66DC3B2D9674:Eir's Helmet
+EBEF66DC3B2DEB85:Hildr's Helmet
+EBEF66DC3B2DEF8A:Olrun's Helmet
+E9D7FB60D16FAEFF:Sigrun's Helmet
+06264C165C1671E9:Traveler's Grisly Trophy
+34355FA3D78301DA:Traveler's Armor Shard
+D1A164E6BD9F2F19:Ancient's Rubble
+0F588560931BB6A0:Ancient's Heart
+FFC7B33AFA5543F5:Aegir's Gold
+8E3D8E94D17DE74F:Soft Svartalfheim Steel
+F9CD99EA3F8C08FB:Solid Svartalfheim Steel
+FED30237FBFC7B33:Hardened Svartalfheim Steel
+C35C73716E47B4ED:Frozen Flame
+DCCFA60D1AE18D88:Chaos Flame
+DB88B2BA49B063E5:Chilling Mists of Niflheim
+5D9F9E1D1054FE68:Raging Inferno of Muspelheim
+FE5EABE1F74A6D4A:Dust of Realms
+191B878041351DCB:World Serpent Scale Fragment
+191B8780413519D4:World Serpent Scale
+21AEA7D3219C73AC:Leiptr Alloy
+21918AEEBF43A3C5:Eternal Frost
+2951B0125EA781F5:Unyielding CInders
+DC418E4C7BB8C6FC:Unstable Ore
+4A0A9E246204BE04:Oblivion Stone
+FFB25A3E436B2C4D:Asgardian Steel
+40846197C208AFA9:Perfect Asgardian Steel
+7A45743EA9520162:Glacial Catalyst
+98F2AAAF737E9AF0:Pure Essence of Realms
+F220002B50C7AFB5:Smoldering Ember
+628303CB739EA61C:Crest of Flame
+628303CB739EBA6D:Greater Crest of Flame
+628303CB739EBE7E:Crest of Surtr
+64F44CED976D7FA7:Key of the First
+64F44CED976D7BB6:Key of the Second
+64F44CED976D4745:Key of the Third
+64F44CED976D4354:Key of the Fourth
+64F44CED976D4F63:Key of the Fifth
+BAC5FF870F6ECEA3:Mist Echoes
+845D662033F4642E:Niflheim Alloy
+845D662033F4603D:Haze Weave
+845D662033F49FCC:Aesirbane
+F9CBF1F27C8CC142:Ivaldi's Rusted Armor
+FF04D8A51667326D:Anchor of Fog
+A3486A5E97C491CD:Enchanted Dust
+129C494E8F3CE9A8:Pristine Dust of the Realm
+7952E35F8F84806B:Pristine Ore of the Realm
+831CD23B84119BA7:Pristine Scales of the Realm
+E4FB68F83EF2EC48:Muspelheim Cipher Piece
+890F8D991FF92639:Muspelheim Cipher Complete
+923695B5E334148C:Völunder Entry Stone
+09899FFD5A9F1625:Niflheim Entry Stone
+9B57F7B66A5B3716:Fáfnir's Entry Stone
+D060BF1920463587:Landsuther Entry Stone
+D060BF19204639B4:Northri Entry Stonee
+CAF7B885D58D742C:Vivarium Key Stone
+3BB771CCA2970ED6:Konùnsgard Stronghold Entry Stone
+B7CAB2A2549AE510:Konùnsgard Entry Stone
+7BAB8CF005EF00C7:Völunder Entry Stone
+B4B9197BD37FC948:Son's Scroll
+6B07EACDB2583968:Son's Scroll
+88EC63DFFF869E45:Gullveig's Skull
+6537543B3AE03A08:Gullveig's Left Hand
+02F474B9829EDE56:Gullveig's Right Hand
+E377D6B6B6AB0E6B:Offering To Týr
+596006DB01BAEF67:Alchemist's Ring
+6E5F1D6BA40551E8:Andvaris Hammer
+8A1509318503F5DF:Dragon Tear
+8A6319CF8C020991:Dragon Tooth
+670C01DD069B44FB:Corrupted Remnant
+0351DC420D373FEC:Ultimate Sacrifice
+02A9D4D35C87A48E:Screams of the Innocent
+E7C69632AC640E1E:Dragon's Fury
+4B618A4A0B900ADA:Simple Resurrection Stone
+4B618A4A0B900ECB:Superior Resurrection Stone
+4B618A4A0B903238:Berserker's Resurrection Stone
+7EEDD3FBD1DF2DB4:Iðunn Apple
+2C228440A81B7F1B:Horn Of Blood Mead
+</DropDownList>
+                  <ShowAsHex>1</ShowAsHex>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>8 Bytes</VariableType>
+                  <Address>_itemhash</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>87642</ID>
+                  <Description>"Quantity"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>_itemquantity</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87643</ID>
+              <Description>"Toggle Console UDF"</Description>
+              <Color>8000FF</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+function trim( s )
+  return s:find'^%s*$' and '' or s:match'^%s*(.*%S)'
+end
+
+function UDF1_InputKeyUp( sender, key )
+  if isKeyPressed( VK_SHIFT ) then
+    if key == VK_RETURN then
+      local text = sender.Lines.Text
+      if text and #text &gt; 0 then
+        text = trim( text )
+        UDF1.Log.Append( text .. '\r\n' )
+        --text = text:gsub( "\r\n", "\n" )
+        command( text )
+        sender.Lines.Text = nil
+      end
+    end
+  end
+  return key
+end
+
+function UDF1_ClearClick( sender )
+  strings_clear( memo_getLines( UDF1_Log ) )
+end
+
+function ClearDebugLog()
+  strings_clear( memo_getLines( UDF1_Log ) )
+end
+
+function CloseLog()
+  ClearDebugLog()
+  form_hide( UDF1 )
+end
+
+function ShowLog()
+  form_show( UDF1 )
+end
+
+function UDF1_FormClose( sender )
+  ScriptEntry = addresslist_getMemoryRecordByDescription( getAddressList(), "Toggle Console UDF" )
+  memoryrecord_unfreeze( ScriptEntry )
+  return caHide
+end
+
+[ENABLE]
+
+ShowLog()
+
+[DISABLE]
+
+CloseLog()
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>87617</ID>
+          <Description>"Add Resource (still in testing; may crash your ass! if so, reload game and try again)"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$STRICT}
+
+{$lua}
+
+if syntaxcheck then return end
+
+[ENABLE]
+
+local AddResource = getAddressSafe( "_AddResource" )
+if AddResource ~= nil then
+  executeCodeEx( 0, nil, AddResource )
+end
+--return "assert(true)"
+
+[DISABLE]
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>87539</ID>
+              <Description>"Item Hash"</Description>
+              <DropDownList DisplayValueAsItem="1">5AE80674D240529E:Hacksilver
+EBEF66DC3B2D8223:Gunnr's Helm
+EBEF66DC3B2D8630:Göndul's Helmet
+EBEF66DC3B2D9A41:Gierdriful's Helmet
+EBEF66DC3B2D9E56:Kara's Helmet
+EBEF66DC3B2D9267:Ròta's Helmet
+EBEF66DC3B2D9674:Eir's Helmet
+EBEF66DC3B2DEB85:Hildr's Helmet
+EBEF66DC3B2DEF8A:Olrun's Helmet
+E9D7FB60D16FAEFF:Sigrun's Helmet
+06264C165C1671E9:Traveler's Grisly Trophy
+34355FA3D78301DA:Traveler's Armor Shard
+D1A164E6BD9F2F19:Ancient's Rubble
+0F588560931BB6A0:Ancient's Heart
+FFC7B33AFA5543F5:Aegir's Gold
+8E3D8E94D17DE74F:Soft Svartalfheim Steel
+F9CD99EA3F8C08FB:Solid Svartalfheim Steel
+FED30237FBFC7B33:Hardened Svartalfheim Steel
+C35C73716E47B4ED:Frozen Flame
+DCCFA60D1AE18D88:Chaos Flame
+DB88B2BA49B063E5:Chilling Mists of Niflheim
+5D9F9E1D1054FE68:Raging Inferno of Muspelheim
+FE5EABE1F74A6D4A:Dust of Realms
+191B878041351DCB:World Serpent Scale Fragment
+191B8780413519D4:World Serpent Scale
+21AEA7D3219C73AC:Leiptr Alloy
+21918AEEBF43A3C5:Eternal Frost
+2951B0125EA781F5:Unyielding CInders
+DC418E4C7BB8C6FC:Unstable Ore
+4A0A9E246204BE04:Oblivion Stone
+FFB25A3E436B2C4D:Asgardian Steel
+40846197C208AFA9:Perfect Asgardian Steel
+7A45743EA9520162:Glacial Catalyst
+98F2AAAF737E9AF0:Pure Essence of Realms
+F220002B50C7AFB5:Smoldering Ember
+628303CB739EA61C:Crest of Flame
+628303CB739EBA6D:Greater Crest of Flame
+628303CB739EBE7E:Crest of Surtr
+64F44CED976D7FA7:Key of the First
+64F44CED976D7BB6:Key of the Second
+64F44CED976D4745:Key of the Third
+64F44CED976D4354:Key of the Fourth
+64F44CED976D4F63:Key of the Fifth
+BAC5FF870F6ECEA3:Mist Echoes
+845D662033F4642E:Niflheim Alloy
+845D662033F4603D:Haze Weave
+845D662033F49FCC:Aesirbane
+F9CBF1F27C8CC142:Ivaldi's Rusted Armor
+FF04D8A51667326D:Anchor of Fog
+A3486A5E97C491CD:Enchanted Dust
+129C494E8F3CE9A8:Pristine Dust of the Realm
+7952E35F8F84806B:Pristine Ore of the Realm
+831CD23B84119BA7:Pristine Scales of the Realm
+E4FB68F83EF2EC48:Muspelheim Cipher Piece
+890F8D991FF92639:Muspelheim Cipher Complete
+923695B5E334148C:Völunder Entry Stone
+09899FFD5A9F1625:Niflheim Entry Stone
+9B57F7B66A5B3716:Fáfnir's Entry Stone
+D060BF1920463587:Landsuther Entry Stone
+D060BF19204639B4:Northri Entry Stonee
+CAF7B885D58D742C:Vivarium Key Stone
+3BB771CCA2970ED6:Konùnsgard Stronghold Entry Stone
+B7CAB2A2549AE510:Konùnsgard Entry Stone
+7BAB8CF005EF00C7:Völunder Entry Stone
+B4B9197BD37FC948:Son's Scroll
+6B07EACDB2583968:Son's Scroll
+88EC63DFFF869E45:Gullveig's Skull
+6537543B3AE03A08:Gullveig's Left Hand
+02F474B9829EDE56:Gullveig's Right Hand
+E377D6B6B6AB0E6B:Offering To Týr
+596006DB01BAEF67:Alchemist's Ring
+6E5F1D6BA40551E8:Andvaris Hammer
+8A1509318503F5DF:Dragon Tear
+8A6319CF8C020991:Dragon Tooth
+670C01DD069B44FB:Corrupted Remnant
+0351DC420D373FEC:Ultimate Sacrifice
+02A9D4D35C87A48E:Screams of the Innocent
+E7C69632AC640E1E:Dragon's Fury
+4B618A4A0B900ADA:Simple Resurrection Stone
+4B618A4A0B900ECB:Superior Resurrection Stone
+4B618A4A0B903238:Berserker's Resurrection Stone
+7EEDD3FBD1DF2DB4:Iðunn Apple
+2C228440A81B7F1B:Horn Of Blood Mead
+</DropDownList>
+              <ShowAsHex>1</ShowAsHex>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>8 Bytes</VariableType>
+              <Address>_itemhash</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>87540</ID>
+              <Description>"Quantity"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>_itemquantity</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24227</ID>
+      <Description>"-----------------------------------------------------------"</Description>
+      <Color>554E4B</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>51</ID>
+      <Description>"Think I deserve a cookie? ツ"</Description>
+      <Color>7C7570</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>87495</ID>
+      <Description>"https://www.paypal.me/sadjuk"</Description>
+      <Color>7C7570</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24228</ID>
+      <Description>"https://www.patreon.com/join/sunbeam906"</Description>
+      <Color>7C7570</Color>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <DisassemblerComments>
+    <DisassemblerComment>
+      <Address>"Cyberpunk2077.exe"+28834D</Address>
+      <Header>CRASH ON (TRUE)
+</Header>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Cyberpunk2077.exe"+AA6E8D</Address>
+      <Header>COMMAND CHECKER
+</Header>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Cyberpunk2077.exe"+AA72A3</Address>
+      <Header>WRONG COMMAND CHECK
+</Header>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Cyberpunk2077.exe"+AA7E0C</Address>
+      <Header>SEARCH COMMAND?
+</Header>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Cyberpunk2077.exe"+AAC6AD</Address>
+      <Header>PRE CRASH ON (TRUE)
+</Header>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Cyberpunk2077.exe"+ABD247</Address>
+      <Header>CRASH ON CHECKING
+</Header>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Cyberpunk2077.exe"+ABD291</Address>
+      <Header>CRASH NEAR?
+</Header>
+    </DisassemblerComment>
+  </DisassemblerComments>
+  <Signature>
+    <SignedHash HashSize="132">0L!Iu,EUr#d_:}dFh*399Ua[XdAS1QQP431F]jy%4gH=JroUAS[}7HCal::h/ipuA%fkG-$P!)X8%Du+a)4hz(]L?GNh(Vi53;kpK3L}$Wcu=E^GuaYvsuL}DPsYTs7P;*%6/50OZrr;^*!bLg?JWswO]1YE!iLXkv-$J</SignedHash>
+    <PublicKey Size="3019">5dZ*HQ*y;zWn;@=c[34DZbD@YZHxc]07XMnH9]OY004,YdAcuzstQ.NhpCaQg6AIpKI?^QXluZR?y1@F5,b8P_8TaZPM}UYAu^tzILzkaeRya)Q_$+F-OiKgDNRcNHE^..L2(s2e#y#x)It_%SOsCw-_,ww=o.JqtVdFTsjG#Rp;qE#U{+d2.i5@Lc/Fbs[q5_W1MTu/vLRr=.^{-t004/lPDc$28VUda01Zh/L^b0%03ZMW03Zkk0001UdV2H#000JJOGiWi^^a60_De66lK:n!32.bRa^vGf6951U69E94oEQKA00)qQO,@Rc1R4/[FZfxb0000ACP[p:R9M5UmwR.8*s?FT:l9ON$t93WAYiZrfnY+NpcsS(7Ing-5+RJ(xFod-K1NnsA213!OtGTXL07HdgX!;S3)i:qhL:Ev89^KSMKlsh7C^9Z0)sw=]}3ax?0_JL?)[j9S,hKA^nl@oz0ZEEy{xVkv+E8CZ[DkMm8s9]ZT}.,4PC@GeR*B5$Gv/j$KP;BAArPfYVbc/d7huzG[NH3^NVBDXm_UAL_,.s0NnZ=6!UGJ[-kWIBQI25e}wPCpC_x2o}fAKx?5!xfb^B0aZcX-^HVI+s;%WX7u)u5Qoi+L/nj0LKl/f*UhuvHN8HZX#=-${=E^dBrECDzqyCPx]VoLNZmI#0+zo/Z,Z_t#Gw/V5@Uvz^RDienHsP*+$J.UYB7fo:;E80ULjV3BRPwh_F!CJCnePD5?mS@djEdLT^R$?NW,u/:N!GY0^D)0VW=!+Nw}Z#Ne_Tg3P_H!xG8?Co4pjnp?758mUndGyqS9}QZrZcn?V?HL[$rZHT]iOy(P{Ylu^]I[=fU[uFO4!oKmNp1PO8xTvkg_.2QsaJp}!TY3QY)=-aIen/Ho-HXSX2-dt71_Kx,MsdFIr0J%Ea;sJh;t@}S62TQh{q@E;LY835;hwse^o:b]XjQ{3YU#h$jsLqC+*%H.btRzQ)IM(Y+?#2S21kXvD)5Af+xFAb?IH8za}o(A/I7sOUyJ34W,eXCPkTpoI0SNqp{eItO[s*@+z,e6!.tN$Ro/SYtYq-$X22+fUv^ikEBYU$:@I*!6tC=M%dN@OUE^qwoDC;J?:$MZ92rb3.v)2M:meSg,.cYNIpf[0lN4j{X1-)%dc5@v3L%*6S-3+0RehP1!c-t0E)/P24]9{wJf[!y-DhbM^)8D]mhmUIz7Nx/UMWQwOwx6(L;vuSJz]NJX6pb[_/huz/p*[cL;cLCD%b:bA+vOYFWxpWDXnqYS/=b[wJ;G7Gp4h[c;%sF_I1LZ@cv?@x;o){kKg3?6,08LFk*/.1Wgu*E!Wl.6$QQjPMC6#3Xv^7kv-H7ykYGYp@%Dk,7rF)DQ5VCIF*g:Jb-Uq_6gL}]TE,y$5[+[P!H,hltTua*V^Ltsd^l^qe=g)ldPBL[Uif13w2$%v.:PMca6bqh}biEd2ZTSES^(bkV*mJfaqJ{3t=6CHNo);*JGSON*-;DBh*UXmjcw6USPX7%6=LQy6RJLTE%ybGej#PQ4OmX#(BQ%a4#+Bs(^NpyCnz0b,1_hzlHRzQOn=IDSn(t3H:;RGY9[5Q$OX/]z%1jwT8:S@0aB2z]H_(f(*koyb,phGde%Fu%-/s*K^+OP^wQzR7h@hRkkw0qUg@xR@3Ojt;nW1E9jJj!pXcQbf]=,q]c[:R%Kq3JZg9XhYkLXSd#{w?QI7OAp5uu45/myj]pJ-g8l*]V]jy-A7g-(R=hh,TKv39ticjJ,,G)W5UjPY-Fk]7DO1l#$Cxf./Pur2t^^TeU-3s[b+kbim)8k.ms10p?J[/oJo(32sOlJReLv1H[D968_/aLl0Ea*TXPA[)5IJL?;{?v9f7?_B8TOdp:7R619wNI.D)%TbU1#8D}_P;}Y;rMd(@v4/QreTt=0j){2.fErnDsujxvD$^:UP9(h[KVYkyCI@*4%uy/ut8N_/QtDTuR)(1thEaJxN,}V2qPi-1re}ga)z]F@D}VDXKzqXH]iUm#R2Fd2C[FOXptDO6iz_eHH-2qV*DPl];;W1,+H6%S=tl.IfFhj]DswzDw^:ljsc@LQP9O8nfl:2TG34(M?=+a(zai1=U#q#s6xj*Qh.sm!67qZL[]XLdU!y0Yur0{e^#lt*aOD+WDYL-L%?ZW!iu[(zDZheLsZgFk7{5dhYfdn)6/[BW,T:Cez^a!RqiWUYrN(.KL;HhGx(h6fWf)U]qjG{J-fcRb2fD5/3?^%u84#MFYEp*SdkmVt0NqgM];h@Cm=h$@zCSs9%Y}?,TmWHubp/NE*j}SX-xLLTeZ9-cF3DiWq/+VUcNAvNGI*F]@ezO.Qs+-e;IIIYG3P#b.BJ#h7i][.F}Bf6+)F*;vd5eeAqWOHq(L)ABUP7{hUrW^-40H7Tc5eQ/GxY7]Te5-mS,,=-9N.]J5HlJlEn^8^]-K(w3(+VXIKm#BuTr1J@K]gj!0H67Yyw06G.o=]$2wM*Q1/x[An]w$Bnn?v[,Fz.oJ{7)G{x$9@B]jZA5osPXBFo:0831Isc4Y.B]y%JgKZUQ=woOIFs;NSbUuQJ8im-]{8i/XgUmS=FvJOD,dXR20^BNNqC6P[^nKjoc/0$O]}9lNvgnCT1E)=K%*26pD%c#aUp;Fc5QYRsC@F:#2fbCoNS48h[Lq.k#eqb,Y/Gf*QRp87$}.1#?ICB4DYVC?LfeuEDJ(aP0KbTVF.$)/x%(iBC7KpL]WkvUf[u_W-n*?mTPa6QHpZH!pbQf^jPrfs,LO,qdj$lTDR?rgr],;y*D2^IHur0B+h{Hg$Ezk[}GpuK]RTgSQ:Juko?Z{1kYPV3:dhPQi[}n9ebRMhVf/Ll#+-2q@(Jq@@/:63N-(/[U-5IdouefS}FgViR)?XOMT%UHp#7q^OfdlQ:;f3W;4V_w50^i8EA7.xz3DogS*TDA-JqByZe/eIM;7%8lh?_j0.q_j#c11E,%blNv/4)Z2buN#rACXt?-uk#[?_r;%+@k!comiNK1MQ)hNalvxZa)*7LO]g^BEm.7diuhm0YydKu)SmPl73%nYi^M)ZOF6,YWEGP1lv@m=R0UGi1zH=AeI:6f1I:g)i=V3p*uQ{_5N)7=d[dv#meg[f.xaF_ZsOo:hfASo0nLt$4L/lO^Lk%0iD?*5c@7Agsk;$hZ79{ID^bJ;Xby(h;$N}udf$@6E):w(}_edh.dX6?_12yvTiUp7jF7k#1tPA_MlWsW$=tV^{-6bM]3H5m#C:5S9aPoUWn=?$11Si(oO=wIA*+P2#sy$29qJ$Z}73bt6cY)90[y($vm9%0S:eWMV!Nr3R8PgKWG(t25otTL{HZ)wo%.E;]PU1PUVB!$si2[rY;wVXnGZeGdA?0exj6C$H20IRm%%WS)7?BJkNf3+96X=3)+e+J1)n[W!*c;g8kt(2+!lu^flK}KK7*COo/JbYu?g0kZP^?b/o%Ci_gvuNny%:(Q!:f{YR=8)}RSo8l_%}ETti,g?mb:@6-^ZzJ(Jug;Zb7t{IR^-1%lLf%DfcjvD6MOaAS;M]j:*YIz03=4]gZy(mMY8Biqwl$tj?(Xe?U1xaHqX8!KXWj/CCmK[i?u?r=}{6sx2F76]}M3VK!Mw9)+!^P0000/MNUMnLSTY}00001XZi^(F#=O7]eM)7uRBu%n]bT=vOZV1$D.[G6uNS!4t$sN=:117^ai4HQvZM(kYLB]Ys8SuD.VIgPmfTD1pvGokqOhgjAgO*Y#0E1?:$y5^EJx7Gxdyyt[}hApw9;jcA{^5=3e{GlwM!%@D:iDnVkgGP7rDABB?5$ww(b</PublicKey>
+  </Signature>
+</CheatTable>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Left Overs"</Description>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Money"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>SWEP1RCR.EXE+A35A98</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"No damage\HUD ? Affect fog bug ?"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(hit, 54)
+label(hit_retadd)
+
+hit:
+  mov [ecx+edx*4+00000288] (float)0
+  fld dword ptr [ecx+edx*4+00000288]
+jmp hit_retadd
+
+"SWEP1RCR.EXE"+74D0C:
+  jmp hit
+  nop
+  nop
+hit_retadd:
+  fcom dword ptr [SWEP1RCR.EXE+ADBDC]
+  fstp st(0)
+db 90 90 90 90 90
+
+[DISABLE]
+"SWEP1RCR.EXE"+74D0C:
+  fadd dword ptr [ecx+edx*4+00000288]
+dealloc(*)
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

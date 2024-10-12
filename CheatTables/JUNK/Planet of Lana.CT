@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Stealth"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+
+ 
+ 
+aobscanmodule(pet,GameAssembly.dll,0F B6 80 4C 01 00 00) // should be unique
+alloc(newmema,$1000,pet)
+
+label(codea)
+label(returna)
+
+aobscanmodule(user1,GameAssembly.dll,0F B6 40 20 48 83 C4 28 C3 E8 B9) // should be unique
+alloc(newmemb,$1000,user1)
+
+label(codeb)
+label(returnb)
+
+
+newmema:
+mov [rax+0000014C],1
+codea:
+  movzx eax,byte ptr [rax+0000014C]
+  jmp returna
+
+pet:
+  jmp newmema
+  nop 2
+returna:
+registersymbol(pet)
+
+
+newmemb:
+mov [rax+20],1
+codeb:
+  movzx eax,byte ptr [rax+20]
+  add rsp,28
+  jmp returnb
+
+user1:
+  jmp newmemb
+  nop 3
+returnb:
+registersymbol(user1)
+
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+pet:
+  db 0F B6 80 4C 01 00 00
+
+unregistersymbol(pet)
+dealloc(newmema)
+
+user1:
+  db 0F B6 40 20 48 83 C4 28
+
+unregistersymbol(user1)
+dealloc(newmemb)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"Other"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Player Stealth"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Planet of Lana.exe
+  Version: 
+  Date   : 2023-05-24
+  Author : Erik
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,GameAssembly.dll,0F B6 40 20 48 83 C4 28 C3 E8 B9) // should be unique
+alloc(newmem,$1000,INJECT)
+
+label(code)
+label(return)
+
+newmem:
+mov [rax+20],1
+code:
+  movzx eax,byte ptr [rax+20]
+  add rsp,28
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 3
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 0F B6 40 20 48 83 C4 28
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+AE8AC9
+
+GameAssembly.dll+AE8AAD: CC                    - int 3 
+GameAssembly.dll+AE8AAE: CC                    - int 3 
+GameAssembly.dll+AE8AAF: CC                    - int 3 
+GameAssembly.dll+AE8AB0: 48 83 EC 28           - sub rsp,28
+GameAssembly.dll+AE8AB4: 48 8B 41 18           - mov rax,[rcx+18]
+GameAssembly.dll+AE8AB8: 48 85 C0              - test rax,rax
+GameAssembly.dll+AE8ABB: 74 15                 - je GameAssembly.dll+AE8AD2
+GameAssembly.dll+AE8ABD: 48 8B 80 48 01 00 00  - mov rax,[rax+00000148]
+GameAssembly.dll+AE8AC4: 48 85 C0              - test rax,rax
+GameAssembly.dll+AE8AC7: 74 09                 - je GameAssembly.dll+AE8AD2
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+AE8AC9: 0F B6 40 20           - movzx eax,byte ptr [rax+20]
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+AE8ACD: 48 83 C4 28           - add rsp,28
+GameAssembly.dll+AE8AD1: C3                    - ret 
+GameAssembly.dll+AE8AD2: E8 B9 D2 80 FF        - call GameAssembly.dll+2F5D90
+GameAssembly.dll+AE8AD7: CC                    - int 3 
+GameAssembly.dll+AE8AD8: CC                    - int 3 
+GameAssembly.dll+AE8AD9: CC                    - int 3 
+GameAssembly.dll+AE8ADA: CC                    - int 3 
+GameAssembly.dll+AE8ADB: CC                    - int 3 
+GameAssembly.dll+AE8ADC: CC                    - int 3 
+GameAssembly.dll+AE8ADD: CC                    - int 3 
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"Pet Stealth"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Planet of Lana.exe
+  Version: 
+  Date   : 2023-05-24
+  Author : Erik
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,GameAssembly.dll,0F B6 80 4C 01 00 00) // should be unique
+alloc(newmem,$1000,INJECT)
+
+label(code)
+label(return)
+
+newmem:
+mov [rax+0000014C],1
+code:
+  movzx eax,byte ptr [rax+0000014C]
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 2
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 0F B6 80 4C 01 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+BD1FED
+
+GameAssembly.dll+BD1FDA: CC                    - int 3 
+GameAssembly.dll+BD1FDB: CC                    - int 3 
+GameAssembly.dll+BD1FDC: CC                    - int 3 
+GameAssembly.dll+BD1FDD: CC                    - int 3 
+GameAssembly.dll+BD1FDE: CC                    - int 3 
+GameAssembly.dll+BD1FDF: CC                    - int 3 
+GameAssembly.dll+BD1FE0: 48 83 EC 28           - sub rsp,28
+GameAssembly.dll+BD1FE4: 48 8B 41 18           - mov rax,[rcx+18]
+GameAssembly.dll+BD1FE8: 48 85 C0              - test rax,rax
+GameAssembly.dll+BD1FEB: 74 0C                 - je GameAssembly.dll+BD1FF9
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+BD1FED: 0F B6 80 4C 01 00 00  - movzx eax,byte ptr [rax+0000014C]
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+BD1FF4: 48 83 C4 28           - add rsp,28
+GameAssembly.dll+BD1FF8: C3                    - ret 
+GameAssembly.dll+BD1FF9: E8 92 3D 72 FF        - call GameAssembly.dll+2F5D90
+GameAssembly.dll+BD1FFE: CC                    - int 3 
+GameAssembly.dll+BD1FFF: CC                    - int 3 
+GameAssembly.dll+BD2000: 40 53                 - push rbx
+GameAssembly.dll+BD2002: 48 83 EC 20           - sub rsp,20
+GameAssembly.dll+BD2006: 80 3D D1 E7 A6 01 00  - cmp byte ptr [GameAssembly.dll+26407DE],00
+GameAssembly.dll+BD200D: 48 8B D9              - mov rbx,rcx
+GameAssembly.dll+BD2010: 75 1F                 - jne GameAssembly.dll+BD2031
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

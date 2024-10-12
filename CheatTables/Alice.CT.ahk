@@ -1,140 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="42">
-  <CheatEntries>
-    <CheatEntry>
-      <ID>15</ID>
-      <Description>"Auto"</Description>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[enable]
-alloc(damage_new_mem, 512)
-label(damage_new_code)
-registersymbol(damage_new_code)
-label(damage_new_code_ret_point)
-label(player)
-label(enemy)
-label(exit)
-label(inf_hp_flag)
-registersymbol(inf_hp_flag)
-label(ez_kills_flag)
-registersymbol(ez_kills_flag)
-label(exit)
+﻿#NoEnv  
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+#include CEpluginLib.ahk
+#persistent
 
-damage_new_mem:
-inf_hp_flag:
-  db 00 00 00 00
-ez_kills_flag:
-  db 00 00 00 00
+global lvl      := new CEEntry("Level Skip")
+global Damage   := new CEEntry("Auto")
+global Reset    := new CEEntry("Auto - Damage")
+global HP       := new CEEntry("H - inf HP")
+global EZKills  := new CEEntry("K - easy kills")
+global InfAmmo  := new CEEntry("M - inf magic")
+class AliceTainer extends CETrainer
+{
+    ShowHelp()
+    {
+        ;CETrainer.ShowHelp.call(this)
+        if (lvl.IsFrozen())
+        {
+            lvl.SetFrozen(0, 1)
+            text=
+            (LTRIM
+            Paste this on your config.cfg file:
 
-damage_new_code:
-  fstp dword ptr [ebp+00000170]
-  //cmp [ebp+8], 00
-  //je player
-  cmp [ebp+c], 00
-  je player
-jmp enemy
+            alias lvl2 "map pandemonium; give all; bind l lvl3"
+            alias lvl3 "map fortress1$fortress1_start1; give all; bind l lvl4"
+            alias lvl4 "fortress2; give all; bind l lvl5"
+            alias lvl5 "fortress1$fortress1_start2; give all; bind l lvl6"
+            alias lvl6 "map skool2; give all; bind l lvl7"
+            alias lvl7 "map skool1$skool1_start2; give all; bind l lvl8"
+            alias lvl8 "map potears1; give all; bind l lvl9"
+            alias lvl9 "map potears2; give all; bind l lvl10"
+            alias lvl10 "map potears3; give all; bind l lvl11"
+            alias lvl11 "map utemple; give all; bind l lvl12"
+            alias lvl12 "map garden1; give all; bind l lvl13"
+            alias lvl13 "map garden2; give all; bind l lvl14"
+            alias lvl14 "map garden3; give all; bind l lvl15"
+            alias lvl15 "map cetipede1; give all; bind l lvl16"
+            alias lvl16 "map cetipede2; give all; bind l lvl17"
+            alias lvl17 "map forest$wforest_start1; give all; bind l lvl18"
+            alias lvl18 "map wchess1; give all; bind l lvl19"
+            alias lvl19 "map wchess2; give all; bind l lvl20"
+            alias lvl20 "map wchess3; give all; bind l lvl21"
+            alias lvl21 "map rchess1; give all; bind l lvl22"
+            alias lvl22 "map hatter1; give all; bind l lvl23"
+            alias lvl23 "map hatter2; give all; bind l lvl24"
+            alias lvl24 "map jlair1; give all; bind l lvl25"
+            alias lvl25 "map jlair2; give all; bind l lvl26"
+            alias lvl26 "map wforest$wforest_start2; give all; bind l lvl27"
+            alias lvl27 "map hedge1; give all; bind l lvl28"
+            alias lvl28 "map tower1; give all; bind l lvl29"
+            alias lvl29 "map hedge2; give all; bind l lvl30"
+            alias lvl30 "map tower2; give all; bind l lvl31"
+            alias lvl31 "map hedge3; give all; bind l lvl32"
+            alias lvl32 "map tower3; give all; bind l lvl33"
+            alias lvl33 "map grounds1; give all; bind l lvl34"
+            alias lvl34 "map grounds2; give all; bind l lvl35"
+            alias lvl35 "map facade; give all; bind l lvl36"
+            alias lvl36 "map keep; give all; bind l lvl37"     
+            bind l "lvl2"       
+            )
+            this.Showtext(350, 600, "Level Skip", text)
+        }
+    }    
+	OnLoop()
+	{
+        
+		if (!Damage.IsFrozen())
+        {
+            this.Open("Alice.exe")
+            Damage.SetFrozen(1)	           
+        }
+		if CETrainer.keyevent("h") > 0	
+		{	
+			this.Speak(HP.Toogle("Infinite HP"))	
+		}	
+		else if CETrainer.keyevent("k") > 0				
+		{	
+			this.Speak(EZKills.Toogle("One hit kills"))	
+		}
+		else if CETrainer.keyevent("m") > 0	
+		{	
+			this.Speak(InfAmmo.Toogle("Infinite mana"))	
+		}	
+        if(HP.IsFrozen() or EZKills.IsFrozen())
+        {	
+            Reset.SetFrozen(0, 1)
+            Reset.SetFrozen(1, 1)	
+        }
+        if (InfAmmo.IsFrozen())
+        {
+            InfAmmo.SetFrozen(0, 1)	
+            InfAmmo.SetFrozen(1, 1)	
+        }    
+	}
+}
 
-player:
-  cmp [inf_hp_flag], 00
-  je exit
-  mov [ebp+00000170], (float)100.
-jmp exit
-
-enemy:
-  cmp [ez_kills_flag], 00
-  je exit
-  mov [ebp+00000170], (float)0.
-jmp exit
-
-exit:
-  cmp ebx, 1f
-jmp damage_new_code_ret_point
-
-fgamex86.dll+13D894:
-  jmp damage_new_code
-  nop
-damage_new_code_ret_point:
-
-[disable]
-fgamex86.dll+13D894:
-  fstp dword ptr [ebp+00000170]
-dealloc(*)
-
-</AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>17</ID>
-          <Description>"H - inf HP"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[enable]
-inf_hp_flag:
-  db 00 00 00 01
-
-[disable]
-inf_hp_flag:
-  db 00 00 00 00
-
-
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>18</ID>
-          <Description>"K - easy Kills"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[enable]
-ez_kills_flag:
-  db 00 00 00 01
-
-[disable]
-ez_kills_flag:
-  db 00 00 00 00
-
-
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>16</ID>
-          <Description>"Auto - damage"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[enable]
-fgamex86.dll+13D894:
-  jmp damage_new_code
-  nop
-
-[disable]
-fgamex86.dll+13D894:
-  fstp dword ptr [ebp+00000170]
-
-
-</AssemblerScript>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>20</ID>
-      <Description>"M - inf Magic"</Description>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[enable]
-fgamex86.dll+141121:
-  nop
-  nop
-  nop
-  nop
-
-[disable]
-fgamex86.dll+141121:
-  fsub dword ptr [esp+30]
+AliceTainer.__Init().TrainerLoop("Alice.exe", 100)
+return
 
 
 
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>21</ID>
-      <Description>"Level Skip"</Description>
-      <GroupHeader>1</GroupHeader>
-    </CheatEntry>
-  </CheatEntries>
-  <UserdefinedSymbols/>
-  <Comments>Version: Retail "1.0"
-</Comments>
-</CheatTable>
+

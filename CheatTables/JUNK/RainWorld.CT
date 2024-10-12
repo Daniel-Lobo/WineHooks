@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"E - Eat"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(food, 128)
+label(food_retpoint)
+
+food:
+  mov, [eax+2C], 05
+  mov eax,[eax+2C]
+  lea esp,[ebp-0C]
+jmp food_retpoint
+
+Player:get_CurrentFood+4a:
+  jmp food
+  nop
+food_retpoint:
+
+[disable]
+Player:get_CurrentFood+4a:
+  mov eax,[eax+2C]
+  lea esp,[ebp-0C]
+dealloc(*)
+unregistersymbol(*)
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"R - no Rain"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+RainCycle:Update:
+  ret
+
+[disable]
+RainCycle:Update:
+  push ebp
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Change of mov [ebx+44],eax</Description>
+      <AddressString>02C7A8A3</AddressString>
+      <Before>
+        <Byte>8B</Byte>
+        <Byte>C6</Byte>
+        <Byte>99</Byte>
+        <Byte>F7</Byte>
+        <Byte>F9</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>43</Byte>
+        <Byte>44</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>4B</Byte>
+        <Byte>40</Byte>
+        <Byte>8B</Byte>
+        <Byte>C1</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov [ebx+44],eax</Description>
+      <AddressString>02C7A8A3</AddressString>
+      <Before>
+        <Byte>8B</Byte>
+        <Byte>C6</Byte>
+        <Byte>99</Byte>
+        <Byte>F7</Byte>
+        <Byte>F9</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>43</Byte>
+        <Byte>44</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>4B</Byte>
+        <Byte>40</Byte>
+        <Byte>8B</Byte>
+        <Byte>C1</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of call RainCycle:Update</Description>
+      <AddressString>02CB391F</AddressString>
+      <Before>
+        <Byte>39</Byte>
+        <Byte>00</Byte>
+        <Byte>8D</Byte>
+        <Byte>6D</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>E8</Byte>
+        <Byte>84</Byte>
+        <Byte>59</Byte>
+        <Byte>FC</Byte>
+        <Byte>FF</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>47</Byte>
+        <Byte>30</Byte>
+        <Byte>89</Byte>
+        <Byte>04</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of sub eax,ecx</Description>
+      <AddressString>0DBF68D8</AddressString>
+      <Before>
+        <Byte>41</Byte>
+        <Byte>18</Byte>
+        <Byte>8B</Byte>
+        <Byte>49</Byte>
+        <Byte>14</Byte>
+      </Before>
+      <Actual>
+        <Byte>2B</Byte>
+        <Byte>C1</Byte>
+      </Actual>
+      <After>
+        <Byte>B9</Byte>
+        <Byte>67</Byte>
+        <Byte>66</Byte>
+        <Byte>66</Byte>
+        <Byte>66</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of add ecx,1C</Description>
+      <AddressString>0DBF6852</AddressString>
+      <Before>
+        <Byte>7D</Byte>
+        <Byte>08</Byte>
+        <Byte>8B</Byte>
+        <Byte>4F</Byte>
+        <Byte>48</Byte>
+      </Before>
+      <Actual>
+        <Byte>83</Byte>
+        <Byte>C1</Byte>
+        <Byte>1C</Byte>
+      </Actual>
+      <After>
+        <Byte>8D</Byte>
+        <Byte>85</Byte>
+        <Byte>C4</Byte>
+        <Byte>FE</Byte>
+        <Byte>FF</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <Comments>RainCycle:Update 
+RainWorldGame:AllowRainCounterToTick 
+RainWorldGame:AllowRainCounterToTick+36 - jne RainWorldGame:AllowRainCounterToTick+85
+</Comments>
+</CheatTable>

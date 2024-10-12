@@ -6,8 +6,8 @@
 dir = lfs.currentdir()
 pex = string.gsub(dir, "Cheats", "peixoto64.dll")
 p   = loadPlugin(pex)
-stringlist_add(getAutoAttachList(),"Bioshock.exe")
-loadTable("C:\\Users\\Peixoto\\Documents\\WineHooks\\CheatTables\\Bioshock.ct")
+stringlist_add(getAutoAttachList(),"")
+loadTable("")
 --[[print(pex)]]--
 </LuaScript>
 </CheatTable>

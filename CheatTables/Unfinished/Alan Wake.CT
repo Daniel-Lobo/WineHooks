@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(hit, 128)
+label(hit_code)
+label(hit_ret)
+
+hit:
+hit_code:
+  fstp dword ptr [esi+0C]
+  mov [esi+0C],(float)1
+  fldz
+jmp hit_ret
+
+alanwake.exe+CFFBA:
+ jmp hit_code
+hit_ret:
+
+[disable]
+alanwake.exe+CFFBA:
+  fstp dword ptr [esi+0C]
+  fldz
+dealloc(*)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"F - inf Flashlight"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alanwake.exe+D4983:
+  db 90 90 90 90 90 90
+
+[disable]
+// D9 96 E0 00 00 00 D9 EE
+alanwake.exe+D4983:
+  fst dword ptr [esi+000000E0]
+
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>hit</Description>
+      <AddressString>alanwake.exe+CFF8D</AddressString>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>D9</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>0C</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>56</Byte>
+        <Byte>0C</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>46</Byte>
+        <Byte>20</Byte>
+        <Byte>DE</Byte>
+        <Byte>C3</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>hit2</Description>
+      <AddressString>alanwake.exe+CFFBA</AddressString>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>F6</Byte>
+        <Byte>95</Byte>
+        <Byte>F3</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>5E</Byte>
+        <Byte>0C</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>EE</Byte>
+        <Byte>EB</Byte>
+        <Byte>02</Byte>
+        <Byte>DD</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>regen</Description>
+      <AddressString>alanwake.exe+D0611</AddressString>
+      <Before>
+        <Byte>14</Byte>
+        <Byte>D9</Byte>
+        <Byte>44</Byte>
+        <Byte>24</Byte>
+        <Byte>14</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>56</Byte>
+        <Byte>0C</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>E8</Byte>
+        <Byte>DE</Byte>
+        <Byte>D9</Byte>
+        <Byte>DF</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <Comments>stamina: D9 56 7C D9 E8 D9 96)</Comments>
+</CheatTable>

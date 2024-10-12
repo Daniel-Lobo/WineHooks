@@ -1,61 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="42">
-  <CheatEntries>
-    <CheatEntry>
-      <ID>2</ID>
-      <Description>"Table Help"</Description>
-      <GroupHeader>1</GroupHeader>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>1</ID>
-      <Description>"H - inf HP"</Description>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[enable]
-alloc(inf_hp, 64)
-label(inf_hp_ret)
-aobscanmodule(hp, server.dll, 8B BF DC 00 00 00 33 C0)
-registersymbol(hp)
+#NoEnv  
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+#include CEpluginLib.ahk
+#persistent
 
-inf_hp:
-  mov [edi+000000DC],1f4
-  mov edi,[edi+000000DC]
-jmp inf_hp_ret
+CETrainer.help := 
+(
+"400x80
+Adapted from:
+https://guidedhacking.com/resources/portal-cheat-table-trainer-3.302/
+"
+)
 
-hp:
- jmp inf_hp
- nop
-inf_hp_ret:
+global HP       := new CEEntry("H - inf HP")
+global portals  := new CEEntry("P - Portals anywhere")
 
-[disable]
-hp:
-  mov edi,[edi+000000DC]
-dealloc(*)
+class PortalTrainer extends CETrainer
+{
+    Reset()
+    {
+        dllcall(CEFuncs.f.openProcessEx, ptr, this.p.ProcID(this.proc_name))        
+    }
+    OnLoop() 
+    {         
+        if CETrainer.keyevent("h") > 0  
+        {   
+            this.reset()
+            this.Speak(HP.Toogle("Infinite HP"))
+        }	
+        if CETrainer.keyevent("p") > 0  
+        {   
+            this.reset()
+            this.Speak(portals.Toogle("Portals anywhere"))
+        }			        
+
+    }
+}
+PortalTrainer.TrainerLoop("hl2.exe", 100)
+return
 
 
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>0</ID>
-      <Description>"P - Portals anywhere"</Description>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[enable]
-aobscanmodule(portals_anywere, server.dll, D9 54 24 38 8B 15 * * * * 83 7A 30 00)
-registersymbol(portals_anywere)
 
-portals_anywere+a:
- db 83 7A 30 01
 
-[disable]
-portals_anywere+a:
- db 83 7A 30 00
-unregistersymbol(portals_anywere)
-
-</AssemblerScript>
-    </CheatEntry>
-  </CheatEntries>
-  <UserdefinedSymbols/>
-  <Comments>portals anywhere:
-2418248f
-24182494
-</Comments>
-</CheatTable>
