@@ -5,7 +5,7 @@
 ::GraphicsTab::
 
 ::parent::Graphics_div::
-::_BOOL_::dxvk::Use [__dxvk dxvx]::
+::BOOL::dxvk::Use [__dxvk dxvx] instead of [wine wine's] Direct3D implementation|n::
 
 ::parent::Graphics_div::
 ::BOOL::SYNC::Force triple buffering::VSync is always forced on all Direct3D 9 games

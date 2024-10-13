@@ -5,6 +5,7 @@
 ::GraphicsTab::
 
 ::parent::Graphics_div::  
+::BOOL::dxvk::Use [__dxvk dxvx] instead of [wine wine's] Direct3D implementation|n::
 ::BOOL::VSNC::Force Vsync::
 
 ::parent::Graphics_div::  
@@ -19,18 +20,15 @@ Super sampling anti aliasing::::
 High quality super sampling anti aliasing:::: 
 ::TEXT::{b
 	<b>WIP</b><br>
-	Some simpler unity games work.<br> 
+	Some games might work.<br> 
 	This feature will be the major focus after adoption of wine dlls for Direct3D 7 and earlier is finished
 }|n 
     
 ::parent::HD_details::
 ::_RLMT_::RLMT::Limit resolutions::0-10-1::
 ::parent::RLMT_details::
-::TEXT::{b
-{nfo} Needed for most games. 
-Match the resolution you configure the game at with the 
-one selected here, and Peixoto's patch will force the game to run a your native 
-resolution or upscale it with [AMD_FSR FidelityFx super resolution]}|n 
+::TEXT::{nfo Some games might need this. Without it, if you configure the game at a resolution lower then your desktop's, it will 
+keep the desktop resolution, but render intenally at the lower one and forced resolution won't have effect}|n
 
 ::BOOL::WHKS::Fix window size::Check this if the game window is not correctly
 resized 

@@ -5,6 +5,7 @@
 ::GraphicsTab::
 
 ::parent::Graphics_div::  
+::BOOL::dxvk::Use [__dxvk dxvx] instead of [wine wine's] Direct3D implementation|n::
 ::BOOL::VSNC::Force Vsync:: 
 ::BOOL::DBLBFF::Force Triple Buffering::
        
@@ -17,6 +18,7 @@
 Super sampling anti aliasing::::    
 ::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAAHQ::HD::Enabled + 
 High quality super sampling anti aliasing:::: 
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAA|TXAAFIX::HD::Temporal anti aliasing fix:::: 
 ::TEXT::{b
 	<b>WIP</b><br>
 	Some simpler unity games work.<br> 
@@ -26,8 +28,8 @@ High quality super sampling anti aliasing::::
 ::parent::HD_details::
 ::_RLMT_::RLMT::Limit resolutions::0-10-1::
 ::parent::RLMT_details::
-::TEXT::{nfo Needed for most games. Without this, if you configure the game at a resolution lower then your desktop's, it will 
-keep the desktop resolution, but render intenally at the lower one and forced resolution won't have effect}
+::TEXT::{nfo Needed in most Direct3D 11 games. Without this, if you configure the game at a resolution lower then your desktop's, it will 
+keep the desktop resolution, but render intenally at the lower one and forced resolution won't have effect}||n
 
 ::BOOL::WHKS::Fix window size::Check this if the game window is not correctly
 resized 
