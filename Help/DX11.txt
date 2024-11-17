@@ -1,6 +1,6 @@
 ::Title::user::
 
-::Tab::Graphics|File System::
+::Tab::Graphics::
 
 ::GraphicsTab::
 

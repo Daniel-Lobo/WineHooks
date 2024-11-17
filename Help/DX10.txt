@@ -1,6 +1,6 @@
 ::Title::user::
 
-::Tab::Graphics|File System|CPU::
+::Tab::Graphics|CPU::
 
 ::GraphicsTab::
 

@@ -1,6 +1,6 @@
 ::Title::user::
 
-::Tab::Graphics|Sound|Input|File System|CPU::
+::Tab::Graphics|Sound|Input|CPU::
 ::GraphicsTab::   
       
 ::parent::Graphics_div::

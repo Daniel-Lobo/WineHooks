@@ -1,4 +1,4 @@
-::Tab::Graphics...|...Graphics|Sound|Input|File System|CPU::
+::Tab::Graphics...|...Graphics|Sound|Input|CPU::
 
 ::Graphics...Tab::
 ::BOOL::layeroff::Disable passthrough layer::This is a thin layer between the game and the directdraw\direct3d implementation, 
