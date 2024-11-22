@@ -2,10 +2,11 @@
 #include <intrin.h>
 #include <vector>
 #define DIRECT3D_VERSION 0x700
+#include <windows.h>
 #include <ddraw.h>
 //#include <d3d.h>
 #include "D3DHooks.h"
-
+#include <intrin.h>
 #include "D3D12Hooks.h"
 #include <string>
 #include "Dbug.h"
@@ -16,6 +17,7 @@ extern "C" {
 #include "Scalers.h"
 #include "DDSurface.h"
 }
+#include <intrin.h>
 
 void LogDDSrfacePxFormat(IUnknown * i)
 {

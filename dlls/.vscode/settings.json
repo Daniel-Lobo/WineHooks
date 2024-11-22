@@ -1,5 +1,5 @@
 {
-    "cmake.sourceDirectory": "C:/Users/Peixoto/Documents/CODE/Peixoto/x32",
+    "cmake.sourceDirectory": "/home/gotardo/Code/WineHooks/dlls",
     "files.associations": {
         "chrono": "cpp",
         "functional": "cpp",

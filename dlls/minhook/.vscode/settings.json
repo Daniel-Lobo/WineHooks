@@ -1,0 +1,6 @@
+{
+    "cmake.sourceDirectory": "/home/gotardo/Code/WineHooks/dlls/minhook",
+    "files.associations": {
+        "hde32.h": "c"
+    }
+}
