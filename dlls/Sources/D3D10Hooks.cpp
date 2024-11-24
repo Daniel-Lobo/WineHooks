@@ -19,7 +19,7 @@ extern "C"{
 using std::string;
 using std::to_string;
 
-DWORD GetDirect3D10(HWND hWnd, ID3D10_1 * _D3D)
+extern "C" __declspec(dllexport) DWORD GetDirect3D10(HWND hWnd, ID3D10_1 * _D3D)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (g_d3d.m_CreateDXGIFactory == nullptr || g_d3d.m_D3D10CreateDevice == nullptr ||
@@ -76,7 +76,7 @@ DWORD GetDirect3D10(HWND hWnd, ID3D10_1 * _D3D)
     return 0;
 }
 
-DWORD GetDirect3D10_1(HWND hWnd, ID3D10_1 * _D3D)
+extern "C" __declspec(dllexport) DWORD GetDirect3D10_1(HWND hWnd, ID3D10_1 * _D3D)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_d3d.Init();
@@ -126,7 +126,7 @@ DWORD GetDirect3D10_1(HWND hWnd, ID3D10_1 * _D3D)
 }
 
 
-void __stdcall D3D10PSSetSamplersHook(ID3D10Device * d, UINT Start,
+extern "C" __declspec(dllexport) void __stdcall D3D10PSSetSamplersHook(ID3D10Device * d, UINT Start,
                                       UINT n, ID3D10SamplerState *const *smplrs)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -139,7 +139,7 @@ void __stdcall D3D10PSSetShaderResourcesRef(ID3D10Device* d, UINT a, UINT b,
     D3D11_Hooks->D3D10PSSetShaderResources(d, a, b, r);
 }
 
-void __stdcall D3D10PSSetShaderResourcesHook(ID3D10Device* d, UINT a, UINT b,
+extern "C" __declspec(dllexport) void __stdcall D3D10PSSetShaderResourcesHook(ID3D10Device* d, UINT a, UINT b,
                                              ID3D10ShaderResourceView * const * r)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -179,6 +179,7 @@ void __stdcall D3D10PSSetShaderResourcesHook(ID3D10Device* d, UINT a, UINT b,
     delete [] proxy_views;
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT __stdcall D3D10CreateTexture2DHook(ID3D10Device * d,
                                            const D3D10_TEXTURE2D_DESC * dsc,
                                            const D3D10_SUBRESOURCE_DATA * dat,
@@ -206,7 +207,7 @@ HRESULT __stdcall D3D10CreateTexture2DHook(ID3D10Device * d,
     return err;
 }
 
-HRESULT __stdcall D3D10Texture2DReleaseHook(ID3D10Texture2D * v)
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D10Texture2DReleaseHook(ID3D10Texture2D * v)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     LPVOID*ID = D3D10TextureID(v);
@@ -221,7 +222,7 @@ HRESULT __stdcall D3D10Texture2DReleaseHook(ID3D10Texture2D * v)
     return err;
 }
 
-HRESULT __stdcall D3D10CreateShaderResourceViewHook(ID3D10Device * d, ID3D10Resource * r,
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D10CreateShaderResourceViewHook(ID3D10Device * d, ID3D10Resource * r,
                                                     D3D10_SHADER_RESOURCE_VIEW_DESC * dc,
                                                     ID3D10ShaderResourceView ** v)
 {
@@ -229,7 +230,7 @@ HRESULT __stdcall D3D10CreateShaderResourceViewHook(ID3D10Device * d, ID3D10Reso
     return D3D11_Hooks->D3D10CreateShaderResourceView(d, r, dc, v);
 }
 
-HRESULT __stdcall D3D10ResourceViewReleaseHook(ID3D10ShaderResourceView * v)
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D10ResourceViewReleaseHook(ID3D10ShaderResourceView * v)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return D3D11_Hooks->D3D10ReleaseShaderResourceView(v);
@@ -264,7 +265,7 @@ void D3D10FindTexture2D(ID3D10_MAPPED * m, ID3D10Resource * ID, BOOL)
         D3D10TextureFound(ID, (char*)rep->c_str());    
 }
 
-void __stdcall D3D10ResolveSubresourceHook(ID3D10Device* dvc, ID3D10Resource *pDst,
+extern "C" __declspec(dllexport) void __stdcall D3D10ResolveSubresourceHook(ID3D10Device* dvc, ID3D10Resource *pDst,
                                            UINT DstSub, ID3D10Resource *pSrc,
                                            UINT SrcSub, DXGI_FORMAT Format)
 {
@@ -296,7 +297,7 @@ void __stdcall D3D10ResolveSubresourceHook(ID3D10Device* dvc, ID3D10Resource *pD
     }
 }
 
-void __stdcall D3D10CopyResourceHook(ID3D10Device* dvc, ID3D10Resource *pDst,
+extern "C" __declspec(dllexport) void __stdcall D3D10CopyResourceHook(ID3D10Device* dvc, ID3D10Resource *pDst,
                                      ID3D10Resource *pSrc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
@@ -326,7 +327,7 @@ void __stdcall D3D10CopyResourceHook(ID3D10Device* dvc, ID3D10Resource *pDst,
     }
 }
 
-void __stdcall D3D10CopySubresourceRegionHook(ID3D10Device* dvc, ID3D10Resource  *pDstResource,
+extern "C" __declspec(dllexport) void __stdcall D3D10CopySubresourceRegionHook(ID3D10Device* dvc, ID3D10Resource  *pDstResource,
                                               UINT DstSubresource,UINT DstX, UINT DstY,
                                               UINT DstZ, ID3D10Resource *pSrcResource,
                                               UINT SrcSubresource, const D3D10_BOX *pSrcBox)
@@ -360,7 +361,7 @@ void __stdcall D3D10CopySubresourceRegionHook(ID3D10Device* dvc, ID3D10Resource 
                                             pSrcResource, SrcSubresource, pSrcBox);
 }
 
-void __stdcall D3D10UpdateSubresourceHook(ID3D10Device* Dvc, ID3D10Resource *pDstResource,
+extern "C" __declspec(dllexport) void __stdcall D3D10UpdateSubresourceHook(ID3D10Device* Dvc, ID3D10Resource *pDstResource,
                                           UINT DstSubresource, const D3D10_BOX *pDstBox,
                                           const void *pSrcData, UINT SrcRowPitch,
                                           UINT SrcDepthPitch)
@@ -389,6 +390,7 @@ void __stdcall D3D10UpdateSubresourceHook(ID3D10Device* Dvc, ID3D10Resource *pDs
     VirtualFree(m, 0, 0);
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT __stdcall D3D10MapHook(ID3D10Texture2D* tx, UINT sub, D3D10_MAP type, UINT flags,
                                D3D10_MAPPED_TEXTURE2D * map)
 {
@@ -409,7 +411,7 @@ HRESULT __stdcall D3D10MapHook(ID3D10Texture2D* tx, UINT sub, D3D10_MAP type, UI
     return err;
 }
 
-void __stdcall D3D10UnmapHook(ID3D10Texture2D* tx, UINT sub)
+extern "C" __declspec(dllexport) void __stdcall D3D10UnmapHook(ID3D10Texture2D* tx, UINT sub)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     LPVOID * ID = D3D10TextureID(tx);
@@ -422,7 +424,7 @@ void __stdcall D3D10UnmapHook(ID3D10Texture2D* tx, UINT sub)
     D3D11_Hooks->D3D10Unmap(tx, sub);    
 }
 
-ID3D10Device * GetD3D10Device(IUnknown * i)
+extern "C" __declspec(dllexport) ID3D10Device * GetD3D10Device(IUnknown * i)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     ID3D10Device * D3D10;
@@ -508,6 +510,7 @@ void D3D10Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
     }
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT __stdcall CreatePixelShader10Hook(ID3D10Device * d, const void *Bytecode,
                                           SIZE_T Length, ID3D10PixelShader **ppPxShader)
 {
@@ -547,7 +550,7 @@ HRESULT __stdcall CreatePixelShader10Hook(ID3D10Device * d, const void *Bytecode
     return hr;
 }
 
-HRESULT __stdcall ReleasePixelShader10Hook(ID3D10PixelShader *pPxShader)
+extern "C" __declspec(dllexport) HRESULT __stdcall ReleasePixelShader10Hook(ID3D10PixelShader *pPxShader)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = D3D11_Hooks->D3D10PxShaderRelease(pPxShader);
@@ -562,7 +565,7 @@ HRESULT __stdcall ReleasePixelShader10Hook(ID3D10PixelShader *pPxShader)
     return hr;
 }
 
-void __stdcall D3D10PsSetShaderHook(ID3D10Device * dvc, ID3D10PixelShader * px)
+extern "C" __declspec(dllexport) void __stdcall D3D10PsSetShaderHook(ID3D10Device * dvc, ID3D10PixelShader * px)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     D3D11_Hooks->D3D10PSSetShader(dvc, px);
@@ -603,6 +606,7 @@ void __stdcall D3D10PsSetShaderHook(ID3D10Device * dvc, ID3D10PixelShader * px)
     return;    
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D10OMGetRenderTargetsHook(ID3D10Device *d, UINT n,
                                            ID3D10RenderTargetView ** rv,
                                            ID3D10DepthStencilView ** zv)
@@ -647,6 +651,7 @@ void __stdcall D3D10OMGetRenderTargetsHook(ID3D10Device *d, UINT n,
     }
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D10OMSetRenderTargetsHook(ID3D10Device *d, UINT NumViews, ID3D10RenderTargetView *const *Views,
                                            ID3D10DepthStencilView *zView)
 {
@@ -719,6 +724,7 @@ void __stdcall D3D10OMSetRenderTargetsHook(ID3D10Device *d, UINT NumViews, ID3D1
     delete [] proxy_views;
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D10ClearRenderTargetViewHook(ID3D10Device * dvc,
                                     ID3D10RenderTargetView *view,
                                     const FLOAT ColorRGBA)
@@ -757,6 +763,7 @@ void __stdcall D3D10ClearRenderTargetViewHook(ID3D10Device * dvc,
     D3D11_Hooks->D3D10ClearRenderTargetView(dvc, vw_proxy, ColorRGBA);
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D10ClearDepthStencilViewHook(ID3D10Device * dvc,
                                               ID3D10DepthStencilView *pZView,
                                               UINT flags, FLOAT Depth, UINT8 Stencil)

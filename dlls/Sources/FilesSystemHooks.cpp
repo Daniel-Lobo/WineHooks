@@ -84,7 +84,7 @@ wchar_t * UnicodePath(const char * file)
 }
 
 #ifdef _WIN64
-BOOL __thiscall ISteamUser_GetUserDataFolder_Hook(LPVOID ISteamUser, char *pchBuffer, int cubBuffer )
+extern "C" __declspec(dllexport) BOOL __thiscall ISteamUser_GetUserDataFolder_Hook(LPVOID ISteamUser, char *pchBuffer, int cubBuffer )
 {
     OUTPUT_FUNC_DBG_STRING("================================================");
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -254,7 +254,7 @@ BOOL WINAPI SHGetSpecialFolderPathW_Hook(HWND hwnd, LPWSTR pszPath, int csidl, B
     return hr;
 }
 
-HRESULT WINAPI SHGetKnownFolder_Hook(REFKNOWNFOLDERID rfid, DWORD dwFlags, HANDLE hToken, PWSTR* ppszPath)
+extern "C" __declspec(dllexport) HRESULT WINAPI SHGetKnownFolder_Hook(REFKNOWNFOLDERID rfid, DWORD dwFlags, HANDLE hToken, PWSTR* ppszPath)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     LPVOID ret = __builtin_return_address(0);
@@ -617,6 +617,7 @@ const wchar_t * FileReplacement(const wchar_t * original_path)
     return original_path;
 }
 
+extern "C" __declspec(dllexport) 
 HANDLE WINAPI __CreateFileW_Hook(wchar_t * lpFileName,  DWORD dwDesiredAccess,
         DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes,
         DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes,
@@ -673,6 +674,7 @@ HANDLE WINAPI __CreateFileW_Hook(wchar_t * lpFileName,  DWORD dwDesiredAccess,
                         dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 
+extern "C" __declspec(dllexport) 
 HANDLE WINAPI CreateFileA_Hook(char * lpFileName,  DWORD dwDesiredAccess,
         DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes,
         DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes,
@@ -684,6 +686,7 @@ HANDLE WINAPI CreateFileA_Hook(char * lpFileName,  DWORD dwDesiredAccess,
     return __CreateFileW_Hook(wfile.get(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, ret);
 }
 
+extern "C" __declspec(dllexport) 
 HANDLE WINAPI CreateFileW_Hook(wchar_t* lpFileName, DWORD dwDesiredAccess,
     DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes,
     DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes,
@@ -758,7 +761,7 @@ BOOL WINAPI FindNextFileA_Hook(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileDa
     return success;
 }
 
-void __stdcall FileHooksInsertFile(const wchar_t* name, const wchar_t* path)
+extern "C" __declspec(dllexport) void __stdcall FileHooksInsertFile(const wchar_t* name, const wchar_t* path)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     wchar_t* key = new wchar_t[wcslen(name) + 1];

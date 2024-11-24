@@ -31,7 +31,7 @@ DWORD GetD3D8SurfacePxFormat(DWORD fmt)
     return *(DWORD*) "?????";
 }
 
-HRESULT __stdcall D3D8Replacetexture(IDirect3DBaseTexture8* tex, IDirect3DBaseTexture8* rep)
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D8Replacetexture(IDirect3DBaseTexture8* tex, IDirect3DBaseTexture8* rep)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = tex->SetPrivateData((const GUID&)g_.D3DRelplacementTexture, (void**)rep, sizeof(IUnknown*), D3DSPD_IUNKNOWN);
@@ -43,7 +43,7 @@ HRESULT __stdcall D3D8Replacetexture(IDirect3DBaseTexture8* tex, IDirect3DBaseTe
     return hr;
 }
 
-HRESULT __stdcall D3D8ReplaceRTTexture(IDirect3DBaseTexture8* tex, IDirect3DBaseTexture8* rep)
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D8ReplaceRTTexture(IDirect3DBaseTexture8* tex, IDirect3DBaseTexture8* rep)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
     HRESULT hr = tex->SetPrivateData((const GUID&)g_.D3DRelplacementTexture, (void**)rep, sizeof(IUnknown*), D3DSPD_IUNKNOWN);
@@ -60,7 +60,7 @@ HRESULT __stdcall D3D8ReplaceRTTexture(IDirect3DBaseTexture8* tex, IDirect3DBase
     return hr;
 }
 
-IDirect3DBaseTexture8 * D3D8GetBasetexture(IDirect3DBaseTexture8* tex)
+extern "C" __declspec(dllexport) IDirect3DBaseTexture8 * D3D8GetBasetexture(IDirect3DBaseTexture8* tex)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (tex == nullptr) return nullptr;
@@ -74,7 +74,7 @@ IDirect3DBaseTexture8 * D3D8GetBasetexture(IDirect3DBaseTexture8* tex)
     return tex;
 }
 
-IDirect3DBaseTexture8 * __stdcall D3D8GetSDTexture(IDirect3DBaseTexture8* rep)
+extern "C" __declspec(dllexport) IDirect3DBaseTexture8 * __stdcall D3D8GetSDTexture(IDirect3DBaseTexture8* rep)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (rep == nullptr) return nullptr;
@@ -87,7 +87,7 @@ IDirect3DBaseTexture8 * __stdcall D3D8GetSDTexture(IDirect3DBaseTexture8* rep)
     return nullptr;
 }
 
-IDirect3DBaseTexture8 * D3D8GetReplacement(IDirect3DBaseTexture8* tex)
+extern "C" __declspec(dllexport) IDirect3DBaseTexture8 * D3D8GetReplacement(IDirect3DBaseTexture8* tex)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
     IDirect3DBaseTexture8* rep = nullptr;
@@ -100,13 +100,13 @@ IDirect3DBaseTexture8 * D3D8GetReplacement(IDirect3DBaseTexture8* tex)
     return nullptr;
 }
 
-void D3D8FreeReplacement(IDirect3DBaseTexture8* tex)
+extern "C" __declspec(dllexport) void D3D8FreeReplacement(IDirect3DBaseTexture8* tex)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     tex->FreePrivateData((const GUID&)g_.D3DRelplacementTexture);
 }
 
-DWORD InitD3D8HooksData(D3D8HOOKS_DATA8 * hooksdata, DWORD flags)
+extern "C" __declspec(dllexport) DWORD InitD3D8HooksData(D3D8HOOKS_DATA8 * hooksdata, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     D3D8HooksData = hooksdata;
@@ -119,14 +119,14 @@ DWORD InitD3D8HooksData(D3D8HOOKS_DATA8 * hooksdata, DWORD flags)
     return 1;
 }
 
-void D3D8HDSetUP(DWORD w, DWORD h)
+extern "C" __declspec(dllexport) void D3D8HDSetUP(DWORD w, DWORD h)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_d3d.Setup(w, h, "D3D8");
 }
 
 
-IDirect3DResource8 * GetContainer8(IDirect3DSurface8 * s, REFIID id)
+extern "C" __declspec(dllexport) IDirect3DResource8 * GetContainer8(IDirect3DSurface8 * s, REFIID id)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDirect3DResource8 * container = 0;
@@ -138,7 +138,7 @@ IDirect3DResource8 * GetContainer8(IDirect3DSurface8 * s, REFIID id)
     return 0;
 }
 
-IDirect3DResource8 * GetContainer8S(IDirect3DSurface8 * s, char * id)
+extern "C" __declspec(dllexport) IDirect3DResource8 * GetContainer8S(IDirect3DSurface8 * s, char * id)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDirect3DResource8 * r = 0;
@@ -154,7 +154,7 @@ IDirect3DResource8 * GetContainer8S(IDirect3DSurface8 * s, char * id)
     return 0;
 }
 
-UINT GetFaceAndLevel8(IDirect3DSurface8 * s)
+extern "C" __declspec(dllexport) UINT GetFaceAndLevel8(IDirect3DSurface8 * s)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDirect3DCubeTexture8 * t   =
@@ -179,7 +179,7 @@ UINT GetFaceAndLevel8(IDirect3DSurface8 * s)
     return 0;
 }
 
-HRESULT STDMETHODCALLTYPE CreateVertexBuffer8Hook(LPVOID device, DWORD Length, DWORD Usage,
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE CreateVertexBuffer8Hook(LPVOID device, DWORD Length, DWORD Usage,
                                                   DWORD FVF, DWORD Pool, LPVOID* ppVertexBuffer)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -188,7 +188,7 @@ HRESULT STDMETHODCALLTYPE CreateVertexBuffer8Hook(LPVOID device, DWORD Length, D
     return D3D8HooksData->CreateVertexBuffer(device, Length, Usage, FVF, Pool, ppVertexBuffer);
 }
 
-HRESULT STDMETHODCALLTYPE Vb8LockHook(IDirect3DVertexBuffer8* Vb,
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE Vb8LockHook(IDirect3DVertexBuffer8* Vb,
                                       UINT OffsetToLock, UINT SizeToLock,
                                       BYTE** ppbData, DWORD Flags)
 {
@@ -214,7 +214,7 @@ HRESULT STDMETHODCALLTYPE Vb8LockHook(IDirect3DVertexBuffer8* Vb,
     return r;
 }
 
-HRESULT STDMETHODCALLTYPE Vb8UnLockHook(IDirect3DVertexBuffer8* Vb)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE Vb8UnLockHook(IDirect3DVertexBuffer8* Vb)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     VB8LOCK * lck = (VB8LOCK *) D3D8HooksData->VbLocks->Value(Vb);
@@ -231,7 +231,7 @@ HRESULT STDMETHODCALLTYPE Vb8UnLockHook(IDirect3DVertexBuffer8* Vb)
     return D3D8HooksData->VB_Unlock(Vb);
 }
 
-HRESULT STDMETHODCALLTYPE SetVertexShader8Hook(LPVOID device, DWORD Handle)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE SetVertexShader8Hook(LPVOID device, DWORD Handle)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT err;
@@ -243,7 +243,7 @@ HRESULT STDMETHODCALLTYPE SetVertexShader8Hook(LPVOID device, DWORD Handle)
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE SetStreamSource8Hook(LPVOID device, DWORD index,
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE SetStreamSource8Hook(LPVOID device, DWORD index,
                                                IDirect3DVertexBuffer8* src, DWORD stride)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -257,7 +257,7 @@ HRESULT STDMETHODCALLTYPE SetStreamSource8Hook(LPVOID device, DWORD index,
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE DrawPrimitiveUp8Hook(LPVOID device, DWORD PrimitiveType,
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DrawPrimitiveUp8Hook(LPVOID device, DWORD PrimitiveType,
                                                DWORD PrimitiveCount,
                                                const void * pVertexStreamZeroData,
                                                DWORD stride)
@@ -327,7 +327,7 @@ HRESULT STDMETHODCALLTYPE DrawPrimitiveUp8Hook(LPVOID device, DWORD PrimitiveTyp
 }
 
 // Cleaner implementation, but makes shadows in onimusha disapear
-HRESULT STDMETHODCALLTYPE DrawPrimitive8Hook(LPVOID device, DWORD PrimitiveType,
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DrawPrimitive8Hook(LPVOID device, DWORD PrimitiveType,
                                              DWORD StartVertex, DWORD PrimitiveCount)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -347,7 +347,7 @@ HRESULT STDMETHODCALLTYPE DrawPrimitive8Hook(LPVOID device, DWORD PrimitiveType,
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 DrawIndexedPrimitiveUP8Hook(IDirect3DDevice8* dvc, D3DPRIMITIVETYPE PrimitiveType, UINT MinIndex, UINT NumVertices,
                             UINT PrimitiveCount, CONST void* pIndexData, D3DFORMAT IndexDataFormat,
                             CONST void* pVertexStreamZeroData, UINT VertexStreamZeroStride)
@@ -359,7 +359,7 @@ DrawIndexedPrimitiveUP8Hook(IDirect3DDevice8* dvc, D3DPRIMITIVETYPE PrimitiveTyp
                                                    VertexStreamZeroStride);
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 DrawIndexedPrimitive8Hook(IDirect3DDevice8* dvc,  D3DPRIMITIVETYPE Type, UINT MinIndex,
                           UINT NumVertices,  UINT StartIndex,  UINT PrimitiveCount)
 {
@@ -555,7 +555,7 @@ HRESULT _D3D8DrawRect(LPDIRECT3DDEVICE8 d, LPDIRECT3DTEXTURE8 texture, RECT * re
     return __D3D8DrawRect(d, texture, rect, pix, src,  D3DTEXF_NONE);
 }
 
-void _D3D8Write(IDirect3DDevice8* dvc, DWORD px, char * text, RECT * r)
+extern "C" __declspec(dllexport) void _D3D8Write(IDirect3DDevice8* dvc, DWORD px, char * text, RECT * r)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDirect3DTexture8 * tx = nullptr;
@@ -576,7 +576,7 @@ void _D3D8Write(IDirect3DDevice8* dvc, DWORD px, char * text, RECT * r)
     tx->Release();
 }
 
-DWORD D3D8GetmaxPrimitiveCount(LPDIRECT3D8 D3D)
+extern "C" __declspec(dllexport) DWORD D3D8GetmaxPrimitiveCount(LPDIRECT3D8 D3D)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     D3DCAPS8 caps;
@@ -585,7 +585,7 @@ DWORD D3D8GetmaxPrimitiveCount(LPDIRECT3D8 D3D)
     return caps.MaxPrimitiveCount;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 CreatePixelShader8Hook(LPDIRECT3DDEVICE8 dev, const DWORD func, DWORD* pHwnd)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -631,7 +631,7 @@ CreatePixelShader8Hook(LPDIRECT3DDEVICE8 dev, const DWORD func, DWORD* pHwnd)
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 DeletePixelShader8Hook(LPDIRECT3DDEVICE8 dev, DWORD pHwnd)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -652,7 +652,7 @@ DeletePixelShader8Hook(LPDIRECT3DDEVICE8 dev, DWORD pHwnd)
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 SetPixelShader8Hook(LPDIRECT3DDEVICE8 dev, DWORD Hwnd)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -693,7 +693,7 @@ OniSetTexture8(LPVOID device, DWORD stage, LPVOID texture)
 }
 */
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 CreateTexture8Hook(LPVOID device, UINT ww, UINT hh, UINT lvls, DWORD Usage,
                    DWORD Format, DWORD Pool, LPVOID* ppTexture)
 {
@@ -724,7 +724,7 @@ CreateTexture8Hook(LPVOID device, UINT ww, UINT hh, UINT lvls, DWORD Usage,
     } return err;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 SetTexture8Hook(LPVOID device, DWORD stage, LPVOID texture)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -803,7 +803,7 @@ void RemoveTexture(LPVOID tx)
 }
 */
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 ReleaseTexture8Hook(LPVOID texture)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -821,7 +821,7 @@ ReleaseTexture8Hook(LPVOID texture)
     return ref;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 LockTexture8RectHook(LPVOID texture, UINT Level, D3DLOCKED_RECT* pLockedRect,
                      CONST RECT* pRect, DWORD Flags)
 {
@@ -842,7 +842,7 @@ LockTexture8RectHook(LPVOID texture, UINT Level, D3DLOCKED_RECT* pLockedRect,
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 LockTexture8RectHookCheck(LPVOID texture, UINT Level, D3DLOCKED_RECT* pLockedRect,
                           CONST RECT* pRect, DWORD Flags)
 {
@@ -860,7 +860,7 @@ LockTexture8RectHookCheck(LPVOID texture, UINT Level, D3DLOCKED_RECT* pLockedRec
     return LockTexture8RectHook(texture, Level, pLockedRect, pRect, Flags);
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 UnLockTexture8RectHook(LPVOID texture, DWORD level)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -889,7 +889,7 @@ UnLockTexture8RectHook(LPVOID texture, DWORD level)
     return D3D8HooksData->pIDirect3DTexture8_UnlockRect(texture, level);
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 UpdateTexture8Hook(IDirect3DDevice8 * dvc, IDirect3DBaseTexture8* src, IDirect3DBaseTexture8* dst)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -915,7 +915,7 @@ UpdateTexture8Hook(IDirect3DDevice8 * dvc, IDirect3DBaseTexture8* src, IDirect3D
     return r;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 GetSurfaceLevel8Hook(LPVOID pTexture, UINT level, LPVOID* ppSurface)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -947,14 +947,14 @@ GetSurfaceLevel8Hook(LPVOID pTexture, UINT level, LPVOID* ppSurface)
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 OldReleaseSurface8Hook(LPVOID pSurface)
 {
     D3D8HooksData->Surfaces->remove(pSurface);
     return D3D8HooksData->pIDirect3DSurface8_Release(pSurface);
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 ReleaseSurface8Hook(LPVOID pSurface)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -985,7 +985,7 @@ ReleaseSurface8Hook(LPVOID pSurface)
 }
 
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 LockManagedSurface8RectHook(LPVOID surface, D3DLOCKED_RECT* pLockedRect,
                             CONST RECT* pRect, DWORD Flags)
 {
@@ -1006,7 +1006,7 @@ LockManagedSurface8RectHook(LPVOID surface, D3DLOCKED_RECT* pLockedRect,
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 LockSurface8RectHook(LPVOID surface, D3DLOCKED_RECT* pLockedRect,
                             CONST RECT* pRect, DWORD Flags)
 {
@@ -1027,7 +1027,7 @@ LockSurface8RectHook(LPVOID surface, D3DLOCKED_RECT* pLockedRect,
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 UnLockSurface8RectHook(LPVOID surface)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -1057,7 +1057,7 @@ UnLockSurface8RectHook(LPVOID surface)
 }
 
 
-void CopyRects8Check(IDirect3DSurface8* SRC, IDirect3DSurface8* DST)
+extern "C" __declspec(dllexport) void CopyRects8Check(IDirect3DSurface8* SRC, IDirect3DSurface8* DST)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     TEXTSWAP8_SURFACE * src =

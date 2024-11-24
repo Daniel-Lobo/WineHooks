@@ -11,7 +11,7 @@
 #include <d3d12.h>
 #include "d3d11on12.h"
 
-extern HWND GetSwapChainWindowHandle(IDXGISwapChain *);
+extern "C" __declspec(dllexport) HWND GetSwapChainWindowHandle(IDXGISwapChain *);
 extern DWORD GetDXGISurfacePxFormat(DWORD);
 extern DWORD SetDXGISurfacePxFormat(DXGI_FORMAT *, DWORD);
 extern double D3D12GetMemoryUsage(IUnknown*, UINT);

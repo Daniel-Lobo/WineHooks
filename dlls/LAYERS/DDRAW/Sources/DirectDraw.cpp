@@ -11,7 +11,7 @@ using std::to_string;
 //#define DBUG_LOG(string) ;
 //#define DBUG_WARN(string) ;
 
-STDMETHODIMP __stdcall DDrawLayerTest() {
+extern "C" __declspec(dllexport) STDMETHODIMP __stdcall DDrawLayerTest() {
     g_d3d.Init();
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDirectDraw* dd = nullptr;
@@ -85,12 +85,12 @@ unique_ptr<string> DDD_ParseError(HRESULT err)
     return unique_ptr<string>(str);
 }
 
-COMPtr* __stdcall WrappDDrawObject(IUnknown* dd) {
+extern "C" __declspec(dllexport) COMPtr* __stdcall WrappDDrawObject(IUnknown* dd) {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return (new DirectDraw(dd, 0))->GetDirectDraw1();
 }
 
-COMPtr* __stdcall WrappDDraw7Object(IUnknown* dd7) {
+extern "C" __declspec(dllexport) COMPtr* __stdcall WrappDDraw7Object(IUnknown* dd7) {
 #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return (new DirectDraw(dd7, 0))->GetDirectDraw7();
 }

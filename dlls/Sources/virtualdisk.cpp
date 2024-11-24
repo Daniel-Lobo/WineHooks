@@ -14,7 +14,7 @@ typedef DWORD (WINAPI * AttachVirtualDiskType)( HANDLE,
         PSECURITY_DESCRIPTOR, ATTACH_VIRTUAL_DISK_FLAG,
         ULONG, PATTACH_VIRTUAL_DISK_PARAMETERS, LPOVERLAPPED);
 
-HRESULT __stdcall MountISO(wchar_t * path)
+extern "C" __declspec(dllexport) HRESULT __stdcall MountISO(wchar_t * path)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HMODULE hVirtdisk = LoadLibrary(L"VirtDisk.dll");

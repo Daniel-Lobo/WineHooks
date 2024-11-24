@@ -21,7 +21,7 @@ typedef HANDLE (WINAPI * CreateFileWType)
 (LPCWSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD,HANDLE);
 CreateFileWType CEPlugin_pCreateFileW;
 
-void * CEPlugin_GetCEFuncs(void)
+extern "C" __declspec(dllexport) void * CEPlugin_GetCEFuncs(void)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return (void *)&CE.CEFuncs;
@@ -81,7 +81,7 @@ HANDLE  CEPlugin_CreateFileWHook(LPCWSTR FName, DWORD Access, DWORD Share,
     return h;
 }
 
-BOOL __stdcall CEPlugin_InitializePlugin(PExportedFunctions ef, int pluginid)
+extern "C" __declspec(dllexport) BOOL __stdcall CEPlugin_InitializePlugin(PExportedFunctions ef, int pluginid)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 
@@ -102,7 +102,7 @@ BOOL __stdcall CEPlugin_InitializePlugin(PExportedFunctions ef, int pluginid)
     return TRUE;
 }
 
-BOOL __stdcall CEPlugin_GetVersion(PPluginVersion pv, int sizeofpluginversion)
+extern "C" __declspec(dllexport) BOOL __stdcall CEPlugin_GetVersion(PPluginVersion pv, int sizeofpluginversion)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     pv->version           = 1;
@@ -110,13 +110,13 @@ BOOL __stdcall CEPlugin_GetVersion(PPluginVersion pv, int sizeofpluginversion)
     return TRUE;
 }
 
-BOOL __stdcall CEPlugin_DisablePlugin(void)
+extern "C" __declspec(dllexport) BOOL __stdcall CEPlugin_DisablePlugin(void)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return TRUE;
 }
 
-const wchar_t* __stdcall CEPlugin_GetModuleNames()
+extern "C" __declspec(dllexport) const wchar_t* __stdcall CEPlugin_GetModuleNames()
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     static std::wstring modules;

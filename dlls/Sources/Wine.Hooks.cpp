@@ -88,7 +88,7 @@ VkResult __stdcall  vkGetDeviceProcAddrHook(VkDevice device, const char* pName)
     return WineHooks.vkGetDeviceProcAddr(device, pName);
 }      
 
-wchar_t * __stdcall InitWineHoooks(wchar_t * flags)
+extern "C" __declspec(dllexport) wchar_t * __stdcall InitWineHoooks(wchar_t * flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     static string err = "S_OK";

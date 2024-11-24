@@ -93,7 +93,7 @@ public:
 	uint16_t DecryptCounter;
 };
 
-SOCKET* InitClientSocket(char * HOST, char * PORT)
+extern "C" __declspec(dllexport) SOCKET* InitClientSocket(char * HOST, char * PORT)
 {
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	INT failed = -1;
@@ -114,8 +114,8 @@ SOCKET* InitClientSocket(char * HOST, char * PORT)
 	return 0;
 }
 
-BYTE* TowDecrypt(PBYTE data, int len);
-BYTE* TowLegDecrypt(PBYTE data, int len);
+extern "C" __declspec(dllexport) BYTE* TowDecrypt(PBYTE data, int len);
+extern "C" __declspec(dllexport) BYTE* TowLegDecrypt(PBYTE data, int len);
 int WINAPI tow_recv_hook(SOCKET s, char* buff, int size, int flags);
 
 typedef struct TOWHOOKS {
@@ -194,7 +194,7 @@ int WINAPI tow_recv_hook(SOCKET s, char* buff, int len, int flags)
 	return err;
 }
 
-void __stdcall InitTowHooks()
+extern "C" __declspec(dllexport) void __stdcall InitTowHooks()
 {
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	TowHooks.Init();
@@ -206,7 +206,7 @@ typedef struct {
 	char message[];     //The size of this array is message_size
 } packet_format;
 
-BYTE* TowPacket(UINT id, char* message, UINT* size)
+extern "C" __declspec(dllexport) BYTE* TowPacket(UINT id, char* message, UINT* size)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	static std::vector<BYTE> packet;
@@ -221,7 +221,7 @@ BYTE* TowPacket(UINT id, char* message, UINT* size)
 }
 
 static  int TowKeys[] = { 66, 44, 22, 11, 88, 53, 76, 33, 98, 90, 62, 12, 34, 43, 66, 21 };// key length = 16
-void TowEncrypt(PBYTE data, int len)
+extern "C" __declspec(dllexport) void TowEncrypt(PBYTE data, int len)
 {
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	for (int i = 0; i < len; i++)
@@ -230,7 +230,7 @@ void TowEncrypt(PBYTE data, int len)
 	}
 }
 
-BYTE* TowLegDecrypt(PBYTE data, int len)
+extern "C" __declspec(dllexport) BYTE* TowLegDecrypt(PBYTE data, int len)
 {
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	static std::vector<BYTE> DecriptedBuffer;
@@ -240,7 +240,7 @@ BYTE* TowLegDecrypt(PBYTE data, int len)
 	return &DecriptedBuffer[0];
 }
 
-BYTE * TowDecrypt(PBYTE data, int len)
+extern "C" __declspec(dllexport) BYTE * TowDecrypt(PBYTE data, int len)
 {
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	static std::vector<BYTE> DecriptedBuffer;

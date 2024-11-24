@@ -78,6 +78,7 @@
         "unordered_set": "cpp",
         "random": "cpp",
         "xhash": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "*.tcc": "cpp"
     }
 }

@@ -1,6 +1,6 @@
 #include <windows.h>
 
-UINT SendKey(WORD wScan, BOOL Release)
+extern "C" __declspec(dllexport) UINT SendKey(WORD wScan, BOOL Release)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     INPUT Key;

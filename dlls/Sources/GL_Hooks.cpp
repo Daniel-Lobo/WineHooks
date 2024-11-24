@@ -22,7 +22,7 @@ extern "C"{
 GLHOOKS   * GlHooks;
 GlGLOBALS GlGlobals;
 
-void InitGlHooks(GLHOOKS * swapdata, DWORD Flags)
+extern "C" __declspec(dllexport) void InitGlHooks(GLHOOKS * swapdata, DWORD Flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     GlHooks = swapdata;    
@@ -37,13 +37,13 @@ void InitGlHooks(GLHOOKS * swapdata, DWORD Flags)
     return;
 }
 
-void GlDisplayModeChanged(DWORD w, DWORD h, char * caller)
+extern "C" __declspec(dllexport) void GlDisplayModeChanged(DWORD w, DWORD h, char * caller)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_d3d.Setup(w, h, caller);
 }
 
-char * InitGl(HWND hWin)
+extern "C" __declspec(dllexport) char * InitGl(HWND hWin)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     PIXELFORMATDESCRIPTOR pfd = {
@@ -90,7 +90,7 @@ char * InitGl(HWND hWin)
     return 0;
 }
 
-BOOL __stdcall SetPixelFormatHook(HDC hdc, int format, const PIXELFORMATDESCRIPTOR* ppfd)
+extern "C" __declspec(dllexport) BOOL __stdcall SetPixelFormatHook(HDC hdc, int format, const PIXELFORMATDESCRIPTOR* ppfd)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     int pixelAttributes[] = {
@@ -122,7 +122,7 @@ BOOL __stdcall SetPixelFormatHook(HDC hdc, int format, const PIXELFORMATDESCRIPT
     return 0;
 }
 
-RECT * GlWriteOnTexture(GLuint t, wchar_t * text, UINT offset)
+extern "C" __declspec(dllexport) RECT * GlWriteOnTexture(GLuint t, wchar_t * text, UINT offset)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     static RECT fixed;
@@ -150,7 +150,7 @@ RECT * GlWriteOnTexture(GLuint t, wchar_t * text, UINT offset)
 }
 
 #define GlFAILED(msg) if (glGetError()) {DBUG_WARN(msg); }
-GLuint GlCompileShaders(const GLchar * px_src, const GLchar * vx_src, void ** err)
+extern "C" __declspec(dllexport) GLuint GlCompileShaders(const GLchar * px_src, const GLchar * vx_src, void ** err)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     static std::vector<char> ErrorMessage;
@@ -199,7 +199,7 @@ GLuint GlCompileShaders(const GLchar * px_src, const GLchar * vx_src, void ** er
     return ProgramID;
 }
 
-HRESULT GlDrawRect(RECT * rect, GLuint)
+extern "C" __declspec(dllexport) HRESULT GlDrawRect(RECT * rect, GLuint)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     GLuint VArray        = 0, VBuff        = 0;
@@ -281,37 +281,38 @@ HRESULT GlDrawRect(RECT * rect, GLuint)
     return 0;
 }
 
-void __stdcall GlLock(){
+extern "C" __declspec(dllexport) void __stdcall GlLock(){
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     GlGlobals.lock->lock();
 }
 
-void __stdcall GlUnlock(){
+extern "C" __declspec(dllexport) void __stdcall GlUnlock(){
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     GlGlobals.lock->unlock();
 }
 
-void APIENTRY glViewport_Hook(GLint x,  GLint y,  GLsizei width,  GLsizei height)
+extern "C" __declspec(dllexport) void APIENTRY glViewport_Hook(GLint x,  GLint y,  GLsizei width,  GLsizei height)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     SYNC::EasyLock lock(GlGlobals.lock);
     GlHooks->glViewport(x, y, width, height);
 }
 
-void APIENTRY glScissor_Hook(GLint x,  GLint y,  GLsizei width,  GLsizei height)
+extern "C" __declspec(dllexport) void APIENTRY glScissor_Hook(GLint x,  GLint y,  GLsizei width,  GLsizei height)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     SYNC::EasyLock lock(GlGlobals.lock);
     GlHooks->glScissor(x, y, width, height);
 }
 
-void APIENTRY glBindFramebuffer_Hook(GLenum target, GLuint framebuffer)
+extern "C" __declspec(dllexport) void APIENTRY glBindFramebuffer_Hook(GLenum target, GLuint framebuffer)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     SYNC::EasyLock lock(GlGlobals.lock);
     GlHooks->glBindFramebuffer(target, framebuffer);    
 }
 
+extern "C" __declspec(dllexport) 
 void glBlitFramebuffer_Hook(GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1,
                        GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1,
                        GLbitfield mask, GLenum filter)
@@ -323,7 +324,7 @@ void glBlitFramebuffer_Hook(GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1,
                                mask, filter);    
 }
 
-void APIENTRY glBindTexture_Hook(unsigned int target, unsigned int name)
+extern "C" __declspec(dllexport) void APIENTRY glBindTexture_Hook(unsigned int target, unsigned int name)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     GLNAME_TO_VOID(name) /* Avoid conversion to greater size warning */
@@ -349,7 +350,7 @@ void APIENTRY glBindTexture_Hook(unsigned int target, unsigned int name)
         GlHooks->glBindTexture(target, (unsigned int)GlTexture->pReplace);
 }
 
-void APIENTRY GetGlPixelFormat(GLenum frmt, GLenum type, GLint ifrmt, char * frmtstr)
+extern "C" __declspec(dllexport) void APIENTRY GetGlPixelFormat(GLenum frmt, GLenum type, GLint ifrmt, char * frmtstr)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     GlPixelFormat fmt(frmt, type, ifrmt);
@@ -358,6 +359,7 @@ void APIENTRY GetGlPixelFormat(GLenum frmt, GLenum type, GLint ifrmt, char * frm
     return;
 }
 
+extern "C" __declspec(dllexport) 
 void APIENTRY glTexSubImage2D_Hook(GLenum target, GLint level, GLint xoffset,
                                    GLint yoffset, GLsizei width, GLsizei height,
                                    GLenum format, GLenum type, const GLvoid * pixels)
@@ -403,6 +405,7 @@ void APIENTRY glTexSubImage2D_Hook(GLenum target, GLint level, GLint xoffset,
     }
 }
 
+extern "C" __declspec(dllexport) 
 void APIENTRY glTexImage2D_Hook(GLenum target, GLint level, GLint internalFormat,
                                 GLsizei width, GLsizei height, GLint border,
                                 GLenum format, GLenum type, const GLvoid * data)
@@ -444,6 +447,7 @@ void APIENTRY glTexImage2D_Hook(GLenum target, GLint level, GLint internalFormat
     GlHooks->glTexImage2D(target, level, internalFormat,width, height, border, format, type, data);
 }
 
+extern "C" __declspec(dllexport) 
 void APIENTRY glCompressedTexImage2D_Hook(GLenum trgt, GLint lvl, GLenum frmt, GLsizei w, GLsizei h,
                                           GLint brdr, GLsizei sz, const void * data)
 {
@@ -465,21 +469,21 @@ void APIENTRY glCompressedTexImage2D_Hook(GLenum trgt, GLint lvl, GLenum frmt, G
     return GlHooks->glCompressedTexImage2D(trgt, lvl, frmt, w, h, brdr, sz, data);
 }
 
-void APIENTRY glTexParameteri_Hook(unsigned int tex, unsigned int param, unsigned int value)
+extern "C" __declspec(dllexport) void APIENTRY glTexParameteri_Hook(unsigned int tex, unsigned int param, unsigned int value)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (param == GL_TEXTURE_MAG_FILTER) value = GlHooks->Fltr;
     GlHooks->glTexParameteri(tex, param, value);
 }
 
-void APIENTRY glSamplerParameteri_Hook(GLuint sampler, GLenum pname, GLint param)
+extern "C" __declspec(dllexport) void APIENTRY glSamplerParameteri_Hook(GLuint sampler, GLenum pname, GLint param)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (pname == GL_TEXTURE_MAG_FILTER) param = GlHooks->Fltr;
     GlHooks->glSamplerParameteri(sampler, pname, param);
 }
 
-void APIENTRY glGetIntegerv_Hook(GLenum pname, GLint * data)
+extern "C" __declspec(dllexport) void APIENTRY glGetIntegerv_Hook(GLenum pname, GLint * data)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (pname == GL_VIEWPORT)
@@ -490,8 +494,7 @@ void APIENTRY glGetIntegerv_Hook(GLenum pname, GLint * data)
     GlHooks->glGetIntegerv(pname, data);
 }
 
-void APIENTRY glRenderbufferStorage_Hook(GLenum target, GLenum internalformat,
-                                         GLsizei width, GLsizei height)
+extern "C" __declspec(dllexport) void APIENTRY glRenderbufferStorage_Hook(GLenum target, GLenum internalformat, GLsizei width, GLsizei height)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     GLint rb = 0;
@@ -511,7 +514,7 @@ void APIENTRY glRenderbufferStorage_Hook(GLenum target, GLenum internalformat,
     GlHooks->glRenderbufferStorage(target, internalformat, width, height);
 }
 
-void APIENTRY
+extern "C" __declspec(dllexport) void APIENTRY
 glRenderbufferStorageMultisample_Hook(GLenum target, GLenum ifrmt, GLsizei samples,
                                       GLsizei width,  GLsizei height)
 {
@@ -533,7 +536,7 @@ glRenderbufferStorageMultisample_Hook(GLenum target, GLenum ifrmt, GLsizei sampl
     GlHooks->glRenderbufferStorageMultisample(target, samples, ifrmt, width, height);
 }
 
-void APIENTRY glDeleteRenderbuffers_Hook(GLsizei n, const GLuint * buffers)
+extern "C" __declspec(dllexport) void APIENTRY glDeleteRenderbuffers_Hook(GLsizei n, const GLuint * buffers)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     int i;
@@ -545,6 +548,7 @@ void APIENTRY glDeleteRenderbuffers_Hook(GLsizei n, const GLuint * buffers)
     GlHooks->glDeleteRenderbuffers(n, buffers);
 }
 
+extern "C" __declspec(dllexport) 
 void APIENTRY glTexImage2DMultisample_Hook(GLenum target, GLsizei samples, GLenum internalformat,
                                            GLsizei width, GLsizei height, GLboolean fixedsamplelocations)
 {

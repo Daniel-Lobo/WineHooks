@@ -101,27 +101,27 @@ void ProxyInitImports()
     PROXYEXPORTS.DllUnregisterServer = GetProcAddress(hRealDll, "DllUnregisterServer");
 }
 
-void __stdcall ProxyResume()
+extern "C" __declspec(dllexport) void __stdcall ProxyResume()
 {
-     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-     PROXYEXPORTS.lock->Set(0);
+    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    PROXYEXPORTS.lock->Set(0);
 }
 
 __declspec(dllexport) __attribute__ ((naked)) void DirectDrawCreate()
 {
-     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-     ProxyInitImports();
-     LPTSTR env_var[100];
-     if (GetEnvironmentVariableA("Peixoto.HWND", (LPSTR)env_var, 100))
-     {
-         if (GetModuleHandleA("peixoto.dll") == nullptr)
-         {
-             UINT hwnd  = RegisterWindowMessageA("Peixoto.Hwnd");
-             SendNotifyMessage(HWND_BROADCAST, hwnd, 0, GetCurrentProcessId());
-             while (PROXYEXPORTS.lock->Get()) Sleep(500);
-         }
-     }
-     __asm__ volatile("jmp *%0" : "=r" (PROXYEXPORTS.DirectDrawCreate));
+    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    ProxyInitImports();
+    LPTSTR env_var[100];
+    if (GetEnvironmentVariableA("Peixoto.HWND", (LPSTR)env_var, 100))
+    {
+        if (GetModuleHandleA("peixoto.dll") == nullptr)
+        {
+            UINT hwnd  = RegisterWindowMessageA("Peixoto.Hwnd");
+            SendNotifyMessage(HWND_BROADCAST, hwnd, 0, GetCurrentProcessId());
+            while (PROXYEXPORTS.lock->Get()) Sleep(500);
+        }
+    }
+    __asm__ volatile("jmp *%0" : : "r" (PROXYEXPORTS.DirectDrawCreate));
 }
 
 __declspec(dllexport) __attribute__ ((naked)) void DirectInputCreateEx()
@@ -138,7 +138,7 @@ __declspec(dllexport) __attribute__ ((naked)) void DirectInputCreateEx()
             while (PROXYEXPORTS.lock->Get()) Sleep(500);
         }
     }
-    __asm__ volatile("jmp *%0" : "=r" (PROXYEXPORTS.DirectInputCreateEx));
+    __asm__ volatile("jmp *%0" : : "r" (PROXYEXPORTS.DirectInputCreateEx));
 }
 
 #define PROXYEXPORT(procName) \
@@ -147,7 +147,7 @@ extern "C" __declspec(dllexport) __attribute__ ((naked))  void procName() \
     ProxyInitImports(); \
     OUTPUT_FUNC_DBG_STRING( "OK" ); \
     if (PROXYEXPORTS.procName == nullptr) OUTPUT_FUNC_DBG_STRING( "FUBAR" ); \
-    __asm__ ("jmp *%0" : "=r" (PROXYEXPORTS.procName)); \
+    __asm__ ("jmp *%0" : : "r" (PROXYEXPORTS.procName)); \
 };
 
 // COM

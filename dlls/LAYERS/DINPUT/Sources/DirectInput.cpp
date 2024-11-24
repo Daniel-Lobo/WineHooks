@@ -127,7 +127,7 @@ HRESULT WINAPI DirectInput8Create_Hook(HINSTANCE hinst, DWORD dwVersion, REFIID 
     return hr;
 }
 
-void __stdcall InitDInputLayer()
+extern "C" __declspec(dllexport) void __stdcall InitDInputLayer()
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HOOK(&g_Dinput.m_DirectInputCreateA, DirectInputCreateA_Hook);

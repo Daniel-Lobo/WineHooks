@@ -161,7 +161,7 @@ LPVOID COMObjectID(IUnknown* I)
     return ID;
 }
 
-void __stdcall SetProcAffinity(HANDLE hProc, int core)
+extern "C" __declspec(dllexport) void __stdcall SetProcAffinity(HANDLE hProc, int core)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     UINT mask = 0;
@@ -186,7 +186,7 @@ void __stdcall SetProcAffinity(HANDLE hProc, int core)
         CloseHandle(hProc);
 }
 
-void __stdcall SetThreadAffinity(int mask)
+extern "C" __declspec(dllexport) void __stdcall SetThreadAffinity(int mask)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (mask == 0)
@@ -269,12 +269,12 @@ void Critical(DWORD state)
     state?EnterCriticalSection(&g_.c_sec):LeaveCriticalSection(&g_.c_sec);
 }
 
-extern "C" void __stdcall SetWin9xFlag(BOOL val) {
+extern "C" __declspec(dllexport)  void __stdcall SetWin9xFlag(BOOL val) {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__))  
     g_.SetWin9xFlag(val);
 }
 
-DWORD WINAPI TimeGetTimeHook()
+extern "C" __declspec(dllexport) DWORD WINAPI TimeGetTimeHook()
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)  
     __int64 Count, Freq;
@@ -284,7 +284,7 @@ DWORD WINAPI TimeGetTimeHook()
     return (DWORD)milliseconds;
 }
 
-DWORD WINAPI TimeGetTimeHookZero()
+extern "C" __declspec(dllexport) DWORD WINAPI TimeGetTimeHookZero()
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     __int64 Count, Freq;
@@ -294,7 +294,7 @@ DWORD WINAPI TimeGetTimeHookZero()
     return (DWORD)milliseconds;
 }
 
-double WINAPI TimeGetTimeF()
+extern "C" __declspec(dllexport) double WINAPI TimeGetTimeF()
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     __int64 Count, Freq;
@@ -316,18 +316,18 @@ BOOL WINAPI QueryPerformanceCounterHook(LARGE_INTEGER *lpCount)
     return r;
 }
 
-void HookQueryPerformanceCounter()
+extern "C" __declspec(dllexport) void HookQueryPerformanceCounter()
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HOOK(&g_.m_QueryPerformanceCounter, QueryPerformanceCounterHook);
 }
 
-ULONG __stdcall GetLayerObjectsCount() {
+extern "C" __declspec(dllexport) ULONG __stdcall GetLayerObjectsCount() {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return (ULONG)g_.layer_objects_count->Get();
 }
 
-void RunScript(wchar_t * file)
+extern "C" __declspec(dllexport) void RunScript(wchar_t * file)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     typedef HANDLE (__cdecl *pahkdll)  (wchar_t* script, wchar_t* p1, wchar_t* p2);
@@ -389,7 +389,7 @@ PIMAGE_NT_HEADERS GetImageNtHeaders(HMODULE module)
     return ntHeaders;
 }
 
-FARPROC* FindProcAddressInIat(HMODULE module, const char* importedModuleName, const char* procName)
+extern "C" __declspec(dllexport) FARPROC* FindProcAddressInIat(HMODULE module, const char* importedModuleName, const char* procName)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (!module || !importedModuleName || !procName)
@@ -432,7 +432,7 @@ FARPROC* FindProcAddressInIat(HMODULE module, const char* importedModuleName, co
     return (FARPROC*)3;
 }
 
-void HookIatFunction(HMODULE module, const char* importedModuleName, const char* funcName, void* newFuncPtr)
+extern "C" __declspec(dllexport) void HookIatFunction(HMODULE module, const char* importedModuleName, const char* funcName, void* newFuncPtr)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     FARPROC* func = FindProcAddressInIat(module, importedModuleName, funcName);

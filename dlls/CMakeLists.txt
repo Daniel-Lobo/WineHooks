@@ -28,7 +28,6 @@ MESSAGE(${parent_dir})
 #sources 
 set(SRC32	
 #${PROJECT_SOURCE_DIR}/Sources/CheatEngine.cpp
-#${PROJECT_SOURCE_DIR}/Sources/D3D_DDI.cpp
 ${PROJECT_SOURCE_DIR}/Sources/D3DHooks.cpp
 ${PROJECT_SOURCE_DIR}/Sources/D3DHooksEx.cpp
 ${PROJECT_SOURCE_DIR}/Sources/D3DUtils.cpp
@@ -128,7 +127,7 @@ else()
     set_target_properties(peixoto PROPERTIES
             PREFIX ""
             SUFFIX ""       
-            LINK_FLAGS "--def DEF_FILE ${PROJECT_SOURCE_DIR}/peixoto.def"  
+            #LINK_FLAGS "--def DEF_FILE ${PROJECT_SOURCE_DIR}/peixoto.def"  
     )
 endif()
 
@@ -145,11 +144,9 @@ target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS/DSOUND/H
 target_include_directories(peixoto PRIVATE ${parent_dir}/Shaders/FSR_1_0/) 
 
 if (WIN32)
-    target_include_directories(peixoto PRIVATE "${Documents}/Visual Studio 2015/Projects/minhook/include")
-    target_include_directories(peixoto PRIVATE "${Documents}/AutoHotkey/Lib/DirectX/AHK Injector/Shaders/FSR_1_0")
-    target_include_directories(peixoto PRIVATE "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/um")
-    target_include_directories(peixoto PRIVATE "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/shared")
-    target_include_directories(peixoto PRIVATE "C:/Program Files (x86)/Windows Kits/10/Include/10.0.17134.0/ucrt")
+    target_include_directories(peixoto PRIVATE "${PROJECT_SOURCE_DIR}/minhook/include")
+    target_include_directories(peixoto PRIVATE "${Documents_cpp}/Shaders/FSR_1_0")
+    target_include_directories(peixoto PRIVATE "${MinGW_MS}/include") 
 else()
     target_include_directories(peixoto PRIVATE "${PROJECT_SOURCE_DIR}/minhook/include")
     target_include_directories(peixoto PRIVATE "${Documents_cpp}/Shaders/FSR_1_0")
@@ -157,15 +154,14 @@ else()
 endif()    
 
 if (WIN32)
-    link_directories("C:/Program Files (x86)/Windows Kits/10/Lib/10.0.17134.0/um/x86/")
+    link_directories("/${MinGW_MS}/lib")
     SET(LIBS d3d9 dxguid dinput8 Xinput advapi32 Kernel32 Ole32 Shell32 OleAut32 Winmm Psapi User32 Gdi32 Shlwapi opengl32 Ws2_32 Pathcch uuid)
     target_link_libraries(peixoto ${LIBS})
-    target_link_libraries(peixoto "${PROJECT_SOURCE_DIR}/Includes/nvapi/lib/nvapi.lib")
-    target_link_libraries(peixoto "${Documents_cpp}/Visual Studio 2015/Projects/minhook/build/VC14/lib/Release/libMinHook.x86.lib")
+    #target_link_libraries(peixoto "${PROJECT_SOURCE_DIR}/Includes/nvapi/lib/nvapi.lib")
+    target_link_libraries(peixoto "${PROJECT_SOURCE_DIR}/minhook/build/${MInHook}")
 else()
     link_directories("/${MinGW}/lib")
     SET(LIBS d3d9 dxguid dinput8 xinput advapi32 kernel32 ole32 shell32 oleaut32 winmm psapi user32 gdi32 shlwapi opengl32 ws2_32 pathcch uuid)
-    target_link_libraries(peixoto ${LIBS})
-    #target_link_libraries(peixoto "${PROJECT_SOURCE_DIR}/Includes/nvapi/lib/nvapi.lib")
+    target_link_libraries(peixoto ${LIBS})    
     target_link_libraries(peixoto "${PROJECT_SOURCE_DIR}/minhook/build/${MInHook}")
 endif()

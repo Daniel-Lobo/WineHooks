@@ -17,6 +17,7 @@ extern "C"{
 #include "DDSurface.h"
 }
 
+extern "C" __declspec(dllexport) 
 ID3D10Device * D3D10DvcFromSChain(IDXGISwapChain * s)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -142,7 +143,7 @@ HRESULT __stdcall D3D10DumpTexture(ID3D10Device * d, IUnknown * u, LPCWSTR path,
     return err;
 }
 
-void D3D10CreateShaders(IDXGISwapChain * sc)
+extern "C" __declspec(dllexport) void D3D10CreateShaders(IDXGISwapChain * sc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DWORD          err = 0;
@@ -235,7 +236,7 @@ ID3D10Resource * D3D10GetResource(ID3D10View * v)
     return r;
 }
 
-ID3D10Texture2D * D3D10GetTexture2D(ID3D10View * v)
+extern "C" __declspec(dllexport) ID3D10Texture2D * D3D10GetTexture2D(ID3D10View * v)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     ID3D10Resource * r   = D3D10GetResource(v);
@@ -350,7 +351,7 @@ void D3D10RenderText(IDXGISwapChain * sc, const wchar_t * text, RECT * r)
     delete [] p_data;
 }
 
-ID3D10Texture2D * D3D10CreateSysTexture(ID3D10Device * d, UINT w, UINT h)
+extern "C" __declspec(dllexport) ID3D10Texture2D * D3D10CreateSysTexture(ID3D10Device * d, UINT w, UINT h)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     ID3D10Texture2D          * tx = NULL;
@@ -372,7 +373,7 @@ ID3D10Texture2D * D3D10CreateSysTexture(ID3D10Device * d, UINT w, UINT h)
     return tx;
 }
 
-ID3D10ShaderResourceView * D3D10CreateTexture2D(ID3D10Device * d, DWORD w, DWORD h, DXGI_FORMAT fmt)
+extern "C" __declspec(dllexport) ID3D10ShaderResourceView * D3D10CreateTexture2D(ID3D10Device * d, DWORD w, DWORD h, DXGI_FORMAT fmt)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     D3D10_TEXTURE2D_DESC                  desc;
@@ -417,7 +418,7 @@ ID3D10ShaderResourceView * D3D10CreateTexture2D(ID3D10Device * d, DWORD w, DWORD
     return View;
 }
 
-ID3D10Texture2D * D3D10LoadTexture(ID3D10Device * d, char * file)
+extern "C" __declspec(dllexport) ID3D10Texture2D * D3D10LoadTexture(ID3D10Device * d, char * file)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     char                           fmt[20];
@@ -515,7 +516,7 @@ ID3D10Texture2D * D3D10LoadTexture(ID3D10Device * d, char * file)
     for (UINT i=0; i<lvls; i++)
     {
         D3D11_Hooks->D3D10Map(SysMem, i, D3D10_MAP_WRITE, 0, &m);
-        LoadData2Surface(m.pData, (DWORD)hFile, m.RowPitch, w, h, bypp);
+        LoadData2Surface(m.pData, hFile, m.RowPitch, w, h, bypp);
         w /= 2;
         h /= 2;
         D3D11_Hooks->D3D10Unmap(SysMem, i);
@@ -527,7 +528,7 @@ ID3D10Texture2D * D3D10LoadTexture(ID3D10Device * d, char * file)
     return Tex;
 }
 
-ID3D10Device * D3D10DeviceFromChain(IDXGISwapChain * Sc)
+extern "C" __declspec(dllexport) ID3D10Device * D3D10DeviceFromChain(IDXGISwapChain * Sc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 

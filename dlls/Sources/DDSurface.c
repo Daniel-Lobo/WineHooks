@@ -156,7 +156,7 @@ int FindDXTnTextureInCollection(DWORD t_ww, DWORD t_hh, DWORD t_bpp, DWORD t_Pit
     return 0;
 }
 
-void ChangeGl24BitTextureIndianes(int n_pixels, void * pData)
+__declspec(dllexport) void ChangeGl24BitTextureIndianes(int n_pixels, void * pData)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     typedef struct  {
@@ -210,6 +210,7 @@ void deinterlace(unsigned int pSurface, unsigned int pitch, unsigned int hh)
     }
 }
 
+__declspec(dllexport) 
 DWORD LoadData2Surface(void* pSurface, HANDLE hFile,
                        unsigned int pitch, unsigned int ww, unsigned int hh, int bybp)
 {
@@ -231,6 +232,7 @@ DWORD LoadData2Surface(void* pSurface, HANDLE hFile,
     } return 0;
 }
 
+__declspec(dllexport) 
 void copyData2Surface(unsigned int pSurface, unsigned int pData,
                       unsigned int pitch, unsigned int ww, unsigned int hh, int bybp)
 {
@@ -240,6 +242,7 @@ void copyData2Surface(unsigned int pSurface, unsigned int pData,
         memcpy( (void*) (pSurface + pitch * i), (void*)(pData + sz * i), sz);
 }
 
+__declspec(dllexport) 
 void surfaceCopy(unsigned int pSource, unsigned int Spitch, unsigned int shh,
                  unsigned int pDest, unsigned int Dpitch, unsigned int dhh)
 {

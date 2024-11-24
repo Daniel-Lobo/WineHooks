@@ -483,7 +483,7 @@ typedef struct _D3D11_HOOKS {
 } D3D11_HOOKS;
 
 //================================FUCTIONS================================//
-void D3D11CreateShaders(IDXGISwapChain *);
+extern "C" __declspec(dllexport) void D3D11CreateShaders(IDXGISwapChain *);
 ID3D11Device * D3D11DvcFromSChain(IDXGISwapChain *);
 ID3D11Device * D3D11GetDevice(ID3D11DeviceChild *);
 extern "C" __declspec(dllexport)
@@ -491,7 +491,7 @@ ID3D11ShaderResourceView * D3D11CreateTexture2D(ID3D11Device *, DWORD, DWORD, DX
 
 extern LPVOID D3D11TextureIDFromView(ID3D11View * v);
 
-HRESULT __stdcall ReleasePixelShader11Hook(ID3D11PixelShader *pPxShader);
+extern "C" __declspec(dllexport) HRESULT __stdcall ReleasePixelShader11Hook(ID3D11PixelShader *pPxShader);
 
 extern "C" __declspec(dllexport)
 ID3D11Texture2D * D3D11LoadTexture(ID3D11Device * d, char * file);
@@ -524,7 +524,7 @@ void D3D11RenderText(IDXGISwapChain *, const wchar_t *, RECT *);
 void __stdcall D3D10PSSetShaderResourcesRef(ID3D10Device*, UINT, UINT,
                                             ID3D10ShaderResourceView * const *);
 
-ID3D10Device * D3D10DvcFromSChain(IDXGISwapChain * );
+extern "C" __declspec(dllexport) ID3D10Device * D3D10DvcFromSChain(IDXGISwapChain * );
 extern "C" __declspec(dllexport)
 ID3D10ShaderResourceView * D3D10CreateTexture2D(ID3D10Device *, DWORD, DWORD, DXGI_FORMAT);
 extern "C" __declspec(dllexport)
@@ -556,7 +556,7 @@ void __stdcall D3D11DrawInstancedIndirectHook(ID3D11DeviceContext*, ID3D11Buffer
 void __stdcall D3D11DrawIndexedInstancedHook(ID3D11DeviceContext*, UINT, UINT, UINT, INT, UINT);
 void __stdcall D3D11DrawIndexedInstancedIndirectHook(ID3D11DeviceContext*, ID3D11Buffer*, UINT);
 void __stdcall D3D11RSSetViewportsHook (ID3D11DeviceContext*, UINT, D3D11_VIEWPORT*);
-void __stdcall OMSetRenderTargetsAndUnorderedAccessViewsHook(ID3D11DeviceContext*, UINT, ID3D11RenderTargetView* const*,  ID3D11DepthStencilView*,
+extern "C" __declspec(dllexport) void __stdcall OMSetRenderTargetsAndUnorderedAccessViewsHook(ID3D11DeviceContext*, UINT, ID3D11RenderTargetView* const*,  ID3D11DepthStencilView*,
                                                              UINT, UINT, ID3D11UnorderedAccessView* const*, const UINT*);
 void __stdcall D3D11ClearViewHook(ID3D11DeviceContext1*, ID3D11View *, const FLOAT Color[4], const D3D11_RECT *, UINT);
                                                          
@@ -1181,7 +1181,7 @@ private:
 ID3D11ProxyTexture * D3D11GetProxy(ID3D11DeviceChild *);
 ID3D11ProxyTexture * D3D11GetProxy(ID3D11DeviceChild *, const char *);
 ID3D11Resource * D3D11GetResource(ID3D11View *);
-HRESULT D3D11Resize(IDXGISwapChain*);
+extern "C" __declspec(dllexport) HRESULT D3D11Resize(IDXGISwapChain*);
 
 ID3D10Resource * D3D10GetResource(ID3D10View *);
 ID3D11ProxyTexture * D3D10GetProxy(ID3D10DeviceChild *);

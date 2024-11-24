@@ -24,7 +24,7 @@ using std::to_string;
 D3D11_HOOKS                              * D3D11_Hooks;
 D3D11_GLOBALS                             D3D11Globals;
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D11CreateSamplerHook(ID3D11Device * dvc, const D3D11_SAMPLER_DESC* D, ID3D11SamplerState **pS)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -163,7 +163,7 @@ DWORD GetDirect3D11(HWND hWnd, ID3D11 * _D3D,  D3D_FEATURE_LEVEL * level)
     return 0;
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D11CreateDeviceHook(IDXGIAdapter *pAdapter, D3D_DRIVER_TYPE type, HMODULE Software, UINT,
                       const D3D_FEATURE_LEVEL *lvls, UINT lvl, UINT version, ID3D11Device **Dvc,
                       D3D_FEATURE_LEVEL *plvl, ID3D11DeviceContext **Cntxt)
@@ -175,7 +175,7 @@ D3D11CreateDeviceHook(IDXGIAdapter *pAdapter, D3D_DRIVER_TYPE type, HMODULE Soft
     return hr;
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D10CreateDeviceHook(IDXGIAdapter *pAdapter,D3D10_DRIVER_TYPE type, HMODULE Soft, UINT Flags,
                       UINT Version, ID3D10Device **ppDevice)
 {
@@ -183,7 +183,7 @@ D3D10CreateDeviceHook(IDXGIAdapter *pAdapter,D3D10_DRIVER_TYPE type, HMODULE Sof
                                             Version, ppDevice);
 }
 
-void __stdcall D3D11SetupFinished(IDXGISwapChain*sc){
+extern "C" __declspec(dllexport) void __stdcall D3D11SetupFinished(IDXGISwapChain*sc){
    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
    g_d3d.ApplyCommonDXGIHooks(sc, g_d3d.UPSCALE);
    D3D11_Hooks->IDXGISChainGetDesc  = (HRESULT (__stdcall *)(IDXGISwapChain*,DXGI_SWAP_CHAIN_DESC *))g_d3d.m_IDXGISwapChainGetDesc;
@@ -191,7 +191,7 @@ void __stdcall D3D11SetupFinished(IDXGISwapChain*sc){
    D3D11Globals.lock->unlock();
 }
 
-LPVOID __stdcall InitD3D11Hooks(D3D11_HOOKS * pD3D11Hooks, char * winedir, char * dxvkdir, char * gamedir, UINT flags)
+extern "C" __declspec(dllexport) LPVOID __stdcall InitD3D11Hooks(D3D11_HOOKS * pD3D11Hooks, char * winedir, char * dxvkdir, char * gamedir, UINT flags)
 {
 #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
     g_d3d.Init();    
@@ -213,6 +213,7 @@ LPVOID __stdcall InitD3D11Hooks(D3D11_HOOKS * pD3D11Hooks, char * winedir, char 
     return 0;
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11PSSetSamplersHook(ID3D11DeviceContext * c, UINT Start,
                                       UINT n, ID3D11SamplerState *const *smplrs)
 {
@@ -286,6 +287,7 @@ void D3D11FindTexture2D(ID3D11_MAPPED * m, ID3D11Resource * ID, DWORD)
         D3D11TextureFound(ID, (char*)rep->c_str());
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT __stdcall D3D11CreateTexture2DHook(ID3D11Device * d,
                                            const D3D11_TEXTURE2D_DESC * dsc,
                                            const D3D11_SUBRESOURCE_DATA * dat,
@@ -321,6 +323,7 @@ HRESULT __stdcall D3D11CreateTexture2DHook(ID3D11Device * d,
     return err;
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11UpdateSubresourceHook(ID3D11DeviceContext* ctx, ID3D11Resource *pDstResource,
                                           UINT DstSubresource, const D3D11_BOX *pDstBox,
                                           const void *pSrcData, UINT SrcRowPitch,
@@ -344,6 +347,7 @@ void __stdcall D3D11UpdateSubresourceHook(ID3D11DeviceContext* ctx, ID3D11Resour
     delete m;
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11ResolveSubresourceHook(ID3D11DeviceContext* dvc, ID3D11Resource *pDst,
                                            UINT DstSub, ID3D11Resource *pSrc,
                                            UINT SrcSub, DXGI_FORMAT Format)
@@ -376,7 +380,7 @@ void __stdcall D3D11ResolveSubresourceHook(ID3D11DeviceContext* dvc, ID3D11Resou
     }
 }
 
-void __stdcall D3D11CopyResourceHook(ID3D11DeviceContext* dvc, ID3D11Resource *pDst,  ID3D11Resource *pSrc)
+extern "C" __declspec(dllexport) void __stdcall D3D11CopyResourceHook(ID3D11DeviceContext* dvc, ID3D11Resource *pDst,  ID3D11Resource *pSrc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     if (!g_d3d.USEPROXIES)
@@ -406,8 +410,9 @@ void __stdcall D3D11CopyResourceHook(ID3D11DeviceContext* dvc, ID3D11Resource *p
     D3D11_Hooks->CopyResource(dvc, pDst, pSrc);
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11CopySubresourceRegionHook(ID3D11DeviceContext* ctx, ID3D11Resource *pDstResource,  UINT DstSubresource, UINT DstX, UINT DstY,
-                                            UINT DstZ, ID3D11Resource *pSrcResource, UINT SrcSubresource, D3D11_BOX *pSrcBox)
+                                                UINT DstZ, ID3D11Resource *pSrcResource, UINT SrcSubresource, D3D11_BOX *pSrcBox)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
     if (g_d3d.USEPROXIES)
@@ -468,6 +473,7 @@ void __stdcall D3D11CopySubresourceRegionHook(ID3D11DeviceContext* ctx, ID3D11Re
     }
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT __stdcall D3D11MapHook(ID3D11DeviceContext* ctx, ID3D11Resource* r, UINT sub,
                                D3D11_MAP type, UINT flags, D3D11_MAPPED_SUBRESOURCE* map)
 {
@@ -513,6 +519,7 @@ HRESULT __stdcall D3D11MapHook(ID3D11DeviceContext* ctx, ID3D11Resource* r, UINT
     return err;
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11UnmapHook(ID3D11DeviceContext* ctx, ID3D11Resource* r, UINT sub)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -536,7 +543,7 @@ ID3D11PixelShader * IsD3D11Px(IUnknown * i)
     return px;
 }
 
-HRESULT __stdcall D3D11Texture2DReleaseHook(ID3D11Texture2D * v)
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D11Texture2DReleaseHook(ID3D11Texture2D * v)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     LPVOID *ID  = D3D11TextureID(v);
@@ -553,6 +560,7 @@ HRESULT __stdcall D3D11Texture2DReleaseHook(ID3D11Texture2D * v)
     return err;
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT __stdcall D3D11CreateShaderResourceViewHook(ID3D11Device * d, ID3D11Resource * r,
                                           D3D11_SHADER_RESOURCE_VIEW_DESC * dc,
                                           ID3D11ShaderResourceView ** v)
@@ -561,7 +569,7 @@ HRESULT __stdcall D3D11CreateShaderResourceViewHook(ID3D11Device * d, ID3D11Reso
     return D3D11_Hooks->CreateShaderResourceView(d, r, dc, v);
 }
 
-HRESULT __stdcall D3D11ResourceViewReleaseHook(ID3D11ShaderResourceView * v)
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D11ResourceViewReleaseHook(ID3D11ShaderResourceView * v)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT err;   
@@ -583,6 +591,7 @@ LPVOID D3D11TextureIDFromView(ID3D11View * v)
     return r;
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11PSSetShaderResourcesHook(ID3D11DeviceContext* d, UINT a, UINT b, ID3D11ShaderResourceView * const * r)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -644,7 +653,7 @@ ID3D11DeviceContext * D3D11Cntxt(ID3D11Device * d)
     return ctx;
 }
 
-ID3D11Device * GetD3D11DvcFromDXGIDvc(IUnknown * i)
+extern "C" __declspec(dllexport) ID3D11Device * GetD3D11DvcFromDXGIDvc(IUnknown * i)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     ID3D11Device * dvc = nullptr;
@@ -653,7 +662,7 @@ ID3D11Device * GetD3D11DvcFromDXGIDvc(IUnknown * i)
     return dvc;
 }
 
-BOOL IsD3D11Device(IUnknown * i)
+extern "C" __declspec(dllexport) BOOL IsD3D11Device(IUnknown * i)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IUnknown * d3d;
@@ -799,7 +808,7 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
     }
 }
 
-HRESULT __stdcall IDXGISwapChainPresentHook(IDXGISwapChain * Iface, UINT sync, UINT flags)
+extern "C" __declspec(dllexport) HRESULT __stdcall IDXGISwapChainPresentHook(IDXGISwapChain * Iface, UINT sync, UINT flags)
 {
 #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (g_d3d.VSYNC) sync = 1;
@@ -819,7 +828,7 @@ HRESULT __stdcall IDXGISwapChainPresentHook(IDXGISwapChain * Iface, UINT sync, U
     return D3D11_Hooks->IDXGISwapChain_Present(Iface, sync, flags);
 }
 
-DWORD D3D11InsetPxDump(const void *DumpBytecode, SIZE_T DumpLength, wchar_t * name, const void *RBytecode, SIZE_T RLength)
+extern "C" __declspec(dllexport) DWORD D3D11InsetPxDump(const void *DumpBytecode, SIZE_T DumpLength, wchar_t * name, const void *RBytecode, SIZE_T RLength)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)      
     D3D11Globals.PxDumps->insert_disposable(new D3D11Bytecode(RLength,    (BYTE*)RBytecode),
@@ -827,7 +836,7 @@ DWORD D3D11InsetPxDump(const void *DumpBytecode, SIZE_T DumpLength, wchar_t * na
     return D3D11Globals.PxDumps->Count();
 }
 
-HRESULT __stdcall CreatePixelShader11Hook(ID3D11Device * d, const void *Bytecode,
+extern "C" __declspec(dllexport) HRESULT __stdcall CreatePixelShader11Hook(ID3D11Device * d, const void *Bytecode,
                                           SIZE_T Length, ID3D11ClassLinkage *cl,
                                           ID3D11PixelShader **ppPxShader)
 {
@@ -869,7 +878,7 @@ HRESULT __stdcall CreatePixelShader11Hook(ID3D11Device * d, const void *Bytecode
     return hr;
 }
 
-HRESULT __stdcall ReleasePixelShader11Hook(ID3D11PixelShader *pPxShader)
+extern "C" __declspec(dllexport) HRESULT __stdcall ReleasePixelShader11Hook(ID3D11PixelShader *pPxShader)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = D3D11_Hooks->PxShaderRelease(pPxShader);
@@ -884,6 +893,7 @@ HRESULT __stdcall ReleasePixelShader11Hook(ID3D11PixelShader *pPxShader)
     return hr;
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11PsSetShaderHook(ID3D11DeviceContext * ctxt, ID3D11PixelShader * px,
                                     ID3D11ClassInstance * const *ppC, UINT n)
 {   
@@ -906,6 +916,7 @@ void __stdcall D3D11PsSetShaderHook(ID3D11DeviceContext * ctxt, ID3D11PixelShade
     return;
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11OMGetRenderTargetsHook(ID3D11DeviceContext *d, UINT n,
                                            ID3D11RenderTargetView ** rv,
                                            ID3D11DepthStencilView ** zv)
@@ -955,6 +966,7 @@ void __stdcall D3D11OMGetRenderTargetsHook(ID3D11DeviceContext *d, UINT n,
     }
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11OMSetRenderTargetsHook(ID3D11DeviceContext *d, UINT NumViews,
                                            ID3D11RenderTargetView *const *Views,
                                            ID3D11DepthStencilView *zView)
@@ -1056,6 +1068,7 @@ void __stdcall D3D11OMSetRenderTargetsHook(ID3D11DeviceContext *d, UINT NumViews
     delete [] proxy_views;
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall OMSetRenderTargetsAndUnorderedAccessViewsHook(ID3D11DeviceContext* ctx, UINT NumRTVs, ID3D11RenderTargetView* const* ppRenderTargetViews,
                                                              ID3D11DepthStencilView* pDepthStencilView, UINT UAVStartSlot, UINT NumUAVs, 
                                                              ID3D11UnorderedAccessView* const* UAVS, const UINT* pUAVInitialCounts)
@@ -1107,7 +1120,7 @@ void __stdcall OMSetRenderTargetsAndUnorderedAccessViewsHook(ID3D11DeviceContext
     return;
 }
 
-
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11DiscardViewHook(ID3D11DeviceContext *d, ID3D11View *vw)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -1153,6 +1166,7 @@ void __stdcall D3D11DiscardViewHook(ID3D11DeviceContext *d, ID3D11View *vw)
     proxy_view->Release();
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11ClearRenderTargetViewHook(ID3D11DeviceContext * cxt,
                                               ID3D11RenderTargetView *view,
                                               const FLOAT ColorRGBA[4])
@@ -1192,6 +1206,7 @@ void __stdcall D3D11ClearRenderTargetViewHook(ID3D11DeviceContext * cxt,
     if (vw_proxy) vw_proxy->Release();
 }
 
+extern "C" __declspec(dllexport) 
 void __stdcall D3D11ClearDepthStencilViewHook(ID3D11DeviceContext * dvc,
                                               ID3D11DepthStencilView *pZView,
                                               UINT flags, FLOAT Depth, UINT8 Stencil)
@@ -1378,6 +1393,7 @@ void __stdcall D3D11DrawIndexedInstancedIndirectHook(ID3D11DeviceContext* c, ID3
     return D3D11Globals.m_DrawIndexedInstancedIndirect(c, b, f);
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT __stdcall DXGIGetBufferHook(IDXGISwapChain * Sc, UINT Indx, REFIID riid, void **ppSurface)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -1493,7 +1509,7 @@ void ResetShaders()
     }
 }
 
-void D3D11HDSetUP(DWORD w, DWORD h, char * Caller)
+extern "C" __declspec(dllexport) void D3D11HDSetUP(DWORD w, DWORD h, char * Caller)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_d3d.Setup(w, h, Caller);
@@ -1505,6 +1521,7 @@ void D3D11HDSetUP(DWORD w, DWORD h, char * Caller)
     D3D11_Hooks->ViewX    = g_d3d.HD_X->Get();
 }
 
+extern "C" __declspec(dllexport) 
 const DXGI_SWAP_CHAIN_DESC_1 * D3D11SetUPSwapChain1(const DXGI_SWAP_CHAIN_DESC_1 * Desc, DXGI_SWAP_CHAIN_DESC_1 * NewDesc,
                                                     char * Caller, HWND)
 {
@@ -1523,7 +1540,7 @@ const DXGI_SWAP_CHAIN_DESC_1 * D3D11SetUPSwapChain1(const DXGI_SWAP_CHAIN_DESC_1
     return NewDesc;
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D11CreateSwapChainForHwnd(LPVOID Factory2/* IDXGIFactory2* */, IUnknown * Dvc, HWND hWin, const DXGI_SWAP_CHAIN_DESC_1* Desc,
                             DXGI_SWAP_CHAIN_FULLSCREEN_DESC * F/* DXGI_SWAP_CHAIN_FULLSCREEN_DESC* */, IDXGIOutput*Out,
                             IDXGISwapChain** pChain/* IDXGISwapChain1** */)
@@ -1559,7 +1576,7 @@ D3D11CreateSwapChainForHwnd(LPVOID Factory2/* IDXGIFactory2* */, IUnknown * Dvc,
     return h;
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D11CreateSwapChain(IDXGIFactory * Factory, IUnknown*Dvc, DXGI_SWAP_CHAIN_DESC*pDesc, IDXGISwapChain**pChain)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -1601,7 +1618,7 @@ D3D11CreateSwapChain(IDXGIFactory * Factory, IUnknown*Dvc, DXGI_SWAP_CHAIN_DESC*
     return h;
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D11ResizeBuffersHook(IDXGISwapChain* Sc, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT Format, UINT Flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -1630,7 +1647,7 @@ D3D11ResizeBuffersHook(IDXGISwapChain* Sc, UINT BufferCount, UINT Width, UINT He
     return D3D11_Hooks->ResizeBuffers(Sc, BufferCount, g_d3d.HD_W, g_d3d.HD_H, Format, Flags); // RIME
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D11ResizeTargetHook(IDXGISwapChain* Sc, DXGI_MODE_DESC * d)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)

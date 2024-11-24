@@ -63,7 +63,7 @@ const char * GetMixerCntrlString(DWORD l)
 }
 
 
-MMRESULT __stdcall mixerGetLineInfoAHook(HMIXEROBJ mixer, LPMIXERLINE line, DWORD flags)
+extern "C" __declspec(dllexport) MMRESULT __stdcall mixerGetLineInfoAHook(HMIXEROBJ mixer, LPMIXERLINE line, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 
@@ -83,7 +83,7 @@ MMRESULT __stdcall mixerGetLineInfoAHook(HMIXEROBJ mixer, LPMIXERLINE line, DWOR
     return m;
 }
 
-MMRESULT __stdcall mixerGetLineControlsAHook(HMIXEROBJ mixer, LPMIXERLINECONTROLSA cntrls, DWORD flags)
+extern "C" __declspec(dllexport) MMRESULT __stdcall mixerGetLineControlsAHook(HMIXEROBJ mixer, LPMIXERLINECONTROLSA cntrls, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     MMRESULT m = mixerGetLineControlsATrampoline(mixer, cntrls, flags);
@@ -107,7 +107,7 @@ MMRESULT __stdcall mixerGetLineControlsAHook(HMIXEROBJ mixer, LPMIXERLINECONTROL
     return m;
 }
 
-MMRESULT __stdcall mixerSetControlDetailsAHook(HMIXEROBJ mixer, LPMIXERCONTROLDETAILS details, DWORD flags)
+extern "C" __declspec(dllexport) MMRESULT __stdcall mixerSetControlDetailsAHook(HMIXEROBJ mixer, LPMIXERCONTROLDETAILS details, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     MMRESULT m = mixerSetControlDetailsATrampoline(mixer, details, flags);
@@ -127,7 +127,7 @@ MMRESULT __stdcall mixerSetControlDetailsAHook(HMIXEROBJ mixer, LPMIXERCONTROLDE
     return m;
 }
 
-MMRESULT __stdcall mixerGetControlDetailsAHook(HMIXEROBJ mixer, LPMIXERCONTROLDETAILS details, DWORD flags)
+extern "C" __declspec(dllexport) MMRESULT __stdcall mixerGetControlDetailsAHook(HMIXEROBJ mixer, LPMIXERCONTROLDETAILS details, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     MMRESULT m = mixerGetControlDetailsATrampoline(mixer, details, flags);
@@ -147,7 +147,7 @@ MMRESULT __stdcall mixerGetControlDetailsAHook(HMIXEROBJ mixer, LPMIXERCONTROLDE
     return m;
 }
 
-void __stdcall InitWinMMHooks(HWND hwin, DWORD flags)
+extern "C" __declspec(dllexport) void __stdcall InitWinMMHooks(HWND hwin, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_injector_hwin = hwin;
@@ -168,7 +168,7 @@ void __stdcall InitWinMMHooks(HWND hwin, DWORD flags)
     sethook((void**)&mixerGetControlDetailsATrampoline, mixerGetControlDetailsAHook);
 }
 
-DWORD WINAPI MCINofify(LPVOID lpParameter)
+extern "C" __declspec(dllexport) DWORD WINAPI MCINofify(LPVOID lpParameter)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     MCINOTIFICATION * ntf = (MCINOTIFICATION *)lpParameter;

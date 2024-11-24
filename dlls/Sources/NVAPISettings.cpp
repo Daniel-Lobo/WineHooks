@@ -5,7 +5,7 @@
 #include "nvapi.h"
 #include "NvApiDriverSettings.h"
 
-DWORD __stdcall NVIDIA_Set(wchar_t * app, DWORD lvl)
+extern "C" __declspec(dllexport) DWORD __stdcall NVIDIA_Set(wchar_t * app, DWORD lvl)
 {
 	//return 0;
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)

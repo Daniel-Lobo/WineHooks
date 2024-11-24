@@ -41,14 +41,14 @@ BOOL AreVerticesTransFormed()
     return g_d3d_ddi_hooks.AreVerticesTransformed->Get();
 }
 
-void d3dddiSetOverride(HANDLE hOverride)
+extern "C" __declspec(dllexport) void d3dddiSetOverride(HANDLE hOverride)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_d3d_ddi_hooks.hOverride = hOverride;
     if (hOverride)g_d3d_ddi_hooks.device.pfnSetPixelShader(g_d3d_ddi_hooks.hCurrentDevice, hOverride);
 }
 
-HRESULT d3dddiSetpixelshaderconst(HANDLE, const D3DDDIARG_SETPIXELSHADERCONST *Param2, const FLOAT *Param3)
+extern "C" __declspec(dllexport) HRESULT d3dddiSetpixelshaderconst(HANDLE, const D3DDDIARG_SETPIXELSHADERCONST *Param2, const FLOAT *Param3)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     return g_d3d_ddi_hooks.device.pfnSetPixelShaderConst(g_d3d_ddi_hooks.hCurrentDevice, Param2, Param3);
@@ -74,7 +74,7 @@ void d3dddiDeleteVxShader(HANDLE hShader)
     else DBUG_LOG("OK =)");
 }
 
-HANDLE d3dddiCreatePxShader(const UINT * Bytecode, UINT size)
+extern "C" __declspec(dllexport) HANDLE d3dddiCreatePxShader(const UINT * Bytecode, UINT size)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     D3DDDIARG_CREATEPIXELSHADER arg;
@@ -89,7 +89,7 @@ HANDLE d3dddiCreatePxShader(const UINT * Bytecode, UINT size)
     return 0;
 }
 
-void d3dddiDeletePxShader(HANDLE hShader)
+extern "C" __declspec(dllexport) void d3dddiDeletePxShader(HANDLE hShader)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (g_d3d_ddi_hooks.device.pfnDeletePixelShader(g_d3d_ddi_hooks.hCurrentDevice, hShader) != S_OK)
@@ -97,12 +97,12 @@ void d3dddiDeletePxShader(HANDLE hShader)
     else DBUG_LOG("OK =)");
 }
 
-void d3dddiSetHooksPass(BOOL state) {
+extern "C" __declspec(dllexport) void d3dddiSetHooksPass(BOOL state) {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_d3d_ddi_hooks.is_hooks_pass = state;
 }
 
-void d3dddiSetMaxFilter(DWORD state) {
+extern "C" __declspec(dllexport) void d3dddiSetMaxFilter(DWORD state) {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_d3d_ddi_hooks.hooks_linear_filter = state;
 }
@@ -350,7 +350,7 @@ HRESULT APIENTRY d3dddiOpenAdapterHook(D3DDDIARG_OPENADAPTER * adapter)
     } return hr;
 }
 
-void D3DDDI_Init(char * d3d_ddi_dll, DWORD Flags)
+extern "C" __declspec(dllexport) void D3DDDI_Init(char * d3d_ddi_dll, DWORD Flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (strcmp(d3d_ddi_dll, "COLORKEYFIX") == 0)

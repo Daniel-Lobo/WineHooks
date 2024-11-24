@@ -20,7 +20,7 @@ extern "C" {
 #include "dllmain.h"
 
 
-void LogDDSrfacePxFormat(IUnknown * i)
+extern "C" __declspec(dllexport) void LogDDSrfacePxFormat(IUnknown * i)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DWORD fmt = GetDDSrfacePxFormat(i);
@@ -78,7 +78,7 @@ DWORD GetDDSrfacePxFormat(IUnknown * i)
     return *(DWORD*) "?????";
 }
 
-BOOL SetDDSurfacePixelFormat(DDPIXELFORMAT * DDPixelformat, char * format)
+extern "C" __declspec(dllexport) BOOL SetDDSurfacePixelFormat(DDPIXELFORMAT * DDPixelformat, char * format)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (DDPixelformat == NULL) return 1;
@@ -155,7 +155,7 @@ BOOL SetDDSurfacePixelFormat(DDPIXELFORMAT * DDPixelformat, char * format)
 }
 
 typedef HRESULT (STDMETHODCALLTYPE * _CREATESURFACE)(LPVOID, LPVOID, LPVOID, LPVOID);
-HRESULT CreateSurfaceHook(LPVOID p1, DDSURFACEDESC * OrigDesc, LPVOID p3, LPVOID p4,
+extern "C" __declspec(dllexport) HRESULT CreateSurfaceHook(LPVOID p1, DDSURFACEDESC * OrigDesc, LPVOID p3, LPVOID p4,
                           _CREATESURFACE createsurface, D3DHOOKS_DATA * cfg,
                           DWORD * err)
 {
@@ -215,7 +215,7 @@ HRESULT CreateSurfaceHook(LPVOID p1, DDSURFACEDESC * OrigDesc, LPVOID p3, LPVOID
     return r;
 }
 
-HRESULT IDirectDrawGetCapsHook(LPVOID dd, LPVOID DriverCaps, LPVOID HELCaps)
+extern "C" __declspec(dllexport) HRESULT IDirectDrawGetCapsHook(LPVOID dd, LPVOID DriverCaps, LPVOID HELCaps)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     typedef HRESULT (__stdcall * DDGetCapsType)(LPVOID, LPVOID, LPVOID);
@@ -229,7 +229,7 @@ HRESULT IDirectDrawGetCapsHook(LPVOID dd, LPVOID DriverCaps, LPVOID HELCaps)
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE GetAttachedSurfaceHook(LPVOID srfc, DWORD cps, DWORD att)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE GetAttachedSurfaceHook(LPVOID srfc, DWORD cps, DWORD att)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DDLOCK();
@@ -242,7 +242,7 @@ HRESULT STDMETHODCALLTYPE GetAttachedSurfaceHook(LPVOID srfc, DWORD cps, DWORD a
     return D3DHooksData->AHK_IDDSrfcGetAttachedSrfc(srfc, cps, att);
 }
 
-HRESULT STDMETHODCALLTYPE GetAttachedSurface4Hook(LPVOID srfc, DWORD cps, DWORD att)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE GetAttachedSurface4Hook(LPVOID srfc, DWORD cps, DWORD att)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DDLOCK();
@@ -255,7 +255,7 @@ HRESULT STDMETHODCALLTYPE GetAttachedSurface4Hook(LPVOID srfc, DWORD cps, DWORD 
     return D3DHooksData->AHK_IDDSrfc4GetAttachedSrfc(srfc, cps, att);
 }
 
-HRESULT GetDDSurfaceLevel(IUnknown * i)
+extern "C" __declspec(dllexport) HRESULT GetDDSurfaceLevel(IUnknown * i)
 {
     /* Currently only returns zero for the top level or a value bigger then zero for all others */
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -275,7 +275,7 @@ HRESULT GetDDSurfaceLevel(IUnknown * i)
     return hr;
 }
 
-HRESULT DDSurfaceAttachData(LPVOID * i)
+extern "C" __declspec(dllexport) HRESULT DDSurfaceAttachData(LPVOID * i)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDirectDrawSurface4 * s4 = nullptr;
@@ -296,7 +296,7 @@ HRESULT DDSurfaceAttachData(LPVOID * i)
     return 0;
 }
 
-DWORD GetSurface4ID(LPVOID surf4)
+extern "C" __declspec(dllexport) DWORD GetSurface4ID(LPVOID surf4)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DDSCAPS2 cp2;
@@ -314,7 +314,7 @@ DWORD GetSurface4ID(LPVOID surf4)
     return ID;
 }
 
-DWORD GetTexture2ID(LPVOID surf4)
+extern "C" __declspec(dllexport) DWORD GetTexture2ID(LPVOID surf4)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (surf4 == 0)
@@ -330,7 +330,7 @@ DWORD GetTexture2ID(LPVOID surf4)
     return ID;
 }
 
-DWORD GetTextureID(LPVOID surf4)
+extern "C" __declspec(dllexport) DWORD GetTextureID(LPVOID surf4)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (surf4 == 0)
@@ -346,8 +346,7 @@ DWORD GetTextureID(LPVOID surf4)
     return ID;
 }
 
-HRESULT STDMETHODCALLTYPE _Lock4Hook(LPVOID surf4, LPRECT rect, DDSURFACEDESC2* desc,
-                                     DWORD flags, HANDLE hwnd)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE _Lock4Hook(LPVOID surf4, LPRECT rect, DDSURFACEDESC2* desc, DWORD flags, HANDLE hwnd)
 {
     #pragma comment(linker, "/EXPORT:" "Lock4_Hook" "=" __FUNCDNAME__)
     HRESULT err = D3DHooksData->IDirectDrawSurace_Lock(surf4, rect, (LPVOID)desc, flags, hwnd);
@@ -380,8 +379,7 @@ HRESULT STDMETHODCALLTYPE _Lock4Hook(LPVOID surf4, LPRECT rect, DDSURFACEDESC2* 
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE Lock4Hook(LPVOID surf4, LPRECT rect, DDSURFACEDESC2* desc,
-                                    DWORD flags, HANDLE hwnd)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE Lock4Hook(LPVOID surf4, LPRECT rect, DDSURFACEDESC2* desc, DWORD flags, HANDLE hwnd)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DDSCAPS2 c2 = {0,0,0,0};
@@ -405,7 +403,7 @@ HRESULT STDMETHODCALLTYPE Lock4Hook(LPVOID surf4, LPRECT rect, DDSURFACEDESC2* d
     return _Lock4Hook(surf4, rect, desc, flags, hwnd);
 }
 
-HRESULT STDMETHODCALLTYPE UnLock4Hook(LPVOID surf4, LPRECT rect)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE UnLock4Hook(LPVOID surf4, LPRECT rect)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DDSCAPS2   caps2;
@@ -435,7 +433,7 @@ HRESULT STDMETHODCALLTYPE UnLock4Hook(LPVOID surf4, LPRECT rect)
     return D3DHooksData->IDirectDrawSurace_UnLock(surf4, rect);
 }
 
-DWORD GetSurfaceID(LPVOID surf2)
+extern "C" __declspec(dllexport) DWORD GetSurfaceID(LPVOID surf2)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DWORD caps;
@@ -451,8 +449,7 @@ DWORD GetSurfaceID(LPVOID surf2)
     return ID;
 }
 
-HRESULT STDMETHODCALLTYPE _LockHook(LPVOID surf2, LPRECT rect, DDSURFACEDESC2* desc,
-                                    DWORD flags, HANDLE hwnd)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE _LockHook(LPVOID surf2, LPRECT rect, DDSURFACEDESC2* desc, DWORD flags, HANDLE hwnd)
 {
     #pragma comment(linker, "/EXPORT:" "Lock_Hook" "=" __FUNCDNAME__)
     HRESULT err;
@@ -481,8 +478,7 @@ HRESULT STDMETHODCALLTYPE _LockHook(LPVOID surf2, LPRECT rect, DDSURFACEDESC2* d
     return err;
 }
 
-HRESULT STDMETHODCALLTYPE LockHook(LPVOID surf2, LPRECT rect, DDSURFACEDESC2* desc,
-                                   DWORD flags, HANDLE hwnd)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE LockHook(LPVOID surf2, LPRECT rect, DDSURFACEDESC2* desc, DWORD flags, HANDLE hwnd)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DWORD cps;
@@ -496,7 +492,7 @@ HRESULT STDMETHODCALLTYPE LockHook(LPVOID surf2, LPRECT rect, DDSURFACEDESC2* de
     return _LockHook(surf2, rect, desc, flags, hwnd);
 }
 
-HRESULT STDMETHODCALLTYPE UnLockHook(LPVOID surf2, LPRECT rect)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE UnLockHook(LPVOID surf2, LPRECT rect)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DDSURFACEDESC2 * lock;
@@ -544,8 +540,7 @@ public:
     IDirect3DTexture * m_rep = nullptr;
 };
 
-HRESULT STDMETHODCALLTYPE IDirect3DDevice_ExecuteHook(LPVOID dev, LPVOID buff,
-                                                      DWORD dummy, LPVOID dummyb)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE IDirect3DDevice_ExecuteHook(LPVOID dev, LPVOID buff, DWORD dummy, LPVOID dummyb)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     //auto view_scaler = std::unique_ptr<D3DViewportScaler>( new D3DViewportScaler((IDirect3DViewport*)dummy) );
@@ -590,7 +585,7 @@ HRESULT STDMETHODCALLTYPE IDirect3DDevice_ExecuteHook(LPVOID dev, LPVOID buff,
     return D3DHooksData->Execute(dev, (DWORD)buff, dummy, dummyb);
 }
 
-HRESULT STDMETHODCALLTYPE TsExecute(LPVOID dev, LPVOID buff,  DWORD dummy, LPVOID dummyb)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE TsExecute(LPVOID dev, LPVOID buff,  DWORD dummy, LPVOID dummyb)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDirect3DExecuteBuffer * eBuff = (IDirect3DExecuteBuffer *) buff;
@@ -673,6 +668,7 @@ public:
     IDirect3DTexture2 * m_rep = nullptr;
 };
 
+extern "C" __declspec(dllexport) 
 HRESULT STDMETHODCALLTYPE DrawPrimitive2Hook(LPVOID pIDirect3DDevice2, DWORD dptPrimitiveType,
                                              DWORD dvtVertexType, LPVOID lpvVertices,
                                              DWORD dwVertexCount, DWORD dwFlags)
@@ -699,6 +695,7 @@ HRESULT STDMETHODCALLTYPE DrawPrimitive2Hook(LPVOID pIDirect3DDevice2, DWORD dpt
     return hr;
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT STDMETHODCALLTYPE DrawIndexedPrimitive2Hook(LPVOID pIDirect3DDevice2,
                                                     DWORD d3dptPrimitiveType,
                                                     DWORD dwVertexType, LPVOID lpvVertices,
@@ -729,7 +726,7 @@ HRESULT STDMETHODCALLTYPE DrawIndexedPrimitive2Hook(LPVOID pIDirect3DDevice2,
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE SetRenderState2Hook(LPVOID dev, DWORD state, DWORD value)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE SetRenderState2Hook(LPVOID dev, DWORD state, DWORD value)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (state != 1)
@@ -741,9 +738,9 @@ HRESULT STDMETHODCALLTYPE SetRenderState2Hook(LPVOID dev, DWORD state, DWORD val
     return D3DHooksData->pIDirect3DDevice2_SetRenderState(dev, state, value);
 }
 
-HRESULT STDMETHODCALLTYPE DrawPrimitive3Hook(LPVOID pIDirect3DDevice3, DWORD dptPrimitiveType,
-                                             DWORD dwVertexTypeDesc, LPVOID lpvVertices,
-                                             DWORD dwVertexCount, DWORD dwFlags)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DrawPrimitive3Hook(LPVOID pIDirect3DDevice3, DWORD dptPrimitiveType,
+                                            DWORD dwVertexTypeDesc, LPVOID lpvVertices,
+                                            DWORD dwVertexCount, DWORD dwFlags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr;
@@ -776,6 +773,7 @@ HRESULT STDMETHODCALLTYPE DrawPrimitive3Hook(LPVOID pIDirect3DDevice3, DWORD dpt
     return hr;
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT STDMETHODCALLTYPE DrawIndexedPrimitive3Hook(LPVOID pIDirect3DDevice3,
                                                     DWORD d3dptPrimitiveType,
                                                     DWORD dwVertexTypeDesc, LPVOID lpvVertices,
@@ -817,6 +815,7 @@ HRESULT STDMETHODCALLTYPE DrawIndexedPrimitive3Hook(LPVOID pIDirect3DDevice3,
     return hr;
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT STDMETHODCALLTYPE DrawPrimitive3VBHook(LPVOID device3, DWORD d3dptPrimitiveType,
                                                LPVOID lpd3dVertexBuffer, DWORD dwStartVertex,
                                                DWORD dwNumVertices, DWORD dwFlags)
@@ -854,7 +853,7 @@ HRESULT STDMETHODCALLTYPE DrawPrimitive3VBHook(LPVOID device3, DWORD d3dptPrimit
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 DrawIndexedPrimitive3VBHook(LPVOID device3, DWORD d3dptPrimitiveType,
                             LPVOID lpd3dVertexBuffer,  LPWORD lpwIndices,
                             DWORD dwIndexCount, DWORD dwFlags)
@@ -891,7 +890,7 @@ DrawIndexedPrimitive3VBHook(LPVOID device3, DWORD d3dptPrimitiveType,
                                                                    dwIndexCount, dwFlags);
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 TransformVertices3Hook(LPVOID viewport, LPVOID p2, LPVOID p3, LPVOID p4, LPVOID p5)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -903,7 +902,7 @@ TransformVertices3Hook(LPVOID viewport, LPVOID p2, LPVOID p3, LPVOID p4, LPVOID 
     return r;
 }
 
-__declspec(dllexport)
+extern "C" __declspec(dllexport) 
 HRESULT IDirect3DDevice3_Clear(DEVICE3_RECT * dev3rect, RECT rects[2])
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -950,6 +949,7 @@ HRESULT IDirect3DDevice3_Clear(DEVICE3_RECT * dev3rect, RECT rects[2])
     return 0;
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT __stdcall IDirect3DDevice3_DrawRectWithFlags(DEVICE3_RECT * dev3rect, RECT * dst_rect, RECT * src_rect, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -1135,13 +1135,13 @@ HRESULT __stdcall IDirect3DDevice3_DrawRectWithFlags(DEVICE3_RECT * dev3rect, RE
     return r;
 }
 
-HRESULT __stdcall IDirect3DDevice3_DrawRect(DEVICE3_RECT * dev3rect, RECT * dst_rect, RECT * src_rect)
+extern "C" __declspec(dllexport) HRESULT __stdcall IDirect3DDevice3_DrawRect(DEVICE3_RECT * dev3rect, RECT * dst_rect, RECT * src_rect)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return IDirect3DDevice3_DrawRectWithFlags(dev3rect, dst_rect, src_rect, 0);
 }
 
-HRESULT STDMETHODCALLTYPE SetTexture3Hook(LPVOID pIDirect3DDevice3, DWORD stage, DWORD texture)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE SetTexture3Hook(LPVOID pIDirect3DDevice3, DWORD stage, DWORD texture)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__) 
     HRESULT err;
@@ -1180,13 +1180,13 @@ HRESULT STDMETHODCALLTYPE SetTexture3Hook(LPVOID pIDirect3DDevice3, DWORD stage,
     return err;
 }
 
-IDirectDrawSurface7 * GetDDSurface7Replacement(IDirectDrawSurface7 * s7)
+extern "C" __declspec(dllexport) IDirectDrawSurface7 * GetDDSurface7Replacement(IDirectDrawSurface7 * s7)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return (IDirectDrawSurface7*)D3DHooksData->replacements->Value((LPVOID)s7);
 }
 
-void SetDDSurface7Replacement(IDirectDrawSurface7 * s7, IDirectDrawSurface7 * r7)
+extern "C" __declspec(dllexport) void SetDDSurface7Replacement(IDirectDrawSurface7 * s7, IDirectDrawSurface7 * r7)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     D3DHooksData->replacements->insert_disposable((LPVOID)s7, (LPVOID)r7);
@@ -1276,9 +1276,10 @@ HRESULT ReplaceA8DDrawSurface7(IDirectDrawSurface7 * s7)
     return err;
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT STDMETHODCALLTYPE DrawPrimitive7Hook(LPVOID pIDirect3DDevice7, DWORD dptPrimitiveType,
-                                             DWORD dwVertexTypeDesc, LPVOID lpvVertices,
-                                             DWORD dwVertexCount, DWORD dwFlags)
+                                            DWORD dwVertexTypeDesc, LPVOID lpvVertices,
+                                            DWORD dwVertexCount, DWORD dwFlags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr;
@@ -1306,6 +1307,7 @@ HRESULT STDMETHODCALLTYPE DrawPrimitive7Hook(LPVOID pIDirect3DDevice7, DWORD dpt
     return hr;
 }
 
+extern "C" __declspec(dllexport) 
 HRESULT STDMETHODCALLTYPE DrawPrimitive7VBHook(LPVOID device7, LPVOID d3dptPrimitiveType,
                                                LPVOID lpd3dVertexBuffer, DWORD dwStartVertex,
                                                DWORD dwNumVertices, DWORD dwFlags)
@@ -1338,7 +1340,7 @@ HRESULT STDMETHODCALLTYPE DrawPrimitive7VBHook(LPVOID device7, LPVOID d3dptPrimi
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 DrawIndexedPrimitive7VBHook(LPVOID dvc7, DWORD PrmType, LPVOID VertexBuffer,
                             DWORD StartVertex, DWORD NumVertices, LPWORD Indices,
                             DWORD IndexCount, DWORD Flags)
@@ -1374,7 +1376,7 @@ DrawIndexedPrimitive7VBHook(LPVOID dvc7, DWORD PrmType, LPVOID VertexBuffer,
 }
 
 
-HRESULT IDirect3DDevice7_DrawRectWithFlags(DEVICE7_RECT * d7, RECT * dst, RECT * src, DWORD flags)
+extern "C" __declspec(dllexport) HRESULT IDirect3DDevice7_DrawRectWithFlags(DEVICE7_RECT * d7, RECT * dst, RECT * src, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT        r;
@@ -1556,13 +1558,13 @@ HRESULT IDirect3DDevice7_DrawRectWithFlags(DEVICE7_RECT * d7, RECT * dst, RECT *
     return r;
 }
 
-HRESULT __stdcall IDirect3DDevice7_DrawRect(DEVICE7_RECT * d7, RECT * dst, RECT * src)
+extern "C" __declspec(dllexport) HRESULT __stdcall IDirect3DDevice7_DrawRect(DEVICE7_RECT * d7, RECT * dst, RECT * src)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return IDirect3DDevice7_DrawRectWithFlags(d7, dst, src, 0);
 }
 
-HRESULT STDMETHODCALLTYPE SetTexture7Hook(LPVOID pD3DDvc7, DWORD stage, DWORD tx)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE SetTexture7Hook(LPVOID pD3DDvc7, DWORD stage, DWORD tx)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT err;
@@ -1590,7 +1592,7 @@ HRESULT STDMETHODCALLTYPE SetTexture7Hook(LPVOID pD3DDvc7, DWORD stage, DWORD tx
     return D3DHooksData->Direct3DDevice7_SetTexture(pD3DDvc7, stage, tx);
 }
 
-HRESULT STDMETHODCALLTYPE AltSetTexture7Hook(LPVOID pD3DDvc7, DWORD stage, DWORD tx)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE AltSetTexture7Hook(LPVOID pD3DDvc7, DWORD stage, DWORD tx)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     if (tx == 0) return D3DHooksData->Direct3DDevice7_SetTexture(pD3DDvc7, stage, tx);

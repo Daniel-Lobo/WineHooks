@@ -46,7 +46,7 @@
     Cntxt->CSSetShader(Shader, nullptr, 0);                         \
     Cntxt->Dispatch(X, Y, Z);
 
-HWND GetSwapChainWindowHandle(IDXGISwapChain * s)
+extern "C" __declspec(dllexport) HWND GetSwapChainWindowHandle(IDXGISwapChain * s)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDXGISwapChain1 * s1 = nullptr;
@@ -629,7 +629,7 @@ HRESULT __stdcall D3D11HelperDvc::Present(IDXGISwapChain* SChain, UINT SyncInter
     return 0;
 }
 
-BOOL __stdcall D3D12ResizeGameWindow(HWND hwin)
+extern "C" __declspec(dllexport) BOOL __stdcall D3D12ResizeGameWindow(HWND hwin)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     RECT r;

@@ -232,8 +232,7 @@ typedef struct _D3D9_HOOKS {
 }D3D9_HOOKS;
 extern D3D9_HOOKS * D3D9_Hooks;
 
-extern HRESULT STDMETHODCALLTYPE CreateTexture9Hook(LPVOID, UINT, UINT, UINT, DWORD,
-                                                    DWORD, DWORD, LPVOID*, HANDLE *);
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE CreateTexture9Hook(LPVOID, UINT, UINT, UINT, DWORD, DWORD, DWORD, LPVOID*, HANDLE *);
 extern IDirect3DResource9 * GetContainer9(IDirect3DSurface9 * s, REFIID id);
 extern void D3D9DumpTexture(IDirect3DTexture9 * pTex, LPCWSTR file);
 
@@ -257,7 +256,7 @@ extern void D3D9LoadManagedTexture(const char*, LPVOID);
 extern DWORD GetD3D9SurfacePxFormat(DWORD);
 extern void D3D9Write(IDirect3DDevice9 *, RECT *, wchar_t *);
 extern D3D9_GLOBALS D3D9Globals;
-extern HRESULT STDMETHODCALLTYPE ProcessVertices9Hook(IDirect3DDevice9*, UINT, UINT, UINT, IDirect3DVertexBuffer9*, IDirect3DVertexDeclaration9*, DWORD);
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE ProcessVertices9Hook(IDirect3DDevice9*, UINT, UINT, UINT, IDirect3DVertexBuffer9*, IDirect3DVertexDeclaration9*, DWORD);
 
 
 class PixelShader9 {

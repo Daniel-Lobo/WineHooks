@@ -439,7 +439,7 @@ unique_ptr<wstring>DumpLockedDirectDrawSurface(DirectDrawSurface* srfc, LPVOID l
 	return unique_ptr<wstring>(err);
 }
 
-wchar_t * __stdcall DDCPUDeinterlace(IDirectDrawSurface* iInterlaced)
+extern "C" __declspec(dllexport) wchar_t * __stdcall DDCPUDeinterlace(IDirectDrawSurface* iInterlaced)
 {
 	static std::wstring err = L"S_OK";
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -489,7 +489,7 @@ wchar_t * __stdcall DDCPUDeinterlace(IDirectDrawSurface* iInterlaced)
 	return (wchar_t*)err.c_str();
 }
 
-wchar_t * __stdcall DDMaskSurface(IDirectDrawSurface* iNexPixels, IDirectDrawSurface* iUnmasked)
+extern "C" __declspec(dllexport) wchar_t * __stdcall DDMaskSurface(IDirectDrawSurface* iNexPixels, IDirectDrawSurface* iUnmasked)
 {
 	static std::wstring err = L"S_OK";
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -573,7 +573,7 @@ wchar_t * __stdcall DDMaskSurface(IDirectDrawSurface* iNexPixels, IDirectDrawSur
 	return (wchar_t*)err.c_str();
 }
 
-wchar_t * __stdcall DDxBRzScale(IDirectDrawSurface* iSrc, IDirectDrawSurface* iDst, RECT * r)
+extern "C" __declspec(dllexport) wchar_t * __stdcall DDxBRzScale(IDirectDrawSurface* iSrc, IDirectDrawSurface* iDst, RECT * r)
 {
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	static std::wstring err = L"S_OK";
@@ -653,7 +653,7 @@ wchar_t * __stdcall DDxBRzScale(IDirectDrawSurface* iSrc, IDirectDrawSurface* iD
 	return (wchar_t*) err.c_str();
 }
 
-wchar_t * __stdcall DDrawBrowseTextures(COMPtr* p) {
+extern "C" __declspec(dllexport) wchar_t * __stdcall DDrawBrowseTextures(COMPtr* p) {
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	static BOOL sleep_flag        = 0;
 	static std::wstring msg       = L"not searching";

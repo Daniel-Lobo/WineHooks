@@ -189,7 +189,7 @@ UINT VlcDDrawPlayer_InitDDraw(LIBVLC_DDRAW_OUTPUT * output, DWORD w, DWORD h)
     return 0;
 }
 
-const char * __stdcall VlcDDrawPlay(IDirectDrawSurface2 * Prim, RECT* r, char * file)
+extern "C" __declspec(dllexport) const char * __stdcall VlcDDrawPlay(IDirectDrawSurface2 * Prim, RECT* r, char * file)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     static std::string err;
@@ -332,7 +332,7 @@ const char * __stdcall VlcDDrawPlay(IDirectDrawSurface2 * Prim, RECT* r, char * 
     return err.c_str();
 }
 
-const char* __stdcall VlcPlay(char* file)
+extern "C" __declspec(dllexport) const char* __stdcall VlcPlay(char* file)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     static std::string err;

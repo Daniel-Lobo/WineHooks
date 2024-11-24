@@ -19,7 +19,7 @@
 // "IG_" (ex. "VID_045E&PID_028E&IG_00").  If it does, then it's an XInput device
 // Unfortunately this information can not be found by just using DirectInput
 //-----------------------------------------------------------------------------
-BOOL IsXInputDevice( const GUID* pGuidProductFromDirectInput )
+extern "C" __declspec(dllexport) BOOL IsXInputDevice( const GUID* pGuidProductFromDirectInput )
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IWbemLocator*           pIWbemLocator  = NULL;

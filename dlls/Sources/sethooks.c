@@ -10,13 +10,13 @@
 #include <dxgi1_3.h>
 #include <d3d9.h>
 
-void DisableHook(LPVOID func)
+__declspec(dllexport) void DisableHook(LPVOID func)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     MH_DisableHook(func);
 }
 
-int sethook(void** ppFunctionToHook, PVOID pDetour)
+__declspec(dllexport) int sethook(void** ppFunctionToHook, PVOID pDetour)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     int err;
@@ -26,7 +26,7 @@ int sethook(void** ppFunctionToHook, PVOID pDetour)
     return 0;
 }
 
-int unhook(void** ppPointer, PVOID pDetour)
+__declspec(dllexport) int unhook(void** ppPointer, PVOID pDetour)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     LONG err;
@@ -36,7 +36,7 @@ int unhook(void** ppPointer, PVOID pDetour)
     return 0;
 }
 
-int ReleaseAllHooks(LONG* err) {
+__declspec(dllexport) int ReleaseAllHooks(LONG* err) {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return 0;
 }

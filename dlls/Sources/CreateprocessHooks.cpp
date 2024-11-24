@@ -10,14 +10,14 @@ typedef struct _LPCREATEPROCESS {
 }LPCREATEPROCESS;
  LPCREATEPROCESS pCreateProcess;
 
-void InitCreateProcessHook(void* a, void * w)
+extern "C" __declspec(dllexport) void InitCreateProcessHook(void* a, void * w)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     pCreateProcess.A = (CREATEPROCESS)a;
     pCreateProcess.W = (CREATEPROCESS)w;    
 }
 
-BOOL WINAPI CreateProcessAHook(LPVOID a, LPVOID b, LPVOID c, LPVOID d, BOOL e,
+extern "C" __declspec(dllexport) BOOL WINAPI CreateProcessAHook(LPVOID a, LPVOID b, LPVOID c, LPVOID d, BOOL e,
                                DWORD f, LPVOID g, LPVOID h, LPVOID i, LPVOID j)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -25,7 +25,7 @@ BOOL WINAPI CreateProcessAHook(LPVOID a, LPVOID b, LPVOID c, LPVOID d, BOOL e,
     return err;
 }
 
-BOOL WINAPI CreateProcessWHook(LPVOID a, LPVOID b, LPVOID c, LPVOID d, BOOL e,
+extern "C" __declspec(dllexport) BOOL WINAPI CreateProcessWHook(LPVOID a, LPVOID b, LPVOID c, LPVOID d, BOOL e,
                                DWORD f, LPVOID g, LPVOID h, LPVOID i, LPVOID j)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)

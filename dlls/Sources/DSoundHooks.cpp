@@ -85,7 +85,7 @@ HRESULT WINAPI DSoundGetClassObjectHook(REFCLSID rclsid, REFIID riid, LPVOID* pp
     return S_OK;
 }
 
-HRESULT WINAPI DSndCreateHook(LPGUID lpGuid, LPDIRECTSOUND* ppDS, LPUNKNOWN pUnkOuter)
+extern "C" __declspec(dllexport) HRESULT WINAPI DSndCreateHook(LPGUID lpGuid, LPDIRECTSOUND* ppDS, LPUNKNOWN pUnkOuter)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DSoundGlobals.m_loger.log(L"DSndCreateHook", (const wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str());
@@ -99,7 +99,7 @@ HRESULT WINAPI DSndCreateHook(LPGUID lpGuid, LPDIRECTSOUND* ppDS, LPUNKNOWN pUnk
     return hr;
 }
 
-HRESULT WINAPI DSndCreate8Hook(LPGUID lpGuid, LPDIRECTSOUND* ppDS, LPUNKNOWN pUnkOuter)
+extern "C" __declspec(dllexport) HRESULT WINAPI DSndCreate8Hook(LPGUID lpGuid, LPDIRECTSOUND* ppDS, LPUNKNOWN pUnkOuter)
 {
    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DSoundGlobals.m_loger.log(L"DSndCreate8Hook", (const wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str());
@@ -160,7 +160,7 @@ void DSOUNDGLOBALS::Init()
     HOOK(&m_DllGetClassObject, DSoundGetClassObjectHook);    
 }
 
-void InitDSoundHooks(DSOUND_HOOKS * DSHooks)
+extern "C" __declspec(dllexport) void InitDSoundHooks(DSOUND_HOOKS * DSHooks)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DsndHooks = DSHooks;

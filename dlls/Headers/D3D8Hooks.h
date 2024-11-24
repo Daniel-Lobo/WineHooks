@@ -97,7 +97,7 @@ typedef struct _D3D8HOOKS_DATA8 {
 } D3D8HOOKS_DATA8;
 extern D3D8HOOKS_DATA8 * D3D8HooksData;
 
-extern IDirect3DResource8 * GetContainer8(IDirect3DSurface8 * s, REFIID id);
+extern "C" __declspec(dllexport) IDirect3DResource8 * GetContainer8(IDirect3DSurface8 * s, REFIID id);
 #endif // D3D8HOOKS_H
 
 

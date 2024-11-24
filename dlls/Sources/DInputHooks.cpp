@@ -49,7 +49,7 @@ void SetEffectName(DIEFFECTINFOA * fx, char* name)
     memcpy(fx->tszName, name, size);
 }
 
-HRESULT STDMETHODCALLTYPE DiGetEffectInfoA(IUnknown *, LPDIEFFECTINFOA fx, REFGUID rguid)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DiGetEffectInfoA(IUnknown *, LPDIEFFECTINFOA fx, REFGUID rguid)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     if (fx == nullptr) return DIERR_INVALIDPARAM;
@@ -65,7 +65,7 @@ HRESULT STDMETHODCALLTYPE DiGetEffectInfoA(IUnknown *, LPDIEFFECTINFOA fx, REFGU
     return DI_OK;
 }
 
-HRESULT STDMETHODCALLTYPE DiGetEffectInfoW(IUnknown *, LPDIEFFECTINFOW fx, REFGUID rguid)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DiGetEffectInfoW(IUnknown *, LPDIEFFECTINFOW fx, REFGUID rguid)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (fx == nullptr) return DIERR_INVALIDPARAM;
@@ -81,7 +81,7 @@ HRESULT STDMETHODCALLTYPE DiGetEffectInfoW(IUnknown *, LPDIEFFECTINFOW fx, REFGU
     return DI_OK;
 }
 
-extern "C" void DIEnumEffectsA(LPDIENUMEFFECTSCALLBACKA lpCallback, LPVOID pvRef, DWORD dwEffType)
+extern "C" __declspec(dllexport)  void DIEnumEffectsA(LPDIENUMEFFECTSCALLBACKA lpCallback, LPVOID pvRef, DWORD dwEffType)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DIEFFECTINFOA fx = {sizeof(DIEFFECTINFO)};    
@@ -121,7 +121,7 @@ extern "C" void DIEnumEffectsA(LPDIENUMEFFECTSCALLBACKA lpCallback, LPVOID pvRef
     }
 }
 
-extern "C" void DIEnumEffectsW(LPDIENUMEFFECTSCALLBACKW lpCallback, LPVOID pvRef, DWORD dwEffType)
+extern "C" __declspec(dllexport)  void DIEnumEffectsW(LPDIENUMEFFECTSCALLBACKW lpCallback, LPVOID pvRef, DWORD dwEffType)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DIEFFECTINFOW fx = { sizeof(DIEFFECTINFO) };   
@@ -528,7 +528,7 @@ MMRESULT WINAPI joyGetPosExHook(UINT uJoyID, LPJOYINFOEX pji)
     return 0;
 }
 
-void __stdcall InitDInputHooks(DINPT_HOOKS* p)
+extern "C" __declspec(dllexport) void __stdcall InitDInputHooks(DINPT_HOOKS* p)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DInput_Hooks = p;
@@ -539,7 +539,7 @@ void __stdcall InitDInputHooks(DINPT_HOOKS* p)
     HOOK(&g_Dinput.m_joyGetPosEx, joyGetPosExHook)
 }
 
-HRESULT STDMETHODCALLTYPE DiDcvSetDataFormat(IDirectInputDevice8W* dvc, LPCDIDATAFORMAT lpdf)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DiDcvSetDataFormat(IDirectInputDevice8W* dvc, LPCDIDATAFORMAT lpdf)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     IUnknown* i = nullptr;
@@ -571,7 +571,7 @@ HRESULT STDMETHODCALLTYPE DiDcvSetDataFormat(IDirectInputDevice8W* dvc, LPCDIDAT
     
 }
 
-DWORD __stdcall DinputSetStates(IUnknown * dev, DWORD size, void * state)
+extern "C" __declspec(dllexport) DWORD __stdcall DinputSetStates(IUnknown * dev, DWORD size, void * state)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)      
     if (size == 60)
@@ -665,28 +665,28 @@ HRESULT DiDeviceGetState(HRESULT hr, IUnknown * dvc, DWORD size, LPVOID state)
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE DinputDeviceGetState(IDirectInputDeviceA* dvc, DWORD size, LPVOID state)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DinputDeviceGetState(IDirectInputDeviceA* dvc, DWORD size, LPVOID state)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = DInput_Hooks->GetDeviceState(dvc, size, state);
     return DiDeviceGetState(hr, dvc, size, state);
 }
 
-HRESULT STDMETHODCALLTYPE DinputDevice8GetState(IDirectInputDevice8A* dvc, DWORD size, LPVOID state)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DinputDevice8GetState(IDirectInputDevice8A* dvc, DWORD size, LPVOID state)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = DInput_Hooks->GetDeviceState8(dvc, size, state);
     return DiDeviceGetState(hr, dvc, size, state);
 }
 
-HRESULT STDMETHODCALLTYPE DinputDeviceGetStateW(IDirectInputDeviceW* dvc, DWORD size, LPVOID state)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DinputDeviceGetStateW(IDirectInputDeviceW* dvc, DWORD size, LPVOID state)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = DInput_Hooks->GetDeviceStateW(dvc, size, state);
     return DiDeviceGetState(hr, dvc, size, state);
 }
 
-HRESULT STDMETHODCALLTYPE DinputDevice8GetStateW(IDirectInputDevice8W* dvc, DWORD size, LPVOID state)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DinputDevice8GetStateW(IDirectInputDevice8W* dvc, DWORD size, LPVOID state)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
     HRESULT hr = DInput_Hooks->GetDeviceState8W(dvc, size, state);
@@ -711,7 +711,7 @@ else if (e.ID == id)                               \
     }                                              \
 }                                               
     
-HRESULT STDMETHODCALLTYPE DinputDeviceGetData(IUnknown* dvc, DWORD sz, LPDIDEVICEOBJECTDATA rgdod, LPDWORD count, DWORD dwFlags)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DinputDeviceGetData(IUnknown* dvc, DWORD sz, LPDIDEVICEOBJECTDATA rgdod, LPDWORD count, DWORD dwFlags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     /* Not thread safe : access to static members must be protected to be safe */
@@ -832,7 +832,7 @@ HRESULT STDMETHODCALLTYPE DinputDeviceGetData(IUnknown* dvc, DWORD sz, LPDIDEVIC
     return overflow ? DI_BUFFEROVERFLOW : DI_OK;
 }
 
-HRESULT STDMETHODCALLTYPE DinputDeviceSetProperty(IDirectInputDeviceA* dvc, DWORD rguidProp, DIPROPDWORD * pdiph)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DinputDeviceSetProperty(IDirectInputDeviceA* dvc, DWORD rguidProp, DIPROPDWORD * pdiph)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = DInput_Hooks->SetProperty(dvc, rguidProp, pdiph);
@@ -855,7 +855,7 @@ HRESULT STDMETHODCALLTYPE DinputDeviceSetProperty(IDirectInputDeviceA* dvc, DWOR
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE DinputDevice8SetProperty(IDirectInputDevice8A* dvc, DWORD rguidProp, DIPROPDWORD* pdiph)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DinputDevice8SetProperty(IDirectInputDevice8A* dvc, DWORD rguidProp, DIPROPDWORD* pdiph)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     HRESULT hr = DInput_Hooks->SetProperty8(dvc, rguidProp, pdiph);
@@ -879,7 +879,7 @@ HRESULT STDMETHODCALLTYPE DinputDevice8SetProperty(IDirectInputDevice8A* dvc, DW
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE DinputDeviceSetPropertyW(IDirectInputDeviceW* dvc, DWORD rguidProp, DIPROPDWORD* pdiph)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DinputDeviceSetPropertyW(IDirectInputDeviceW* dvc, DWORD rguidProp, DIPROPDWORD* pdiph)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = DInput_Hooks->SetPropertyW(dvc, rguidProp, pdiph);
@@ -902,7 +902,7 @@ HRESULT STDMETHODCALLTYPE DinputDeviceSetPropertyW(IDirectInputDeviceW* dvc, DWO
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE DinputDevice8SetPropertyW(IDirectInputDevice8W* dvc, DWORD rguidProp, DIPROPDWORD* pdiph)
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DinputDevice8SetPropertyW(IDirectInputDevice8W* dvc, DWORD rguidProp, DIPROPDWORD* pdiph)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = DInput_Hooks->SetProperty8W(dvc, rguidProp, pdiph);
@@ -925,7 +925,7 @@ HRESULT STDMETHODCALLTYPE DinputDevice8SetPropertyW(IDirectInputDevice8W* dvc, D
     return hr;
 }
 
-HRESULT WINAPI DiGetDvcCaps(IDirectInputDeviceA* dvc, LPDIDEVCAPS caps)
+extern "C" __declspec(dllexport) HRESULT WINAPI DiGetDvcCaps(IDirectInputDeviceA* dvc, LPDIDEVCAPS caps)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
     LPVOID ret = __builtin_return_address(0);
@@ -946,7 +946,7 @@ HRESULT WINAPI DiGetDvcCaps(IDirectInputDeviceA* dvc, LPDIDEVCAPS caps)
     return hr;
 }
 
-HRESULT WINAPI Di8GetDvcCaps(IDirectInputDevice8A* dvc, LPDIDEVCAPS caps)
+extern "C" __declspec(dllexport) HRESULT WINAPI Di8GetDvcCaps(IDirectInputDevice8A* dvc, LPDIDEVCAPS caps)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
     LPVOID ret = __builtin_return_address(0);
@@ -966,7 +966,7 @@ HRESULT WINAPI Di8GetDvcCaps(IDirectInputDevice8A* dvc, LPDIDEVCAPS caps)
     return hr;
 }
 
-HRESULT WINAPI DiGetDvcCapsW(IDirectInputDeviceW* dvc, LPDIDEVCAPS caps)
+extern "C" __declspec(dllexport) HRESULT WINAPI DiGetDvcCapsW(IDirectInputDeviceW* dvc, LPDIDEVCAPS caps)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     LPVOID ret = __builtin_return_address(0);
@@ -986,7 +986,7 @@ HRESULT WINAPI DiGetDvcCapsW(IDirectInputDeviceW* dvc, LPDIDEVCAPS caps)
     return hr;
 }
 
-HRESULT WINAPI Di8GetDvcCapsW(IDirectInputDevice8W* dvc, LPDIDEVCAPS caps)
+extern "C" __declspec(dllexport) HRESULT WINAPI Di8GetDvcCapsW(IDirectInputDevice8W* dvc, LPDIDEVCAPS caps)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     LPVOID ret = __builtin_return_address(0);
@@ -1136,7 +1136,7 @@ HRESULT EnumObjectsW(LPDIENUMDEVICEOBJECTSCALLBACKW callback, LPVOID pvRef, DWOR
     return DI_OK;
 }
 
-HRESULT WINAPI DiEnumObjectsHook(IDirectInputDeviceA* dvc, LPDIENUMDEVICEOBJECTSCALLBACKA callback, LPVOID pvRef, DWORD flags)
+extern "C" __declspec(dllexport) HRESULT WINAPI DiEnumObjectsHook(IDirectInputDeviceA* dvc, LPDIENUMDEVICEOBJECTSCALLBACKA callback, LPVOID pvRef, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (IsGamePad(dvc)) return EnumObjectsA(callback, pvRef, flags);
@@ -1146,7 +1146,7 @@ HRESULT WINAPI DiEnumObjectsHook(IDirectInputDeviceA* dvc, LPDIENUMDEVICEOBJECTS
     return S_OK;
 }
 
-HRESULT WINAPI DiEnumObjects8Hook(IDirectInputDevice8A* dvc, LPDIENUMDEVICEOBJECTSCALLBACKA callback, LPVOID pvRef, DWORD flags)
+extern "C" __declspec(dllexport) HRESULT WINAPI DiEnumObjects8Hook(IDirectInputDevice8A* dvc, LPDIENUMDEVICEOBJECTSCALLBACKA callback, LPVOID pvRef, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     if (IsGamePad(dvc)) return EnumObjectsA(callback, pvRef, flags);
@@ -1156,7 +1156,7 @@ HRESULT WINAPI DiEnumObjects8Hook(IDirectInputDevice8A* dvc, LPDIENUMDEVICEOBJEC
     return S_OK;
 }
 
-HRESULT WINAPI DiEnumObjectsWHook(IDirectInputDeviceW* dvc, LPDIENUMDEVICEOBJECTSCALLBACKW callback, LPVOID pvRef, DWORD flags)
+extern "C" __declspec(dllexport) HRESULT WINAPI DiEnumObjectsWHook(IDirectInputDeviceW* dvc, LPDIENUMDEVICEOBJECTSCALLBACKW callback, LPVOID pvRef, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (IsGamePad(dvc)) return EnumObjectsW(callback, pvRef, flags);
@@ -1166,7 +1166,7 @@ HRESULT WINAPI DiEnumObjectsWHook(IDirectInputDeviceW* dvc, LPDIENUMDEVICEOBJECT
     return S_OK;
 }
 
-HRESULT WINAPI DiEnumObjects8WHook(IDirectInputDevice8W* dvc, LPDIENUMDEVICEOBJECTSCALLBACKW callback, LPVOID pvRef, DWORD flags)
+extern "C" __declspec(dllexport) HRESULT WINAPI DiEnumObjects8WHook(IDirectInputDevice8W* dvc, LPDIENUMDEVICEOBJECTSCALLBACKW callback, LPVOID pvRef, DWORD flags)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     if (IsGamePad(dvc)) return EnumObjectsW(callback, pvRef, flags);
@@ -1176,7 +1176,7 @@ HRESULT WINAPI DiEnumObjects8WHook(IDirectInputDevice8W* dvc, LPDIENUMDEVICEOBJE
     return S_OK;
 }    
 
-HRESULT WINAPI DinputEnumEffectsHook(LPDIENUMEFFECTSCALLBACKW lpCallback, LPVOID pRef, DWORD dwEffType)
+extern "C" __declspec(dllexport) HRESULT WINAPI DinputEnumEffectsHook(LPDIENUMEFFECTSCALLBACKW lpCallback, LPVOID pRef, DWORD dwEffType)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     DIEFFECTINFOW  CForce;
@@ -1186,7 +1186,7 @@ HRESULT WINAPI DinputEnumEffectsHook(LPDIENUMEFFECTSCALLBACKW lpCallback, LPVOID
     return DI_OK;
 }
 
-HRESULT WINAPI DinputCreateEffectHook(IUnknown * dvc, REFGUID rguid, LPCDIEFFECT lpeff,
+extern "C" __declspec(dllexport) HRESULT WINAPI DinputCreateEffectHook(IUnknown * dvc, REFGUID rguid, LPCDIEFFECT lpeff,
                                       LPDIRECTINPUTEFFECT * ppdeff, LPUNKNOWN punkOuter)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    

@@ -1462,7 +1462,7 @@ IUnknown* DirectDrawSurface::GetImp(DD_FOR For) {
     return m_Imp;
 }
 
-STDMETHODIMP __stdcall DDrawsSurfaceLayerTest() {
+extern "C" __declspec(dllexport) STDMETHODIMP __stdcall DDrawsSurfaceLayerTest() {
     g_d3d.Init();
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDirectDraw  * dd  = nullptr;
@@ -1503,7 +1503,7 @@ STDMETHODIMP __stdcall DDrawsSurfaceLayerTest() {
     return DD->Release();;
 }
 
-STDMETHODIMP __stdcall DD3D1DeviceLayerTest() {
+extern "C" __declspec(dllexport) STDMETHODIMP __stdcall DD3D1DeviceLayerTest() {
     g_d3d.Init();
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDirectDraw* dd = nullptr;

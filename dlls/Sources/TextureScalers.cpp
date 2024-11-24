@@ -302,20 +302,20 @@ void XBRZ::SaveDDS(const wchar_t * file, UINT w, UINT h, BYTE* blue, BYTE* green
     if (RGBSurface) RGBSurface->Release();
 }
 
-void __stdcall xBRzfree(void * p)
+extern "C" __declspec(dllexport) void __stdcall xBRzfree(void * p)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     free(p);
 }
 
-const char* __stdcall xBRzUPscale(XBRZ * pxBRz, const wchar_t * src, const wchar_t * dst, UINT scale, UINT rgb)
+extern "C" __declspec(dllexport) const char* __stdcall xBRzUPscale(XBRZ * pxBRz, const wchar_t * src, const wchar_t * dst, UINT scale, UINT rgb)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     pxBRz->upscale(src, dst, scale, rgb);
     return pxBRz->m_err.c_str();
 }
 
-const char* __stdcall xBRzCreate(XBRZ ** ppxBRz)
+extern "C" __declspec(dllexport) const char* __stdcall xBRzCreate(XBRZ ** ppxBRz)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     XBRZ * pxBRz = new XBRZ();
@@ -324,6 +324,7 @@ const char* __stdcall xBRzCreate(XBRZ ** ppxBRz)
     return pxBRz->m_err.c_str();
 }
 
+extern "C" __declspec(dllexport) 
 const char * __stdcall SaveDDS(XBRZ * pxBRz, const wchar_t * file, UINT w, UINT h, BYTE* alpha, BYTE* blue, BYTE* green, BYTE* red)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -331,7 +332,7 @@ const char * __stdcall SaveDDS(XBRZ * pxBRz, const wchar_t * file, UINT w, UINT 
     return pxBRz->m_err.c_str();
 }
 
-const char * __stdcall DDSToBGRA(XBRZ * pxBRz, const wchar_t *file, void ** pData, UINT * W, UINT * H)
+extern "C" __declspec(dllexport) const char * __stdcall DDSToBGRA(XBRZ * pxBRz, const wchar_t *file, void ** pData, UINT * W, UINT * H)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     pxBRz->LoadDDS(file, pData, W, H);

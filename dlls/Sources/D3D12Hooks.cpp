@@ -147,7 +147,7 @@ void D3D12_HOOKS::SetReslimit(DWORD w, DWORD h)
     }
 }
 
-void __stdcall D3D12Config(char * option, void* value)
+extern "C" __declspec(dllexport) void __stdcall D3D12Config(char * option, void* value)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     std::string Option(option);
@@ -182,7 +182,7 @@ void __stdcall D3D12Config(char * option, void* value)
     else if (Option == "TEXTURE.FILTER")           g_d3d.TEXTURE_FILTER             = (DWORD)value == 2 ? *(DWORD*)"WINE" : *(DWORD*)"TRUE";  
 }
 
-void __stdcall D3D12Config64(char * option, LPVOID value)
+extern "C" __declspec(dllexport) void __stdcall D3D12Config64(char * option, LPVOID value)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     std::string Option(option);
@@ -389,7 +389,7 @@ void D3D12FixRect(HWND hwin, RECT * r)
     }
 }
 
-BOOL D3D12IsWindowFullscreen(HWND hWnd)
+extern "C" __declspec(dllexport) BOOL D3D12IsWindowFullscreen(HWND hWnd)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     RECT r;
@@ -399,7 +399,7 @@ BOOL D3D12IsWindowFullscreen(HWND hWnd)
     return 0;
 }
 
-BOOL __stdcall
+extern "C" __declspec(dllexport) BOOL __stdcall
 D3D12GetClientRectHook(HWND hWnd, RECT * rct)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__) /* So AHK can hook it*/
@@ -434,7 +434,7 @@ D3D12SetWindowPosHook(HWND hWnd, HWND hWndInsertAfter, int  X, int  Y, int cx, i
     return s;
 }
 
-HRESULT __stdcall D3D12DXGISwapChainGetDescHook(IDXGISwapChain * sc, DXGI_SWAP_CHAIN_DESC *pDesc)
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D12DXGISwapChainGetDescHook(IDXGISwapChain * sc, DXGI_SWAP_CHAIN_DESC *pDesc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = g_d3d.m_IDXGISwapChainGetDesc(sc, pDesc);
@@ -445,7 +445,7 @@ HRESULT __stdcall D3D12DXGISwapChainGetDescHook(IDXGISwapChain * sc, DXGI_SWAP_C
     return 0;
 }
 
-HRESULT __stdcall D3D12DXGISwapChainGetDesc1Hook(IDXGISwapChain1 * sc, DXGI_SWAP_CHAIN_DESC1 *pDesc)
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D12DXGISwapChainGetDesc1Hook(IDXGISwapChain1 * sc, DXGI_SWAP_CHAIN_DESC1 *pDesc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = g_d3d.m_IDXGISwapChainGetDesc1(sc, pDesc);
@@ -516,7 +516,7 @@ DWORD __stdcall D3D12GetModes(IDXGIOutput1 * out, DXGI_FORMAT fmt, UINT f,
     return 0;
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D12GetDisplayModeListHook(IDXGIOutput1 * out, DXGI_FORMAT fmt, UINT flags, UINT *pCount, DXGI_MODE_DESC *pDesc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -624,7 +624,7 @@ void D3D12_HOOKS::ApplyCommonHooks(DWORD flags)
     }
 }
 
-IDXGIOutput * __stdcall D3D12GetSwapChainOutput(IDXGISwapChain * sc)
+extern "C" __declspec(dllexport) IDXGIOutput * __stdcall D3D12GetSwapChainOutput(IDXGISwapChain * sc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDXGIAdapter * adapter = nullptr;
@@ -720,7 +720,7 @@ void * D3D12WaitSwap(IDXGISwapChain* SChain)
     return h;
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D12CreateSwapChainForHwndHook(IDXGIFactory2 * Factory, IUnknown *pDevice, HWND hWnd, DXGI_SWAP_CHAIN_DESC1 *pDesc,
                                 const DXGI_SWAP_CHAIN_FULLSCREEN_DESC *pFullscreenDesc,
                                 IDXGIOutput *pRestrictToOutput, IDXGISwapChain1 **ppSwapChain)
@@ -746,7 +746,7 @@ D3D12CreateSwapChainForHwndHook(IDXGIFactory2 * Factory, IUnknown *pDevice, HWND
     return hr;
 }
 
-HRESULT __thiscall
+extern "C" __declspec(dllexport) HRESULT __thiscall
 D3D12CreateSwapChainHook(IDXGIFactory*Factory,IUnknown*pDevice,DXGI_SWAP_CHAIN_DESC*pDesc,IDXGISwapChain**ppSwapChain)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -795,7 +795,7 @@ HANDLE __stdcall D3D12GetFrameLatencyWaitableObjectHook(IDXGISwapChain2*)
     return 0;
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D12GetBufferHook(IDXGISwapChain* SChain, UINT index, REFIID riid, void ** ppSurface)
 {
     D3D12LOG("---");    
@@ -853,7 +853,7 @@ HRESULT __stdcall D3D12SetMaximumFrameLatencyHook(IDXGISwapChain2* s, UINT l)
     return g_d3d.SetMaximumFrameLatency(s, l);
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D12PresentHook(IDXGISwapChain* SChain, UINT SyncInterval, UINT Flags)
 {
     //return g_d3d.Present(SChain, SyncInterval, Flags);
@@ -862,7 +862,7 @@ D3D12PresentHook(IDXGISwapChain* SChain, UINT SyncInterval, UINT Flags)
     return 0;
 }
 
-HRESULT __stdcall
+extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D12Present1Hook(IDXGISwapChain1* SChain, UINT Sync, UINT Flags, const DXGI_PRESENT_PARAMETERS *pParams)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -883,7 +883,7 @@ D3D12CreateSamplerHook(ID3D12Device * dvc, const D3D12_SAMPLER_DESC* D, D3D12_CP
     return g_d3d.D3D12CreateSampler(dvc, D, h);
 }
 
-void __stdcall D3D12Init()
+extern "C" __declspec(dllexport) void __stdcall D3D12Init()
 {
     return ;
     /*

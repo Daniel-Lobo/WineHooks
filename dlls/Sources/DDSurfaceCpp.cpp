@@ -372,26 +372,26 @@ UINT TextureDumps::IsDump(char * path)
     return 0;
 }
 
-UINT __stdcall AppendDump(char * f)
+extern "C" __declspec(dllexport) UINT __stdcall AppendDump(char * f)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return g_.m_Dumps->AppendDump(f);
 }
 
-UINT __stdcall LoadDumps(char * f, char * d)
+extern "C" __declspec(dllexport) UINT __stdcall LoadDumps(char * f, char * d)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return g_.m_Dumps->LoadDumps(f, d);
 }
 
-UINT __stdcall SetSampleCount(UINT c)
+extern "C" __declspec(dllexport) UINT __stdcall SetSampleCount(UINT c)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_.m_Dumps->m_sample_count = c;
     return g_.m_Dumps->m_sample_count;
 }
 
-UINT __stdcall SetTexturePaths(wchar_t * base, char * checkboard)
+extern "C" __declspec(dllexport) UINT __stdcall SetTexturePaths(wchar_t * base, char * checkboard)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     g_.m_BaseTexturePath.clear();
@@ -404,7 +404,7 @@ UINT __stdcall SetTexturePaths(wchar_t * base, char * checkboard)
     return 0;
 }
 
-UINT IsDump(char * path)
+extern "C" __declspec(dllexport) UINT IsDump(char * path)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return g_.m_Dumps->IsDump(path);

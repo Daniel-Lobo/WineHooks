@@ -397,8 +397,8 @@ private:
     HRESULT m_failed  = 1;
 };
 
-extern HRESULT STDMETHODCALLTYPE DDFromTexture(IUnknown*);
-BOOL SetDDSurfacePixelFormat(DDPIXELFORMAT*, char*);
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DDFromTexture(IUnknown*);
+extern "C" __declspec(dllexport) BOOL SetDDSurfacePixelFormat(DDPIXELFORMAT*, char*);
 unique_ptr<wstring> DescribeDDSrfcPixelFormat(DDS_PIXELFORMAT*);
 
 #endif // __cplusplus

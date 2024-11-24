@@ -1017,7 +1017,7 @@ void DirectSoundBuffer8::ApplyEffects3(EAX30LISTENERPROPERTIES* props)
     UpdateEffects3(props);
 }
 
-DirectSound8* LayerDsoundTest(IUnknown* i)
+extern "C" __declspec(dllexport) DirectSound8* LayerDsoundTest(IUnknown* i)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     return new DirectSound8(i, 0);

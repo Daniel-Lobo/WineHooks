@@ -72,7 +72,7 @@ void D3D11RenderText(IDXGISwapChain * sc, const wchar_t * text, RECT * r)
     delete [] p_data;
 }
 
-void D3D11CreateShaders(IDXGISwapChain * sc)
+extern "C" __declspec(dllexport) void D3D11CreateShaders(IDXGISwapChain * sc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DWORD          err = 0;
@@ -163,7 +163,7 @@ ID3D11Resource * D3D11GetResource(ID3D11View * v)
     return r;
 }
 
-ID3D11Texture2D * D3D11GetTexture2D(ID3D11View * v)
+extern "C" __declspec(dllexport) ID3D11Texture2D * D3D11GetTexture2D(ID3D11View * v)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     ID3D11Resource * r   = D3D11GetResource(v);
@@ -783,7 +783,7 @@ ID3D11Texture2D * D3D11LoadTexture(ID3D11Device * d, char * file)
     {
         if (D3D11_Hooks->Map(D3D11Cntxt(d), SysMem, i, D3D11_MAP_WRITE, 0, &m)==0)
         {
-            LoadData2Surface(m.pData, (DWORD)hFile, m.RowPitch, w, h, bypp);
+            LoadData2Surface(m.pData, hFile, m.RowPitch, w, h, bypp);
             D3D11_Hooks->Unmap(D3D11Cntxt(d), SysMem, i);
         } else DBUG_WARN("MAP FAILED");
         w /= 2;
@@ -874,7 +874,7 @@ HRESULT __stdcall D3D11DumpTexture(IUnknown * u, LPCWSTR path, DWORD autodmp)
     return err;
 }
 
-HRESULT  D3D11Resize(IDXGISwapChain* sc)
+extern "C" __declspec(dllexport) HRESULT  D3D11Resize(IDXGISwapChain* sc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DXGI_MODE_DESC mode;
@@ -911,7 +911,7 @@ UINT D3D11ViewType(ID3D11View * vw, IUnknown** view)
     return 0;
 }
 
-IDXGIOutput * __stdcall D3D11GetDeviceOutput(ID3D11Device * dvc)
+extern "C" __declspec(dllexport) IDXGIOutput * __stdcall D3D11GetDeviceOutput(ID3D11Device * dvc)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IDXGIAdapter * adapter = nullptr;
@@ -1243,7 +1243,7 @@ ID3D11PixelShader * D3D11FixAndCompileDXBCShader(BYTE * bytecode, UINT bytecode_
     return shader;
 }
 
-char * __stdcall D3D11FixDXBCShaderTest(char * shader, BYTE * bytecode, UINT bytecode_size, float scale)
+extern "C" __declspec(dllexport) char * __stdcall D3D11FixDXBCShaderTest(char * shader, BYTE * bytecode, UINT bytecode_size, float scale)
 {   
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     string code = (char*)shader;

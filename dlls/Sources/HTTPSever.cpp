@@ -4,7 +4,7 @@
 #include "Sync.h"
 #include "dllmain.h"
 
-HRESULT __stdcall Serve(LPVOID RequestHandler)
+extern "C" __declspec(dllexport) HRESULT __stdcall Serve(LPVOID RequestHandler)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     SetProcAffinity(nullptr, 1);
