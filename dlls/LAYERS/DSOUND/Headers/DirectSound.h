@@ -17,6 +17,14 @@
 #include "eax_props.h" 
 #include <algorithm>
 
+#ifndef IID_IDirectSound3DBuffer8
+#define IID_IDirectSound3DBuffer8 IID_IDirectSound3DBuffer
+#endif
+
+#ifndef IID_IDirectSound3DListener8
+#define IID_IDirectSound3DListener8 IID_IDirectSound3DListener
+#endif
+
 #undef DBUG_WARN
 #define DBUG_WARN DSND_WARN
 

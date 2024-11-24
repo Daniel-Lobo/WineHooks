@@ -1,3 +1,8 @@
 
 /dlls/build
 /dlls/minhook/build
+/build
+/.vscode
+/dlls/.vscode
+/dlls/minhook/.vscode
+/dlls/minhook/.vscode
