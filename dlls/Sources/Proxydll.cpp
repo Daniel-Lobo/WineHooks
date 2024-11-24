@@ -4,7 +4,7 @@
 #include <string>
 #include "Sync.h"
 
-namespace PROXYEXPORTS {
+struct  {
     BOOL    Initalized;
     HMODULE hProxy;
     SYNC::Atomic * lock;
@@ -38,14 +38,14 @@ namespace PROXYEXPORTS {
     LPVOID RegisterSpecialCase;
     LPVOID ReleaseDDThreadLock;
     LPVOID SetAppCompatData;
-}
+}PROXYEXPORTS;
 
 void ProxyInitImports()
 {
-    if (PROXYEXPORTS::Initalized)    return;
-    PROXYEXPORTS::Initalized         = TRUE;
-    PROXYEXPORTS::lock = new SYNC::Atomic();
-    PROXYEXPORTS::lock->Set(1);
+    if (PROXYEXPORTS.Initalized)    return;
+    PROXYEXPORTS.Initalized         = TRUE;
+    PROXYEXPORTS.lock = new SYNC::Atomic();
+    PROXYEXPORTS.lock->Set(1);
 
     char   name[MAX_PATH];
     char windir[MAX_PATH];
@@ -53,7 +53,7 @@ void ProxyInitImports()
     HMODULE      hRealDll;
 
     GetEnvironmentVariableA("WINDIR", windir, MAX_PATH);
-    GetModuleFileNameA(PROXYEXPORTS::hProxy, name, MAX_PATH);
+    GetModuleFileNameA(PROXYEXPORTS.hProxy, name, MAX_PATH);
 
     dllpath.append(windir);
     dllpath.append("\\SysWOW64\\");
@@ -65,46 +65,46 @@ void ProxyInitImports()
         OUTPUT_FUNC_DBG_STRING( dllpath.c_str() );
         hRealDll = LoadLibraryA( dllpath.c_str() );
         if (hRealDll == nullptr) OUTPUT_FUNC_DBG_STRING("....");
-        PROXYEXPORTS::AcquireDDThreadLock  = GetProcAddress(hRealDll, "AcquireDDThreadLock");;
-        PROXYEXPORTS::CompleteCreateSysmemSurface  = GetProcAddress(hRealDll, "CompleteCreateSysmemSurface");;
-        PROXYEXPORTS::D3DParseUnknownCommand  = GetProcAddress(hRealDll, "D3DParseUnknownCommand");;
-        PROXYEXPORTS::DDGetAttachedSurfaceLcl  = GetProcAddress(hRealDll, "DDGetAttachedSurfaceLcl");;
-        PROXYEXPORTS::DDInternalLock  = GetProcAddress(hRealDll, "DDInternalLock");;
-        PROXYEXPORTS::DDInternalUnlock  = GetProcAddress(hRealDll, "DDInternalUnlock");;
-        PROXYEXPORTS::DSoundHelp  = GetProcAddress(hRealDll, "DSoundHelp");;
-        PROXYEXPORTS::DirectDrawCreate  = GetProcAddress(hRealDll, "DirectDrawCreate");;
-        PROXYEXPORTS::DirectDrawCreateClipper  = GetProcAddress(hRealDll, "DirectDrawCreateClipper");;
-        PROXYEXPORTS::DirectDrawCreateEx  = GetProcAddress(hRealDll, "DirectDrawCreateEx");;
-        PROXYEXPORTS::DirectDrawEnumerateA  = GetProcAddress(hRealDll, "DirectDrawEnumerateA");;
-        PROXYEXPORTS::DirectDrawEnumerateW  = GetProcAddress(hRealDll, "DirectDrawEnumerateW");;
-        PROXYEXPORTS::DirectDrawEnumerateExA  = GetProcAddress(hRealDll, "DirectDrawEnumerateExA");;
-        PROXYEXPORTS::DirectDrawEnumerateExW  = GetProcAddress(hRealDll, "DirectDrawEnumerateExW");;
-        PROXYEXPORTS::GetDDSurfaceLocal  = GetProcAddress(hRealDll, "GetDDSurfaceLocal");;
-        PROXYEXPORTS::GetOLEThunkData  = GetProcAddress(hRealDll, "GetOLEThunkData");;
-        PROXYEXPORTS::GetSurfaceFromDC  = GetProcAddress(hRealDll, "GetSurfaceFromDC");;
-        PROXYEXPORTS::RegisterSpecialCase  = GetProcAddress(hRealDll, "RegisterSpecialCase");;
-        PROXYEXPORTS::ReleaseDDThreadLock  = GetProcAddress(hRealDll, "ReleaseDDThreadLock");;
-        PROXYEXPORTS::SetAppCompatData  = GetProcAddress(hRealDll, "SetAppCompatData");;
+        PROXYEXPORTS.AcquireDDThreadLock  = GetProcAddress(hRealDll, "AcquireDDThreadLock");;
+        PROXYEXPORTS.CompleteCreateSysmemSurface  = GetProcAddress(hRealDll, "CompleteCreateSysmemSurface");;
+        PROXYEXPORTS.D3DParseUnknownCommand  = GetProcAddress(hRealDll, "D3DParseUnknownCommand");;
+        PROXYEXPORTS.DDGetAttachedSurfaceLcl  = GetProcAddress(hRealDll, "DDGetAttachedSurfaceLcl");;
+        PROXYEXPORTS.DDInternalLock  = GetProcAddress(hRealDll, "DDInternalLock");;
+        PROXYEXPORTS.DDInternalUnlock  = GetProcAddress(hRealDll, "DDInternalUnlock");;
+        PROXYEXPORTS.DSoundHelp  = GetProcAddress(hRealDll, "DSoundHelp");;
+        PROXYEXPORTS.DirectDrawCreate  = GetProcAddress(hRealDll, "DirectDrawCreate");;
+        PROXYEXPORTS.DirectDrawCreateClipper  = GetProcAddress(hRealDll, "DirectDrawCreateClipper");;
+        PROXYEXPORTS.DirectDrawCreateEx  = GetProcAddress(hRealDll, "DirectDrawCreateEx");;
+        PROXYEXPORTS.DirectDrawEnumerateA  = GetProcAddress(hRealDll, "DirectDrawEnumerateA");;
+        PROXYEXPORTS.DirectDrawEnumerateW  = GetProcAddress(hRealDll, "DirectDrawEnumerateW");;
+        PROXYEXPORTS.DirectDrawEnumerateExA  = GetProcAddress(hRealDll, "DirectDrawEnumerateExA");;
+        PROXYEXPORTS.DirectDrawEnumerateExW  = GetProcAddress(hRealDll, "DirectDrawEnumerateExW");;
+        PROXYEXPORTS.GetDDSurfaceLocal  = GetProcAddress(hRealDll, "GetDDSurfaceLocal");;
+        PROXYEXPORTS.GetOLEThunkData  = GetProcAddress(hRealDll, "GetOLEThunkData");;
+        PROXYEXPORTS.GetSurfaceFromDC  = GetProcAddress(hRealDll, "GetSurfaceFromDC");;
+        PROXYEXPORTS.RegisterSpecialCase  = GetProcAddress(hRealDll, "RegisterSpecialCase");;
+        PROXYEXPORTS.ReleaseDDThreadLock  = GetProcAddress(hRealDll, "ReleaseDDThreadLock");;
+        PROXYEXPORTS.SetAppCompatData  = GetProcAddress(hRealDll, "SetAppCompatData");;
 
     }
     else if ( std::string( PathFindFileNameA(name) ) == std::string("DINPUT.dll") )
     {
         OUTPUT_FUNC_DBG_STRING( dllpath.c_str() );
         hRealDll = LoadLibraryA( dllpath.c_str() );
-        PROXYEXPORTS::DirectInputCreateA  = GetProcAddress(hRealDll, "DirectInputCreateA");
-        PROXYEXPORTS::DirectInputCreateW  = GetProcAddress(hRealDll, "DirectInputCreateW");
-        PROXYEXPORTS::DirectInputCreateEx = GetProcAddress(hRealDll, "DirectInputCreateEx");
+        PROXYEXPORTS.DirectInputCreateA  = GetProcAddress(hRealDll, "DirectInputCreateA");
+        PROXYEXPORTS.DirectInputCreateW  = GetProcAddress(hRealDll, "DirectInputCreateW");
+        PROXYEXPORTS.DirectInputCreateEx = GetProcAddress(hRealDll, "DirectInputCreateEx");
     }
-    PROXYEXPORTS::Dll_CanUnloadNow    = GetProcAddress(hRealDll, "DllCanUnloadNow");
-    PROXYEXPORTS::Dll_GetClassObject  = GetProcAddress(hRealDll, "DllGetClassObject");
-    PROXYEXPORTS::DllRegisterServer   = GetProcAddress(hRealDll, "DllRegisterServer");
-    PROXYEXPORTS::DllUnregisterServer = GetProcAddress(hRealDll, "DllUnregisterServer");
+    PROXYEXPORTS.Dll_CanUnloadNow    = GetProcAddress(hRealDll, "DllCanUnloadNow");
+    PROXYEXPORTS.Dll_GetClassObject  = GetProcAddress(hRealDll, "DllGetClassObject");
+    PROXYEXPORTS.DllRegisterServer   = GetProcAddress(hRealDll, "DllRegisterServer");
+    PROXYEXPORTS.DllUnregisterServer = GetProcAddress(hRealDll, "DllUnregisterServer");
 }
 
 void __stdcall ProxyResume()
 {
      #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-     PROXYEXPORTS::lock->Set(0);
+     PROXYEXPORTS.lock->Set(0);
 }
 
 __declspec(dllexport) __attribute__ ((naked)) void DirectDrawCreate()
@@ -118,10 +118,10 @@ __declspec(dllexport) __attribute__ ((naked)) void DirectDrawCreate()
          {
              UINT hwnd  = RegisterWindowMessageA("Peixoto.Hwnd");
              SendNotifyMessage(HWND_BROADCAST, hwnd, 0, GetCurrentProcessId());
-             while (PROXYEXPORTS::lock->Get()) Sleep(500);
+             while (PROXYEXPORTS.lock->Get()) Sleep(500);
          }
      }
-     __asm__ ("jmp PROXYEXPORTS::DirectDrawCreate");
+     __asm__ volatile("jmp *%0" : "=r" (PROXYEXPORTS.DirectDrawCreate));
 }
 
 __declspec(dllexport) __attribute__ ((naked)) void DirectInputCreateEx()
@@ -135,10 +135,10 @@ __declspec(dllexport) __attribute__ ((naked)) void DirectInputCreateEx()
         {
             UINT hwnd = RegisterWindowMessageA("Peixoto.Hwnd");
             SendNotifyMessage(HWND_BROADCAST, hwnd, 0, GetCurrentProcessId());
-            while (PROXYEXPORTS::lock->Get()) Sleep(500);
+            while (PROXYEXPORTS.lock->Get()) Sleep(500);
         }
     }
-    __asm__ ("jmp PROXYEXPORTS::DirectInputCreateEx");
+    __asm__ volatile("jmp *%0" : "=r" (PROXYEXPORTS.DirectInputCreateEx));
 }
 
 #define PROXYEXPORT(procName) \
@@ -146,8 +146,8 @@ extern "C" __declspec(dllexport) __attribute__ ((naked))  void procName() \
 { \
     ProxyInitImports(); \
     OUTPUT_FUNC_DBG_STRING( "OK" ); \
-    if (PROXYEXPORTS::procName == nullptr) OUTPUT_FUNC_DBG_STRING( "FUBAR" ); \
-    __asm__ ("jmp PROXYEXPORTS::procName"); \
+    if (PROXYEXPORTS.procName == nullptr) OUTPUT_FUNC_DBG_STRING( "FUBAR" ); \
+    __asm__ ("jmp *%0" : "=r" (PROXYEXPORTS.procName)); \
 };
 
 // COM
@@ -213,6 +213,6 @@ PROXYEXPORT(SetAppCompatData)
 
 void ProxyDllInit(HMODULE hMod)
 {
-    PROXYEXPORTS::Initalized = FALSE;
-    PROXYEXPORTS::hProxy     = hMod;
+    PROXYEXPORTS.Initalized = FALSE;
+    PROXYEXPORTS.hProxy     = hMod;
 }

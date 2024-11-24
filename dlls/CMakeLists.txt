@@ -49,7 +49,7 @@ ${PROJECT_SOURCE_DIR}/Sources/FilesSystemHooks.cpp
 ${PROJECT_SOURCE_DIR}/Sources/GDI_Hooks.cpp
 ${PROJECT_SOURCE_DIR}/Sources/Input.cpp
 ${PROJECT_SOURCE_DIR}/Sources/LibVlcPlayer.cpp
-#${PROJECT_SOURCE_DIR}/Sources/Proxydll.cpp
+${PROJECT_SOURCE_DIR}/Sources/Proxydll.cpp
 ${PROJECT_SOURCE_DIR}/Sources/Sync.cpp
 ${PROJECT_SOURCE_DIR}/Sources/TextureScalers.cpp
 ${PROJECT_SOURCE_DIR}/Sources/WinMM_Hooks.cpp
