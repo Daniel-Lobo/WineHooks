@@ -5,7 +5,7 @@
 #include "collections.h"
 #endif
 
-__declspec(dllexport) DWORD Pal2RGB(BYTE *, DWORD, DWORD *, DWORD *, DWORD, DWORD, DWORD, RECT *);
+DWORD Pal2RGB(BYTE *, DWORD, DWORD *, DWORD *, DWORD, DWORD, DWORD, RECT *);
 
 __declspec(dllexport)
 extern int FindTextureInCollection(DWORD , DWORD , DWORD , DWORD , LPVOID,

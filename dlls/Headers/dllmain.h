@@ -378,8 +378,8 @@ public:
 extern UINT GetMemoryUsage();
 extern void __stdcall SetProcAffinity(HANDLE hProc, int core);
 extern void __stdcall SetThreadAffinity(int);
-extern "C"  __declspec(dllexport)void RunScript(wchar_t * file);
-extern "C"  __declspec(dllexport)void Critical(DWORD);
+extern "C"  __declspec(dllexport) void RunScript(wchar_t * file);
+extern "C"  __declspec(dllexport) void Critical(DWORD);
 extern LPVOID COMObjectID(IUnknown* I);
 extern BOOL  CommonIsGameModule(LPVOID, POINTER_DICTIONARY *);
 extern BOOL  COMMONIsGameModule(LPVOID, POINTER_DICTIONARY*);

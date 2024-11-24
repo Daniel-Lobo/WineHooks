@@ -107,7 +107,7 @@ RegQueryValueExW_Hook(HKEY hKey, LPCWSTR ValueName, LPDWORD Reserved, LPDWORD Ty
     if (Type)   type = *Type;
     if (cbData) sz   = *cbData;
 
-    LPVOID ret  = _ReturnAddress();
+    LPVOID ret  = __builtin_return_address(0);
     LSTATUS  r  = pRegQueryValueExW(hKey, ValueName, Reserved, Type, Data, cbData);
     if (r != ERROR_SUCCESS || IsGameModule(ret) == 0 || Data == nullptr || type != REG_SZ) return r;
 
@@ -129,7 +129,7 @@ RegQueryValueExA_Hook(HKEY hKey, LPCSTR ValueName, LPDWORD Reserved, LPDWORD Typ
     if (Type)   type = *Type;
     if (cbData) sz   = *cbData;
 
-    LPVOID ret  = _ReturnAddress();
+    LPVOID ret  = __builtin_return_address(0);
     LSTATUS  r  = pRegQueryValueExA(hKey, ValueName, Reserved, Type, Data, cbData);
     if (r != ERROR_SUCCESS || IsGameModule(ret) == 0 || Data == nullptr || type != REG_SZ) return r;
 
@@ -146,7 +146,7 @@ RegQueryValueExA_Hook(HKEY hKey, LPCSTR ValueName, LPDWORD Reserved, LPDWORD Typ
 HRESULT WINAPI SHGetFolderLocation_Hook(HWND h, int csidl, HANDLE hT, DWORD f, PIDLIST_ABSOLUTE *ppidl)
 {
     if (csidl == CSIDL_MYDOCUMENTS // LoK Defiance
-        && ppidl && IsGameModule(_ReturnAddress()))
+        && ppidl && IsGameModule(__builtin_return_address(0)))
     {
         LOG_GAME_CALL;
         HRESULT hr = SHParseDisplayName(g_fs_hooks.WPath, nullptr, ppidl, 0, 0);
@@ -164,7 +164,7 @@ HRESULT WINAPI SHGetFolderLocation_Hook(HWND h, int csidl, HANDLE hT, DWORD f, P
 BOOL WINAPI SHGetPathFromIDListW_Hook(PCIDLIST_ABSOLUTE pidl, LPWSTR pszPath)
 {
     g_fs_hooks.m_fldsloger.log(__FUNCTION__, ":");
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     BOOL r     = pSHGetPathFromIDListW(pidl, pszPath);
     if (r == 0 || IsGameModule(ret) == 0)    return r;
 
@@ -174,7 +174,7 @@ BOOL WINAPI SHGetPathFromIDListW_Hook(PCIDLIST_ABSOLUTE pidl, LPWSTR pszPath)
 
 HRESULT WINAPI SHGetFolderPathW_Hook(HWND hwnd, int csidl, HANDLE hToken, DWORD dwFlags, LPWSTR pszPath)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     HRESULT hr = pSHGetFolderPathW(hwnd, csidl, hToken, dwFlags, pszPath);
     if (hr == S_OK && IsGameModule(ret))
     {
@@ -195,7 +195,7 @@ HRESULT WINAPI SHGetFolderPathW_Hook(HWND hwnd, int csidl, HANDLE hToken, DWORD 
 
 HRESULT WINAPI SHGetFolderPathA_Hook(HWND hwnd, int csidl, HANDLE hToken, DWORD dwFlags, LPSTR pszPath)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     HRESULT hr = pSHGetFolderPathA(hwnd, csidl, hToken, dwFlags, pszPath);
     if (hr == S_OK && IsGameModule(ret))
     {
@@ -216,7 +216,7 @@ HRESULT WINAPI SHGetFolderPathA_Hook(HWND hwnd, int csidl, HANDLE hToken, DWORD 
 
 BOOL WINAPI SHGetSpecialFolderPathA_Hook(HWND hwnd, LPSTR pszPath, int csidl, BOOL fCreate)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     BOOL hr    = pSHGetSpecialFolderPathA(hwnd, pszPath, csidl, fCreate);
     if (hr == TRUE && IsGameModule(ret))
     {
@@ -236,7 +236,7 @@ BOOL WINAPI SHGetSpecialFolderPathA_Hook(HWND hwnd, LPSTR pszPath, int csidl, BO
 
 BOOL WINAPI SHGetSpecialFolderPathW_Hook(HWND hwnd, LPWSTR pszPath, int csidl, BOOL fCreate)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     BOOL hr    = pSHGetSpecialFolderPathW(hwnd, pszPath, csidl, fCreate);
     if (hr == TRUE && IsGameModule(ret))
     {
@@ -257,7 +257,7 @@ BOOL WINAPI SHGetSpecialFolderPathW_Hook(HWND hwnd, LPWSTR pszPath, int csidl, B
 HRESULT WINAPI SHGetKnownFolder_Hook(REFKNOWNFOLDERID rfid, DWORD dwFlags, HANDLE hToken, PWSTR* ppszPath)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     if (IsGameModule(ret) == 0)
     {
         LOG_SYSTEM_CALL
@@ -293,7 +293,7 @@ HRESULT WINAPI SHGetKnownFolder_Hook(REFKNOWNFOLDERID rfid, DWORD dwFlags, HANDL
 
 LPCH WINAPI GetEnvironmentStringsA_Hook()
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     if (IsGameModule(ret) == 0)
     {
         LOG_SYSTEM_CALL
@@ -308,7 +308,7 @@ LPCH WINAPI GetEnvironmentStringsA_Hook()
 
 LPWCH WINAPI GetEnvironmentStringsW_Hook()
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     if (IsGameModule(ret) == 0)
     {
         LOG_SYSTEM_CALL
@@ -323,7 +323,7 @@ LPWCH WINAPI GetEnvironmentStringsW_Hook()
 
 BOOL WINAPI FreeEnvironmentStringsA_Hook(char penv[])
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     if (IsGameModule(ret) == 0)
     {
         LOG_SYSTEM_CALL
@@ -336,7 +336,7 @@ BOOL WINAPI FreeEnvironmentStringsA_Hook(char penv[])
 
 BOOL WINAPI FreeEnvironmentStringsW_Hook(wchar_t penv[])
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     if (IsGameModule(ret) == 0)
     {
         LOG_SYSTEM_CALL
@@ -349,7 +349,7 @@ BOOL WINAPI FreeEnvironmentStringsW_Hook(wchar_t penv[])
 
 DWORD WINAPI GetEnvironmentVariableA_Hook(LPCSTR lpName, LPSTR lpBuffer, DWORD nSize)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     HRESULT hr = g_fs_hooks.m_GetEnvironmentVariableA(lpName, lpBuffer, nSize);    
     if (hr == 0 || IsGameModule(ret) == 0)
     {
@@ -377,7 +377,7 @@ DWORD WINAPI GetEnvironmentVariableA_Hook(LPCSTR lpName, LPSTR lpBuffer, DWORD n
 
 DWORD WINAPI GetEnvironmentVariableW_Hook(LPCWSTR lpName, LPWSTR lpBuffer, DWORD nSize)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     HRESULT hr = g_fs_hooks.m_GetEnvironmentVariableW(lpName, lpBuffer, nSize);    
     if (hr == 0 || IsGameModule(ret) == 0)
     {
@@ -526,7 +526,7 @@ BOOL WINAPI __MoveFileW_Hook(LPCWSTR FileName, LPCWSTR NewFileName, LPVOID ret_a
 
 BOOL WINAPI MoveFileA_Hook(LPCSTR FileName, LPCSTR NewFileName)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     std::unique_ptr<wchar_t[]>       FileNameW(UnicodePath(FileName));
     std::unique_ptr<wchar_t[]> NewFileNameW(UnicodePath(NewFileName));
     return __MoveFileW_Hook(FileNameW.get(), NewFileNameW.get(), ret);
@@ -534,7 +534,7 @@ BOOL WINAPI MoveFileA_Hook(LPCSTR FileName, LPCSTR NewFileName)
 
 BOOL WINAPI MoveFileW_Hook(LPCWSTR FileName, LPCWSTR NewFileName)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     return __MoveFileW_Hook(FileName, NewFileName, ret);
 }
 
@@ -577,7 +577,7 @@ BOOL WINAPI __CopyFileW_Hook(LPCWSTR FileName, LPCWSTR NewFileName, BOOL fail, L
 
 BOOL WINAPI CopyFileA_Hook(LPCSTR FileName, LPCSTR NewFileName, BOOL fail)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     std::unique_ptr<wchar_t[]>       FileNameW(UnicodePath(FileName));
     std::unique_ptr<wchar_t[]> NewFileNameW(UnicodePath(NewFileName));
     return __CopyFileW_Hook(FileNameW.get(), NewFileNameW.get(), fail, ret);
@@ -585,7 +585,7 @@ BOOL WINAPI CopyFileA_Hook(LPCSTR FileName, LPCSTR NewFileName, BOOL fail)
 
 BOOL WINAPI CopyFileW_Hook(LPCWSTR FileName, LPCWSTR NewFileName, BOOL fail)
 {
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     return __CopyFileW_Hook(FileName, NewFileName, fail, ret);
 }
 
@@ -679,7 +679,7 @@ HANDLE WINAPI CreateFileA_Hook(char * lpFileName,  DWORD dwDesiredAccess,
         HANDLE hTemplateFile)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     std::unique_ptr<wchar_t[]> wfile(UnicodePath(lpFileName));
     return __CreateFileW_Hook(wfile.get(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, ret);
 }
@@ -690,7 +690,7 @@ HANDLE WINAPI CreateFileW_Hook(wchar_t* lpFileName, DWORD dwDesiredAccess,
     HANDLE hTemplateFile)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     return __CreateFileW_Hook(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, ret);
 }
 

@@ -107,7 +107,7 @@ void __stdcall ProxyResume()
      PROXYEXPORTS::lock->Set(0);
 }
 
-__attribute__((visibility("default"))) __attribute__((naked)) void DirectDrawCreate()
+__declspec(dllexport) __attribute__ ((naked)) void DirectDrawCreate()
 {
      #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
      ProxyInitImports();
@@ -124,7 +124,7 @@ __attribute__((visibility("default"))) __attribute__((naked)) void DirectDrawCre
      __asm__ ("jmp PROXYEXPORTS::DirectDrawCreate");
 }
 
-__attribute__((visibility("default"))) __attribute__((naked))  void DirectInputCreateEx()
+__declspec(dllexport) __attribute__ ((naked)) void DirectInputCreateEx()
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     ProxyInitImports();
@@ -142,7 +142,7 @@ __attribute__((visibility("default"))) __attribute__((naked))  void DirectInputC
 }
 
 #define PROXYEXPORT(procName) \
-extern "C" __attribute__((visibility("default"))) __attribute__((naked))  void procName() \
+extern "C" __declspec(dllexport) __attribute__ ((naked))  void procName() \
 { \
     ProxyInitImports(); \
     OUTPUT_FUNC_DBG_STRING( "OK" ); \

@@ -508,9 +508,9 @@ UINT D3D11ViewType(ID3D11View *, IUnknown**);
 
 ID3D11DeviceContext * D3D11Cntxt(ID3D11Device * d);
 
-extern "C" __declspec(dllexport) BOOL IsD3D11Device(IUnknown * i);
+extern "C" BOOL IsD3D11Device(IUnknown * i);
 
-extern "C" __declspec(dllexport) ID3D10Device * GetD3D10Device(IUnknown * i);
+extern "C" ID3D10Device * GetD3D10Device(IUnknown * i);
 
 void D3D10Present(IDXGISwapChain *, UINT, UINT);
 

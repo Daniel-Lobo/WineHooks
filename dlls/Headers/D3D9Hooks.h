@@ -247,7 +247,7 @@ extern LPVOID D3D9GetRenderSurfaceProxy(LPVOID tx);
 extern LPVOID D3D9SetRenderSurfaceProxy(LPVOID tx, LPVOID proxy);
 extern LPVOID D3D9DiscardRenderSurfaceProxy(void * tx);
 extern IDirect3DResource9 * GetContainer9(IDirect3DSurface9 * s, REFIID id);
-extern "C" __declspec(dllexport) HRESULT D3D9_DrawRect(IDirect3DDevice9 *, D3D9_RECT *, float src[4]);
+extern "C" HRESULT D3D9_DrawRect(IDirect3DDevice9 *, D3D9_RECT *, float src[4]);
 extern void D3D9DumpTexture(IDirect3DTexture9 *, LPCWSTR);
 extern void D3D9DumpShader(IDirect3DDevice9 *, IDirect3DPixelShader9 *);
 extern BOOL ProxyCheck9(UINT, UINT, D3DFORMAT, UINT);

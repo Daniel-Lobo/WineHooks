@@ -60,7 +60,7 @@ HRESULT WINAPI DSoundGetClassObjectHook(REFCLSID rclsid, REFIID riid, LPVOID* pp
 {
     LAYER_LOG_CALL
     HRESULT hr        = DSoundGlobals.m_DllGetClassObject(rclsid, riid, ppv);
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = g_.IsGameModule(ret);
     DSoundGlobals.m_loger.log(L"DSoundGetClassObjectHook", (const wchar_t*)DllFromAdress(ret).m_name.c_str());
     if (hr != 0 /*|| IsGameModule == 0*/) return hr;
@@ -88,8 +88,8 @@ HRESULT WINAPI DSoundGetClassObjectHook(REFCLSID rclsid, REFIID riid, LPVOID* pp
 HRESULT WINAPI DSndCreateHook(LPGUID lpGuid, LPDIRECTSOUND* ppDS, LPUNKNOWN pUnkOuter)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-    DSoundGlobals.m_loger.log(L"DSndCreateHook", (const wchar_t*)DllFromAdress(_ReturnAddress()).m_name.c_str());
-    if (g_.IsGameModule(_ReturnAddress())==0)  return DSoundGlobals.m_DirectSoundCreate(lpGuid, ppDS, pUnkOuter);
+    DSoundGlobals.m_loger.log(L"DSndCreateHook", (const wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str());
+    if (g_.IsGameModule(__builtin_return_address(0))==0)  return DSoundGlobals.m_DirectSoundCreate(lpGuid, ppDS, pUnkOuter);
     if (CoInitialize(nullptr) == S_FALSE)      DSND_WARN("CoInitialize FAILED");
     HRESULT hr = DSoundGlobals.m_DirectSoundCreate8(lpGuid, (LPDIRECTSOUND8*)ppDS, pUnkOuter);
     if (S_OK != hr) return hr;
@@ -102,8 +102,8 @@ HRESULT WINAPI DSndCreateHook(LPGUID lpGuid, LPDIRECTSOUND* ppDS, LPUNKNOWN pUnk
 HRESULT WINAPI DSndCreate8Hook(LPGUID lpGuid, LPDIRECTSOUND* ppDS, LPUNKNOWN pUnkOuter)
 {
    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-    DSoundGlobals.m_loger.log(L"DSndCreate8Hook", (const wchar_t*)DllFromAdress(_ReturnAddress()).m_name.c_str());
-    if (g_.IsGameModule(_ReturnAddress()) == 0)  return DSoundGlobals.m_DirectSoundCreate(lpGuid, ppDS, pUnkOuter);
+    DSoundGlobals.m_loger.log(L"DSndCreate8Hook", (const wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str());
+    if (g_.IsGameModule(__builtin_return_address(0)) == 0)  return DSoundGlobals.m_DirectSoundCreate(lpGuid, ppDS, pUnkOuter);
     if (CoInitialize(nullptr) == S_FALSE)        DSND_WARN("CoInitialize FAILED");
     HRESULT hr = DSoundGlobals.m_DirectSoundCreate8(lpGuid, (LPDIRECTSOUND8*)ppDS, pUnkOuter);
     if (S_OK != hr) return hr;

@@ -488,7 +488,7 @@ void __stdcall D3D11HelperDvc::Reset(IDXGISwapChain* S, IUnknown*U)
         D3D12LOG("IDXGISwapChain::GetBuffer() FAILED");
         return;
     }
-    if (BB12->GetDevice(IID_ID3D12Device, (void**)&D3D12) != 0)
+    if (BB12->GetDevice(__uuidof(ID3D12Device), (void**)&D3D12) != 0)
     {
         D3D12LOG("BackBufffer12::GetDevice() FAILED");
         D3D12->Release();

@@ -1529,16 +1529,16 @@ D3D11CreateSwapChainForHwnd(LPVOID Factory2/* IDXGIFactory2* */, IUnknown * Dvc,
                             IDXGISwapChain** pChain/* IDXGISwapChain1** */)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-    //OutputDebugStringW(DllFromAdress(_ReturnAddress()).m_name.c_str());
-    if (FALSE == COMMONIsGameModule(_ReturnAddress(), g_.modules))
+    //OutputDebugStringW(DllFromAdress(__builtin_return_address(0)).m_name.c_str());
+    if (FALSE == COMMONIsGameModule(__builtin_return_address(0), g_.modules))
     return D3D11_Hooks->CreateSwapChainForHwnd(Factory2, Dvc, hWin, Desc, F, Out, pChain);
     D3D11Globals.lock->lock(); D3D11Globals.lock->unlock();
 
     DXGI_SWAP_CHAIN_DESC_1 NewDesc;
     DXGI_SWAP_CHAIN_FULLSCREEN_DESC f = {0, 0, DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED, DXGI_MODE_SCALING_UNSPECIFIED, 0};
-    const DXGI_SWAP_CHAIN_DESC_1  * d = D3D11SetUPSwapChain1(Desc, &NewDesc, __FUNCTION__, hWin);
+    const DXGI_SWAP_CHAIN_DESC_1  * d = D3D11SetUPSwapChain1(Desc, &NewDesc, (char*)__FUNCTION__, hWin);
     
-    LogWinSize winsz(hWin, __FUNCTION__);
+    LogWinSize winsz(hWin, (char*)__FUNCTION__);
     g_d3d.D3DWINDOW = hWin;
     HRESULT h = D3D11_Hooks->CreateSwapChainForHwnd(Factory2, Dvc, hWin, d, &f, Out, pChain);
     //if (F != nullptr && g_d3d.GAMMAFIX) F->Windowed = FALSE;
@@ -1576,8 +1576,8 @@ D3D11CreateSwapChain(IDXGIFactory * Factory, IUnknown*Dvc, DXGI_SWAP_CHAIN_DESC*
         }
     }
     if (NewDesc.BufferDesc.Width && NewDesc.BufferDesc.Height)
-        D3D11HDSetUP(pDesc->BufferDesc.Width, pDesc->BufferDesc.Height, __FUNCTION__);
-    LogWinSize winsz(NewDesc.OutputWindow, __FUNCTION__);
+        D3D11HDSetUP(pDesc->BufferDesc.Width, pDesc->BufferDesc.Height, (char*)__FUNCTION__);
+    LogWinSize winsz(NewDesc.OutputWindow, (char*)__FUNCTION__);
 
     HRESULT h = D3D11_Hooks->CreateSwapChain(Factory, Dvc, &NewDesc, pChain);
     if (h == 0 && pDesc != nullptr) /* If CreateSwapChain succeeded, pDesc is not null, but that doesn't keeps the compiler from nagging */
@@ -1607,7 +1607,7 @@ D3D11ResizeBuffersHook(IDXGISwapChain* Sc, UINT BufferCount, UINT Width, UINT He
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DBUG_WARN((to_string(Width)+"x"+to_string(Height)).c_str());
 
-    if (Width && Height) D3D11HDSetUP(Width, Height, __FUNCTION__);
+    if (Width && Height) D3D11HDSetUP(Width, Height, (char*)__FUNCTION__);
 
     RECT                              r = {0};
     DXGI_SWAP_CHAIN_DESC              d = {0};
@@ -1625,7 +1625,7 @@ D3D11ResizeBuffersHook(IDXGISwapChain* Sc, UINT BufferCount, UINT Width, UINT He
     }
     */
     if (0 != g_d3d.FORCE_DOUBLE_BUFFERING) BufferCount = 3;
-    LogWinSize winsz(GetSwapChainWindowHandle(Sc), __FUNCTION__);
+    LogWinSize winsz(GetSwapChainWindowHandle(Sc), (char*)__FUNCTION__);
     return D3D11_Hooks->ResizeBuffers(Sc, 3, g_d3d.HD_W, g_d3d.HD_H, Format, Flags); // RIME
     return D3D11_Hooks->ResizeBuffers(Sc, BufferCount, g_d3d.HD_W, g_d3d.HD_H, Format, Flags); // RIME
 }
@@ -1638,13 +1638,13 @@ D3D11ResizeTargetHook(IDXGISwapChain* Sc, DXGI_MODE_DESC * d)
     if (d == nullptr) return DXGI_ERROR_INVALID_CALL;
     DBUG_WARN((to_string(d->Width)+"x"+to_string(d->Height)).c_str())
 
-    if (d->Width && d->Height) D3D11HDSetUP(d->Width, d->Height, __FUNCTION__);
+    if (d->Width && d->Height) D3D11HDSetUP(d->Width, d->Height, (char*)__FUNCTION__);
     DXGI_MODE_DESC newdesc;
     memcpy(&newdesc, d, sizeof(DXGI_MODE_DESC));
     newdesc.Width  = g_d3d.HD_W;
     newdesc.Height = g_d3d.HD_H;
 
-    LogWinSize winsz(GetSwapChainWindowHandle(Sc), __FUNCTION__);
+    LogWinSize winsz(GetSwapChainWindowHandle(Sc), (char*)__FUNCTION__);
     RECT                                            r = {0};
     g_d3d.m_GetClientRect(GetSwapChainWindowHandle(Sc), &r);
     // ResizeTarget can shrink death's door window, so we only call it if necessary
@@ -1732,7 +1732,7 @@ HRESULT WINAPI D3D11CoreRegisterLayersHook()
 
 HRESULT WINAPI DXVKInjector_CreateDXGIFactory1Hook(REFIID id, void ** ppFactory) 
 {   
-    if (FALSE == COMMONIsGameModule(_ReturnAddress(), g_.modules))
+    if (FALSE == COMMONIsGameModule(__builtin_return_address(0), g_.modules))
     return D3D11Globals.m_SystemCreateDXGIFactory1(id, ppFactory);
     HRESULT hr = D3D11Globals.m_DXVkCreateDXGIFactory1(id, ppFactory);    
     return hr;

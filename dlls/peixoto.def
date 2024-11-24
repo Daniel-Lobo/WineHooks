@@ -1,0 +1,3 @@
+LIBRARY peixoto.dll
+EXPORTS
+SetWin9xFlag=SetWin9xFlag@4

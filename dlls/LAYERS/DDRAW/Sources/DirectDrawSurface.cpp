@@ -163,7 +163,7 @@ STDMETHODIMP DirectDrawSurface_QueryInterface(COMPtr* ptr, REFIID riid, void** p
 {
     LAYER_LOG_CALL
     GET_COM_PTR(DirectDrawSurface, DDERR_GENERIC)
-    //DBUG_LOG(ASCii((wchar_t*)DllFromAdress(_ReturnAddress()).m_name.c_str()).ASCii_string.c_str())
+    //DBUG_LOG(ASCii((wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str()).ASCii_string.c_str())
 
     if (riid == IID_IUnknown || riid == IID_IDirectDrawSurface) {
        DBUG_LOG("IID_IDirectDrawSurface") *ppvObj = _this->GetDirectDrawSurface1(); _this->m_IUnknown->AddRef(); return 0;
@@ -860,7 +860,7 @@ STDMETHODIMP DirectDrawSurface4_Unlock(COMPtr* ptr, LPRECT pRect) {
 
 STDMETHODIMP DirectDrawSurface4_SetPrivateData(COMPtr* ptr, REFGUID guidTag, LPVOID lpData, DWORD cbSize, DWORD dwFlags) {
     LAYER_LOG_CALL; GET_COM_PTR(DirectDrawSurface, DDERR_GENERIC); 
-    //DBUG_LOG(ASCii((wchar_t*)DllFromAdress(_ReturnAddress()).m_name.c_str()).ASCii_string.c_str())
+    //DBUG_LOG(ASCii((wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str()).ASCii_string.c_str())
     LAYER_COM_CALL(SetPrivateData, guidTag, lpData, cbSize, dwFlags);
 }
 

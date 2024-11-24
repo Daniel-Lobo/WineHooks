@@ -19,7 +19,7 @@ UINT WINAPI GetRawInputData_Hook(HRAWINPUT hRawInput, UINT uiCommand, LPVOID pDa
 UINT WINAPI GetMessagePos_Hook()
 {
     UINT pos = MouseParams.GetMessagePos_Trampoline();
-    __int64 ret = (__int64)_ReturnAddress();
+    __int64 ret = (__int64)__builtin_return_address(0);
     if ((ret > MouseParams.MinAdd) && (ret < MouseParams.MaxAdd))  return pos;
     int x = GET_X_LPARAM(pos);
     int y = GET_Y_LPARAM(pos);
@@ -38,7 +38,7 @@ UINT WINAPI GetMessagePos_Hook()
 BOOL WINAPI GetMousePos_Hook(LPPOINT lpPoint)
 {
     BOOL r = MouseParams.GetCursorPos_Trampoline(lpPoint);
-    __int64 ret = (__int64)_ReturnAddress();
+    __int64 ret = (__int64)__builtin_return_address(0);
     if ((ret > MouseParams.MinAdd) && (ret < MouseParams.MaxAdd))
         return r;
     //return r;
@@ -64,7 +64,7 @@ BOOL WINAPI GetMousePos_Hook(LPPOINT lpPoint)
 
 BOOL WINAPI SetMousePos_Hook(int x, int y)
 {
-    __int64 ret = (__int64)_ReturnAddress();
+    __int64 ret = (__int64)__builtin_return_address(0);
     if ((ret > MouseParams.MinAdd) && (ret < MouseParams.MaxAdd))
         return MouseParams.SetCursorPos_Trampoline(x, y);
     y *= MouseParams.y_scale;

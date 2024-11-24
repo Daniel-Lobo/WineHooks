@@ -245,7 +245,7 @@ BOOL APIENTRY DllMain (HMODULE hInstance, DWORD fwdReason, LPVOID)
         MH_Initialize();
         g_.Init(hInstance);
 #ifndef _WIN64
-        ProxyDllInit(hInstance);
+        //ProxyDllInit(hInstance);
 #endif
         break;
     }
@@ -264,13 +264,13 @@ BOOL APIENTRY DllMain (HMODULE hInstance, DWORD fwdReason, LPVOID)
 }
 
 /* Called from CreateProcessWHook and D3D9IniHooks - AHK. Probably useless on both */
-extern "C" __declspec(dllexport) void Critical(DWORD state)
+void Critical(DWORD state)
 {
     state?EnterCriticalSection(&g_.c_sec):LeaveCriticalSection(&g_.c_sec);
 }
 
-void __stdcall SetWin9xFlag(BOOL val) {
-    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)  
+extern "C" void __stdcall SetWin9xFlag(BOOL val) {
+    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__))  
     g_.SetWin9xFlag(val);
 }
 
@@ -348,7 +348,7 @@ void RunScript(wchar_t * file)
     while (!ahkReady())
     Sleep(10);
 
-    ahkdll(file, L"", L"");
+    ahkdll(file, (wchar_t*)L"",  (wchar_t*)L"");
     return;
 }
 

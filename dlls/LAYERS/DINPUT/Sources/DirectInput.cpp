@@ -51,7 +51,7 @@ HRESULT WINAPI DInput8GetClassObjectHook(REFCLSID rclsid, REFIID riid, LPVOID* p
 {
     LAYER_LOG_CALL
     HRESULT hr        = g_Dinput.m_DllGetClassObject8(rclsid, riid, ppv);
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = g_.IsGameModule(ret) || DllFromAdress(ret).m_name.find(L"autohotkey.dll") != std::string::npos;
     OutputDebugStringW((wstring(L"DInput8GetClassObjectHook") + L"================" + DllFromAdress(ret).m_name).c_str());
     if (hr != 0 /* || IsGameModule == 0*/) return hr;
@@ -69,7 +69,7 @@ HRESULT WINAPI DirectInputCreateA_Hook(HINSTANCE hinst, DWORD dwVersion, LPDIREC
 {
     LAYER_LOG_CALL
     HRESULT hr        = g_Dinput.m_DirectInputCreateA(hinst, dwVersion, pDinput, pIunknonw);
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = g_.IsGameModule(ret) || DllFromAdress(ret).m_name.find(L"autohotkey.dll") != std::string::npos;
     if (hr != 0 || IsGameModule == 0) return hr;
     *pDinput = dynamic_cast<IDirectInputA*>(new DirectInput(*pDinput));  
@@ -81,7 +81,7 @@ HRESULT WINAPI DirectInputCreateW_Hook(HINSTANCE hinst, DWORD dwVersion, LPDIREC
 {
     LAYER_LOG_CALL
     HRESULT hr        = g_Dinput.m_DirectInputCreateW(hinst, dwVersion, pDinput, pIunknonw);
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = g_.IsGameModule(ret) || DllFromAdress(ret).m_name.find(L"autohotkey.dll") != std::string::npos;
     if (hr != 0 || IsGameModule == 0) return hr;
     *pDinput = dynamic_cast<IDirectInputW*>(new DirectInput(*pDinput));     
@@ -93,7 +93,7 @@ HRESULT WINAPI DirectInputCreateEx_Hook(HINSTANCE hinst, DWORD dwVersion, REFIID
 {
     LAYER_LOG_CALL
     HRESULT hr        = g_Dinput.m_DirectInputCreateEx(hinst, dwVersion, riidltf, ppvOut, punkOuter);    
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = g_.IsGameModule(ret) || DllFromAdress(ret).m_name.find(L"autohotkey.dll") != std::string::npos;
     if (hr != 0 || IsGameModule == 0) return hr;
     else if (riidltf == IID_IDirectInputA)  *ppvOut = (IDirectInputA*)new DirectInput((IUnknown*)*ppvOut);
@@ -113,7 +113,7 @@ HRESULT WINAPI DirectInput8Create_Hook(HINSTANCE hinst, DWORD dwVersion, REFIID 
 {
     LAYER_LOG_CALL
     HRESULT hr = g_Dinput.m_DirectInput8Create(hinst, dwVersion, riidltf, ppvOut, punkOuter);
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     BOOL IsGameModule = g_.IsGameModule(ret) || DllFromAdress(ret).m_name.find(L"autohotkey.dll") != std::string::npos;
     if (hr != 0 || IsGameModule == 0) return hr;
     else if (riidltf == IID_IDirectInput8A) *ppvOut = (IDirectInput8A*)new DirectInput8((IUnknown*)*ppvOut);
@@ -162,7 +162,7 @@ HRESULT STDMETHODCALLTYPE DirectInput::QueryInterface(REFIID riid, void** ppvObj
     if (StringFromGUID2(riid, (LPOLESTR)szGUID, 64))
     {
         //OutputDebugStringW((const wchar_t*)szGUID);
-        //OutputDebugStringW((const wchar_t*)DllFromAdress(_ReturnAddress()).m_name.c_str());
+        //OutputDebugStringW((const wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str());
     }
 
     if (riid == GUID_NULL || ppvObj == nullptr || this == nullptr) return DIERR_INVALIDPARAM;
@@ -270,7 +270,7 @@ HRESULT DirectInput8::QueryInterface(REFIID riid, void** ppvObj)
     if (StringFromGUID2(riid, (LPOLESTR)szGUID, 64))
     {
         //OutputDebugStringW((const wchar_t*)szGUID);
-        //OutputDebugStringW((const wchar_t*)DllFromAdress(_ReturnAddress()).m_name.c_str());
+        //OutputDebugStringW((const wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str());
     }
 
     if (riid == GUID_NULL || ppvObj == nullptr || this == nullptr) return DIERR_INVALIDPARAM;    
@@ -310,7 +310,7 @@ HRESULT STDMETHODCALLTYPE DirectInputDevice::QueryInterface(REFIID riid, void** 
     if (StringFromGUID2(riid, (LPOLESTR)szGUID, 64))
     {
         //OutputDebugStringW((const wchar_t*)szGUID);
-        //OutputDebugStringW((const wchar_t*)DllFromAdress(_ReturnAddress()).m_name.c_str());
+        //OutputDebugStringW((const wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str());
     }
 
     if (riid == GUID_NULL || ppvObj == nullptr || this == nullptr) return DIERR_INVALIDPARAM;
@@ -360,7 +360,7 @@ HRESULT DirectInputDevice8::QueryInterface(REFIID riid, void** ppvObj)
     if (StringFromGUID2(riid, (LPOLESTR)szGUID, 64))
     {
         //OutputDebugStringW((const wchar_t*)szGUID);
-        //OutputDebugStringW((const wchar_t*)DllFromAdress(_ReturnAddress()).m_name.c_str());
+        //OutputDebugStringW((const wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str());
     }
 
     if (riid == GUID_NULL || ppvObj == nullptr || this == nullptr) return DIERR_INVALIDPARAM;

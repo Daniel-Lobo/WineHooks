@@ -1,6 +1,6 @@
 ﻿#include <windows.h>
 
-__declspec(dllexport) void* sigscan(BYTE* mempage_add, UINT size, void* signature,
+void* sigscan(BYTE* mempage_add, UINT size, void* signature,
                                     UINT sigsize)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -15,7 +15,7 @@ __declspec(dllexport) void* sigscan(BYTE* mempage_add, UINT size, void* signatur
 }
 
 
-__declspec(dllexport) unsigned int sigscan64(void* base, DWORD size, void* signature,
+unsigned int sigscan64(void* base, DWORD size, void* signature,
                                              DWORD sigsize, HANDLE hProcess)
 {
     void * buff = malloc(sigsize);

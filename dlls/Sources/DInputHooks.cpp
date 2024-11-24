@@ -81,7 +81,7 @@ HRESULT STDMETHODCALLTYPE DiGetEffectInfoW(IUnknown *, LPDIEFFECTINFOW fx, REFGU
     return DI_OK;
 }
 
-extern "C" __declspec(dllexport) void DIEnumEffectsA(LPDIENUMEFFECTSCALLBACKA lpCallback, LPVOID pvRef, DWORD dwEffType)
+extern "C" void DIEnumEffectsA(LPDIENUMEFFECTSCALLBACKA lpCallback, LPVOID pvRef, DWORD dwEffType)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DIEFFECTINFOA fx = {sizeof(DIEFFECTINFO)};    
@@ -121,7 +121,7 @@ extern "C" __declspec(dllexport) void DIEnumEffectsA(LPDIENUMEFFECTSCALLBACKA lp
     }
 }
 
-extern "C" __declspec(dllexport) void DIEnumEffectsW(LPDIENUMEFFECTSCALLBACKW lpCallback, LPVOID pvRef, DWORD dwEffType)
+extern "C" void DIEnumEffectsW(LPDIENUMEFFECTSCALLBACKW lpCallback, LPVOID pvRef, DWORD dwEffType)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DIEFFECTINFOW fx = { sizeof(DIEFFECTINFO) };   
@@ -928,7 +928,7 @@ HRESULT STDMETHODCALLTYPE DinputDevice8SetPropertyW(IDirectInputDevice8W* dvc, D
 HRESULT WINAPI DiGetDvcCaps(IDirectInputDeviceA* dvc, LPDIDEVCAPS caps)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     HRESULT hr = DInput_Hooks->GetCapabilities(dvc, caps);
     if (hr != S_OK) return hr;
 
@@ -949,7 +949,7 @@ HRESULT WINAPI DiGetDvcCaps(IDirectInputDeviceA* dvc, LPDIDEVCAPS caps)
 HRESULT WINAPI Di8GetDvcCaps(IDirectInputDevice8A* dvc, LPDIDEVCAPS caps)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     HRESULT hr = DInput_Hooks->GetCapabilities8(dvc, caps);
     if (hr != S_OK) return hr;
 
@@ -969,7 +969,7 @@ HRESULT WINAPI Di8GetDvcCaps(IDirectInputDevice8A* dvc, LPDIDEVCAPS caps)
 HRESULT WINAPI DiGetDvcCapsW(IDirectInputDeviceW* dvc, LPDIDEVCAPS caps)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     HRESULT hr = DInput_Hooks->GetCapabilitiesW(dvc, caps);
     if (hr != S_OK) return hr;
 
@@ -989,7 +989,7 @@ HRESULT WINAPI DiGetDvcCapsW(IDirectInputDeviceW* dvc, LPDIDEVCAPS caps)
 HRESULT WINAPI Di8GetDvcCapsW(IDirectInputDevice8W* dvc, LPDIDEVCAPS caps)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     HRESULT hr = DInput_Hooks->GetCapabilities8W(dvc, caps);
     if (hr != S_OK) return hr;
 

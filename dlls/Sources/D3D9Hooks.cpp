@@ -1,5 +1,5 @@
-#include <windows.h>
 #include <intrin.h>
+#include <windows.h>
 #include <d3d9.h>
 #include "dllmain.h"
 #include "string.h"
@@ -1195,7 +1195,7 @@ IDirect3DPixelShader9 * D3D9GetPxProxy(IDirect3DPixelShader9* px)
 int __stdcall D3D9GetSystemMetricsHook(int nIndex)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule =  CommonIsGameModule(ret, D3D9Globals.GameModules);
     if  (IsGameModule == 0)     return D3D9_Hooks->GetSystemMetrics(nIndex);
     if  (nIndex == SM_CXSCREEN) return D3D9_Hooks->W;
@@ -1206,7 +1206,7 @@ int __stdcall D3D9GetSystemMetricsHook(int nIndex)
 BOOL __stdcall D3D9GetMonitorInfoAHook(HMONITOR hMonitor, LPMONITORINFO lpmi)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule =  CommonIsGameModule(ret, D3D9Globals.GameModules);
     BOOL r            = D3D9_Hooks->GetMonitorInfoA(hMonitor, (LPMONITORINFOEXA)lpmi);
     if (r == 0) return 0;

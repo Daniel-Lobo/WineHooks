@@ -16,6 +16,7 @@
 #include <d3d12.h>
 #include <dxgi1_2.h>
 #include <cstdio>
+#include <_mingw.h>
 
 D3D12_HOOKS g_d3d;
 void D3D12_HOOKS::Setup(DWORD w, DWORD h, char * Caller)
@@ -200,7 +201,7 @@ BOOL WINAPI D3D12ClipCursorHook(const RECT *lpRect)
 
 int __stdcall D3D12GetSystemMetricsHook(int nIndex)
 {
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = COMMONIsGameModule(ret, g_.modules);
     if (IsGameModule)
     {
@@ -212,7 +213,7 @@ int __stdcall D3D12GetSystemMetricsHook(int nIndex)
 
 int __stdcall D3D12GetDeviceCapsHook(HDC hdc, int index)
 {
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = COMMONIsGameModule(ret, g_.modules);
     int r             = g_d3d.m_GetDeviceCaps(hdc, index);
     if (r && IsGameModule)
@@ -225,7 +226,7 @@ int __stdcall D3D12GetDeviceCapsHook(HDC hdc, int index)
 
 BOOL __stdcall D3D12SystemParametersInfoWHook(UINT uiAction, UINT uiParam, PVOID pvParam, UINT fWinIni)
 {
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = COMMONIsGameModule(ret, g_.modules);
     BOOL r            = g_d3d.m_SystemParametersInfoW(uiAction, uiParam, pvParam, fWinIni);
     if (r && IsGameModule && uiAction == SPI_GETWORKAREA)
@@ -240,7 +241,7 @@ BOOL __stdcall D3D12SystemParametersInfoWHook(UINT uiAction, UINT uiParam, PVOID
 
 BOOL __stdcall D3D12GetMonitorInfoWHook(HMONITOR hMonitor, LPMONITORINFO lpmi)
 {
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = COMMONIsGameModule(ret, g_.modules);
     BOOL r            = g_d3d.m_GetMonitorInfoW(hMonitor, lpmi);
     if (r == 0) return 0;
@@ -256,7 +257,7 @@ BOOL __stdcall D3D12GetMonitorInfoWHook(HMONITOR hMonitor, LPMONITORINFO lpmi)
 
 BOOL __stdcall D3D12GetMonitorInfoAHook(HMONITOR hMonitor, LPMONITORINFO lpmi)
 {
-    LPVOID ret        = _ReturnAddress();
+    LPVOID ret        = __builtin_return_address(0);
     BOOL IsGameModule = COMMONIsGameModule(ret, g_.modules);
     BOOL r            = g_d3d.m_GetMonitorInfoA(hMonitor, lpmi);
     if (r == 0) return 0;
@@ -272,7 +273,7 @@ BOOL __stdcall D3D12GetMonitorInfoAHook(HMONITOR hMonitor, LPMONITORINFO lpmi)
 
 BOOL __stdcall D3D12EnumDisplaySettingsAHook(LPCSTR DeviceName, DWORD iModeNum, DEVMODEA *DevMode)
 {
-    if (COMMONIsGameModule(_ReturnAddress(), g_.modules) == 0)
+    if (COMMONIsGameModule(__builtin_return_address(0), g_.modules) == 0)
     return g_d3d.m_EnumDisplaySettingsA(DeviceName, iModeNum, DevMode);
 
     if ((int)iModeNum > g_d3d.mHighestDisplayModeIndex)
@@ -300,7 +301,7 @@ BOOL __stdcall D3D12EnumDisplaySettingsAHook(LPCSTR DeviceName, DWORD iModeNum, 
 
 BOOL __stdcall D3D12EnumDisplaySettingsWHook(const wchar_t* DeviceName, DWORD iModeNum, DEVMODEW *DevMode)
 {
-    if (COMMONIsGameModule(_ReturnAddress(), g_.modules) == 0)
+    if (COMMONIsGameModule(__builtin_return_address(0), g_.modules) == 0)
     return g_d3d.m_EnumDisplaySettingsW(DeviceName, iModeNum, DevMode);
 
     if ((int)iModeNum > g_d3d.mHighestDisplayModeIndex)
@@ -329,7 +330,7 @@ BOOL __stdcall D3D12EnumDisplaySettingsWHook(const wchar_t* DeviceName, DWORD iM
 BOOL __stdcall D3D12EnumDisplaySettingsExWHook(const wchar_t* lpszDeviceName,DWORD iModeNum, DEVMODEW *lpDevMode,
                                                DWORD dwFlags)
 {
-    if (CommonIsGameModule(_ReturnAddress(), g_.modules) == 0)
+    if (CommonIsGameModule(__builtin_return_address(0), g_.modules) == 0)
     return g_d3d.m_EnumDisplaySettingsExW(lpszDeviceName, iModeNum, lpDevMode, dwFlags);
 
     if ((int)iModeNum > g_d3d.mHighestDisplayModeIndex)
@@ -358,21 +359,21 @@ BOOL __stdcall D3D12EnumDisplaySettingsExWHook(const wchar_t* lpszDeviceName,DWO
 LONG __stdcall D3D12ChangeDisplaySettingsExWHook(LPCWSTR dvc, DEVMODEW * mode, HWND hwnd,
                                                  DWORD flags, LPVOID lParam)
 {
-    if (CommonIsGameModule(_ReturnAddress(), g_.modules) == 0)
+    if (CommonIsGameModule(__builtin_return_address(0), g_.modules) == 0)
     return g_d3d.m_ChangeDisplaySettingsExW(dvc, mode, hwnd, flags, lParam);
 
-    if (mode == nullptr) g_d3d.Setup(g_d3d.MaxW, g_d3d.MaxH, __FUNCTION__);
-    else                 g_d3d.Setup(mode->dmPelsWidth, mode->dmPelsHeight, __FUNCTION__);
+    if (mode == nullptr) g_d3d.Setup(g_d3d.MaxW, g_d3d.MaxH, (char*)__FUNCTION__);
+    else                 g_d3d.Setup(mode->dmPelsWidth, mode->dmPelsHeight, (char*)__FUNCTION__);
     return DISP_CHANGE_SUCCESSFUL;
 }
 
 LONG __stdcall D3D12ChangeDisplaySettingsWHook(DEVMODEW *mode,DWORD flags)
 {
-    if (CommonIsGameModule(_ReturnAddress(), g_.modules) == 0)
+    if (CommonIsGameModule(__builtin_return_address(0), g_.modules) == 0)
     return g_d3d.m_ChangeDisplaySettingsW(mode, flags);
 
-    if (mode == nullptr) g_d3d.Setup(g_d3d.MaxW, g_d3d.MaxH, __FUNCTION__);
-    else                 g_d3d.Setup(mode->dmPelsWidth, mode->dmPelsHeight, __FUNCTION__);
+    if (mode == nullptr) g_d3d.Setup(g_d3d.MaxW, g_d3d.MaxH, (char*)__FUNCTION__);
+    else                 g_d3d.Setup(mode->dmPelsWidth, mode->dmPelsHeight, (char*)__FUNCTION__);
     return DISP_CHANGE_SUCCESSFUL;
 }
 
@@ -402,7 +403,7 @@ BOOL __stdcall
 D3D12GetClientRectHook(HWND hWnd, RECT * rct)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__) /* So AHK can hook it*/
-    if (CommonIsGameModule(_ReturnAddress(), g_.modules) == 0)
+    if (CommonIsGameModule(__builtin_return_address(0), g_.modules) == 0)
     return g_d3d.m_GetClientRect(hWnd, rct);
 
     BOOL r = g_d3d.m_GetClientRect(hWnd, rct);
@@ -413,7 +414,7 @@ D3D12GetClientRectHook(HWND hWnd, RECT * rct)
 BOOL __stdcall
 D3D12GetWindowRectHook(HWND hWnd, RECT * rct)
 {
-    if (CommonIsGameModule(_ReturnAddress(), g_.modules) == 0)
+    if (CommonIsGameModule(__builtin_return_address(0), g_.modules) == 0)
     return g_d3d.m_GetWindowRect(hWnd, rct);
 
     BOOL r = g_d3d.m_GetWindowRect(hWnd, rct);
@@ -424,9 +425,9 @@ D3D12GetWindowRectHook(HWND hWnd, RECT * rct)
 BOOL __stdcall
 D3D12SetWindowPosHook(HWND hWnd, HWND hWndInsertAfter, int  X, int  Y, int cx, int  cy, UINT uFlags)
 {
-    LogWinSize winsz(hWnd, __FUNCTION__);
+    LogWinSize winsz(hWnd, (char*)__FUNCTION__);
     /* OpenGl games need the g_d3d.D3DWINDOW check: uxtheme.dll resizes the gl window */
-    if (CommonIsGameModule(_ReturnAddress(), g_.modules) == 0 && hWnd != g_d3d.D3DWINDOW)
+    if (CommonIsGameModule(__builtin_return_address(0), g_.modules) == 0 && hWnd != g_d3d.D3DWINDOW)
         return g_d3d.m_SetWindowPos(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
     BOOL s = g_d3d.m_SetWindowPos(hWnd, hWndInsertAfter, X, Y, g_d3d.HD_W, g_d3d.HD_H, uFlags);
     if (s && 0==((uFlags & SWP_NOSIZE) || (uFlags & SWP_NOMOVE))) SendMessageA(hWnd, WM_SIZE, 0, cx|(cy<<16)); /* untested, but fixes dex */
@@ -438,7 +439,7 @@ HRESULT __stdcall D3D12DXGISwapChainGetDescHook(IDXGISwapChain * sc, DXGI_SWAP_C
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = g_d3d.m_IDXGISwapChainGetDesc(sc, pDesc);
     if (hr)                                                    return hr;
-    if (CommonIsGameModule(_ReturnAddress(), g_.modules) == 0) return hr;
+    if (CommonIsGameModule(__builtin_return_address(0), g_.modules) == 0) return hr;
     pDesc->BufferDesc.Width  = g_d3d.m_WW->Get();
     pDesc->BufferDesc.Height = g_d3d.m_HH->Get();
     return 0;
@@ -449,7 +450,7 @@ HRESULT __stdcall D3D12DXGISwapChainGetDesc1Hook(IDXGISwapChain1 * sc, DXGI_SWAP
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     HRESULT hr = g_d3d.m_IDXGISwapChainGetDesc1(sc, pDesc);
     if (hr)                                                    return hr;
-    if (CommonIsGameModule(_ReturnAddress(), g_.modules) == 0) return hr;
+    if (CommonIsGameModule(__builtin_return_address(0), g_.modules) == 0) return hr;
     pDesc->Width  = g_d3d.m_WW->Get();
     pDesc->Height = g_d3d.m_HH->Get();
     return 0;
@@ -521,7 +522,7 @@ D3D12GetDisplayModeListHook(IDXGIOutput1 * out, DXGI_FORMAT fmt, UINT flags, UIN
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     D3D12LOG("=====");
     OUTPUT_FUNC_DBG_STRING("====");
-    if (COMMONIsGameModule(_ReturnAddress(), g_.modules) == 0)
+    if (COMMONIsGameModule(__builtin_return_address(0), g_.modules) == 0)
     {
         OUTPUT_FUNC_DBG_STRING("=(=(=(=(=(=(=(=(=(=(=(=(");
         return g_d3d.m_IDXGIOutputGetDisplayModeList(out, fmt, flags, pCount, pDesc);
@@ -731,7 +732,7 @@ D3D12CreateSwapChainForHwndHook(IDXGIFactory2 * Factory, IUnknown *pDevice, HWND
     g_d3d.lock->unlock();
 
     if (pDesc == nullptr)   return DXGI_ERROR_INVALID_CALL;
-    g_d3d.Setup(pDesc->Width, pDesc->Height, __FUNCTION__);
+    g_d3d.Setup(pDesc->Width, pDesc->Height, (char*)__FUNCTION__);
 
     DXGI_SWAP_CHAIN_DESC1 newdesc;
     memcpy(&newdesc, pDesc, sizeof(DXGI_SWAP_CHAIN_DESC1));    
@@ -753,7 +754,7 @@ D3D12CreateSwapChainHook(IDXGIFactory*Factory,IUnknown*pDevice,DXGI_SWAP_CHAIN_D
     g_d3d.lock->unlock();
 
     if (pDesc == nullptr || pDevice==nullptr || ppSwapChain==nullptr)   return DXGI_ERROR_INVALID_CALL;
-    g_d3d.Setup(pDesc->BufferDesc.Width, pDesc->BufferDesc.Height, __FUNCTION__);
+    g_d3d.Setup(pDesc->BufferDesc.Width, pDesc->BufferDesc.Height, (char*)__FUNCTION__);
 
     DXGI_SWAP_CHAIN_DESC newdesc;
     memcpy(&newdesc, pDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
@@ -773,7 +774,7 @@ D3D12CreateSwapChainHook(IDXGIFactory*Factory,IUnknown*pDevice,DXGI_SWAP_CHAIN_D
 HRESULT __stdcall
 D3D12ResizeBuffersHook(IDXGISwapChain* SChain,UINT Count, UINT w, UINT h, DXGI_FORMAT fmt, UINT flags)
 {
-    if (CommonIsGameModule(_ReturnAddress(), g_.modules) == 0)
+    if (CommonIsGameModule(__builtin_return_address(0), g_.modules) == 0)
     return g_d3d.ResizeBuffers((IDXGISwapChain2*)SChain, Count, w, h, fmt, flags);
     HRESULT hr;
     if (g_d3d.UPSCALE)
@@ -781,7 +782,7 @@ D3D12ResizeBuffersHook(IDXGISwapChain* SChain,UINT Count, UINT w, UINT h, DXGI_F
         if (w == 0) w = g_d3d.m_WW->Get();
         if (h == 0) h = g_d3d.m_HH->Get();
     }
-    g_d3d.Setup(w, h, __FUNCTION__);
+    g_d3d.Setup(w, h, (char*)__FUNCTION__);
     if (g_d3d.UPSCALE) hr = g_d3d.ResizeBuffers((IDXGISwapChain2*)SChain, Count, g_d3d.HD_W, g_d3d.HD_H, fmt, flags);
     else               hr = g_d3d.ResizeBuffers((IDXGISwapChain2*)SChain, Count, w, h, fmt, flags);
     if (SUCCEEDED(hr)) g_d3d.D3D11DvcNT.Reset(SChain, nullptr);
@@ -803,6 +804,7 @@ D3D12GetBufferHook(IDXGISwapChain* SChain, UINT index, REFIID riid, void ** ppSu
     ID3D12Device   * Dvc   = nullptr;
     ID3D12Resource * pBB   = nullptr;
     ID3D12Resource * proxy = nullptr;
+    D3D12_RESOURCE_DESC D  = {};                     
 
     if      (riid == __uuidof(ID3D12Resource))  DBUG_WARN("ID3D12Resource")
     else if (riid == __uuidof(ID3D11Texture2D)) DBUG_WARN("ID3D11Texture2D")
@@ -813,12 +815,12 @@ D3D12GetBufferHook(IDXGISwapChain* SChain, UINT index, REFIID riid, void ** ppSu
         D3D12LOG("IDXGISwapChain::GetBuffer() FAILED");
         goto D3D12GetBufferHook_Failed;
     }
-    if (pBB->GetDevice(_uuidof(ID3D12Device), (void**)&Dvc))
+    if (pBB->GetDevice(__uuidof(ID3D12Device), (void**)&Dvc))
     {
         D3D12LOG("BackBufffer12::GetDevice() FAILED");
         goto D3D12GetBufferHook_Failed;
     }
-    auto D = pBB->GetDesc();    
+    D      = pBB->GetDesc();    
     proxy  = g_d3d.D3D11DvcNT.GetBuffer(SChain, index);
     if (proxy == nullptr)
     {
@@ -883,6 +885,8 @@ D3D12CreateSamplerHook(ID3D12Device * dvc, const D3D12_SAMPLER_DESC* D, D3D12_CP
 
 void __stdcall D3D12Init()
 {
+    return ;
+    /*
     #define D3D12INITFAILED(e) {err.append(e);goto D3D12InitFailed;}
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 
@@ -990,5 +994,6 @@ void __stdcall D3D12Init()
     if (DXGIFactory1) DXGIFactory1->Release();
     if (D3D12BBuff)     D3D12BBuff->Release();
     g_d3d.lock->unlock();
+    */
 }
 #endif

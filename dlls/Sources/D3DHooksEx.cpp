@@ -17,7 +17,8 @@ extern "C" {
 #include "Scalers.h"
 #include "DDSurface.h"
 }
-#include <intrin.h>
+#include "dllmain.h"
+
 
 void LogDDSrfacePxFormat(IUnknown * i)
 {
@@ -232,7 +233,7 @@ HRESULT STDMETHODCALLTYPE GetAttachedSurfaceHook(LPVOID srfc, DWORD cps, DWORD a
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DDLOCK();
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     if (g_.IsGameModule(ret) == 0)
     {
         DBUG_WARN("SYS_CALL");
@@ -245,7 +246,7 @@ HRESULT STDMETHODCALLTYPE GetAttachedSurface4Hook(LPVOID srfc, DWORD cps, DWORD 
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DDLOCK();
-    LPVOID ret = _ReturnAddress();
+    LPVOID ret = __builtin_return_address(0);
     if (g_.IsGameModule(ret) == 0)
     {
         DBUG_WARN("SYS_CALL");

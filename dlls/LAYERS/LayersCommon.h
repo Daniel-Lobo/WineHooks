@@ -26,13 +26,13 @@ using std::string;
     #define LAYER_PROXY_CREATED    DBUG_WARN(std::to_string(g_.layer_objects_count->Increment()).c_str())
     #define LAYER_PROXY_DESTROYDED DBUG_WARN(std::to_string(g_.layer_objects_count->Decrement()).c_str())
     #ifdef _WIN64
-        #define LAYER_LOG_CALL         DBUG_WARN(std::to_string((long long)_ReturnAddress()).c_str());
+        #define LAYER_LOG_CALL         DBUG_WARN(std::to_string((long long)__builtin_return_address(0)).c_str());
         #define LAYER_MEMBER_LOG_CALL   LAYER_LOG_CALL
     #else
-        //#define LAYER_LOG_CALL         DBUG_WARN((string("Return adress=[") + to_string((long)_ReturnAddress()) + string("]")).c_str())
-        #define LAYER_LOG_CALL         DBUG_WARN((string("Return adress=[") + to_string((long)_ReturnAddress()) + string("]")).c_str())
-        #define LAYER_MEMBER_LOG_CALL  if (this == nullptr)  DBUG_WARN(std::to_string((long)_ReturnAddress()).c_str()) \
-                                       else DBUG_WARN((string("this=[") + to_string((long)m_Imp) + "] Return adress=[" + std::to_string((long)_ReturnAddress())+ string("]")).c_str())
+        //#define LAYER_LOG_CALL         DBUG_WARN((string("Return adress=[") + to_string((long)__builtin_return_address(0)) + string("]")).c_str())
+        #define LAYER_LOG_CALL         DBUG_WARN((string("Return adress=[") + to_string((long)__builtin_return_address(0)) + string("]")).c_str())
+        #define LAYER_MEMBER_LOG_CALL  if (this == nullptr)  DBUG_WARN(std::to_string((long)__builtin_return_address(0)).c_str()) \
+                                       else DBUG_WARN((string("this=[") + to_string((long)m_Imp) + "] Return adress=[" + std::to_string((long)__builtin_return_address(0))+ string("]")).c_str())
     #endif
 #else
     #define LAYER_PROXY_CREATED
