@@ -1,0 +1,6 @@
+    ps_1_1
+    tex t0
+    add r1, v0, v1
+    mul r0, r1, t0
+
+// approximately 3 instruction slots used (1 texture, 2 arithmetic)

@@ -1,0 +1,764 @@
+; <COMPILER: v1.1.15.03>
+Global dshow := {}
+dshow.LIBID_QuartzTypeLib := "{56a868b0-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IAMCollection := "{56a868b9-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaControl := "{56a868b1-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaEvent := "{56a868b6-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaEventEx := "{56a868c0-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaPosition := "{56a868b2-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IBasicAudio := "{56a868b3-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IVideoWindow := "{56a868b4-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IBasicVideo := "{56a868b5-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IBasicVideo2 := "{329bb360-f6ea-11d1-9038-00a0c9697298}"
+dshow.IID_IDeferredCommand := "{56a868b8-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IQueueCommand := "{56a868b7-0ad4-11ce-b03a-0020af0ba770}"
+dshow.CLSID_FilgraphManager := "{e436ebb3-524f-11ce-9f53-0020af0ba770}"
+dshow.IID_IFilterInfo := "{56a868ba-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IRegFilterInfo := "{56a868bb-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaTypeInfo := "{56a868bc-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IPinInfo := "{56a868bd-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IAMStats := "{bc9bcf80-dcd2-11d2-abf6-00a0c905f375}"
+dshow.IAMCollection:= {}
+dshow.IAMCollection.name := "IAMCollection"
+dshow.IAMCollection.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Count)(This,plCount)
+STDMETHOD(Item)(This,lItem,ppUnk)
+STDMETHOD(get__NewEnum)(This,ppUnk)
+"
+)
+dshow.IAMStats:= {}
+dshow.IAMStats.name := "IAMStats"
+dshow.IAMStats.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(Reset)(This)
+STDMETHOD(get_Count)(This,plCount)
+STDMETHOD(GetValueByIndex)(This,lIndex,szName,lCount,dLast,dAverage,dStdDev,dMin,dMax)
+STDMETHOD(GetValueByName)(This,szName,lIndex,lCount,dLast,dAverage,dStdDev,dMin,dMax)
+STDMETHOD(GetIndex)(This,szName,lCreate,plIndex)
+STDMETHOD(AddValue)(This,lIndex,dValue)
+"
+)
+dshow.IBasicAudio:= {}
+dshow.IBasicAudio.name := "IBasicAudio"
+dshow.IBasicAudio.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(put_Volume)(This,lVolume)
+STDMETHOD(get_Volume)(This,plVolume)
+STDMETHOD(put_Balance)(This,lBalance)
+STDMETHOD(get_Balance)(This,plBalance)
+"
+)
+dshow.IBasicVideo:= {}
+dshow.IBasicVideo.name := "IBasicVideo"
+dshow.IBasicVideo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_AvgTimePerFrame)(This,pAvgTimePerFrame)
+STDMETHOD(get_BitRate)(This,pBitRate)
+STDMETHOD(get_BitErrorRate)(This,pBitErrorRate)
+STDMETHOD(get_VideoWidth)(This,pVideoWidth)
+STDMETHOD(get_VideoHeight)(This,pVideoHeight)
+STDMETHOD(put_SourceLeft)(This,SourceLeft)
+STDMETHOD(get_SourceLeft)(This,pSourceLeft)
+STDMETHOD(put_SourceWidth)(This,SourceWidth)
+STDMETHOD(get_SourceWidth)(This,pSourceWidth)
+STDMETHOD(put_SourceTop)(This,SourceTop)
+STDMETHOD(get_SourceTop)(This,pSourceTop)
+STDMETHOD(put_SourceHeight)(This,SourceHeight)
+STDMETHOD(get_SourceHeight)(This,pSourceHeight)
+STDMETHOD(put_DestinationLeft)(This,DestinationLeft)
+STDMETHOD(get_DestinationLeft)(This,pDestinationLeft)
+STDMETHOD(put_DestinationWidth)(This,DestinationWidth)
+STDMETHOD(get_DestinationWidth)(This,pDestinationWidth)
+STDMETHOD(put_DestinationTop)(This,DestinationTop)
+STDMETHOD(get_DestinationTop)(This,pDestinationTop)
+STDMETHOD(put_DestinationHeight)(This,DestinationHeight)
+STDMETHOD(get_DestinationHeight)(This,pDestinationHeight)
+STDMETHOD(SetSourcePosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetSourcePosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(SetDefaultSourcePosition)(This)
+STDMETHOD(SetDestinationPosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetDestinationPosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(SetDefaultDestinationPosition)(This)
+STDMETHOD(GetVideoSize)(This,pWidth,pHeight)
+STDMETHOD(GetVideoPaletteEntries)(This,StartIndex,Entries,pRetrieved,pPalette)
+STDMETHOD(GetCurrentImage)(This,pBufferSize,pDIBImage)
+STDMETHOD(IsUsingDefaultSource)(This)
+STDMETHOD(IsUsingDefaultDestination)(This)
+"
+)
+dshow.IBasicVideo2:= {}
+dshow.IBasicVideo2.name := "IBasicVideo2"
+dshow.IBasicVideo2.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_AvgTimePerFrame)(This,pAvgTimePerFrame)
+STDMETHOD(get_BitRate)(This,pBitRate)
+STDMETHOD(get_BitErrorRate)(This,pBitErrorRate)
+STDMETHOD(get_VideoWidth)(This,pVideoWidth)
+STDMETHOD(get_VideoHeight)(This,pVideoHeight)
+STDMETHOD(put_SourceLeft)(This,SourceLeft)
+STDMETHOD(get_SourceLeft)(This,pSourceLeft)
+STDMETHOD(put_SourceWidth)(This,SourceWidth)
+STDMETHOD(get_SourceWidth)(This,pSourceWidth)
+STDMETHOD(put_SourceTop)(This,SourceTop)
+STDMETHOD(get_SourceTop)(This,pSourceTop)
+STDMETHOD(put_SourceHeight)(This,SourceHeight)
+STDMETHOD(get_SourceHeight)(This,pSourceHeight)
+STDMETHOD(put_DestinationLeft)(This,DestinationLeft)
+STDMETHOD(get_DestinationLeft)(This,pDestinationLeft)
+STDMETHOD(put_DestinationWidth)(This,DestinationWidth)
+STDMETHOD(get_DestinationWidth)(This,pDestinationWidth)
+STDMETHOD(put_DestinationTop)(This,DestinationTop)
+STDMETHOD(get_DestinationTop)(This,pDestinationTop)
+STDMETHOD(put_DestinationHeight)(This,DestinationHeight)
+STDMETHOD(get_DestinationHeight)(This,pDestinationHeight)
+STDMETHOD(SetSourcePosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetSourcePosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(SetDefaultSourcePosition)(This)
+STDMETHOD(SetDestinationPosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetDestinationPosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(SetDefaultDestinationPosition)(This)
+STDMETHOD(GetVideoSize)(This,pWidth,pHeight)
+STDMETHOD(GetVideoPaletteEntries)(This,StartIndex,Entries,pRetrieved,pPalette)
+STDMETHOD(GetCurrentImage)(This,pBufferSize,pDIBImage)
+STDMETHOD(IsUsingDefaultSource)(This)
+STDMETHOD(IsUsingDefaultDestination)(This)
+STDMETHOD(GetPreferredAspectRatio)(This,plAspectX,plAspectY)
+"
+)
+dshow.IDeferredCommand:= {}
+dshow.IDeferredCommand.name := "IDeferredCommand"
+dshow.IDeferredCommand.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(Cancel)(This)
+STDMETHOD(Confidence)(This,pConfidence)
+STDMETHOD(Postpone)(This,newtime)
+STDMETHOD(GetHResult)(This,phrResult)
+"
+)
+dshow.IFilterInfo:= {}
+dshow.IFilterInfo.name := "IFilterInfo"
+dshow.IFilterInfo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(FindPin)(This,strPinID,ppUnk)
+STDMETHOD(get_Name)(This,strName)
+STDMETHOD(get_VendorInfo)(This,strVendorInfo)
+STDMETHOD(get_Filter)(This,ppUnk)
+STDMETHOD(get_Pins)(This,ppUnk)
+STDMETHOD(get_IsFileSource)(This,pbIsSource)
+STDMETHOD(get_Filename)(This,pstrFilename)
+STDMETHOD(put_Filename)(This,strFilename)
+"
+)
+dshow.IMediaControl:= {}
+dshow.IMediaControl.name := "IMediaControl"
+dshow.IMediaControl.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(Run)(This)
+STDMETHOD(Pause)(This)
+STDMETHOD(Stop)(This)
+STDMETHOD(GetState)(This,msTimeout,pfs)
+STDMETHOD(RenderFile)(This,strFilename)
+STDMETHOD(AddSourceFilter)(This,strFilename,ppUnk)
+STDMETHOD(get_FilterCollection)(This,ppUnk)
+STDMETHOD(get_RegFilterCollection)(This,ppUnk)
+STDMETHOD(StopWhenReady)(This)
+"
+)
+dshow.IMediaEvent:= {}
+dshow.IMediaEvent.name := "IMediaEvent"
+dshow.IMediaEvent.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(GetEventHandle)(This,hEvent)
+STDMETHOD(GetEvent)(This,lEventCode,lParam1,lParam2,msTimeout)
+STDMETHOD(WaitForCompletion)(This,msTimeout,pEvCode)
+STDMETHOD(CancelDefaultHandling)(This,lEvCode)
+STDMETHOD(RestoreDefaultHandling)(This,lEvCode)
+STDMETHOD(FreeEventParams)(This,lEvCode,lParam1,lParam2)
+"
+)
+dshow.IMediaEventEx:= {}
+dshow.IMediaEventEx.name := "IMediaEventEx"
+dshow.IMediaEventEx.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(GetEventHandle)(This,hEvent)
+STDMETHOD(GetEvent)(This,lEventCode,lParam1,lParam2,msTimeout)
+STDMETHOD(WaitForCompletion)(This,msTimeout,pEvCode)
+STDMETHOD(CancelDefaultHandling)(This,lEvCode)
+STDMETHOD(RestoreDefaultHandling)(This,lEvCode)
+STDMETHOD(FreeEventParams)(This,lEvCode,lParam1,lParam2)
+STDMETHOD(SetNotifyWindow)(This,hwnd,lMsg,lInstanceData)
+STDMETHOD(SetNotifyFlags)(This,lNoNotifyFlags)
+STDMETHOD(GetNotifyFlags)(This,lplNoNotifyFlags)
+"
+)
+dshow.IMediaPosition:= {}
+dshow.IMediaPosition.name := "IMediaPosition"
+dshow.IMediaPosition.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Duration)(This,plength)
+STDMETHOD(put_CurrentPosition)(This,llTime)
+STDMETHOD(get_CurrentPosition)(This,pllTime)
+STDMETHOD(get_StopTime)(This,pllTime)
+STDMETHOD(put_StopTime)(This,llTime)
+STDMETHOD(get_PrerollTime)(This,pllTime)
+STDMETHOD(put_PrerollTime)(This,llTime)
+STDMETHOD(put_Rate)(This,dRate)
+STDMETHOD(get_Rate)(This,pdRate)
+STDMETHOD(CanSeekForward)(This,pCanSeekForward)
+STDMETHOD(CanSeekBackward)(This,pCanSeekBackward)
+"
+)
+dshow.IMediaTypeInfo:= {}
+dshow.IMediaTypeInfo.name := "IMediaTypeInfo"
+dshow.IMediaTypeInfo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Type)(This,strType)
+STDMETHOD(get_Subtype)(This,strType)
+"
+)
+dshow.IPinInfo:= {}
+dshow.IPinInfo.name := "IPinInfo"
+dshow.IPinInfo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Pin)(This,ppUnk)
+STDMETHOD(get_ConnectedTo)(This,ppUnk)
+STDMETHOD(get_ConnectionMediaType)(This,ppUnk)
+STDMETHOD(get_FilterInfo)(This,ppUnk)
+STDMETHOD(get_Name)(This,ppUnk)
+STDMETHOD(get_Direction)(This,ppDirection)
+STDMETHOD(get_PinID)(This,strPinID)
+STDMETHOD(get_MediaTypes)(This,ppUnk)
+STDMETHOD(Connect)(This,pPin)
+STDMETHOD(ConnectDirect)(This,pPin)
+STDMETHOD(ConnectWithType)(This,pPin,pMediaType)
+STDMETHOD(Disconnect)(This)
+STDMETHOD(Render)(This)
+"
+)
+dshow.IQueueCommand:= {}
+dshow.IQueueCommand.name := "IQueueCommand"
+dshow.IQueueCommand.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(InvokeAtStreamTime)(This,pCmd,time,iid,dispidMethod,wFlags,cArgs,pDispParams,pvarResult,puArgErr)
+STDMETHOD(InvokeAtPresentationTime)(This,pCmd,time,iid,dispidMethod,wFlags,cArgs,pDispParams,pvarResult,puArgErr)
+"
+)
+dshow.IRegFilterInfo:= {}
+dshow.IRegFilterInfo.name := "IRegFilterInfo"
+dshow.IRegFilterInfo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Name)(This,strName)
+STDMETHOD(Filter)(This,ppUnk)
+"
+)
+dshow.IVideoWindow:= {}
+dshow.IVideoWindow.name := "IVideoWindow"
+dshow.IVideoWindow.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(put_Caption)(This,strCaption)
+STDMETHOD(get_Caption)(This,strCaption)
+STDMETHOD(put_WindowStyle)(This,WindowStyle)
+STDMETHOD(get_WindowStyle)(This,WindowStyle)
+STDMETHOD(put_WindowStyleEx)(This,WindowStyleEx)
+STDMETHOD(get_WindowStyleEx)(This,WindowStyleEx)
+STDMETHOD(put_AutoShow)(This,AutoShow)
+STDMETHOD(get_AutoShow)(This,AutoShow)
+STDMETHOD(put_WindowState)(This,WindowState)
+STDMETHOD(get_WindowState)(This,WindowState)
+STDMETHOD(put_BackgroundPalette)(This,BackgroundPalette)
+STDMETHOD(get_BackgroundPalette)(This,pBackgroundPalette)
+STDMETHOD(put_Visible)(This,Visible)
+STDMETHOD(get_Visible)(This,pVisible)
+STDMETHOD(put_Left)(This,Left)
+STDMETHOD(get_Left)(This,pLeft)
+STDMETHOD(put_Width)(This,Width)
+STDMETHOD(get_Width)(This,pWidth)
+STDMETHOD(put_Top)(This,Top)
+STDMETHOD(get_Top)(This,pTop)
+STDMETHOD(put_Height)(This,Height)
+STDMETHOD(get_Height)(This,pHeight)
+STDMETHOD(put_Owner)(This,Owner)
+STDMETHOD(get_Owner)(This,Owner)
+STDMETHOD(put_MessageDrain)(This,Drain)
+STDMETHOD(get_MessageDrain)(This,Drain)
+STDMETHOD(get_BorderColor)(This,Color)
+STDMETHOD(put_BorderColor)(This,Color)
+STDMETHOD(get_FullScreenMode)(This,FullScreenMode)
+STDMETHOD(put_FullScreenMode)(This,FullScreenMode)
+STDMETHOD(SetWindowForeground)(This,Focus)
+STDMETHOD(NotifyOwnerMessage)(This,hwnd,uMsg,wParam,lParam)
+STDMETHOD(SetWindowPosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetWindowPosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(GetMinIdealImageSize)(This,pWidth,pHeight)
+STDMETHOD(GetMaxIdealImageSize)(This,pWidth,pHeight)
+STDMETHOD(GetRestorePosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(HideCursor)(This,HideCursor)
+STDMETHOD(IsCursorHidden)(This,CursorHidden)
+"
+)
+dshow.constant := {}
+dshow.constant[500 . ""] := "__REQUIRED_RPCNDR_H_VERSION__"
+dshow.constant[100 . ""] := "__REQUIRED_RPCSAL_H_VERSION__"
+Global __REQUIRED_RPCNDR_H_VERSION__ := 500
+Global __REQUIRED_RPCSAL_H_VERSION__ := 100
+dshow.result := {}
+dshow.IID_IGraphBuilder           := "{56a868a9-0ad4-11ce-b03a-0020af0ba770}"
+dshow.CLSID_FilterGraph           := "{E436EBB3-524F-11CE-9F53-0020AF0BA770}"
+dshow.IID_IDDrawExclModeVideo     := "{153ACC21-D83B-11d1-82BF-00A0C9696C8F}"
+dshow.IID_IDvdGraphBuilder        := "{FCC152B6-F372-11d0-8E00-00C04FD7C08B}"
+dshow.CLSID_OverlayMixer          := "{CD8743A1-3736-11d0-9E69-00C04FD7C15B}"
+dshow.IID_IBaseFilter             := "{56a86895-0ad4-11ce-b03a-0020af0ba770}"
+dshow.CLSID_VideoMixingRenderer   := "{B87BEB7B-8D29-423f-AE4D-6582C10175AC}"
+dshow.CLSID_VideoMixingRenderer9  := "{51b4abf3-748f-4e3b-a276-c828330e926a}"
+dshow.IID_IVMRWindowlessControl9  := "{8f537d09-f85e-4414-b23b-502e54c79927}"
+dshow.IID_IVMRFiltercfg9       := "{5a804648-4f66-4867-9c43-4f5c822cf1b8}"
+dshow.IID_IVMRFiltercfg        := "{9e5530c5-7034-48b4-bb46-0b8a6efc8e36}"
+dshow.IID_IVMRWindowlessControl   := "{0eb1088c-4dcd-46f0-878f-39dae86a51b7}"
+dshow.IVMRWindowlessControl9 := {}
+dshow.IVMRWindowlessControl9.name := "IVMRWindowlessControl9"
+dshow.IVMRWindowlessControl9.def :=
+(
+"
+
+STDMETHOD(QueryInterface);
+STDMETHOD(AddRef);
+STDMETHOD(Release);
+STDMETHOD(GetNativeVideoSize);
+STDMETHOD(GetMinIdealVideoSize);
+STDMETHOD(GetMaxIdealVideoSize);
+STDMETHOD(SetVideoPosition);
+STDMETHOD(GetVideoPosition);
+STDMETHOD(GetAspectRatioMode);
+STDMETHOD(SetAspectRatioMode);
+STDMETHOD(SetVideoClippingWindow);
+STDMETHOD(RepaintVideo);
+STDMETHOD(DisplayModeChanged);
+STDMETHOD(GetCurrentImage);
+STDMETHOD(SetBorderColor);
+STDMETHOD(GetBorderColor);        
+"
+)
+dshow.IVMRFiltercfg9 := {}
+dshow.IVMRFiltercfg9.name := "IVMRFiltercfg9"
+dshow.IVMRFiltercfg9.def :=
+(
+"
+
+STDMETHOD(QueryInterface);
+STDMETHOD(AddRef);
+STDMETHOD(Release);
+STDMETHOD(SetImageCompositor);
+STDMETHOD(SetNumberOfStreams);
+STDMETHOD(GetNumberOfStreams);
+STDMETHOD(SetRenderingPrefs);
+STDMETHOD(GetRenderingPrefs);
+STDMETHOD(SetRenderingMode);
+STDMETHOD(GetRenderingMode);       
+"
+)
+dshow.IGraphBuilder := {}
+dshow.IGraphBuilder.name := "IGraphBuilder"
+dshow.IGraphBuilder.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(AddFilter) (This)	
+STDMETHOD(RemoveFilter) (This)	
+STDMETHOD(EnumFilters)(This) 	
+STDMETHOD(FindFilterByName) (This)	
+STDMETHOD(ConnectDirect) (This)
+STDMETHOD(Reconnect) (This)	
+STDMETHOD(Disconnect) (This)
+STDMETHOD(SetDefaultSyncSource) (This)
+STDMETHOD(Connect) (This)
+STDMETHOD(Render)(This) 	
+STDMETHOD(RenderFile) (This)
+STDMETHOD(AddSourceFilterv (This)
+STDMETHOD(SetLogFile) (This)
+STDMETHOD(Abort) (This)		
+STDMETHOD(ShouldOperationContinue)(This)
+"
+)
+dshow.IBaseFilter := {}
+dshow.IBaseFilter.name := "IBaseFilter"
+dshow.IBaseFilter.def :=
+(
+"
+STDMETHOD(QueryInterface)
+STDMETHOD(AddRef)
+STDMETHOD(Release)
+STDMETHOD(GetClassID)
+STDMETHOD(Stop)
+STDMETHOD(Pause)
+STDMETHOD(Run)
+STDMETHOD(GetState)
+STDMETHOD(SetSyncSource)
+STDMETHOD(GetSyncSource)
+STDMETHOD(EnumPins)
+STDMETHOD(FindPin)
+STDMETHOD(QueryFilterInfo)
+STDMETHOD(JoinFilterGraph)
+STDMETHOD(QueryVendorInfo) 
+"
+)
+dshow.IDDrawExclModeVideo := {}
+dshow.IDDrawExclModeVideo.name := "IDDrawExclModeVideo"
+dshow.IDDrawExclModeVideo.def :=
+(
+"
+STDMETHOD(QueryInterface)
+STDMETHOD(AddRef) 
+STDMETHOD(Release)
+STDMETHOD(SetDDrawObject)
+STDMETHOD(GetDDrawObject)
+STDMETHOD(SetDDrawSurface) 
+STDMETHOD(GetDDrawSurface) 
+STDMETHOD(SetDrawParameters)
+STDMETHOD(GetNativeVideoProps) 
+STDMETHOD(SetCallbackInterface) 
+"
+)
+dshow.IEnumPins := {}
+dshow.IEnumPins.name := "IEnumPins"
+dshow.IEnumPins.def :=
+(
+"
+STDMETHOD(QueryInterface)
+STDMETHOD(AddRef) 
+STDMETHOD(Release)
+STDMETHOD(Next)
+STDMETHOD(Skip)
+STDMETHOD(Reset) 
+STDMETHOD(Clone) 
+"
+)
+dshow.IPin := {}
+dshow.IPin.name := "IPin"
+dshow.IPin.def :=
+(
+"
+STDMETHOD(QueryInterface)
+STDMETHOD(AddRef) 
+STDMETHOD(Release)
+STDMETHOD(Connect)
+STDMETHOD(ReceiveConnection)
+STDMETHOD(Disconnect)
+STDMETHOD(ConnectedTo) 
+STDMETHOD(ConnectionMediaType) 
+STDMETHOD(QueryPinInfo)
+STDMETHOD(QueryDirection)
+STDMETHOD(QueryId) 
+STDMETHOD(QueryAccept) 
+STDMETHOD(EnumMediaTypes)
+STDMETHOD(QueryInternalConnections) 
+STDMETHOD(EndOfStream) 
+STDMETHOD(BeginFlush)
+STDMETHOD(EndFlush) 
+STDMETHOD(NewSegment)
+"
+)
+global IGraphBuilder, IVideoWindow, IMediaControl, IBasicVideo, IMediaEvent
+GetDirectShow()
+{
+pVidwin:=0, pMediaCtrl:=0, pMediaEvent:=0, pBasicVideo:=0
+GUIDFromString := "GUID_FromString"
+pIGraphBuilder := ComObjCreate(dshow.CLSID_FilterGraph, dshow.IID_IGraphBuilder)
+if not pIGraphBuilder
+return "Failed to create the IGraphBuilder interface"
+IGraphBuilder := new ComInterfaceWrapper(dshow.IGraphBuilder, pIGraphBuilder, True)
+%GUIDFromString%(idd_VideoWindow, dshow.IID_IVideoWindow)
+r := dllcall(IGraphBuilder.QueryInterface, uint, pIGraphBuilder, uint, &idd_VideoWindow, "uint*", pVidwin)
+if r
+return "Failed to create the IVideoWindow interface"
+IVideoWindow := new ComInterfaceWrapper(dshow.IVideoWindow, pVidwin, True)
+%GUIDFromString%(idd_IMediaControl, dshow.IID_IMediaControl)
+if dllcall(IGraphBuilder.QueryInterface, uint, IGraphBuilder.p, uint, &idd_IMediaControl, "uint*", pMediaCtrl)
+return "Failed to create the IMediaControl interface"
+IMediaControl := new ComInterfaceWrapper(dshow.IMediaControl, pMediaCtrl, True)
+%GUIDFromString%(idd_IMediaEvent, dshow.IID_IMediaEvent)
+if dllcall(IGraphBuilder.QueryInterface, uint, IGraphBuilder.p, uint, &idd_IMediaEvent, "uint*", pMediaEvent)
+return "Failed to create the IMediaEvent interface"
+IMediaEvent := new ComInterfaceWrapper(dshow.IMediaEvent, pMediaEvent, True)
+%GUIDFromString%(idd_IBasicVideo, dshow.IID_IBasicVideo)
+if dllcall(IMediaControl.QueryInterface, uint, IMediaControl.p, uint, &idd_IBasicVideo, "uint*", pBasicVideo)
+return "Failed to create the IBasicVideo interface"
+IBasicVideo := new ComInterfaceWrapper(dshow.IBasicVideo, pBasicVideo, True)
+return "Succedeed to create the DirectShow interfaces"
+}
+PlayFMV(file, scale=False)
+{
+pVidwin:=0, pMediaCtrl:=0, pMediaEvent:=0, pBasicVideo:=0
+GUIDFromString := "GUID_FromString"
+if ! (pIGraphBuilder := ComObjCreate(dshow.CLSID_FilterGraph, dshow.IID_IGraphBuilder))
+return "Failed to create the IGraphBuilder interface"
+GraphBuilder := new ComInterfaceWrapper(dshow.IGraphBuilder, pIGraphBuilder, True)
+%GUIDFromString%(idd_VideoWindow, dshow.IID_IVideoWindow)
+r := dllcall(GraphBuilder.QueryInterface, uint, pIGraphBuilder, uint, &idd_VideoWindow, "uint*", pVidwin)
+if r
+return "Failed to create the IVideoWindow interface"
+VideoWindow := new ComInterfaceWrapper(dshow.IVideoWindow, pVidwin, True)
+%GUIDFromString%(idd_IMediaControl, dshow.IID_IMediaControl)
+if dllcall(GraphBuilder.QueryInterface, uint, GraphBuilder.p, uint, &idd_IMediaControl, "uint*", pMediaCtrl)
+return "Failed to create the IMediaControl interface"
+MediaControl := new ComInterfaceWrapper(dshow.IMediaControl, pMediaCtrl, True)
+%GUIDFromString%(idd_IMediaEvent, dshow.IID_IMediaEvent)
+if dllcall(GraphBuilder.QueryInterface, uint, GraphBuilder.p, uint, &idd_IMediaEvent, "uint*", pIMediaEvent)
+return "Failed to create the IMediaEvent interface"
+MediaEvent := new ComInterfaceWrapper(dshow.IMediaEvent, pIMediaEvent, True)
+%GUIDFromString%(idd_IBasicVideo, dshow.IID_IBasicVideo)
+if dllcall(MediaControl.QueryInterface, uint, MediaControl.p, uint, &idd_IBasicVideo, "uint*", pBasicVideo)
+return "Failed to create the IBasicVideo interface"
+BasicVideo := new ComInterfaceWrapper(dshow.IBasicVideo, pBasicVideo, True)
+if dllcall(GraphBuilder.RenderFile, uint, GraphBuilder.p, str, file, uint, 0)
+return "FMV playback failed, most likely missing the correct codec"
+r := dllcall(VideoWindow.get_Caption, uint, VideoWindow.p, "uint*", Caption , uint)
+wincap := strget(caption, "UTF-16")
+dllcall(VideoWindow.SetWindowForeground, uint, VideoWindow.p, int, -1)
+dllcall(VideoWindow.put_Visible, uint, VideoWindow.p, int, -1)
+while (hidden = 0)
+{
+sleep, 10
+dllcall(VideoWindow.get_Visible, uint, VideoWindow.p, "int*", hidden)
+}
+if dllcall(VideoWindow.put_FullScreenMode, uint, VideoWindow.p, int, -1)
+{
+VarSetCapacity(local_rect, 32)
+hDesktop := dllcall("User32.dll\GetDesktopWindow", uint)
+dllcall("GetWindowRect", uint, hDesktop, uint, &local_rect)
+dllcall("ReleaseDC", uint, 0, uint, hDesktop)
+winget, winid, ID, %wincap%
+s := dllcall("GetWindowLong", uint, winid, int, -16, uint)
+s &= ~(0x00C00000 | 0x00040000)
+dllcall("SetWindowLong", uint, hWin, int, -16, uint, s)
+dllcall("SetWindowPos", uint, winid, int, 0, uint, 0, uint, 0, uint, numget(&local_rect+8, "int"), uint, numget(&local_rect+12, "int"), uint, 0x0454)
+}
+dllcall(BasicVideo.get_SourceWidth, uint, BasicVideo.p, "int*", w)
+dllcall(BasicVideo.get_SourceHeight, uint, BasicVideo.p, "int*", h)
+wingetpos, , , ww, wh, %wincap%
+DllCall("oleaut32\SysFreeString", "ptr", caption)
+if (scale)
+{
+dllcall(BasicVideo.put_DestinationHeight, uint, pBasicVideo, "uint", wh)
+dllcall(BasicVideo.put_DestinationWidth, uint, pBasicVideo, "uint", wh*w/h)
+dllcall(BasicVideo.put_DestinationLeft, uint, pBasicVideo, "uint", 0)
+dllcall(BasicVideo.put_DestinationTop, uint, pBasicVideo, "uint", 0)
+} else {
+dllcall(BasicVideo.put_DestinationHeight, uint, pBasicVideo, "uint", h)
+dllcall(BasicVideo.put_DestinationWidth, uint, pBasicVideo, "uint", w)
+dllcall(BasicVideo.put_DestinationLeft, uint, pBasicVideo, "uint", (ww-w)/2)
+dllcall(BasicVideo.put_DestinationTop, uint, pBasicVideo, "uint", (wh-h)/2)
+}
+dllcall(MediaControl.Run, uint, MediaControl.p)
+while ! (event=0x0001)
+{
+dllcall(MediaEvent.GetEvent, uint, MediaEvent.p, "uint*", event, "uint*", p1, "uint*", p2, uint, 15)
+if getkeystate("esc", "P") or ( getkeystate("Alt", "P") and  getkeystate("Tab", "P") )
+break
+}
+return file " playback successful"
+}
+PlayFMVOnWindow(file, hWin, scale=False)
+{
+pIGraphBuilder:=0, pBaseFilter:=0, pFiltercfg9:=0, pWindowlessControl9:=0, pMediaCtrl:=0, pIMediaEvent:=0
+vw:=0, vh:=0, aw:=0, ah:=0, event:=0, p1:=0, p2:=0
+GUIDFromString := "GUID_FromString"
+if ! (pIGraphBuilder := ComObjCreate(dshow.CLSID_FilterGraph, dshow.IID_IGraphBuilder))
+return "Failed to create the IGraphBuilder interface"
+GraphBuilder := new ComInterfaceWrapper(dshow.IGraphBuilder, pIGraphBuilder, True)
+if ! (pBaseFilter := ComObjCreate(dshow.CLSID_VideoMixingRenderer9, dshow.IID_IBaseFilter))
+return "Failed to create the IGraphBuilder interface"
+BaseFilter := new ComInterfaceWrapper(dshow.IBaseFilter, pBaseFilter, True)
+if dllcall(GraphBuilder.AddFilter, uint, pIGraphBuilder, uint, pBaseFilter, str, "VMR9")
+return "Failed to add the Mixer filter"
+%GUIDFromString%(idd_Filtercfg9, dshow.IID_IVMRFiltercfg9)
+r := dllcall(BaseFilter.QueryInterface, uint, pBaseFilter, uint, &idd_Filtercfg9, "uint*", pFiltercfg9)
+if r
+return "Failed to create the VMRFiltercfg9 interface"
+VMRFiltercfg9 := new ComInterfaceWrapper(dshow.IVMRFiltercfg9, pFiltercfg9, True)
+if dllcall(VMRFiltercfg9.SetRenderingMode, uint, pFiltercfg9, uint, 0x00000002)
+return "Failed to set windowless mode"
+%GUIDFromString%(idd_WindowlessControl9, dshow.IID_IVMRWindowlessControl9)
+r := dllcall(BaseFilter.QueryInterface, uint, pBaseFilter, uint, &idd_WindowlessControl9, "uint*", pWindowlessControl9, uint)
+if r
+return "Failed to create the WindowlessControl9 interface" r dshow.err[r . ""]
+WindowlessControl9 := new ComInterfaceWrapper(dshow.IVMRWindowlessControl9, pWindowlessControl9, True)
+if dllcall(WindowlessControl9.SetVideoClippingWindow, uint, pWindowlessControl9, uint, hWin)
+return "Failed to set the target window"
+%GUIDFromString%(idd_IMediaControl, dshow.IID_IMediaControl)
+if dllcall(GraphBuilder.QueryInterface, uint, GraphBuilder.p, uint, &idd_IMediaControl, "uint*", pMediaCtrl)
+return "Failed to create the IMediaControl interface"
+MediaControl := new ComInterfaceWrapper(dshow.IMediaControl, pMediaCtrl, True)
+%GUIDFromString%(idd_IMediaEvent, dshow.IID_IMediaEvent)
+if dllcall(GraphBuilder.QueryInterface, uint, GraphBuilder.p, uint, &idd_IMediaEvent, "uint*", pIMediaEvent)
+return "Failed to create the IMediaEvent interface"
+MediaEvent := new ComInterfaceWrapper(dshow.IMediaEvent, pIMediaEvent, True)
+if dllcall(GraphBuilder.RenderFile, uint, GraphBuilder.p, str, file, uint, 0)
+return "FMV playback failed, most likely missing the correct codec"
+client_rect := struct("DWORD x; DWORD y; DWORD w; DWORD h;")
+src_rect    := struct("DWORD x; DWORD y; DWORD w; DWORD h;")
+dst_rect    := struct("DWORD x; DWORD y; DWORD w; DWORD h;")
+dllcall(WindowlessControl9.GetNativeVideoSize, uint, pWindowlessControl9, "uint*", vw, "uint*", vh, "uint*", aw, "uint*", ah)
+src_rect.w := vw
+src_rect.h := vh
+dllcall("GetClientRect", uint, hWin, uint, client_rect[])
+if (scale)
+{
+s := client_rect.h/src_rect.h
+dst_rect.y := 0
+dst_rect.h := src_rect.h*s
+dst_rect.w := src_rect.w*s
+dst_rect.x := (client_rect.w-dst_rect.w)/2
+dst_rect.w += dst_rect.x
+} else {
+dst_rect.x := (client_rect.w-src_rect.w)/2
+dst_rect.y := (client_rect.h-src_rect.h)/2
+dst_rect.w += dst_rect.x + src_rect.w
+dst_rect.h += dst_rect.y + src_rect.h
+}
+dllcall(WindowlessControl9.SetVideoPosition, uint, pWindowlessControl9, uint, src_rect[], uint, dst_rect[])
+client_rect.w +=1, client_rect.h += 1
+brush := dllcall("CreateSolidBrush", uint, 0xff000000, uint)
+wdc   := dllcall("GetDC", uint, hWin, uint)
+dllcall("FillRect", uint, wdc, uint, client_rect[], uint, brush)
+dllcall("DeleteObject", uint, brush)
+dllcall("DeleteObject", uint, wdc)
+dllcall(MediaControl.Run, uint, MediaControl.p)
+while ! (event=0x0001)
+{
+dllcall(MediaEvent.GetEvent, uint, MediaEvent.p, "uint*", event, "uint*", p1, "uint*", p2, uint, 15)
+if getkeystate("esc", "P") or ( getkeystate("Alt", "P") and  getkeystate("Tab", "P") )
+break
+XinputGetState(1)
+if XINPUT_GAMEPAD_BACK
+break
+}
+brush := dllcall("CreateSolidBrush", uint, 0xff000000, uint)
+wdc   := dllcall("GetDC", uint, hWin, uint)
+dllcall("FillRect", uint, wdc, uint, client_rect[], uint, brush)
+dllcall("DeleteObject", uint, brush)
+dllcall("DeleteObject", uint, wdc)
+return file " playback successfull"
+}

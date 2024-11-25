@@ -1,0 +1,376 @@
+; <COMPILER: v1.1.15.03>
+Global d3DX9core := {}
+d3DX9core.IID_ID3DXBuffer := "{8ba5fb08-5195-40e2-ac58-0d989c3a0102}"
+d3DX9core.IID_ID3DXSprite := "{ba0b762d-7d28-43ec-b9dc-2f84443b0614}"
+d3DX9core.IID_ID3DXFont := "{d79dbb70-5f21-4d36-bbc2-ff525c213cdc}"
+d3DX9core.IID_ID3DXRenderToSurface := "{6985f346-2c3d-43b3-be8b-daae8a03d894}"
+d3DX9core.IID_ID3DXRenderToEnvMap := "{313f1b4b-c7b0-4fa2-9d9d-8d380b64385e}"
+d3DX9core.IID_ID3DXLine := "{d379ba7f-9042-4ac4-9f5e-58192a4c6bd8}"
+d3DX9core.ID3DXBuffer := {}
+d3DX9core.ID3DXBuffer.name := "ID3DXBuffer"
+d3DX9core.ID3DXBuffer.def :=
+( 
+"
+    STDMETHOD(QueryInterface)(THIS_ REFIID iid, LPVOID *ppv) PURE;
+    STDMETHOD_(ULONG, AddRef)(THIS) PURE;
+    STDMETHOD_(ULONG, Release)(THIS) PURE;
+    STDMETHOD_(LPVOID, GetBufferPointer)(THIS) PURE;
+    STDMETHOD_(DWORD, GetBufferSize)(THIS) PURE;
+"
+)
+d3DX9core.ID3DXSprite := {}
+d3DX9core.ID3DXSprite.name := "ID3DXSprite"
+d3DX9core.ID3DXSprite.def :=
+( 
+"
+    STDMETHOD(QueryInterface)(THIS_ REFIID iid, LPVOID *ppv) PURE;
+    STDMETHOD_(ULONG, AddRef)(THIS) PURE;
+    STDMETHOD_(ULONG, Release)(THIS) PURE;
+    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9* ppDevice) PURE;
+    STDMETHOD(GetTransform)(THIS_ D3DXMATRIX *pTransform) PURE;
+    STDMETHOD(SetTransform)(THIS_ CONST D3DXMATRIX *pTransform) PURE;
+    STDMETHOD(SetWorldViewRH)(THIS_ CONST D3DXMATRIX *pWorld, CONST D3DXMATRIX *pView) PURE;
+    STDMETHOD(SetWorldViewLH)(THIS_ CONST D3DXMATRIX *pWorld, CONST D3DXMATRIX *pView) PURE;
+    STDMETHOD(Begin)(THIS_ DWORD Flags) PURE;
+    STDMETHOD(Draw)(THIS_ LPDIRECT3DTEXTURE9 pTexture, CONST RECT *pSrcRect, CONST D3DXVECTOR3 *pCenter, CONST D3DXVECTOR3 *pPosition, D3DCOLOR Color) PURE;
+    STDMETHOD(Flush)(THIS) PURE;
+    STDMETHOD(End)(THIS) PURE;
+    STDMETHOD(OnLostDevice)(THIS) PURE;
+    STDMETHOD(OnResetDevice)(THIS) PURE;
+"
+)
+d3DX9core.ID3DXFont := {}
+d3DX9core.ID3DXFont.name := "ID3DXFont"
+d3DX9core.ID3DXFont.def :=
+( 
+"
+ return PreloadTextW(pString, Count);"
+)
+d3DX9core.ID3DXRenderToSurface := {}
+d3DX9core.ID3DXRenderToSurface.name := "ID3DXRenderToSurface"
+d3DX9core.ID3DXRenderToSurface.def :=
+( 
+"
+    STDMETHOD(QueryInterface)(THIS_ REFIID iid, LPVOID *ppv) PURE;
+    STDMETHOD_(ULONG, AddRef)(THIS) PURE;
+    STDMETHOD_(ULONG, Release)(THIS) PURE;
+    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9* ppDevice) PURE;
+    STDMETHOD(GetDesc)(THIS_ D3DXRTS_DESC* pDesc) PURE;
+    STDMETHOD(BeginScene)(THIS_ LPDIRECT3DSURFACE9 pSurface, CONST D3DVIEWPORT9* pViewport) PURE;
+    STDMETHOD(EndScene)(THIS_ DWORD MipFilter) PURE;
+    STDMETHOD(OnLostDevice)(THIS) PURE;
+    STDMETHOD(OnResetDevice)(THIS) PURE;
+"
+)
+d3DX9core.ID3DXRenderToEnvMap := {}
+d3DX9core.ID3DXRenderToEnvMap.name := "ID3DXRenderToEnvMap"
+d3DX9core.ID3DXRenderToEnvMap.def :=
+( 
+"
+    STDMETHOD(QueryInterface)(THIS_ REFIID iid, LPVOID *ppv) PURE;
+    STDMETHOD_(ULONG, AddRef)(THIS) PURE;
+    STDMETHOD_(ULONG, Release)(THIS) PURE;
+    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9* ppDevice) PURE;
+    STDMETHOD(GetDesc)(THIS_ D3DXRTE_DESC* pDesc) PURE;
+    STDMETHOD(BeginCube)(THIS_         LPDIRECT3DCUBETEXTURE9 pCubeTex) PURE;
+    STDMETHOD(BeginSphere)(THIS_        LPDIRECT3DTEXTURE9 pTex) PURE;
+    STDMETHOD(BeginHemisphere)(THIS_         LPDIRECT3DTEXTURE9 pTexZPos,        LPDIRECT3DTEXTURE9 pTexZNeg) PURE;
+    STDMETHOD(BeginParabolic)(THIS_         LPDIRECT3DTEXTURE9 pTexZPos,        LPDIRECT3DTEXTURE9 pTexZNeg) PURE;
+    STDMETHOD(Face)(THIS_ D3DCUBEMAP_FACES Face, DWORD MipFilter) PURE;
+    STDMETHOD(End)(THIS_ DWORD MipFilter) PURE;
+    STDMETHOD(OnLostDevice)(THIS) PURE;
+    STDMETHOD(OnResetDevice)(THIS) PURE;
+"
+)
+d3DX9core.ID3DXLine := {}
+d3DX9core.ID3DXLine.name := "ID3DXLine"
+d3DX9core.ID3DXLine.def :=
+( 
+"
+    STDMETHOD(QueryInterface)(THIS_ REFIID iid, LPVOID *ppv) PURE;
+    STDMETHOD_(ULONG, AddRef)(THIS) PURE;
+    STDMETHOD_(ULONG, Release)(THIS) PURE;
+    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9* ppDevice) PURE;
+    STDMETHOD(Begin)(THIS) PURE;
+    STDMETHOD(Draw)(THIS_ CONST D3DXVECTOR2 *pVertexList,        DWORD dwVertexListCount, D3DCOLOR Color) PURE;
+    STDMETHOD(DrawTransform)(THIS_ CONST D3DXVECTOR3 *pVertexList,        DWORD dwVertexListCount, CONST D3DXMATRIX* pTransform,         D3DCOLOR Color) PURE;
+    STDMETHOD(SetPattern)(THIS_ DWORD dwPattern) PURE;
+    STDMETHOD_(DWORD, GetPattern)(THIS) PURE;
+    STDMETHOD(SetPatternScale)(THIS_ FLOAT fPatternScale) PURE;
+    STDMETHOD_(FLOAT, GetPatternScale)(THIS) PURE;
+    STDMETHOD(SetWidth)(THIS_ FLOAT fWidth) PURE;
+    STDMETHOD_(FLOAT, GetWidth)(THIS) PURE;
+    STDMETHOD(SetAntialias)(THIS_ BOOL bAntialias) PURE;
+    STDMETHOD_(BOOL, GetAntialias)(THIS) PURE;
+    STDMETHOD(SetGLLines)(THIS_ BOOL bGLLines) PURE;
+    STDMETHOD_(BOOL, GetGLLines)(THIS) PURE;
+    STDMETHOD(End)(THIS) PURE;
+    STDMETHOD(OnLostDevice)(THIS) PURE;
+    STDMETHOD(OnResetDevice)(THIS) PURE;
+"
+)
+Global D3DX_SDK_VERSION := 34
+Global D3DX_VERSION := 2306
+d3DX9core.err := {}
+global D3DX_FILTER_NONE :=             (1 << 0)
+global D3DX_FILTER_POINT :=            (2 << 0)
+global D3DX_FILTER_LINEAR :=           (3 << 0)
+global D3DX_FILTER_TRIANGLE :=         (4 << 0)
+global D3DX_FILTER_BOX  :=             (5 << 0)
+global D3DX_FILTER_MIRROR_U :=         (1 << 16)
+global D3DX_FILTER_MIRROR_V :=         (2 << 16)
+global D3DX_FILTER_MIRROR_W :=         (4 << 16)
+global D3DX_FILTER_MIRROR :=           (7 << 16)
+global D3DX_FILTER_DITHER :=           (1 << 19)
+global D3DX_FILTER_DITHER_DIFFUSION := (2 << 19)
+global D3DX_FILTER_SRGB_IN :=          (1 << 21)
+global D3DX_FILTER_SRGB_OUT :=         (2 << 21)
+global D3DX_FILTER_SRGB  :=            (3 << 21)
+d3DX9core.ID3DXFont:= {}
+d3DX9core.ID3DXFont.name := "ID3DXFont"
+d3DX9core.ID3DXFont.def :=
+( 
+"
+    STDMETHOD(QueryInterface)(THIS_ REFIID iid, LPVOID *ppv) PURE;
+    STDMETHOD_(ULONG, AddRef)(THIS) PURE;
+    STDMETHOD_(ULONG, Release)(THIS) PURE;
+    STDMETHOD(GetDevice)(THIS_ LPDIRECT3DDEVICE9 *ppDevice) PURE;
+    STDMETHOD(GetDescA)(THIS_ D3DXFONT_DESCA *pDesc) PURE;
+    STDMETHOD(GetDescW)(THIS_ D3DXFONT_DESCW *pDesc) PURE;
+    STDMETHOD_(BOOL, GetTextMetricsA)(THIS_ TEXTMETRICA *pTextMetrics) PURE;
+    STDMETHOD_(BOOL, GetTextMetricsW)(THIS_ TEXTMETRICW *pTextMetrics) PURE;
+    STDMETHOD_(HDC, GetDC)(THIS) PURE;
+    STDMETHOD(GetGlyphData)(THIS_ UINT Glyph, LPDIRECT3DTEXTURE9 *ppTexture, RECT *pBlackBox, POINT *pCellInc) PURE;
+    STDMETHOD(PreloadCharacters)(THIS_ UINT First, UINT Last) PURE;
+    STDMETHOD(PreloadGlyphs)(THIS_ UINT First, UINT Last) PURE;
+    STDMETHOD(PreloadTextA)(THIS_ LPCSTR pString, INT Count) PURE;
+    STDMETHOD(PreloadTextW)(THIS_ LPCWSTR pString, INT Count) PURE;
+    STDMETHOD_(INT, DrawTextA)(THIS_ LPD3DXSPRITE pSprite, LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color) PURE;
+    STDMETHOD_(INT, DrawTextW)(THIS_ LPD3DXSPRITE pSprite, LPCWSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color) PURE;
+    STDMETHOD(OnLostDevice)(THIS) PURE;
+    STDMETHOD(OnResetDevice)(THIS) PURE;
+"
+)
+global D3DX9Mesh := {}
+D3DX9Mesh.ID3DXBuffer := {}
+D3DX9Mesh.ID3DXBuffer.name := "ID3DXBuffer"
+D3DX9Mesh.ID3DXBuffer.def :=
+( 
+"
+    STDMETHOD(QueryInterface)(THIS_ REFIID iid, LPVOID *ppv) PURE;
+    STDMETHOD_(ULONG, AddRef)(THIS) PURE;
+    STDMETHOD_(ULONG, Release)(THIS) PURE;
+    STDMETHOD(GetBufferPointer)(THIS) PURE;
+    STDMETHOD(GetBufferSize)(THIS) PURE;
+"    
+)
+global ID3DXBuffer:=0
+class D3DX9 {
+__new(dll = "d3dx9_43.dll")
+{
+this.h_dll := ""
+this.pD3DXLoadSurfaceFromFile := ""
+this.pD3DXCreateFont := ""
+h_dll := dllcall("GetModuleHandle", str, dll)
+h_dll ?: h_dll := dllcall("LoadLibraryW", str, dll)
+if not h_dll
+return ""
+this.h_dll                     := h_dll
+this.D3DXDisassembleShader     := dllcall("GetProcAddress", uint, this.h_dll, astr, "D3DXDisassembleShader")
+this.D3DXAssembleShader        := dllcall("GetProcAddress", uint, this.h_dll, astr, "D3DXAssembleShader")
+this.pD3DXLoadSurfaceFromFile  := dllcall("GetProcAddress", uint, this.h_dll, astr, "D3DXLoadSurfaceFromFileW")
+this.pD3DXCreateFont           := dllcall("GetProcAddress", uint, this.h_dll, astr, "D3DXCreateFontW")
+this.D3DXCompileShader         := dllcall("GetProcAddress", uint, this.h_dll, astr, "D3DXCompileShader")
+this.D3DXCompileShaderFromFile := dllcall("GetProcAddress", uint, this.h_dll, astr, "D3DXCompileShaderFromFileA")
+this.D3DXGetPixelShaderProfile := dllcall("GetProcAddress", uint, this.h_dll, astr, "D3DXGetPixelShaderProfile")
+this.D3DXCreateBuffer          := dllcall("GetProcAddress", uint, this.h_dll, astr, "D3DXCreateBuffer")
+this.D3DXCreateTextureFromFile := dllcall("GetProcAddress", uint, this.h_dll, astr, "D3DXCreateTextureFromFileW")
+this.rect                      := Struct("LONG left; LONG top; LONG right; LONG bottom;")
+this.POINT                     := Struct("LONG x; LONG y;")
+}
+CreateTextureFromFile(pDevice, file, byref pTexture){
+return dllcall(this.D3DXCreateTextureFromFile
+,uint, pdevice, str, file, "uint*", pTexture)
+}
+LoadSurfaceFromFile(pSurface, file, filter = 1)
+{
+RETURN dllcall(this.pD3DXLoadSurfaceFromFile
+, uint, pSurface
+, uint, pDestPalette
+, uint, 0
+, str, file
+, uint, 0
+, uint, filter
+, uint, ColorKey
+, uint, pSrcInfo, uint)
+}
+CreateFontW(pDevice, font = "Verdana", italic = False)
+{
+pID3DXFont := 0
+r := dllcall(this.pD3DXCreateFont
+, uint, pDevice
+, int, 0
+, int, 0
+, int, 600
+, uint, 0
+, uint, italic
+, uint, 0
+, uint, 0
+, uint, 0
+, uint, 0
+, str, font
+, "uint*", pID3DXFont, uint)
+if r
+return	r
+fnt := new ComInterfaceWrapper(d3DX9core.ID3DXFont, pID3DXFont, True)
+return fnt
+}
+DrawText(byref fnt, txt, clr = 0xFFFFFFFF, rct = "")
+{
+if not isobject(fnt)
+return
+if not rct
+rct := "0|0|640|480"
+rct_ := strsplit(rct, "|")
+this.rect.left := rct_[1]
+this.rect.top := rct_[2]
+this.rect.right := rct_[3]
+this.rect.bottom := rct_[4]
+r := dllcall(fnt.DrawTextW, uint, fnt.p
+, uint, 0
+, str,  txt
+, int, -1
+, uint, this.RECT[]
+, uint, 256
+, uint, clr
+, uint)
+return r
+}
+HLSLtoDXBC(hlsl, main, byref blob)
+{
+r := dllcall(this.D3DXCompileShader, astr, hlsl, uint, strlen(hlsl), uint, 0, uint, 0
+, astr, main, astr, "ps_3_0", uint, 0, "ptr*", blob
+, "uint*", err:=0, uint, 0, uint)
+if r
+{
+_ptr := dllcall(numget(numget(err+0, "ptr")+A_PtrSize*3, "ptr"), uint, err)
+size := dllcall(numget(numget(err+0, "ptr")+A_PtrSize*4, "ptr"), uint, err)
+rr := strget(_ptr+0, size, "CP0")
+dllcall(numget(numget(err+0, "ptr")+A_PtrSize*2, "ptr"), uint, err)
+return "compilation failed " rr
+}
+}
+Asm2DXBC(asm, byref blob)
+{
+r := dllcall(this.D3DXAssembleShader, astr, asm, uint, strlen(asm), uint, 0
+, uint, 0, uint, 0, "ptr*", blob, "uint*"
+, err:=0, uint, 0, uint)
+if r
+{
+_ptr := dllcall(numget(numget(err+0, "ptr")+A_PtrSize*3, "ptr"), uint, err)
+size := dllcall(numget(numget(err+0, "ptr")+A_PtrSize*4, "ptr"), uint, err)
+rr := strget(_ptr+0, size, "CP0")
+dllcall(numget(numget(err+0, "ptr")+A_PtrSize*2, "ptr"), uint, err)
+return "compilation failed " rr
+}
+}
+CompileShaderFromFile(pDevice, file, entrypoint, byref pShader)
+{
+pShader:=0, pError:=0
+r := dllcall(this.D3DXCompileShaderFromFile
+, astr, file
+, uint, 0
+, uint, 0
+, astr, entrypoint
+, astr, "ps_3_0"
+, uint, 0
+, "uint*", pShaderBytecode
+, "uint*", pError
+, uint, 0, uint)
+use := r ? pError : pShaderBytecode
+_ptr := dllcall(numget(numget(use+0, "ptr")+A_PtrSize*3, "ptr"), uint, use)
+size := dllcall(numget(numget(use+0, "ptr")+A_PtrSize*4, "ptr"), uint, use)
+if r
+{
+rr := strget(_ptr+0, size, "CP0")
+dllcall(numget(numget(use+0, "ptr")+A_PtrSize*2, "ptr"), uint, use)
+return "compilation failed " rr
+}
+else
+{
+r := dllcall(IDirect3DDevice9.CreatePixelShader, uint, pDevice, uint, _ptr, "uint*", pShader)
+dllcall(numget(numget(use+0, "ptr")+A_PtrSize*2, "ptr"), uint, use)
+return r
+}
+}
+CompileShader(pDevice, byref Shader, entrypoint, byref pShader)
+{
+pShader:=0, pError:=0, pShaderByteCode:=0
+r := dllcall(this.D3DXCompileShader
+, astr, Shader
+, UINT, strlen(Shader)
+, uint, 0
+, uint, 0
+, astr, entrypoint
+, astr, "ps_3_0"
+, uint, 0
+, "uint*", pShaderByteCode
+, "uint*", pError
+, uint, 0, uint)
+use := r ? pError : pShaderBytecode
+_ptr := dllcall(numget(numget(use+0, "ptr")+A_PtrSize*3, "ptr"), uint, use)
+size := dllcall(numget(numget(use+0, "ptr")+A_PtrSize*4, "ptr"), uint, use)
+if r
+{
+rr := strget(_ptr+0, size, "CP0")
+dllcall(numget(numget(use+0, "ptr")+A_PtrSize*2, "ptr"), uint, use)
+return "compilation failed " rr
+}
+else
+{
+r := dllcall(IDirect3DDevice9.CreatePixelShader, uint, pDevice, uint, _ptr, "uint*", pShader)
+dllcall(numget(numget(use+0, "ptr")+A_PtrSize*2, "ptr"), uint, use)
+return r
+}
+}
+AssembleShader(pDevice, byref Shader, byref pShader)
+{
+pShader:=0, pError:=0, pShaderByteCode:=0
+printl("Assembling")
+r := dllcall(this.D3DXAssembleShader
+, astr, Shader
+, UINT, strlen(Shader)
+, uint, 0
+, uint, 0
+, uint, 0
+, "uint*", pShaderBytecode
+, "uint*", pError
+, uint, 0, uint)
+use := r ? pError : pShaderBytecode
+_ptr := dllcall(numget(numget(use+0, "ptr")+A_PtrSize*3, "ptr"), uint, use)
+size := dllcall(numget(numget(use+0, "ptr")+A_PtrSize*4, "ptr"), uint, use)
+if r
+{
+rr := strget(_ptr+0, size, "CP0")
+dllcall(numget(numget(use+0, "ptr")+A_PtrSize*2, "ptr"), uint, use)
+return "compilation failed " rr
+}
+else
+{
+r := dllcall(IDirect3DDevice9.CreatePixelShader, uint, pDevice, uint, _ptr, "uint*", pShader)
+dllcall(numget(numget(use+0, "ptr")+A_PtrSize*2, "ptr"), uint, use)
+return r
+}
+}
+DisassembleShader(pShaderData)
+{
+pBuffer := 0
+if (r := dllcall(this.D3DXDisassembleShader, uint, pShaderData, uint, 0, uint, 0, "uint*", pBuffer))
+return r
+_ptr := dllcall(numget(numget(pBuffer+0, "ptr")+A_PtrSize*3, "ptr"), uint, pBuffer)
+size := dllcall(numget(numget(pBuffer+0, "ptr")+A_PtrSize*4, "ptr"), uint, pBuffer)
+rr := strget(_ptr+0, size, "UTF-8")
+pBuffer ? dllcall(numget(numget(use+0, "ptr")+A_PtrSize*2, "ptr"), uint, pBuffer)
+return rr
+}
+}

@@ -1,0 +1,1097 @@
+; <COMPILER: v1.1.15.03>
+TaskDialog(hParent = 0, sText = "", sButtons = "", iFlags = 0, sIcons = "", sRadios = "", sCallback = "", iWidth = 0, hNavigate = 0) {
+If (DllCall("GetVersion") & 0xFF < 6) {
+ErrorLevel := "You need at least Windows Vista or Windows Server 2008 to use TaskDialog()."
+Return 0
+}
+If hParent is not integer
+sCallback := hParent, hParent := 0
+If sText {
+_TaskDialog_PrepSplitString(sText)
+StringSplit, sText, sText, % Chr(3)
+}
+Loop % sText0 {
+If (SubStr(sText%A_Index%, 1, 1) = Chr(4)) {
+s := SubStr(sText%A_Index%, 2)
+If s is integer
+sText%A_Index%_IsRes := True, sText%A_Index% := s
+}
+}
+If sButtons {
+_TaskDialog_PrepSplitString(sButtons)
+StringSplit, sButtons, sButtons, % Chr(3)
+Loop % sButtons0 {
+If (sButtons%A_Index% = "OK") And (sLast := "OK")
+iCommonButtons += (iCommonButtons & 0x0001 ? 0 : 0x0001)
+Else If (sButtons%A_Index% = "YES") And (sLast := "YES")
+iCommonButtons += (iCommonButtons & 0x0002 ? 0 : 0x0002)
+Else If (sButtons%A_Index% = "NO") And (sLast := "NO")
+iCommonButtons += (iCommonButtons & 0x0004 ? 0 : 0x0004)
+Else If (sButtons%A_Index% = "CANCEL") And (sLast := "CANCEL")
+iCommonButtons += (iCommonButtons & 0x0008 ? 0 : 0x0008)
+Else If (sButtons%A_Index% = "RETRY") And (sLast := "RETRY")
+iCommonButtons += (iCommonButtons & 0x0010 ? 0 : 0x0010)
+Else If (sButtons%A_Index% = "CLOSE") And (sLast := "CLOSE")
+iCommonButtons += (iCommonButtons & 0x0020 ? 0 : 0x0020)
+Else If (sButtons%A_Index% = "") And Not iDefaultButtonID And sLast {
+If (sLast = "OK")
+iDefaultButtonID := 1
+Else If (sLast = "YES")
+iDefaultButtonID := 6
+Else If (sLast = "NO")
+iDefaultButtonID := 7
+Else If (sLast = "CANCEL")
+iDefaultButtonID := 2
+Else If (sLast = "RETRY")
+iDefaultButtonID := 4
+Else If (sLast = "CLOSE")
+iDefaultButtonID := 8
+} Else {
+sLast := ""
+Continue
+}
+If (A_Index <> sButtons0) {
+StringReplace, sButtons, sButtons, % sLast Chr(3)
+} Else If Not InStr(sButtons, Chr(3)) {
+sButtons := ""
+Break
+} Else StringReplace, sButtons, sButtons, % sLast
+}
+i := _TaskDialog_CureStringArray(sButtons)
+If Not iDefaultButtonID And i
+iDefaultButtonID := i + 1000
+StringSplit, sButtons, sButtons, % Chr(3)
+Loop % sButtons0 {
+If (SubStr(sButtons%A_Index%, 1, 1) = Chr(4)) {
+s := SubStr(sButtons%A_Index%, 2)
+If s is integer
+sButtons%A_Index%_IsRes := True, sButtons%A_Index% := s
+}
+}
+}
+If sRadios {
+_TaskDialog_PrepSplitString(sRadios)
+StringSplit, sRadios, sRadios, % Chr(3)
+iDefaultRadioID := (i := _TaskDialog_CureStringArray(sRadios)) ? i + 2000 : 0
+StringSplit, sRadios, sRadios, % Chr(3)
+Loop % sRadios0 {
+If (SubStr(sRadios%A_Index%, 1, 1) = Chr(4)) {
+s := SubStr(sRadios%A_Index%, 2)
+If s is integer
+sRadios%A_Index%_IsRes := True, sRadios%A_Index% := s
+}
+}
+}
+Loop % sText0 {
+If Not sText%A_Index%_IsRes
+iText%A_Index% := &sText%A_Index%
+Else iText%A_Index% := sText%A_Index%
+}
+Loop % sButtons0 {
+If Not sButtons%A_Index%_IsRes
+iButtons%A_Index% := &sButtons%A_Index%
+Else iButtons%A_Index% := sButtons%A_Index%
+}
+Loop % sRadios0 {
+If Not sRadios%A_Index%_IsRes
+iRadios%A_Index% := &sRadios%A_Index%
+Else iRadios%A_Index% := sRadios%A_Index%
+}
+If sButtons0 {
+VarSetCapacity(tdbButtons, (4 + A_PtrSize) * sButtons0, 0)
+Loop % sButtons0 {
+NumPut(   A_Index + 1000, tdbButtons, (4 + A_PtrSize) * (A_Index - 1) + 0, "UInt")
+NumPut(iButtons%A_Index%, tdbButtons, (4 + A_PtrSize) * (A_Index - 1) + 4, "UPtr")
+}
+}
+If sRadios0 {
+VarSetCapacity(tdbRadios, (4 + A_PtrSize) * sRadios0, 0)
+Loop % sRadios0 {
+NumPut(  A_Index + 2000, tdbRadios, (4 + A_PtrSize) * (A_Index - 1) + 0, "UInt")
+NumPut(iRadios%A_Index%, tdbRadios, (4 + A_PtrSize) * (A_Index - 1) + 4, "UPtr")
+}
+}
+_TaskDialog_PrepSplitString(sIcons)
+StringSplit, sIcons, sIcons, % Chr(3)
+If sIcons0 And (sIcons0 < 3) {
+iMainIcon   := _TaskDialog_ResolveIcon(sIcons1)
+iFooterIcon := _TaskDialog_ResolveIcon(sIcons2)
+} Else If (sIcons0 = 3) {
+If (SubStr(sIcons1, 1, 1) = Chr(4)) {
+s := SubStr(sIcons1, 2)
+If s is integer
+iMainIcon := s
+Else {
+sMainIcon := s
+iMainIcon := &sMainIcon
+}
+} Else iMainIcon := _TaskDialog_ResolveIcon(sIcons1)
+If (SubStr(sIcons2, 1, 1) = Chr(4)) {
+s := SubStr(sIcons2, 2)
+If s is integer
+iFooterIcon := s
+Else {
+sFooterIcon := s
+iFooterIcon := &sFooterIcon
+}
+} Else iFooterIcon := _TaskDialog_ResolveIcon(sIcons2)
+StringReplace, sIcons3, sIcons3, % Chr(4), \, All
+If (FileExist(sIcons3))
+hModule := DllCall("LoadLibrary", "Str", sIcons3, "Ptr"), bUnload := True
+Else hModule := sIcons3
+}
+StringSplit, sCallback, sCallback, |
+If (sCallback0 = 1)
+sCBFunc := sCallback1
+Else If (sCallback0 = 2) {
+sCBFunc := sCallback1
+sCBData := sCallback2
+}
+VarSetCapacity(TDC, 160, 0), ptr := 0, z := A_PtrSize
+NumPut(            4 * 8 + z * 16, TDC, ptr += 0, "UInt")
+NumPut(                   hParent, TDC, ptr += 4, "UPtr")
+NumPut(                   hModule, TDC, ptr += z, "UPtr")
+NumPut(                    iFlags, TDC, ptr += z, "UInt")
+NumPut(            iCommonButtons, TDC, ptr += 4, "UInt")
+NumPut(                    iText1, TDC, ptr += 4, "UPtr")
+NumPut(                 iMainIcon, TDC, ptr += z, "UPtr")
+NumPut(                    iText2, TDC, ptr += z, "UPtr")
+NumPut(                    iText3, TDC, ptr += z, "UPtr")
+NumPut(                 sButtons0, TDC, ptr += z, "UInt")
+NumPut(               &tdbButtons, TDC, ptr += 4, "UPtr")
+NumPut(          iDefaultButtonID, TDC, ptr += z, "UInt")
+NumPut(                  sRadios0, TDC, ptr += 4, "UInt")
+NumPut(                &tdbRadios, TDC, ptr += 4, "UPtr")
+NumPut(           iDefaultRadioID, TDC, ptr += z, "UInt")
+NumPut(                    iText6, TDC, ptr += 4, "UPtr")
+NumPut(                    iText4, TDC, ptr += z, "UPtr")
+NumPut(                    iText8, TDC, ptr += z, "UPtr")
+NumPut(                    iText7, TDC, ptr += z, "UPtr")
+NumPut(               iFooterIcon, TDC, ptr += z, "UPtr")
+NumPut(                    iText5, TDC, ptr += z, "UPtr")
+NumPut( RegisterCallback(sCBFunc), TDC, ptr += z, "UPtr")
+NumPut(                   sCBData, TDC, ptr += z, "UPtr")
+NumPut(                    iWidth, TDC, ptr += z, "UInt")
+If hNavigate {
+DetectHiddenWindows, On
+SendMessage, 0x400 + 101, 0, &TDC,, ahk_id %hNavigate%
+If bUnload
+DllCall("FreeLibrary", "Ptr", hModule)
+} Else {
+r := DllCall("TaskDialogIndirect", "Ptr", &TDC, "UInt*", iButtonClicked, "UInt*", iRadioChecked, "UInt*", bCheckboxChecked, "UInt")
+sErrorLevel := ErrorLevel
+If bUnload
+DllCall("FreeLibrary", "Ptr", hModule)
+If Not r
+r := ErrorLevel := iRadioChecked << 16 | bCheckboxChecked
+Else ErrorLevel := sErrorLevel ? sErrorLevel : r
+Return iButtonClicked
+}
+}
+_TaskDialog_PrepSplitString(ByRef sString) {
+Static flip
+If (flip = "") {
+If (A_PtrSize = 4)
+hex=8B4C24048B4424088D04413BC17619560FB750FE668B3183E80266893066891183C1023BC177E95EC3
+Else hex=4863C24C8D04414C3BC176200F1F40000FB701410FB750FE4983E802664189006689114883C1024C3BC177E4F3C3
+VarSetCapacity(flip, StrLen(hex) // 2)
+Loop % StrLen(hex)//2
+NumPut("0x" . SubStr(hex,2*A_Index-1,2), flip, A_Index-1, "Char")
+DllCall("VirtualProtect", "Ptr", &flip, "Ptr", VarSetCapacity(flip), "UInt", 0x40, "UInt*", 0)
+}
+DllCall(&flip, "Ptr", &sString, "UInt", StrLen(sString), "CDecl")
+StringReplace, sString, sString, \\, % Chr(1), All
+DllCall(&flip, "Ptr", &sString, "UInt", StrLen(sString), "CDecl")
+StringReplace, sString, sString, \|, % Chr(2), All
+StringReplace, sString, sString,  |, % Chr(3), All
+StringReplace, sString, sString,  \, % Chr(4), All
+StringReplace, sString, sString,  % Chr(2), |, All
+StringReplace, sString, sString,  % Chr(1), \, All
+}
+_TaskDialog_CureStringArray(ByRef sString) {
+While (SubStr(sString, 1, 1) = Chr(3))
+StringTrimLeft, sString, sString, 1
+If (i := InStr(sString, Chr(3) Chr(3))) {
+j := 1, n := 1
+While ((j := InStr(sString, Chr(3), False, j)) < i)
+n += 1, j += 1
+}
+While (SubStr(sString, 0) = Chr(3))
+StringTrimRight, sString, sString, 1
+ErrorLevel := True
+While ErrorLevel
+StringReplace, sString, sString, % Chr(3) Chr(3), % Chr(3), UseErrorLevel
+Return n
+}
+_TaskDialog_ResolveIcon(sIcon) {
+Static sCommonIcons := "WARNING|ERROR|INFO|SHIELD|BLUE|YELLOW|RED|GREEN|GREY"
+Loop, Parse, sCommonIcons, |
+If (sIcon = A_LoopField)
+Return 0x10000 - A_Index
+Return sIcon
+}
+class TaskDialogPageHandler{
+new(cmdlink = False, Strings = "", Buttons = "", icons = "", callback = "", radios = "")
+{
+TaskDialogPageHandler.hwnd := ""
+stringsplit, string, Strings, |
+TaskDialogPageHandler.sWindowTitle := string1
+TaskDialogPageHandler.sMainInstruction := string2
+TaskDialogPageHandler.sContent := string3
+TaskDialogPageHandler.sExpandedInformation := string4
+TaskDialogPageHandler.sFooter := string5
+TaskDialogPageHandler.sVerificationText := string6
+TaskDialogPageHandler.sCollapsedControlText := string7
+TaskDialogPageHandler.sExpandedControlText := string8
+TaskDialogPageHandler.buttons := buttons
+TaskDialogPageHandler.radios := radios
+TaskDialogPageHandler.flags := 0x0001 | 0x0004 | 0x0002
+if cmdlink
+TaskDialogPageHandler.flags |= 0x0010
+TaskDialogPageHandler.icons := icons
+if callback
+TaskDialogPageHandler.callback := callback
+return TaskDialogPageHandler
+}
+__New(cmdlink = False, Strings = "", Buttons = "", icons = "", callback = "", radios = "")
+{
+stringsplit, string, Strings, |
+this.sWindowTitle := string1
+this.sMainInstruction := string2
+this.sContent := string3
+this.sExpandedInformation := string4
+this.sFooter := string5
+this.sVerificationText := string6
+this.sCollapsedControlText := string7
+this.sExpandedControlText := string8
+this.buttons := buttons
+this.radios := radios
+this.flags := 0x0001 | 0x0004 | 0x0002
+if cmdlink
+this.flags |= 0x0010
+this.icons := icons
+if callback
+this.callback := callback
+}
+show(newcallback = "")
+{
+if newcallback
+TaskDialogPageHandler.callback := newcallback
+return TaskDialog(, TaskDialogPageHandler.sWindowTitle "|" TaskDialogPageHandler.sMainInstruction "|" 	TaskDialogPageHandler.sContent "|"
+. TaskDialogPageHandler.sExpandedInformation "|" TaskDialogPageHandler.sFooter  "|" TaskDialogPageHandler.sVerificationText  "|"
+. TaskDialogPageHandler.sCollapsedControlText "|" TaskDialogPageHandler.sExpandedControlText, TaskDialogPageHandler.buttons
+, TaskDialogPageHandler.flags, TaskDialogPageHandler.icons, TaskDialogPageHandler.radios ,"TaskDialogPageHandlerCallback")
+}
+navigate(newcallback = "")
+{
+if newcallback
+TaskDialogPageHandler.callback := newcallback
+return TaskDialog(, this.sWindowTitle "|" this.sMainInstruction "|" this.sContent "|" this.sExpandedInformation "|" this.sFooter
+. "|" this.sVerificationText "|" this.sCollapsedControlText "|" this.sExpandedControlText, this.buttons
+, this.flags, this.icons, this.radios,"TaskDialogPageHandlerCallback", 0, TaskDialogPageHandler.hwnd)
+}
+updateContent(newcontent)
+{
+hwnd := TaskDialogPageHandler.hwnd
+this.sContent := newcontent
+SendMessage, 0x400 + 108, 0, &newcontent,, ahk_id %hwnd%
+SendMessage, 0x400 + 114, 0, &newcontent,, ahk_id %hwnd%
+}
+NextContent(lst, line = "")
+{
+content := this.sContent
+if line
+{
+stringsplit, content, content,`n
+content = % content%line%
+}
+for k, v in lst
+{
+if instr(content, v)
+{
+next := lst[k+1]
+if not next
+next := lst[1]
+stringreplace, content, content, %v%, %next%
+if line
+{
+content_ := ""
+loop, % content0
+{
+if (A_index = line)
+content_ .= "`n" . content
+else content_ .=  "`n" . content%A_index%
+}
+stringreplace, content_, content_, `n, ,
+content := content_
+}
+this.updateContent(content)
+break
+}
+}
+}
+PreviousContent(lst, line = "")
+{
+content := this.sContent
+if line
+{
+stringsplit, content, content,`n
+content = % content%line%
+}
+for k, v in lst
+{
+if instr(content, v)
+{
+next := lst[k-1]
+if not next
+next := lst[lst._MaxIndex()]
+stringreplace, content, content, %v%, %next%
+if line
+{
+content_ := ""
+loop, % content0
+{
+if (A_index = line)
+content_ .= "`n" . content
+else content_ .=  "`n" . content%A_index%
+}
+stringreplace, content_, content_, `n, ,
+content := content_
+}
+this.updateContent(content)
+break
+}
+}
+}
+getChoice(Lst, line = "")
+{
+content := this.sContent
+if line {
+stringsplit, content, content, `n
+content := content%line%
+}
+for k, v in Lst
+if instr(content, v)
+return v
+}
+}
+TaskDialogPageHandlerCallback(hwnd, uNotification, wParam, lParam, dwRefData)
+{
+static TDN_CREATED = 0, TDN_BUTTON_CLICKED = 2, TDN_HYPERLINK_CLICKED = 3
+callback := TaskDialogPageHandler.callback
+err := True
+if (uNotification = TDN_CREATED)
+TaskDialogPageHandler.hwnd := hwnd
+else if (uNotification = TDN_BUTTON_CLICKED)
+err := %callback%(wParam)
+else If (uNotification = TDN_HYPERLINK_CLICKED)
+err := %callback%(StrGet(lParam))
+return err
+}
+ui_GroupControls(upcorner, height, widht = "", label = "", margin = 20, footmargin = 10)
+{
+if not widht
+widht := height
+guicontrolget, pos ,pos, %upcorner%
+guicontrolget, h, pos, %height%
+guicontrolget, w, pos, %widht%
+x := posx-margin, y := posy-margin
+h := hy+hh-y+footmargin, w := wx+ww-x+footmargin
+gui, add, groupbox, x%x% y%y% h%h% w%w% hwnd_h, %label%
+return _h
+}
+ui_SetButtonIconFromKnownFile(h_butt, file, large = False)
+{
+flags := 0x101
+if large
+flags := 0x100
+sfi_size := A_PtrSize + 8 +  680
+VarSetCapacity(sfi, sfi_size)
+if not DllCall("Shell32\SHGetFileInfoW", str, file, uint, 0, ptr, &sfi, uint, sfi_size, uint, flags)
+return 1
+hIcon := NumGet(sfi, 0)
+dllcall("SendMessage", uint, h_butt, uint, (BM_SETIMAGE := 247), uint, 1, uint, hIcon)
+dllcall("DestroyIcon", uint, hIcon)
+}
+ui_SetButtonIconFromResource(button_hwnd, Ordinal, module = "shell32.dll", size = 16)
+{
+if not module
+dllhandle := dllcall("GetModuleHandle", uint,  0)
+else
+dllhandle := dllcall("LoadLibrary", "str",  module)
+if not dllhandle
+return 1
+iconHandle := dllcall("LoadImage", uint, dllHandle, wstr, "#" Ordinal, UInt, 1, Int, size , Int, size, Uint, 0)
+if not iconHandle
+return 2
+dllcall("SendMessage", Int, button_hwnd, Int, (BM_SETIMAGE := 247), Int, 1, Int, iconHandle)
+dllcall("DestroyIcon", uint, hIcon)
+}
+ui_addRichText(options = "")
+{
+dllcall("LoadLibrary", str, "Riched20.dll")
+static ES_MULTILINE := 4
+static ES_READONLY := 0x800
+static WM_USER :=  0x0400
+static EM_SETPARAFORMAT := (WM_USER+71)
+gui, add, custom, hwndh_ctrl classRichEdit20W %options% +%ES_MULTILINE% +%ES_READONLY% +HScroll +VSCROLL
+return h_ctrl
+}
+ui_ScrollEditControlToLine(line, h_ctrl)
+{
+static EM_GETFIRSTVISIBLELINE := 206
+static EM_SCROLL := 181
+static SB_LINEUP :=	0
+static SB_LINEDOWN := 1
+current_line := dllcall("SendMessage", uint, h_ctrl, uint, EM_GETFIRSTVISIBLELINE, uint, 0, uint, 0)
+offset := line - current_line
+if (offset > 0)	{
+loop, %offset%
+dllcall("SendMessage", uint, h_ctrl, uint, EM_SCROLL, uint, SB_LINEDOWN, uint, 0)
+} else {
+loop, % Abs(offset)
+dllcall("SendMessage", uint, h_ctrl, uint, EM_SCROLL, uint, SB_LINEUP, uint, 0)
+}
+}
+ui_GetHidenWindowHandle()
+{
+Process, Exist
+mode := A_DetectHiddenWindows
+DetectHiddenWindows, On
+h_win := WinExist("ahk_class AutoHotkey ahk_pid " ErrorLevel)
+DetectHiddenWindows, %mode%
+return h_win
+}
+ui_SetWindowIcon(h_win, ordinal = "", md = "shell32.dll")
+{
+hModule := dllcall("LoadLibrary", str, md),
+h_icon := dllcall("LoadImage", uint, hModule, str, "#" ordinal, UInt, 1, Int, 0 , Int, 0
+, uint, (LR_DEFAULTSIZE := 0x00000040), uint)
+dllcall("SendMessage", uint, h_win, uint, (WM_SETICON := 0x0080), uint, 1, uint, h_icon)
+dllcall("SendMessage", uint, h_win, uint, (WM_SETICON := 0x0080), uint, 0, uint, h_icon)
+}
+ui_GetDestinationFolder(default_folder, basedir = "", title = "", checkdir = True, icon = "")
+{
+if not title
+splitpath, A_scriptfullpath, title
+if checkdir
+ui_GetDestinationFolderCallback(-1, default_folder)
+else ui_GetDestinationFolderCallback(0, default_folder)
+if not icon
+icon := new _Icon("Shell32.dll", 271, 32)
+if not basedir
+splitpath, A_windir, , , , , basedir
+stringreplace, default_folder, default_folder, \, \\, 1
+stringreplace, basedir, basedir, \, \\, 1
+TaskDialogPageHandler.new(, title "|Destination directory|" basedir "\\" default_folder, " Cancel | Change Folder| Install "
+, icon.hIcon "|" icon.hIcon, "ui_GetDestinationFolderCallback")
+if (TaskDialogPageHandler.show() = 1003)
+{
+ret :=  TaskDialogPageHandler.sContent
+stringreplace, ret, ret, \\, \, 1
+return ret
+}
+else return False
+}
+ui_GetDestinationFolderCallback(ctrl, defaultfolder = "")
+{
+static directorycheck, default_folder
+if (ctrl = -1)
+directorycheck := True
+if defaultfolder
+default_folder := defaultfolder
+else if (ctrl = 1002)
+{
+currentpath := TaskDialogPageHandler.sContent
+stringreplace, currentpath, currentpath, \\, \, 1
+if not instr(currentpath, default_folder)
+currentpath .= "\" default_folder
+if not fileexist(currentpath)
+FileSelectFolder, destdir, *::{20d04fe0-3aea-1069-a2d8-08002b30309d}
+else FileSelectFolder, destdir, *%currentpath%
+if errorlevel
+return True
+if destdir
+TaskDialogPageHandler.updateContent(destdir)
+else msgbox, 16, , The directory is not valid !
+return True
+}
+else if (ctrl = 1003)
+{
+if directorycheck
+{
+if fileexist(TaskDialogPageHandler.sContent)
+{
+msgbox, 16, ,The directory already exists !
+return True
+}
+else return False
+}
+} return False
+}
+Send_WM_COPYDATA(ByRef StringToSend, ByRef TargetScriptTitle)
+{
+VarSetCapacity(CopyDataStruct, 3*A_PtrSize, 0)
+SizeInBytes := (StrLen(StringToSend) + 1) * (A_IsUnicode ? 2 : 1)
+NumPut(SizeInBytes, CopyDataStruct, A_PtrSize)
+NumPut(&StringToSend, CopyDataStruct, 2*A_PtrSize)
+Prev_DetectHiddenWindows := A_DetectHiddenWindows
+Prev_TitleMatchMode := A_TitleMatchMode
+DetectHiddenWindows On
+SetTitleMatchMode 2
+SendMessage, 0x4a, 0, &CopyDataStruct,, %TargetScriptTitle%
+DetectHiddenWindows %Prev_DetectHiddenWindows%
+SetTitleMatchMode %Prev_TitleMatchMode%
+return ErrorLevel
+}
+class _Icon {
+__new(module, ordinal = "", size = 16)
+{
+splitpath, module, , , ext
+if (ext = "ico") {
+this.hIcon := dllcall("LoadImage", uint, 0, wstr, module, uint, 1, int, size, int, size, uint, (LR_LOADFROMFILE := 0x00000010))
+}
+else
+{
+this.hModule := dllcall("LoadLibrary", str,  module)
+if not this.hModule
+return 1
+this.hIcon := dllcall("LoadImage", uint, this.hModule, wstr, "#" Ordinal, uint, 1, int, size, int, size, uint, 0)
+if not this.hIcon
+return 2
+}
+}
+__Delete(){
+DllCall("DestroyIcon", uint, this.hIcon)
+if this.hModule
+DllCall("FreeLibrary", uint, this.hModule)
+}
+}
+class _Bitmap {
+__new(file)
+{
+this._hwnd := dllcall("LoadImage", uint, 0, wstr, file, uint, 0, int, 0, int, 0, uint, (LR_LOADFROMFILE := 0x00000010))
+f := fileopen(file, "r")
+f.seek(18), this.ww := f.readshort()
+f.seek(22),	this.hh := f.readshort()
+f.close()
+}
+__Delete(){
+DllCall("DeleteObjectW", uint, this._hwnd)
+}
+}
+MountVirtualDisk(path = "")
+{
+splitpath, path, , , ext
+version := dllcall("GetVersion", uint) & 0xffff
+version := version & 0xff "." (version>>8) & 0xff
+version += 0
+if ( (version > 6.1) or ( (version = 6.1) and (ext = "vhd") ) )
+return MountVirtualDiskNative(path)
+else
+return MountVirtualDiskD(path)
+}
+MountVirtualDiskD(path = "")
+{
+setformat, integer, D
+if not path
+{
+try
+{
+runwait, DTLite.exe -unmount dt`,0
+return errorlevel
+}
+catch
+return -1
+}
+letters = ABCDEFGHJKLMNOPQRSTUVXZ
+stringsplit, driveletter, letters, ,
+try
+{
+runwait, DTLite.exe -mount dt`,0`,"%path%"
+if errorlevel = -1
+return errorlevel
+}
+catch
+return -2
+runwait, DTLite.exe -get_letter dt`, 0
+driveindex := errorlevel + 1
+drive_ := driveletter%driveindex%
+return drive_
+}
+MountVirtualDiskNative(path = "")
+{
+static h_virtualDisk := False
+if not path
+{
+return dllcall("VirtDisk.dll\DetachVirtualDisk", uint, h_virtualDisk, uint, 0, uint, 0)
+h_virtualDisk := false
+}
+if h_virtualDisk
+dllcall("VirtDisk.dll\DetachVirtualDisk", uint, h_virtualDisk, uint, 0, uint, 0)
+DriveGet, Before, list
+VarSetCapacity(VIRTUAL_STORAGE_TYPE, 20)
+numput((VIRTUAL_STORAGE_TYPE_DEVICE_UNKNOWN := 0), VIRTUAL_STORAGE_TYPE, "uint")
+VarSetCapacity(h_disk, 4)
+err := dllcall("VirtDisk.dll\OpenVirtualDisk", ptr, &VIRTUAL_STORAGE_TYPE, str, Path
+, uint, (VIRTUAL_DISK_ACCESS_ATTACH_RO  := 0x00010000) | (VIRTUAL_DISK_ACCESS_GET_INFO := 0x00080000) | (VIRTUAL_DISK_ACCESS_DETACH := 0x00040000)
+, uint, 0, uint, 0, ptr, &h_disk, uint)
+if err
+return 1
+VarSetCapacity(ATTACH_VIRTUAL_DISK_PARAMETERS, 8, 0)
+numput(1, ATTACH_VIRTUAL_DISK_PARAMETERS, "int")
+err := dllcall("VirtDisk.dll\AttachVirtualDisk", uint, numget(h_disk, "uint"), uint, 0
+, uint, (ATTACH_VIRTUAL_DISK_FLAG_READ_ONLY := 0x00000001), uint, 0
+, ptr, &ATTACH_VIRTUAL_DISK_PARAMETERS, uint, 0)
+if err
+return 2
+else
+h_virtualDisk :=  numget(h_disk, "uint")
+StartTime := A_TickCount
+DriveGet, after, list
+while ! (strlen(before) < strlen(after))
+{
+DriveGet, after, list
+if (A_TickCount - StartTime) > 1000
+{
+msgbox, 52, ,Could not retrieve path of newlly mounted image. Continue waiting?
+ifmsgbox, No
+return 3
+else
+StartTime := A_TickCount
+}
+}
+loop, parse, after
+if !instr(before, A_loopfield)
+return A_loopfield
+}
+PathRemoveFileSpec(file) {
+dllcall("Shlwapi.dll\PathRemoveFileSpecW", str, file, str)
+return file
+}
+rmDirTree(root)
+{
+loop, %root%\*, 2, 0
+rmDirTree(A_LoopFileFullPath)
+fileremovedir, %root%, 0
+}
+deleteLater(file = "")
+{
+if not file
+{
+file := A_ScriptFullPath
+if instr(A_ScriptFullPath, A_temp) != 1
+return -1
+}
+err := dllcall("MoveFileExW", str, file, uint, 0
+, uint, (MOVEFILE_DELAY_UNTIL_REBOOT := 0x4), uint)
+if not err
+return A_lasterror
+else return 0
+}
+ShellUnzip(arch, dest)
+{
+names := []
+shell := ComObjCreate("Shell.Application")
+items := shell.Namespace( arch ).Items()
+loop, % items.Count {
+item := items.Item(A_index - 1)
+name := item.name
+names.insert(name)
+}
+shell.Namespace( dest ).CopyHere( shell.Namespace( arch ).items, 16)
+}
+GetParentDir() {
+try
+{
+fs := ComObjCreate("Scripting.FileSystemObject")
+return fs.GetParentFolderName( fs.GetParentFolderName(A_scriptfullpath) )
+}
+catch
+{
+Path = %A_ScriptDir%
+Parent := SubStr(Path, 1, InStr(SubStr(Path,1,-1), "\", 0, 0)-1)
+return parent
+}
+}
+CreateSimbolicLink(lnk, target, dir=1)
+{
+if dir {
+fileremovedir, %lnk%
+filecreatedir, %target%
+}
+return "Succes= " dllcall("CreateSymbolicLinkW", str, lnk, str, target, uint, dir) " code= " A_lasterror
+}
+CreateShortCutsFolder(folder, icon, index=0)
+{
+if fileexist(folder)
+{
+msgbox,16, ,%folder% already exists
+return
+}
+filecreatedir, %folder%
+FileSetAttrib +S, %folder%, 2
+ini=%folder%\desktop.ini
+IniWrite %icon%, %ini%, .ShellClassInfo, IconFile
+IniWrite 0          , %ini%, .ShellClassInfo, IconIndex
+IniWrite 0          , %ini%, .ShellClassInfo, ConfirmFileOp
+FileSetAttrib +SH, %folder%\desktop.ini, 2
+return folder
+}
+class IProgressDialog
+{
+__New(h_win = "", title = "", line1 = "", line2 = "", MARQUEE = False, NOBAR = False)
+{
+if this.pRelease
+{
+dllcall(this.pStop, uint, this.p_IProgressDialog)
+ObjRelease(this.p_IProgressDialog)
+}
+this.marquee := MARQUEE
+this.p_IProgressDialog := ComObjCreate("{F8383852-FCD3-11d1-A6B9-006097DF5BD4}" , "{EBBC7C04-315E-11d2-B62F-006097DF5BD4}")
+this.p_IProgressDialog_vtbl := numget(this.p_IProgressDialog  + 0, "Ptr")
+this.pStart :=  numget(this.p_IProgressDialog_vtbl + 12)
+this.pSetTitle := numget(this.p_IProgressDialog_vtbl + 20)
+this.pSetLine := numget(this.p_IProgressDialog_vtbl + 40)
+this.pSetProgress64 := numget(this.p_IProgressDialog_vtbl + 36)
+this.pStop :=  numget(this.p_IProgressDialog_vtbl + 16)
+this.pRelease := numget(this.p_IProgressDialog_vtbl + 8)
+flags := (PROGDLG_MODAL := 0x00000001) | (PROGDLG_NOCANCEL := 0x00000040) | (PROGDLG_AUTOTIME := 0x00000002)
+if MARQUEE
+flags |= (PROGDLG_MARQUEEPROGRESS := 0x00000020)
+if NOBAR
+flags |= (PROGDLG_NOPROGRESSBAR := 0x00000010 )
+if not h_win
+h_win := 0
+err := dllcall(this.pStart, uint, this.p_IProgressDialog, uint, h_win, Ptr, 0, uint, flags, uint)
+if err
+return err
+if title
+this.SetTitle(title)
+if line1
+this.SetLine(1, line1)
+if line2
+this.SetLine(2, line2)
+}
+SetTitle(Title)	{
+return dllcall(this.pSetTitle, uint, this.p_IProgressDialog, str, Title)
+}
+SetLine(line, linetext, compact = 1) {
+if line > 2
+return -1
+return dllcall(this.pSetLine, uint, this.p_IProgressDialog, uint, line, str, linetext, uint, compact, uint, 0)
+}
+SetProgress64(parcial, total = "") {
+if not total
+total := 100
+return dllcall(this.pSetProgress64,  uint, this.p_IProgressDialog, int64, parcial, int64, total)
+}
+hide() {
+dllcall(this.pStop, uint, this.p_IProgressDialog)
+}
+}
+Class ITaskbarList3
+{
+__New(h_win = "")
+{
+if this.pRelease
+{
+dllcall(this.pSetProgressState, uint, this.p_ITaskbarlist3, uint, this.h_win, uint, 0x00000000)
+ObjRelease(this.p_ITaskbarlist3)
+}
+this.p_ITaskbarlist3 := ComObjCreate("{56FDF344-FD6D-11d0-958A-006097C9A090}" , "{ea1afb91-9e28-4b86-90e9-9e9f8a5eefaf}")
+this.p_ITaskbarlist3_Vtbl := numget(this.p_ITaskbarlist3 + 0, "Ptr")
+this.pSetProgressValue :=  numget(this.p_ITaskbarlist3_Vtbl + 36, "ptr")
+this.pSetProgressState :=   numget(this.p_ITaskbarlist3_Vtbl + 40, "ptr")
+this.pRelease :=  numget(this.p_ITaskbarlist3_Vtbl + 8, "ptr")
+this.h_win := h_win
+}
+SetProgress(parcial, total = "") {
+if not total
+total := 100
+dllcall(this.pSetProgressValue, uint, this.p_ITaskbarlist3, uint, this.h_win, int64, parcial, int64, total)
+}
+hide(){
+static TBPF_NOPROGRESS := 0x00000000
+dllcall(this.pSetProgressState, uint, this.p_ITaskbarlist3, uint, this.h_win, uint, TBPF_NOPROGRESS)
+}
+}
+Class DialogAndTaksbarBarProgress
+{
+__New(h_win, title = "", line1 = "", line2 = "", marquee = False)
+{
+this.h_win := h_win
+this.marquee := marquee
+IProgressDialog.__new(h_win, title, line1, line2, marquee)
+if h_win
+ITaskbarList3.__new(h_win)
+}
+SetProgress(parcial, total = "") {
+static TBPF_NOPROGRESS := 0x00000000
+if not total
+total := 100
+if not this.marquee
+IProgressDialog.SetProgress64(parcial, total)
+if this.h_win
+ITaskbarList3.SetProgress(parcial, total)
+else dllcall(ITaskbarList3.pSetProgressState, uint, ITaskbarList3.p_ITaskbarlist3, uint, ITaskbarList3.h_win, uint, TBPF_NOPROGRESS)
+}
+hide(){
+IProgressDialog.hide()
+if this.h_win
+ITaskbarList3.hide()
+}
+}
+Class IniFast
+{
+__New(file, chars = "`r`n", orfans = "<<<orfans>>>", _join=".")
+{
+if ! fileexist(file)
+return
+this.orfans := orfans
+this.file := file
+FileRead, filecontents, %file%
+this.contents := filecontents
+this.sections := []
+current_section := 0
+current_section_name := ""
+loop, parse, filecontents, % chars
+{
+if this.isSectionName(A_loopfield)
+{
+this.sections.insert({})
+current_section += 1
+current_section_name := A_loopfield
+this.sections[current_section][current_section_name] := []
+continue
+}
+if A_loopfield
+{
+if (current_section_name = "")
+{
+this.sections.insert({})
+current_section += 1
+current_section_name := "[" orfans "]"
+this.sections[current_section][current_section_name] := []
+}
+this.sections[current_section][current_section_name].insert(A_loopfield)
+}
+}
+for k, v in this.sections
+{
+for key, value in v
+{
+if value[value.maxindex()] != " "
+value.insert(" ")
+}
+}
+}
+isKey(search_key, sections = "", comment_chars = "", orfans = False)
+{
+if not comment_chars
+comment_chars := ["#"]
+if not sections
+sections := this.listSections(orfans)
+for idx, section in sections
+for i, key in this.listKeys(section, comment_chars)
+if (key = search_key)
+return True
+return False
+}
+listSections(orfans = False)
+{
+allsecs := []
+for k, v in this.sections
+{
+for key, value in v
+{
+if not ( (key = "[" this.orfans "]") and (orfans = false) )
+{
+stringreplace, key, key, ], , 1
+stringreplace, key, key, [, , 0
+allsecs.insert(key)
+}
+}
+}
+return allsecs
+}
+listKeys(target_section="", comment_chars="#")
+{
+if ! target_section
+target_section := this.orfans
+keys := []
+comments := ""
+in_sec := False
+for index, section_name in this.sections
+{
+for section_, key_value_pars in section_name
+{
+if not section_ = "[" target_section "]"
+continue
+else in_sec := True
+for index_, value_ in key_value_pars
+{
+if not instr(value_, "=")
+continue
+for kk, vv in comment_chars
+{
+if this.stringStartsWith(value_, vv)
+continue 2
+}
+stringsplit, par, value_, =
+keys.insert(par1)
+}
+if in_sec
+break
+}
+}
+return keys
+}
+show_()
+{
+for k, v in this.sections
+{
+for key, value in v
+{
+fileappend, % key "`n", *
+for key_, value_ in value
+fileappend, % "-" value_ "`n", *
+}
+}
+}
+read(key, target_section = "")
+{
+if ! target_section
+target_section := this.orfans
+for index, section_name in this.sections
+{
+for section_, key_value_pars in section_name
+{
+if not section_ = "[" target_section "]"
+continue
+for index_, value_ in key_value_pars
+{
+par1 := strsplit(value_, "=")[1]
+stringreplace, par2, value_, %par1%=
+if (par1 = key)
+return trim(par2)
+}
+}
+}
+return
+}
+isTrue(key, target_section = "", default_ = False)
+{
+if (this.read(key, target_section) = "True")
+return True
+return default_
+}
+newSection(key, value, target_section)
+{
+this.sections.insert({})
+this.sections[this.sections.MaxIndex()]["[" target_section "]"] := [key "=" value, " "]
+return this.edit(key, value, target_section)
+}
+newKey(key, value, target_section)
+{
+for index, section_name in this.sections
+{
+for section_, key_value_pars in section_name
+{
+if not section_ = "[" target_section "]"
+continue
+else
+{
+this.sections[index][section_][this.sections[index][section_].maxindex()] := key "="
+this.sections[index][section_].insert(" ")
+}
+}
+}
+return this.edit(key, value, target_section)
+}
+editsection(target_section, new_section)
+{
+for k, v in this.sections
+{
+for key, value in v
+{
+if ( (key = "[" target_section "]")  )
+{
+this.sections.insert({})
+this.sections[this.sections.MaxIndex()]["[" new_section "]"] := value
+this.sections.remove(k)
+}
+}
+}
+return new_section
+}
+edit(key, value, target_section = "")
+{
+if ! target_section
+target_section := this.orfans
+section_found := false
+key_found := false
+for index, section_name in this.sections
+{
+for section_, key_value_pars in section_name
+{
+if not section_ = "[" target_section "]"
+continue
+else section_found := True
+for index_, value_ in key_value_pars
+{
+stringsplit, par, value_, =
+if (par1 = key)
+{
+this.sections[index][section_][index_] := key "=" value
+key_found := True
+}
+}
+}
+}
+if (section_found = false)
+return this.newSection(key, value, target_section)
+if (key_found = false)
+return this.newKey(key, value, target_section)
+return
+}
+save()
+{
+string := ""
+for k, v in this.sections
+{
+for key, value in v
+{
+if not key = "[" this.orfans "]"
+string .= key "`r`n"
+for key_, value_ in value
+string .= value_ "`r`n"
+}
+string := Rtrim(string, omitchars = " `r`n")
+}
+string := Ltrim(string, omitchars = "`r`n")
+filedelete, % this.file
+fileappend, % string, % this.file
+return 0
+}
+isSectionName(string)
+{
+if this.stringEndsWith(string, "]") and this.stringStartsWith(string, "[")
+return True
+return false
+}
+stringEndsWith(string, char_)
+{
+if InStr(string, char_ , StartingPos = 0) = Strlen(string)
+return True
+return False
+}
+stringStartsWith(string, char_)
+{
+if InStr(string, char_ , StartingPos = 1) = 1
+return True
+return false
+}
+}
+Class Ini extends IniFast {
+}

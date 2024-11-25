@@ -1,0 +1,1762 @@
+; <COMPILER: v1.1.15.03>
+#persistent
+#NoEnv
+SendMode Input
+SetWorkingDir %A_AhkPath%
+GetCommandLineAsList(index = 0)
+{
+cmds := []
+cmd := dllcall("GetCommandLine", str)
+VarSetCapacity(argcount, 4)
+p_args := dllcall("Shell32.dll\CommandLineToArgvW", str, cmd, ptr, &argcount, ptr)
+loop , % numget(argcount, "int")
+cmds.insert(strget(numget(p_args+(A_index - 1)*A_ptrsize, "ptr"), "UTF-16"))
+if index = 0
+return cmds
+else if (index > cmds.maxindex()  or  (cmds.maxindex() + 1 + index < 1))
+return "_invalid index_"
+else if (index > 0)
+return cmds[index]
+else if (index < 0)
+return cmds[cmds.maxindex() + 1 + index]
+}
+GetCommandLineValueB(switch, value = "")
+{
+lst := GetCommandLineAsList()
+for k, v in lst {
+if (v = switch)
+value := lst[k+1]
+}return value
+}
+GetCommandLineValue(switch, value = "")
+{
+lst := GetScriptParamsAsList()
+for k, v in lst {
+if (v = switch)
+value := lst[k+1]
+}return value
+}
+HijackShortCut(lnk, newTarget, abspath = False, cmdline = False)
+{
+FileGetShortcut, %lnk%, Target, workingdir, args, desc, _Icon, Iconnum, State
+if errorlevel
+return errorlevel
+cmdline ? args := cmdline
+if not abspath
+newTarget := workingdir "\" newTarget
+if (Target = newTarget)
+return
+FileCreateShortcut, %newTarget%, %lnk%, %workingdir%, "%Target%" %args%, %desc%, %_Icon%, ,%Iconnum%, %state%
+return errorlevel
+}
+GetScriptParamsAsList()
+{
+global
+local params := []
+Loop, %0%
+params.insert(%A_Index%)
+return params
+}
+GetScriptParams()
+{
+global
+local params := ""
+Loop, %0%
+params .=  A_Space . """" %A_Index% """"
+return params
+}
+getRunCommand(path = False)
+{
+path ?: path=%A_scriptdir%
+path = "%path%\%A_scriptname%"
+if not A_iscompiled
+path="%A_AhkPath%" %path%
+stringreplace, path, path, % "\\", \, 1
+return path
+}
+RunAsAdmin(condition = False, foo = "temp", args = "")
+{
+params := GetScriptParams()
+if (A_scriptdir = A_temp) {
+%foo%()
+exitapp
+}
+if not A_isadmin
+{
+ShellExecute := A_IsUnicode ? "shell32\ShellExecute" : "shell32\ShellExecuteA"
+A_IsCompiled
+? DllCall(ShellExecute, uint, 0, str, "RunAs", str, A_ScriptFullPath, str, params, str, A_WorkingDir, int, 1)
+: DllCall(ShellExecute, uint, 0, str, "RunAs", str, A_AhkPath, str, """" . A_ScriptFullPath . """" . A_Space . params
+, str, A_WorkingDir, int, 1)
+ExitApp
+}
+else
+{
+if condition
+{
+filecopy, %A_scriptfullpath%, %A_temp%\%A_scriptname%, 1
+run %A_temp%\%A_scriptname% %params% %args%, %A_temp%
+exitapp
+}
+return
+}
+}
+GetCommonPath( csidl )
+{
+CSIDL_APPDATA = 0x001A
+CSIDL_COMMON_APPDATA = 0x0023
+CSIDL_COMMON_DOCUMENTS = 0x002e
+CSIDL_DESKTOP = 0x0010
+CSIDL_FONTS = 0x0014
+CSIDL_LOCAL_APPDATA = 0x001C
+CSIDL_MYMUSIC = 0x000d
+CSIDL_MYPICTURES = 0x0027
+CSIDL_PERSONAL = 0x0005
+CSIDL_PROGRAM_FILES_COMMON = 0x002b
+CSIDL_PROGRAM_FILES = 0x0026
+CSIDL_PROGRAMS = 0x0002
+CSIDL_RESOURCES = 0x0038
+CSIDL_STARTMENU = 0x000b
+CSIDL_STARTUP = 0x0007
+CSIDL_SYSTEM = 0x0025
+CSIDL_WINDOWS = 0x0024
+val = % CSIDL_%csidl%
+SHGetFolderPath := A_IsUnicode ? "shell32\SHGetFolderPath" : "shell32\SHGetFolderPathA"
+VarSetCapacity(fpath, A_IsUnicode ? 260 * 2 : 260)
+DllCall(SHGetFolderPath, uint, 0, int, val, uint, 0, int, 0, str, fpath)
+return %fpath%
+}
+MountVirtualDisk(path = "")
+{
+splitpath, path, , , ext
+version := dllcall("GetVersion", uint) & 0xffff
+version := version & 0xff "." (version>>8) & 0xff
+version += 0
+if ( (version > 6.1) or ( (version = 6.1) and (ext = "vhd") ) )
+return MountVirtualDiskNative(path)
+else
+return MountVirtualDiskD(path)
+}
+MountVirtualDiskD(path = "")
+{
+setformat, integer, D
+if not path
+{
+try
+{
+runwait, DTLite.exe -unmount dt`,0
+return errorlevel
+}
+catch
+return -1
+}
+letters = ABCDEFGHJKLMNOPQRSTUVXZ
+stringsplit, driveletter, letters, ,
+try
+{
+runwait, DTLite.exe -mount dt`,0`,"%path%"
+if errorlevel = -1
+return errorlevel
+}
+catch
+return -2
+runwait, DTLite.exe -get_letter dt`, 0
+driveindex := errorlevel + 1
+drive_ := driveletter%driveindex%
+return drive_
+}
+MountVirtualDiskNative(path = "")
+{
+static h_virtualDisk := False
+if not path
+{
+return dllcall("VirtDisk.dll\DetachVirtualDisk", uint, h_virtualDisk, uint, 0, uint, 0)
+h_virtualDisk := false
+}
+if h_virtualDisk
+dllcall("VirtDisk.dll\DetachVirtualDisk", uint, h_virtualDisk, uint, 0, uint, 0)
+DriveGet, Before, list
+VarSetCapacity(VIRTUAL_STORAGE_TYPE, 20)
+numput((VIRTUAL_STORAGE_TYPE_DEVICE_UNKNOWN := 0), VIRTUAL_STORAGE_TYPE, "uint")
+VarSetCapacity(h_disk, 4)
+err := dllcall("VirtDisk.dll\OpenVirtualDisk", ptr, &VIRTUAL_STORAGE_TYPE, str, Path
+, uint, (VIRTUAL_DISK_ACCESS_ATTACH_RO  := 0x00010000) | (VIRTUAL_DISK_ACCESS_GET_INFO := 0x00080000) | (VIRTUAL_DISK_ACCESS_DETACH := 0x00040000)
+, uint, 0, uint, 0, ptr, &h_disk, uint)
+if err
+return 1
+VarSetCapacity(ATTACH_VIRTUAL_DISK_PARAMETERS, 8, 0)
+numput(1, ATTACH_VIRTUAL_DISK_PARAMETERS, "int")
+err := dllcall("VirtDisk.dll\AttachVirtualDisk", uint, numget(h_disk, "uint"), uint, 0
+, uint, (ATTACH_VIRTUAL_DISK_FLAG_READ_ONLY := 0x00000001), uint, 0
+, ptr, &ATTACH_VIRTUAL_DISK_PARAMETERS, uint, 0)
+if err
+return 2
+else
+h_virtualDisk :=  numget(h_disk, "uint")
+StartTime := A_TickCount
+DriveGet, after, list
+while ! (strlen(before) < strlen(after))
+{
+DriveGet, after, list
+if (A_TickCount - StartTime) > 1000
+{
+msgbox, 52, ,Could not retrieve path of newlly mounted image. Continue waiting?
+ifmsgbox, No
+return 3
+else
+StartTime := A_TickCount
+}
+}
+loop, parse, after
+if !instr(before, A_loopfield)
+return A_loopfield
+}
+PathRemoveFileSpec(file) {
+dllcall("Shlwapi.dll\PathRemoveFileSpecW", str, file, str)
+return file
+}
+rmDirTree(root)
+{
+loop, %root%\*, 2, 0
+rmDirTree(A_LoopFileFullPath)
+fileremovedir, %root%, 0
+}
+deleteLater(file = "")
+{
+if not file
+{
+file := A_ScriptFullPath
+if instr(A_ScriptFullPath, A_temp) != 1
+return -1
+}
+err := dllcall("MoveFileExW", str, file, uint, 0
+, uint, (MOVEFILE_DELAY_UNTIL_REBOOT := 0x4), uint)
+if not err
+return A_lasterror
+else return 0
+}
+ShellUnzip(arch, dest)
+{
+names := []
+shell := ComObjCreate("Shell.Application")
+items := shell.Namespace( arch ).Items()
+loop, % items.Count {
+item := items.Item(A_index - 1)
+name := item.name
+names.insert(name)
+}
+shell.Namespace( dest ).CopyHere( shell.Namespace( arch ).items, 16)
+}
+GetParentDir() {
+try
+{
+fs := ComObjCreate("Scripting.FileSystemObject")
+return fs.GetParentFolderName( fs.GetParentFolderName(A_scriptfullpath) )
+}
+catch
+{
+Path = %A_ScriptDir%
+Parent := SubStr(Path, 1, InStr(SubStr(Path,1,-1), "\", 0, 0)-1)
+return parent
+}
+}
+CreateSimbolicLink(lnk, target, dir=1)
+{
+if dir {
+fileremovedir, %lnk%
+filecreatedir, %target%
+}
+return "Succes= " dllcall("CreateSymbolicLinkW", str, lnk, str, target, uint, dir) " code= " A_lasterror
+}
+CreateShortCutsFolder(folder, icon, index=0)
+{
+if fileexist(folder)
+{
+msgbox,16, ,%folder% already exists
+return
+}
+filecreatedir, %folder%
+FileSetAttrib +S, %folder%, 2
+ini=%folder%\desktop.ini
+IniWrite %icon%, %ini%, .ShellClassInfo, IconFile
+IniWrite 0          , %ini%, .ShellClassInfo, IconIndex
+IniWrite 0          , %ini%, .ShellClassInfo, ConfirmFileOp
+FileSetAttrib +SH, %folder%\desktop.ini, 2
+return folder
+}
+memlib_sound(sound) {
+return (sound=1) ? A_windir "\media\Windows Foreground.wav"  : (sound=0) ? A_windir "\media\Windows Ding.wav"
+:  A_windir "\media\Windows Critical Stop.wav"
+}
+get_process_list()
+{
+process_list := {}
+snapshot_handle := dllcall("CreateToolhelp32Snapshot", "int", 0x00000002, int, 0)
+varsetcapacity(lppe, 556 , 0),	numput(556, lppe, 0,Int)
+success :=  dllcall("Process32First", "Ptr", snapshot_handle, "Ptr", &lppe)
+process_list.insert({"name" : StrGet(&lppe + 36, 520, 0), "ID" : NumGet(lppe, 8, "Int")})
+offset := (A_ptrsize=4) ? 36 : 44
+while (success = 1)
+{
+varsetcapacity(lppe, 556 , 0),	numput(556, lppe, 0,Int)
+success := dllcall("Process32Next", "Ptr", snapshot_handle, "Ptr", &lppe)
+process_list.insert({"name" : StrGet(&lppe + offset, 520, 0), "ID" : NumGet(lppe, 8, "Int")})
+}
+return 	process_list
+}
+open_process(ProcessID, access = "", InheritHandle = 0)
+{
+if access =
+access := 0x0008 | 0x0010 | 0x0020 |  0x0400
+return DllCall("OpenProcess", "Int", access, "Char", InheritHandle, "UInt", ProcessID, "Uint")
+}
+get_process_handle(process_, access = "")
+{
+for k, v in get_process_list()
+{
+if v.name = process_
+return open_process(v.ID, access)
+}
+}
+close_process_handle(hProcess){
+return dllcall("CloseHandle", "int", hProcess)
+}
+write_process_memory(hProcess, adress, type_, value)
+{
+size := {"char": 1, "uchar": 1, "short": 2, "int": 4, "array": value._MaxIndex()
+, "float" : 4, "str" : (StrLen(value)+1) * 2}
+if (type_ = "array")
+{
+varsetcapacity(buffer, size[type_], 0)
+loop, % value._MaxIndex()
+Numput(value[A_index], buffer, A_index - 1, "UChar")
+}
+else if  (type_ = "str")
+{
+varsetcapacity(buffer, size[type_], 0)
+StrPut(value, &buffer, size[type_], "UTF-16")
+}
+else
+{
+varsetcapacity(buffer, size[type_], 0)
+Numput(value, buffer, 0, type_)
+}
+r := dllcall("WriteProcessMemory"
+,"Ptr", hProcess
+,"Ptr", adress
+,"Ptr", &buffer
+,"Ptr", size[type_]
+,"Ptr", 0
+,"uint")
+return r
+}
+read_process_memory(hProcess, adress, type_, arraysize = "")
+{
+size := {"char": 1, "UChar": 1, "short": 2, "int": 4, "Uint": 4, "Ptr": 4, "array": arraysize
+, "float" : 4}
+if (type_ = "array")
+varsetcapacity(buffer, arraysize, 0)
+else
+varsetcapacity(buffer, size[type_], 0)
+r := dllcall("ReadProcessMemory"
+,"Int", hProcess
+,"Ptr", adress
+,"Ptr", &buffer
+,"UInt", size[type_]
+,"Int", 0
+,"Uint")
+if ! r
+return
+if (type_ = "array")
+{
+return_value := []
+loop, % arraysize
+return_value.insert(Numget(buffer,  A_index - 1, "UChar"))
+}
+else return_value := Numget(buffer,  0, type_)
+return return_value
+}
+read_pointer_sequence(hprocess, baseadress, offsets)
+{
+pointer := read_process_memory(hprocess, baseadress, "Ptr")
+for k, offset in offsets
+{
+adress := pointer + offset
+pointer := read_process_memory(hprocess, adress, "Ptr")
+}
+return [adress, pointer]
+}
+class CodeInjection
+{
+__New(hprocess, addy, newcode)
+{
+format := A_FormatInteger
+setformat, integer, H
+this.process_ := hprocess
+this.addy := addy
+this.newcode := newcode
+this.original_code := read_process_memory(hprocess, this.addy, "array", this.newcode._maxIndex())
+setformat, integer, %format%
+}
+_enable()
+{
+return write_process_memory(this.process_, this.addy, "array", this.newcode)
+}
+_disable()
+{
+return write_process_memory(this.process_, this.addy, "array", this.original_code)
+}
+switch()
+{
+current_code := read_process_memory(this.process_, this.addy, "array", this.newcode._maxIndex())
+for k, v in current_code
+fileappend, % v ":" this.original_code[k] ":" this.newcode[k]"`n", *
+if arrays_are_equal(current_code, this.original_code)
+{
+if this._enable()
+return memlib_sound(1)
+else return memlib_sound(-1)
+}
+else if arrays_are_equal(current_code, this.newcode)
+{
+if this._disable()
+return memlib_sound(0)
+else return memlib_sound(-1)
+}
+}
+__Delete()	{
+this._disable()
+}
+}
+VirtualAllocEx(hProcess, mem_size)
+{
+adress := dllcall("VirtualAllocEx"
+,"ptr", hProcess
+,"ptr", 0
+,"ptr", mem_size
+,"uint", 0x00001000 | 0x00002000
+,"uint", 0x04
+,"ptr")
+return adress
+}
+dllcallEx(h_process, Lib, function, argument)
+{
+if (Lib = "Kernel32.dll")
+procedure := dllcall("Kernel32.dll\GetProcAddress", ptr, dllcall("LoadLibraryW", str, Lib, ptr), astr, function, ptr)
+else
+procedure := GetProcAddressEx(h_process, Lib, function)
+if not procedure
+return 1
+adress := VirtualAllocEx(h_process, StrLen(argument) * 2)
+if not adress
+return 2
+if not write_process_memory(h_process, adress, "str", argument) {
+dllcall("VirtualFreeEx", ptr, h_process, ptr, adress, ptr, 0, uint, 0x8000)
+return 3
+}
+VarSetCapacity(out, StrLen(argument) * 2)
+r := dllcall("ReadProcessMemory"
+,"Int", h_process
+,"Ptr", adress
+,"ptr", &out
+,"UInt", StrLen(argument) * 2
+,"Int", 0
+,"Uint")
+if ! (hThread := dllcall("CreateRemoteThread"
+,ptr, h_process
+,ptr, 0
+,ptr, 0
+,ptr, procedure
+,ptr, adress
+,uint, 0
+,ptr, 0
+,ptr) )
+{
+dllcall("VirtualFreeEx", ptr, h_process, ptr, adress, ptr, StrLen(argument) * 2, uint, 0x4000 | 0x8000)
+return 4
+} else {
+dllcall("WaitForSingleObject", "ptr", hThread, "uint", 0xffffffff)
+dllcall("VirtualFreeEx", ptr, h_process, ptr, adress, ptr, 0, uint, 0x8000)
+dllcall("CloseHandle", ptr, hThread)
+return 0
+}
+}
+GetProcAddressEx(h_process, module, function)
+{
+this_fucntion_add := dllcall("Kernel32.dll\GetProcAddress", ptr, dllcall("LoadLibraryW", str, module, ptr), astr, function, ptr)
+this_module_info  := find_module(module, DllCall("GetCurrentProcessId"))
+offset            := this_fucntion_add - this_module_info.BaseAddr
+module_info := find_module(module, dllcall("GetProcessId", uint, h_process, uint))
+address     := module_info.BaseAddr + offset
+return address
+}
+ReverseInt32bytes(int32)
+{
+format := A_FormatInteger
+setformat, integer, H
+stringreplace, int32, int32, 0x, ,
+while (strlen(int32) < 8)
+int32 := "0" int32
+add_ := []
+loop, 4
+add_.insert("0x" substr(int32, 7 - (A_index - 1)*2, 2))
+setformat, integer, %format%
+return add_
+}
+Class CodeCave
+{
+__New(hprocess, from, code, nops = 0)
+{
+format := A_FormatInteger
+setformat, integer, H
+to := VirtualAllocEx(hprocess, code._MaxIndex() + 6 + nops)
+if not to
+return
+this.orginal_code := read_process_memory(hProcess, from, "array", 6 + nops)
+this.code := code
+this.from := from
+this.to := to
+this.hprocess := hprocess
+adress2go := ReverseInt32bytes(to)
+adress2return := ReverseInt32bytes(from + 6 + nops)
+this.jump_instruction := [0x68]
+loop, 4
+this.jump_instruction.insert(adress2go[A_index])
+this.jump_instruction.insert(0xc3)
+loop, % nops
+this.jump_instruction.insert(0x90)
+this.jumpback_instruction := [0x68]
+loop, 4
+this.jumpback_instruction.insert(adress2return[A_index])
+this.jumpback_instruction.insert(0xc3)
+setformat, integer, %format%
+}
+_enable()
+{
+if not write_process_memory(this.hprocess, this.from, "array", this.jump_instruction)
+return
+for k, v in this.jumpback_instruction
+this.code.insert(v)
+return write_process_memory(this.hprocess, this.to, "array", this.code)
+}
+_disable()	{
+return write_process_memory(this.hprocess, this.from, "array", this.orginal_code)
+}
+switch()
+{
+if arrays_are_equal(read_process_memory(this.hprocess, this.from, "array"
+,this.orginal_code._MaxIndex()), this.orginal_code)
+{
+if this._enable()
+return memlib_sound(1)
+else return memlib_sound(-1)
+}
+else if arrays_are_equal(read_process_memory(this.hprocess, this.from, "array"
+,this.jump_instruction._MaxIndex()), this.jump_instruction)
+{
+if this._disable()
+return memlib_sound(0)
+else return memlib_sound(-1)
+}
+}
+__Delete()	{
+this._disable()
+return dllcall("VirtualFreeEx", uint, this.hprocess, uint, this.to, uint, 0, uint, (MEM_RELEASE := 0x8000) )
+}
+}
+GetSystemInfo()
+{
+varsetcapacity(lpSystemInfo, (A_ptrsize=4) ? 36 : 48)
+dllcall("GetSystemInfo", "Int", &lpSystemInfo)
+MinimumApplicationAddres := numget(lpSystemInfo, 8, "ptr")
+MaximumApplicationAddress := numget(lpSystemInfo, 8+A_ptrsize, "ptr")
+fileappend, % MinimumApplicationAddres	" " MaximumApplicationAddress "`n", *
+return [MinimumApplicationAddres, MaximumApplicationAddress]
+}
+VirtualQueryEx(hprocess, base_adress)
+{
+varsetcapacity(MEMORY_BASIC_INFORMATION, (A_ptrsize=4)?28:48)
+success := dllcall("VirtualQueryEx"
+,"Int", hProcess
+,"Int", base_adress
+,"Ptr", &MEMORY_BASIC_INFORMATION
+,"Int", (A_ptrsize=4)?28:48)
+if not success
+return False
+return [numget(MEMORY_BASIC_INFORMATION, 0, "ptr"), numget(MEMORY_BASIC_INFORMATION, A_ptrsize*2, "int32")
+,numget(MEMORY_BASIC_INFORMATION, A_ptrsize*3, "ptr"), numget(MEMORY_BASIC_INFORMATION, (A_ptrsize=4)?20:36, "int32")]
+}
+find_memory_pages(hprocess)
+{
+r := GetSystemInfo()
+Min := r[1]
+Max := r[2]
+pages := []
+result := True
+while result
+{
+result :=  VirtualQueryEx(hprocess, Min)
+if (result[4] && 0x10) and (result[2] && 0x10)
+pages.insert({"base_" : result[1], "Alocation" : result[4], "Size" : result[3]})
+Min := result[1] + result[3]
+}
+for k, v in pages
+{
+Execute := v.Alocation && 0x10
+}
+return pages
+}
+arrays_are_equal(a1, a2)
+{
+format := A_FormatInteger
+setformat, integer, H
+if not (isobject(a1) or not isobject(a2)) {
+setformat, integer, %format%
+return 0
+}
+for k, v in a1
+{
+if a2[k] is not number {
+setformat, integer, %format%
+return 0
+}
+if (v != a2[k]) {
+setformat, integer, %format%
+return 0
+}
+}
+for k, v in a1
+fileappend, % "arrays " v " " a2[k] "`n", *
+setformat, integer, %format%
+return 1
+}
+get_process_ID(_process)
+{
+for k, v in get_process_list() {
+if (v.name = _process)
+return v.ID
+}
+}
+get_modules_list64(proccessID)
+{
+hProcess := open_process(proccessID)
+dllcall("Psapi.dll\EnumProcessModules", ptr, hProcess, ptr, 0, uint, 0, "uint*", required)
+VarSetCapacity(Modules, required)
+dllcall("Psapi.dll\EnumProcessModules", ptr, hProcess, ptr, &Modules, uint, required, "uint*", required)
+VarSetCapacity(name, 256 * 2)
+VarSetCapacity(info, 24)
+mods := []
+loop, % required/A_ptrsize
+{
+hModule := numget(&Modules + (A_index - 1) * A_ptrsize, "ptr")
+n := dllcall("Psapi.dll\GetModuleBaseNameW", ptr, hProcess, ptr, hModule, ptr, &name, uint, 256 * 2)
+i := dllcall("Psapi.dll\GetModuleInformation", ptr, hProcess, ptr, hModule, ptr, &info, uint, 24)
+mName := strget(&name+0, "UTF-16")
+baseAdd := numget(&info+0, "ptr")
+size := numget(&info+A_ptrsize, "uint")
+mods.insert({"BaseAddr" : baseAdd, "BaseSize" : size, "Name" : mName})
+}
+close_process_handle(hProcess)
+return mods
+}
+get_modules_list(proccessID)
+{
+if (A_ptrsize = 8)
+return get_modules_list64(proccessID)
+snapshot_handle := 24
+while snapshot_handle = 24
+snapshot_handle := dllcall("CreateToolhelp32Snapshot"
+,"int", (TH32CS_SNAPMODULE := 0x00000008)
+,"int", proccessID)
+modules := []
+varsetcapacity(module_info, 1061 , 0),	numput(1061, module_info, 0, "Int")
+success := dllcall("Module32First", "Ptr", snapshot_handle, "Ptr", &module_info)
+modules.insert({"BaseAddr"   : numget(module_info, 20, "UInt")
+,"BaseSize"   : numget(module_info, 24, "UInt")
+,"Name"       : strget(&module_info+32, 512, "UTF-8")})
+while success
+{
+varsetcapacity(module_info, 2061 , 0),	numput(1061, module_info, 0, "Int")
+success := dllcall("Module32Next", "Ptr", snapshot_handle, "Ptr", &module_info)
+modules.insert({"BaseAddr"   : numget(module_info, 20, "UInt")
+,"BaseSize"   : numget(module_info, 24, "UInt")
+,"Name"       : strget(&module_info+32, 512, "UTF-8")})
+}
+return modules
+}
+find_pages_in_range(hprocess, start, end_)
+{
+pages := []
+for k, v in find_memory_pages(hprocess)
+{
+if  ((v.base_ >= start) and (v.base_ + v.size <= end_))
+{
+pages.insert(v)
+}
+}
+return pages
+}
+read_process_struct(hProcess, byref struct, size, adress)
+{
+varsetcapacity(bytes_read, A_ptrsize, 0)
+r := dllcall("ReadProcessMemory"
+,"Ptr", hProcess
+,"Ptr", adress
+,"Ptr", &struct
+,"Ptr", size
+,"Ptr", &bytes_read
+,"Ptr")
+return numget(bytes_read, 0, "int")
+}
+find_module(name, id_process)
+{
+for k, v in get_modules_list(id_process)
+{
+if (name = v.name)
+return v
+}
+}
+aobscan(hprocess, id_process, module_name, bytes, dllname = "peixoto.dll", range_ = 1)
+{
+static sigscan:=0
+if not sigscan
+{
+if not DllCall("LoadLibrary", "Str", dllname, "Ptr")
+return "L " . dllname
+dllModule := DllCall("GetModuleHandle", "wstr", dllname, "ptr")
+if not dllModule
+return "G " . dllname
+sigscan := dllCall("GetProcAddress", "int", dllModule, "astr", "sigscan", "ptr")
+if not sigscan
+return "S " . A_lasterror
+}
+module := find_module(module_name, id_process)
+if not module
+return "M " module_name
+if (range_ = 1)
+pages := find_pages_in_range(hprocess, module.BaseAddr, module.BaseAddr + module.BaseSize)
+else if (range_ = 0)
+pages := find_memory_pages(hprocess)
+else if (range_ > 1)
+pages := find_pages_in_range(hprocess, range_, 0xffffffff)
+if not isobject(pages)
+return "P " range_
+varsetcapacity(buffer, bytes._maxindex(), 0)
+loop, % bytes._MaxIndex()
+Numput(bytes[A_index], buffer, A_index - 1, "UChar")
+for k, v in pages
+{
+varsetcapacity(pagemem, v.size)
+r := read_process_struct(hProcess, pagemem, v.size, v.base_)
+s := dllcall(sigscan
+,"ptr", &pagemem, "int", v.size
+,"ptr", &buffer, "int", bytes._maxindex())
+varsetcapacity(pagemem, 0)
+if (s > 0)
+return v.base_ + s
+}
+return
+}
+CreateIdleProcess(Target, workingdir = "", args = "", nowindow = "", rn="")
+{
+varsetcapacity(SECURITY_ATTRIBUTES, 8 + A_ptrsize)
+varsetcapacity(THREAD_SECURITY_ATTRIBUTES, 8 + A_ptrsize)
+varsetcapacity(PROCESS_INFORMATION, 8 + A_ptrsize * 2)
+varsetcapacity(STARTUPINFO, 9*4 + 2*2 + 7*A_ptrsize)
+numput(9*4 + 2*2 + 7*A_ptrsize, STARTUPINFO, 0 , "uint")
+if not workingdir
+{
+SplitPath, Target, OutFileName, OutDir
+if not OutDir
+workingdir := A_WorkingDir
+else workingdir := OutDir
+}
+flags := rn ? 0 : (CREATE_SUSPENDED := 0x00000004)
+if nowindow
+flags |= (CREATE_NO_WINDOW := 0x08000000)
+r := dllcall("CreateProcess"
+,"ptr", 0
+,"str", """" Target """ " args
+,"Ptr", &SECURITY_ATTRIBUTES
+,"Ptr", &THREAD_SECURITY_ATTRIBUTES
+,"uint", 1
+,"int", flags
+,"Ptr", 0
+,"Str", workingdir
+,"Ptr", &STARTUPINFO
+,"Ptr", &PROCESS_INFORMATION)
+if (r = 0)
+{
+return A_lasterror
+}
+else
+{
+pInfo            := {}
+pInfo.hProcess   := numget(PROCESS_INFORMATION, 0, "ptr")
+pInfo.hThread    := numget(PROCESS_INFORMATION, A_ptrsize, "ptr")
+pInfo.Process_id := numget(PROCESS_INFORMATION, A_ptrsize*2, "UInt")
+pInfo.Thread_id  := numget(PROCESS_INFORMATION, A_ptrsize*2 + 4, "UInt")
+return pInfo
+}
+}
+ResumeProcess(hThread){
+return dllcall("ResumeThread", "ptr", hThread, "uint")
+}
+BlockNewProcess(parent_id, child_list)
+{
+if not isobject(child_list)
+child_list := [child_list]
+for k, v in child_list
+{
+h_app := ""
+while not h_app
+{
+process, exist, %parent_id%
+if not errorlevel
+return
+h_app := get_process_handle(v, (PROCESS_CREATE_THREAD := 0x0002)
+| (PROCESS_QUERY_INFORMATION := 0x0400)
+| (PROCESS_VM_OPERATION := 0x0008)
+| (PROCESS_VM_READ := 0x0010)
+| (PROCESS_VM_WRITE := 0x0020))
+sleep, 100
+}
+dllcallEx(h_app, "Kernel32.dll", "ExitProcess", "0")
+}
+}
+memlib_Number2String(num, typ, reverse = False)
+{
+format := A_FormatInteger
+VarSetCapacity(var, 4)
+numput(num, var, typ)
+setformat, integer, h
+string :=
+if not reverse
+{
+loop, 4
+string .= numget(var, A_index-1, "uchar") " "
+}
+else
+{
+loop, 4
+string .= numget(var, 4-A_index, "uchar") " "
+}
+setformat, integer, %format%
+return string
+}
+memlib_String2ByteArray(string)
+{
+ret := []
+loop, parse, string, %A_space%
+{
+if instr(A_loopfield, "0x")
+field := A_loopfield
+else field := "0x" A_loopfield
+ret.insert(field + 0)
+}
+return ret
+}
+StartDll()
+{
+if g_.ex_script
+{
+ahktextdll := dllcall("GetProcAddress", uint, dllcall("GetModuleHandle", str, "AutoHotkey.dll"), astr, "ahktextdll")
+id         := g_.proc.Thread_id
+dllcall(ahktextdll, Str, "#NoTrayIcon`n" g_.ex_script, Str, g_.cmdstring "^-ThreadID^" id, Str, "", "Cdecl UPTR")
+}
+}
+class Codex
+{
+__new()
+{
+if (!g_.svs)
+return
+if fileexist( (dir := g_.target_dir) "\Codex*.dll")
+FileMove, %dir%\winmm.dll, %dir%\_winmm.dll, 1
+}
+__delete()
+{
+if fileexist( (dir := g_.target_dir) "\Codex*.dll")
+FileMove, %dir%\_winmm.dll, %dir%\winmm.dll, 1
+}
+}
+print(msg = "")
+{
+static hnd=0
+if not hnd
+{
+target := g_.target
+splitpath, target, name, dir
+g_.console_icon.h := EnumIcons( (g_.target_icon) ? dir "\" g_.target_icon : g_.target)
+DllCall("AllocConsole")
+hnd := DllCall("GetStdHandle", "int", -11)
+dllcall("SetConsoleTitle", str, name)
+dllcall("SetConsoleIcon", uint, g_.console_icon.h)
+dllcall("SendMessageW", ptr, dllcall("GetConsoleWindow"), uint, 0x0080, uint, 0, uint, g_.console_icon.h)
+dllcall("SendMessageW", ptr, dllcall("GetConsoleWindow"), uint, 0x0080, uint, 1, uint, g_.console_icon.h)
+}
+return dllcall("WriteConsole", "int", hnd , "ptr", &msg, "int", strlen(msg))
+}
+GetcmdStringFromFile(File)
+{
+parent := GetParentDir()
+cfg    := {}
+cmd    := ""
+dirs   := ""
+mods   := ""
+pid    := DllCall("GetCurrentProcessId")
+ini    := new ini(File)
+for k, v in ini.listKeys()
+{
+value := ini.read(v)
+if (v = "console")
+{
+print("Devmode (console=true) can only be set on the main.ini file`n")
+continue
+}
+if not value or value="0" or value="False" or v="Help"
+continue
+if (value = "True") and ! (Key = "DSR")
+cmd .= "^/" v
+else cmd .= "^-" v "^" value
+}
+for k, section in ini.listSections()
+{
+if (section = "Help")
+continue
+cmd .= "^-" section "^"
+for i, key in ini.listKeys(section)
+{
+cmd .= key "=" ini.read(key, section) ";"
+}
+}
+target := ini.read("target")
+splitpath, target, ,target_dir
+stringreplace, cmd, cmd, `%target_dir`%, %target_dir%
+cmd .= "^-script_hwnd^" A_scripthwnd
+cmd .= "^-error_log^" A_WorkingDir "\error.log"
+cmd .= "^-Mydocs^" A_mydocuments
+cmd .= "^-injector_dir^" A_WorkingDir
+reslist := ""
+for k, v in D3D9_EnumDisplayModes()
+{
+w := v.w,
+h := v.h
+res := w "x" h
+instr(reslist, res) ?: reslist .= res . A_space
+if ( ( (w>max_w) or (h>max_h) ) and round(w/h*100) = 133 )
+{
+max_w := w
+max_h := h
+}
+if ( (w>dsr_w) or (h>dsr_h) )
+{
+dsr_w := w
+dsr_h := h
+}
+}
+dsr := ini.read("DSR")
+((dsr = "True") || (dsr = "1")) ? cmd .= "^-DSR^" dsr_w "x" dsr_h
+cmd .= "^-rlst^" reslist
+cmd .= "^-max_4x3_res^" max_w "x" max_h
+cmd .= "^-dsk^" A_screenwidth "x" A_screenheight
+loop, HKLM, System\CurrentControlSet\Control\Class, 1, 1
+{
+if (A_LoopRegName = "UserModeDriverNameWOw") {
+regread, driver, HKLM, %A_LoopRegSubkey%, %A_loopRegName%
+break
+} else if (A_LoopRegName = "UserModeDriverName")
+regread, driver, HKLM, %A_LoopRegSubkey%, %A_loopRegName%
+}
+driver := strsplit(driver, "`n")
+for k, v in driver
+{
+if !v
+continue
+h := dllcall("LoadLibraryW", str, v)
+if ! (OpenAdapter := dllcall("GetProcAddress", uint, h, astr, "OpenAdapter"))
+dllcall("FreeLibrary", uint, h)
+else
+break
+}
+cmd .= "^-D3D_Driver^" v
+stringreplace, cmd, cmd, ^, , 0
+stringreplace, cmd, cmd, p?, %parent%, All
+stringreplace, cmd, cmd, d?, %A_mydocuments%, All
+stringreplace, cmd, cmd, c?, %A_scriptdir%, All
+return cmd
+}
+ParseCommandLine(file="")
+{
+file ?: file := GetCommandLineValueB("-f")
+cmd          := GetCmdStringFromFile( file )
+VarSetCapacity(OSVERSIONINFO, 276)
+numput(276, &OSVERSIONINFO+0)
+dllcall("GetVersionExW", ptr, &OSVERSIONINFO)
+os_version    := numget(&OSVERSIONINFO+4, "int") + numget(&OSVERSIONINFO+8, "int")*0.1
+cmd           .= "^-os_version^" os_version
+OSVERSIONINFO := ""
+if isobject( (dev := new ini("main.ini")) )
+{
+game     := strsplit(file, ".ini")[1]
+stringreplace, game, game, %A_workingdir%, ,All
+stringreplace, game, game, \, ,All
+stringreplace, game, game, Scripts, ,All
+stringreplace, game, game, Peixoto, ,All
+stringreplace, game, game, Profiles, ,All
+stringreplace, game, game, User, ,All
+stringreplace, game, game, Dev, ,All
+devflags := dev.read(game, "devflags")
+stringreplace, devflags, devflags, `", ^, All
+stringreplace, devflags, devflags, %A_Space%, ^, All
+stringreplace, devflags, devflags, @, %A_Space%, All
+while instr(devflags, "^^")
+stringreplace, devflags, devflags, ^^, ^, All
+cmd .= "^" devflags
+}
+if getkeystate("ctrl", "p")
+{
+stringreplace, cmd, cmd, -!, -
+stringreplace, cmd, cmd, /!, /
+}
+if getkeystate("alt", "p")
+{
+stringreplace, cmd, cmd, -?, -
+stringreplace, cmd, cmd, /?, /
+}
+if getkeystate("shift", "p")
+{
+stringreplace, cmd, cmd, -#, -
+stringreplace, cmd, cmd, /#, /
+}
+if getkeystate("ins", "p")
+{
+stringreplace, cmd, cmd, -@, -
+stringreplace, cmd, cmd, /@, /
+}
+_cmd := strsplit(cmd, "^")
+cfg  := {}
+for k, v in _cmd
+{
+Key := SubStr(v, 1, 1)
+if (Key = "-")
+cfg[SubStr(v, 2, strlen(v)-1)] := _cmd[k + 1]
+else if (Key = "/")
+cfg[SubStr(v, 2, strlen(v)-1)] := True
+}
+if (cfg.saves = "CODEX")
+cfg.saves := "fldrs"
+if not cfg.target
+quit("No target supplied!")
+target := cfg.target
+splitpath, target, target_name, dir
+cfg.target_dir   := dir
+cfg.target_name  := target_name
+cmd .= "^-target_dir^" dir
+cmd .= "^-target_name^" target_name
+cfg.layer := new ini("main.ini").read("ddrawlayer")
+if (cfg.layer)
+cmd .= "^-layer^1"
+cfg.wine  := new ini("main.ini").read("wine")
+cfg.dxvkv := new ini("main.ini").read("dxvkv")
+if (cfg.wine)
+cmd .= "^-wine^" . cfg.wine
+if (cfg.dxvkv)
+cmd .= "^-dxvkv^" . cfg.dxvkv
+cfg.common_path := new ini("main.ini").read("common_path")
+if (cfg.common_path)
+cmd .= "^-common_path^1"
+cfg.cmdstring    := cmd
+cfg.console_icon := {"h" : 0, "w" : 0, "pitch" : 0}
+return cfg
+}
+Parsecfg(item)
+{
+c := {}
+for k, v in strsplit(item, ";")
+{
+split := strsplit(v, "=")
+key   := split[1]
+val   := split[2]
+if not split[2]
+{
+continue
+}
+(val = "True")  ? val := True
+(val = "False") ? val := False
+c[key] := val
+}
+return c
+}
+quit(msg)
+{
+msgbox, 16, , % msg
+ExitApp
+}
+Receive_WM_COPYDATA(wParam, lParam)
+{
+StringAddress := NumGet(lParam + 2*A_PtrSize)
+CopyOfData := StrGet(StringAddress)
+if isfunc(CopyOfData)
+%CopyOfData%()
+return True
+}
+EnumIcons(Filename, Type=14)
+{
+hModule := DllCall("LoadLibraryW", "str", Filename)
+enumproc := RegisterCallback("EnumIconsCallback","F")
+DllCall("EnumResourceNamesW", "uint", hModule, "uint", Type, "uint", enumproc, "uint", hModule)
+DllCall("GlobalFree", "uint", enumproc)
+DllCall("FreeLibrary", "uint", hModule)
+return NumGet(param,4)
+}
+EnumIconsCallback(hModule, lpszType, lpszName, lParam)
+{
+critical
+static ICONINFO="", BITMAP="", pass=0
+pass+=1
+ICONINFO ?: VarSetCapacity(ICONINFO, 20)
+BITMAP ?: VarSetCapacity(ICONINFO, 28)
+hIcon := dllcall("LoadImageW", uint, lParam, "uint", lpszName, int, 1, int, 0, int, 0, uint, 0x00000040)
+dllcall("GetIconInfo", uint, hIcon, ptr, &ICONINFO)
+dllcall("GetObject", uint, numget(&ICONINFO+16, "uint"), uint, 28, ptr, &BITMAP)
+if g_.icon
+{
+if (g_.icon = pass)
+g_.console_icon := {"h" : hIcon, "w" : numget(&BITMAP+4, "uint"), "pitch" : numget(&BITMAP+12, "uint")}
+else dllcall("DestroyIcon", uint, hIcon)
+return true
+}
+if (numget(&BITMAP+4, "uint") >= g_.console_icon.w) and (numget(&BITMAP+12, "uint") >= g_.console_icon.pitch)
+{
+fileappend, updating `n, *
+if g_.console_icon.h
+{
+dllcall("DestroyIcon", uint, g_.console_icon.h)
+fileappend, destroying `n, *
+}
+g_.console_icon := {"h" : hIcon, "w" : numget(&BITMAP+4, "uint"), "pitch" : numget(&BITMAP+12, "uint")}
+} else dllcall("DestroyIcon", uint, hIcon)
+fileappend, % numget(&BITMAP+4, "uint") " x " numget(&BITMAP+8, "uint") " x " numget(&BITMAP+12, "uint")  "`n" , *
+return true
+}
+FileRemoveLink(lnk)
+{
+static FILE_ATTRIBUTE_REPARSE_POINT := 1024
+attributes := dllcall("GetFileAttributesW", str, "savedat1.dat", uint)
+if not attributes & FILE_ATTRIBUTE_REPARSE_POINT
+return
+FileDelete, %lnk%
+}
+GetMods(dir)
+{
+static mods := ""
+modslst := []
+names   := []
+loop, Files, %dir%\*.*, D
+{
+modslst.insert(A_loopfilefullpath)
+names.insert(A_loopfilename)
+}
+mods := ""
+gui, new
+gui, +hwndThisWindow
+gui, -SysMenu
+maxxx := 0
+maxhh := 0
+hwnds := {}
+n_cols := modslst._MaxIndex() > 25 ? 15 : round(Sqrt(modslst._MaxIndex()))
+for k, v in names
+{
+state := instr(current, path "\" v)
+if !Mod(k-1, 20)
+gui, add, checkbox, ym hwndhwnd gboxes checked%state%, %v%
+else gui, add, checkbox, hwndhwnd gboxes checked%state%, %v%
+guicontrolget, pos, pos, %hwnd%
+if (posx+posw > maxx)
+{
+maxx  := posx+posw
+maxxx := posx + posw + 25
+}
+if (posy+posh > maxy)
+{
+maxy  := posy+posh
+maxhh := posy + posh + 25
+}
+hwnds[hwnd] := modslst[k]
+}
+state := instr(current, "?")
+gui, add, button, y%maxhh% x%maxxx% w80 h30, Cancel
+gui, add, button, x+5 w80 h30, OK
+gui, show
+WinWaitClose, ahk_id %ThisWindow%
+return mods
+boxes:
+van := hwnds["Vanilla"]
+guicontrolget, state, ,%van%
+if (state = 1)
+{
+for k, v in hwnds
+{
+guicontrol, ,%k%, 0
+guicontrol, disable ,%k%
+}
+guicontrol, ,%van%, 1
+guicontrol, enable ,%van%
+}else {
+for k, v in hwnds
+guicontrol, enable ,%k%
+}
+return
+guiclose:
+gui, %ThisWindow%: destroy
+exitapp
+return
+buttonCancel:
+gui, %ThisWindow%: destroy
+exitapp
+return
+buttonok:
+for k, v in hwnds
+{
+guicontrolget, state, ,%k%
+state ? mods .=	";" v
+}
+stringreplace, mods, mods, `;, ,
+gui, %ThisWindow%: destroy
+return
+}
+D3D9_EnumDisplayModes()
+{
+VarSetCapacity(SysDir, 261*2)
+DllCall("GetSystemDirectoryW", Str, SysDir, uint, 261*2)
+hModule         := dllcall("LoadLibraryW", str, SysDir "\D3D9.dll", ptr)
+Direct3DCreate9 := dllcall("GetProcAddress", uint, hModule, astr, "Direct3DCreate9", ptr)
+if ( (! hModule) or (! Direct3DCreate9) )
+return "Failed to get the entry point of the Direct3DCreate9 procedure or get the handle to d3D9.dll " A_lasterror
+p_D3D9 := dllcall(Direct3DCreate9, uint, 32)
+if (!p_D3D9)
+return "Failed to create the Direct3D9 Device " A_lasterror
+VarSetCapacity(dm, 16)
+mode  := 0
+modes := []
+while(dllcall(numget(numget(p_D3D9+0, "ptr")+A_PtrSize*7, "ptr"), ptr, p_D3D9, uint, 0, uint, 22, uint, mode, ptr, &dm, uint) = 0)
+{
+modes.Insert({"w" : numget(&dm, "uint"), "h" : numget(&dm+4, "uint")})
+mode += 1
+}
+dllcall(numget(numget(p_D3D9+0, "ptr")+A_PtrSize*2, "ptr"), ptr, p_D3D9)
+return modes
+}
+ClearNVAPIProfile(cfg)
+{
+dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
+dllcall("LoadLibraryW", str, dll)
+dllcall(dll "\NVIDIA_Set", wstr, cfg.target, uint, 0)
+}
+Class IniFast
+{
+__New(file, chars = "`r`n", orfans = "<<<orfans>>>", _join=".")
+{
+if ! fileexist(file)
+return
+this.orfans := orfans
+this.file := file
+FileRead, filecontents, %file%
+this.contents := filecontents
+this.sections := []
+current_section := 0
+current_section_name := ""
+loop, parse, filecontents, % chars
+{
+if this.isSectionName(A_loopfield)
+{
+this.sections.insert({})
+current_section += 1
+current_section_name := A_loopfield
+this.sections[current_section][current_section_name] := []
+continue
+}
+if A_loopfield
+{
+if (current_section_name = "")
+{
+this.sections.insert({})
+current_section += 1
+current_section_name := "[" orfans "]"
+this.sections[current_section][current_section_name] := []
+}
+this.sections[current_section][current_section_name].insert(A_loopfield)
+}
+}
+for k, v in this.sections
+{
+for key, value in v
+{
+if value[value.maxindex()] != " "
+value.insert(" ")
+}
+}
+}
+isKey(search_key, sections = "", comment_chars = "", orfans = False)
+{
+if not comment_chars
+comment_chars := ["#"]
+if not sections
+sections := this.listSections(orfans)
+for idx, section in sections
+for i, key in this.listKeys(section, comment_chars)
+if (key = search_key)
+return True
+return False
+}
+listSections(orfans = False)
+{
+allsecs := []
+for k, v in this.sections
+{
+for key, value in v
+{
+if not ( (key = "[" this.orfans "]") and (orfans = false) )
+{
+stringreplace, key, key, ], , 1
+stringreplace, key, key, [, , 0
+allsecs.insert(key)
+}
+}
+}
+return allsecs
+}
+listKeys(target_section="", comment_chars="#")
+{
+if ! target_section
+target_section := this.orfans
+keys := []
+comments := ""
+in_sec := False
+for index, section_name in this.sections
+{
+for section_, key_value_pars in section_name
+{
+if not section_ = "[" target_section "]"
+continue
+else in_sec := True
+for index_, value_ in key_value_pars
+{
+if not instr(value_, "=")
+continue
+for kk, vv in comment_chars
+{
+if this.stringStartsWith(value_, vv)
+continue 2
+}
+stringsplit, par, value_, =
+keys.insert(par1)
+}
+if in_sec
+break
+}
+}
+return keys
+}
+show_()
+{
+for k, v in this.sections
+{
+for key, value in v
+{
+fileappend, % key "`n", *
+for key_, value_ in value
+fileappend, % "-" value_ "`n", *
+}
+}
+}
+read(key, target_section = "")
+{
+if ! target_section
+target_section := this.orfans
+for index, section_name in this.sections
+{
+for section_, key_value_pars in section_name
+{
+if not section_ = "[" target_section "]"
+continue
+for index_, value_ in key_value_pars
+{
+par1 := strsplit(value_, "=")[1]
+stringreplace, par2, value_, %par1%=
+if (par1 = key)
+return trim(par2)
+}
+}
+}
+return
+}
+isTrue(key, target_section = "", default_ = False)
+{
+if (this.read(key, target_section) = "True")
+return True
+return default_
+}
+newSection(key, value, target_section)
+{
+this.sections.insert({})
+this.sections[this.sections.MaxIndex()]["[" target_section "]"] := [key "=" value, " "]
+return this.edit(key, value, target_section)
+}
+newKey(key, value, target_section)
+{
+for index, section_name in this.sections
+{
+for section_, key_value_pars in section_name
+{
+if not section_ = "[" target_section "]"
+continue
+else
+{
+this.sections[index][section_][this.sections[index][section_].maxindex()] := key "="
+this.sections[index][section_].insert(" ")
+}
+}
+}
+return this.edit(key, value, target_section)
+}
+editsection(target_section, new_section)
+{
+for k, v in this.sections
+{
+for key, value in v
+{
+if ( (key = "[" target_section "]")  )
+{
+this.sections.insert({})
+this.sections[this.sections.MaxIndex()]["[" new_section "]"] := value
+this.sections.remove(k)
+}
+}
+}
+return new_section
+}
+edit(key, value, target_section = "")
+{
+if ! target_section
+target_section := this.orfans
+section_found := false
+key_found := false
+for index, section_name in this.sections
+{
+for section_, key_value_pars in section_name
+{
+if not section_ = "[" target_section "]"
+continue
+else section_found := True
+for index_, value_ in key_value_pars
+{
+stringsplit, par, value_, =
+if (par1 = key)
+{
+this.sections[index][section_][index_] := key "=" value
+key_found := True
+}
+}
+}
+}
+if (section_found = false)
+return this.newSection(key, value, target_section)
+if (key_found = false)
+return this.newKey(key, value, target_section)
+return
+}
+save()
+{
+string := ""
+for k, v in this.sections
+{
+for key, value in v
+{
+if not key = "[" this.orfans "]"
+string .= key "`r`n"
+for key_, value_ in value
+string .= value_ "`r`n"
+}
+string := Rtrim(string, omitchars = " `r`n")
+}
+string := Ltrim(string, omitchars = "`r`n")
+filedelete, % this.file
+fileappend, % string, % this.file
+return 0
+}
+isSectionName(string)
+{
+if this.stringEndsWith(string, "]") and this.stringStartsWith(string, "[")
+return True
+return false
+}
+stringEndsWith(string, char_)
+{
+if InStr(string, char_ , StartingPos = 0) = Strlen(string)
+return True
+return False
+}
+stringStartsWith(string, char_)
+{
+if InStr(string, char_ , StartingPos = 1) = 1
+return True
+return false
+}
+}
+Class Ini extends IniFast {
+}
+class __Syslinks__
+{
+__delete()
+{
+file  := fileopen(g_.injector_dir "\SystemLinks.log", "r")
+while (l := file.ReadLine())
+{
+line  := trim(line, "`r")
+line  := trim(line, "`n")
+line  := trim(line, "`r")
+FileDelete, %line%
+}
+}
+}
+class Syslinks
+{
+__new(gdir, sdir)
+{
+this.gdir  := gdir
+this.sdir  := sdir
+this.links := {}
+this.log  := fileopen(g_.injector_dir "\file.log", "w")
+this.log.write("Gamedir  " gdir "`n")
+this.log.write("Savesdir " sdir "`n")
+this.log.write("Files to create links for" "`n")
+this.files := this.ListGameFiles(gdir)
+loop, Files, %sdir%\*.*, r
+{
+lnk := StrReplace(A_LoopFileFullPath, sdir, gdir)
+SplitPath, lnk, , OutDir,
+if (!Fileexist(OutDir))
+{
+this.log.write("Create dir : " OutDir "`n")
+FileCreateDir, % OutDir
+}
+this.log.write("Create link: " lnk "`n")
+this.log.write("For file   : " A_LoopFileFullPath "`n")
+if (dllcall("CreateSymbolicLinkW", str, lnk, str, A_LoopFileFullPath, uint, 0, uint) )
+this.links[A_LoopFileFullPath] := lnk
+}
+this.log.write("Game files:`n")
+for k, v in this.files
+this.log.write(k "`n")
+}
+ListGameFiles(gdir)
+{
+files := {}
+loop, Files, %gdir%\*.*, r
+files[A_LoopFileFullPath] := True
+return files
+}
+__delete()
+{
+for k, v in this.links
+{
+att := dllcall("GetFileAttributesW", str, v)
+if ( (att & 0x400) && (att>0) )
+{
+this.log.write(v " is shortcut `n")
+FileDelete, % v
+}
+else
+{
+this.log.write("deleting  :  " k "`n")
+FileDelete, % k
+}
+}
+for k, v in this.ListGameFiles(this.gdir)
+{
+if (! this.files[k] )
+{
+backup := StrReplace(k, this.gdir, this.sdir)
+SplitPath, backup, , OutDir,
+this.log.write("Created:  " k "`n")
+this.log.write("Backup :  " backup "`n")
+this.log.write("at     :  " OutDir "`n")
+if (!Fileexist(OutDir))
+FileCreateDir, % OutDir
+FileMove, % k, % backup
+}
+}
+this.log.close()
+new __Syslinks__()
+}
+}
+if (instr(g_.svs, "links_cpp"))
+Syslinks = __Syslinks__
+SetBatchLines, -1
+if not A_iscompiled
+{
+}
+OnMessage(0x4a, "ProcNameMessage")
+OnMessage(dllcall("RegisterWindowMessageW", str, "Peixoto.Hwnd"), "ProcHwndMessage")
+global g_ := parseCommandLine()
+launchTarget64()
+launchTarget64()
+{
+print("`r")
+if IsParent32Bit(){
+return
+}
+g_ahkpath     := FileExist(A_workingdir "\AutoHotkey64.dll") ? A_workingdir "\AutoHotkey64.dll" : A_mydocuments "\Autohotkey\dlls\AutoHotkey64.dll"
+g_peixotopath := FileExist(A_workingdir "\peixoto64.dll") ? A_workingdir "\peixoto64.dll" : A_mydocuments "\Autohotkey\dlls\peixoto64.dll"
+g_ahkpath     := A_workingdir "\AutoHotkey64.dll"
+g_peixotopath := A_workingdir "\peixoto64.dll"
+target := g_.target
+splitpath, target, name
+process, close, % name
+process, exist, %name%
+fileexist(g_.target) ?: quit(name " not found in`n`n" g_.target_dir)
+errorlevel ? quit(name ".exe already running")
+dllcall("LoadLibraryW", str, g_ahkpath) ?: Quit("Unable to find or load`n" g_ahkpath "-" A_lasterror)
+dllcall("LoadLibraryW", str, g_peixotopath) ?: Quit("Unable to find or load`n" g_peixotopath "-" A_lasterror)
+Setup()
+g_.proc := CreateIdleProcess(g_.target, g_.target_dir, g_.args)
+SetupProc()
+Inject(g_peixotopath, g_ahkpath)
+id := g_.proc.Process_id
+process, waitclose, %id%
+exitapp
+}
+IsParent32Bit(){
+cmd := dllcall("GetCommandLine", str)
+if instr(cmd, "-32bitparent")
+{
+trgt := StrSplit(cmd, "-32bitparent ")[2]
+trgt := StrReplace(trgt, """", "")
+splitpath, trgt, name, dir
+g_.target       := trgt
+g_.target_dir   := dir
+g_.target_name  := name
+g_.cmdstring    := StrReplace(g_.cmdstring, "-target^" old, "-target^" g_.target)
+g_.cmdstring    := StrReplace(g_.cmdstring, "-target_dir^" old_dir, "-target_dir^" g_.target_dir)
+g_.cmdstring    := StrReplace(g_.cmdstring, "-target_name^" old_name, "-target_name^" g_.target_name)
+print("Recived " trgt "`n")
+Setup()
+return True
+}
+}
+Inject(pex, ahk)
+{
+for k, v in	[pex, ahk] {
+dllcallEx(g_.proc.hProcess, "Kernel32.dll", "LoadLibraryW", v)
+}
+GetRemoteScript64()
+FileDelete, last
+fileappend, % g_.remoteScript, last
+success := dllcallEx(g_.proc.hProcess, "autohotkey64.dll", "ahkdll", A_workingdir "\last")
+if (success = 2)
+{
+quit("Could not allocate memory for dll injection: " A_lasterror)
+}
+else if (success = 3)
+quit("Could not write to memory allocated for dll injection")
+else if (success = 4)
+quit("Could not create remote thread for dll injection")
+}
+Setup()
+{
+compat := g_.compatLayer
+if compat
+EnvSet, __COMPAT_LAYER, %compat%
+if (g_.svs = "ENV")
+{
+p := A_mydocuments "\games\" g_.path "\saves\"
+}
+}
+SetupProc()
+{
+(g_.singlecore) & True ? dllcall("SetProcessAffinityMask", uint, g_.proc.hProcess, uint, 0x00000008)
+? : dllcall("SetProcessAffinityMask", uint, g_.proc.hProcess, uint, 0x00000002)
+}
+GetRemoteScript64()
+{
+g_.remoteScript := ""
+if g_.console
+g_.remoteScript := "#warn all, OutputDebug`n"
+g_.remoteScript := "global g_MainThreadID := " g_.proc.Thread_id " `;<Tag> `n" g_.remoteScript
+g_.remoteScript .= "global g_cmdstring := """ g_.cmdstring """`n"
+g_.remoteScript .= LoadResource("remote_lib.txt")
+g_.remoteScript .= "`n" LoadResource("CreateProcessHooks.txt")
+if (g_.D3D = 11)
+g_.remoteScript .= "`n" LoadResource("D3D11.hooks.txt") "`n" LoadResource("HLSLGen.txt")
+if (g_.D3D = 12)
+g_.remoteScript .= "`n" LoadResource("D3D12.hooks.txt") "`n"
+else if (g_.D3D = "gl")
+g_.remoteScript .= "`n" LoadResource("gl.hooks.txt")
+if g_.Script
+{
+g_.ex_script := LoadResource("exlib.txt") "`n"
+script_file  := A_mydocuments "\WineHooks\" g_.Script
+if fileexist(script_file) {
+fileread, script, %script_file%
+script := strsplit(script, ";REMOTE SCRIPT START")
+g_.remoteScript .= "`n" script[2] "`n"
+g_.ex_script .= "`n" script[1]
+} else {
+script := strsplit(script_file, "|")
+g_.remoteScript .= "`n" script[2] "`n"
+g_.ex_script .= "`n" script[1]
+}
+}
+g_.remoteScript := g_.remoteScript . "`nresume()"
+}
+ProcNameMessage(w, l)
+{
+old      := g_.target
+old_name := g_.target_name
+old_dir  := g_.target_dir
+trgt := StrGet(numget(l+A_PtrSize*2, "int"), numget(l+A_PtrSize, "int"), "UTF-16")
+trgt := StrReplace(trgt, """", "")
+splitpath, trgt, name, dir
+g_.target       := trgt
+g_.target_dir   := dir
+g_.target_name  := name
+g_.cmdstring    := StrReplace(g_.cmdstring, "-target^" old, "-target^" g_.target)
+g_.cmdstring    := StrReplace(g_.cmdstring, "-target_dir^" old_dir, "-target_dir^" g_.target_dir)
+g_.cmdstring    := StrReplace(g_.cmdstring, "-target_name^" old_name, "-target_name^" g_.target_name)
+print("Recived " StrGet(numget(l+A_PtrSize*2, "int"), numget(l+A_PtrSize, "int"), "UTF-16") "`n")
+Setup()
+return
+}
+ProcHwndMessage(w, l)
+{
+print("ProcHwndMessage recived " w " " l "`n")
+g_.proc := {}
+g_.proc.hProcess   := w
+g_.proc.hProcess   := dllcall("OpenProcess", uint, 0x30|0x02|0x08|0x00100000|0x0200, uint, 0, uint, l, ptr)
+g_.proc.Thread_id  := w
+g_.proc.Process_id := l
+SetupProc()
+dlls := "\Autohotkey\dlls\"
+_ahk := FileExist(A_workingdir "\AutoHotkey64.dll") ? A_workingdir "\AutoHotkey64.dll" : A_mydocuments dlls "AutoHotkey64.dll"
+_pex := FileExist(A_workingdir "\peixoto64.dll") ? A_workingdir "\peixoto64.dll" : A_mydocuments dlls "peixoto64.dll"
+_ahk := A_workingdir "\AutoHotkey64.dll"
+_pex := A_workingdir "\peixoto64.dll"
+Inject(_pex, _ahk)
+return
+}
+LoadResource(resource, module = "Injector.exe")
+{
+return fileopen("src\" resource, "r").read()
+if ! module
+hModule := dllcall("GetModuleHandle", uint,  0, ptr)
+else FreeLater := hModule := dllcall("LoadLibraryExW", str, A_scriptdir "\Injector.exe", uint, 0, uint, (LOAD_LIBRARY_AS_DATAFILE := 0x00000002), ptr)
+HRSRC := dllcall("FindResourceW", ptr, hModule, str, resource, ptr, 10)
+hResource := dllcall("LoadResource", ptr, hModule, uint, HRSRC)
+DataSize := DllCall("SizeofResource", ptr, hModule, ptr, HRSRC, uint)
+pResData := dllcall("LockResource", ptr, hResource, ptr)
+ret := strget(pResData, DataSize, "UTF-8")
+FreeLater ? dllcall("FreeLibrary", uint, hModule)
+return ret
+}

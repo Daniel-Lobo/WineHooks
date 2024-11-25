@@ -1,0 +1,10 @@
+solitarykey=solvalue
+ 
+[section]
+key=value
+otherkey=value
+somekey=changedvalue
+ 
+[new section]
+newkey=value
+ 

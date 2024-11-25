@@ -1,0 +1,1031 @@
+; <COMPILER: v1.1.15.03>
+#NoEnv
+#persistent
+#notrayicon
+#KeyHistory 0
+#MaxThreads 1
+critical, 0xFFFFFFFF
+ListLines, Off
+SetBatchLines, -1
+InstallHook(hook_function_name, byref function2hook, dll = "", function2hook_name = ""
+,callback_options = "F", event_info = "")
+{
+static hdtrs = "", sethooks = ""
+if not hdtrs
+{
+hdtrs  := dllcall("GetModuleHandle", "str", A_Ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll", ptr)
+sethooks := dllcall("GetProcAddress", "ptr", hdtrs, "astr", "sethook", ptr)
+}
+if not hdtrs  or not sethooks
+return 1
+if hook_function_name is Number
+hook_function := hook_function_name
+else hook_function := registercallback(hook_function_name, callback_options, "", event_info)
+if not hook_function
+return 2
+if ! (dll = "")
+{
+hdll := dllcall("LoadLibrary", str, dll, ptr)
+if not hdll
+{
+if (A_lasterror = 126)
+return 3
+else return 4
+}
+function2hook := dllcall("GetProcAddress", "ptr", hdll, "astr", function2hook_name, "ptr")
+if not function2hook
+return 5
+}
+return dllcall(sethooks, "Ptr*", function2hook, "Ptr", hook_function, int)
+}
+AltInstallHook(hook, byref original)
+{
+static hdtrs = "", sethooks = ""
+if not hdtrs
+{
+hdtrs  := dllcall("GetModuleHandle", "str", A_Ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll", ptr)
+sethooks := dllcall("GetProcAddress", "ptr", hdtrs, "astr", "sethook", ptr)
+}
+if not hdtrs or not sethooks
+return 1
+return dllcall(sethooks, "Ptr*", original, "Ptr", hook)
+}
+UnHook(Original, Trampoline)
+{
+static hdtrs = "", unhook = ""
+if not hdtrs
+{
+hdtrs  := dllcall("GetModuleHandle", "str", "peixoto.dll")
+unhook := dllcall("GetProcAddress", "int", hdtrs , "astr", "unhook")
+}
+if not hdtrs or not unhook
+return 11
+return dllcall(unhook, "Ptr*", Original, "Ptr", Trampoline)
+}
+InstallComHook(pInterface, byref pHooked, hook_name, offset, release = True)
+{
+static hdtrs = "", sethooks = ""
+if not hdtrs
+{
+hdtrs  := dllcall("GetModuleHandle", "str", "peixoto.dll")
+sethooks := dllcall("GetProcAddress", "int", hdtrs , "astr", "sethook")
+}
+if not hdtrs  or not sethooks
+return 1
+pInterface_Vtbl := numget(pInterface+0, "Ptr")
+pHooked := numget(pInterface_Vtbl + offset, "Ptr")
+pHook := registerCallback(hook_name)
+if not pHook
+return 2
+if release
+dllcall(numget(pInterface_Vtbl + 8), "Ptr", pInterface)
+return dllcall(sethooks, "Ptr*", pHooked , "Ptr", pHook)
+}
+ReleaseHooks()
+{
+static hdll = "", release = ""
+if not hdll
+{
+hdll  := dllcall("GetModuleHandle", "str", "peixoto.dll")
+release := dllcall("GetProcAddress", "int", hdll, "astr", "ReleaseAllHooks")
+}
+if not hdll or not release
+return [-2, 0]
+varsetcapacity(err, 4, 0)
+index := dllcall(release, "int*", &err)
+return [index, numget(err, 0, "int")]
+}
+RedirectCall(_add, _func, options = "F")
+{
+callBack := RegisterCallback(_func, options)
+VarSetCapacity(offset, 4)
+numput(callBack - (_add + 5), &offset+0, "int")
+old_protect := 0, dummy := 0
+if not dllcall("VirtualProtect", uint, _add, uint, 4, uint, (PAGE_READWRITE := 0x04), "uint*", old_protect)
+return
+loop, 4
+numput(numget(&offset + A_index - 1, "uchar"), _add + A_index, "uchar")
+dllcall("VirtualProtect", uint, _add, uint, 4, uint, old_protect, "uint*", dummy)
+return callBack
+}
+RedirectCallD(_add, _func, options = "F")
+{
+callBack := RegisterCallback(_func, options)
+VarSetCapacity(offset, 4)
+numput(callBack - (_add + 5), &offset+0, "int")
+static hdtrs = "", sethooks = ""
+if not hdtrs
+{
+hdtrs  := dllcall("GetModuleHandle", "str", "peixoto.dll")
+sethooks := dllcall("GetProcAddress", "int", hdtrs , "astr", "sethook")
+}
+if not hdtrs  or not sethooks
+return 1
+return dllcall(sethooks, "Ptr*", _add, "Ptr", callBack)
+}
+GUID_FromString(ByRef GUID, String) {
+VarSetCapacity(GUID, 16, 0)
+StringReplace,String,String,-,,All
+NumPut("0x" . SubStr(String, 2, 8), GUID, 0, "UInt")
+NumPut("0x" . SubStr(String, 10, 4), GUID, 4, "UShort")
+NumPut("0x" . SubStr(String, 14, 4), GUID, 6, "UShort")
+Loop, 8
+NumPut("0x" . SubStr(String, 16+(A_Index*2), 2), GUID, 7+A_Index, "UChar")
+}
+GUID_ToString(ByRef GUID) {
+format := A_FormatInteger
+SetFormat, Integer, H
+str .= SubStr(NumGet(GUID, 0, "UInt"),3) . "-"
+str .= SubStr(NumGet(GUID, 4, "UShort"),3) . "-"
+str .= SubStr(NumGet(GUID, 6, "UShort"),3) . "-"
+Loop, 8
+str .= (A_Index = 2) ? SubStr(NumGet(GUID, 7+A_Index, "UChar"),3) . "-" : SubStr(NumGet(GUID, 7+A_Index, "UChar"),3)
+SetFormat, Integer, %format%
+return "{" . str . "}"
+}
+global DDS_PIXELFORMAT := "DWORD dwSize; DWORD dwFlags; DWORD dwFourCC; DWORD dwRGBBitCount; DWORD dwRBitMask; "
+.  "DWORD dwGBitMask; DWORD dwBBitMask; DWORD dwABitMask;"
+global DDS_HEADER := struct("DWORD dwSize; DWORD  dwFlags; DWORD dwHeight; DWORD dwWidth; DWORD dwPitchOrLinearSize; "
+.  "DWORD dwDepth; DWORD dwMipMapCount; DWORD dwReserved1[11]; DDS_PIXELFORMAT ddspf; DWORD dwCaps; DWORD dwCaps2; "
+.  "DWORD dwCaps3; DWORD dwCaps4; DWORD dwReserved2;")
+DDS_PIXELFORMAT         := struct(DDS_PIXELFORMAT)
+global DDPF_RGB         := 0x00000040
+global DDPF_ALPHAPIXELS := 0x00000001
+global DDPF_BUMPDUDV    := 0x00080000
+global BITMAPINFOHEADER := "DWORD biSize, LONG biWidth, LONG biHeight, DWORD biPlanesAndbiBitCount, DWORD biCompression,"
+. " DWORD biSizeImage, LONG biXPelsPerMeter, LONG biYPelsPerMeter, DWORD biClrUsed, DWORD biClrImportant"
+BITMAPINFOHEADER := struct(BITMAPINFOHEADER)
+global BITMAPFILEHEADER := struct("WORD bfType; DWORD bfSize; WORD bfReserved1; WORD bfReserved2; DWORD bfOffBits;")
+SetFilePixelFormat(format = "RG6B")
+{
+if (format = "RG6B") 	{
+DDS_PIXELFORMAT.dwFlags := DDPF_RGB
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size()
+DDS_PIXELFORMAT.dwRGBBitCount := 16
+DDS_PIXELFORMAT.dwRBitMask := 0xF800
+DDS_PIXELFORMAT.dwGBitMask := 0x07e0
+DDS_PIXELFORMAT.dwBBitMask := 0x001F
+DDS_PIXELFORMAT.dwABitMask := 0
+}
+else if (format = "RGB") 	{
+DDS_PIXELFORMAT.dwFlags := DDPF_RGB
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size()
+DDS_PIXELFORMAT.dwRGBBitCount := 24
+DDS_PIXELFORMAT.dwRBitMask := 0x00FF0000
+DDS_PIXELFORMAT.dwGBitMask := 0x0000FF00
+DDS_PIXELFORMAT.dwBBitMask := 0x000000FF
+DDS_PIXELFORMAT.dwABitMask := 0
+}
+else if (format = "X1RGB") 	{
+DDS_PIXELFORMAT.dwFlags := DDPF_RGB
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size()
+DDS_PIXELFORMAT.dwRGBBitCount := 16
+DDS_PIXELFORMAT.dwRBitMask := 0x00007C00
+DDS_PIXELFORMAT.dwGBitMask := 0x000003E0
+DDS_PIXELFORMAT.dwBBitMask := 0x0000001F
+DDS_PIXELFORMAT.dwABitMask := 0
+}
+else if (format = "A1RGB") 	{
+DDS_PIXELFORMAT.dwFlags := DDPF_RGB | DDPF_ALPHAPIXELS
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size()
+DDS_PIXELFORMAT.dwRGBBitCount := 16
+DDS_PIXELFORMAT.dwRBitMask := 0x00007C00
+DDS_PIXELFORMAT.dwGBitMask := 0x000003E0
+DDS_PIXELFORMAT.dwBBitMask := 0x0000001F
+DDS_PIXELFORMAT.dwABitMask := 0x00008000
+}
+else if (format = "A4RGB") 	{
+DDS_PIXELFORMAT.dwFlags := DDPF_RGB | DDPF_ALPHAPIXELS
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size()
+DDS_PIXELFORMAT.dwRGBBitCount := 16
+DDS_PIXELFORMAT.dwRBitMask := 0xf00
+DDS_PIXELFORMAT.dwGBitMask := 0xf0
+DDS_PIXELFORMAT.dwBBitMask := 0xf
+DDS_PIXELFORMAT.dwABitMask := 0xf000
+}
+else if (format = "A8RGB")	{
+DDS_PIXELFORMAT.dwFlags := DDPF_RGB | DDPF_ALPHAPIXELS
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size("ddpfPixelFormat")
+DDS_PIXELFORMAT.dwRGBBitCount := 32
+DDS_PIXELFORMAT.dwRBitMask := 0x00FF0000
+DDS_PIXELFORMAT.dwGBitMask := 0x0000FF00
+DDS_PIXELFORMAT.dwBBitMask := 0x000000FF
+DDS_PIXELFORMAT.dwABitMask := 0xFF000000
+}
+else if (format = "X8RGB")	{
+DDS_PIXELFORMAT.dwFlags := DDPF_RGB
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size("ddpfPixelFormat")
+DDS_PIXELFORMAT.dwRGBBitCount := 32
+DDS_PIXELFORMAT.dwRBitMask := 0x00FF0000
+DDS_PIXELFORMAT.dwGBitMask := 0x0000FF00
+DDS_PIXELFORMAT.dwBBitMask := 0x000000FF
+DDS_PIXELFORMAT.dwABitMask := 0
+}
+else if (format = "A8BGR")	{
+DDS_PIXELFORMAT.dwFlags := DDPF_RGB | DDPF_ALPHAPIXELS
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size("ddpfPixelFormat")
+DDS_PIXELFORMAT.dwRGBBitCount := 32
+DDS_PIXELFORMAT.dwRBitMask := 0x000000FF
+DDS_PIXELFORMAT.dwGBitMask := 0x0000FF00
+DDS_PIXELFORMAT.dwBBitMask := 0x00FF0000
+DDS_PIXELFORMAT.dwABitMask := 0xFF000000
+}
+else if (format = "V8U8")	{
+DDS_PIXELFORMAT.dwFlags := 0x80000
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size("ddpfPixelFormat")
+DDS_PIXELFORMAT.dwFourCC := 16
+DDS_PIXELFORMAT.dwRBitMask := 0xFF
+DDS_PIXELFORMAT.dwGBitMask := 0xFF00
+DDS_PIXELFORMAT.dwBBitMask := 0
+DDS_PIXELFORMAT.dwABitMask := 0
+}
+else if instr(format, "D"){
+DDS_PIXELFORMAT.dwFlags := 0x4
+DDS_PIXELFORMAT.dwSize := DDS_PIXELFORMAT.size("ddpfPixelFormat")
+DDS_PIXELFORMAT.dwFourCC := FourCC(format)
+}
+}
+GetFilePixelFormat(byref fileHeader)
+{
+FMT := "_Unsupported format_"
+dllcall(g_.p.GetDDSFilePxFmt, ptr, FileHeader[], astr, FMT)
+return FMT
+}
+LoadDDS(file, byref pData)
+{
+hFile := dllcall("CreateFileW", str, file, uint, 0x80000000, uint, 0, uint, 0, uint, 3, uint, 0x80, uint, 0)
+dllcall("GetFileSizeEx", uint, hFile, "int64*", size)
+VarSetCapacity(pData, size)
+dllcall("ReadFile", uint, hFile, uint, &pData, uint, size, "uint*", read_, uint, 0)
+dllcall("RtlMoveMemory", ptr, DDS_HEADER[], ptr, &pData + 4, int, DDS_HEADER.size())
+pixelformat := getFilePixelFormat(DDS_HEADER)
+printl("Pixelformat: " pixelformat "  " DDS_HEADER.dwWidth "x" DDS_HEADER.dwHeight)
+dllcall("CloseHandle", uint, hFile)
+return pixelformat
+}
+OpenDDS(file, byref hFile)
+{
+size:=0, signature:=0,
+hFile := dllcall("CreateFileW", str, file, uint, 0x80000000, uint, 0x00000001, uint, 0, uint, 3, uint, 0x80, uint, 0)
+(hFile=-1)?	logerr("error " A_lasterror " opening file " file)
+dllcall("GetFileSizeEx", uint, hFile, "int64*", size)
+dllcall("ReadFile", uint, hFile, "uint*", signature, uint, 4, "uint*", (rd:=0), uint, 0)
+dllcall("ReadFile", uint, hFile, uint, DDS_HEADER[], uint, DDS_HEADER.size(), "uint*", (rd:=0), uint, 0)
+pixelformat := GetFilePixelFormat(DDS_HEADER)
+printl("Pixelformat: " pixelformat "  " DDS_HEADER.dwWidth "x" DDS_HEADER.dwHeight)
+return pixelformat
+}
+LoadDumpCollection(dir, byref lst)
+{
+FileGetAttrib, att, %dir%
+if not instr(att, "D")
+return
+loop, %dir%\*.dds, 0, 0
+{
+LoadSingleDump(A_LoopFileFullPath, A_LoopFileName)
+}
+}
+LoadSingleDump(path, name)
+{
+dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
+dllcall(dll "\AppendDump", astr, path)
+}
+LoadCompiledDumpCollection(file, byref lst)
+{
+SplitPath, file, , dir
+dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
+dllcall(dll "\LoadDumps", astr, file, astr, dir)
+}
+IsDump(o, f)
+{
+return
+return dllcall("peixoto.dll\IsDump", astr, f)
+}
+FourCC(code)
+{
+if code is not number
+{
+VarSetCapacity(format, 4)
+strput(code, &format, 4, "CP0")
+return numget(&format+0, "uint")
+} else {
+VarSetCapacity(format, 4)
+numput(code, &format, "uint")
+return strget(&format, 4, "CP0")
+}
+}
+Class ComInterfaceWrapper
+{
+__New(byref definition, ppIface, D3D8 = False)
+{
+this.Adds    := {}
+this.offsets := {}
+n            := 0
+def          := definition.def
+loop, parse, def, `n
+{
+if instr(A_loopfield , "STDMETHOD")
+{
+method := trim(strsplit(A_loopfield, "(")[2])
+method := strsplit(method, ")")[1]
+if instr(method, ",")
+{
+stringsplit, method_, method,`,
+method := trim(method_2)
+}
+this.offsets[method] := n * A_ptrsize
+n += 1
+}
+}
+pIface := D3D8 ? ppIface : numget(ppIface+0, "ptr")
+if pIface
+{
+Vtbl := numget(pIface + 0, "Ptr")
+for k, v in this.offsets
+{
+value        := numget(Vtbl + v, "Ptr")
+this[k]      := value
+this.Adds[k] := value
+}
+}
+this.dwSize        := n*A_ptrsize
+this.pVTbl         := Vtbl
+this.p             := pIface
+this.def           := def
+this.name          := definition.name
+this.released      := False
+this.Hooks         := {}
+this.Mthds         := {}
+this.Hooked        := {}
+}
+Hook(Method, hook = "", options = "F", EventInfo="")
+{
+if this.Hooked[Method]
+return this.name "::" Method " is already hooked"
+if not this.pVTbl
+return "Failed to hook " this.name "::" Method " - The interface pointer is not valid"
+hook ?:	hook := isfunc("Alt_" Method) ? "Alt_" Method : isfunc("Alt" this.name "_" Method)
+? "Alt" this.name "_" Method : this.name "_" Method
+pHook := registerCallback(hook, options, ,EventInfo)
+if not pHook
+return "Failed to hook " this.name "::" Method " - could not create callback"
+pInterface_Vtbl    := this.pVTbl
+pHooked            := numget(pInterface_Vtbl + this.offsets[Method], "Ptr")
+this.Mthds[Method] := pHooked
+r                  := dllcall(ComInterfaceWrapper.sethooks, "Ptr*", pHooked, "Ptr", pHook)
+this[Method]       := pHooked
+if r
+return "Failed to hook " this.name "::" Method " - detours error " r
+else
+{
+this.Hooked[Method] := True
+this.hooks[hook]    := pHook
+}
+return "Succeeded to hook " this.name "::" Method
+}
+dllHook(Method, hook, dll = "peixoto.dll")
+{
+if this.Hooked[Method]
+return this.name "::" Method " is already hooked"
+if not this.pVTbl
+return "Failed to hook " this.name "::" Method " - The interface pointer is not valid"
+pHook := dllcall("GetProcAddress", ptr, dllcall("GetModuleHandle", str, dll, ptr), astr, hook, ptr)
+if not pHook
+return "Failed to hook " this.name "::" Method " - could not create callback"
+pInterface_Vtbl    := this.pVTbl
+pHooked            := numget(pInterface_Vtbl + this.offsets[Method], "Ptr")
+this.Mthds[Method] := pHooked
+r                  := dllcall(ComInterfaceWrapper.sethooks, "Ptr*", pHooked, "Ptr", pHook)
+this[Method]       := pHooked
+if r
+return "Failed to hook " this.name "::" Method " - detours error " r
+else
+{
+this.Hooked[Method] := "dll"
+this.hooks[hook]    := pHook
+}
+return "Succeeded to hook " this.name "::" Method
+}
+PatchVtable(method, EventInfo="", HookFunc="")
+{
+table       := this.pVTbl
+target      := table+this.offsets[method]
+if ! (hook := RegisterCallback(HookFunc ? HookFunc :Isfunc("Alt_" Method) ? "Alt_" Method : isfunc("Alt" this.name "_" Method)
+? "Alt" this.name "_" Method : this.name "_" Method , "F",,EventInfo))
+return "Failed to hook " this.name "::" Method " - could not create callback"
+if ! isobject(p := new Prtct(target, A_ptrsize))
+return "Failed to hook " this.name "::" Method " - VirtualProtect failed"
+numput(hook, table+this.offsets[method], "ptr")
+return "Succeeded to hook " this.name "::" Method
+}
+PatchVtableWithDll(method, hook, dll = "peixoto.dll")
+{
+table  := this.pVTbl
+target := table+this.offsets[method]
+p      := new Prtct(target, A_ptrsize)
+if not (hook := dllcall("GetProcAddress", ptr, dllcall("GetModuleHandle", str, dll, ptr), astr, hook, ptr))
+return "Failed to hook " this.name "::" Method " - could not create callback"
+if ! isobject(p := new Prtct(target, A_ptrsize))
+return "Failed to hook " this.name "::" Method " - VirtualProtect failed"
+numput(hook, table+this.offsets[method], "ptr")
+return "Succeeded to hook " this.name "::" Method
+}
+__delete()
+{
+if not this.released
+dllcall(this.release, uint, this.p, uint)
+}
+__release()
+{
+this.released := True
+r := dllcall(this.Release, uint, this.p, uint)
+return r
+}
+UnHook(Method, hook = "")
+{
+logerr("unhook " ComInterfaceWrapper._unhook)
+if not this.Hooked[Method]
+return "Method " Method " is not hooked yet"
+if not hook
+hook := this.name "_" Method
+r := dllcall(ComInterfaceWrapper._unhook, "Ptr*", this.Mthds[Method], "Ptr", this.hooks[hook])
+if r
+return "Failed to unhook " this.name "::" Method " - detours error " r
+else
+{
+if not this.Hooked[Method] = "dll"
+DllCall("GlobalFree", "Ptr", this.hooks[hook], "Ptr")
+this.hooks.remove(hook)
+this.Hooked.remove(Method)
+}
+return "Succeeded to unhook " this.name "::" Method
+}
+Compare(interfaces)
+{
+r=
+for method, adress in this.adds
+{
+reimp=
+for k, i in interfaces
+{
+if (i.adds[method] != adress)
+reimp .= i.name "[" i.adds[method] "], "
+}
+if (reimp)
+r .= Trim(this.name "::" method "[" adress "] reimplement in " reimp "`n", ",")
+}
+return Trim(r, "`n")
+}
+}
+class Memory {
+__new(sz) {
+this.p := dllcall("VirtualAlloc", ptr, 0, ptr, sz, uint, 0x00001000, uint, 0x04)
+}
+__delete() {
+dllcall("VirtualFree", ptr, this.p, ptr, 0x00008000, uint, 0x04)
+}
+}
+Class Prtct{
+__new(a, s)
+{
+if !dllcall("VirtualProtect", uint, a, uint, s, uint, 0x04, "uint*", o:=0)
+return
+this.a := a
+this.s := s
+this.o := o
+}
+__delete()
+{
+dllcall("VirtualProtect", uint, this.a, uint, this.s, uint, this.o, "uint*", o:=0)
+}
+}
+Class Collection {
+__new(ThreadSafe=False)
+{
+dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
+hdll := dllcall("GetModuleHandle", str, dll, ptr)
+this.pc     := dllcall(dllcall("GetProcAddress", ptr, hdll, astr, "PointerCollectionCreate", ptr), ptr)
+this.vtbl   := struct("LPVOID insert; LPVOID insert_disposable; LPVOID remove; LPVOID discard; LPVOID Value; LPVOID Key; LPVOID ValueAt; LPVOID KeyAt; LPVOID Count")
+this.vtbl[] := numget(this.pc+0, "ptr")
+this.size := 0
+}
+_add(key, data){
+return (this.size := dllcall(this.vtbl.Insert_disposable, ptr, this.pc, ptr, key, ptr, data, uint))
+}
+_Insert(key, memsize)
+{
+pData := dllcall("VirtualAlloc", ptr, 0, ptr, memsize, uint, 0x00001000 | 0x00002000, uint, 0x04, ptr)
+dllcall("RtlZeroMemory", ptr, pData, uint, memsize)
+this.size := dllcall(this.vtbl.insert, ptr, this.pc, ptr, key, ptr, pData, uint)
+return pData
+}
+PutStr(key, s){
+Strput(s, this._insert(key, strlen(s)+1)+0, "CP0")
+}
+GetStr(key){
+return Strget(this.value(key)+0, "CP0")
+}
+Value(key) {
+return dllcall(this.vtbl.Value, ptr, this.pc, ptr, key, ptr)
+}
+Key(value) {
+return dllcall(this.vtbl.Key, ptr, this.pc, ptr, value, ptr)
+}
+ValueAt(index) {
+return dllcall(this.vtbl.ValueAt, ptr, this.pc, ptr, index, ptr)
+}
+KeyAt(index) {
+return dllcall(this.vtbl.KeyAt, ptr, this.pc, ptr, index, ptr)
+}
+Remove(key) {
+return (this.size := dllcall(this.vtbl.Remove, ptr, this.pc, ptr, key, uint))
+}
+Discard(key) {
+return (this.size := dllcall(this.vtbl.Discard, ptr, this.pc, ptr, key, uint))
+}
+Count(){
+return dllcall(this.vtbl.Count, ptr, this.pc)
+}
+}
+keyevent(key, dummy="")
+{
+static state := {}
+state[key] ?: state[key] := getkeystate(key, "p") ? 1 :-1
+event := False
+newstate := getkeystate(key, "p") ? 1 :-1
+if ( (newstate = 1) and (state[key] = -1)  )
+event := True
+state[key] := newstate
+return event
+}
+StringFromIID(pIID)
+{
+dllcall("Ole32.dll\StringFromIID", uint, pIID, "uint*", GUID)
+rtn := StrGet(GUID)
+dllcall("Ole32.dll\CoTaskMemFree", uint, GUID)
+return rtn
+}
+zeromem(struct){
+varsetcapacity(struct[], struct.size(), 0)
+}
+newmem(struct){
+VarSetCapacity(st, struct.size(), 0)
+struct[] := &st
+}
+class Loger
+{
+__new(logpath, maxlogs=1000)
+{
+this.f     := logpath
+this.hnd   := DllCall("GetStdHandle", "int", -11, ptr)
+this.count := 0
+this.max   := maxlogs
+FileDelete, % logpath
+}
+err(msg)
+{
+fileAppend, %msg%`n, % this.f
+dllcall("WriteConsole", "ptr", this.hnd, "ptr", &msg, "int", strlen(msg), uint, 0, ptr, 0)
+}
+log(msg)
+{
+if (this.count > this.max)
+return
+this.count += 1
+return this.err(msg)
+}
+}
+logErr(msg){
+static file="", call="", maxlogs = 10
+call += 1
+if not file
+{
+file := strsplit(msg, "|")[1]
+maxlogs := strsplit(msg, "|")[2]
+filedelete, %file%
+return
+}
+if (call < maxlogs + 2)
+fileAppend, %msg%`n, %file%
+printl(msg)
+}
+Ciclecolor(c)
+{
+static clrs := [0x00000000, 0x00FFFFFF, 0x00ff0000, 0x0000ff00, 0x000000ff, 0x00ffff00, 0x00ff00ff
+,0x0000ffff, 0x00000000]
+for k, v in clrs
+{
+if (c = v)
+{
+c := clrs[k+1]
+break
+}
+}return c
+}
+print(msg = "")
+{
+static hnd=""
+if ! hnd
+{
+VarSetCapacity(name, 260)
+dllcall("GetModuleFileNameA", ptr, 0, "ptr", &name, int, 260)
+name := strget(&name+0, "CP0")
+splitpath, name, fname
+if !isfunc("CreateProcessA_hook")
+DllCall("AllocConsole")
+else DllCall("AttachConsole", uint, (ATTACH_PARENT_PROCESS := -1))
+hnd := DllCall("GetStdHandle", "int", -11, ptr)
+}
+return dllcall("WriteConsole", "ptr", hnd , "ptr", &msg, "int", strlen(msg), uint, 0, ptr, 0)
+}
+printl(msg = "") {
+return msg ? print(msg . "`n") : (g_.cfg.console) ?: DllCall("FreeConsole")
+}
+Parsecfg(item = "")
+{
+if not item
+{
+cfg  := strsplit(g_cmdstring, "^")
+globals := {}
+globals.cfg := {}
+for k, v in cfg
+{
+Key := SubStr(v, 1, 1)
+_Key := SubStr(v, 2, strlen(v)-1)
+if _Key is number
+continue
+if (Key = "-")
+globals.cfg[SubStr(v, 2, strlen(v)-1)] := cfg[k + 1]
+else if (Key = "/")
+globals.cfg[SubStr(v, 2, strlen(v)-1)] := True
+}
+return globals
+} else {
+cfg := {}
+for k, v in strsplit(item, ";")
+{
+split := strsplit(v, "=")
+key := split[1]
+val := split[2]
+if not split[2]
+{
+continue
+}
+(val = "True") ? val := True
+(val = "False") ? val := False
+cfg[key] := val
+}
+return cfg
+}
+}
+resume()
+{
+if (hThread := dllcall("OpenThread", uint, 0x0002, uint, 0, uint, g_MainThreadID, ptr))
+{
+dllcall("ResumeThread", "ptr", hThread, "uint")
+dllcall("CloseHandle", ptr, hThread)
+} else {
+dllcall("ddraw.dll\ProxyResume")
+}
+dllcall("SendMessageW", uint, g_.cfg.script_hwnd, uint, dllcall("RegisterWindowMessageW", str, "Peixoto.Thread"), uint, 0, uint, 0)
+}
+GetDesktopResolution()
+{
+if g_.cfg.DSR
+{
+res := strsplit(g_.cfg.DSR, "x")
+return  {"w" : res[1], "h" : res[2]}
+}
+r := {"w" : dllcall("GetSystemMetrics", uint, 0) , "h" : dllcall("GetSystemMetrics", uint, 1)}
+res := r.w "x" r.h
+if ( r.w/r.h < 1.33	)
+{
+res := strsplit(g_.cfg.max_4x3_res, "x")
+r := {"w" : res[1], "h" : res[2]}
+}
+return r
+}
+Desk()
+{
+r := strsplit(g_.cfg.DSR ? g_.cfg.DSR : g_.cfg.dsk, "x")
+return {"w" : r[1], "h" : r[2]}
+}
+CreateLinksCollection(links)
+{
+target_dir := g_.cfg.path
+FileCreateDir, %target_dir%
+for k, v in  links {
+printl("Simbolic link : " v "-> " target_dir v " Succes= " dllcall("CreateSymbolicLinkW", str, A_workingdir "\" v
+, str, target_dir v, uint, 0, uint) " code= " A_lasterror " "  )
+}
+}
+FOV(oldfov, ratio)
+{
+ratio := strsplit(ratio, ":")
+oldfov *= 0.01745329252 / 2
+return 2 * (ATan(tan(oldfov) * ratio[1]/ratio[2]) * 57.29578)
+}
+Matrix2String(pMatrix)
+{
+D3DMATRIX[] := pMatrix
+str := 	D3DMATRIX.m11 " " D3DMATRIX.m12 " " D3DMATRIX.m13 " " D3DMATRIX.m14 "`n"
+str .= 	D3DMATRIX.m21 " " D3DMATRIX.m22 " " D3DMATRIX.m23 " " D3DMATRIX.m24 "`n"
+str .= 	D3DMATRIX.m31 " " D3DMATRIX.m32 " " D3DMATRIX.m33 " " D3DMATRIX.m34 "`n"
+str .= 	D3DMATRIX.m41 " " D3DMATRIX.m42 " " D3DMATRIX.m43 " " D3DMATRIX.m44 "`n"
+return str
+}
+ProcessD3DShader(code, w=0, h=0, tw=1, th=1)
+{
+c := ""
+w ? c .= "`n#define w " w "."
+h ? c .= "`n#define h " h "."
+c .= "`n#define tw 1./" tw "."
+c .= "`n#define th 1./" th "."
+return c . "`n" code
+}
+class Comptr {
+__new(ptr, obj=""){
+this.p   := ptr
+this.obj := obj
+}
+__delete(){
+if (this.obj)
+dllcall(this.obj.release, prt, this.p)
+else dllcall(numget(numget(this.p+0, "ptr")+A_PtrSize*2, "ptr"), prt, this.p)
+}
+}
+Release(o){
+return dllcall(numget(numget(o+0, "ptr")+A_PtrSize*2, "ptr"), uint, o)
+}
+AddRef(o){
+return dllcall(numget(numget(o+0, "ptr")+A_PtrSize*1, "ptr"), uint, o)
+}
+global GUID := "DWORD Data1; WORD  Data2;  WORD  Data3;  BYTE  Data4[8]"
+global g_fhks := {}
+global CSIDL_FLAG_CREATE    := 0x8000
+global CSIDL_COMMON_APPDATA := 35
+global CSIDL_LOCAL_APPDATA  := 28
+global CSIDL_APPDATA        := 26
+global CSIDL_PERSONAL       := 5
+global CSIDL_WINDOWS     := 36
+global CSIDL_SYSTEM	     := 37
+global CSIDL_SYSTEMX86	 := 41
+InitFileHooks(byref cfg)
+{
+flags       := 0
+g_fhks.docs := g_.cfg.path
+path        := g_fhks.docs
+FileCreateDir, %path%\Saves
+FileCreateDir, %path%\mods
+FileCreateDir, %path%\cfg
+g_fhks.files     := new Collection()
+f := HasFiles(path "cfg")
+if isfunc("AltCreateFileA")
+{
+if (g_.cfg.mods)
+logerr("CreateFileA_Hook : " InstallHook("AltCreateFileA", pCreateFileA, "peixoto.dll", "CreateFileA_Hook") " <- 0 means no error")
+else logerr("CreateFileA_Hook : " InstallHook("AltCreateFileA", pCreateFileA, "Kernel32.dll", "CreateFileA") " <- 0 means no error")
+g_fhks.pCreateFileA := pCreateFileA
+}
+if isfunc("AltCreateFileW")
+{
+if (g_.cfg.mods or f)
+logerr("CreateFileW_Hook : " InstallHook("AltCreateFileW", pCreateFileW, "peixoto.dll", "CreateFileW_Hook") " <- 0 means no error")
+else logerr("CreateFileW_Hook : " InstallHook("AltCreateFileW", pCreateFileW, "Kernel32.dll", "CreateFileW") " <- 0 means no error")
+g_fhks.pCreateFileW := pCreateFileW
+}
+f := HasFiles(path "cfg")
+if (g_.cfg.mods or f)
+{
+flags        |= 0x10
+g_fhks.paths := []
+for k, v in strsplit(g_.cfg.mods, ";")
+g_fhks.paths.insert(g_.cfg.path "mods\" v)
+if (f)
+g_fhks.paths.insert(g_.cfg.path "cfg")
+Buildfileslist()
+}
+path := StrReplace(path "\Saves\", "\\", "\")
+pex  := A_PtrSize=8 ? "peixoto64.dll\" : "peixoto.dll\"
+dllcall(pex "InitFileHooks", str, path, astr, path, ptr, g_fhks.files.pc, ptr, 0, uint, flags)
+return
+for k, v in g_fhks.filesList
+{
+logerr(k " " v)
+dllcall(pex "FileHooksInsertFile", wstr, k, wstr, v)
+logerr(errorlevel)
+}
+}
+HasFiles(dir)
+{
+logerr(dir "Files: " )
+loop, %dir%\*.*, 0, 0
+{
+logerr(A_loopfilefullpath)
+FileGetAttrib, att, %A_loopfilefullpath%
+if not instr(att, "D"){
+logerr("HasFiles 1")
+return 1
+}
+}
+logerr("HasFiles 0")
+}
+InitSteamFileHooks()
+{
+name    := "INIT_STEAM_FILE_HOOKS: "
+hSteam  := dllcall("GetModuleHandleA", astr, A_PtrSize=4 ? "steamclient.dll" : "steamclient64.dll", ptr)
+if (!hSteam)
+return logerr(name "no handle " errorlevel)
+pFunc   := dllcall("GetProcAddress", ptr, hSteam, astr, "CreateInterface", ptr)
+if (!pFunc)
+return logerr(name "no adress " errorlevel)
+pIntrfc := DllCall(pFunc, astr, "SteamUser018", "int*", r:=0, ptr)
+if (!pIntrfc)
+return logerr(name "no pointer " errorlevel)
+pTable  := numget(pIntrfc+0, "ptr")
+pGtFldr := numget(pTable+A_ptrsize*6, "ptr")
+VarSetCapacity(path, 260)
+logerr(name dllcall(pGtFldr, ptr, pIntrfc, ptr, &path, int, 260) " " errorlevel)
+logerr(name strget(&path+0, "CP0"))
+h := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "ISteamUser_GetUserDataFolder_Hook", ptr)
+logerr(name AltInstallHook(h, pGtFldr))
+logerr(name "OK")
+}
+IsSteamCloudnabled(steam)
+{
+logerr("IsSteamCloudnabled ==========================================")
+return 0
+}
+OpenFile(p1, p2, p3)
+{
+file := strget(p1, "CP0")
+printl("open " file)
+stringreplace, file, file, /, \, 1
+Splitpath, file, filename, filedir, ext
+g_fhks.filesList[filename] ? file := g_fhks.filesList[filename]
+r := dllcall(g_fhks.pOpenFile , astr, file, uint, p2, uint, p3)
+return r
+}
+BuildDirFlslst(dir, byref collec)
+{
+logerr("isobject " isobject(collec))
+loop, %dir%\*.*, 1, 0
+{
+if (instr(FileExist(A_LoopFileFullPath), "D"))
+{
+name  := A_loopfilename
+g_fhks.fldrs.lst[A_loopfilename] := new Collection()
+pK := dllcall("VirtualAlloc", ptr, 0, ptr, (strlen(name)+1)*2, uint, 0x00003000, uint, 0x04, ptr)
+strput(name, pK, "UTF-16")
+g_fhks.fldrs._add(pK, g_fhks.fldrs.lst[A_loopfilename].pc)
+BuildDirFlslst(A_LoopFileFullPath, g_fhks.fldrs.lst[A_loopfilename])
+} else
+{
+name  := A_loopfilename
+logerr("Found file" A_LoopFileFullPath)
+pK := dllcall("VirtualAlloc", ptr, 0, ptr, (strlen(name)+1)*2, uint, 0x00003000, uint, 0x04, ptr)
+strput(name, pK, "UTF-16")
+strput(A_loopfilefullpath, collec._Insert(pK, (strlen(A_loopfilefullpath)+1)*2, "UTF-16"))
+}
+}
+logerr("Collection size " collec.Count())
+}
+Buildfileslist()
+{
+folders          := g_fhks.paths
+g_fhks.filesList := {}
+for k, v in folders
+{
+loop, %v%\*.*, 0, 1
+{
+StringLower, name, A_loopfilename
+if (name = "error.log")
+continue
+pK := dllcall("VirtualAlloc", ptr, 0, ptr, (strlen(name)+1)*2, uint, 0x00003000, uint, 0x04, ptr)
+strput(name, pK, "UTF-16")
+strput(A_loopfilefullpath, g_fhks.files._Insert(pK, (strlen(A_loopfilefullpath)+1)*2, "UTF-16"))
+g_fhks.filesList[name] := A_loopfilefullpath
+}
+}
+err := g_.cfg.error_log
+splitpath, err, errofile
+g_fhks.filesList.remove(errofile)
+}
+global g_                    := ParseCfg()
+g_cmdstring                  := ""
+g_.h_PeixotoDll              := dllcall("GetModuleHandleW", str, (A_ptrsize = 4) ? "peixoto.dll" : "peixoto64.dll", ptr)
+g_.p                         := {}
+g_.p.Scale                   := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "Scale", uint)
+g_.p.Critical                := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "Critical")
+g_.p.GetDDSFilePxFmt         := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "GetDDSFileFormat", ptr)
+g_.p.LoadSurfData            := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "LoadData2Surface", uint)
+g_.p.GetTicks                := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "TimeGetTimeF", uint)
+ComInterfaceWrapper.sethooks := dllcall("GetProcAddress", "ptr", g_.h_PeixotoDll, "astr", "sethook", ptr)
+ComInterfaceWrapper._unhook  := dllcall("GetProcAddress", "ptr", g_.h_PeixotoDll, "astr", "unhook", ptr)
+g_.s := {}
+InitGlobals()
+InitGlobals()
+{
+if ! g_.cfg.path
+{
+path := g_.cfg.target
+splitpath, path, , , ,name
+g_.cfg.path := g_.cfg.MyDocs "\WineHooks\Games\" name "\"
+} else 	g_.cfg.path :=  g_.cfg.MyDocs "\WineHooks\Games\" g_.cfg.path "\"
+if !fileexist((mds := g_.cfg.path "mods"))
+FileCreateDir, % mds
+cfg := "Peixotos's patch remote settings:`nCommand Line: " dllcall("GetCommandLineA", astr) "`n"
+for kk, vv in g_.cfg
+cfg .= kk ": " vv "`n"
+if g_.cfg.console
+logErr(g_.cfg.error_log "|10000")
+else
+logErr(g_.cfg.error_log "|100")
+logerr(cfg)
+logerr("Working directory: " A_workingdir)
+InitFileHooks(g_.cfg)
+if (g_.cfg.HRT)
+{
+logerr("TimeGetTime Hook " AltInstallHook(dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "TimeGetTimeHook")
+, dllcall("GetProcAddress", ptr, dllcall("LoadLibrary", str, "Winmm.dll"), astr, "timeGetTime")))
+logerr("GetTckCount Hook " AltInstallHook(dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "TimeGetTimeHook")
+, dllcall("GetProcAddress", ptr, dllcall("LoadLibrary", str, "Kernel32.dll"), astr, "GetTickCount")))
+g_.cfg.HRT := ""
+}
+if (g_.cfg.QPCFix)
+dllcall("peixoto.dll\HookQueryPerformanceCounter")
+g_.cfg.QPCFix := ""
+if (g_.cfg.iso)
+new VirtualDisk().Mount("E:\Users\dllob\Downloads\Game ISOS\" trim(g_.cfg.iso), "D")
+}
+sleephook(p1){
+return
+}
+GlobalMemHook(p1)
+{
+dllcall(g_.p.GlobalMem, uint, p1)
+m   := struct("DWORD Length; DWORD Load; SIZE_T TotalPhys; SIZE_T AvailPhys; SIZE_T TotalPage; SIZE_T AvailPage; SIZE_T TotalVirt; SIZE_T AvailVirt;")
+m[] := p1
+mg  := 1024*1024
+logerr("&&&&&&&&&&&&&&&&&&&& " m.AvailPage)
+if (m.AvailPage >= 0x7fffffff)
+m.AvailPage := 256*mg
+}
+SdbGetMatchingExe()
+{
+return
+}
+DWMShimCallOut()
+{
+logerr("DWMShimCallOut " dllcall(g_.DWMShimCallOut))
+return 0
+}
+wait()
+{
+static l = 0
+n := dllcall(g_.p.GetTicks, double)
+while ( n - l < g_.cfg.LMT )
+n := dllcall(g_.p.GetTicks, double)
+l := n
+}
+Class VirtualDisk
+{
+Mount(path, drv)
+{
+dllcall("Kernel32.dll\DeleteVolumeMountPointW", str, drv ":\")
+vol := this.EnumVolumes()
+dllcall("peixoto.dll\MountISO", str, path)
+for k, v in this.EnumVolumes()
+{
+if ! vol[k]
+{
+FileAppend, % "Mounted " k "`n", *
+if (dllcall("Kernel32.dll\SetVolumeMountPointW", str, drv ":\", str, k) = 0)
+return A_Lasterror
+}
+}
+}
+EnumVolumes()
+{
+VarSetCapacity(VolName, 1024)
+Volumes  := []
+hFVol    := dllcall("Kernel32.dll\FindFirstVolumeW", str, VolName, uint, 1024)
+if (hFVol = -1)
+{
+FileAppend, % "FindFirstVolumeW Failed`n", *
+}
+Volumes[VolName] := True
+success := 1
+while (success)
+{
+success          := dllcall("Kernel32.dll\FindNextVolumeW", ptr, hFVol, str, VolName, uint, 1024)
+Volumes[VolName] := True
+}
+for k, v in Volumes
+{
+dllcall("GetVolumePathNameW", str, v, str, VolName, uint, 1024)
+FileAppend, % v " " k " " VolName "`n", *
+}
+return Volumes
+}
+}

@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link href='http://fonts.googleapis.com/css?family=Roboto&subset=latin,greek,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+    </head>
+    <style>
+        body{            
+            overflow-y      : auto;
+            display         : flex;
+            flex-direction  : column;         
+            padding-top     : 10px ;              
+            font-family     : 'Roboto', sans-serif;
+            background-color: white;
+        }  
+        .xinput_range{
+            margin-left: 30px;
+            margin-right: 30px;
+            padding: 0;
+        }
+        .slider{            
+            padding: 0;
+        }
+        .cntrl_group{
+            /*background-color: black;*/
+            background-color: #ececec;
+            border-radius   : 10px ;
+            padding         : 10px 10px 10px 10px;
+            box-shadow      : 4px 4px grey;
+            margin-bottom   : 20px ;
+        }
+        a:visited {
+            color: #0000EE;        
+        }   
+        .play-icon
+        {            
+            width  : 38px; 
+            height : 30px;  
+            color  : "#f9edbe";   
+            margin : 0 0 0 0;      			
+        }   
+        .shortcut-icon
+        {            
+            width  : 38px; 
+            height : 30px;  
+            color  : "#f9edbe";   
+            margin : 0 0 0 0;              		
+        }   
+        .fix-icon
+        {
+            background-image: url("fix.svg");
+            width: 20px; 
+            height: 20px;
+            color: #f9edbe;			
+        }        
+        .improve-icon
+        {
+            background-image: url("star.svg");
+            width: 20px; 
+            height: 20px;
+            color: "#f9edbe";	
+        }
+        .nfo-icon
+        {
+            background-image: url("nfo.svg");
+            width: 20px; 
+            height: 20px;
+            color: "#f9edbe";	
+        }
+        .bad-icon
+        {
+            background-image: url("bad.svg");
+            width: 20px; 
+            height: 20px;
+            color: "#f9edbe";	
+        }
+        .ce-icon
+        {
+            background-image: url("Cheats_smal.png");
+            width: 20px; 
+            height: 20px;
+            color: "#f9edbe";	
+        }
+        .fix-text
+        {
+            position: relative;		
+            left: 25px;	
+            top: -20px;		
+            margin-right: 35px;
+            margin-bottom: -15px;
+        }  
+        .features
+        {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #0000aa;
+        } 
+        .box
+        {
+            background-color: #f9edbe;
+            border: 1px solid #0000aa;
+            margin-top: 10px;	
+            padding-top: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            color: #0000aa;
+            font-size : 18px;
+        }
+        .center
+        {
+            display: inline;
+            background-color: #f9edbe;
+            position: relative;		
+            left: 25px;
+            font-size: 20px;
+            color: #0000aa;
+        } 	
+        .warning{
+            background-color: #f5dddd;           
+            border          : 1px solid #9e0c07;
+            margin-bottom   : 10px;
+            margin-left     : 0px;	
+            margin-right    : 0px;	
+            padding-top     : 2px;
+            padding-left    : 2px;
+            padding-right   : 2px;
+        }   
+        .xinput_dialog_cell{
+            color:blue;
+            cursor:pointer;
+            text-decoration:underline;
+            width:100px
+        }
+        .xinput_dialog_root{
+            position:relative;
+            background-color: #ececec;
+            border-radius   : 10px ;
+            padding         : 10px 10px 10px 10px;
+            box-shadow      : 4px 4px grey;
+            margin-bottom   : 20px ;
+        }
+        .xinput_dialog_popup_container{
+            border-radius: 10px;
+            position      : absolute;   
+            top           : auto;
+            left          : auto;       
+            width         : 96%;
+            height        : 100%;
+            display       : flex;
+            flex-direction: column;
+            gap           : 6px;
+            z-index       : 1;
+            background-color: #000000;
+            opacity: 1.0;
+            padding-left: 10px;
+            padding-right: 20px;
+        }
+        .xinput_dialog_popup{            
+            margin:auto;    
+            opacity: 1.0;      
+            font-size: 13px;
+        }
+        ::-ms-fill-lower {
+            background: white;
+        }
+        ::-ms-fill-upper {
+            background: lightgray;
+        }
+        ::-ms-thumb {
+            background: black;
+        }
+        ::-ms-track{
+            color:transparent;
+        }   
+        .lds-dual-ring {
+            /* change color here */
+            color: #1c4c5b
+        }
+        .lds-dual-ring,
+        .lds-dual-ring:after {
+             box-sizing: border-box;
+        }
+        .lds-dual-ring {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin-top: -20px;
+        }
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 30px;
+            height: 30px;
+            margin: 8px;
+            border-radius: 50%;
+            border: 6.4px solid currentColor;
+            border-color: currentColor transparent currentColor transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }     
+    </style>  
+    <script>
+        var g_ = {};
+        function AppendContent(str, parent_id) {          
+            if (parent_id === undefined) 
+            parent_id = "content";
+            let parent = document.getElementById(parent_id);      
+            if (parent === null) return;   
+            document.getElementById(parent_id).innerHTML += str;
+        };
+        function ShowCEDiv(){
+            document.getElementById("CE::Div").style.display = "flex";
+        }
+        function CloseCEDiv(){
+            document.getElementById("CE::Div").style.display = "none";
+        }
+        function AddDefaultButtons(wiki, table){
+            AppendContent("<button id='Button::Play' style='padding: 0 0 0 0; margin-bottom:20px'><img class='play-icon' src='play.svg'></button>", "title_container");
+            AppendContent("<button id='Button::ShortCut' style='padding: 0 0 0 0'><img class='shortcut-icon' src='shortcut.svg'></button>", "title_container");
+            AppendContent("<button id='Button::ShowCEButton' onclick='ShowCEDiv();' style='padding: 0 0 0 0'><img class='play-icon' src='ce.svg'></button>" , "title_container");
+            AppendContent("<button id='Button::WIKI' style='padding: 0 0 0 0'><img class='play-icon' src='PCGamingWiki.svg'></button>" , "title_container");
+            if (table === "") document.getElementById("Button::ShowCEButton").style.display   = "none";
+            if (wiki  === "") document.getElementById("Button::WIKI").style.display = "none";      
+            let cheats = 
+            '<div style="position:relative"><div id="CE::Div" style="z-index:1;position:absolute;display:none;flex-direction:column;background-color:#f9edbe; padding: 2px 2px 2px 2px; border: 1px solid #0000aa">' +
+            '<b>Using cheats</b><br>'                                                                                                                                +
+			'<ul> <li>Install <a id="cheat" href="javascript:dummy()">cheat engine (64bit)</a> if you don\'t already have it'                                        + 
+            '<li> Start <a id="cheat" href="javascript:dummy()">cheat engine (64bit)</a> using the button bellow and the appropriate table will beloaded'            + 
+			'<li> If you have already stated the game once with WineHooks, cheat engine will attatch itself to the game, and close itself when you exit the game'    +                                                                                                                  	
+			'<li> Configure cheat engine to aways exectute lua scripts:<br>'                                                                                         + 
+			'edit &#x2192 settings &#x2192 general settings &#x2192 when a table has a lua script, execute it &#x2192 <b>ALWAYS</b>'                                 +		
+			'<li> All tables use an Autohotkey plugin, so if you modify or start them directly with cheat engine, they might not work properly'                      +
+			'<li> If a cheat doesn\'t work because you have a different version of the game, click table extras on cheat engine, <br>'                               + 
+			'exception made for very old games, I leave comments there which sould help you adapt the table</ul>'                                                    +
+            '<div style="display:flex;flex-direction:row-reverse"><button onclick="CloseCEDiv()" id="Button::CE"><img class="play-icon" src="ce.svg">'               + 
+            '</button><button onclick="CloseCEDiv()">&#x2715;</button></div?</div></div>'
+            AppendContent(cheats, "title_container")           
+        };
+        function AddVersionWarning(ver){
+            let warn = "<div class='warning'><h3 style='color:red'>Version warning</h3>This warning means that I don't have this game installed anymore therefore" 
+            + " I can't test it when I make changes on parts of the program that can affect and I don't offer support for it"
+            + "<br><br>This game was last tested on version "
+            + "<a id='old_version_redirect' href='javascript:dummy()'> " + ver + "</a></div>"
+            AppendContent(warn)
+        };
+        function AddBoolean(_id, label, details, parent_id, check){
+            check    = check ? "checked" : "";
+            disabled = _id == "4K" ? "disabled" : "";
+            let html = 
+            "<div style='display:flex;flex-direction:column;'>" +
+                "<div style='display:flex;'>"                                                   +
+                    "<input id='" + _id + "' type='checkbox' " + check + " " +disabled + "></input>"            +
+                    "<label style='margin-top:2px'>" + label + "</label>"                       +
+                "</div>"                                                                        +
+                "<div id='" + _id + "_details' style='margin-left:20px'>" + details + "</div>"  +
+            "</div>";       
+            AppendContent(html, parent_id);
+        };
+        function AddSlider(_id, head, params, details, parent_id, value){            
+            let split = params.split("-");
+            let min   = split[0];
+            let max   = split[1];
+            let step  = split[2];
+            let html  = 
+            "<div style='display:flex;flex-direction:column;'>"                                                                                        +  
+                "<label style='margin-top:2px;margin-left:7px'> &bull; " + head + "</label>"                                                           +
+                "<div style='display:flex;margin-left:20px;margin-top:0px'>"                                                                         +
+                    "<input class='slider' onchange='SetFloatSliderLabelValue(\"" + _id + "\")' type='range' min='" + min + "' max='" + max + "' value='" + value     + 
+                    "' step='" + step + "' id='" + _id + "'></input>"                                                                                  +
+                    "<label style='margin-left:6px;margin-top:0px' id='" + _id + "_label'>" + value + "</label>"                                      +       
+                "</div>"                                                                                                                               +    
+            "<div style='display:flex;flex-direction:column;margin-top:0px;margin-left:19px' id='" + _id + "_details'>" + details + "</div></div>"  ;
+            AppendContent(html, parent_id);    
+        };
+        function SetCompatLayer(){
+            let value = document.getElementById("CompatLayer").value;
+            AhkSetCompatLayer(value);
+        }
+        function AddCompatLayerDropdown(parent_id, value){            
+            let options = 
+            "Don't Change,None,DWM8And16BitMitigation,Layer_Win95VersionLie,Win95,Win98,FaultTolerantHeap,Win2000,Win2000Sp2,Win2000Sp3,WinXP,WinXPSp2,WinXPSp3,VistaSp2".split(",")
+            let html = 
+            "<div style='display:flex;flex-direction:column;margin-top:0px;margin-left:0px'>"      +
+                "<label style='margin-left:7px'>&bull;&ensp;Windows compatibility options</label>" +
+                "<select onchange='SetCompatLayer()' style='margin-left:20px;width:400px' id='CompatLayer'>";     
+            for (let i=0; i < options.length; i++){
+                let selected = value === options[i] ? "selected" : "";
+                html += "<option name='CompatLayer ' " + selected + " value=" + options[i] + ">" + options[i] + "</option>"
+            } 
+            html += "</select></div>"       
+            AppendContent(html, parent_id);    
+        }
+        function SelectTab(selected_id){                
+            for (let i=0; i < g_.tabs.length; i++){
+                if (g_.tabs[i] === selected_id) 
+                document.getElementById(g_.tabs[i] + "_div").style.display = "flex";
+                else
+                document.getElementById(g_.tabs[i] + "_div").style.display = "none";
+            }
+        };
+        function AddTabs(tbs){
+            let tabs_row   = document.createElement("div");
+            tabs_row.style = "display:flex;flex-direction:row";
+            let tabs       = tbs.split("|")
+            g_.tabs        = []   
+            for (let i = 0; i < tabs.length; i++) {
+                if (tabs[i] === "") continue
+                g_.tabs.push(tabs[i])
+                let label = 
+                tabs[i].replace("Graphics", "&#128250;").replace("Sound", "&#127911;").replace("Input", "&#128377;").replace("File System", "&#128193;").replace("CPU", "MISC");
+                tabs_row.innerHTML += "<button id='" + tabs[i] + "-tab-button' style='width:80px;height:50px;font-size:20px;' onclick='SelectTab(\"" + tabs[i] + "\");'>" + label + "</button>"                  
+            }
+            let html = "<div class='cntrl_group'><div style='height:20px'></div>" + tabs_row.innerHTML + "<div style='height:20px'></div>";
+            html    += "<div class='warning' style='display:flex;flex-direction:row;'><img src='png\\WINE.png'style='width:60px;height:94px'>" +
+            "<div style='margin-top:20px;margin-left:20px'>The settings below are optimal for windows. On wine, you'll probably need tweak them a little, and even" + 
+            " so, at the moment, expect low compatibility</div></div></div>"
+            for (let i = 0; i < tabs.length; i++) {
+                let display = (i === 0) ? "flex" : "none";
+                html += "<div class='cntrl_group' style='display:" + display + ";flex-direction:column' id='" + tabs[i] + "_div'></div>"
+            }
+            AppendContent(html, "content");            
+        };
+        function ShowHint(hind_id){
+            let hint = document.getElementById(hind_id);           
+            hint.style.display      = "flex";     
+            var e = window.event;
+
+            var x = e.clientX-70;
+            var y = e.clientY-70;
+            hint.style.marginLeft  = x+"px";
+            hint.style.marginTop  = y+"px";
+            //return;   
+            //let space               = hint.offsetWidth;   
+            //hint.style.marginBottom = "-" + String(hint.offsetWidth) + "px";    
+            hint.style.marginTop    = "-20px";          
+        }
+        function HideHint(hind_id){
+            document.getElementById(hind_id).style.display = "none";
+        }
+        function AddHint(hint_id, hint, parent_id){
+            let parent = document.getElementById(parent_id);
+            if (parent === null) return;              
+            document.body.onclick = function() {
+                return;
+                let hints = document.getElementsByName("hint")
+                for (let i=0; i < hints.length; i++){
+                    hints[i].style.display = "none";
+                }
+            };
+            let hints = document.getElementsByName("hint");
+            for (let i=0; i < hints.length; i++){
+                hints[i].style.display = "none";
+            }
+            html = "<a onclick='ShowHint(\"" + hint_id + "\")' onmouseenter='ShowHint(\"" + hint_id + "\")' href='javascript:dummy()' style='position:relative; white-space:nowrap'>&nbsp;[?]<\a>" + 
+            "<div class='box' name='hint' id='" + hint_id +
+            "' style='display:none;z-index:1;flex-direction:column;margin-bottom:20px;position:absolute;' onclick='HideHint(\"" + hint_id + "\")' onmouseleave='HideHint(\"" + 
+            hint_id + "\")'>" + hint + "<i>click to hide</i></div>";
+            AppendContent(html, parent_id);
+        };     
+        function AddRadioHeader(_id, label, parent_id){
+            let html = 
+            "<div id='" + _id + "' style='display:flex;flex-direction:column;'>"           +            
+                    "<label style='margin-left:7px'>&bull; &ensp;" + label + "</label>"    +                                                              
+                "<div id='" + _id + "_details' style='margin-left:26px'></div>"            +
+            "</div>";     
+            AppendContent(html, parent_id)
+        };  
+        function AddRadio(name_value, label, parent_id, check){
+            check         = check ? "checked" : "";
+            let split     = name_value.split("=");
+            let name      = split[0];
+            let value     = split[1];           
+            let html = 
+            "<div style=display:flex;flex-direction:row;>" +
+                "<input id='" + name + "=" + value + "' " + check + " type='radio' name='" + name + "' value='" + value + "'style='display:flex;flex-direction:column;'>" + label + "</input>" +               
+            "</div>";  
+            AppendContent(html, parent_id);           
+        };  
+        function SetFloatSliderLabelValue(_id){
+            let slider = document.getElementById(_id);
+            let label  = document.getElementById(_id + "_label");
+            label.innerHTML = slider.value;
+        }
+        function SetSliderLabelValue(_id){                  
+            let slider = document.getElementById(_id);
+            let label  = document.getElementById(_id + "_label");
+            label.innerHTML = ["No limit", "640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900"
+            ,"1920x1080", "2560x1440", "3840x2160"][slider.value];
+        }
+        function AddResLimitWidget(_id, head, details, parent_id, index){
+            if (index === '') index = 0;
+            let val  =  ["No limit", "640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900"
+            ,"1920x1080", "2560x1440", "3840x2160"][index];           
+            let html = 
+            "<label style='margin-left:7px;margin-bottom:0px'>&bull; &ensp;" + head + "</label>"  +
+            "<div style='display:flex;flex-direction:row;margin-left:26px;margin-bottom:0px;margin-top:0px'>"   +
+                "<input class='slider' onchange='SetSliderLabelValue(\"" + _id + "\")' type='range' min='0' max='10' step='1' id='" + _id + "'' value='" + index + "'>" +    
+                "<label style='margin-left:6px;margin-top:0px' id='" + _id + "_label'>" + val + "</label>"  +                     
+            "</div>" + 
+            "<div style='margin-left:24px;margin-top:0px' id='" + _id + "_details'>" + details + "</div>";  
+            AppendContent(html, parent_id);
+        };
+        function AddHomePageWarning(){
+            let html = "<div style='height:370px' class='cntrl_group'><div class='warning' style='display:flex;flex-direction:row;font-size:20px;padding-bottom:20px'>" +
+            "<div style='margin-top:20px;margin-left:20px'>This is a beta version. Currently, I'm adapting the program to be fully compatible "      +
+            "with <a id='Wine' href='javascript:dummy()'>wine</a> and use wine\'s Direct3D dlls on Windows and while the transition is fairly advanced, " +
+            "several things are broken or missing on the GUI and on Direct3D 7 and earlier games, but if you're on windows, you can always "         +
+            "download the <a id='Stable' href='javascript:dummy()'>last stable version</a><br> </div></div></div>" 
+            AppendContent(html);
+            //document.body.style.backgroundColor = "black";
+        }
+        function CfgKBmacros(m){
+            let root       = document.createElement('div');
+            let macros     = JSON.parse(m);
+            for (let key in macros){
+                if (macros[key].toLowerCase() === 'false' || macros[key] === '') macros[key] = "None";
+            }
+            let html       = String(JSON.stringify(macros, null, 4));           
+            root.className = 'cntrl_group';
+            root.innerHTML = '<b>Keyboard Macros</b><br><br>'
+            keys           = "s0,s1,s2,s3,s4,s5,r0,r1,t0,t1".split(',')
+            for (let i=0; i < keys.length; i++){
+                let macro          = keys[i];
+                let row            = document.createElement('div');
+                let box            = document.createElement('input');
+                let emulator       = document.createElement('button');
+                let emulated       = document.createElement('button');
+                let label          = document.createElement('label');
+                label.innerHTML    = macro.indexOf('s') > -1 ? 'replaces' :  macro.indexOf('r') > -1 ? 'repeats' : 'toggles';
+                label.style.width         = '80px'
+                label.style.marginLeft    = '10px'
+                emulator.className        = 'xinput_dialog_cell'
+                emulator.style.marginLeft = '10px'
+                emulator.innerHTML        = macros[macro + 'k'] 
+                emulated.className        = 'xinput_dialog_cell'
+                emulator.style.marginLeft = '10px'
+                emulated.innerHTML        = macros[macro + 'v'] 
+                box.type                  = 'checkbox'
+                row.style.display         = 'flex';
+                row.style.marginBottom    = '10px';
+                box.checked               = macros[macro + 'e'] === 'true' ? true : false
+                row.appendChild(box);                
+                row.appendChild(emulator);
+                row.appendChild(label);
+                row.appendChild(emulated);
+                root.appendChild(row);      
+                emulator.onclick = function(){
+                    emulator.innerHTML  = SelectKey()
+                    emulator.innerHTML  = emulator.innerHTML == "Esc"  ? "None" : emulator.innerHTML
+                    macros[macro + 'k'] = emulator.innerHTML == "None" ? ""     : emulator.innerHTML 
+                }     
+                emulated.onclick = function(){
+                    emulated.innerHTML  = SelectKey()
+                    emulated.innerHTML  = emulated.innerHTML == "Esc"  ? "None" : emulated.innerHTML
+                    macros[macro + 'v'] = emulated.innerHTML == "None" ? ""     : emulated.innerHTML
+                }    
+                box.onchange = function(){
+                    macros[macro + 'e'] = box.checked ? 'true' : 'false'
+                } 
+            } 
+            let apply_div                 = document.createElement('div');
+            let apply                     = document.createElement('button');
+            apply_div.style.display       = "flex"
+            apply_div.style.flexDirection = "row-reverse"
+            apply.innerHTML               = "Apply"
+            apply.onclick                 = function(){                
+                for (let key in macros){
+                    let val = macros[key];
+                    val     = val === 'None' ? '' : val
+                    AhkPrint(key + "=" + macros[key])
+                    AhkEditCfg('k2k', key, val);
+                }
+                AhkSaveCfg();
+            }
+            apply_div.appendChild(apply);
+            root.appendChild(apply_div);
+            document.getElementById("content").innerHTML = '';    
+            document.getElementById("content").appendChild(root);   
+        }
+        function ConfigXInput(Modes, Key_A, Key_B, Alt_A, Alt_B, RStick, Enabled, ForceFeedback, m, dz, spd, rs_alt){
+            if (dz      === '') dz       = '0.15';
+            if (spd     === '') spd      = '0.05';
+            if (m       === '') m        = '0';
+            if (rs_alt  === '') rs_alt   = '0';
+            if (Enabled === '') Enabled  = '0';
+            let selection   = {
+                Modes : [], Key_A : [], Key_B : [], Alt_A : [], Alt_B : [], rs_alt : rs_alt,
+                RS : RStick, Enabled : Enabled, FF : ForceFeedback, Modifier : m, DeadZone : dz, MouseSpeed : spd
+            }
+            let curr_modes  = Modes.split(",")
+            let curr_keyA   = Key_A.split(",")
+            let curr_keyB   = Key_B.split(",")
+            let curr_altA   = Alt_A.split(",")
+            let curr_altB   = Alt_B.split(",")
+            for (let i=0; i<curr_modes.length; i++){
+                selection.Modes.push(curr_modes[i]);
+                selection.Key_A.push(curr_keyA[i]);
+                selection.Key_B.push(curr_keyB[i]);
+                selection.Alt_A.push(curr_altA[i]);
+                selection.Alt_B.push(curr_altB[i]);
+            }
+            let help                = document.createElement("div");
+            help.innerHTML          = '<div class="xinput_dialog_popup_container" style="display:none"><div class="xinput_dialog_popup cntrl_group">\
+                <b>Buttons modes:</b>\
+                <ul>\
+                    <li><b>Dinput Gamepad:</b> the button emulates the Directinput button - from 1 to 12 -\
+                    configured in the <i><b>Key A</b></i> column\
+                    <li><b>Keyboard:</b> the button emulates one or two keyboard keys or mouse buttons\
+                    configured in the  <i><b>Key A</b></i> and <i><b>Key B</b></i> columns, or - if the modifier button\
+                    is held down - in the <i><b>Alt A</b></i> and <i><b>Alt B</b></i> columns\
+                    <li><b>Keyboard repeat:</b> while held down, the button continuously generates input events from\
+                    the keyboard key or mouse button configured in the  <i><b>Key A</b></i> column. Key combinations\
+                    or alternative keys are not supported in this mode and neither is the mouse wheel \
+                    <li><b>Keyboard toggle:</b> when the button is pressed, a "keydown" event from the\
+                    <i><b>Key A</b></i> key is generated and a when the button is pressed again, a "keyup"\
+                    event will be sent. Mouse input is not supported in this mode and neither\
+                    are key combinations or alternative keys\
+                    <li><b>Keyboard tap:</b> Simnilar to <b>Keyboard</b>, but pressing the button generates a single tap of the correspoding key even if the\
+                    button is held down<br></li>\
+                    <li><b>NOTE:</b> there will be some games on which <b>Keyboard</b> behaves as <b>Keyboard repeat</b> and <b>Keyboard tap</b> behaves as <b>Keyboard</b> \
+                </ul>\
+                <b>Dpad modes:</b>\
+                <ul>\
+                    <li><b>Dpad:</b> The dpad behaves as it normally does and whatever is set on the <b>Up\\Down\\Left\\Right</b> columns is ignored</li>\
+                    <li><b>Keyboard:</b> The dpad emulates four keyboard keys or mouse buttons configured on the <b>Up\\Down\\Left\\Right</b> columns</li>\
+                </ul>\
+                <b>Left stick modes</b>\
+                <ul>\
+                    <li><b>Left stick:</b> The left analog stick functions as is normally does (unless the right stick mode is set as <b>Left stick</b> - see bellow)\
+                    and whatever is set on the <b>Up\\Down\\Left\\Right</b> columns is ignored</li>\
+                    <li><b>Keyboard:</b> The left analog stick emulates the four keyboard keys or mouse\
+                    buttons configured in the <b>Up\\Down\\Left\\Right</b> columns\
+                </ul>\
+                <b>Right stick modes:</b>\
+                <ul>\
+                    <li><b>Right stick:</b> The right analog stick functions as is normally does</li>\
+                    <li><b>Left stick:</b> The right analog stick functions as the left stick, and\
+                    the left stick as the right, unless it is set to emulate the keyboard </li>\
+                    <li><b>Mouse:</b> self explanatory </li>\
+                </ul>\
+                <b>Dead Zone:</b> The dead zone of the controller sticks when they\'re configured to emulate DirectInput sticks<br>\
+                <b>Mouse sensitivity:</b> How fast the mouse moves when the Right Stick is configured to emulate the mouse<br>\
+                <b>Alt mouse method:</b> Use an alternative method to emulate the mouse with the right stick \
+                <div style="display:flex;flex-direction:row-reverse"><button onclick="document.getElementsByClassName(\'xinput_dialog_popup_container\')[0].style.display = \'none\'">Close</button></div>\
+                </div></div>';
+            let root                   = document.createElement("div");
+            root.className             = "xinput_dialog_root";
+            let enabled                = document.createElement("input")
+            let enabled_label          = document.createElement("label")
+            enabled_label.innerHTML    = "<b>Enabled</b>"
+            enabled.type               = "checkbox"
+            enabled_label.for          = enabled;
+            enabled.style.marginBottom = '20px'; 
+            enabled.onchange           = function(){selection.Enabled = this.checked};
+            root.appendChild(help);           
+            root.appendChild(enabled);
+            root.appendChild(enabled_label);
+            let table               = document.createElement("table");
+            let buts                = "A,B,X,Y,Left Button,Right Button,Left Trigger,Right Trigger,Back,Start,Left Stick - Press,Right Stick - Press".split(",")
+            let what                = "Keyboard,Keyboard repeat,Keyboard Toggle,DirectInput Gamepad,Keyboard Tap".split(",")
+            let keys                = "Key_A,Key_B,Alt_A,Alt_B".split(",")                    
+            root.className          = "xinput_dialog_root";            
+            root.appendChild(table);
+            table.innerHTML = " <tr>" +
+                "<th>Button</th>"   +
+                "<th style='margin-right:130px'>Mode</th>"     +
+                "<th style='margin-right:130px'>Key A</th>"    +
+                "<th style='margin-right:130px'>Key B</th>"    +
+                "<th style='margin-right:130px'>Alt A</th>"    +
+                "<th style='margin-right:130px'>Alt B</th>"    +
+           "</tr>"                              
+            for (let i=0; i<buts.length; i++) {
+                let index                    = i;
+                let tr                       = document.createElement("tr");      
+                let button                   = document.createElement("th"); 
+                let emulate_what             = document.createElement("th"); 
+                let emulate_what_drowp_down  = document.createElement("select"); 
+                emulate_what_drowp_down.style= "width:130px"
+                button.innerHTML = buts[i];     
+                emulate_what.appendChild(emulate_what_drowp_down);
+                tr.appendChild(button); 
+                tr.appendChild(emulate_what);                               
+                table.appendChild(tr);  
+                for (let j=0; j<what.length; j++) {
+                    let mode_index = j;
+                    let opt        = document.createElement("option");
+                    opt.value      = j
+                    opt.innerHTML  = what[j];
+                    emulate_what_drowp_down.appendChild(opt);
+                    if (selection.Modes[index+4] == mode_index) {opt.selected = true;}
+                } 
+                let alternatives = []
+                for (let j=0; j<keys.length; j++) {
+                    let column       = j;
+                    let curr         = selection[keys[j]][i+4];
+                    let th           = document.createElement("th");
+                    let select       = document.createElement("button");
+                    select.innerHTML = curr == '' ? "None" : curr;
+                    select.className = "xinput_dialog_cell";
+                    th.appendChild(select);
+                    tr.appendChild(th);
+                    alternatives.push(select)
+                    select.onclick = function() {                                               
+                        if (emulate_what_drowp_down.value === '3'){                            
+                            select.innerHTML = SelectXButton()
+                        }
+                        else select.innerHTML = SelectKey()
+                        selection[keys[column]][index+4] = select.innerHTML === "None" ? "" : select.innerHTML;
+                    }
+                }
+                emulate_what_drowp_down.onchange = function() {
+                    for (let j=0; j<alternatives.length; j++) {
+                        let column                       = j;
+                        alternatives[j].innerHTML        = "None";
+                        selection[keys[column]][index+4] = "";
+                        selection.Modes[Number(index+4)] = this.value;
+                    }
+                }
+            } 
+            let lstick_row       = document.createElement("tr");             
+            lstick_row.innerHTML = "<th>Left Stick</th>"
+            cells                = [];
+            buts                 = []
+            for (let i=0; i<5; i++) {                
+                let th = document.createElement("th");
+                if (i!=0){
+                    let index     = i-1;
+                    let but       = document.createElement("button");
+                    but.innerHTML = "None";
+                    but.className = "xinput_dialog_cell";
+                    //but.disabled  = selection.Modes[16] === '0' ? "true" : ""
+                    buts.push(but)
+                    th.appendChild(but);      
+                    but.onclick = function() {
+                        if (selection.Modes[16] === '0'){
+                            let msg = "The left stick mode is configured as 'left stick'. There is no need to confirure directions individually\n\n"+
+                            "Select 'keyboard' mode, if you want to assign keys to the left stick"
+                            return alert(msg)
+                        }
+                        but.innerHTML             = SelectKey()                       
+                        selection.Key_A[16+index] = but.innerHTML === "None" ? "" : but.innerHTML
+                    }                              
+                } else {
+                    let dropdown         = document.createElement("select");
+                    dropdown.innerHTML   = selection.Modes[16] === '3' ? "<option value='0'>Left Stick</option><option value='3' selected>Keyboard</option>" : 
+                    "<option value='0'>Left Stick</option><option value='3'>Keyboard</option>";
+                    dropdown.style.width = "154px"
+                    th.appendChild(dropdown);   
+                    dropdown.onchange = function() {
+                        selection.Modes[16] = this.value
+                        selection.Modes[17] = this.value
+                        selection.Modes[18] = this.value
+                        selection.Modes[19] = this.value  
+                        for (let j=0; j<4; j++) {                                                      
+                            buts[j].innerHTML = "None";                           
+                        }
+                    }                  
+                }
+                lstick_row.appendChild(th);
+            }
+            let dpad_row         = document.createElement("tr");             
+            dpad_row.innerHTML   = "<th>Dpad</th>"
+            cells                = [];
+            let d_buts                 = []
+            for (let i=0; i<5; i++) {                
+                let th = document.createElement("th");
+                if (i!=0){
+                    let index     = i-1;
+                    let but       = document.createElement("button");
+                    but.innerHTML = "None";
+                    but.className = "xinput_dialog_cell";                    
+                    d_buts.push(but)
+                    th.appendChild(but);      
+                    but.onclick = function() {
+                        if (selection.Modes[0] === '0'){
+                            let msg = "The dpad mode is configured as dpad'. There is no need to confirure directions individually\n\n"+
+                            "Select 'keyboard' or keyboard tap mode, if you want to assign keys to the left stick"
+                            return alert(msg)
+                        }
+                        but.innerHTML = SelectKey()                       
+                        selection.Key_A[index] = but.innerHTML === "None" ? "" : but.innerHTML
+                    }                              
+                } else {
+                    let dropdown         = document.createElement("select");
+                    dropdown.innerHTML   = selection.Modes[0] === '3' ? "<option value='0'>Dpad</option><option value='3' selected>Keyboard</option><option value='4'>Keyboard Tap</option>" : 
+                    selection.Modes[0] === '4' ? "<option value='0'>Dpad</option><option value='3'>Keyboard</option><option value='4' selected>Keyboard Tap</option>" : 
+                    "<option value='0'>Dpad</option><option value='3'>Keyboard</option><option value='4'>Keyboard Tap</option>";
+                    dropdown.style.width = "154px"
+                    th.appendChild(dropdown);   
+                    dropdown.onchange = function() {                        
+                        selection.Modes[0] = this.value
+                        selection.Modes[1] = this.value
+                        selection.Modes[2] = this.value
+                        selection.Modes[3] = this.value  
+                        for (let j=0; j<4; j++) {                                                      
+                            d_buts[j].innerHTML = "None";                            
+                        }
+                        AhkPrint(JSON.stringify(selection.Modes, null, 4))
+                    }                  
+                }
+                dpad_row.appendChild(th);
+            }
+            let rstick_row       = document.createElement("tr");             
+            rstick_row.innerHTML = "<th>Right stick</th>"
+            let rstick_mode_cell = document.createElement("th");
+            let rstick_mode_mode = document.createElement("select");
+            let rstick_modes     = ["Right Stick", "Left Stick", "Mouse"]
+            for (let i=0; i<3; i++) {
+                let opt       = document.createElement("option");
+                opt.innerHTML = rstick_modes[i];
+                opt.value     = i;
+                rstick_mode_mode.appendChild(opt);
+                if (String(i)===selection.RS) opt.selected = true
+            }
+            rstick_mode_mode.style.width = "154px"
+            rstick_mode_cell.appendChild(rstick_mode_mode);
+            rstick_row.appendChild(rstick_mode_cell);
+
+            let modifier_row       = document.createElement("tr");             
+            modifier_row.innerHTML = "<th>Modifier</th>"
+            let modifier_cell      = document.createElement("th");
+            let modifier_select    = document.createElement("select");
+            let modifier_buttons   =  "A,B,X,Y,Left Button,Right Button,Left Trigger,Right Trigger,Back,Start,Left Stick - Press,Right Stick - Press, None".split(",")
+            for (let i=0; i<modifier_buttons.length; i++) {
+                let opt       = document.createElement("option");
+                opt.innerHTML = modifier_buttons[i];
+                opt.value     = i;
+                modifier_select.appendChild(opt);
+                if (String(i+5) === selection.Modifier || (selection.Modifier === '0' &&  i === 12) ) opt.selected = true;               
+            }
+            modifier_select.style.width = "154px"
+            modifier_cell.appendChild(modifier_select);
+            modifier_row.appendChild(modifier_cell);
+            modifier_select.onchange = function() {
+                let val = this.value === 12 ? 0 : parseInt(this.value) + 5
+                selection.Modifier = String(val);                
+            }
+
+            let stick_an_pads_header_row = document.createElement("tr");
+            stick_an_pads_header_row.innerHTML = "<th></th><th></th><th>Up</th><th>Down</th><th>Left</th><th>Right</th>"
+
+            table.appendChild(stick_an_pads_header_row);
+            table.appendChild(dpad_row);
+            table.appendChild(lstick_row);    
+            table.appendChild(rstick_row);
+            table.appendChild(modifier_row);
+            
+            let dead_zone_container       = document.createElement("div");
+            let dead_zone_input           = document.createElement("input");
+            let dead_zone_label           = document.createElement("label");
+            dead_zone_container.innerHTML = "<div style='margin-top:10px;margin-left:32px;display:flex;flex-direction:row;font-weight:bold'>Dead zone<div style=width:51px></div></div>"
+            dead_zone_input.type   = "range";
+            dead_zone_input.className = "xinput_range";
+            dead_zone_input.min    = 10;
+            dead_zone_input.max    = 50;
+            dead_zone_input.value  = 1;
+            dead_zone_container.children[0].appendChild(dead_zone_input);    
+            dead_zone_container.children[0].appendChild(dead_zone_label);    
+            dead_zone_input.onchange = function() {
+                dead_zone_label.innerHTML = this.value +  "%"
+                selection.DeadZone        = String(parseFloat(this.value)/100)
+            }
+            dead_zone_input.value     = selection.DeadZone * 100
+            dead_zone_label.innerHTML = dead_zone_input.value +  "%"
+            root.appendChild(dead_zone_container);
+
+            let mouse_sensitivity_container       = document.createElement("div");
+            let mouse_sensitivity_input           = document.createElement("input");
+            let mouse_sensitivity_label           = document.createElement("label");
+            mouse_sensitivity_container.innerHTML = "<div style='margin-top:10px;margin-left:32px;display:flex;flex-direction:row;font-weight:bold'>Mouse sensitivity</div>"
+            mouse_sensitivity_input.type   = "range";
+            mouse_sensitivity_input.className = "xinput_range";
+            mouse_sensitivity_input.min    = 50;
+            mouse_sensitivity_input.max    = 100;
+            mouse_sensitivity_input.value  = 1;
+            mouse_sensitivity_container.children[0].appendChild(mouse_sensitivity_input);    
+            mouse_sensitivity_container.children[0].appendChild(mouse_sensitivity_label);    
+            mouse_sensitivity_input.onchange = function() {
+                mouse_sensitivity_label.innerHTML = parseFloat(this.value)/100
+                selection.MouseSpeed              = String(parseFloat(this.value)/1000)
+            }
+            root.appendChild(mouse_sensitivity_container);
+            mouse_sensitivity_input.value     = parseFloat(selection.MouseSpeed) * 1000           
+            mouse_sensitivity_label.innerHTML = parseFloat( mouse_sensitivity_input.value) / 100
+
+            let alt_mouse                = document.createElement("input")
+            let alt_mouse_label          = document.createElement("label")
+            alt_mouse_label.innerHTML    = "<b>Alt mouse method</b>"
+            alt_mouse.type               = "checkbox"
+            alt_mouse_label.for          = alt_mouse;
+            alt_mouse.style.marginLeft   = '32px';  
+            alt_mouse.style.marginTop    = '12px';  
+            alt_mouse.onchange = function() {
+                selection.rs_alt = String(this.checked)
+            }
+            root.appendChild(alt_mouse);
+            root.appendChild(alt_mouse_label);
+
+            let apply_div                 = document.createElement("div")    
+            apply_div.style.display       = "flex";
+            apply_div.style.flexDirection = "row-reverse"
+            apply_div.style.marginTop     = "20px";
+            apply_div.style.gap           = '10px';
+            let apply                     = document.createElement("button");
+            apply.innerHTML               = "Apply";           
+            let help_butt                 = document.createElement("button");
+            help_butt.style.marginRight   = "10px";
+            help_butt.innerHTML           = "Help - see all the options explained";
+            apply_div.appendChild(apply);
+            apply_div.appendChild(help_butt);
+            root.appendChild(apply_div);
+            apply.onclick = function() {
+                AhkPrint(JSON.stringify(selection, null, 4))
+                AhkEditCfg('j2k', 'mds', selection.Modes.join(","))
+                AhkEditCfg('j2k', 'a', selection.Key_A.join(","))
+                AhkEditCfg('j2k', 'b', selection.Key_B.join(","))
+                AhkEditCfg('j2k', 'x', selection.Alt_A.join(","))
+                AhkEditCfg('j2k', 'y', selection.Alt_B.join(","))
+
+                AhkEditCfg('j2k', 'rs', selection.RS)
+                AhkEditCfg('j2k', 'u', selection.Enabled)
+                AhkEditCfg('j2k', 'FF', selection.FF)
+                AhkEditCfg('j2k', 'm', selection.Modifier)
+                AhkEditCfg('j2k', 'dz', selection.DeadZone)
+                AhkEditCfg('j2k', 'spd', selection.MouseSpeed)
+                AhkEditCfg('j2k', 'rs_alt', selection.rs_alt)
+                AhkSaveCfg()
+                alert('Done!')
+            }
+            help_butt.onclick = function() {
+                help.children[0].style.display = "flex";
+            }
+            document.getElementById("content").innerHTML = '';    
+            document.getElementById("content").appendChild(root);       
+        }
+        function Wellcome(){
+            let html =
+            "<div class='cntrl_group' width:100%;min-height:480px;background-color:blue;display:flex;flex-direction:column;gap:2px;;margin-bottom:0px>" +
+                "<h1 style='margin-top:0px;margin-bottom:0px'>Wellcome to WineHooks - formerly peixoto's patch<h1><h2 style='margin-top:-16px'>Find your game in the list on the left on the left or</h2>" +
+                "<h2><a id='donwload' href='javascript:dummy()'>&#8226; Download profiles</a></h2><h2><a id='create' href='javascript:dummy()'>&#8226; Create a game profile</a></h2>" +   
+                "<div style='display:flex'><h2 style='margin-right:10px'>Get or offer support on</h2><img id='patreon' style='cursor:pointer;width:32px;height:32px;margin-top:16px'" + 
+                " src='png//patreon.png'></img><h2 style='color:#0000EE;cursor:pointer'>Patreon</h2></div>" + 
+                "<div id='loading' style='display:none'> <div class='lds-dual-ring'></div> <div style='margin-left:16px'>Fetching the profiles list from GitHUB. this can take a few seconds</div></div>" 
+            "</div>"
+            document.getElementById("content").innerHTML = ''; 
+            AppendContent(html); 
+        }
+        function GetHelpFileDownLoadPath(github_nfo, name){
+            for (let i=0; i<github_nfo.length; i++){    
+                let nfo = github_nfo[i]                      
+                if (name.toLowerCase() === nfo.name.toLowerCase()){
+                    AhkPrint(nfo.name + " " + name);      
+                    return nfo.download_url;
+                }
+            }  
+            return ""
+        }
+        function GetCommonHelpFileName(name){
+            let names = ["ddraw", "directdraw", "gl", "gldefault", "DX8", "DX9", "DX10","DX11", "DX12", "CPU", "Sound", "Input"]
+            for (let i=0; i<names.length; i++){
+                let n = names[i];
+                if (n.toLowerCase() + ".txt" === name.toLowerCase()){
+                    return name;
+                }
+            }  
+            return null
+        }
+        function DownLoadCommonHelpFiles(github_nfo){
+            for (let i=0; i<github_nfo.length; i++){    
+                let nfo  = github_nfo[i] 
+                let name = GetCommonHelpFileName(nfo.name)    
+                //AhkPrint(name + " " + nfo.name);
+                if (name !== null)  {
+                    let xmlHttp    = new XMLHttpRequest();   
+                    xmlHttp.onload = onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            AhkSaveFile("Help\\" + nfo.name, this.responseText);                            
+                        }
+                    };
+                    xmlHttp.open("GET", nfo.download_url, false); // false for synchronous request
+                    xmlHttp.send(); 
+                }                      
+            }    
+        }
+        function ParseGITHubReply(json, helpnfo, tablesinfo, scripts){  
+            let scripts_nfo = JSON.parse(scripts);
+            let tables_nfo  = JSON.parse(tablesinfo);
+            let help_nfo    = JSON.parse(helpnfo);
+            let jsn         = JSON.parse(json);   
+            let pretty      = JSON.stringify(jsn, null, 4);                      
+            document.getElementById("content").style.overflow = "hidden"              
+            document.getElementById("content").innerHTML      = "<div class='cntrl_group' style='overflow:auto;height:330px;width:1054px' id='profiles'></div>" +
+            "<div style='margin-top:10px;display:flex;flex-direction:row-reverse'><button disabled id='download'>Download</button><div style='padding-top:2px;margin-right:10px' id='progress'></label></div>"      
+            document.getElementById("progress").innerHTML = "Fetching info"          
+            for (let i=0; i<jsn.length; i++){               
+                let html = '<div><input type="checkbox" id="__id__" name="__id__">' +
+                '<label for="__id__">__label__</label><br><div>'.replace("__id__", "profile" + i).replace("__label__", jsn[i]["name"]);
+                AppendContent(html, "profiles") ;   
+            }            
+            document.getElementById("progress").innerHTML = "Please wait"  
+            document.getElementById("progress").innerHTML = ""  
+            document.getElementById("download").disabled  = false  
+            DownLoadCommonHelpFiles(help_nfo);     
+            document.getElementById("download").onclick   = function(){
+                let children = document.getElementById("profiles").children;             
+                let count    = 0    
+                let total    = 0
+                let errors   = []   
+                for (let i=0; i<children.length; i++){                                     
+                    if (children[i].children[0].checked) 
+                    total += 1
+                }      
+                for (let i=0; i<children.length; i++){
+                    let box    = children[i].children[0];   
+                    let label  = children[i].children[1];                             
+                    if (box.checked){   
+                        count += 1;
+                        document.getElementById("progress").innerHTML = "Downloading profile " + count + "/" + total + " " //+ label.innerHTML;                     
+                        let xmlHttp    = new XMLHttpRequest();   
+                        xmlHttp.onload = onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                AhkSaveFile("Profiles\\" + jsn[i].name, this.responseText);                                
+                                let hlp_fle_name = AhkGetHelpFileName(this.responseText);
+                                if (GetHelpFileDownLoadPath(help_nfo, hlp_fle_name) !== ""){
+                                    let h_xmlHttp = new XMLHttpRequest();
+                                    h_xmlHttp.onload = onreadystatechange = function() {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                            //AhkPrint(this.responseText)
+                                            //AhkPrint("Help\\" + hlp_fle_name)
+                                            AhkSaveFile("Help\\" + hlp_fle_name, this.responseText);
+                                        }
+                                    };
+                                    try {
+                                        h_xmlHttp.open("GET", GetHelpFileDownLoadPath(help_nfo, hlp_fle_name), true); // false for synchronous request
+                                        h_xmlHttp.send();
+                                    } catch(err) {
+                                        errors.push(hlp_fle_name);
+                                    }
+                                    
+                                } 
+                                let cheat_table_name = AhkGetCheatTableName(jsn[i].name);
+                                let cheat_table_path = GetHelpFileDownLoadPath(tables_nfo, cheat_table_name);
+                                if (cheat_table_path !== ""){
+                                    let c_xmlHttp = new XMLHttpRequest();
+                                    c_xmlHttp.onload = onreadystatechange = function() {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                            AhkSaveFile("CheatTables\\" + cheat_table_name, this.responseText);
+                                        }
+                                    };
+                                    try {
+                                        c_xmlHttp.open("GET", cheat_table_path, true); // false for synchronous request
+                                        c_xmlHttp.send();
+                                    } catch(err) {
+                                        errors.push(cheat_table_name);
+                                    }    
+                                    cheat_table_name = cheat_table_name + ".ahk"
+                                    cheat_table_path = GetHelpFileDownLoadPath(tables_nfo, cheat_table_name);  
+                                    c_xmlHttp.onload = onreadystatechange = function() {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                            AhkSaveFile("CheatTables\\" + cheat_table_name, this.responseText);
+                                        }
+                                    };                                
+                                    try {
+                                        c_xmlHttp.open("GET", cheat_table_path, true); // false for synchronous request
+                                        c_xmlHttp.send();
+                                    } catch(err) {
+                                        errors.push(cheat_table_name);
+                                    }                                    
+                                }
+                                let script_fle_name = AhkGetScriptFileName(this.responseText);                               
+                                let script_path     = GetHelpFileDownLoadPath(scripts_nfo, script_fle_name);                               
+                                if (script_path !== ""){
+                                    let src_xmlHttp = new XMLHttpRequest();
+                                    src_xmlHttp.onload = onreadystatechange = function() {
+                                        if (this.readyState == 4 && this.status == 200) {                                            
+                                            AhkSaveFile("scripts\\" + script_fle_name, this.responseText);
+                                        }
+                                    };
+                                    try {
+                                        src_xmlHttp.open("GET", script_path, true); // false for synchronous request
+                                        src_xmlHttp.send();                                        
+                                    } catch(err) {
+                                        errors.push(script_fle_name);
+                                    }                                   
+                                } 
+                            }
+                        };
+                        xmlHttp.open("GET", jsn[i].download_url, false); // false for synchronous request
+                        xmlHttp.send(); 
+                    }; 
+                }
+                if (errors.length > 0){
+                    let failed = "";
+                    for (let i=0; i<errors.length; i++){
+                        failed += errors[i] + "\n"
+                    }
+                    AhkPrint("Error processing files:\n" + failed);
+                }
+                AhkDownLoadFinished();
+            }        
+        }
+        function PSwapHelp(){
+            document.body.innerHTML = "<div><ul>\
+            <li>Pixel shader override is very similar to texture swapping, except that when you dump a shader, you'll have two files on the same folder. A binary file and a text file<br>\
+            <li style='margin-top:10px'>The text file contains DirectX Shader Asm code. For DirectX 8 and 9, you can modify that file directly and the changes will take effect next time you start the game<br>\
+            <li style='margin-top:10px'> For 10 and 11 (and optionally for Direct3D 9) you must create an additional .hlsl file (same name as the .bin and .txt files) and the code in that file will replace the one in\
+	        the .bin\.txt files. Use the respective shader models supported by each API"
+            document.body.style.backgroundColor = "#dcdcdc";
+        }
+        function TSwapHelp(path){
+            let b =  "&#11166; REPLACING THE TEXTURE<br><br>\
+            <div style='margin-left:40px'>To finally replace a texture, all you have to do is to place a replacement image with the right format and name in the right location<br>\
+            Say the path option was configured as <b>%path%VOKSI\\SomeGame</b>, textures will de dumped to:<br>\
+            <b> %path%VOKSI\\SomeGame\\Dumps</b> and the replacement should be placed in:<br>\
+            <b> %path%VOKSI\\SomeGame\\Replacements</b><br>\
+            The replacement file must have the same name as the dump, but is installed on the replacements folder</div>\
+            <br>\
+            &#11166; REPLACEMENT FILE\PIXEL FORMAT<br>\
+            <ul>\
+            <li> Replacement textures must also be in the .dds file format. The recommended pixel format for all games is DXT5, but remember that textures in compressed DXTn formats must have\
+            sizes that are integer multiples of 4. Even if some programs can create DXTn files with different sizes, those won't be loaded<br>\
+            <li> To get arround this limitation, or if you want the best possible quality, use the A8R8G8B8 format or - for OpenGl, Direct3D 10 and Direct3D 11 games - A8B8G8R8\
+            <li> If you want small files, use the DXT1 format, but note that this format doesn't support partial transparency<br>\
+            <li> On Direct3D 7 and earlier, you will frequently find textures with transparency, but no alpha channel. These textures use chroma keying. For these, create replacements\
+            preferably in the X8R8G8B8 format - R5G6B5 and X1R5G5B5 will also work. The replacement texture will inherit the color key of the original texture. If the replacement texture\
+            doesn't display transparency correctly, use the same pixel format as the original. This will be fixed in a (not so near) future</ul>\
+            \
+            &#11166; MIPMAPS\
+            - Mipmaps are supported in all formats and APIs, but pay attention to the following:<ul>\
+            <li> On DirectX 7 and earlier, mipmapped textures must have power of two dimensions\
+            <li> On modern OpenGl games, as in Direct3D 10 and 11, always use mipmapped textures with at least as many levels as the textures they are intended to replace</ul>\
+            \
+            &#11166; Distributing textures<br>\
+            <div style='margin-left:40px'>If you want to distribute textures you have created, you can <a id=compile href=''>compile</a> your dumps into a single tinny file: dump._dds. That reduces the size of the files you have to distribute\
+            and avoid trouble by distributing copyrighted material, asn you can distribute only the dump._dds file no the original dumps. The replacements, obviously, must be distributed.\
+            After compiling your, the program ignores all .dds files in the dumps folder, therefore, if you dump new textures, run the compiler again or delete the dump._dds file)</div>"
+            while (b.indexOf('%path%') > -1){
+                b = b.replace('%path%',  path);
+            }
+            document.body.innerHTML = b
+            //document.body.className = "cntrl_group";
+            document.getElementById("compile").onclick = function(){
+                CompileTextures(path);
+                return false;
+            };
+            document.body.style.backgroundColor = "#dcdcdc";
+        }
+        function dummy(){
+            return;
+        };
+    </script>  
+    <body>       
+        <div id="content"><div>     
+    </body>    
+</html>

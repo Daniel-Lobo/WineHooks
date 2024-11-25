@@ -1,0 +1,1069 @@
+; <COMPILER: v1.1.15.03>
+#persistent
+memlib_sound(sound) {
+return (sound=1) ? A_windir "\media\Windows Foreground.wav"  : (sound=0) ? A_windir "\media\Windows Ding.wav"
+:  A_windir "\media\Windows Critical Stop.wav"
+}
+get_process_list()
+{
+process_list := {}
+snapshot_handle := dllcall("CreateToolhelp32Snapshot", "int", 0x00000002, int, 0)
+varsetcapacity(lppe, 556 , 0),	numput(556, lppe, 0,Int)
+success :=  dllcall("Process32First", "Ptr", snapshot_handle, "Ptr", &lppe)
+process_list.insert({"name" : StrGet(&lppe + 36, 520, 0), "ID" : NumGet(lppe, 8, "Int")})
+offset := (A_ptrsize=4) ? 36 : 44
+while (success = 1)
+{
+varsetcapacity(lppe, 556 , 0),	numput(556, lppe, 0,Int)
+success := dllcall("Process32Next", "Ptr", snapshot_handle, "Ptr", &lppe)
+process_list.insert({"name" : StrGet(&lppe + offset, 520, 0), "ID" : NumGet(lppe, 8, "Int")})
+}
+return 	process_list
+}
+open_process(ProcessID, access = "", InheritHandle = 0)
+{
+if access =
+access := 0x0008 | 0x0010 | 0x0020 |  0x0400
+return DllCall("OpenProcess", "Int", access, "Char", InheritHandle, "UInt", ProcessID, "Uint")
+}
+get_process_handle(process_, access = "")
+{
+for k, v in get_process_list()
+{
+if v.name = process_
+return open_process(v.ID, access)
+}
+}
+close_process_handle(hProcess){
+return dllcall("CloseHandle", "int", hProcess)
+}
+write_process_memory(hProcess, adress, type_, value)
+{
+size := {"char": 1, "uchar": 1, "short": 2, "int": 4, "array": value._MaxIndex()
+, "float" : 4, "str" : (StrLen(value)+1) * 2}
+if (type_ = "array")
+{
+varsetcapacity(buffer, size[type_], 0)
+loop, % value._MaxIndex()
+Numput(value[A_index], buffer, A_index - 1, "UChar")
+}
+else if  (type_ = "str")
+{
+varsetcapacity(buffer, size[type_], 0)
+StrPut(value, &buffer, size[type_], "UTF-16")
+}
+else
+{
+varsetcapacity(buffer, size[type_], 0)
+Numput(value, buffer, 0, type_)
+}
+r := dllcall("WriteProcessMemory"
+,"Ptr", hProcess
+,"Ptr", adress
+,"Ptr", &buffer
+,"Ptr", size[type_]
+,"Ptr", 0
+,"uint")
+return r
+}
+read_process_memory(hProcess, adress, type_, arraysize = "")
+{
+size := {"char": 1, "UChar": 1, "short": 2, "int": 4, "Uint": 4, "Ptr": 4, "array": arraysize
+, "float" : 4}
+if (type_ = "array")
+varsetcapacity(buffer, arraysize, 0)
+else
+varsetcapacity(buffer, size[type_], 0)
+r := dllcall("ReadProcessMemory"
+,"Int", hProcess
+,"Ptr", adress
+,"Ptr", &buffer
+,"UInt", size[type_]
+,"Int", 0
+,"Uint")
+if ! r
+return
+if (type_ = "array")
+{
+return_value := []
+loop, % arraysize
+return_value.insert(Numget(buffer,  A_index - 1, "UChar"))
+}
+else return_value := Numget(buffer,  0, type_)
+return return_value
+}
+read_pointer_sequence(hprocess, baseadress, offsets)
+{
+pointer := read_process_memory(hprocess, baseadress, "Ptr")
+for k, offset in offsets
+{
+adress := pointer + offset
+pointer := read_process_memory(hprocess, adress, "Ptr")
+}
+return [adress, pointer]
+}
+class CodeInjection
+{
+__New(hprocess, addy, newcode)
+{
+format := A_FormatInteger
+setformat, integer, H
+this.process_ := hprocess
+this.addy := addy
+this.newcode := newcode
+this.original_code := read_process_memory(hprocess, this.addy, "array", this.newcode._maxIndex())
+setformat, integer, %format%
+}
+_enable()
+{
+return write_process_memory(this.process_, this.addy, "array", this.newcode)
+}
+_disable()
+{
+return write_process_memory(this.process_, this.addy, "array", this.original_code)
+}
+switch()
+{
+current_code := read_process_memory(this.process_, this.addy, "array", this.newcode._maxIndex())
+for k, v in current_code
+fileappend, % v ":" this.original_code[k] ":" this.newcode[k]"`n", *
+if arrays_are_equal(current_code, this.original_code)
+{
+if this._enable()
+return memlib_sound(1)
+else return memlib_sound(-1)
+}
+else if arrays_are_equal(current_code, this.newcode)
+{
+if this._disable()
+return memlib_sound(0)
+else return memlib_sound(-1)
+}
+}
+__Delete()	{
+this._disable()
+}
+}
+VirtualAllocEx(hProcess, mem_size)
+{
+adress := dllcall("VirtualAllocEx"
+,"ptr", hProcess
+,"ptr", 0
+,"ptr", mem_size
+,"uint", 0x00001000 | 0x00002000
+,"uint", 0x04
+,"ptr")
+return adress
+}
+dllcallEx(h_process, Lib, function, argument)
+{
+if (Lib = "Kernel32.dll")
+procedure := dllcall("Kernel32.dll\GetProcAddress", ptr, dllcall("LoadLibraryW", str, Lib, ptr), astr, function, ptr)
+else
+procedure := GetProcAddressEx(h_process, Lib, function)
+if not procedure
+return 1
+adress := VirtualAllocEx(h_process, StrLen(argument) * 2)
+if not adress
+return 2
+if not write_process_memory(h_process, adress, "str", argument) {
+dllcall("VirtualFreeEx", ptr, h_process, ptr, adress, ptr, 0, uint, 0x8000)
+return 3
+}
+VarSetCapacity(out, StrLen(argument) * 2)
+r := dllcall("ReadProcessMemory"
+,"Int", h_process
+,"Ptr", adress
+,"ptr", &out
+,"UInt", StrLen(argument) * 2
+,"Int", 0
+,"Uint")
+if ! (hThread := dllcall("CreateRemoteThread"
+,ptr, h_process
+,ptr, 0
+,ptr, 0
+,ptr, procedure
+,ptr, adress
+,uint, 0
+,ptr, 0
+,ptr) )
+{
+dllcall("VirtualFreeEx", ptr, h_process, ptr, adress, ptr, StrLen(argument) * 2, uint, 0x4000 | 0x8000)
+return 4
+} else {
+dllcall("WaitForSingleObject", "ptr", hThread, "uint", 0xffffffff)
+dllcall("VirtualFreeEx", ptr, h_process, ptr, adress, ptr, 0, uint, 0x8000)
+dllcall("CloseHandle", ptr, hThread)
+return 0
+}
+}
+GetProcAddressEx(h_process, module, function)
+{
+this_fucntion_add := dllcall("Kernel32.dll\GetProcAddress", ptr, dllcall("LoadLibraryW", str, module, ptr), astr, function, ptr)
+this_module_info  := find_module(module, DllCall("GetCurrentProcessId"))
+offset            := this_fucntion_add - this_module_info.BaseAddr
+module_info := find_module(module, dllcall("GetProcessId", uint, h_process, uint))
+address     := module_info.BaseAddr + offset
+return address
+}
+ReverseInt32bytes(int32)
+{
+format := A_FormatInteger
+setformat, integer, H
+stringreplace, int32, int32, 0x, ,
+while (strlen(int32) < 8)
+int32 := "0" int32
+add_ := []
+loop, 4
+add_.insert("0x" substr(int32, 7 - (A_index - 1)*2, 2))
+setformat, integer, %format%
+return add_
+}
+Class CodeCave
+{
+__New(hprocess, from, code, nops = 0)
+{
+format := A_FormatInteger
+setformat, integer, H
+to := VirtualAllocEx(hprocess, code._MaxIndex() + 6 + nops)
+if not to
+return
+this.orginal_code := read_process_memory(hProcess, from, "array", 6 + nops)
+this.code := code
+this.from := from
+this.to := to
+this.hprocess := hprocess
+adress2go := ReverseInt32bytes(to)
+adress2return := ReverseInt32bytes(from + 6 + nops)
+this.jump_instruction := [0x68]
+loop, 4
+this.jump_instruction.insert(adress2go[A_index])
+this.jump_instruction.insert(0xc3)
+loop, % nops
+this.jump_instruction.insert(0x90)
+this.jumpback_instruction := [0x68]
+loop, 4
+this.jumpback_instruction.insert(adress2return[A_index])
+this.jumpback_instruction.insert(0xc3)
+setformat, integer, %format%
+}
+_enable()
+{
+if not write_process_memory(this.hprocess, this.from, "array", this.jump_instruction)
+return
+for k, v in this.jumpback_instruction
+this.code.insert(v)
+return write_process_memory(this.hprocess, this.to, "array", this.code)
+}
+_disable()	{
+return write_process_memory(this.hprocess, this.from, "array", this.orginal_code)
+}
+switch()
+{
+if arrays_are_equal(read_process_memory(this.hprocess, this.from, "array"
+,this.orginal_code._MaxIndex()), this.orginal_code)
+{
+if this._enable()
+return memlib_sound(1)
+else return memlib_sound(-1)
+}
+else if arrays_are_equal(read_process_memory(this.hprocess, this.from, "array"
+,this.jump_instruction._MaxIndex()), this.jump_instruction)
+{
+if this._disable()
+return memlib_sound(0)
+else return memlib_sound(-1)
+}
+}
+__Delete()	{
+this._disable()
+return dllcall("VirtualFreeEx", uint, this.hprocess, uint, this.to, uint, 0, uint, (MEM_RELEASE := 0x8000) )
+}
+}
+GetSystemInfo()
+{
+varsetcapacity(lpSystemInfo, (A_ptrsize=4) ? 36 : 48)
+dllcall("GetSystemInfo", "Int", &lpSystemInfo)
+MinimumApplicationAddres := numget(lpSystemInfo, 8, "ptr")
+MaximumApplicationAddress := numget(lpSystemInfo, 8+A_ptrsize, "ptr")
+fileappend, % MinimumApplicationAddres	" " MaximumApplicationAddress "`n", *
+return [MinimumApplicationAddres, MaximumApplicationAddress]
+}
+VirtualQueryEx(hprocess, base_adress)
+{
+varsetcapacity(MEMORY_BASIC_INFORMATION, (A_ptrsize=4)?28:48)
+success := dllcall("VirtualQueryEx"
+,"Int", hProcess
+,"Int", base_adress
+,"Ptr", &MEMORY_BASIC_INFORMATION
+,"Int", (A_ptrsize=4)?28:48)
+if not success
+return False
+return [numget(MEMORY_BASIC_INFORMATION, 0, "ptr"), numget(MEMORY_BASIC_INFORMATION, A_ptrsize*2, "int32")
+,numget(MEMORY_BASIC_INFORMATION, A_ptrsize*3, "ptr"), numget(MEMORY_BASIC_INFORMATION, (A_ptrsize=4)?20:36, "int32")]
+}
+find_memory_pages(hprocess)
+{
+r := GetSystemInfo()
+Min := r[1]
+Max := r[2]
+pages := []
+result := True
+while result
+{
+result :=  VirtualQueryEx(hprocess, Min)
+if (result[4] && 0x10) and (result[2] && 0x10)
+pages.insert({"base_" : result[1], "Alocation" : result[4], "Size" : result[3]})
+Min := result[1] + result[3]
+}
+for k, v in pages
+{
+Execute := v.Alocation && 0x10
+}
+return pages
+}
+arrays_are_equal(a1, a2)
+{
+format := A_FormatInteger
+setformat, integer, H
+if not (isobject(a1) or not isobject(a2)) {
+setformat, integer, %format%
+return 0
+}
+for k, v in a1
+{
+if a2[k] is not number {
+setformat, integer, %format%
+return 0
+}
+if (v != a2[k]) {
+setformat, integer, %format%
+return 0
+}
+}
+for k, v in a1
+fileappend, % "arrays " v " " a2[k] "`n", *
+setformat, integer, %format%
+return 1
+}
+get_process_ID(_process)
+{
+for k, v in get_process_list() {
+if (v.name = _process)
+return v.ID
+}
+}
+get_modules_list64(proccessID)
+{
+hProcess := open_process(proccessID)
+dllcall("Psapi.dll\EnumProcessModules", ptr, hProcess, ptr, 0, uint, 0, "uint*", required)
+VarSetCapacity(Modules, required)
+dllcall("Psapi.dll\EnumProcessModules", ptr, hProcess, ptr, &Modules, uint, required, "uint*", required)
+VarSetCapacity(name, 256 * 2)
+VarSetCapacity(info, 24)
+mods := []
+loop, % required/A_ptrsize
+{
+hModule := numget(&Modules + (A_index - 1) * A_ptrsize, "ptr")
+n := dllcall("Psapi.dll\GetModuleBaseNameW", ptr, hProcess, ptr, hModule, ptr, &name, uint, 256 * 2)
+i := dllcall("Psapi.dll\GetModuleInformation", ptr, hProcess, ptr, hModule, ptr, &info, uint, 24)
+mName := strget(&name+0, "UTF-16")
+baseAdd := numget(&info+0, "ptr")
+size := numget(&info+A_ptrsize, "uint")
+mods.insert({"BaseAddr" : baseAdd, "BaseSize" : size, "Name" : mName})
+}
+close_process_handle(hProcess)
+return mods
+}
+get_modules_list(proccessID)
+{
+if (A_ptrsize = 8)
+return get_modules_list64(proccessID)
+snapshot_handle := 24
+while snapshot_handle = 24
+snapshot_handle := dllcall("CreateToolhelp32Snapshot"
+,"int", (TH32CS_SNAPMODULE := 0x00000008)
+,"int", proccessID)
+modules := []
+varsetcapacity(module_info, 1061 , 0),	numput(1061, module_info, 0, "Int")
+success := dllcall("Module32First", "Ptr", snapshot_handle, "Ptr", &module_info)
+modules.insert({"BaseAddr"   : numget(module_info, 20, "UInt")
+,"BaseSize"   : numget(module_info, 24, "UInt")
+,"Name"       : strget(&module_info+32, 512, "UTF-8")})
+while success
+{
+varsetcapacity(module_info, 2061 , 0),	numput(1061, module_info, 0, "Int")
+success := dllcall("Module32Next", "Ptr", snapshot_handle, "Ptr", &module_info)
+modules.insert({"BaseAddr"   : numget(module_info, 20, "UInt")
+,"BaseSize"   : numget(module_info, 24, "UInt")
+,"Name"       : strget(&module_info+32, 512, "UTF-8")})
+}
+return modules
+}
+find_pages_in_range(hprocess, start, end_)
+{
+pages := []
+for k, v in find_memory_pages(hprocess)
+{
+if  ((v.base_ >= start) and (v.base_ + v.size <= end_))
+{
+pages.insert(v)
+}
+}
+return pages
+}
+read_process_struct(hProcess, byref struct, size, adress)
+{
+varsetcapacity(bytes_read, A_ptrsize, 0)
+r := dllcall("ReadProcessMemory"
+,"Ptr", hProcess
+,"Ptr", adress
+,"Ptr", &struct
+,"Ptr", size
+,"Ptr", &bytes_read
+,"Ptr")
+return numget(bytes_read, 0, "int")
+}
+find_module(name, id_process)
+{
+for k, v in get_modules_list(id_process)
+{
+if (name = v.name)
+return v
+}
+}
+aobscan(hprocess, id_process, module_name, bytes, dllname = "peixoto.dll", range_ = 1)
+{
+static sigscan:=0
+if not sigscan
+{
+if not DllCall("LoadLibrary", "Str", dllname, "Ptr")
+return "L " . dllname
+dllModule := DllCall("GetModuleHandle", "wstr", dllname, "ptr")
+if not dllModule
+return "G " . dllname
+sigscan := dllCall("GetProcAddress", "int", dllModule, "astr", "sigscan", "ptr")
+if not sigscan
+return "S " . A_lasterror
+}
+module := find_module(module_name, id_process)
+if not module
+return "M " module_name
+if (range_ = 1)
+pages := find_pages_in_range(hprocess, module.BaseAddr, module.BaseAddr + module.BaseSize)
+else if (range_ = 0)
+pages := find_memory_pages(hprocess)
+else if (range_ > 1)
+pages := find_pages_in_range(hprocess, range_, 0xffffffff)
+if not isobject(pages)
+return "P " range_
+varsetcapacity(buffer, bytes._maxindex(), 0)
+loop, % bytes._MaxIndex()
+Numput(bytes[A_index], buffer, A_index - 1, "UChar")
+for k, v in pages
+{
+varsetcapacity(pagemem, v.size)
+r := read_process_struct(hProcess, pagemem, v.size, v.base_)
+s := dllcall(sigscan
+,"ptr", &pagemem, "int", v.size
+,"ptr", &buffer, "int", bytes._maxindex())
+varsetcapacity(pagemem, 0)
+if (s > 0)
+return v.base_ + s
+}
+return
+}
+CreateIdleProcess(Target, workingdir = "", args = "", nowindow = "", rn="")
+{
+varsetcapacity(SECURITY_ATTRIBUTES, 8 + A_ptrsize)
+varsetcapacity(THREAD_SECURITY_ATTRIBUTES, 8 + A_ptrsize)
+varsetcapacity(PROCESS_INFORMATION, 8 + A_ptrsize * 2)
+varsetcapacity(STARTUPINFO, 9*4 + 2*2 + 7*A_ptrsize)
+numput(9*4 + 2*2 + 7*A_ptrsize, STARTUPINFO, 0 , "uint")
+if not workingdir
+{
+SplitPath, Target, OutFileName, OutDir
+if not OutDir
+workingdir := A_WorkingDir
+else workingdir := OutDir
+}
+flags := rn ? 0 : (CREATE_SUSPENDED := 0x00000004)
+if nowindow
+flags |= (CREATE_NO_WINDOW := 0x08000000)
+r := dllcall("CreateProcess"
+,"ptr", 0
+,"str", """" Target """ " args
+,"Ptr", &SECURITY_ATTRIBUTES
+,"Ptr", &THREAD_SECURITY_ATTRIBUTES
+,"uint", 1
+,"int", flags
+,"Ptr", 0
+,"Str", workingdir
+,"Ptr", &STARTUPINFO
+,"Ptr", &PROCESS_INFORMATION)
+if (r = 0)
+{
+return A_lasterror
+}
+else
+{
+pInfo            := {}
+pInfo.hProcess   := numget(PROCESS_INFORMATION, 0, "ptr")
+pInfo.hThread    := numget(PROCESS_INFORMATION, A_ptrsize, "ptr")
+pInfo.Process_id := numget(PROCESS_INFORMATION, A_ptrsize*2, "UInt")
+pInfo.Thread_id  := numget(PROCESS_INFORMATION, A_ptrsize*2 + 4, "UInt")
+return pInfo
+}
+}
+ResumeProcess(hThread){
+return dllcall("ResumeThread", "ptr", hThread, "uint")
+}
+BlockNewProcess(parent_id, child_list)
+{
+if not isobject(child_list)
+child_list := [child_list]
+for k, v in child_list
+{
+h_app := ""
+while not h_app
+{
+process, exist, %parent_id%
+if not errorlevel
+return
+h_app := get_process_handle(v, (PROCESS_CREATE_THREAD := 0x0002)
+| (PROCESS_QUERY_INFORMATION := 0x0400)
+| (PROCESS_VM_OPERATION := 0x0008)
+| (PROCESS_VM_READ := 0x0010)
+| (PROCESS_VM_WRITE := 0x0020))
+sleep, 100
+}
+dllcallEx(h_app, "Kernel32.dll", "ExitProcess", "0")
+}
+}
+memlib_Number2String(num, typ, reverse = False)
+{
+format := A_FormatInteger
+VarSetCapacity(var, 4)
+numput(num, var, typ)
+setformat, integer, h
+string :=
+if not reverse
+{
+loop, 4
+string .= numget(var, A_index-1, "uchar") " "
+}
+else
+{
+loop, 4
+string .= numget(var, 4-A_index, "uchar") " "
+}
+setformat, integer, %format%
+return string
+}
+memlib_String2ByteArray(string)
+{
+ret := []
+loop, parse, string, %A_space%
+{
+if instr(A_loopfield, "0x")
+field := A_loopfield
+else field := "0x" A_loopfield
+ret.insert(field + 0)
+}
+return ret
+}
+goto continuescript
+silent0:
+silent1:
+silent2:
+silent3:
+silent4:
+silent5:
+silent6:
+silent7:
+silent8:
+silent9:
+return
+Kbrd:
+for k, v in g_k2k.ks
+{
+if ( (evnt := keyevent(v.k)) = 1 )
+{
+v.o._yes()
+}
+else if (evnt = -1)
+{
+v.o._No()
+}
+else v.o._maybe()
+}
+return
+GPad:
+events := XinputGetEvent(1, J2K.dz)
+if not events
+return
+if (J2K.m)
+{
+if (events[J2K.m] > 0)
+J2K._A := J2K.X
+if (events[J2K.m] < 0)
+J2K._A := J2K.A
+}
+for k, v in J2K._A
+{
+if events[k] > 0
+v._yes()
+else if events[k] < 0
+v._no()
+else v._maybe()
+}
+(J2K.rs=2 && J2K.spd) ? XinputSetMousePos(J2K.dz, J2K.spd)
+if g_k2k.ks.Length()
+goto Kbrd
+return
+GPadB:
+events := XinputGetEvent(1, J2K.dz)
+if not events
+return
+if (J2K.m)
+{
+if (events[J2K.m] > 0)
+{
+J2K._A  := J2K.X
+J2K._B  := J2K.Y
+for k, v in J2K._A
+{
+J2K._A[k].s := J2K.A[k].s
+J2K._B[k].s := J2K.B[k].s
+}
+}
+if (events[J2K.m] < 0)
+{
+J2K._B  := J2K.B
+J2K._A  := J2K.A
+for k, v in J2K._A
+{
+J2K._A[k].s := J2K.X[k].s
+J2K._B[k].s := J2K.Y[k].s
+}
+}
+}
+for k, v in J2K._A
+{
+u := J2K._B[k]
+if (events[k] > 0)
+{
+v._yes()
+u._yes()
+}else  if (events[k] < 0)
+{
+v._no()
+u._no()
+}else
+{
+v._maybe()
+u._maybe()
+}
+}
+(J2K.rs=2 && J2K.spd) ? XinputSetMousePos(J2K.dz, J2K.spd)
+if g_k2k.ks.Length()
+goto Kbrd
+return
+Desk()
+{
+r := strsplit(g_.DSR ? g_.DSR : g_.dsk, "x")
+return {"w" : r[1], "h" : r[2]}
+}
+GetDesktopResolution()
+{
+r := {"w" : dllcall("GetSystemMetrics", uint,0) , "h" : dllcall("GetSystemMetrics", uint,1)}
+res := res.w "x" res.h
+if instr(g_.resolutions_list, res)
+return r
+hDesktop := dllcall("User32.dll\GetDesktopWindow", uint)
+dllcall("GetWindowRect", uint, hDesktop, uint, lRect[])
+r := {"w" : lRect.right, "h" : lrect.bottom}
+dllcall("ReleaseDC", uint, 0, uint, hDesktop)
+return r
+}
+FOV(oldfov, ratio)
+{
+ratio := strsplit(ratio, ":")
+oldfov *= 0.01745329252 / 2
+return 2 * (ATan(tan(oldfov) * ratio[1]/ratio[2]) * 57.29578)
+}
+print(msg = "")
+{
+static hnd
+if not hnd
+{
+DllCall("AllocConsole")
+hnd := DllCall("GetStdHandle", "int", -11)
+}
+return dllcall("WriteConsole", "int", hnd , "ptr", &msg, "int", strlen(msg), uint, 0, ptr, 0)
+}
+IsExtendedKey(key)
+{
+for k, v in strsplit("INS DEL HOME END PGUP PGDN up down left right", " ")
+{
+if (key = v)
+return 1
+}
+}
+keydown(vk, sc)
+{
+dllcall("keybd_event", uchar, vk, uchar, sc, uint, 0, uint, 0)
+}
+keyup(vk, sc)
+{
+dllcall("keybd_event", uchar, vk, uchar, sc, uint, 0x0002, uint, 0)
+}
+mousedown(vk, sc)
+{
+dllcall("mouse_event", uint, vk, uint, 0, uint, 0, uint, 0, uint, 0)
+}
+mouseup(vk, sc)
+{
+dllcall("mouse_event", uint, sc, uint, 0, uint, 0, uint, 0, uint, 0)
+}
+continuescript:
+global g_ := Parsecfg()
+global g_k2k := {}
+k2k          := Parsecfg(g_.k2K)
+g_k2k.ks := []
+for k, v in strsplit("t0 t1 r0 r1 s0 s1 s2 s3 s4 s5", " ")
+{
+if ! k2k[v . "e"]
+continue
+snd := k2k[v . "v"]
+o   := {}
+o.k := k2k[v . "k"]
+if instr(v, "t")
+{
+if instr(snd, "Button") || instr(snd, "Wheel")
+continue
+o.o := new Toggle(k2k[v . "v"])
+}
+else if instr(v, "r")
+{
+if instr(snd, "Wheel")
+continue
+else if instr(snd, "Button")
+o.o := new MRepeat(k2k[v . "v"])
+else
+o.o := new Repeat(k2k[v . "v"])
+}
+else if instr(v, "s")
+{
+if instr(snd, "Button") || instr(snd, "Wheel")
+o.o := new MSender(k2k[v . "v"])
+else
+o.o := new Sender(k2k[v . "v"])
+}
+g_k2k.ks.push(o)
+lbl  := "silent" k
+hkey := o.k
+if (hkey)
+Hotkey, % hkey, % lbl, on
+}
+global J2K := Parsecfg(g_.J2K)
+J2K.dz += 0.0
+if J2K.A and J2K.u
+{
+mds    := strsplit(J2K.mds, ",")
+J2K.dz += 0.0
+if (not J2K.dz)J2K.dz := 0.25
+J2K.A  := InitKeys(J2K.A, mds)
+J2K._A := J2K.A
+J2K.X  := InitKeys(J2K.X, mds)
+if J2K.B
+{
+mds    := strsplit("00000000000000000000")
+J2K.Y  := InitKeys(J2K.Y, mds)
+J2K.B  := InitKeys(J2K.B, mds)
+J2K._B := J2K.B
+settimer, GPadB, 15
+}
+else settimer, GPad, 15
+} else if g_k2k.ks.Length()
+settimer, Kbrd, 15
+class Sender {
+__new(key) {
+this.k  := key
+this.vk := GetKeyVK(key)
+this.sc := GetKeySC(key)
+this.s  := 0
+this.f  := IsExtendedKey(key)
+}
+_maybe(){
+if (this.s)
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.f, uint, 0)
+}
+_yes(){
+this.s := 1
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.f, uint, 0)
+}
+_No() {
+this.s := 0
+if (this.f)
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, 0x0003, uint, 0)
+else dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, 0x0002, uint, 0)
+}
+}
+class Tap extends Sender {
+__new(key) {
+this.k  := key
+this.vk := GetKeyVK(key)
+this.sc := GetKeySC(key)
+this.s  := 0
+this.f  := IsExtendedKey(key)
+}
+_maybe(){
+return
+}
+_yes(){
+this.s := 1
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.f, uint, 0)
+}
+_No() {
+this.s := 0
+if (this.f)
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, 0x0003, uint, 0)
+else dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, 0x0002, uint, 0)
+}
+}
+class Repeat {
+__new(key) {
+this.s  := 0
+this.t  := 0
+this.vk := GetKeyVK(key)
+this.sc := GetKeySC(key)
+this.f  := IsExtendedKey(key)
+}
+_maybe(){
+if ! (this.s)
+return
+else if (A_tickCount-this.t >= 200)
+{
+this.s *= -1
+this.t := A_tickCount
+if (this.s = -1)
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.f | 0x0002, uint, 0)
+}
+if (this.s > 0)
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.f, uint, 0)
+}
+_yes(){
+this.s := 1
+this.t := A_tickCount
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.f, uint, 0)
+}
+_No() {
+this.s := 0
+if (this.f)
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, 0x0003, uint, 0)
+else dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, 0x0002, uint, 0)
+}
+}
+class Toggle {
+__new(key) {
+this.s  := -1
+this.k  := key
+this.vk := GetKeyVK(key)
+this.sc := GetKeySC(key)
+this.f  := IsExtendedKey(key)
+}
+_maybe(){
+if (this.s = 1)
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.f, uint, 0)
+}
+_yes(){
+this.s *= -1
+if (this.s > 0)
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, this.f, uint, 0)
+else
+{
+if (this.f)
+dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, 0x0003, uint, 0)
+else dllcall("keybd_event", uchar, this.vk, uchar, this.sc, uint, 0x0002, uint, 0)
+}
+}
+_No() {
+}
+}
+class MSender {
+__new(key) {
+this.d   := 0
+this.fUp := 0
+if (key = "LButton")
+{
+this.fDn := 0x2
+this.fUp := 0x4
+}
+else if (key = "RButton")
+{
+this.fDn := 0x8
+this.fUp := 0x10
+}
+else if (key = "MButton")
+{
+this.fDn := 0x20
+this.fUp := 0x40
+}
+else if (key = "WheelDown")
+{
+this.fDn := 0x0800
+this.d   := -120
+}
+else if (key = "Wheelup")
+{
+this.fDn := 0x0800
+this.d   := 120
+}
+this.s  := 0
+}
+_maybe(){
+if (this.s) && (this.fUp)
+dllcall("mouse_event", uint, this.fDn, uint, 0, uint, 0, uint, this.d, uint, 0)
+}
+_yes(){
+this.s := 1
+dllcall("mouse_event", uint, this.fDn, uint, 0, uint, 0, uint, this.d, uint, 0)
+}
+_No() {
+this.s := 0
+dllcall("mouse_event", uint, this.fUp, uint, 0, uint, 0, uint, this.d, uint, 0)
+}
+}
+class MRepeat {
+__new(key) {
+this.d   := 0
+this.fUp := 0
+if (key = "LButton")
+{
+this.fDn := 0x2
+this.fUp := 0x4
+}
+else if (key = "RButton")
+{
+this.fDn := 0x8
+this.fUp := 0x10
+}
+else if (key = "MButton")
+{
+this.fDn := 0x20
+this.fUp := 0x40
+}
+this.s  := 0
+}
+_maybe(){
+if ! (this.s)
+return
+else if (A_tickCount-this.t >= 200)
+{
+this.s *= -1
+this.t := A_tickCount
+if (this.s = -1)
+dllcall("mouse_event", uint, this.fUp, uint, 0, uint, 0, uint, this.d, uint, 0)
+}
+if (this.s > 0)
+dllcall("mouse_event", uint, this.fDn, uint, 0, uint, 0, uint, this.d, uint, 0)
+}
+_yes(){
+this.s := 1
+this.t := A_tickCount
+dllcall("mouse_event", uint, this.fDn, uint, 0, uint, 0, uint, this.d, uint, 0)
+}
+_No() {
+this.s := 0
+dllcall("mouse_event", uint, this.fUp, uint, 0, uint, 0, uint, this.d, uint, 0)
+}
+}
+InitKeys(Obj, modes)
+{
+str := Obj
+Obj := []
+for k, v in StrSplit(str, ",")
+{
+if (!v)
+{
+Obj.Insert(1)
+continue
+}
+m := modes[k]
+if instr(v, "Button") or instr(v, "Wheel")
+{
+if (m = 2) && instr(v, "Button")
+Obj.Insert(new MRepeat(v))
+else if (m = 0)
+Obj.Insert(new MSender(v))
+else Obj.Insert(1)
+} else
+{
+if (m = 2)
+Obj.Insert(new Repeat(v))
+else if (m = 4)
+Obj.Insert(new Tap(v))
+else if (m = 1)
+Obj.Insert(new Toggle(v))
+else if (m = 0)
+Obj.Insert(new Sender(v))
+else Obj.Insert(1)
+}
+}
+return Obj
+}
+Parsecfg(item = "")
+{
+if not item
+{
+cfg         := strsplit(A_ScriptOptions, "^")
+globals     := {}
+globals.cfg := {}
+for k, v in cfg
+{
+Key := SubStr(v, 1, 1)
+_Key := SubStr(v, 2, strlen(v)-1)
+if _Key is number
+continue
+if (Key = "-")
+globals.cfg[SubStr(v, 2, strlen(v)-1)] := cfg[k + 1]
+else if (Key = "/")
+globals.cfg[SubStr(v, 2, strlen(v)-1)] := True
+}
+return globals.cfg
+} else  {
+cfg := {}
+for k, v in strsplit(item, ";")
+{
+split := strsplit(v, "=")
+key := split[1]
+val := split[2]
+if not split[2]
+{
+continue
+}
+(val = "True") ? val := True
+(val = "False") ? val := False
+cfg[key] := val
+}
+return cfg
+}
+}
+keyevent(key)
+{
+static state := {}
+if ! state[key]
+{
+state[key] := getkeystate(key, "p") ? 1 : -1
+return
+}
+event    := 0
+newstate := getkeystate(key, "p") ? 1 : -1
+if (newstate != state[key])
+{
+event := newstate
+}
+state[key] := newstate
+return event
+}
