@@ -10,7 +10,7 @@ ADD_DEFINITIONS(-DUNICODE)
 ADD_DEFINITIONS(-D_WIN32_WINNT=_WIN32_WINNT_WIN7)
 
 SET(arch "x64")
-SET(arch "x86")
+#SET(arch "x86")
 SET(MinGW "/usr/i686-w64-mingw32")
 SET(MinGW_MS "c:/MinGW/mingw32/i686-w64-mingw32")
 SET(MInHook "x32/libminhook.a")
@@ -23,7 +23,7 @@ endif()
 
 #directories
 cmake_path(GET PROJECT_SOURCE_DIR PARENT_PATH parent_dir) 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY  "${PROJECT_SOURCE_DIR}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY  "${parent_dir}/Ahk")
 
 MESSAGE(${parent_dir})
 

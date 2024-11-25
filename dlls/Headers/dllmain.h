@@ -400,3 +400,7 @@ if (Proc == nullptr) g_.loger.log(__FUNCTION__, "FAILED TO GET THE " procname " 
 else                 g_.loger.log(__FUNCTION__, "SUCCEEDED TO GET THE " procname " ENTRYPOINT ON " dll);
 #endif // DLLMAIN
 
+#define _GETPROCADDRESS(Proc, procname, dll) Proc = (decltype(Proc)) GetProcAdd(procname, dll); \
+if (Proc == nullptr) g_.loger.log(__FUNCTION__, "FAILED TO GET THE " procname " ENTRYPOINT"); \
+else                 g_.loger.log(__FUNCTION__, "SUCCEEDED TO GET THE " procname " ENTRYPOINT");
+

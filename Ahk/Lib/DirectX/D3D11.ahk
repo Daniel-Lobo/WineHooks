@@ -208,10 +208,25 @@ CreateVertexBuffer11(byref pBuffer, size, pData = 0)
 	, ptr, (pData > 0) & True ? D3D11_SUBRESOURCE_DATA[] : 0, "ptr*", pBuffer:=0, uint) 
 }	
 
+LoadD3DX11()
+{
+	if (dllcall("LoadLibraryW", "str", "wined3d.dll", "ptr"))
+	{
+		arch := A_PtrSize = 8 ? "\x64\" : "\x86\"
+		hdll := dllcall("LoadLibraryW", "str", g_.cfg.injector_dir "\D3DCompilers" arch "\d3dx11_43.dll", "ptr")
+	} else {
+		hdll         := dllcall("GetModuleHandle", "str", "d3dx11_43.dll", "ptr")
+		hdll ?: hdll := dllcall("LoadLibraryW", "str", "d3dx11_43.dll", "ptr")
+	}
+	if (hdll = 0){
+		logerr("Failed to load the d3dx11_43.dll, wine=" dllcall("LoadLibraryW", "str", "wined3d.dll", "ptr"))
+	}
+	return hdll
+}
+
 CompileShaderFromFile11(byref pShader, pDevice, file, entrypoint = "main", pTarget  = "cs_4_1")
 {
-	hdll               := dllcall("GetModuleHandle", "str", "d3dx11_43.dll")
-	hdll ?: hdll       := dllcall("LoadLibraryW", "str", "d3dx11_43.dll")
+	hdll               := LoadD3DX11()
 	D3DCompileFromFile := dllcall("GetProcAddress", uint, hdll, astr, "D3DX11CompileFromFileW") 
 	
 	r := dllcall(D3DCompileFromFile, str, file, uint, 0, uint, 0, wstr, entrypoint, wstr, pTarget 
@@ -238,8 +253,7 @@ CompileShaderFromFile11(byref pShader, pDevice, file, entrypoint = "main", pTarg
 
 CompileShader10(byref pShader, pDevice, ShaderCode, entrypoint, pTarget)
 {
-	hdll         := dllcall("GetModuleHandle", "str", "d3dx11_43.dll", "ptr")
-	hdll ?: hdll := dllcall("LoadLibraryW", "str", "d3dx11_43.dll", "ptr")
+	hdll         := LoadD3DX11()
 	D3DCompile   := dllcall("GetProcAddress", ptr, hdll, astr, "D3DX11CompileFromMemory", "ptr") 
 	
 	r := dllcall(D3DCompile, astr, ShaderCode, ptr, strlen(ShaderCode), ptr, 0, ptr, 0, ptr, 0
@@ -272,8 +286,7 @@ CompileShader10(byref pShader, pDevice, ShaderCode, entrypoint, pTarget)
 
 CompileShader11(byref pShader, pDevice, ShaderCode, entrypoint, pTarget)
 {
-	hdll         := dllcall("GetModuleHandle", "str", "d3dx11_43.dll", "ptr")
-	hdll ?: hdll := dllcall("LoadLibraryW", "str", "d3dx11_43.dll", "ptr")
+	hdll         := LoadD3DX11()
 	D3DCompile   := dllcall("GetProcAddress", ptr, hdll, astr, "D3DX11CompileFromMemory", "ptr") 
 	
 	r := dllcall(D3DCompile, astr, ShaderCode, ptr, strlen(ShaderCode), ptr, 0, ptr, 0, ptr, 0
@@ -314,8 +327,7 @@ _D3D11Compile(byref blob, hlsl, prfl, entry="main")
 
 D3D11Compile(byref pShader, hlsl, prfl, entry="main")
 {
-	hdll         := dllcall("GetModuleHandle", "str", "d3dx11_43.dll", "ptr")
-	hdll ?: hdll := dllcall("LoadLibraryW", "str", "d3dx11_43.dll", "ptr")
+	hdll         := LoadD3DX11()
 	D3DCompile   := dllcall("GetProcAddress", ptr, hdll, astr, "D3DX11CompileFromMemory", "ptr") 
 	r            := dllcall(D3DCompile, astr, hlsl, ptr, strlen(hlsl), ptr, 0, ptr, 0, ptr, 0, astr, "main"
 		                   , astr, prfl, uint, 0, uint, 0, ptr, 0, "ptr*", pShader:=0, "ptr*", pError:=0
@@ -335,9 +347,15 @@ D3D11Compile(byref pShader, hlsl, prfl, entry="main")
 
 D3D11Disasemble(BC, sz, byref code)
 {
-	hdll         := dllcall("LoadLibrary", str, "D3dcompiler_47.dll", ptr) 
-    Disassemble  := dllcall("GetProcAddress", ptr, hdll, astr, "D3DDisassemble", "ptr") 
-    
+	if (dllcall("GetModuleHandle", "str", "wined3d.dll", "ptr"))
+	{
+		arch := A_PtrSize = 8 ? "x64\" : "x86\"
+		hdll := dllcall("LoadLibraryW", "str", g_.cfg.injector_dir "\" arch "D3dcompiler_47.dll", "ptr")
+	} else {
+		hdll         := dllcall("GetModuleHandle", "str", "D3dcompiler_47.dll", "ptr")
+		hdll ?: hdll := dllcall("LoadLibraryW", "str", "D3dcompiler_47.dll", "ptr")
+	}	
+    Disassemble  := dllcall("GetProcAddress", ptr, hdll, astr, "D3DDisassemble", "ptr")     
 	dllcall(Disassemble, ptr, BC, ptr, sz, uint, 0, uint, 0, "ptr*", blob:=0)
 	
 	if (!blob)

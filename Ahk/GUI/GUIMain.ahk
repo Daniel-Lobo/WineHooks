@@ -223,7 +223,7 @@ class IniString Extends IniFile {
 	}
 }
 Main() {   
-	Menu, Tray, Icon, png\wine.png
+	Menu, Tray, Icon, png\wine.ico
     static GamesList  
     w         := g_.WindowWidth
     h         := g_.WindowHeight

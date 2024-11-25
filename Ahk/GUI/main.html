@@ -317,7 +317,7 @@
                 tabs_row.innerHTML += "<button id='" + tabs[i] + "-tab-button' style='width:80px;height:50px;font-size:20px;' onclick='SelectTab(\"" + tabs[i] + "\");'>" + label + "</button>"                  
             }
             let html = "<div class='cntrl_group'><div style='height:20px'></div>" + tabs_row.innerHTML + "<div style='height:20px'></div>";
-            html    += "<div class='warning' style='display:flex;flex-direction:row;'><img src='png\\WINE.png'style='width:60px;height:94px'>" +
+            html    += "<div class='warning' style='display:flex;flex-direction:row;'><img src='png\\WINE.png'style='width:60px;height:60px'>" +
             "<div style='margin-top:20px;margin-left:20px'>The settings below are optimal for windows. On wine, you'll probably need tweak them a little, and even" + 
             " so, at the moment, expect low compatibility</div></div></div>"
             for (let i = 0; i < tabs.length; i++) {
@@ -414,13 +414,14 @@
             "download the <a id='Stable' href='javascript:dummy()'>last stable version</a><br> </div></div></div>" 
             AppendContent(html);
             //document.body.style.backgroundColor = "black";
-        }
+        }        
         function CfgKBmacros(m){
             let root       = document.createElement('div');
             let macros     = JSON.parse(m);
-            for (let key in macros){
-                if (macros[key].toLowerCase() === 'false' || macros[key] === '') macros[key] = "None";
-            }
+            let keys       = String(Object.keys(macros)).split(',');                         
+            for (let i=0; i < keys.length; i++){
+                if (macros[keys[i]].toLowerCase() === 'false' || macros[keys[i]] === '') macros[keys[i]] = "None";
+            }           
             let html       = String(JSON.stringify(macros, null, 4));           
             root.className = 'cntrl_group';
             root.innerHTML = '<b>Keyboard Macros</b><br><br>'
@@ -469,8 +470,10 @@
             apply_div.style.display       = "flex"
             apply_div.style.flexDirection = "row-reverse"
             apply.innerHTML               = "Apply"
-            apply.onclick                 = function(){                
-                for (let key in macros){
+            apply.onclick                 = function(){   
+                keys = String(Object.keys(macros)).split(",")         
+                for (let i=0; i < keys.length; i++){
+                    let key = keys[i];                 
                     let val = macros[key];
                     val     = val === 'None' ? '' : val
                     AhkPrint(key + "=" + macros[key])
@@ -482,7 +485,7 @@
             root.appendChild(apply_div);
             document.getElementById("content").innerHTML = '';    
             document.getElementById("content").appendChild(root);   
-        }
+        }        
         function ConfigXInput(Modes, Key_A, Key_B, Alt_A, Alt_B, RStick, Enabled, ForceFeedback, m, dz, spd, rs_alt){
             if (dz      === '') dz       = '0.15';
             if (spd     === '') spd      = '0.05';
@@ -1009,19 +1012,18 @@
             document.body.innerHTML = "<div><ul>\
             <li>Pixel shader override is very similar to texture swapping, except that when you dump a shader, you'll have two files on the same folder. A binary file and a text file<br>\
             <li style='margin-top:10px'>The text file contains DirectX Shader Asm code. For DirectX 8 and 9, you can modify that file directly and the changes will take effect next time you start the game<br>\
-            <li style='margin-top:10px'> For 10 and 11 (and optionally for Direct3D 9) you must create an additional .hlsl file (same name as the .bin and .txt files) and the code in that file will replace the one in\
+            <li style='margin-top:10px'> For Direct3D 10 and 11 (and optionally 9) you must create an additional .hlsl file (same name as the .bin and .txt files) and the code in that file will replace the one in\
 	        the .bin\.txt files. Use the respective shader models supported by each API"
             document.body.style.backgroundColor = "#dcdcdc";
         }
         function TSwapHelp(path){
             let b =  "&#11166; REPLACING THE TEXTURE<br><br>\
-            <div style='margin-left:40px'>To finally replace a texture, all you have to do is to place a replacement image with the right format and name in the right location<br>\
+            <div style='margin-left:40px;margin-bottom:10px'>To finally replace a texture, all you have to do is to place a replacement image with the right format and name in the right location<br>\
             Say the path option was configured as <b>%path%VOKSI\\SomeGame</b>, textures will de dumped to:<br>\
             <b> %path%VOKSI\\SomeGame\\Dumps</b> and the replacement should be placed in:<br>\
             <b> %path%VOKSI\\SomeGame\\Replacements</b><br>\
             The replacement file must have the same name as the dump, but is installed on the replacements folder</div>\
-            <br>\
-            &#11166; REPLACEMENT FILE\PIXEL FORMAT<br>\
+            &#11166; REPLACEMENT FILE PIXEL FORMAT<br>\
             <ul>\
             <li> Replacement textures must also be in the .dds file format. The recommended pixel format for all games is DXT5, but remember that textures in compressed DXTn formats must have\
             sizes that are integer multiples of 4. Even if some programs can create DXTn files with different sizes, those won't be loaded<br>\

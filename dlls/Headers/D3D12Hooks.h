@@ -77,6 +77,9 @@ public:
         #define D3dcompiler_47 "D3DCompilers\\x86\\D3Dcompiler_47.dll"
         #define d3dx9_43       "D3DCompilers\\x86\\D3DX9_43.dll"
 #endif   
+        string _D3dcompiler_47 = string(g_.Path()) + "\\" + D3dcompiler_47;
+        string _d3dx9_43       = string(g_.Path()) + "\\" + d3dx9_43;
+
         GETPROCADDRESS(m_DirectDrawCreate, "DirectDrawCreate", "ddraw.dll");             
         GETPROCADDRESS(m_CreateDXGIFactory, "CreateDXGIFactory", "dxgi.dll");
         GETPROCADDRESS(m_CreateDXGIFactory1, "CreateDXGIFactory1", "dxgi.dll");
@@ -97,12 +100,12 @@ public:
             GETPROCADDRESS(m_D3DXCreateBuffer, "D3DXCreateBuffer", "d3dx9_43.dll");
             GETPROCADDRESS(m_D3DXDisassembleShader, "D3DXDisassembleShader", "d3dx9_43.dll");  
         } else {
-            GETPROCADDRESS(m_D3DReflect, "D3DReflect", D3dcompiler_47);
-            GETPROCADDRESS(m_D3DDisassemble, "D3DDisassemble", D3dcompiler_47);
-            GETPROCADDRESS(m_D3DCompile, "D3DCompile", D3dcompiler_47);
-            GETPROCADDRESS(m_D3DXGetFVFVertexSize, "D3DXGetFVFVertexSize", d3dx9_43);
-            GETPROCADDRESS(m_D3DXCreateBuffer, "D3DXCreateBuffer", d3dx9_43); 
-            GETPROCADDRESS(m_D3DXDisassembleShader, "D3DXDisassembleShader", d3dx9_43);  
+            _GETPROCADDRESS(m_D3DReflect, "D3DReflect", _D3dcompiler_47.c_str());
+            _GETPROCADDRESS(m_D3DDisassemble, "D3DDisassemble", _D3dcompiler_47.c_str());
+            _GETPROCADDRESS(m_D3DCompile, "D3DCompile", _D3dcompiler_47.c_str());
+            _GETPROCADDRESS(m_D3DXGetFVFVertexSize, "D3DXGetFVFVertexSize", _d3dx9_43.c_str());
+            _GETPROCADDRESS(m_D3DXCreateBuffer, "D3DXCreateBuffer", _d3dx9_43.c_str()); 
+            _GETPROCADDRESS(m_D3DXDisassembleShader, "D3DXDisassembleShader", _d3dx9_43.c_str());  
         }
         g_.loger.log(__FUNCTION__, (std::to_string(HD_W) + "x" + std::to_string(HD_H)).c_str() );
         g_.loger.log(__FUNCTION__, (std::to_string(sizeof(SHADERCONSTANTS)).c_str()));

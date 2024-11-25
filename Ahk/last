@@ -1,5 +1,5 @@
-global g_MainThreadID := 17592186051364 ;<Tag> 
-global g_cmdstring := "-target^G:\Games\Death's Door\UnityCrashHandler64.exe^-wiki^https://www.pcgamingwiki.com/wiki/Death%27s_Door^-D3D^11^-path^Death's Door^-RLMT^4^-HD^UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES^/WHKS^-args^-dx11^-svs^xlive^/sRGB^/dxvk^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\EMPRESS;^-PxSwap^e=false;^-script_hwnd^0x1c058c^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^G:\Games\Death's Door^-target_name^UnityCrashHandler64.exe^-wine^9_0^-dxvkv^2_4^-common_path^1"
+global g_MainThreadID := 446676599948 ;<Tag> 
+global g_cmdstring := "-target^F:\Games\Death's Door\UnityCrashHandler64.exe^-wiki^https://www.pcgamingwiki.com/wiki/Death%27s_Door^-D3D^11^-path^Death's Door^-RLMT^4^-HD^UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES^/WHKS^-args^-dx11^-svs^xlive^/sRGB^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;^-PxSwap^e=true;^-script_hwnd^0x6019c^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 ^-max_4x3_res^1152x864^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^F:\Games\Death's Door^-target_name^UnityCrashHandler64.exe^-wine^9_0^-dxvkv^2_4^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -5561,10 +5561,24 @@ D3D11_SUBRESOURCE_DATA.pSysMem := pData
 return dllcall(ID3D11Device.CreateBuffer, uint, ID3D11Device.p, ptr, D3D11_BUFFER_DESC[]
 , ptr, (pData > 0) & True ? D3D11_SUBRESOURCE_DATA[] : 0, "ptr*", pBuffer:=0, uint)
 }
+LoadD3DX11()
+{
+if (dllcall("LoadLibraryW", "str", "wined3d.dll", "ptr"))
+{
+arch := A_PtrSize = 8 ? "\x64\" : "\x86\"
+hdll := dllcall("LoadLibraryW", "str", g_.cfg.injector_dir "\D3DCompilers" arch "\d3dx11_43.dll", "ptr")
+} else {
+hdll         := dllcall("GetModuleHandle", "str", "d3dx11_43.dll", "ptr")
+hdll ?: hdll := dllcall("LoadLibraryW", "str", "d3dx11_43.dll", "ptr")
+}
+if (hdll = 0){
+logerr("Failed to load the d3dx11_43.dll, wine=" dllcall("LoadLibraryW", "str", "wined3d.dll", "ptr") " "  g_.cfg.injector_dir "\" arch "d3dx11_43.dll")
+}
+return hdll
+}
 CompileShaderFromFile11(byref pShader, pDevice, file, entrypoint = "main", pTarget  = "cs_4_1")
 {
-hdll               := dllcall("GetModuleHandle", "str", "d3dx11_43.dll")
-hdll ?: hdll       := dllcall("LoadLibraryW", "str", "d3dx11_43.dll")
+hdll               := LoadD3DX11()
 D3DCompileFromFile := dllcall("GetProcAddress", uint, hdll, astr, "D3DX11CompileFromFileW")
 r := dllcall(D3DCompileFromFile, str, file, uint, 0, uint, 0, wstr, entrypoint, wstr, pTarget
 , uint, 0, uint, 0, "ptr*", pShader:=0, "ptr*", pError:=0, uint)
@@ -5586,8 +5600,7 @@ return r
 }
 CompileShader10(byref pShader, pDevice, ShaderCode, entrypoint, pTarget)
 {
-hdll         := dllcall("GetModuleHandle", "str", "d3dx11_43.dll", "ptr")
-hdll ?: hdll := dllcall("LoadLibraryW", "str", "d3dx11_43.dll", "ptr")
+hdll         := LoadD3DX11()
 D3DCompile   := dllcall("GetProcAddress", ptr, hdll, astr, "D3DX11CompileFromMemory", "ptr")
 r := dllcall(D3DCompile, astr, ShaderCode, ptr, strlen(ShaderCode), ptr, 0, ptr, 0, ptr, 0
 , astr, entrypoint, astr, pTarget, uint, 0, uint, 0, ptr, 0
@@ -5615,8 +5628,7 @@ return r
 }
 CompileShader11(byref pShader, pDevice, ShaderCode, entrypoint, pTarget)
 {
-hdll         := dllcall("GetModuleHandle", "str", "d3dx11_43.dll", "ptr")
-hdll ?: hdll := dllcall("LoadLibraryW", "str", "d3dx11_43.dll", "ptr")
+hdll         := LoadD3DX11()
 D3DCompile   := dllcall("GetProcAddress", ptr, hdll, astr, "D3DX11CompileFromMemory", "ptr")
 r := dllcall(D3DCompile, astr, ShaderCode, ptr, strlen(ShaderCode), ptr, 0, ptr, 0, ptr, 0
 , astr, entrypoint, astr, pTarget, uint, 0, uint, 0, ptr, 0
@@ -5651,8 +5663,7 @@ blob  := {"p"  : dllcall(numget(numget(blob+0, "ptr")+A_PtrSize*3, "ptr"), ptr, 
 }
 D3D11Compile(byref pShader, hlsl, prfl, entry="main")
 {
-hdll         := dllcall("GetModuleHandle", "str", "d3dx11_43.dll", "ptr")
-hdll ?: hdll := dllcall("LoadLibraryW", "str", "d3dx11_43.dll", "ptr")
+hdll         := LoadD3DX11()
 D3DCompile   := dllcall("GetProcAddress", ptr, hdll, astr, "D3DX11CompileFromMemory", "ptr")
 r            := dllcall(D3DCompile, astr, hlsl, ptr, strlen(hlsl), ptr, 0, ptr, 0, ptr, 0, astr, "main"
 , astr, prfl, uint, 0, uint, 0, ptr, 0, "ptr*", pShader:=0, "ptr*", pError:=0
@@ -5669,7 +5680,14 @@ return rr
 }
 D3D11Disasemble(BC, sz, byref code)
 {
-hdll         := dllcall("LoadLibrary", str, "D3dcompiler_47.dll", ptr)
+if (dllcall("GetModuleHandle", "str", "wined3d.dll", "ptr"))
+{
+arch := A_PtrSize = 8 ? "x64\" : "x86\"
+hdll := dllcall("LoadLibraryW", "str", g_.cfg.injector_dir "\" arch "D3dcompiler_47.dll", "ptr")
+} else {
+hdll         := dllcall("GetModuleHandle", "str", "D3dcompiler_47.dll", "ptr")
+hdll ?: hdll := dllcall("LoadLibraryW", "str", "D3dcompiler_47.dll", "ptr")
+}
 Disassemble  := dllcall("GetProcAddress", ptr, hdll, astr, "D3DDisassemble", "ptr")
 dllcall(Disassemble, ptr, BC, ptr, sz, uint, 0, uint, 0, "ptr*", blob:=0)
 if (!blob)
