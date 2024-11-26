@@ -3,7 +3,8 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-#include <_struct>
+#include ..\
+#include lib\_Struct.ahk
 
 DDS_PIXELFORMAT := "DWORD dwSize; DWORD dwFlags; DWORD dwFourCC; DWORD dwRGBBitCount; DWORD dwRBitMask; "
 .  "DWORD dwGBitMask; DWORD dwBBitMask; DWORD dwABitMask;"

@@ -31,7 +31,7 @@ return
 
 run:    
     gui, submit, nohide 
-    exe    := dir "GUIMain.exe"
+    exe    := dir "\GUIMain.exe"
     script := dir "\GUIMain.ahk" 
     cmd    := wip ? "-wip" : ""
     cmd    .= dprctd ? " -dprctd -" : " -" 
