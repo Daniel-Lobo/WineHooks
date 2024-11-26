@@ -2029,13 +2029,9 @@ logerr(IDirect3DDevice9.dllHook("CreateRenderTarget", "CreateRenderTarget9Hook")
 D3D9_HOOKS.CreateRT   := IDirect3DDevice9.CreateRenderTarget
 logerr(IDirect3DDevice9.dllHook("CreateDepthStencilSurface", "CreateDepthStencilSurface9Hook"))
 D3D9_HOOKS.CreateZS   := IDirect3DDevice9.CreateDepthStencilSurface
-logerr(IDirect3DDevice9.dllHook("DrawPrimitiveUp", "DrawPrimitiveUp9Hook"))
 D3D9_HOOKS.DrawUp    := IDirect3DDevice9.DrawPrimitiveUp
-logerr(IDirect3DDevice9.dllHook("DrawPrimitive", "DrawPrimitive9Hook"))
 D3D9_HOOKS.Draw      := IDirect3DDevice9.DrawPrimitive
-logerr(IDirect3DDevice9.dllHook("DrawIndexedPrimitive", "DrawIndexedPrimitive9Hook"))
 D3D9_HOOKS.DrawIdx   := IDirect3DDevice9.DrawIndexedPrimitive
-logerr(IDirect3DDevice9.dllHook("DrawIndexedPrimitiveUp", "DrawIndexedPrimitiveUP9Hook"))
 D3D9_HOOKS.DrawIdxUp := IDirect3DDevice9.DrawIndexedPrimitiveUp
 D3D9_HOOKS.EndBlck   := IDirect3DDevice9.EndStateBlock
 D3D9_HOOKS.ApplyBlck := IDirect3DStateBlock9.Apply

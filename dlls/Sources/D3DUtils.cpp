@@ -534,16 +534,16 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDMaskSurface(IDirectDrawSu
 			NewPixel      = (byte*)NexPixels_desc.lpSurface + line * NexPixels_desc.lPitch;
 			UnmaskedPixel = (byte*)Unmasked_desc.lpSurface + line * Unmasked_desc.lPitch;
 			for (int pixel = 0; pixel < NexPixels_desc.dwWidth; pixel++){
-				NewPixel      += pixel * sizeof(DWORD);
-				UnmaskedPixel += pixel * sizeof(DWORD);
-				if ((DWORD)(DWORD*)*NewPixel == (DWORD)(DWORD*)*UnmaskedPixel){
-					*(DWORD*)*NewPixel = magenta;
+				NewPixel      +=  4;
+				UnmaskedPixel +=  4;
+				if (*(DWORD*)NewPixel ==*(DWORD*)UnmaskedPixel){
+					*(DWORD*)NewPixel = magenta;
 				}
 			}
 		}
 		NexPixelsImp->Unlock(nullptr);
 		UnmaskedImp->Unlock(nullptr);
-	} else if (*fmt.get() == L"R6GB") {	
+	} else if (*fmt.get() == L"RG6B") {			
 		WORD magenta = 0xF81f;
 		if (NexPixelsImp->Lock(nullptr, &NexPixels_desc, DDLOCK_WAIT, nullptr) != DD_OK){
 			err = L"::Lock(NexPixelsImp) FAILED";
@@ -560,15 +560,17 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDMaskSurface(IDirectDrawSu
 			NewPixel      = (byte*)NexPixels_desc.lpSurface + line * NexPixels_desc.lPitch;
 			UnmaskedPixel = (byte*)Unmasked_desc.lpSurface + line * Unmasked_desc.lPitch;
 			for (int pixel = 0; pixel < NexPixels_desc.dwWidth; pixel++){
-				NewPixel      += pixel * sizeof(WORD);
-				UnmaskedPixel += pixel * sizeof(WORD);
-				if ((WORD)(WORD*)*NewPixel == (WORD)(WORD*)*UnmaskedPixel){
-					*(WORD*)*NewPixel = magenta;
+				NewPixel      += 2;
+				UnmaskedPixel += 2;
+				if (*(WORD*)NewPixel ==*(WORD*)UnmaskedPixel){
+					*(WORD*)NewPixel = magenta;
 				}
 			}
 		}
 		NexPixelsImp->Unlock(nullptr);
 		UnmaskedImp->Unlock(nullptr);
+	} else {
+		DBUG_WARN((string("Unknown pixel format: ") + *DescribeDDSrfcPixelFormatA(&NexPixels->GetDesc().get()->ddpfPixelFormat).get()).c_str());
 	}
 	return (wchar_t*)err.c_str();
 }

@@ -974,6 +974,8 @@ extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 SetRenderTarget9Hook(IDirect3DDevice9 * d, DWORD index, IDirect3DSurface9* RT)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    if (FALSE == COMMONIsGameModule(__builtin_return_address(0), g_.modules))
+    return D3D9_Hooks->SetRenderTarget(d, index, RT);
     HRESULT hr;
     IDirect3DSurface9 * HDRenderTarget = NULL;
     D3D9Globals.HDSet->Set(0);
@@ -1008,6 +1010,10 @@ extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 SetDepthStencilSurface9Hook(IDirect3DDevice9 * d, IDirect3DSurface9* ZBuff)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    //OutputDebugStringW(L"==============================================");
+    //OutputDebugStringW(DllFromAdress(__builtin_return_address(0)).m_name.c_str());
+    if (FALSE == COMMONIsGameModule(__builtin_return_address(0), g_.modules))
+    return D3D9_Hooks->SetDepthStencilSurface(d, ZBuff);
     return D3D9_Hooks->SetDepthStencilSurface(d, FindHDSurface9(d, ZBuff, (char*)__FUNCTION__));
 }
 

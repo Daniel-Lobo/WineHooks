@@ -573,7 +573,7 @@ class D3DWin9xFlag{
 ReleaseDirectDraw()
 {
     if (g_.cfg.layer and instr(g_.cfg.compatLayer, "WIN9"))
-        return
+    return
 	for k, v in [IDirect3DDevice7, IDirect3DVertexBuffer7, IDirect3D7, IDirectDrawSurface7, IDirectDraw7
 				,IDirect3DDevice3, IDirect3DViewPort3, IDirect3DVertexBuffer, 
 				,IDirect3DDevice2, IDirect3DViewPort2, IDirect3DTexture2, 

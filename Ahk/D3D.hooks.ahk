@@ -185,6 +185,16 @@ DDCreateEx_hook(p1, p2, p3, p4)
 	return r
 }
 
+D3DDDI_SetShaderOverride(p){
+	return
+}
+D3DDDI_RestoreShader(){
+	return
+}
+D3DDDI_Init(){
+	return
+}
+
 InstallCreateSurfaceHook()
 {
 	logErr(IDirectDraw4.Hook("CreateSurface"))
