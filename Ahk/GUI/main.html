@@ -418,7 +418,14 @@
         function CfgKBmacros(m){
             let root       = document.createElement('div');
             let macros     = JSON.parse(m);
-            let keys       = String(Object.keys(macros)).split(',');                         
+            let keys       = [];
+            try {
+            keys       = String(Object.keys(macros)).split(',');  
+            } catch(err){
+                keys   = []
+                for (k in macros) keys.push(k);
+                alert(err)
+            }                      
             for (let i=0; i < keys.length; i++){
                 if (macros[keys[i]].toLowerCase() === 'false' || macros[keys[i]] === '') macros[keys[i]] = "None";
             }           

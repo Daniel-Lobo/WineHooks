@@ -9,7 +9,7 @@
 #include "Dbug.h"
 #include <string.h>
 #include "D3D12Hooks.h"
-
+#include "DirectDraw.h"
 using std::string;
 using std::to_string;;
 
@@ -126,4 +126,7 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall InitWineHoooks(wchar_t * fl
     }     
     return  (wchar_t *)err.c_str();  
 }
-
+// cs. wined3d_cs_exec_blt_sub_resource
+// surface.c texture2d_blt
+// glsl_shader.c glsl_blitter_blit
+// context.gl.c wined3d_context_gl_draw_shaded_quad

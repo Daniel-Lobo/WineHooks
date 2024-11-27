@@ -576,12 +576,12 @@ ReleaseDirectDraw()
     return
 	for k, v in [IDirect3DDevice7, IDirect3DVertexBuffer7, IDirect3D7, IDirectDrawSurface7, IDirectDraw7
 				,IDirect3DDevice3, IDirect3DViewPort3, IDirect3DVertexBuffer, 
-				,IDirect3DDevice2, IDirect3DViewPort2, IDirect3DTexture2, 
-				,IDirect3DDevice, IDirect3DViewPort, IDirect3DExecuteBuffer, IDirect3DTexture
+				,IDirect3DDevice2, IDirect3DViewPort2, IDirect3DTexture2, IDirect3DExecuteBuffer 
+				,IDirect3DDevice, IDirect3DViewPort, IDirect3DTexture
 				,IDirect3D3, IDirect3D2, IDirect3D
 				,IDirectDrawClipper, IDirectDrawPalette, IDirectDrawGammaControl, IDirectDrawSurface
 				,IDirectDrawSurface2, IDirectDrawSurface3, IDirectDrawSurface4
-				,IDirectDraw4, IDirectDraw2, IDirectDraw]
+				,IDirectDraw4, IDirectDraw2, "FIX ME: Not Releasing DirectDraw"]
 		isobject(v) ? logerr("Releasing " v.name " " v.p " " v.__release())					
 }
 

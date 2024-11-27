@@ -16,6 +16,7 @@
 #include <map>
 #include "Direct3D.h"
 #include <memory>
+#include "Wine.Hooks.h"
 using std::string;
 using std::to_string;
 
@@ -94,6 +95,7 @@ public:
        if (m_ref2 == 0 && m_ref == 0) delete this;
     }
     COMPtr* SetDD2(IDirectDraw2* dd2) { m_Imp2 = dd2; return &m_dd2; }
+    OpenGlObjects glObjects;
 private:
     DWORD                 version = 1;
     IUnknown             * m_Imp  = nullptr;

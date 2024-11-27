@@ -1357,7 +1357,7 @@ ConfigPxSwap(){
 	GUI, PxSwap: Add, Text, x+2, Dump shader
 	Gui, PxSwap: Add, activeX, x5 w800 h220 vIE, Shell.Explorer
     IE.Navigate("file:///" . A_ScriptDir . "/main.html")	
-	GUI, PxSwap: Show
+	GUI, PxSwap: Show, x300
 	WinSetTitle, % "ahk_id " hwin,, % "Configuring: " g_.name
 	try {
 		IE.document.parentWindow.PSwapHelp()		
@@ -1402,7 +1402,7 @@ will be used to replace any dump missing a replacement in any game
 	static TSwapPath := 0	
 tuto_0 =
 (LTRIM
-	Texture swapping allows replacement of a game's textures with no restructions on size and format and whithout modifing the game's files. 
+	Texture swapping allows replacement of a game's textures with no restrictions on size and format and whithout modifing the game's files. 
 	Bellow are the texture swapping options (individual, per game), which also seve as a simple tutorial on how to use it 
 )	
 common_path := A_mydocuments "\WineHooks"
