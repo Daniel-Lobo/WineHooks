@@ -12,24 +12,19 @@
 #include <string.h>
 #include <memory.h>
 #include <vector>
+#include "Sync.h"
 using std::string;
 using std::unique_ptr;
 
-typedef struct WINEHOOKS
+class WINEHOOKS
 {
-    PROC     (WINAPI   * wglGetProcAddress)(LPCSTR)                                                                                        = nullptr;
-    void     (APIENTRY * glShaderSource) (GLuint, GLsizei, const GLchar *const*, const GLint *)                                            = nullptr;    
-    void     (APIENTRY * glUseProgram)(GLuint)                                                                                             = nullptr;   
-    GLint    (APIENTRY * glGetUniformLocation)(GLuint, const GLchar *)                                                                     = nullptr;  
-    void     (APIENTRY * glUniform4fv)(GLint, GLsizei, const GLfloat *)                                                                    = nullptr;  
-    VkResult (APIENTRY * vkCreateShaderModule)(VkDevice,  const VkShaderModuleCreateInfo*, const VkAllocationCallbacks*, VkShaderModule*)  = nullptr;  
-    VkResult (APIENTRY * vkGetDeviceProcAddr)(VkDevice device, const char* pName)                                                          = nullptr;       
-    BOOL fix_glFragCoord                                                                                                                   = FALSE;
-}_WINEHOOKS;
-
-class OpenGlObjects
-{
-public:   
+public:  
+    WINEHOOKS(){
+        m_Context.Set(0);
+    }
+    PROC    (WINAPI   * wglGetProcAddress)(LPCSTR)   = nullptr; 
+    BOOL    (APIENTRY * wglDeleteContext)(HGLRC)     = nullptr;    
+    BOOL    (APIENTRY * wglMakeCurrent)(HDC, HGLRC)  = nullptr;  
     PFNGLCREATESHADERPROC       glCreateShader       = nullptr;
     PFNGLSHADERSOURCEPROC       glShaderSource       = nullptr;
     PFNGLCOMPILESHADERPROC      glCompileShader      = nullptr;
@@ -45,24 +40,39 @@ public:
     PFNGLGETPROGRAMINFOLOGPROC  glGetProgramInfoLog  = nullptr;
     PFNGLGETSHADERIVPROC        glGetShaderiv        = nullptr;
     PFNGLGETSHADERINFOLOGPROC   glGetShaderInfoLog   = nullptr;
+    SYNC::AtomicPtr             m_Context;
+    unique_ptr<string>InitObjects(HGLRC context) {
+        if      (context ==  nullptr)        return unique_ptr<string>(new string("null context"));
+        else if (context == m_Context.Get()) return unique_ptr<string>(new string("S_OK"));
 
-    unique_ptr<string>InitObjects(){
         auto err = unique_ptr<string>(new string("S_OK"));
-        if (!InitPfn((void**)&glCreateShader,       "glCreateShader"))       {*err.get() = "FAILED to get the glCreateShader funtion pointer";} return err;
-        if (!InitPfn((void**)&glShaderSource,       "glShaderSource"))       {*err.get() = "FAILED to get the glShaderSource funtion pointer";} return err;
-        if (!InitPfn((void**)&glCompileShader,      "glCompileShader"))      {*err.get() = "FAILED to get the glCompileShader funtion pointer";} return err;
-        if (!InitPfn((void**)&glCreateProgram,      "glCreateProgram"))      {*err.get() = "FAILED to get the glCreateProgram funtion pointer";} return err;
-        if (!InitPfn((void**)&glAttachShader,       "glAttachShader"))       {*err.get() = "FAILED to get the glAttachShader funtion pointer";} return err;
-        if (!InitPfn((void**)&glDeleteShader,       "glDeleteShader"))       {*err.get() = "FAILED to get the glDeleteShader funtion pointer";} return err;
-        if (!InitPfn((void**)&glDeleteProgram,      "glDeleteProgram"))      {*err.get() = "FAILED to get the glDeleteProgram funtion pointer";} return err;
-        if (!InitPfn((void**)&glLinkProgram,        "glLinkProgram"))        {*err.get() = "FAILED to get the glLinkProgram funtion pointer";} return err;
-        if (!InitPfn((void**)&glUseProgram,         "glUseProgram"))         {*err.get() = "FAILED to get the glUseProgram funtion pointer";} return err;
+        if (!InitPfn((void**)&glCreateShader,       "glCreateShader"))       {*err.get() = "FAILED to get the glCreateShader funtion pointer";}       return err;
+        if (!InitPfn((void**)&glShaderSource,       "glShaderSource"))       {*err.get() = "FAILED to get the glShaderSource funtion pointer";}       return err;
+        if (!InitPfn((void**)&glCompileShader,      "glCompileShader"))      {*err.get() = "FAILED to get the glCompileShader funtion pointer";}      return err;
+        if (!InitPfn((void**)&glCreateProgram,      "glCreateProgram"))      {*err.get() = "FAILED to get the glCreateProgram funtion pointer";}      return err;
+        if (!InitPfn((void**)&glAttachShader,       "glAttachShader"))       {*err.get() = "FAILED to get the glAttachShader funtion pointer";}       return err;
+        if (!InitPfn((void**)&glDeleteShader,       "glDeleteShader"))       {*err.get() = "FAILED to get the glDeleteShader funtion pointer";}       return err;
+        if (!InitPfn((void**)&glDeleteProgram,      "glDeleteProgram"))      {*err.get() = "FAILED to get the glDeleteProgram funtion pointer";}      return err;
+        if (!InitPfn((void**)&glLinkProgram,        "glLinkProgram"))        {*err.get() = "FAILED to get the glLinkProgram funtion pointer";}        return err;
+        if (!InitPfn((void**)&glUseProgram,         "glUseProgram"))         {*err.get() = "FAILED to get the glUseProgram funtion pointer";}         return err;
         if (!InitPfn((void**)&glGetUniformLocation, "glGetUniformLocation")) {*err.get() = "FAILED to get the glGetUniformLocation funtion pointer";} return err;
-        if (!InitPfn((void**)&glUniform4f,          "glUniform4f"))          {*err.get() = "FAILED to get the glUniform4f funtion pointer";} return err;
-        if (!InitPfn((void**)&glGetProgramiv,       "glGetProgramiv"))       {*err.get() = "FAILED to get the glGetProgramiv funtion pointer";} return err;
-        if (!InitPfn((void**)&glGetProgramInfoLog,  "glGetProgramInfoLog"))  {*err.get() = "FAILED to get the glGetProgramInfoLog funtion pointer";} return err;
-        if (!InitPfn((void**)&glGetShaderiv,        "glGetShaderiv"))        {*err.get() = "FAILED to get the glGetShaderiv funtion pointer";} return err;
-        if (!InitPfn((void**)&glGetShaderInfoLog,   "glGetShaderInfoLog"))   {*err.get() = "FAILED to get the glGetShaderInfoLog funtion pointer";} return err;
+        if (!InitPfn((void**)&glUniform4f,          "glUniform4f"))          {*err.get() = "FAILED to get the glUniform4f funtion pointer";}          return err;
+        if (!InitPfn((void**)&glGetProgramiv,       "glGetProgramiv"))       {*err.get() = "FAILED to get the glGetProgramiv funtion pointer";}       return err;
+        if (!InitPfn((void**)&glGetProgramInfoLog,  "glGetProgramInfoLog"))  {*err.get() = "FAILED to get the glGetProgramInfoLog funtion pointer";}  return err;
+        if (!InitPfn((void**)&glGetShaderiv,        "glGetShaderiv"))        {*err.get() = "FAILED to get the glGetShaderiv funtion pointer";}        return err;
+        if (!InitPfn((void**)&glGetShaderInfoLog,   "glGetShaderInfoLog"))   {*err.get() = "FAILED to get the glGetShaderInfoLog funtion pointer";}   return err;
+
+        if (m_program != 0)
+        {
+            this->glDeleteProgram(m_program);
+            m_program = 0;
+        }
+        err = this->CreateProgram();
+        if (*err.get() == "S_OK")
+        {
+            m_Context.Set(context);            
+        }
+        return err;
     }
     unique_ptr<string>CompileShader(GLuint * shader, GLenum type, const char * src)
     {
@@ -74,7 +84,7 @@ public:
         this->glGetShaderiv(*shader, GL_COMPILE_STATUS, &status);
         if (status != GL_TRUE) 
         {
-            *shader = 0;  // doesnt hust to  be sure;
+            *shader = 0;  // doesn't hurt to  be sure;
             GLint length;
             this->glGetShaderiv(*shader, GL_INFO_LOG_LENGTH, &length);
             err.get()->resize(length);
@@ -110,9 +120,9 @@ public:
         return err;        
     }
     BOOL InitPfn(void** pfn, const char * name)
-    {
-        *pfn = (void*)wglGetProcAddress(name);
-        if (nullptr == *pfn) return FALSE;
+    {        
+        *pfn = (void*)this->wglGetProcAddress(name);
+        if (*pfn == nullptr) return FALSE;
         return TRUE;
     }
 private:      
@@ -135,5 +145,4 @@ void main()                                 \
     crds           = texCoord.xy;           \
 }";                      
 };
-
 #endif // WINEHOOKS_H

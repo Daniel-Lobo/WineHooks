@@ -811,11 +811,10 @@ class IEGui{
 			split   := strsplit(element.id, "_")			
 			tab     := StrReplace(StrReplace(StrReplace(StrReplace(split[2], "graphics", "Graphics"), "input", "Input"), "cpu", "CPU"), "sound", "Sound")
 			control := split[3]			
-			if S(tab).StartsWith("input")
-				return BetaWarn()	
 			if this.document.getElementById(tab "_div") {
 				this.document.parentWindow.SelectTab(tab)
 				this.document.getElementById(tab  "_div").style.display = "flex"
+				this.document.getElementById(tab  "_div").scrollIntoView()
 			}
 			control := trim(control)
 			if (InStr(control, "="))

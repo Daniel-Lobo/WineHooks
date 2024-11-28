@@ -327,7 +327,7 @@ extern "C" __declspec(dllexport) ULONG __stdcall GetLayerObjectsCount() {
     return (ULONG)g_.layer_objects_count->Get();
 }
 
-extern "C" __declspec(dllexport) void RunScript(wchar_t * file)
+extern "C" __declspec(dllexport) void __stdcall RunScript(wchar_t * file)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     typedef HANDLE (__cdecl *pahkdll)  (wchar_t* script, wchar_t* p1, wchar_t* p2);

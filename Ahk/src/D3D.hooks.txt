@@ -2845,7 +2845,7 @@ for k, v in [IDirect3DDevice7, IDirect3DVertexBuffer7, IDirect3D7, IDirectDrawSu
 ,IDirect3D3, IDirect3D2, IDirect3D
 ,IDirectDrawClipper, IDirectDrawPalette, IDirectDrawGammaControl, IDirectDrawSurface
 ,IDirectDrawSurface2, IDirectDrawSurface3, IDirectDrawSurface4
-,IDirectDraw4, IDirectDraw2, IDirectDraw]
+,IDirectDraw4, IDirectDraw2, "FIX ME: Not Releasing DirectDraw"]
 isobject(v) ? logerr("Releasing " v.name " " v.p " " v.__release())
 }
 GetDirect3D7()
@@ -3687,7 +3687,6 @@ logerr(IDirectDrawSurface4.dllHook("Blt", "SurfaceBltHook"))
 D3DHOOKS_DATA.BltPrimary             := RegisterCallback(isfunc("Alt_Blt") ? "Alt_Blt" : "Surface1Blt", "F")
 D3DHOOKS_DATA.BltSurface             := IDirectDrawSurface4.blt
 IDirectDrawSurface.blt               := IDirectDrawSurface4.blt
-logerr(IDirectDrawSurface4.dllHook("Bltfast", "SurfaceBltFastHook"))
 D3DHOOKS_DATA.BltFastPrimary         := RegisterCallback("Surface1bltfast", "F")
 D3DHOOKS_DATA.BltFastSurface         := IDirectDrawSurface4.bltFast
 IDirectDrawSurface.bltFast           := IDirectDrawSurface4.bltFast
@@ -5565,13 +5564,18 @@ g_.p.DirectDrawCreate := pDirectDrawCreate
 logerr("DirectDrawCreate Hook: " InstallHook(isfunc("AltDDrawCreate") ? "AltDDrawCreate" : "DirectDrawCreate_hook", pDirectDrawCreate, "ddraw.dll", "DirectDrawCreate"))
 g_.p.DirectDrawCreate := pDirectDrawCreate
 }
-if (g_.cfg.winedd)
+if ((!g_.cfg.wineoff) or (IsLinux := dllcall("LoadLibraryW", str, "wined3d.dll")))
 {
+g_.cfg.winedd   := True
 g_.cfg.layeroff := false
+if (!IsLinux)
+{
 dllcall("LoadLibraryW", str,  g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\x32\wined3d.dll")
-h_wineddraw                := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\wined3d\" . g_.cfg.wine . "\x32\ddraw.dll")
-g_.p.DDCreateEx            := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
-g_.p.DirectDrawCreate      := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
+h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\wined3d\" . g_.cfg.wine . "\x32\ddraw.dll")
+g_.p.DDCreateEx        := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
+g_.p.DirectDrawCreate  := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
+}
+logerr("InitWineHooks " strget(dllcall("peixoto.dll\InitWineHoooks", wstr, "", ptr)+0, "UTF-8"))
 }
 g_.p.SetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "SetDDSurfacePixelFormat", uint)
 g_.p.GetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "GetDDSPixelFormat", uint)
