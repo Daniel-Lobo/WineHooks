@@ -16,6 +16,12 @@
 using std::string;
 using std::unique_ptr;
 
+enum WINEHOOKS_POSTFX_FLAGS
+{
+    NONE = 0,
+    XBRZ = 1
+};
+
 class WINEHOOKS
 {
 public:  
@@ -40,7 +46,21 @@ public:
     PFNGLGETPROGRAMINFOLOGPROC  glGetProgramInfoLog  = nullptr;
     PFNGLGETSHADERIVPROC        glGetShaderiv        = nullptr;
     PFNGLGETSHADERINFOLOGPROC   glGetShaderInfoLog   = nullptr;
-    SYNC::AtomicPtr             m_Context;
+    PFNGLGENFRAMEBUFFERSPROC    glGenFramebuffers    = nullptr;
+    PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers = nullptr;
+    PFNGLBLITFRAMEBUFFERPROC    glBlitFramebuffer    = nullptr;
+    PFNGLBINDFRAMEBUFFERPROC    glBindFramebuffer    = nullptr;
+    PFNGLGENBUFFERSPROC         glGenBuffers         = nullptr;
+    PFNGLDELETEBUFFERSPROC      glDeleteBuffers      = nullptr;
+    PFNGLBINDBUFFERPROC         glBindBuffer         = nullptr;   
+    PFNGLBUFFERDATAPROC         glBufferData         = nullptr;
+    PFNGLGENVERTEXARRAYSPROC    glGenVertexArrays    = nullptr;
+    PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays = nullptr;
+    PFNGLBINDVERTEXARRAYPROC    glBindVertexArray    = nullptr;
+    PFNGLENABLEVERTEXATTRIBARRAYPROC glEnableVertexAttribArray = nullptr;
+    PFNGLVERTEXATTRIBPOINTERPROC     glVertexAttribPointer     = nullptr;
+    WINEHOOKS_POSTFX_FLAGS      FxFlag               = WINEHOOKS_POSTFX_FLAGS::NONE;
+    SYNC::AtomicPtr             m_Context;   
     unique_ptr<string>InitObjects(HGLRC context) {
         if      (context ==  nullptr)        return unique_ptr<string>(new string("null context"));
         else if (context == m_Context.Get()) return unique_ptr<string>(new string("S_OK"));
@@ -61,6 +81,19 @@ public:
         if (!InitPfn((void**)&glGetProgramInfoLog,  "glGetProgramInfoLog"))  {*err.get() = "FAILED to get the glGetProgramInfoLog funtion pointer";}  return err;
         if (!InitPfn((void**)&glGetShaderiv,        "glGetShaderiv"))        {*err.get() = "FAILED to get the glGetShaderiv funtion pointer";}        return err;
         if (!InitPfn((void**)&glGetShaderInfoLog,   "glGetShaderInfoLog"))   {*err.get() = "FAILED to get the glGetShaderInfoLog funtion pointer";}   return err;
+        if (!InitPfn((void**)&glGenFramebuffers,    "glGenFramebuffers"))    {*err.get() = "FAILED to get the glGenFramebuffers funtion pointer";}    return err;
+        if (!InitPfn((void**)&glDeleteFramebuffers, "glDeleteFramebuffers")) {*err.get() = "FAILED to get the glDeleteFramebuffers funtion pointer";} return err;
+        if (!InitPfn((void**)&glBlitFramebuffer,    "glBlitFramebuffer"))    {*err.get() = "FAILED to get the glBlitFramebuffer funtion pointer";}    return err;
+        if (!InitPfn((void**)&glBindFramebuffer,    "glBindFramebuffer"))    {*err.get() = "FAILED to get the glBindFramebuffer funtion pointer";}    return err;
+        if (!InitPfn((void**)&glGenBuffers,         "glGenBuffers"))         {*err.get() = "FAILED to get the glGenRenderbuffers funtion pointer";}   return err;
+        if (!InitPfn((void**)&glDeleteBuffers,      "glDeleteBuffers"))      {*err.get() = "FAILED to get the glDeleteBuffers funtion pointer";}      return err;
+        if (!InitPfn((void**)&glBindBuffer,         "glBindBuffer"))         {*err.get() = "FAILED to get the glBindBuffer funtion pointer";}         return err;
+        if (!InitPfn((void**)&glBufferData,         "glBufferData"))         {*err.get() = "FAILED to get the glBufferData funtion pointer";}         return err;
+        if (!InitPfn((void**)&glGenVertexArrays,    "glGenVertexArrays"))    {*err.get() = "FAILED to get the glGenVertexArrays funtion pointer";}    return err;
+        if (!InitPfn((void**)&glBindVertexArray,    "glBindVertexArray"))    {*err.get() = "FAILED to get the glBindVertexArray funtion pointer";}    return err;
+        if (!InitPfn((void**)&glDeleteVertexArrays, "glDeleteVertexArrays")) {*err.get() = "FAILED to get the glDeleteVertexArrays funtion pointer";} return err;
+        if (!InitPfn((void**)&glEnableVertexAttribArray, "glEnableVertexAttribArray")) {*err.get() = "FAILED to get the glEnableVertexAttribArray funtion pointer";} return err;
+        if (!InitPfn((void**)&glVertexAttribPointer, "glVertexAttribPointer")) {*err.get() = "FAILED to get the glVertexAttribPointer funtion pointer";} return err;
 
         if (m_program != 0)
         {
@@ -125,14 +158,14 @@ public:
         if (*pfn == nullptr) return FALSE;
         return TRUE;
     }
-private:      
-    GLuint  m_program       = 0;  
+    GLuint  m_program       = 0; 
+private:       
     const char * frag_src   = "#version 130 \
 in vec2 crds;                               \
 texture sampler2D tex;                      \
 void main()                                 \
 {                                           \
-    gl_FragColor = texture(tex, crds);      \
+    gl_FragColor = texture(tex, vec2(1.,1.)-crds);      \
 }";
     const char * vertex_src = "#version 130 \
 attribute vec2 position;                    \

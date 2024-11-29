@@ -59,7 +59,7 @@ global g_ := {"BasePath" : A_mydocuments "\WineHooks\"
 ,"Links"           : {}
 ,"Name"            : ""
 ,"Stabe"           : "https://github.com/Daniel-Lobo/WineHooks/releases/download/v0.10.12/Peixoto.zip"
-,"Hierarchy"       : {"32Bit" :  ["z24", "Safe",  "DisableFontAA"
+,"Hierarchy"       : {"wineoff" : ["layeroff"], "32Bit" :  ["z24", "Safe", "DisableFontAA", "SYS"
 , {"READ"  : ["CPY"]}
 , {"HD"    : ["GDI", "NEFS", "DSR", "WHKS", "HLFPX", "MHKS", "MCLP", "xBR", "VPOS", "POW2", "WNWM", "BLNK", {"SSAA": ["BLT3D"]}]}  ]}}
 
@@ -1005,8 +1005,13 @@ class WellcomeEventhandler{
 		}
 	}
 }
-Wellcome(){  
+Wellcome(call=1){  
 	static IE, IEWellcome
+	if (call>10){
+		msgbox, 16, ,FATAL ERROR`n`nCODE:ERR_DEVELOPER_LAZYNESS`n`nPlease restart the program
+		return
+	}
+		
 stable := g_.Stabe
 warn =
 (
@@ -1036,7 +1041,7 @@ download the <a href="%stable%">last stable version</a>
 	try {
 		IE.Document.parentWindow.AddHomePageWarning()
 	} catch {
-		Wellcome()
+		Wellcome(call+1)
 	}
 	WellcomeEventhandler.document := IEWellcome.document
 	WellcomeEventhandler.auxdoc   := IE.document
@@ -1044,7 +1049,7 @@ download the <a href="%stable%">last stable version</a>
 	try {
 		WellcomeEventhandler.Document.parentWindow.Wellcome()
 	} catch {
-		Wellcome()
+		Wellcome(call+1)
 	}
     Gui,Cfg: Show, x%x% y0 h%h% w%w%    
 	FileCreateDir, % g_.BasePath "scripts"

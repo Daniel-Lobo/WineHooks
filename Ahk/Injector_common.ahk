@@ -153,15 +153,16 @@ ParseCommandLine(file="")
 	OSVERSIONINFO := ""		
 	if isobject( (dev := new ini("main.ini")) )
 	{
-		game     := strsplit(file, ".ini")[1]
-		stringreplace, game, game, %A_workingdir%, ,All
+		game := strsplit(file, ".ini")[1]
+		stringreplace, game, game, \\, \, All		
+		stringreplace, game, game, %A_MyDocuments%\WineHooks\Profiles, ,All
 		stringreplace, game, game, \, ,All
 		stringreplace, game, game, Scripts, ,All
 		stringreplace, game, game, Peixoto, ,All
 		stringreplace, game, game, Profiles, ,All
 		stringreplace, game, game, User, ,All
-		stringreplace, game, game, Dev, ,All
-		devflags := dev.read(game, "devflags")
+		stringreplace, game, game, Dev, ,All		
+		devflags := dev.read(game, "devflags")			
 		stringreplace, devflags, devflags, `", ^, All
 		stringreplace, devflags, devflags, %A_Space%, ^, All
 		stringreplace, devflags, devflags, @, %A_Space%, All		

@@ -3687,6 +3687,7 @@ logerr(IDirectDrawSurface4.dllHook("Blt", "SurfaceBltHook"))
 D3DHOOKS_DATA.BltPrimary             := RegisterCallback(isfunc("Alt_Blt") ? "Alt_Blt" : "Surface1Blt", "F")
 D3DHOOKS_DATA.BltSurface             := IDirectDrawSurface4.blt
 IDirectDrawSurface.blt               := IDirectDrawSurface4.blt
+logerr(IDirectDrawSurface4.dllHook("Bltfast", "SurfaceBltFastHook"))
 D3DHOOKS_DATA.BltFastPrimary         := RegisterCallback("Surface1bltfast", "F")
 D3DHOOKS_DATA.BltFastSurface         := IDirectDrawSurface4.bltFast
 IDirectDrawSurface.bltFast           := IDirectDrawSurface4.bltFast

@@ -5,6 +5,8 @@
 #include <virtdisk.h>
 #include "aviriff.h"
 //#pragma comment(lib, "virtdisk.lib")
+#define OPEN_VIRTUAL_DISK_RW_DEPTH_DEFAULT 1
+#define VIRTUAL_DISK_ACCESS_SURFACE_RO VIRTUAL_DISK_ACCESS_ATTACH_RO
 
 typedef DWORD (WINAPI * OpenVirtualDiskType)(PVIRTUAL_STORAGE_TYPE,
         PCWSTR,  VIRTUAL_DISK_ACCESS_MASK,  OPEN_VIRTUAL_DISK_FLAG,

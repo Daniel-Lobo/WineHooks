@@ -60,7 +60,7 @@ ${PROJECT_SOURCE_DIR}/Sources/sigscan.c
 ${PROJECT_SOURCE_DIR}/Sources/XInput.cpp   
 ${PROJECT_SOURCE_DIR}/Sources/collections.cpp
 ${PROJECT_SOURCE_DIR}/Sources/sethooks.c  
-#${PROJECT_SOURCE_DIR}/Sources/virtualdisk.cpp
+${PROJECT_SOURCE_DIR}/Sources/virtualdisk.cpp
 ${PROJECT_SOURCE_DIR}/Sources/MouseHooks.cpp
 ${PROJECT_SOURCE_DIR}/Sources/CreateprocessHooks.cpp
 ${PROJECT_SOURCE_DIR}/Sources/DDSurfaceCpp.cpp

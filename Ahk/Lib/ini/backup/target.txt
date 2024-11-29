@@ -1,8 +1,0 @@
-solitarykey=solvalue
-
-[section]
-key=value
-otherkey=value
-
-[new section]
-newkey=value

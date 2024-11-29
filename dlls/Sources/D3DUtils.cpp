@@ -642,7 +642,7 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDxBRzScale(IDirectDrawSurf
 		(uint32_t*)src_desc.lpSurface, (int)src_desc.dwWidth,  (int)src_desc.dwHeight, 
 		(uint32_t*)dst_desc.lpSurface, (int)dst_desc.dwWidth,  (int)dst_desc.dwHeight
 		);
-	//xbrz::scale(scl, (uint32_t*)src_desc.lpSurface, (uint32_t*)dst_desc.lpSurface, (int)src_desc.dwWidth, (int)src_desc.dwHeight, xbrz::ColorFormat::ARGB);
+	xbrz::scale(scl, (uint32_t*)src_desc.lpSurface, (uint32_t*)dst_desc.lpSurface, (int)src_desc.dwWidth, (int)src_desc.dwHeight, xbrz::ColorFormat::ARGB);
 
 	sys_src->Unlock(src_desc.lpSurface);
 	sys_dst->Unlock(dst_desc.lpSurface);
@@ -659,7 +659,7 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDrawBrowseTextures(COMPtr*
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	static BOOL sleep_flag        = 0;
 	static std::wstring msg       = L"not searching";
-	D3DHooksData->current_texture = 0;  //current_texture should be voif but its DWORD
+	D3DHooksData->current_texture = 0;  //current_texture should be void but its DWORD
 
 	if (sleep_flag) {
 		Sleep(2000);
