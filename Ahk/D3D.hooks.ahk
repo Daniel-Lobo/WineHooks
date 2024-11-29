@@ -257,6 +257,7 @@ InitD3DHook()
 		g_.p.DirectDrawCreate := pDirectDrawCreate
 	}		
 		
+	g_.cfg.wineoff := True
 	if ((!g_.cfg.wineoff) or (IsLinux := dllcall("LoadLibraryW", str, "wined3d.dll")))
 	{
 		g_.cfg.winedd   := True
@@ -294,7 +295,7 @@ InitD3DHook()
     ;dllcall("Peixoto.dll\NVIDIA_Set", wstr, g_.cfg.target, uint, g_.cfg.NVAA:=2)
 	logerr(g_.p.Dev3_DrawRctWithFlags "============================================")
 
-    g_.cfg.layer := (g_.cfg.layeroff or g_.cfg.ver) ? False : True	
+    g_.cfg.layer := (g_.cfg.layeroff) ? False : True	
 	if (g_.cfg.layer)
 	{
         LayerInitTextSwap(g_.cfg.TextSwap, g_.cfg.mngr)        

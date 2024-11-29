@@ -264,7 +264,7 @@ void CPU_vMirror(unsigned int pSource, unsigned int Spitch, unsigned int shh,
         memcpy( (void*)(pDest + Dpitch * i), (void*) (pSource + Spitch * (shh - i)), sz);
 }
 
-DWORD Pal2RGB(BYTE * pSrcData, DWORD pSrcPitch, DWORD * Palette,
+__declspec(dllexport)  DWORD Pal2RGB(BYTE * pSrcData, DWORD pSrcPitch, DWORD * Palette,
                                     DWORD * pDstData, DWORD pDstPitch, DWORD ww, DWORD hh,
                                     RECT * rect)
 {

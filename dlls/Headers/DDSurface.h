@@ -5,6 +5,7 @@
 #include "collections.h"
 #endif
 
+__declspec(dllexport)
 DWORD Pal2RGB(BYTE *, DWORD, DWORD *, DWORD *, DWORD, DWORD, DWORD, RECT *);
 
 __declspec(dllexport)

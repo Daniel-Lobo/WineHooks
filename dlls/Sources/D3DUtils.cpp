@@ -575,6 +575,27 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDMaskSurface(IDirectDrawSu
 	return (wchar_t*)err.c_str();
 }
 
+struct XBRZ_SDCALEDATA {
+	size_t scl;
+	void * src;
+	void * dst;
+	DWORD w;
+	DWORD h;	
+} ;
+DWORD WINAPI xBRzThread(LPVOID params)
+{
+	XBRZ_SDCALEDATA * data = (XBRZ_SDCALEDATA*)params;
+	xbrz::scale(data->scl, (const uint32_t*)data->src, (const uint32_t*)data->dst, (int)data->w, (int)data->h, xbrz::ColorFormat::ARGB);
+	return 0;
+}
+
+void * OffsetLine(void * line0_ptr, DWORD line_count, DWORD bytes_per_line)
+{
+	DWORD ptr = (DWORD)line0_ptr;
+	ptr      += line_count * bytes_per_line;
+	return (void*)ptr;
+}
+
 extern "C" __declspec(dllexport) wchar_t * __stdcall DDxBRzScale(IDirectDrawSurface* iSrc, IDirectDrawSurface* iDst, RECT * r)
 {
 	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -588,6 +609,23 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDxBRzScale(IDirectDrawSurf
 
 	size_t scl              = ceil(D3DHooksData->scale_delta); 
 	IDirectDraw * dd        = nullptr;
+
+	UINT src_lines_per_thread   = 0;
+	UINT src_lines_remainder    = 0;
+	UINT dst_lines_per_thread   = 0;
+	UINT dst_lines_remainder    = 0;
+	UINT extra_lines            = 3;
+
+	HANDLE Threads[6]     = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
+	XBRZ_SDCALEDATA data0 = {{0}};
+	XBRZ_SDCALEDATA data1 = {{0}};
+	XBRZ_SDCALEDATA data2 = {{0}};
+	XBRZ_SDCALEDATA data3 = {{0}};
+	XBRZ_SDCALEDATA data4 = {{0}};
+	XBRZ_SDCALEDATA data5 = {{0}};
+	void * temp_lines0 = nullptr;
+	void * temp_lines2 = nullptr;
+	void * temp_lines5 = nullptr;	
 
 	DirectDrawSurface * src =  GetDirectDrawSurface((COMPtr*)iSrc);
 	DirectDrawSurface * dst =  GetDirectDrawSurface((COMPtr*)iDst);
@@ -637,12 +675,41 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDxBRzScale(IDirectDrawSurf
 		sys_dst->Unlock(nullptr);
 		err = L"sys_src->Lock() failed";
 		goto DDxBRzScale_cleanup;
-	}	
+	}
+	/*	
 	xbrz::nearestNeighborScale(
 		(uint32_t*)src_desc.lpSurface, (int)src_desc.dwWidth,  (int)src_desc.dwHeight, 
 		(uint32_t*)dst_desc.lpSurface, (int)dst_desc.dwWidth,  (int)dst_desc.dwHeight
 		);
-	xbrz::scale(scl, (uint32_t*)src_desc.lpSurface, (uint32_t*)dst_desc.lpSurface, (int)src_desc.dwWidth, (int)src_desc.dwHeight, xbrz::ColorFormat::ARGB);
+	*/	
+		
+	src_lines_per_thread = src_desc.dwHeight / 2;
+	src_lines_remainder  = src_desc.dwHeight % 2; 
+	dst_lines_per_thread = src_lines_per_thread * scl;
+	dst_lines_remainder  = src_lines_remainder  * scl;
+
+	temp_lines0 = malloc(dst_desc.lPitch * (dst_lines_per_thread + extra_lines*scl));
+
+	data0.scl = scl;
+	data0.src = src_desc.lpSurface;
+	data0.dst = temp_lines0;
+	data0.w   = src_desc.dwWidth;
+	data0.h   = src_lines_per_thread + src_lines_remainder + extra_lines;
+	
+	data5.scl = scl;
+	data5.src = OffsetLine(src_desc.lpSurface, src_lines_per_thread-extra_lines,     src_desc.lPitch);
+	data5.dst = OffsetLine(dst_desc.lpSurface, dst_lines_per_thread-extra_lines*scl, dst_desc.lPitch);
+	data5.w   = src_desc.dwWidth;
+	data5.h   = src_lines_per_thread+src_lines_remainder+extra_lines;
+	
+	//xbrz::scale(scl, (uint32_t*)src_desc.lpSurface, (uint32_t*)dst_desc.lpSurface, (int)src_desc.dwWidth, (int)src_desc.dwHeight, xbrz::ColorFormat::ARGB);
+	Threads[0] = CreateThread(nullptr, 0, xBRzThread, &data0, 0, nullptr);
+	Threads[5] = CreateThread(nullptr, 0, xBRzThread, &data5, 0, nullptr);
+	WaitForSingleObject(Threads[5], INFINITE);
+	WaitForSingleObject(Threads[0], INFINITE);
+
+	memcpy(dst_desc.lpSurface, temp_lines0, dst_desc.lPitch * dst_lines_per_thread);
+	free(temp_lines0);
 
 	sys_src->Unlock(src_desc.lpSurface);
 	sys_dst->Unlock(dst_desc.lpSurface);
