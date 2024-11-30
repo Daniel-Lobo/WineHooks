@@ -565,7 +565,7 @@ ShowHelp(path, name){
             IEGui.document.parentWindow.AppendContent(ProcessText(tokens[index+2]), "title_container")
 			IEGui.document.parentWindow.AppendContent("<div><br><a id='MANUAL_EDIT' href='javascript:dummy()'>Edit</a> config file. For developer use</div>", "title_container")
 		} else if (sec = "Tab"){
-			IEGui.document.parentWindow.AddTabs(tokens[index+1])
+			IEGui.document.parentWindow.AddTabs(tokens[index+1], trim(g_.GameCfg.Get("d3d")))
 		} else if (sec = "parent"){
 			if S(tokens[index+1]).StartsWith("textswap")
 			continue	
@@ -860,8 +860,8 @@ class IEGui{
 				ConfigPxSwap()
 			else if S(control).StartsWith("PixelSwap")
 				ConfigPxSwap()
-			else if S(control).StartsWith("xBr")
-				return BetaWarn()				
+			;else if S(control).StartsWith("xBr")
+				;return BetaWarn()				
 			else {
 				print("Scroll=" control " " IsObject(this.document.getElementById(control))) 
 				this.document.getElementById(trim(control)).scrollIntoView()

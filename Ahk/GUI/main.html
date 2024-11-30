@@ -123,6 +123,7 @@
             padding-top     : 2px;
             padding-left    : 2px;
             padding-right   : 2px;
+            padding-bottom  : 10px ;
         }   
         .xinput_dialog_cell{
             color:blue;
@@ -243,10 +244,10 @@
             AppendContent(cheats, "title_container")           
         };
         function AddVersionWarning(ver){
-            let warn = "<div class='warning'><h3 style='color:red'>Version warning</h3>This warning means that I don't have this game installed anymore therefore" 
-            + " I can't test it when I make changes on parts of the program that can affect and I don't offer support for it"
-            + "<br><br>This game was last tested on version "
-            + "<a id='old_version_redirect' href='javascript:dummy()'> " + ver + "</a></div>"
+            let warn = "<div class='warning'><h3 style='color:red'>Version warning</h3>This warning means that I don't have this game installed anymore therefore\
+            I can't test it when I make changes on parts of the program that can affect and I don't offer support for it\
+            <br><br>This game was last tested on version\
+            <a id='old_version_redirect' href='javascript:dummy()'> " + ver + "</a></div>"
             AppendContent(warn)
         };
         function AddBoolean(_id, label, details, parent_id, check){
@@ -304,7 +305,7 @@
                 document.getElementById(g_.tabs[i] + "_div").style.display = "none";
             }
         };
-        function AddTabs(tbs){
+        function AddTabs(tbs, api){           
             let tabs_row   = document.createElement("div");
             tabs_row.style = "display:flex;flex-direction:row";
             let tabs       = tbs.split("|")
@@ -317,9 +318,17 @@
                 tabs_row.innerHTML += "<button id='" + tabs[i] + "-tab-button' style='width:80px;height:50px;font-size:20px;' onclick='SelectTab(\"" + tabs[i] + "\");'>" + label + "</button>"                  
             }
             let html = "<div class='cntrl_group'><div style='height:20px'></div>" + tabs_row.innerHTML + "<div style='height:20px'></div>";
-            html    += "<div class='warning' style='display:flex;flex-direction:row;'><img src='png\\WINE.png'style='width:60px;height:60px'>" +
-            "<div style='margin-top:20px;margin-left:20px'>The settings below are optimal for windows. On wine, you'll probably need tweak them a little, and even" + 
-            " so, at the moment, expect low compatibility</div></div></div>"
+            html    += "<div class='warning' style='display:flex;flex-direction:row;'><img src='png\\WINE.png'style='width:60px;height:60px'>\
+            <div style='margin-top:20px;margin-left:20px'>The settings below are optimal for windows. On wine, you'll probably need tweak them a little, and even \
+            so, at the moment, expect low compatibility</div></div>"
+            if ('1237ddraw'.indexOf(String(api))>-1){
+                html +=  "<div class='warning' style='padding-left:10px;display:flex;'> \
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='width:50px;height:50px;fill:#880000;margin-left:10px;margin-right:20px;margin-top:10px'>\
+                    <path d='M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z'/>\
+                </svg>\
+                <br>Currrenttly on DirectDraw Games, XBR scaling and deinterlaning (on the games the offer this options) may not function properlly or be sllow. This will be fixed on the next update \
+                </div></div>"
+            } else  html +='</div>'
             for (let i = 0; i < tabs.length; i++) {
                 let display = (i === 0) ? "flex" : "none";
                 html += "<div class='cntrl_group' style='display:" + display + ";flex-direction:column' id='" + tabs[i] + "_div'></div>"
@@ -357,7 +366,7 @@
             for (let i=0; i < hints.length; i++){
                 hints[i].style.display = "none";
             }
-            html = "<a onclick='ShowHint(\"" + hint_id + "\")' onmouseenter='ShowHint(\"" + hint_id + "\")' href='javascript:dummy()' style='position:relative; white-space:nowrap'>&nbsp;[?]<\a>" + 
+            html = "<a onclick='ShowHint(\"" + hint_id + "\")' onmouseenter='ShowHint(\"" + hint_id + "\")' href='javascript:dummy()' style='position:relative; white-space:nowrap'>[?]<\a>" + 
             "<div class='box' name='hint' id='" + hint_id +
             "' style='display:none;z-index:1;flex-direction:column;margin-bottom:20px;position:absolute;' onclick='HideHint(\"" + hint_id + "\")' onmouseleave='HideHint(\"" + 
             hint_id + "\")'>" + hint + "<i>click to hide</i></div>";
@@ -407,11 +416,11 @@
             AppendContent(html, parent_id);
         };
         function AddHomePageWarning(){
-            let html = "<div style='height:370px' class='cntrl_group'><div class='warning' style='display:flex;flex-direction:row;font-size:20px;padding-bottom:20px'>" +
-            "<div style='margin-top:20px;margin-left:20px'>This is a beta version. Currently, I'm adapting the program to be fully compatible "      +
-            "with <a id='Wine' href='javascript:dummy()'>wine</a> and use wine\'s Direct3D dlls on Windows and while the transition is fairly advanced, " +
-            "several things are broken or missing on the GUI and on Direct3D 7 and earlier games, but if you're on windows, you can always "         +
-            "download the <a id='Stable' href='javascript:dummy()'>last stable version</a><br> </div></div></div>" 
+            let html = "<div style='height:370px' class='cntrl_group'><div class='warning' style='display:flex;flex-direction:row;font-size:20px;padding-bottom:20px'>\
+            <div style='margin-top:20px;margin-left:20px'>This is a beta version. Currently, I'm adapting the program to be fully compatible                          \
+            with <a id='Wine' href='javascript:dummy()'>wine</a> and use wine\'s Direct3D dlls on Windows and while the transition is fairly advanced,                \
+            several things are broken or missing on the GUI and on Direct3D 7 and earlier games, but if you're on windows, you can always                             \
+            download the <a id='Stable' href='javascript:dummy()'>last stable version</a><br> </div></div></div>" 
             AppendContent(html);
             //document.body.style.backgroundColor = "black";
         }        

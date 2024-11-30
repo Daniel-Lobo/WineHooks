@@ -1,43 +1,34 @@
 Peixotos's patch remote settings:
-Command Line: CLIENT.EXE -windowtitle Shogo -rez shogo.rez -rez sound.rez -rez Custom -rez ShogoP.rez -rez ShogoP3.rez -rez ShogoP4.rez +multiplayer 0 ++3dsoundprovider 0 ++3dsoundprovidername "No 3D sound" ++max3dvoices 16 ++maxswvoices 32 ++reverblevel 0.600000   
-#script: Scripts\Shogo.ahk
-32bit: 1
-4K: 1
-<Textswap>: s=4;sz=256;path=Textures\VOKSI;q=Shift;n=];p=[;sw=Ins;c=C;l=0;d=Home;
+Command Line: "E:\Games\American McGee's Alice\Alice.exe" 
 common_path: 1
-CompatLayer: DWM8And16BitMitigation
-console: 1
-D3D: 3
+D3D: gl
 D3D_Driver: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispsig.inf_amd64_e6cac7f31a92d62e\nvldumd.dll
 dsk: 1920x1080
-DSnd: e=false;
+Dsnd: e=false;
 dxvkv: 2_4
 error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
-HD: 1
+f: 120
+HD: wide nofov
 injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
-iso: Shogo.iso
-J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;rs_alt=False;
-k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;
 max_4x3_res: 1440x1080
 Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
-Path: C:\Users\Peixoto\Documents\WineHooks\Games\Shogo\
+Path: C:\Users\Peixoto\Documents\WineHooks\Games\Alice\Retail\
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
-script_hwnd: 0xe0948
-shogo_filter: 1
-Target: E:\Games\Shogo\Shogo.exe
-target_dir: E:\Games\Shogo
-target_name: Shogo.exe
-Textswap: e=false;sz=256;s=4;path=Textures\VOKSI;sw=End;n=<;p=>;d=Home;q=Shift;dly=False;a=False;l=False;A8Fix=False;
-wiki: https://www.pcgamingwiki.com/wiki/Shogo:_Mobile_Armor_Division
+script: scripts\Alice.ahk
+script_hwnd: 0x3086a
+Target: E:\Games\American McGee's Alice\Alice.exe
+target_dir: E:\Games\American McGee's Alice
+target_name: Alice.exe
+Textswap: path=Textures\VOKSI;l=0;sw=End;q=Ins;p=<;n=>;c=Del;d=Home;sz=384;s=4;e=true;a=false;
+TextureSwap: 1
+wiki: https://www.pcgamingwiki.com/wiki/American_McGee%27s_Alice
 wine: 9_0
-wineoff: 1
-WNMM: MCI=false;
 
-Working directory: E:\Games\Shogo
-C:\Users\Peixoto\Documents\WineHooks\Games\Shogo\cfgFiles: 
+Working directory: E:\Games\American McGee's Alice
+C:\Users\Peixoto\Documents\WineHooks\Games\Alice\Retail\cfgFiles: 
 HasFiles 0
-C:\Users\Peixoto\Documents\WineHooks\Games\Shogo\cfgFiles: 
+C:\Users\Peixoto\Documents\WineHooks\Games\Alice\Retail\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -50,10 +41,6 @@ CreateProcessA Hook: 0
 CreateProcessW Hook: 0
 ShellExecuteA Hook  :0
 ShellExecuteExW Hook  :0
-Desktop 1920x1080
-DDraw.dll : C:\WINDOWS\SYSTEM32\DDRAW.dll
-DirectDrawCreate Hook: 0
-1821667120============================================
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -86,6 +73,9 @@ CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
+Setup: InitGlHooks() Requested mode    : 1920x1080
+Setup: InitGlHooks() Scale             : 1.000000
+Setup: InitGlHooks() Viewport XOffset  : 0
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
@@ -96,799 +86,63 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-DDraw: 8003632
-PrivateDataObjectParent: 1
-DirectDraw: Object created. m_refcount=[1]
-Wrapped: 37200752
-DirectDraw_QueryInterface: Return adress=[268972556]
-DirectDraw_QueryInterface: _this=[37200720]
-DirectDraw_QueryInterface: DirectDraw2
-DirectDraw_QueryInterface: Return adress=[268972556]
-DirectDraw_QueryInterface: _this=[37200720]
-DirectDraw_QueryInterface: DirectDraw4
-DirectDraw4_SetCooperativeLevel: Return adress=[268972556]
-DirectDraw4_SetCooperativeLevel: _this=[37200720]
-DirectDraw4_CreateSurface: Return adress=[268972556]
-DirectDraw4_CreateSurface: _this=[37200720]
-PrivateDataObject: 2
-DirectDraw4_CreateSurface: Created Surface: 50753064
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50753064]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface3
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50753064]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50753064]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50753064]
-DirectDrawSurface_QueryInterface: Unhandled GUID:{69C11C3E-B46B-11D1-AD7A-00C04FC29B4E} Implementation hr=0
-DirectDraw_CreateClipper: Return adress=[268972556]
-DirectDraw_CreateClipper: _this=[37200720]
-PrivateDataObjectParent: 3
-DirectDraw_CreateClipper: Created Cliper =[37206520
-DirectDraw_CreatePalette: Return adress=[268972556]
-DirectDraw_CreatePalette: _this=[37200720]
-PrivateDataObjectParent: 4
-DirectDraw_CreatePalette: Created Palette =[37206856]
-Succeeded to create DirectDraw
-DirectDraw_QueryInterface: Return adress=[268972556]
-DirectDraw_QueryInterface: _this=[37200720]
-DirectDraw_QueryInterface: IDirect3D
-Direct3D_CreateViewport: Return adress=[268972556]
-Direct3D_CreateViewport: _this=[37200720]
-Direct3D_CreateViewport: Created ViewPort=[50752992]
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50753064]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture
-DirectDraw_QueryInterface: Return adress=[268972556]
-DirectDraw_QueryInterface: _this=[37200720]
-DirectDraw_QueryInterface: IDirect3D2
-Direct3D2_CreateViewport: Return adress=[268972556]
-Direct3D2_CreateViewport: _this=[37200720]
-Direct3D2_CreateViewport: Created ViewPort=[50752632]
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50753064]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
-DirectDraw_QueryInterface: Return adress=[268972556]
-DirectDraw_QueryInterface: _this=[37200720]
-DirectDraw_QueryInterface: IDirect3D3
-Direct3D3_CreateViewport: Return adress=[268972556]
-Direct3D3_CreateViewport: _this=[37200720]
-Direct3D3_CreateViewport: Created ViewPort=[50751264]
-Direct3D3_CreateVertexBuffer: Return adress=[268972556]
-Direct3D3_CreateVertexBuffer: _this=[37200720]
-Direct3D3_CreateVertexBuffer: FAILED: 0
-Direct3D3_CreateDevice: Return adress=[268972556]
-Direct3D3_CreateDevice: _this=[37200720]
-PrivateDataObjectParent: 5
-Direct3D3_CreateDevice: Created device=[50744600]
-Direct3D3_CreateDevice: DD_OK
-Direct3DDevice2_QueryInterface: Return adress=[268972556]
-Direct3DDevice2_QueryInterface: _this=[50744600]
-Direct3DDevice2_QueryInterface: Direct3DDevice2
-Direct3DDevice2_QueryInterface: Return adress=[268972556]
-Direct3DDevice2_QueryInterface: _this=[50744600]
-Direct3DDevice2_QueryInterface: Direct3DDevice1
-Direct3DDevice_CreateExecuteBuffer: Return adress=[268972556]
-Direct3DDevice_CreateExecuteBuffer: _this=[50744600]
-Direct3DDevice_CreateExecuteBuffer: Created buffer=[37216368]
-Succeeded to create Direct3D
-IDirect3DDevice::BeginScene[1822855360] reimplement in IDirect3DDevice2[1822866688], 
-IDirect3DDevice::CreateExecuteBuffer[1822842896] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::CreateMatrix[1822850144] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::DeleteMatrix[1822854064] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::EndScene[1822856656] reimplement in IDirect3DDevice2[1822865616], 
-IDirect3DDevice::Execute[1822928112] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::GetCaps[1822839968] reimplement in IDirect3DDevice2[1822862688], 
-IDirect3DDevice::GetDirect3D[1822858240] reimplement in IDirect3DDevice2[1822867984], 
-IDirect3DDevice::GetMatrix[1822852752] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::GetPickRecords[1822847520] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::Initialize[1822810000] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::Pick[1822846016] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::SetMatrix[1822851440] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::SwapTextureHandles[1822841280] reimplement in IDirect3DDevice2[1822864000], 
-Succeeded to hook IDirectDraw4::CreateSurface
-Succeeded to hook IDirectDraw2::CreateSurface
-Succeeded to hook IDirectDraw::CreateSurface
-Succeeded to hook IDirectDrawSurface::restore
-Succeeded to hook IDirect3DDevice::EndScene
-Succeeded to hook IDirect3DDevice3::EndScene
-Succeeded to hook IDirect3D3::CreateDevice
-Succeeded to hook IDirect3D2::CreateDevice
-Succeeded to hook IDirectDraw::SetDisplayMode
-Succeeded to hook IDirectDraw2::SetDisplayMode
-Succeeded to hook IDirectDraw4::SetDisplayMode
-Succeeded to hook IDirectDraw4::EnumDisplayModes
-Succeeded to hook IDirect3DViewport3::SetViewPort2
-Succeeded to hook IDirect3DViewport3::GetViewPort2
-Succeeded to hook IDirect3DViewport3::Clear
-Succeeded to hook IDirect3DViewport3::Clear2
-Succeeded to hook IDirect3DViewport::SetViewPort
-Succeeded to hook IDirect3DViewport::GetViewPort
-SetupPrxs4(...)
-Succeeded to hook IDirectDrawSurface::flip
-Succeeded to hook IDirectDrawSurface4::EnumAttachedSurfaces
-Succeeded to hook IDirectDrawSurface::EnumAttachedSurfaces
-Succeeded to hook IDirectDrawSurface4::GetSurfaceDesc
-Succeeded to hook IDirectDraw::CreatePalette
-Succeeded to hook IDirectDraw::GetDisplayMode
-Succeeded to hook IDirectDraw4::GetDisplayMode
-Succeeded to hook IDirectDrawSurface::GetPixelFormat
-Succeeded to hook IDirectDrawSurface::GetSurfaceDesc
-Succeeded to hook IDirectDrawSurface::AddAttachedSurface
-Succeeded to hook IDirectDrawSurface::GetPalette
-Succeeded to hook IDirectDrawSurface::SetPalette
-Succeeded to hook IDirectDrawPalette::SetEntries
-Succeeded to hook IDirectDrawPalette::GetEntries
-Succeeded to hook IDirectDrawSurface::QueryInterface
-Succeeded to hook IDirectDrawSurface4::Lock
-Succeeded to hook IDirectDrawSurface4::UnLock
-Succeeded to hook IDirectDrawSurface::UnLock
-Succeeded to hook IDirectDrawSurface4::Blt
-Succeeded to hook IDirectDrawSurface4::Bltfast
-Succeeded to hook IDirectDrawSurface4::GetDC
-Succeeded to hook IDirectDrawSurface4::ReleaseDC
-Succeeded to hook IDirect3DDevice2::SetRenderTarget
-Succeeded to hook IDirect3DViewport3::TransformVertices
-Succeeded to hook IDirect3DDevice3::DrawPrimitive
-Succeeded to hook IDirect3DDevice3::DrawIndexedPrimitive
-Succeeded to hook IDirect3DDevice3::DrawPrimitiveVB
-Succeeded to hook IDirect3DDevice3::DrawIndexedPrimitiveVB
-Succeeded to hook IDirect3DDevice2::DrawPrimitive
-Succeeded to hook IDirect3DDevice2::DrawIndexedPrimitive
-Succeeded to hook IDirect3DDevice::Execute
-Succeeded to hook IDirectDraw::SetCooperativeLevel
-Succeeded to hook IDirectDraw2::SetCooperativeLevel
-Succeeded to hook IDirectDraw4::SetCooperativeLevel
-Direct3DDevice2_Release: Return adress=[268972556]
-PublicRelease: IUnknown_ref=2, this_ref=3
-Direct3DDevice2_Release: 2
-Releasing IDirect3DDevice3 50744676 2
-Direct3DViewport_Release: Return adress=[268972556]
-Direct3DViewport_Release: _this=[50751264]
-Releasing IDirect3DViewport3 50751316 0
-Direct3DVertexBuffer_Release: Return adress=[268972556]
-Direct3DVertexBuffer_Release: _this=[37205992]
-Releasing IDirect3DVertexBuffer 37206000 0
-Direct3DDevice2_Release: Return adress=[268972556]
-PublicRelease: IUnknown_ref=1, this_ref=2
-Direct3DDevice2_Release: 1
-Releasing IDirect3DDevice2 50744660 1
-Direct3DViewport_Release: Return adress=[268972556]
-Direct3DViewport_Release: _this=[50752632]
-Releasing IDirect3DViewport2 50752676 0
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50753064]
-DirectDrawSurface_Release: 6
-Releasing IDirect3DTexture2 50753196 6
-Release: this=[7935520] Return adress=[268972556]
-Release: 0
-Releasing IDirect3DExecuteBuffer 37216368 0
-Direct3DDevice2_Release: Return adress=[268972556]
-PublicRelease: WARNING iunknown_ref == 0, but this_ref == 1
-PublicRelease: IUnknown_ref=0, this_ref=1
-Direct3DDevice2_Release: 0
-Releasing IDirect3DDevice 50744644 0
-Direct3DViewport_Release: Return adress=[268972556]
-Direct3DViewport_Release: _this=[50752992]
-Releasing IDirect3DViewport 50753028 0
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50753064]
-DirectDrawSurface_Release: 4
-Releasing IDirect3DTexture 50753188 4
-DirectDraw_Release: Return adress=[268972556]
-DirectDraw_Release: _this=[37200720]
-PublicRelease: IUnknown_ref=4, this_ref=5
-DirectDraw_Release: 4
-Releasing IDirect3D3 37200800 4
-DirectDraw_Release: Return adress=[268972556]
-DirectDraw_Release: _this=[37200720]
-PublicRelease: IUnknown_ref=3, this_ref=4
-DirectDraw_Release: 3
-Releasing IDirect3D2 37200792 3
-DirectDraw_Release: Return adress=[268972556]
-DirectDraw_Release: _this=[37200720]
-PublicRelease: IUnknown_ref=2, this_ref=3
-DirectDraw_Release: 2
-Releasing IDirect3D 37200784 2
-DirectDrawClipper_Release: Return adress=[268972556]
-DirectDrawClipper_Release: _this=[37206504]
-~PrivateDataObjectParent: 4
-PublicRelease: IUnknown_ref=0, this_ref=0
-DirectDrawClipper_Release: 0
-Releasing IDirectDrawClipper 37206520 0
-DirectDrawPalette_Release: Return adress=[268972556]
-DirectDrawPalette_Release: _this=[37206856]
-~PrivateDataObjectParent: 3
-PublicRelease: IUnknown_ref=0, this_ref=0
-DirectDrawPalette_Release: 0
-Releasing IDirectDrawPalette 37206872 0
-Releasing IDirectDrawGammaControl 61917480 0
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50753064]
-DirectDrawSurface_Release: 3
-Releasing IDirectDrawSurface 50753140 3
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50753064]
-DirectDrawSurface_Release: 2
-Releasing IDirectDrawSurface2 50753148 2
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50753064]
-DirectDrawSurface_Release: 1
-Releasing IDirectDrawSurface3 50753156 1
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50753064]
-~PrivateDataObjectParent: 2
-~PrivateDataObject: 1
-DirectDrawSurface_Release: 0
-Releasing IDirectDrawSurface4 50753164 0
-DirectDraw_Release: Return adress=[268972556]
-DirectDraw_Release: _this=[37200720]
-PublicRelease: IUnknown_ref=1, this_ref=1
-DirectDraw_Release: 1
-Releasing IDirectDraw4 37200768 1
-DirectDraw2_Release: Return adress=[268972556]
-DirectDraw2_Release: _this=[37200720]
-Releasing IDirectDraw2 37200760 0
-PrivateDataObjectParent: 2
-DirectDraw: Object created. m_refcount=[1]
-DirectDraw_AddRef: Return adress=[268972556]
-DirectDraw_AddRef: _this=[50713440]
-DirectDraw_AddRef: 2
-DirectDraw_GetCaps: Return adress=[215064283]
-DirectDraw_GetCaps: _this=[50713440]
-DirectDraw_Release: Return adress=[215064448]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=1, this_ref=1
-DirectDraw_Release: 1
-DirectDraw_Release: Return adress=[268972556]
-DirectDraw_Release: _this=[50713440]
-~PrivateDataObjectParent: 1
-PublicRelease: IUnknown_ref=0, this_ref=0
-PrivateDataObjectParent: 2
-DirectDraw: Object created. m_refcount=[1]
-DirectDraw_AddRef: Return adress=[268972556]
-DirectDraw_AddRef: _this=[50713440]
-DirectDraw_AddRef: 2
-DirectDraw_GetCaps: Return adress=[215064283]
-DirectDraw_GetCaps: _this=[50713440]
-DirectDraw_Release: Return adress=[215064448]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=1, this_ref=1
-DirectDraw_Release: 1
-DirectDraw_Release: Return adress=[268972556]
-DirectDraw_Release: _this=[50713440]
-~PrivateDataObjectParent: 1
-PublicRelease: IUnknown_ref=0, this_ref=0
-PrivateDataObjectParent: 2
-DirectDraw: Object created. m_refcount=[1]
-DirectDraw_AddRef: Return adress=[268972556]
-DirectDraw_AddRef: _this=[50713440]
-DirectDraw_AddRef: 2
-DirectDraw_QueryInterface: Return adress=[214976728]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: DirectDraw4
-DirectDraw_Release: Return adress=[214976745]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=2, this_ref=2
-DirectDraw_Release: 2
-DirectDraw4_SetCooperativeLevel: Return adress=[268972556]
-DirectDraw4_SetCooperativeLevel: _this=[50713440]
+SetReslimit: ENUMERATING
+SetReslimit: MODE 61: 1920x1080
+Setup: InitGLHooks() Requested mode    : 1920x1080
+Setup: InitGLHooks() Scale             : 1.000000
+Setup: InitGLHooks() Viewport XOffset  : 0
 
-Resolution\Viewport:
-Requested                 : 960 x 540
+Resolution\Viewport - from: InitGLHooks
+Requested                 : 1920 x 1080
 Real                      : 1920 x 1080
-Correction                : 2.000000
-Viewport width correction : 0.000000
-Setup: ddraw Requested mode    : 960x540
-Setup: ddraw Scale             : 2.000000
-Setup: ddraw Viewport XOffset  : 0
-DirectDraw4_GetDisplayMode: Return adress=[268972556]
-DirectDraw4_GetDisplayMode: _this=[50713440]
-DirectDraw_QueryInterface: Return adress=[214976937]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: IDirect3D3
-DirectDraw4_CreateSurface: Return adress=[1821654428]
-DirectDraw4_CreateSurface: _this=[50713440]
-PrivateDataObject: 3
-DirectDraw4_CreateSurface: Created Surface: 50717288
-DirectDrawSurface_QueryInterface: Return adress=[1821649205]
-DirectDrawSurface_QueryInterface: _this=[50717288]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[1821649227]
-DirectDrawSurface_Release: _this=[50717288]
-DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[1821649251]
-DirectDrawSurface2_GetDDInterface: _this=[50717288]
-DirectDrawSurface2_GetDDInterface: GOT 50713440
-DirectDraw_Release: Return adress=[1821649273]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=4
-DirectDraw_Release: 3
-DirectDraw_QueryInterface: Return adress=[1821649301]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[1821649319]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=4
-DirectDraw_Release: 3
-DirectDraw_GetDisplayMode: Return adress=[268972556]
-DirectDraw_GetDisplayMode: _this=[50713440]
-DirectDrawSurface_QueryInterface: Return adress=[1821649205]
-DirectDrawSurface_QueryInterface: _this=[50717288]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[1821649227]
-DirectDrawSurface_Release: _this=[50717288]
-DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[1821649251]
-DirectDrawSurface2_GetDDInterface: _this=[50717288]
-DirectDrawSurface2_GetDDInterface: GOT 50713440
-DirectDraw_Release: Return adress=[1821649273]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=4
-DirectDraw_Release: 3
-DirectDraw_QueryInterface: Return adress=[1821649301]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[1821649319]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=4
-DirectDraw_Release: 3
-DirectDraw_CreateSurface: Return adress=[268972556]
-DirectDraw_CreateSurface: _this=[50713440]
-PrivateDataObject: 4
-DirectDraw_CreateSurface: Created Surface: 50680400
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50680400]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50680400]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
-DirectDraw_GetDisplayMode: Return adress=[268972556]
-DirectDraw_GetDisplayMode: _this=[50713440]
-DirectDraw_CreateSurface: Return adress=[268972556]
-DirectDraw_CreateSurface: _this=[50713440]
-PrivateDataObject: 5
-DirectDraw_CreateSurface: Created Surface: 50680568
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50680568]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50680568]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
-DirectDraw_QueryInterface: Return adress=[268972556]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: IDirect3D3
-Direct3D3_CreateDevice: Return adress=[268972556]
-Direct3D3_CreateDevice: _this=[50713440]
-PrivateDataObjectParent: 6
-Direct3D3_CreateDevice: Created device=[50722336]
-Direct3D3_CreateDevice: DD_OK
-Direct3DDevice2_QueryInterface: Return adress=[268972556]
-Direct3DDevice2_QueryInterface: _this=[50722336]
-Direct3DDevice2_QueryInterface: Direct3DDevice2
-Direct3D3_CreateViewport: Return adress=[268972556]
-Direct3D3_CreateViewport: _this=[50713440]
-Direct3D3_CreateViewport: Created ViewPort=[50751624]
-Direct3DDevice2_AddViewport: Return adress=[268972556]
-Direct3DDevice2_AddViewport: _this=[50722336]
-Direct3DDevice2_AddViewport: that=[50751624]
-Direct3DDevice2_AddViewport: DD_OK
-Direct3DDevice2_SetCurrentViewport: Return adress=[268972556]
-Direct3DDevice2_SetCurrentViewport: _this=[50722336]
-Direct3DViewport_SetViewport2: Return adress=[268972556]
-Direct3DViewport_SetViewport2: _this=[50751624]
-Direct3DViewport_Release: Return adress=[268972556]
-Direct3DViewport_Release: _this=[50751624]
-Direct3DDevice3_SetTextureStageState: Return adress=[268972556]
-Direct3DDevice3_SetTextureStageState: _this=[50722336]
-Direct3DDevice3_SetTextureStageState: Return adress=[268972556]
-Direct3DDevice3_SetTextureStageState: _this=[50722336]
-Direct3DDevice3_SetTextureStageState: Return adress=[268972556]
-Direct3DDevice3_SetTextureStageState: _this=[50722336]
-Direct3DDevice3_SetTextureStageState: Return adress=[268972556]
-Direct3DDevice3_SetTextureStageState: _this=[50722336]
-DirectDraw_Release: Return adress=[268972556]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=6
-DirectDraw_Release: 3
-DirectDraw_CreateSurface: Return adress=[268972556]
-DirectDraw_CreateSurface: _this=[50713440]
-PrivateDataObject: 7
-DirectDraw_CreateSurface: Created Surface: 50722440
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50722440]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50722440]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
-DirectDraw_CreateSurface: Return adress=[268972556]
-DirectDraw_CreateSurface: _this=[50713440]
-PrivateDataObject: 8
-DirectDraw_CreateSurface: Created Surface: 50722608
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50722608]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50722608]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
-DirectDrawSurface4_GetCaps: Return adress=[268972556]
-DirectDrawSurface4_GetCaps: _this=[50717288]
-DirectDrawSurface_QueryInterface: Return adress=[1821649205]
-DirectDrawSurface_QueryInterface: _this=[50717288]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[1821649227]
-DirectDrawSurface_Release: _this=[50717288]
-DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[1821649251]
-DirectDrawSurface2_GetDDInterface: _this=[50717288]
-DirectDrawSurface2_GetDDInterface: GOT 50713440
-DirectDraw_Release: Return adress=[1821649273]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=8
-DirectDraw_Release: 3
-DirectDraw_QueryInterface: Return adress=[1821649301]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[1821649319]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=8
-DirectDraw_Release: 3
-DirectDraw_GetDisplayMode: Return adress=[268972556]
-DirectDraw_GetDisplayMode: _this=[50713440]
-DirectDrawSurface4_GetAttachedSurface: Return adress=[268972556]
-DirectDrawSurface4_GetAttachedSurface: _this=[50717288]
-DirectDrawSurface4_GetAttachedSurface: FAILED
-DirectDrawSurface4_EnumAttachedSurfaces: Return adress=[268972556]
-DirectDrawSurface4_EnumAttachedSurfaces: _this=[50717288]
-PrivateDataObject: 9
-FindSurfaceWrapper: DirectDrawSurface_EnumAttachedSurfaces[lambda]: Created surface [50722776]
-DirectDraw_Release: Return adress=[214975744]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=2, this_ref=8
-DirectDraw_Release: 2
-DirectDrawSurface_Release: Return adress=[214956096]
-DirectDrawSurface_Release: _this=[50717288]
-~PrivateDataObject: 8
-~PrivateDataObject: 7
-DirectDrawSurface_Release: 0
-DirectDraw_RestoreDisplayMode: Return adress=[214956215]
-DirectDraw_RestoreDisplayMode: _this=[50713440]
-DirectDraw4_SetCooperativeLevel: Return adress=[268972556]
-DirectDraw4_SetCooperativeLevel: _this=[50713440]
-DirectDraw_Release: Return adress=[214956245]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=1, this_ref=5
-DirectDraw_Release: 1
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50680400]
-DirectDrawSurface_Release: 2
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50680400]
-DirectDrawSurface_Release: 1
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50680400]
-~PrivateDataObject: 6
-DirectDrawSurface_Release: 0
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50722440]
-DirectDrawSurface_Release: 2
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50722440]
-DirectDrawSurface_Release: 1
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50722440]
-~PrivateDataObject: 5
-DirectDrawSurface_Release: 0
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50722608]
-DirectDrawSurface_Release: 2
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50722608]
-DirectDrawSurface_Release: 1
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50722608]
-~PrivateDataObject: 4
-DirectDrawSurface_Release: 0
-Direct3DDevice2_DeleteViewport: Return adress=[268972556]
-Direct3DDevice2_DeleteViewport: _this=[50722336]
-Direct3DDevice2_DeleteViewport: FAILED: 0
-Direct3DDevice2_Release: Return adress=[268972556]
-PublicRelease: IUnknown_ref=1, this_ref=2
-Direct3DDevice2_Release: 1
-Direct3DDevice2_Release: Return adress=[268972556]
-PublicRelease: WARNING iunknown_ref == 0, but this_ref == 1
-PublicRelease: IUnknown_ref=0, this_ref=1
-Direct3DDevice2_Release: 0
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50680568]
-DirectDrawSurface_Release: 2
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50680568]
-DirectDrawSurface_Release: 1
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50680568]
-~PrivateDataObjectParent: 3
-~PrivateDataObject: 2
-DirectDrawSurface_Release: 0
-DirectDrawSurface_Release: Return adress=[268972556]
-DirectDrawSurface_Release: _this=[50680568]
-DirectDraw_Release: Return adress=[268972556]
-DirectDraw_Release: _this=[50713440]
-~PrivateDataObjectParent: 1
-PublicRelease: IUnknown_ref=0, this_ref=0
-PrivateDataObjectParent: 2
-DirectDraw: Object created. m_refcount=[1]
-DirectDraw_AddRef: Return adress=[268972556]
-DirectDraw_AddRef: _this=[50713440]
-DirectDraw_AddRef: 2
-DirectDraw_QueryInterface: Return adress=[214976728]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: DirectDraw4
-DirectDraw_Release: Return adress=[214976745]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=2, this_ref=2
-DirectDraw_Release: 2
-DirectDraw4_SetCooperativeLevel: Return adress=[268972556]
-DirectDraw4_SetCooperativeLevel: _this=[50713440]
+Correction                : 1.000000
+Viewport width correction : 0
+Creating proxies SetupGl()
+No context
+Setup: InitGLHooks Requested mode    : 1920x1080
+Setup: InitGLHooks Scale             : 1.000000
+Setup: InitGLHooks Viewport XOffset  : 0
+Succeeded to hook wglCreateContext
+Succeeded to hook wglMakeCurrent
+Succeeded to hook wglGetProcAddress
+Succeeded to hook wglSwapBuffers
+Succeeded to hook SwapBuffers
+Succeeded to hook wglSwapLayerBuffers
+Succeeded to hook glDeleteTextures
+glBindTexture Hook: 0
+glTexImage2D  Hook: 0
+glTexSubImage2D  Hook: 0
+ChangeDisplaySettingsW Hook  :0
+ChangeDisplaySettingsExW Hook:0
+ChangeDisplaySettingsA Hook  :0
+GetDC Hook                   :0
+Succeeded to hook glViewport
+Succeeded to hook glScissor
+Succeeded to hook glGetTexLevelParameteriv
+Succeeded to hook glGetTexImage
+Succeeded to hook glCopyTexImage2D
+Succeeded to hook glCopyTexSubImage2D
+Succeeded to hook glMatrixMode
+Succeeded to hook glLoadMatrixf
+Succeeded to hook glFrustum
+Succeeded to hook glReadPixels
+Succeeded to hook glDrawPixels
+Succeeded to hook glBitmap
+glGetIntegerv Hook: 0
+CreateProcessW Hook: 1 <- 0 means no error
 
-Resolution\Viewport:
-Requested                 : 960 x 540
-À???                      : 1920 x 1080
-Correction                : 2.000000
-Viewport width correction : 0.000000
-Setup: ddraw Requested mode    : 960x540
-Setup: ddraw Scale             : 2.000000
-Setup: ddraw Viewport XOffset  : 0
-DirectDraw4_GetDisplayMode: Return adress=[268972556]
-DirectDraw4_GetDisplayMode: _this=[50713440]
-DirectDraw_QueryInterface: Return adress=[214976937]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: IDirect3D3
-DirectDraw4_CreateSurface: Return adress=[1821654428]
-DirectDraw4_CreateSurface: _this=[50713440]
-PrivateDataObject: 3
-DirectDraw4_CreateSurface: Created Surface: 50765152
-DirectDrawSurface_QueryInterface: Return adress=[1821649205]
-DirectDrawSurface_QueryInterface: _this=[50765152]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[1821649227]
-DirectDrawSurface_Release: _this=[50765152]
-DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[1821649251]
-DirectDrawSurface2_GetDDInterface: _this=[50765152]
-DirectDrawSurface2_GetDDInterface: GOT 50713440
-DirectDraw_Release: Return adress=[1821649273]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=4
-DirectDraw_Release: 3
-DirectDraw_QueryInterface: Return adress=[1821649301]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[1821649319]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=4
-DirectDraw_Release: 3
-DirectDraw_GetDisplayMode: Return adress=[268972556]
-DirectDraw_GetDisplayMode: _this=[50713440]
-DirectDrawSurface_QueryInterface: Return adress=[1821649205]
-DirectDrawSurface_QueryInterface: _this=[50765152]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[1821649227]
-DirectDrawSurface_Release: _this=[50765152]
-DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[1821649251]
-DirectDrawSurface2_GetDDInterface: _this=[50765152]
-DirectDrawSurface2_GetDDInterface: GOT 50713440
-DirectDraw_Release: Return adress=[1821649273]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=4
-DirectDraw_Release: 3
-DirectDraw_QueryInterface: Return adress=[1821649301]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[1821649319]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=4
-DirectDraw_Release: 3
-DirectDraw_CreateSurface: Return adress=[268972556]
-DirectDraw_CreateSurface: _this=[50713440]
-PrivateDataObject: 4
-DirectDraw_CreateSurface: Created Surface: 50986528
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50986528]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50986528]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
-DirectDraw_GetDisplayMode: Return adress=[268972556]
-DirectDraw_GetDisplayMode: _this=[50713440]
-DirectDraw_CreateSurface: Return adress=[268972556]
-DirectDraw_CreateSurface: _this=[50713440]
-PrivateDataObject: 5
-DirectDraw_CreateSurface: Created Surface: 50744496
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50744496]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50744496]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
-DirectDraw_QueryInterface: Return adress=[268972556]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: IDirect3D3
-Direct3D3_CreateDevice: Return adress=[268972556]
-Direct3D3_CreateDevice: _this=[50713440]
-PrivateDataObjectParent: 6
-Direct3D3_CreateDevice: Created device=[50723472]
-Direct3D3_CreateDevice: DD_OK
-Direct3DDevice2_QueryInterface: Return adress=[268972556]
-Direct3DDevice2_QueryInterface: _this=[50723472]
-Direct3DDevice2_QueryInterface: Direct3DDevice2
-Direct3D3_CreateViewport: Return adress=[268972556]
-Direct3D3_CreateViewport: _this=[50713440]
-Direct3D3_CreateViewport: Created ViewPort=[50751192]
-Direct3DDevice2_AddViewport: Return adress=[268972556]
-Direct3DDevice2_AddViewport: _this=[50723472]
-Direct3DDevice2_AddViewport: that=[50751192]
-Direct3DDevice2_AddViewport: DD_OK
-Direct3DDevice2_SetCurrentViewport: Return adress=[268972556]
-Direct3DDevice2_SetCurrentViewport: _this=[50723472]
-Direct3DViewport_SetViewport2: Return adress=[268972556]
-Direct3DViewport_SetViewport2: _this=[50751192]
-Direct3DViewport_Release: Return adress=[268972556]
-Direct3DViewport_Release: _this=[50751192]
-Direct3DDevice3_SetTextureStageState: Return adress=[268972556]
-Direct3DDevice3_SetTextureStageState: _this=[50723472]
-Direct3DDevice3_SetTextureStageState: Return adress=[268972556]
-Direct3DDevice3_SetTextureStageState: _this=[50723472]
-Direct3DDevice3_SetTextureStageState: Return adress=[268972556]
-Direct3DDevice3_SetTextureStageState: _this=[50723472]
-Direct3DDevice3_SetTextureStageState: Return adress=[268972556]
-Direct3DDevice3_SetTextureStageState: _this=[50723472]
-DirectDraw_Release: Return adress=[268972556]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=6
-DirectDraw_Release: 3
-DirectDraw_CreateSurface: Return adress=[268972556]
-DirectDraw_CreateSurface: _this=[50713440]
-PrivateDataObject: 7
-DirectDraw_CreateSurface: Created Surface: 50723576
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50723576]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50723576]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
-DirectDraw_CreateSurface: Return adress=[268972556]
-DirectDraw_CreateSurface: _this=[50713440]
-PrivateDataObject: 8
-DirectDraw_CreateSurface: Created Surface: 50749504
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50749504]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface_QueryInterface: Return adress=[268972556]
-DirectDrawSurface_QueryInterface: _this=[50749504]
-DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
-DirectDrawSurface4_GetCaps: Return adress=[268972556]
-DirectDrawSurface4_GetCaps: _this=[50765152]
-DirectDrawSurface_QueryInterface: Return adress=[1821649205]
-DirectDrawSurface_QueryInterface: _this=[50765152]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[1821649227]
-DirectDrawSurface_Release: _this=[50765152]
-DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[1821649251]
-DirectDrawSurface2_GetDDInterface: _this=[50765152]
-DirectDrawSurface2_GetDDInterface: GOT 50713440
-DirectDraw_Release: Return adress=[1821649273]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=8
-DirectDraw_Release: 3
-DirectDraw_QueryInterface: Return adress=[1821649301]
-DirectDraw_QueryInterface: _this=[50713440]
-DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[1821649319]
-DirectDraw_Release: _this=[50713440]
-PublicRelease: IUnknown_ref=3, this_ref=8
-DirectDraw_Release: 3
-DirectDraw_GetDisplayMode: Return adress=[268972556]
-DirectDraw_GetDisplayMode: _this=[50713440]
-DirectDrawSurface4_GetAttachedSurface: Return adress=[268972556]
-DirectDrawSurface4_GetAttachedSurface: _this=[50765152]
-DirectDrawSurface4_GetAttachedSurface: FAILED
-DirectDrawSurface4_EnumAttachedSurfaces: Return adress=[268972556]
-DirectDrawSurface4_EnumAttachedSurfaces: _this=[50765152]
-PrivateDataObject: 9
-FindSurfaceWrapper: DirectDrawSurface_EnumAttachedSurfaces[lambda]: Created surface [50749672]
-DirectDrawSurface_QueryInterface: Return adress=[1821648845]
-DirectDrawSurface_QueryInterface: _this=[50765152]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface
-DirectDrawSurface_GetCaps: Return adress=[1821649036]
-DirectDrawSurface_GetCaps: _this=[50765152]
-DirectDrawSurface_Release: Return adress=[1821649051]
-DirectDrawSurface_Release: _this=[50765152]
-DirectDrawSurface_Release: 1
-DirectDrawSurface_QueryInterface: Return adress=[1821649087]
-DirectDrawSurface_QueryInterface: _this=[50765152]
-DirectDrawSurface_QueryInterface: Unhandled GUID:{4B9F0EE0-0D7E-11D0-9B06-00A0C903A3B8} Implementation hr=-2147467262
-DirectDrawSurface_GetCaps: Return adress=[1821647700]
-DirectDrawSurface_GetCaps: _this=[50749672]
-DirectDrawSurface_GetCaps: Return adress=[1821647725]
-DirectDrawSurface_GetCaps: nullptr
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: nullptr
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[50749672]
-DirectDrawSurface_Blt: Return adress=[268972556]
-DirectDrawSurface_Blt: _this=[50749504]
-DirectDrawSurface_Blt: _that=[0]
-DirectDrawSurface_Blt: Return adress=[268972556]
-DirectDrawSurface_Blt: _this=[50765152]
-DirectDrawSurface_Blt: _that=[50749504]
-DirectDrawSurface_GetCaps: Return adress=[1821647700]
-DirectDrawSurface_GetCaps: _this=[50749672]
-DirectDrawSurface_GetCaps: Return adress=[1821647725]
-DirectDrawSurface_GetCaps: nullptr
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: nullptr
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[50749672]
-DirectDrawSurface_Blt: Return adress=[268972556]
-DirectDrawSurface_Blt: _this=[50723576]
-DirectDrawSurface_Blt: _that=[0]
-DirectDrawSurface_Blt: Return adress=[268972556]
-DirectDrawSurface_Blt: _this=[50765152]
-DirectDrawSurface_Blt: _that=[50723576]
-DirectDrawSurface_GetCaps: Return adress=[1821647700]
-DirectDrawSurface_GetCaps: _this=[50749672]
-DirectDrawSurface_GetCaps: Return adress=[1821647725]
-DirectDrawSurface_GetCaps: nullptr
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: nullptr
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[50749672]
-DirectDrawSurface_Blt: Return adress=[268972556]
-DirectDrawSurface_Blt: _this=[50749504]
-DirectDrawSurface_Blt: _that=[0]
-DirectDrawSurface_Blt: Return adress=[268972556]
-DirectDrawSurface_Blt: _this=[50765152]
-DirectDrawSurface_Blt: _that=[50749504]
-DirectDrawSurface_GetCaps: Return adress=[1821647700]
-DirectDrawSurface_GetCaps: _this=[50749672]
-DirectDrawSurface_GetCaps: Return adress=[1821647725]
-DirectDrawSurface_GetCaps: nullptr
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: nullptr
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[50749672]
-DirectDrawSurface_Blt: Return adress=[268972556]
-DirectDrawSurface_Blt: _this=[50723576]
-DirectDrawSurface_Blt: _that=[0]
-DirectDrawSurface_Blt: Return adress=[268972556]
-DirectDrawSurface_Blt: _this=[50765152]
-DirectDrawSurface_Blt: _that=[50723576]
-Direct3D3_EnumZBufferFormats: Return adress=[214977689]
-Direct3D3_EnumZBufferFormats: _this=[50713440]
-DirectDraw4_CreateSurface: Return adress=[1821654428]
-DirectDraw4_CreateSurface: _this=[50713440]
-PrivateDataObject: 10
-DirectDraw4_CreateSurface: Created Surface: 50901944
-DirectDrawSurface_QueryInterface: Return adress=[1821657229]
-DirectDrawSurface_QueryInterface: _this=[50901944]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface4_SetPrivateData: Return adress=[1821657308]
-DirectDrawSurface4_SetPrivateData: _this=[50901944]
-DirectDrawSurface_Release: Return adress=[1821657330]
-DirectDrawSurface_Release: _this=[50901944]
-DirectDrawSurface_Release: 1
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[50901944]
-DirectDrawSurface_QueryInterface: Return adress=[1821649205]
-DirectDrawSurface_QueryInterface: _this=[50901944]
-DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[1821649227]
-DirectDrawSurface_Release: _this=[50901944]
-z id 50902020
-IDirect3DDevice3 0 D3DERR_OK
+Resolution\Viewport - from: ChangeDisplaySettingsA
+Requested                 : 960 x 720
+Real                      : 1920 x 1080
+Correction                : 1.500000
+Viewport width correction : 240
+Creating proxies SetupGl()
+No context
+Setup: ChangeDisplaySettingsA Requested mode    : 960x720
+Setup: ChangeDisplaySettingsA Scale             : 1.500000
+Setup: ChangeDisplaySettingsA Viewport XOffset  : 240
+Creating proxies wglMakeCurrent()
+Depth\Stencil:24\8:35863 Z24X8  960 720 65536 0
+FB 1
+FB 2
+program 3 A12

@@ -185,6 +185,9 @@ DDCreateEx_hook(p1, p2, p3, p4)
 	return r
 }
 
+D3DDDI_CreatePixelShader(p, p2){
+	return
+}
 D3DDDI_SetShaderOverride(p){
 	return
 }

@@ -203,7 +203,8 @@ HRESULT STDMETHODCALLTYPE DirectSound8::CreateSoundBuffer(LPCDSBUFFERDESC pcDSBu
     else if (flags & DSBCAPS_LOCHARDWARE | DSBCAPS_CTRL3D)
     {
         AppendBuffer((IUnknown*)dynamic_cast<IDirectSoundBuffer8*>(Dsnd8), L"DirectSound8::CreateSoundBuffer");
-    }   
+    } 
+     DSND_WARN("__DS_OK");  
     return hr;
 }
 

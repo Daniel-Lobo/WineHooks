@@ -5523,6 +5523,9 @@ dllcall(IDirectDraw7.addref, uint, dd7)
 SetUPShaders()
 return r
 }
+D3DDDI_CreatePixelShader(p, p2){
+return
+}
 D3DDDI_SetShaderOverride(p){
 return
 }
