@@ -74,7 +74,7 @@ ResetLinks(){
 		, "Peixoto"      : "http://www.vogons.org/viewtopic.php?f=24&t=53121"
 		, "cheat"        : "https://www.cheatengine.org/"
 		, "patreon_home" : "https://www.patreon.com/user/about?u=44312848"
-		, "Stable"       : "https://github.com/Daniel-Lobo/WineHooks/releases/download/v0.10.12/Peixoto.zip"
+		, "Archive"      : "https://github.com/Daniel-Lobo/WineHooks/releases"
 		, "Wine"         : "https://www.winehq.org/"
 	    , "dxvk"         : "https://github.com/doitsujin/dxvk/releases"}
 }

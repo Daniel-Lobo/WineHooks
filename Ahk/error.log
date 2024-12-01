@@ -1,45 +1,49 @@
 Peixotos's patch remote settings:
-Command Line: "E:\Games\Soul Reaver 2\sr2.exe" 
-#args: -setup
+Command Line: E:\Games\DARKEA~1\dkev.exe -1 32K
+#args: E:\Games\Dark Earth-1 32K
+#no_argv0: 1
+1 32K: -script
+32bit: 1
 4K: 1
-<Textswap>: s=4;sz=256;path=Textures\VOKSI;n=PgUP;p=PgDn;d=Home;sw=End;c=Del;q=Ins;x=0;
+args: -1 32K
 common_path: 1
-D3D: 8
+CompatLayer: Win95
+D3D: ddraw
 D3D_Driver: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispsig.inf_amd64_e6cac7f31a92d62e\nvldumd.dll
+ddraw: 1
+DDRefcountfix: 1
 dsk: 1920x1080
-DSnd: e=False;r=true;s=true;S3D=false;
+DSnd: e=False;s=False;x=False;
 dxvkv: 2_4
 error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
-Gpad: A=1;B=2;X=3;Y=4;LEFT_SHOULDER=7;RIGHT_SHOULDER=8;bLeftTrigger=5;bRightTrigger=6;Start=9;Back=10;LEFT_THUMB=11;RIGHT_THUMB=12;deadzone=0.25;
+FMV: 1
 HD: 1
 injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
-J2K: u=true;mds=0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,0,0,0,0;a=,,,,Gamepad 1,Gamepad 2,Gamepad 3,Gamepad 4,Gamepad 5,Gamepad 6,Gamepad 7,Gamepad 8,Gamepad 9,Gamepad 10,Gamepad 11,Gamepad 12,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;FF=true;layer=False;rs_alt=false;
-k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;
-LMT: 1
+J2K: mds=4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3;a=Up,Down,Left,Right,A,B,X,Y,,,,,,,,,Up,Down,Left,Right;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;layer=False;m=10;dz=0.15;spd=0.09;rs=;rs_alt=0;
+k2k: r0e=;r1e=;s0e=;s1e=;s2e=;s3e=;s4e=;s5e=;t0e=;t1e=true;r0k=;r0v=;r1k=;r1v=;s0k=;s0v=;s1k=;s1v=;s2k=;s2v=;s3k=;s3v=;s4k=;s4v=;s5k=;s5v=;t0k=;t0v=;t1k=Shift;t1v=RButton;
 max_4x3_res: 1440x1080
+MCLP: 1
 Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
-Path: C:\Users\Peixoto\Documents\WineHooks\Games\Legacy of Kain\Soul Reaver 2\
-PixelSwap: 1
-PxSwap: sw=Del;n=>;p=<;e=false;
+Path: C:\Users\Peixoto\Documents\WineHooks\Games\Dark Earth\
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
-script_hwnd: 0x1e0812
-setup: /4K
-SNGL: 1
-SXTY: 1
-SYNC: 1
-Target: E:\Games\Soul Reaver 2\sr2.exe
-target_dir: E:\Games\Soul Reaver 2
-target_name: sr2.exe
-Textswap: e=true;path=Textures\VOKSI;s=4;sz=256;sw=End;n=];p=[;d=Home;q=Shift;dly=false;a=false;
-wiki: https://www.pcgamingwiki.com/wiki/Legacy_of_Kain:_Soul_Reaver_2
+script: scripts\Dark Earth.ahk
+script_hwnd: 0x40794
+Target: E:\Games\Dark Earth\dkev.exe
+target_dir: E:\Games\Dark Earth
+target_name: dkev.exe
+Textswap: e=false;dly=False;a=False;l=False;A8Fix=False;sz=384;s=4;
+wiki: https://www.pcgamingwiki.com/wiki/Dark_Earth
 wine: 9_0
 WNMM: MCI=false;
+xBR: 1
+xBRh: X
 
-Working directory: E:\Games\Soul Reaver 2
-C:\Users\Peixoto\Documents\WineHooks\Games\Legacy of Kain\Soul Reaver 2\cfgFiles: 
+Working directory: E:\Games\Dark Earth
+C:\Users\Peixoto\Documents\WineHooks\Games\Dark Earth\cfgFiles: 
 HasFiles 0
-C:\Users\Peixoto\Documents\WineHooks\Games\Legacy of Kain\Soul Reaver 2\cfgFiles: 
+CreateFileA_Hook : 0 <- 0 means no error
+C:\Users\Peixoto\Documents\WineHooks\Games\Dark Earth\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -52,25 +56,10 @@ CreateProcessA Hook: 0
 CreateProcessW Hook: 0
 ShellExecuteA Hook  :0
 ShellExecuteExW Hook  :0
-Init: SUCCEEDED TO GET THE DirectInputCreateA ENTRYPOINT ON dinput.dll
-Init: SUCCEEDED TO GET THE DirectInputCreateW ENTRYPOINT ON dinput.dll
-Init: SUCCEEDED TO GET THE DirectInputCreateEx ENTRYPOINT ON dinput.dll
-Init: SUCCEEDED TO GET THE DllGetClassObject ENTRYPOINT ON dinput.dll
-Init: SUCCEEDED TO GET THE DirectInput8Create ENTRYPOINT ON dinput8.dll
-Init: SUCCEEDED TO GET THE DllGetClassObject ENTRYPOINT ON dinput8.dll
-Init: SUCCEEDED TO GET THE joyGetDevCapsA ENTRYPOINT ON winmm.dll
-Init: SUCCEEDED TO GET THE joyGetDevCapsW ENTRYPOINT ON winmm.dll
-Init: SUCCEEDED TO GET THE joyGetPos ENTRYPOINT ON winmm.dll
-Init: SUCCEEDED TO GET THE joyGetPosEx ENTRYPOINT ON winmm.dll
-InitDInputHooks: SUCCEEDED TO HOOK joyGetDevCapsAHook
-InitDInputHooks: SUCCEEDED TO HOOK joyGetDevCapsWHook
-InitDInputHooks: SUCCEEDED TO HOOK joyGetPosHook
-InitDInputHooks: SUCCEEDED TO HOOK joyGetPosExHook
-InitDInputLayer: SUCCEEDED TO HOOK DirectInputCreateA_Hook
-InitDInputLayer: SUCCEEDED TO HOOK DirectInputCreateW_Hook
-InitDInputLayer: SUCCEEDED TO HOOK DirectInputCreateEx_Hook
-InitDInputLayer: SUCCEEDED TO HOOK DirectInput8Create_Hook
-InitDInputLayer: SUCCEEDED TO HOOK DInput8GetClassObjectHook
+Desktop 1920x1080
+DDraw.dll : C:\WINDOWS\SYSTEM32\DDRAW.dll
+DirectDrawCreate Hook: 0
+1819966336============================================
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -103,9 +92,6 @@ CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-Setup: D3D8 Requested mode    : 1920x1080
-Setup: D3D8 Scale             : 1.000000
-Setup: D3D8 Viewport XOffset  : 0
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
@@ -116,109 +102,151 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-Direct3DCreate8 Hook: 0
-Succeeded to create Direct3D8
-Succeeded to hook IDirect3D8::CreateDevice
-Succeeded to hook IDirect3DDevice8::EndScene
-Succeeded to hook IDirect3DTexture8::LockRect
-Succeeded to hook IDirect3DTexture8::UnLockRect
-Succeeded to hook IDirect3DDevice8::UpdateTexture
-Succeeded to hook IDirect3DDevice8::CreateTexture
-Succeeded to hook IDirect3DDevice8::SetTexture
-Succeeded to hook IDirect3DTexture8::Release
-Succeeded to hook IDirect3DTexture8::GetSurfaceLevel
-Succeeded to hook IDirect3DSurface8::Release
-Succeeded to hook IDirect3DDevice8::CreatePixelShader
-Succeeded to hook IDirect3DDevice8::DeletePixelShader
-Succeeded to hook IDirect3DDevice8::SetPixelShader
-Max Primitives 5592405
-Succeeded to hook IDirect3D8::EnumAdapterModes
-Succeeded to hook IDirect3D8::GetAdapterDisplayMode
-Succeeded to hook IDirect3DDevice8::SetRenderTarget
-Succeeded to hook IDirect3DDevice8::GetRenderTarget
-Succeeded to hook IDirect3DDevice8::GetDepthStencilSurface
-Succeeded to hook IDirect3DDevice8::GetBackBuffer
-Succeeded to hook IDirect3DDevice8::Present
-Succeeded to hook IDirect3DDevice8::SetViewPort
-Succeeded to hook IDirect3DDevice8::GetViewPort
-Succeeded to hook IDirect3DDevice8::Reset
-Succeeded to hook IDirect3DDevice8::Clear
-Succeeded to hook IDirect3DSurface8::LockRect
-Succeeded to hook IDirect3DSurface8::UnLockRect
-Succeeded to hook IDirect3DSurface8::GetDesc
-Succeeded to hook IDirect3DDevice8::SetVertexShader
-Succeeded to hook IDirect3DDevice8::SetStreamSource
-Succeeded to hook IDirect3DDevice8::DrawPrimitiveUp
-Succeeded to hook IDirect3DDevice8::DrawPrimitive
-Succeeded to hook IDirect3DDevice8::DrawIndexedPrimitiveUp
-Succeeded to hook IDirect3DDevice8::DrawIndexedPrimitive
-Succeeded to hook IDirect3DDevice8::CreateVertexBuffer
-Succeeded to hook IDirect3DDevice8::GetDisplaymode
-Setup: D3D8 Requested mode    : 720x540
-Setup: D3D8 Scale             : 2.000000
-Setup: D3D8 Viewport XOffset  : 240
-IDirect3D8_CreateDevice D3DCREATE_MULTITHREADED 0
-Resquested 720 x 540
-SetThreadAffinity: SUCCESS
-Proxie: color buffer:         0 
-Proxie: color buffer level 0: 0
-SetThreadAffinity: SUCCESS
-Proxie: color buffer:         0 
-Proxie: color buffer level 0: 0
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-Proxie: color buffer:         0 
-Proxie: color buffer level 0: 0
-SetThreadAffinity: SUCCESS
-Proxie: color buffer:         0 
-Proxie: color buffer level 0: 0
-Create z0 103102712 1024x1024
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
-SetThreadAffinity: SUCCESS
+DDraw: 110365272
+PrivateDataObjectParent: 1
+DirectDraw: Object created. m_refcount=[1]
+Wrapped: 12436088
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[12436056]
+DirectDraw_QueryInterface: DirectDraw2
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[12436056]
+DirectDraw_QueryInterface: DirectDraw4
+DirectDraw4_SetCooperativeLevel: Return adress=[268972556]
+DirectDraw4_SetCooperativeLevel: _this=[12436056]
+DirectDraw4_CreateSurface: Return adress=[268972556]
+DirectDraw4_CreateSurface: _this=[12436056]
+PrivateDataObject: 2
+DirectDraw4_CreateSurface: Created Surface: 12388032
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[12388032]
+DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface3
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[12388032]
+DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[12388032]
+DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[12388032]
+DirectDrawSurface_QueryInterface: Unhandled GUID:{69C11C3E-B46B-11D1-AD7A-00C04FC29B4E} Implementation hr=0
+DirectDraw_CreateClipper: Return adress=[268972556]
+DirectDraw_CreateClipper: _this=[12436056]
+PrivateDataObjectParent: 3
+DirectDraw_CreateClipper: Created Cliper =[12440264
+DirectDraw_CreatePalette: Return adress=[268972556]
+DirectDraw_CreatePalette: _this=[12436056]
+PrivateDataObjectParent: 4
+DirectDraw_CreatePalette: Created Palette =[12439896]
+Succeeded to create DirectDraw
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[12436056]
+DirectDraw_QueryInterface: IDirect3D
+Direct3D_CreateViewport: Return adress=[268972556]
+Direct3D_CreateViewport: _this=[12436056]
+Direct3D_CreateViewport: Created ViewPort=[12436160]
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[12388032]
+DirectDrawSurface_QueryInterface: IID_IDirect3DTexture
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[12436056]
+DirectDraw_QueryInterface: IDirect3D2
+Direct3D2_CreateViewport: Return adress=[268972556]
+Direct3D2_CreateViewport: _this=[12436056]
+Direct3D2_CreateViewport: Created ViewPort=[12447608]
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[12388032]
+DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[12436056]
+DirectDraw_QueryInterface: IDirect3D3
+Direct3D3_CreateViewport: Return adress=[268972556]
+Direct3D3_CreateViewport: _this=[12436056]
+Direct3D3_CreateViewport: Created ViewPort=[50941640]
+Direct3D3_CreateVertexBuffer: Return adress=[268972556]
+Direct3D3_CreateVertexBuffer: _this=[12436056]
+Direct3D3_CreateVertexBuffer: FAILED: 0
+Direct3D3_CreateDevice: Return adress=[268972556]
+Direct3D3_CreateDevice: _this=[12436056]
+PrivateDataObjectParent: 5
+Direct3D3_CreateDevice: Created device=[50923448]
+Direct3D3_CreateDevice: DD_OK
+Direct3DDevice2_QueryInterface: Return adress=[268972556]
+Direct3DDevice2_QueryInterface: _this=[50923448]
+Direct3DDevice2_QueryInterface: Direct3DDevice2
+Direct3DDevice2_QueryInterface: Return adress=[268972556]
+Direct3DDevice2_QueryInterface: _this=[50923448]
+Direct3DDevice2_QueryInterface: Direct3DDevice1
+Direct3DDevice_CreateExecuteBuffer: Return adress=[268972556]
+Direct3DDevice_CreateExecuteBuffer: _this=[50923448]
+Direct3DDevice_CreateExecuteBuffer: Created buffer=[50935968]
+Succeeded to create Direct3D
+IDirect3DDevice::BeginScene[1821143568] reimplement in IDirect3DDevice2[1821154896], 
+IDirect3DDevice::CreateExecuteBuffer[1821131104] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::CreateMatrix[1821138352] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::DeleteMatrix[1821142272] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::EndScene[1821144864] reimplement in IDirect3DDevice2[1821153824], 
+IDirect3DDevice::Execute[1821216320] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::GetCaps[1821128176] reimplement in IDirect3DDevice2[1821150896], 
+IDirect3DDevice::GetDirect3D[1821146448] reimplement in IDirect3DDevice2[1821156192], 
+IDirect3DDevice::GetMatrix[1821140960] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::GetPickRecords[1821135728] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::Initialize[1821098208] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::Pick[1821134224] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::SetMatrix[1821139648] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::SwapTextureHandles[1821129488] reimplement in IDirect3DDevice2[1821152208], 
+Succeeded to hook IDirectDraw::Release
+Succeeded to hook IDirectDraw4::CreateSurface
+Succeeded to hook IDirectDraw2::CreateSurface
+Succeeded to hook IDirectDraw::CreateSurface
+Succeeded to hook IDirectDrawSurface::restore
+Succeeded to hook IDirect3DDevice::EndScene
+Succeeded to hook IDirect3DDevice3::EndScene
+Succeeded to hook IDirect3D3::CreateDevice
+Succeeded to hook IDirect3D2::CreateDevice
+Succeeded to hook IDirectDraw::SetDisplayMode
+Succeeded to hook IDirectDraw2::SetDisplayMode
+Succeeded to hook IDirectDraw4::SetDisplayMode
+Succeeded to hook IDirectDraw4::EnumDisplayModes
+Succeeded to hook IDirect3DViewport3::SetViewPort2
+Succeeded to hook IDirect3DViewport3::GetViewPort2
+Succeeded to hook IDirect3DViewport3::Clear
+Succeeded to hook IDirect3DViewport3::Clear2
+Succeeded to hook IDirect3DViewport::SetViewPort
+Succeeded to hook IDirect3DViewport::GetViewPort
+SetupPrxs4(...)
+Succeeded to hook IDirectDrawSurface::flip
+Succeeded to hook IDirectDrawSurface4::EnumAttachedSurfaces
+Succeeded to hook IDirectDrawSurface::EnumAttachedSurfaces
+Succeeded to hook IDirectDrawSurface4::GetSurfaceDesc
+Succeeded to hook IDirectDraw::CreatePalette
+Succeeded to hook IDirectDraw::GetDisplayMode
+Succeeded to hook IDirectDraw4::GetDisplayMode
+Succeeded to hook IDirectDrawSurface::GetPixelFormat
+Succeeded to hook IDirectDrawSurface::GetSurfaceDesc
+Succeeded to hook IDirectDrawSurface::AddAttachedSurface
+Succeeded to hook IDirectDrawSurface::GetPalette
+Succeeded to hook IDirectDrawSurface::SetPalette
+Succeeded to hook IDirectDrawPalette::SetEntries
+Succeeded to hook IDirectDrawPalette::GetEntries
+Succeeded to hook IDirectDrawSurface::QueryInterface
+Succeeded to hook IDirectDrawSurface4::Lock
+Succeeded to hook IDirectDrawSurface4::UnLock
+Succeeded to hook IDirectDrawSurface::UnLock
+Succeeded to hook IDirectDrawSurface4::Blt
+Succeeded to hook IDirectDrawSurface4::Bltfast
+Succeeded to hook IDirectDrawSurface4::GetDC
+Succeeded to hook IDirectDrawSurface4::ReleaseDC
+Succeeded to hook IDirect3DDevice2::SetRenderTarget
+Succeeded to hook IDirect3DViewport3::TransformVertices
+Succeeded to hook IDirect3DDevice3::DrawPrimitive
+Succeeded to hook IDirect3DDevice3::DrawIndexedPrimitive
+Succeeded to hook IDirect3DDevice3::DrawPrimitiveVB
+Succeeded to hook IDirect3DDevice3::DrawIndexedPrimitiveVB
+Succeeded to hook IDirect3DDevice2::DrawPrimitive
+Succeeded to hook IDirect3DDevice2::DrawIndexedPrimitive
+Succeeded to hook IDirect3DDevice::Execute
+Succeeded to hook IDirectDraw::SetCooperativeLevel
+Succeeded to hook IDirectDraw2::SetCooperativeLevel
+Succeeded to hook IDirectDraw4::SetCooperativeLevel
+CloseHandle Hook  : 0 <- 0 means no error
