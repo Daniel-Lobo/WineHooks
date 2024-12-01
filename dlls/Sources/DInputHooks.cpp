@@ -165,10 +165,10 @@ extern "C" __declspec(dllexport)  void DIEnumEffectsW(LPDIENUMEFFECTSCALLBACKW l
 
 UINT __stdcall DiGetInterface(IUnknown* i, IUnknown ** pDinput)
 {
-    auto DI8  = EZInterface(IID_IDirectInputDeviceW, i);
+    auto DI8  = EZInterface(IID_IDirectInputDeviceA, i);
     *pDinput  = DI8.I();
     if (*pDinput != nullptr) return 1;    
-    auto DI8W = EZInterface(IID_IDirectInputDevice8W, i);
+    auto DI8W = EZInterface(IID_IDirectInputDevice8A, i);
     *pDinput  = DI8W.I();
     if (*pDinput != nullptr) return 2;
     return 0;
@@ -542,27 +542,27 @@ extern "C" __declspec(dllexport) void __stdcall InitDInputHooks(DINPT_HOOKS* p)
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DiDcvSetDataFormat(IDirectInputDevice8W* dvc, LPCDIDATAFORMAT lpdf)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)       
-    IUnknown* i = nullptr;
+    IUnknown* i = nullptr;    
     UINT iid    = DiGetInterface(dvc, &i);     
     if (iid == 0)
     {
         DBUG_WARN("NO INTERFACE");
         return 0;
-    }    
-    DBUG_WARN(to_string(iid).c_str()); 
-    DBUG_WARN(to_string(IsGamePad(i)).c_str()); 
+    }        
     if (IsGamePad(i) == 0)
     {
         HRESULT hr = 0;
-        DBUG_WARN("BYBY"); 
-        DBUG_WARN(to_string((LONG)DInput_Hooks->SetDataFormatW).c_str()); 
+        DBUG_WARN((string("Interface lvl: ") + to_string(iid) + " IsGamepad: " + to_string(IsGamePad(i)) + " Pointers: " +
+        to_string((LONG) DInput_Hooks->SetDataFormatW) + " " + to_string((LONG) DInput_Hooks->SetDataFormat8W)).c_str());        
         if      (iid == 1) hr = DInput_Hooks->SetDataFormatW((IDirectInputDeviceW*)i, lpdf);
         else if (iid == 2) hr = DInput_Hooks->SetDataFormat8W((IDirectInputDevice8W*)i, lpdf);
-        DBUG_WARN("SURVIVED"); 
+        DBUG_WARN("======================================"); 
         return hr;
     }
     if (DiSetDataFormat(dvc, lpdf) == 0)
     {
+        DBUG_WARN((string("Interface lvl: ") + to_string(iid) + " IsGamepad: " + to_string(IsGamePad(i)) + " Pointers: " +
+        to_string((LONG) DInput_Hooks->SetDataFormatW) + " " + to_string((LONG) DInput_Hooks->SetDataFormat8W)).c_str());        
         /* Set the data format, so IDirectInputDevice::Acquire won't fail */
         if      (iid == 1) return DInput_Hooks->SetDataFormatW((IDirectInputDeviceW*)i, &c_dfDIJoystick);
         else if (iid == 2) return DInput_Hooks->SetDataFormat8W((IDirectInputDevice8W*)i, &c_dfDIJoystick);

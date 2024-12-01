@@ -1289,11 +1289,13 @@ ConfigMacros(){
 }
 
 ConfigXInput(){	
+	/*
 	if (true) { ; avoid the "this lines will never be executed" warning
 		g_.GameCfg.Edit("u", "false", "j2k").save()		
 		msgbox, 16, ,Broken on version 0.10.13. Please download an earlier version!
 		return
 	}
+	*/
 	static IE
 	Gui, XInput:New   
 	Gui, XInput:Color, 0xececec

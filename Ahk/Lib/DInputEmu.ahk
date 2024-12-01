@@ -70,6 +70,13 @@ InitDInputEmu(byref cfg, _unicode = true)
 	g_dnpt.loger.log(IDirectInputDeviceA.compare([IDirectInputDeviceW, IDirectInputDevice7A, IDirectInputDevice7W]))
 	g_dnpt.loger.log(IDirectInput8A.compare([IDirectInput8W]))
 	g_dnpt.loger.log(IDirectInputDevice8A.compare([IDirectInputDevice8W]))
+
+	;g_dnpt.loger.log(IDirectInputDevice8A.dllhook("SetDataFormat", "DiDcvSetDataFormat"))			
+	;g_dnpt.loger.log(IDirectInputDeviceA.dllhook("SetDataFormat", "DiDcvSetDataFormat"))
+	;DINPT_HOOKS.SetDataFmtW  := IDirectInputDeviceA.SetDataFormat
+	;DINPT_HOOKS.SetDataFmt8W := IDirectInputDevice8A.SetDataFormat
+	;g_dnpt.loger.log(IDirectInputDeviceA.SetDataFormat " " IDirectInputDevice8A.SetDataFormat)
+	;return
 	
 	g_dnpt.loger.log(IDirectInputDevice8A.dllhook("GetDeviceState", "DinputDevice8GetState"))	
 	g_dnpt.loger.log(IDirectInputDeviceA.dllhook("GetDeviceState", "DinputDeviceGetState"))
@@ -123,6 +130,19 @@ InitDInputEmu(byref cfg, _unicode = true)
 		DINPT_HOOKS.GetDataW     := IDirectInputDeviceW.GetDeviceData
 	    DINPT_HOOKS.GetData8W    := IDirectInputDevice8W.GetDeviceData
 	}	
+
+	DINPT_HOOKS.GtCpsW        := IDirectInputDeviceA.GetCapabilities	
+	DINPT_HOOKS.GtCps8W       := IDirectInputDevice8A.GetCapabilities	
+	DINPT_HOOKS.GtSttW        := IDirectInputDeviceA.GetDeviceState
+	DINPT_HOOKS.GtStt8W       := IDirectInputDevice8A.GetDeviceState
+	DINPT_HOOKS.StPrpW        := IDirectInputDeviceA.SetProperty
+	DINPT_HOOKS.StPrp8W       := IDirectInputDevice8A.SetProperty
+	DINPT_HOOKS.EnumObjcsW    := IDirectInputDeviceA.EnumObjects
+	DINPT_HOOKS.EnumObjcs8W   := IDirectInputDevice8A.EnumObjects
+	DINPT_HOOKS.SetDataFmtW   := IDirectInputDeviceA.SetDataFormat
+	DINPT_HOOKS.SetDataFmt8W  := IDirectInputDevice8A.SetDataFormat
+	DINPT_HOOKS.GetDataW      := IDirectInputDeviceA.GetDeviceData
+	DINPT_HOOKS.GetData8W     := IDirectInputDevice8A.GetDeviceData
 					 
 	mds              := strsplit(cfg.mds, ",")
 	ls_mode          := mds[17]
