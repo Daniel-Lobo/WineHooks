@@ -14,7 +14,7 @@ InitDSndHooks()
     if (g_.cfg.console && GetKeyState("Q", "P"))
     DSND_HOOKS.f := 0x1    
 		
-	dllcall("Peixoto.dll\InitDSoundHooks", uint, DSND_HOOKS[])	
+	;dllcall("Peixoto.dll\InitDSoundHooks", uint, DSND_HOOKS[])	
     return
 }    
 		

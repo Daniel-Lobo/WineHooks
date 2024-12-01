@@ -9,7 +9,7 @@
 #include "dllmain.h"
 #include "MinHook.h"
 #include "dllmain.h"
-#include "C:\Program Files\Cheat Engine 7.4\plugins\cepluginsdk.h"
+#include "cepluginsdk.h"
 #pragma comment(lib, "Shell32")
 
 struct _CHEATENGINE {

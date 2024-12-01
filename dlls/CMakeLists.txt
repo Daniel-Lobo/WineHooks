@@ -30,7 +30,7 @@ MESSAGE(${parent_dir})
 
 #sources 
 set(SRC32	
-#${PROJECT_SOURCE_DIR}/Sources/CheatEngine.cpp
+${PROJECT_SOURCE_DIR}/Sources/CheatEngine.cpp
 ${PROJECT_SOURCE_DIR}/Sources/D3DHooks.cpp
 ${PROJECT_SOURCE_DIR}/Sources/D3DHooksEx.cpp
 ${PROJECT_SOURCE_DIR}/Sources/D3DUtils.cpp
@@ -87,7 +87,7 @@ ${PROJECT_SOURCE_DIR}/LAYERS/DSOUND/Sources/DirectSound.cpp)
 
 set(SRC64	
 ${PROJECT_SOURCE_DIR}/Sources/dllmain.cpp
-#${PROJECT_SOURCE_DIR}/Sources/CheatEngine.cpp
+${PROJECT_SOURCE_DIR}/Sources/CheatEngine.cpp
 ${PROJECT_SOURCE_DIR}/Sources/D3D11Hooks.cpp 
 ${PROJECT_SOURCE_DIR}/Sources/D3D11Utils.cpp
 ${PROJECT_SOURCE_DIR}/Sources/D3D12Hooks.cpp
@@ -145,7 +145,7 @@ target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS)
 target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS/DDRAW/Headers)
 target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS/DINPUT/Headers)
 target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS/DSOUND/Headers)
-target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/Includes/wine_9_0) 
+target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/Includes/cheat-engine/7_5)
 target_include_directories(peixoto PRIVATE ${parent_dir}/Shaders/FSR_1_0/) 
 
 if (WIN32)
