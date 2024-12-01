@@ -146,6 +146,7 @@ target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS/DDRAW/He
 target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS/DINPUT/Headers)
 target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS/DSOUND/Headers)
 target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/Includes/cheat-engine/7_5)
+target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/Includes/MS)
 target_include_directories(peixoto PRIVATE ${parent_dir}/Shaders/FSR_1_0/) 
 
 if (WIN32)

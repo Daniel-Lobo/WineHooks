@@ -6,7 +6,7 @@
 #define __uuidof(IDirectSoundDevice8) IID_IDirectSoundDevice8
 
 #include <windows.h>
-#include <dsound.h>
+#include "ms_dsound.h"
 #include <DSoundHooks.h>
 #include <dllmain.h>
 #include "Sync.h"

@@ -2,7 +2,7 @@
 #define EAX_PROPS_H
 
 #include <windows.h>
-#include <dsound.h>
+#include "ms_dsound.h"
 #include <DSoundHooks.h>
 #include <dllmain.h>
 #include "Sync.h"

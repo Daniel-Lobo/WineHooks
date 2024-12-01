@@ -1,5 +1,5 @@
 #include <windows.h>
-#include <dsound.h>
+#include "ms_dsound.h"
 #include "DirectSound.h"
 #include <dllmain.h>
 #include "Sync.h"

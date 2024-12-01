@@ -1,7 +1,7 @@
 #include lib\DirectX\dsound.ahk
 global DSND_HOOKS := struct("LPVOID DsCrt; LPVOID CrtSndBffr; LPVOID Release; LPVOID play; LPVOID GtCps; LPVOID Query; LPVOID StPpr; LPVOID GTPrp; LPVOID Spprt; DWORD f;")
 global g_dsnd 
-;InitDSndHooks()  ;broken with change to mingw
+InitDSndHooks()  ;broken with change to mingw
 
 InitDSndHooks()
 {
@@ -14,7 +14,7 @@ InitDSndHooks()
     if (g_.cfg.console && GetKeyState("Q", "P"))
     DSND_HOOKS.f := 0x1    
 		
-	;dllcall("Peixoto.dll\InitDSoundHooks", uint, DSND_HOOKS[])	
+	dllcall("Peixoto.dll\InitDSoundHooks", uint, DSND_HOOKS[])	
     return
 }    
 		

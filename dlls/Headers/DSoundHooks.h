@@ -1,7 +1,7 @@
 #ifndef DSOUNDHOOKS_H
 #define DSOUNDHOOKS_H
 #include <windows.h>
-#include <dsound.h>
+#include "ms_dsound.h"
 #include "eax.h"
 #include "collections.h"
 #include "Dbug.h"

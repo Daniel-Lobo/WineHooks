@@ -1,5 +1,5 @@
 #include <windows.h>
-#include <dsound.h>
+#include "ms_dsound.h"
 #include "DSoundHooks.h"
 #include "eax.h"
 #include "Dbug.h"
