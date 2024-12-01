@@ -9,7 +9,7 @@
 #define __uuidof(IDirectInput8A) IID_IDirectInput8A
 #define __uuidof(IDirectInput8W) IID_IDirectInput8W
 #include <windows.h>
-#include <dinput.h>
+#include "ms_dinput.h"
 #include <dllmain.h>
 #include "Sync.h"
 #include "LayersCommon.h"

@@ -1,5 +1,5 @@
 #include <windows.h>
-#include <dinput.h>
+#include "ms_dinput.h"
 #include "DirectInput.h"
 #include <dllmain.h>
 #include "Sync.h"
@@ -166,8 +166,8 @@ HRESULT STDMETHODCALLTYPE DirectInput::QueryInterface(REFIID riid, void** ppvObj
     }
 
     if (riid == GUID_NULL || ppvObj == nullptr || this == nullptr) return DIERR_INVALIDPARAM;
-    else if (riid == IID_IUnknown)        *ppvObj = (IDirectInputA*)this;
-    else if (riid == IID_IDirectInputA)   *ppvObj = (IDirectInputA*)this;
+    else if (riid == IID_IUnknown)        *ppvObj = dynamic_cast<IDirectInputA*>(this);
+    else if (riid == IID_IDirectInputA)   *ppvObj = dynamic_cast<IDirectInputA*>(this);
     else if (riid == IID_IDirectInputW)   *ppvObj = dynamic_cast<IDirectInputW*>(this);
     else if (riid == IID_IDirectInput2A)  *ppvObj = dynamic_cast<IDirectInput2A*>(this);
     else if (riid == IID_IDirectInput2W)  *ppvObj = dynamic_cast<IDirectInput2W*>(this);
@@ -274,7 +274,7 @@ HRESULT DirectInput8::QueryInterface(REFIID riid, void** ppvObj)
     }
 
     if (riid == GUID_NULL || ppvObj == nullptr || this == nullptr) return DIERR_INVALIDPARAM;    
-    else if (riid == IID_IDirectInput8A)  *ppvObj =(IDirectInput8A*) this;
+    else if (riid == IID_IDirectInput8A)  *ppvObj = dynamic_cast<IDirectInput8A*>(this);
     else if (riid == IID_IDirectInput8W)  *ppvObj = dynamic_cast<IDirectInput8W*>(this);
     else
     {
@@ -314,8 +314,8 @@ HRESULT STDMETHODCALLTYPE DirectInputDevice::QueryInterface(REFIID riid, void** 
     }
 
     if (riid == GUID_NULL || ppvObj == nullptr || this == nullptr) return DIERR_INVALIDPARAM;
-    else if (riid == IID_IUnknown)             *ppvObj = (IDirectInputDeviceA*) this;
-    else if (riid == IID_IDirectInputDeviceA)  *ppvObj = (IDirectInputDeviceA*) this;
+    else if (riid == IID_IUnknown)             *ppvObj = dynamic_cast<IDirectInputDeviceA*>(this);
+    else if (riid == IID_IDirectInputDeviceA)  *ppvObj = dynamic_cast<IDirectInputDeviceA*>(this);
     else if (riid == IID_IDirectInputDeviceW)  *ppvObj = dynamic_cast<IDirectInputDeviceW*>(this);
     else if (riid == IID_IDirectInputDevice2A) *ppvObj = dynamic_cast<IDirectInputDevice2A*>(this);
     else if (riid == IID_IDirectInputDevice2W) *ppvObj = dynamic_cast<IDirectInputDevice2W*>(this);
@@ -323,7 +323,7 @@ HRESULT STDMETHODCALLTYPE DirectInputDevice::QueryInterface(REFIID riid, void** 
     else if (riid == IID_IDirectInputDevice7W) *ppvObj = dynamic_cast<IDirectInputDevice7W*>(this);
     /* Return something that inherits from IUnknown because EZinterface will call IUnkown::Release() on it
      * The caller latter has to call dynamic_cast<DInputbase*> */
-    else if (riid == (GUID&)g_.DInputbase)     *ppvObj = (IDirectInputDeviceA*)this;
+    else if (riid == (GUID&)g_.DInputbase)     *ppvObj = dynamic_cast<IDirectInputDeviceA*>(this);
     else
     {
         DINPUT_WARN("E_NOINTERFACE");
@@ -445,6 +445,7 @@ const vector<DI_DATA_ELEMENT>* DiGetDataFormat(IUnknown* i)
 
 DWORD DiSetDataFormat(IUnknown * i, LPCDIDATAFORMAT lpdf)
 {
+    DBUG_WARN("===========================")
     if (lpdf == nullptr || i == nullptr)               return 1;
     if (lpdf->dwSize != sizeof(DIDATAFORMAT))          return 2;
     if (lpdf->dwObjSize != sizeof(DIOBJECTDATAFORMAT)) return 3;

@@ -1316,6 +1316,8 @@ DINPT_HOOKS.StPrp        := IDirectInputDeviceA.SetProperty
 DINPT_HOOKS.StPrp8       := IDirectInputDevice8A.SetProperty
 DINPT_HOOKS.EnumObjcs    := IDirectInputDeviceA.EnumObjects
 DINPT_HOOKS.EnumObjcs8   := IDirectInputDevice8A.EnumObjects
+DINPT_HOOKS.SetDataFmt   := IDirectInputDeviceA.SetDataFormat
+DINPT_HOOKS.SetDataFmt8  := IDirectInputDevice8A.SetDataFormat
 DINPT_HOOKS.GetData      := IDirectInputDeviceA.GetDeviceData
 DINPT_HOOKS.GetData8     := IDirectInputDevice8A.GetDeviceData
 if (cfg.layer)

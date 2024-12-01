@@ -1208,11 +1208,11 @@ SelectXButton(){
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 2
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 3
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 4
-	Gui, SelectKey:Add, Button, Section ys xs+60, Button 5
+	Gui, SelectKey:Add, Button, Section ys xs+60  g_SelectXButton, Button 5
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 6
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 7
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 8
-	Gui, SelectKey:Add, Button, xs ys xs+60, Button 9
+	Gui, SelectKey:Add, Button, xs ys xs+60  g_SelectXButton, Button 9
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 10
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 11
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 12
@@ -1224,7 +1224,7 @@ SelectXButton(){
 	return selected
 
 	_SelectXButton:
-		selected := A_GuiControl
+		selected := StrReplace(A_GuiControl, "Button", "GamePad")
 	return 
 }
 
@@ -1289,6 +1289,11 @@ ConfigMacros(){
 }
 
 ConfigXInput(){	
+	if (true) { ; avoid the "this lines will never be executed" warning
+		g_.GameCfg.Edit("u", "false", "j2k").save()		
+		msgbox, 16, ,Broken on version 0.10.13. Please download an earlier version!
+		return
+	}
 	static IE
 	Gui, XInput:New   
 	Gui, XInput:Color, 0xececec

@@ -576,7 +576,8 @@
             enabled.type               = "checkbox"
             enabled_label.for          = enabled;
             enabled.style.marginBottom = '20px'; 
-            enabled.onchange           = function(){selection.Enabled = this.checked};
+            enabled.checked            = selection.Enabled === 'true' ? true : false
+            enabled.onchange           = function(){selection.Enabled = this.checked ? 'true' : 'false';};
             root.appendChild(help);           
             root.appendChild(enabled);
             root.appendChild(enabled_label);

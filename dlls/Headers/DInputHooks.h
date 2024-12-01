@@ -1,7 +1,7 @@
 #ifndef DINPUTHOOKS_H
 #define DINPUTHOOKS_H
 #include <windows.h>
-#include <dinput.h>
+#include "ms_dinput.h"
 #include "Sync.h"
 #include <string>
 #include "dllmain.h"

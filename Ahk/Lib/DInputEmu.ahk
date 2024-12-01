@@ -91,6 +91,8 @@ InitDInputEmu(byref cfg, _unicode = true)
 	DINPT_HOOKS.StPrp8       := IDirectInputDevice8A.SetProperty
 	DINPT_HOOKS.EnumObjcs    := IDirectInputDeviceA.EnumObjects
 	DINPT_HOOKS.EnumObjcs8   := IDirectInputDevice8A.EnumObjects
+	DINPT_HOOKS.SetDataFmt   := IDirectInputDeviceA.SetDataFormat
+	DINPT_HOOKS.SetDataFmt8  := IDirectInputDevice8A.SetDataFormat
 	DINPT_HOOKS.GetData      := IDirectInputDeviceA.GetDeviceData
 	DINPT_HOOKS.GetData8     := IDirectInputDevice8A.GetDeviceData
 
@@ -120,7 +122,7 @@ InitDInputEmu(byref cfg, _unicode = true)
 	    DINPT_HOOKS.SetDataFmt8W := IDirectInputDevice8W.SetDataFormat
 		DINPT_HOOKS.GetDataW     := IDirectInputDeviceW.GetDeviceData
 	    DINPT_HOOKS.GetData8W    := IDirectInputDevice8W.GetDeviceData
-	}
+	}	
 					 
 	mds              := strsplit(cfg.mds, ",")
 	ls_mode          := mds[17]

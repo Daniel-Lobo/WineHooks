@@ -1,0 +1,608 @@
+DirectInputCreateA_Hook: Return adress=[268972556]
+EnumDevices: this=[11159644] Return adress=[268972556]
+CreateDevice: Return adress=[268972556]
+QueryInterface: Return adress=[268972556]
+Succeeded to create the DirectInput Interfaces
+DirectInputCreateW_Hook: Return adress=[268972556]
+CreateDevice: Return adress=[268972556]
+QueryInterface: Return adress=[268972556]
+Succeeded to create the DirectInput Interfaces
+DirectInputCreateEx_Hook: Return adress=[268972556]
+DirectInputCreateEx_Hook: CREATED PROXY
+CreateDevice: Return adress=[268972556]
+Succeeded to create the DirectInput7 Interfaces
+DirectInputCreateEx_Hook: Return adress=[268972556]
+DirectInputCreateEx_Hook: CREATED PROXY
+CreateDevice: Return adress=[268972556]
+Succeeded to create the DirectInput7 Interfaces
+DirectInput8Create_Hook: Return adress=[268972556]
+DirectInput8Create_Hook: CREATED PROXY
+CreateDevice: Return adress=[268972556]
+Succeeded to create the DirectInput8 Interfaces
+DirectInput8Create_Hook: Return adress=[268972556]
+DirectInput8Create_Hook: CREATED PROXY
+CreateDevice: Return adress=[268972556]
+CreateDevice: DI_OK
+Succeeded to create the DirectInput8 Interfaces
+IDirectInputA::AddRef[1830704832] reimplement in IDirectInputW[1832025536], IDirectInput7A[1832025536], IDirectInput7W[1832025536], 
+IDirectInputA::CreateDevice[1830401376] reimplement in IDirectInputW[1830405760], IDirectInput7A[1830405760], IDirectInput7W[1830405760], 
+IDirectInputA::EnumDevices[1830696768] reimplement in IDirectInputW[1832028992], IDirectInput7A[1832028992], IDirectInput7W[1832028992], 
+IDirectInputA::GetDeviceStatus[1830700304] reimplement in IDirectInputW[1832029408], IDirectInput7A[1832029408], IDirectInput7W[1832029408], 
+IDirectInputA::Initialize[1830694496] reimplement in IDirectInputW[1832029888], IDirectInput7A[1832029888], IDirectInput7W[1832029888], 
+IDirectInputA::QueryInterface[1830413440] reimplement in IDirectInputW[1830415344], IDirectInput7A[1830415344], IDirectInput7W[1830415344], 
+IDirectInputA::Release[1830704880] reimplement in IDirectInputW[1832026176], IDirectInput7A[1832026176], IDirectInput7W[1832026176], 
+IDirectInputA::RunControlPanel[1830702560] reimplement in IDirectInputW[1832029632], IDirectInput7A[1832029632], IDirectInput7W[1832029632], 
+IDirectInputDeviceA::Acquire[1830895072] reimplement in IDirectInputDeviceW[1832030000], IDirectInputDevice7A[1832030000], IDirectInputDevice7W[1832030000], 
+IDirectInputDeviceA::AddRef[1830892768] reimplement in IDirectInputDeviceW[1832025792], IDirectInputDevice7A[1832025792], IDirectInputDevice7W[1832025792], 
+IDirectInputDeviceA::EnumObjects[1830839552] reimplement in IDirectInputDeviceW[1832029152], IDirectInputDevice7A[1832029152], IDirectInputDevice7W[1832029152], 
+IDirectInputDeviceA::GetCapabilities[1830868512] reimplement in IDirectInputDeviceW[1832028736], IDirectInputDevice7A[1832028736], IDirectInputDevice7W[1832028736], 
+IDirectInputDeviceA::GetDeviceData[1830848944] reimplement in IDirectInputDeviceW[1832030832], IDirectInputDevice7A[1832030832], IDirectInputDevice7W[1832030832], 
+IDirectInputDeviceA::GetDeviceInfo[1830851232] reimplement in IDirectInputDeviceW[1832032720], IDirectInputDevice7A[1832032720], IDirectInputDevice7W[1832032720], 
+IDirectInputDeviceA::GetDeviceState[1830863952] reimplement in IDirectInputDeviceW[1832030576], IDirectInputDevice7A[1832030576], IDirectInputDevice7W[1832030576], 
+IDirectInputDeviceA::GetObjectInfo[1830858192] reimplement in IDirectInputDeviceW[1832032528], IDirectInputDevice7A[1832032528], IDirectInputDevice7W[1832032528], 
+IDirectInputDeviceA::GetProperty[1830843056] reimplement in IDirectInputDeviceW[1832029472], IDirectInputDevice7A[1832029472], IDirectInputDevice7W[1832029472], 
+IDirectInputDeviceA::Initialize[1830833776] reimplement in IDirectInputDeviceW[1832033072], IDirectInputDevice7A[1832033072], IDirectInputDevice7W[1832033072], 
+IDirectInputDeviceA::QueryInterface[1830415376] reimplement in IDirectInputDeviceW[1830417328], IDirectInputDevice7A[1830417328], IDirectInputDevice7W[1830417328], 
+IDirectInputDeviceA::Release[1830897328] reimplement in IDirectInputDeviceW[1832027312], IDirectInputDevice7A[1832027312], IDirectInputDevice7W[1832027312], 
+IDirectInputDeviceA::RunControlPanel[1830870864] reimplement in IDirectInputDeviceW[1832032912], IDirectInputDevice7A[1832032912], IDirectInputDevice7W[1832032912], 
+IDirectInputDeviceA::SetCooperativeLevel[1830879200] reimplement in IDirectInputDeviceW[1832031744], IDirectInputDevice7A[1832031744], IDirectInputDevice7W[1832031744], 
+IDirectInputDeviceA::SetDataFormat[1830861696] reimplement in IDirectInputDeviceW[1832031024], IDirectInputDevice7A[1832031024], IDirectInputDevice7W[1832031024], 
+IDirectInputDeviceA::SetEventNotification[1830881472] reimplement in IDirectInputDeviceW[1832031184], IDirectInputDevice7A[1832031184], IDirectInputDevice7W[1832031184], 
+IDirectInputDeviceA::SetProperty[1830845392] reimplement in IDirectInputDeviceW[1832029728], IDirectInputDevice7A[1832029728], IDirectInputDevice7W[1832029728], 
+IDirectInputDeviceA::Unacquire[1830897504] reimplement in IDirectInputDeviceW[1832030320], IDirectInputDevice7A[1832030320], IDirectInputDevice7W[1832030320], 
+IDirectInput8A::AddRef[1830740544] reimplement in IDirectInput8W[1832025584], 
+IDirectInput8A::cfgureDevices[1830734560] reimplement in IDirectInput8W[1832030768], 
+IDirectInput8A::CreateDevice[1830399984] reimplement in IDirectInput8W[1830407216], 
+IDirectInput8A::EnumDevices[1830727584] reimplement in IDirectInput8W[1832029056], 
+IDirectInput8A::EnumDevicesBySemantics[1830738096] reimplement in IDirectInput8W[1832030512], 
+IDirectInput8A::FindDevice[1830721808] reimplement in IDirectInput8W[1832030256], 
+IDirectInput8A::GetDeviceStatus[1830730032] reimplement in IDirectInput8W[1832029440], 
+IDirectInput8A::Initialize[1830725312] reimplement in IDirectInput8W[1832029920], 
+IDirectInput8A::QueryInterface[1830402768] reimplement in IDirectInput8W[1830404320], 
+IDirectInput8A::Release[1830740592] reimplement in IDirectInput8W[1832026320], 
+IDirectInput8A::RunControlPanel[1830732288] reimplement in IDirectInput8W[1832029664], 
+IDirectInputDevice8A::Acquire[1830988736] reimplement in IDirectInputDevice8W[1832030032], 
+IDirectInputDevice8A::AddRef[1830986432] reimplement in IDirectInputDevice8W[1832025936], 
+IDirectInputDevice8A::BuildActionMap[1830953104] reimplement in IDirectInputDevice8W[1832020432], 
+IDirectInputDevice8A::CreateEffect[1830927680] reimplement in IDirectInputDevice8W[1832033232], 
+IDirectInputDevice8A::EnumCreatedEffectObjects[1830979648] reimplement in IDirectInputDevice8W[1832019888], 
+IDirectInputDevice8A::EnumEffects[1830916064] reimplement in IDirectInputDevice8W[1832033424], 
+IDirectInputDevice8A::EnumEffectsInFile[1830965792] reimplement in IDirectInputDevice8W[1832020240], 
+IDirectInputDevice8A::EnumObjects[1830919568] reimplement in IDirectInputDevice8W[1832029280], 
+IDirectInputDevice8A::Escape[1830986480] reimplement in IDirectInputDevice8W[1832019984], 
+IDirectInputDevice8A::GetCapabilities[1830961168] reimplement in IDirectInputDevice8W[1832028832], 
+IDirectInputDevice8A::GetDeviceData[1830937024] reimplement in IDirectInputDevice8W[1832030864], 
+IDirectInputDevice8A::GetDeviceInfo[1830939312] reimplement in IDirectInputDevice8W[1832032784], 
+IDirectInputDevice8A::GetDeviceState[1830956608] reimplement in IDirectInputDevice8W[1832030608], 
+IDirectInputDevice8A::GetEffectInfo[1830943856] reimplement in IDirectInputDevice8W[1832033616], 
+IDirectInputDevice8A::GetForceFeedbackState[1830977392] reimplement in IDirectInputDevice8W[1832033744], 
+IDirectInputDevice8A::GetImageInfo[1830928960] reimplement in IDirectInputDevice8W[1832025472], 
+IDirectInputDevice8A::GetObjectInfo[1830947344] reimplement in IDirectInputDevice8W[1832032592], 
+IDirectInputDevice8A::GetProperty[1830923072] reimplement in IDirectInputDevice8W[1832029504], 
+IDirectInputDevice8A::Initialize[1830913792] reimplement in IDirectInputDevice8W[1832033104], 
+IDirectInputDevice8A::Poll[1830984176] reimplement in IDirectInputDevice8W[1832020048], 
+IDirectInputDevice8A::QueryInterface[1830410096] reimplement in IDirectInputDevice8W[1830411792], 
+IDirectInputDevice8A::Release[1830990992] reimplement in IDirectInputDevice8W[1832027696], 
+IDirectInputDevice8A::RunControlPanel[1830963520] reimplement in IDirectInputDevice8W[1832032944], 
+IDirectInputDevice8A::SendDeviceData[1830958880] reimplement in IDirectInputDevice8W[1832020112], 
+IDirectInputDevice8A::SendForceFeedbackCommand[1830981920] reimplement in IDirectInputDevice8W[1832019792], 
+IDirectInputDevice8A::SetActionMap[1830933520] reimplement in IDirectInputDevice8W[1832025408], 
+IDirectInputDevice8A::SetCooperativeLevel[1830972864] reimplement in IDirectInputDevice8W[1832031776], 
+IDirectInputDevice8A::SetDataFormat[1830950848] reimplement in IDirectInputDevice8W[1832031056], 
+IDirectInputDevice8A::SetEventNotification[1830975136] reimplement in IDirectInputDevice8W[1832031216], 
+IDirectInputDevice8A::SetProperty[1830925408] reimplement in IDirectInputDevice8W[1832029760], 
+IDirectInputDevice8A::Unacquire[1830991168] reimplement in IDirectInputDevice8W[1832030352], 
+IDirectInputDevice8A::WriteEffectToFile[1830969328] reimplement in IDirectInputDevice8W[1832020368], 
+Succeeded to hook IDirectInputDevice8A::SetDataFormat
+Succeeded to hook IDirectInputDeviceA::SetDataFormat
+Succeeded to hook IDirectInputDevice8W::SetDataFormat
+Succeeded to hook IDirectInputDeviceW::SetDataFormat
+flags 0
+Button 5 1
+Button 6 2
+Button 7 3
+Button 8 4
+Button 9 5
+Button 10 6
+Button 11 7
+Button 12 8
+Button 13 9
+Button 14 10
+Button 15 11
+Button 16 12
+Succeeded to hook IDirectInput8W::EnumDevices
+Succeeded to hook IDirectInput8A::EnumDevices
+Succeeded to hook IDirectInputA::EnumDevices
+Succeeded to hook IDirectInputW::EnumDevices
+Succeeded to hook IDirectInputDevice2A::EnumEffects
+Succeeded to hook IDirectInputDevice2W::EnumEffects
+Succeeded to hook IDirectInputDevice8A::EnumEffects
+Succeeded to hook IDirectInputDevice8W::EnumEffects
+Succeeded to hook IDirectInputDevice2A::CreateEffect
+Succeeded to hook IDirectInputDevice8A::CreateEffect
+Succeeded to hook IDirectInputDevice2A::GetEffectInfo
+Succeeded to hook IDirectInputDevice8A::GetEffectInfo
+Succeeded to hook IDirectInputDevice2W::CreateEffect
+Succeeded to hook IDirectInputDevice8W::CreateEffect
+Succeeded to hook IDirectInputDevice2W::GetEffectInfo
+Succeeded to hook IDirectInputDevice8W::GetEffectInfo
+DirectInputCreateEx_Hook: Return adress=[4564174]
+DirectInputCreateEx_Hook: CREATED PROXY
+IDirectInputA_EnumDevices 0
+EnumDevices: this=[186147252] Return adress=[268972556]
+CreateDeviceEx: Return adress=[4562942]
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: BYBY
+DiDcvSetDataFormat: 1838560
+QueryInterface: Return adress=[1829403049]
+DiDcvSetDataFormat: 1
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
+DiDcvSetDataFormat: 0
+QueryInterface: Return adress=[1829403049]
+GetCapabilities: this=[345234468] Return adress=[1829424432]
