@@ -1,7 +1,7 @@
 #include lib\DirectX\dsound.ahk
 global DSND_HOOKS := struct("LPVOID DsCrt; LPVOID CrtSndBffr; LPVOID Release; LPVOID play; LPVOID GtCps; LPVOID Query; LPVOID StPpr; LPVOID GTPrp; LPVOID Spprt; DWORD f;")
 global g_dsnd 
-InitDSndHooks()
+;InitDSndHooks()  ;broken with change to mingw
 
 InitDSndHooks()
 {

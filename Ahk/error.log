@@ -1,34 +1,40 @@
 Peixotos's patch remote settings:
-Command Line: "E:\Games\American McGee's Alice\Alice.exe" 
+Command Line: "E:\Games\Iron_Storm\IronStorm.exe" 
+<Gpad>: A=1;B=2;X=3;Y=4;LEFT_SHOULDER=5;RIGHT_SHOULDER=6;bLeftTrigger=7;bRightTrigger=8;Start=9;Back=10;LEFT_THUMB=11;RIGHT_THUMB=12;deadzone=0.25;
 common_path: 1
-D3D: gl
+CompatLayer: WinXPSp3
+D3D: 8
 D3D_Driver: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispsig.inf_amd64_e6cac7f31a92d62e\nvldumd.dll
 dsk: 1920x1080
-Dsnd: e=false;
+DSnd: e=False;
 dxvkv: 2_4
 error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
-f: 120
-HD: wide nofov
+HD: 1
 injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
+J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
+k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;
 max_4x3_res: 1440x1080
 Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
-Path: C:\Users\Peixoto\Documents\WineHooks\Games\Alice\Retail\
+Path: C:\Users\Peixoto\Documents\WineHooks\Games\Iron storm\
+PixelSwap: 1
+Pxswap: sw=;e=false;
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
-script: scripts\Alice.ahk
-script_hwnd: 0x3086a
-Target: E:\Games\American McGee's Alice\Alice.exe
-target_dir: E:\Games\American McGee's Alice
-target_name: Alice.exe
-Textswap: path=Textures\VOKSI;l=0;sw=End;q=Ins;p=<;n=>;c=Del;d=Home;sz=384;s=4;e=true;a=false;
-TextureSwap: 1
-wiki: https://www.pcgamingwiki.com/wiki/American_McGee%27s_Alice
+script_hwnd: 0xc067c
+SXTY: 1
+SYNC: 1
+Target: E:\Games\Iron_Storm\IronStorm.exe
+target_dir: E:\Games\Iron_Storm
+target_name: IronStorm.exe
+Textswap: s=4;sz=384;path=Textures\VOKSI;n=PgUP;p=PgDn;d=Home;sw=End;c=Del;q=Ins;x=0;e=false;
+wiki: https://www.pcgamingwiki.com/wiki/Iron_Storm
 wine: 9_0
+WNMM: MCI=false;
 
-Working directory: E:\Games\American McGee's Alice
-C:\Users\Peixoto\Documents\WineHooks\Games\Alice\Retail\cfgFiles: 
+Working directory: E:\Games\Iron_Storm
+C:\Users\Peixoto\Documents\WineHooks\Games\Iron storm\cfgFiles: 
 HasFiles 0
-C:\Users\Peixoto\Documents\WineHooks\Games\Alice\Retail\cfgFiles: 
+C:\Users\Peixoto\Documents\WineHooks\Games\Iron storm\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -73,9 +79,9 @@ CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-Setup: InitGlHooks() Requested mode    : 1920x1080
-Setup: InitGlHooks() Scale             : 1.000000
-Setup: InitGlHooks() Viewport XOffset  : 0
+Setup: D3D8 Requested mode    : 1920x1080
+Setup: D3D8 Scale             : 1.000000
+Setup: D3D8 Viewport XOffset  : 0
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
@@ -86,63 +92,58 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-SetReslimit: ENUMERATING
-SetReslimit: MODE 61: 1920x1080
-Setup: InitGLHooks() Requested mode    : 1920x1080
-Setup: InitGLHooks() Scale             : 1.000000
-Setup: InitGLHooks() Viewport XOffset  : 0
-
-Resolution\Viewport - from: InitGLHooks
-Requested                 : 1920 x 1080
-Real                      : 1920 x 1080
-Correction                : 1.000000
-Viewport width correction : 0
-Creating proxies SetupGl()
-No context
-Setup: InitGLHooks Requested mode    : 1920x1080
-Setup: InitGLHooks Scale             : 1.000000
-Setup: InitGLHooks Viewport XOffset  : 0
-Succeeded to hook wglCreateContext
-Succeeded to hook wglMakeCurrent
-Succeeded to hook wglGetProcAddress
-Succeeded to hook wglSwapBuffers
-Succeeded to hook SwapBuffers
-Succeeded to hook wglSwapLayerBuffers
-Succeeded to hook glDeleteTextures
-glBindTexture Hook: 0
-glTexImage2D  Hook: 0
-glTexSubImage2D  Hook: 0
-ChangeDisplaySettingsW Hook  :0
-ChangeDisplaySettingsExW Hook:0
-ChangeDisplaySettingsA Hook  :0
-GetDC Hook                   :0
-Succeeded to hook glViewport
-Succeeded to hook glScissor
-Succeeded to hook glGetTexLevelParameteriv
-Succeeded to hook glGetTexImage
-Succeeded to hook glCopyTexImage2D
-Succeeded to hook glCopyTexSubImage2D
-Succeeded to hook glMatrixMode
-Succeeded to hook glLoadMatrixf
-Succeeded to hook glFrustum
-Succeeded to hook glReadPixels
-Succeeded to hook glDrawPixels
-Succeeded to hook glBitmap
-glGetIntegerv Hook: 0
-CreateProcessW Hook: 1 <- 0 means no error
-
-Resolution\Viewport - from: ChangeDisplaySettingsA
-Requested                 : 960 x 720
-Real                      : 1920 x 1080
-Correction                : 1.500000
-Viewport width correction : 240
-Creating proxies SetupGl()
-No context
-Setup: ChangeDisplaySettingsA Requested mode    : 960x720
-Setup: ChangeDisplaySettingsA Scale             : 1.500000
-Setup: ChangeDisplaySettingsA Viewport XOffset  : 240
-Creating proxies wglMakeCurrent()
-Depth\Stencil:24\8:35863 Z24X8  960 720 65536 0
-FB 1
-FB 2
-program 3 A12
+Direct3DCreate8 Hook: 0
+Succeeded to create Direct3D8
+Succeeded to hook IDirect3D8::CreateDevice
+Succeeded to hook IDirect3DDevice8::EndScene
+Succeeded to hook IDirect3DTexture8::LockRect
+Succeeded to hook IDirect3DTexture8::UnLockRect
+Succeeded to hook IDirect3DDevice8::UpdateTexture
+Succeeded to hook IDirect3DDevice8::CreateTexture
+Succeeded to hook IDirect3DDevice8::SetTexture
+Succeeded to hook IDirect3DTexture8::Release
+Succeeded to hook IDirect3DTexture8::GetSurfaceLevel
+Succeeded to hook IDirect3DSurface8::Release
+Succeeded to hook IDirect3DDevice8::CreatePixelShader
+Succeeded to hook IDirect3DDevice8::DeletePixelShader
+Succeeded to hook IDirect3DDevice8::SetPixelShader
+Max Primitives 5592405
+Succeeded to hook IDirect3D8::EnumAdapterModes
+Succeeded to hook IDirect3D8::GetAdapterDisplayMode
+Succeeded to hook IDirect3DDevice8::SetRenderTarget
+Succeeded to hook IDirect3DDevice8::GetRenderTarget
+Succeeded to hook IDirect3DDevice8::GetDepthStencilSurface
+Succeeded to hook IDirect3DDevice8::GetBackBuffer
+Succeeded to hook IDirect3DDevice8::Present
+Succeeded to hook IDirect3DDevice8::SetViewPort
+Succeeded to hook IDirect3DDevice8::GetViewPort
+Succeeded to hook IDirect3DDevice8::Reset
+Succeeded to hook IDirect3DDevice8::Clear
+Succeeded to hook IDirect3DSurface8::LockRect
+Succeeded to hook IDirect3DSurface8::UnLockRect
+Succeeded to hook IDirect3DSurface8::GetDesc
+Succeeded to hook IDirect3DDevice8::SetVertexShader
+Succeeded to hook IDirect3DDevice8::SetStreamSource
+Succeeded to hook IDirect3DDevice8::DrawPrimitiveUp
+Succeeded to hook IDirect3DDevice8::DrawPrimitive
+Succeeded to hook IDirect3DDevice8::DrawIndexedPrimitiveUp
+Succeeded to hook IDirect3DDevice8::DrawIndexedPrimitive
+Succeeded to hook IDirect3DDevice8::CreateVertexBuffer
+Succeeded to hook IDirect3DDevice8::GetDisplaymode
+Setup: D3D8 Requested mode    : 720x540
+Setup: D3D8 Scale             : 2.000000
+Setup: D3D8 Viewport XOffset  : 240
+IDirect3D8_CreateDevice D3DCREATE_MULTITHREADED 0
+Resquested 720 x 540
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Proxie: z buffer:             0 
+Proxie: z buffer level 0:     0
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Proxie: z buffer:             0 
+Proxie: z buffer level 0:     0
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0

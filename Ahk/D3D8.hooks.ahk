@@ -71,6 +71,20 @@ dllcall("peixoto.dll\InitD3D8HooksData", uint, D3D8_HOOKS[], uint, (g_.cfg.HD) ?
 #include lib\TexSwapLib8.ahk
 #include lib\ShaderOverride8.ahk
 
+D3DDDI_CreatePixelShader(p, p2){
+	return
+}
+D3DDDI_SetShaderOverride(p){
+	return
+}
+D3DDDI_RestoreShader(){
+	return
+}
+D3DDDI_Init(){
+	return
+}
+
+
 HookD3D8Create()
 {
 	D3D8Create := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", str, A_windir "\SysWOW64\D3D8.dll"), astr, "Direct3DCreate8")

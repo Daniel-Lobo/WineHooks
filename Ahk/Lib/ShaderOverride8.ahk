@@ -12,13 +12,7 @@ PS8LdDmps(d)
 		numput(f.Length, p+0, "uint")
 		f.RawRead(p+4, f.Length)		
 		
-		if fileexist( (file := strsplit(A_loopfilefullpath, ".bin")[1] ".hlsl") ) 
-		{
-			fileread, code, %file%	
-			stringreplace, code, code, ps_1_, ps.1.			
-			g_pswap8.dumps[n] := {"p" : p, "mode" : "DDI", "code" : code} 
-		}		
-		else if fileexist( (file := strsplit(A_loopfilefullpath, ".bin")[1] ".txt") )  
+		if fileexist( (file := strsplit(A_loopfilefullpath, ".bin")[1] ".txt") )  
 		{
 			fileread, code, %file%	
 			stringreplace, code, code, ps_1_, ps.1.			
@@ -90,18 +84,6 @@ D3D8ShaderFound(index, Original, sz, szb)
 		if h is number	
 			g_pswap8.Overrides._add(Original, h)
 		logerr("Shader substitution: " h "`n" g_pswap8.dumps[index].code )					
-	}
-	else if (g_pswap8.dumps[index].mode = "DDI")
-	{
-		b := D3DDDI_CmplBCode(g_pswap8.dumps[index].code, "main")
-		if not isobject(b)
-			return logerr("HLSL " b)
-		s := D3DDDI_CmplShder(b)
-		if not isobject(s)
-			return logerr(s)
-		g_pswap8.DDI_Overrides._add(Original, s.hShader) 
-		logerr("HLSL Shader substitution: " s.hShader "`n" g_pswap8.dumps[index].code )	
-		s.hShader := ""		
 	}	
 }
 

@@ -28,8 +28,8 @@ High quality super sampling anti aliasing::::
 ::parent::HD_details::
 ::_RLMT_::RLMT::Limit resolutions::0-10-1::
 ::parent::RLMT_details::
-::TEXT::{nfo Needed in most Direct3D 11 games. Without this, if you configure the game at a resolution lower then your desktop's, it will 
-keep the desktop resolution, but render intenally at the lower one and forced resolution won't have effect}||n
+::TEXT::<div style="height:6px"></div>{nfo Needed in most Direct3D 11 games. Without this, if you configure the game at a resolution lower then your desktop's, it will 
+keep the desktop resolution, but render intenally at the lower one and forced resolution won't have effect}
 
 ::BOOL::WHKS::Fix window size::Check this if the game window is not correctly
 resized 

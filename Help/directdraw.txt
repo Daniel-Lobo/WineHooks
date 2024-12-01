@@ -1,10 +1,14 @@
 ::Tab::Graphics...|...Graphics|Sound|Input|CPU::
 
 ::Graphics...Tab::
+::_BOOL_::wineoff::Don't use wine::On windows, don't use [wine wine's] directdraw\direct3d implementation anf fallback to the default MS 
+Implementation, on Linux this has no effect. Wine integration is a work in progress, and at the moment, most games neeed this option enabled::
+::_parent_::wineoff_details::
 ::BOOL::layeroff::Disable passthrough layer::This is a thin layer between the game and the directdraw\direct3d implementation, 
-meant to help with the ongoing effort to make the program compatible with [wine wine] on both windows and linux.
-This is a work in progress and some games might need this disabled::
-with a game::
+meant to help with the ongoing effort to make the program compatible with [wine wine] on both windows and linux. On linux, this should never be 
+enabled. On windows, the layer works fine for all games tested so far
+::
+
 ::Graphics...Tab::
 ::BOOL::4K::Enable 4k resolution::Increases the maximum resolution of DirectX 7 and earlier games from 
 2048x2048 to 8192x8192::
@@ -18,8 +22,8 @@ program. No need to enable this otherwise::
 ::parent::DDRefcountfix_details::
 ::HIDDEN::DDRefcountfix_datailed::Details::This is not actually a directdraw 
 bug, it happens|n because the program holds an extra reference to 
-the|n directdraw object, which can sometimes cause problems|n with games the check 
-the value returned by the|n IDirectDraw&rarr;Release method::
+the|n directdraw object, which can sometimes cause|n problems with games the check 
+the value returned|n by the IDirectDraw&rarr;Release method::
 
 ::parent::Graphics..._div::
 ::BOOL::WFG::W-Fog fix::Fixes non working fog in some games:: 
@@ -57,7 +61,7 @@ a|gammatool ^ reset your desktop gamma |a::
 ::HIDDEN::Gamma_datailed::Details::This can restore gamma calibration without
 disableing|n maximized windowed mode. It does so by translating|n DirectDraw calls
 to GDI.|n The drawback to this is that the new gamma settings|n will affect the 
-entire desktop, but if the game terminates|n correctly, the original settings are 
+entire desktop, but if the game|n terminates correctly, the original settings are 
 restored::
 
 ::parent::Graphics..._div::
@@ -92,9 +96,9 @@ a<gototab_cpu_singlecore -- Single core affinity>a option witch frequently
 causes sound artifacts
 ::parent::Safe_details::
 ::HIDDEN::Safe_Detailed::Details::This sets the affinity of any threads doing|n 
-directdraw calls to the last proccessor core.|n Even if the game doesn't need 
-this, the|n program sometimes does - because the|n directdraw hooks are not thread 
-safe.|n If your game sends you a series of message|n boxes complaining|n that it is out
+directdraw calls to the last proccessor|n core. Even if the game doesn't need 
+this,|n the program sometimes does - because|n the directdraw hooks are not thread 
+safe.|n If your game sends you a series of|n message boxes complaining|n that it is out
 of memory, try this 
 
 ::parent::32bit_details::
@@ -117,7 +121,7 @@ games or take screenshots|n::
 ::parent::READ_details::
 ::BOOL::CPY::Discard unmodified pixels::If 
 a|gototab_HD ^ forced resolution|a is enabled, prevents the Direct3D 
-render target from being downsampled making the game to look aliased\pixelated. This is broken on the beta and won't have the desired effect 
+render target from being downsampled making the game to look aliased\pixelated
 
 ::parent::32bit_details::
 ::TEXTID::Optimizations::Optimizations::Try these if 
@@ -190,6 +194,9 @@ GPU without an increase in anti-aliasing quality::
 ::BOOL::BLT3D::Use Direct3D for blits::Try this to fix scaling 
 artifacts if supersampling is not enough to fix, or introduces them. This option 
 has no effect if supersampling is not enabled  
+
+::parent::HD_details::
+::BOOL::xBR::a|_xBR ^ xBRz scaling|a:: Pixel art scaler for 2D games:: 
 
 ::parent::HD_details::
 ::BOOL::DSR::Dynamic super resolution::

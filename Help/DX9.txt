@@ -30,7 +30,7 @@ l| Improve the quality of effects drawn at fixed resolution
 can't alt-tab in a game::
 
 ::parent::HD_details::
-::BOOL::xBR::a|_xBR ^ xBRz scaling|a:: Pixel art scaler for 2D games||n:: 
+::BOOL::xBR::a|_xBR ^ xBRz scaling|a:: Pixel art scaler for 2D games:: 
         
 ::parent::HD_details::
 ::BOOL::DSR::Dynamic super resolution::
