@@ -962,7 +962,7 @@
                                         }
                                     };
                                     try {
-                                        h_xmlHttp.open("GET", GetHelpFileDownLoadPath(help_nfo, hlp_fle_name), true); // false for synchronous request
+                                        h_xmlHttp.open("GET", GetHelpFileDownLoadPath(help_nfo, hlp_fle_name), false); // false for synchronous request
                                         h_xmlHttp.send();
                                     } catch(err) {
                                         errors.push(hlp_fle_name);
@@ -979,7 +979,7 @@
                                         }
                                     };
                                     try {
-                                        c_xmlHttp.open("GET", cheat_table_path, true); // false for synchronous request
+                                        c_xmlHttp.open("GET", cheat_table_path, false); // false for synchronous request
                                         c_xmlHttp.send();
                                     } catch(err) {
                                         errors.push(cheat_table_name);
@@ -992,7 +992,7 @@
                                         }
                                     };                                
                                     try {
-                                        c_xmlHttp.open("GET", cheat_table_path, true); // false for synchronous request
+                                        c_xmlHttp.open("GET", cheat_table_path, false); // false for synchronous request
                                         c_xmlHttp.send();
                                     } catch(err) {
                                         errors.push(cheat_table_name);
@@ -1008,7 +1008,7 @@
                                         }
                                     };
                                     try {
-                                        src_xmlHttp.open("GET", script_path, true); // false for synchronous request
+                                        src_xmlHttp.open("GET", script_path, false); // false for synchronous request
                                         src_xmlHttp.send();                                        
                                     } catch(err) {
                                         errors.push(script_fle_name);
