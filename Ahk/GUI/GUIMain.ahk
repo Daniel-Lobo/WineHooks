@@ -235,7 +235,7 @@ Main() {
     Gui, Main: -Theme
     Gui, Main: Add, ListView, Background0xececec vGamesList gGameSelected x0 y0 h%h%-30 w%ListWidth% -multi +NoSortHdr AltSubmit hwndhListView, Games
 	GuiControl, Font, GamesList  ; Put the above font into effect for a control.
-    Gui, Main: Show, w%w% h%h%, WineHooks`, 0.10.13-Beta   
+    Gui, Main: Show, w%w% h%h%, WineHooks`, 0.10.13  
     Gui, Main: Margin, 0, 0, 0, 0 
     winehooks := A_mydocuments "\WineHooks"   
     Gui, Main:Default 
@@ -1513,8 +1513,8 @@ BetaWarn(){
 stable := g_.Stabe
 warn =
 (
-Not immplemented on the beta. If you're on windows, please download the 
-<a href="%stable%">last stable version</a> 
+Not immplemented on this version. If you're on windows, please download the 
+<a href="%stable%">an earlier</a> vertsion
 )	
 	Gui,Warn:+hwndhwin	     
 	Gui,Warn:Font, bold s20 c761602
