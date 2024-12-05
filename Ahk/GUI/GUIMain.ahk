@@ -1513,7 +1513,7 @@ BetaWarn(){
 stable := g_.Stabe
 warn =
 (
-Not immplemented on this version. If you're on windows, please download the 
+Not immplemented on this version. If you're on windows, please download 
 <a href="%stable%">an earlier</a> vertsion
 )	
 	Gui,Warn:+hwndhwin	     
