@@ -46,7 +46,7 @@ Base64Enc(FileName, LineLength := 64, LeadingSpaces := 0 ) { ; By SKAN / 18-Aug-
     Return RTrim( B,"`n" )    
 }
 
-;dllcall("AllocConsole")
+dllcall("AllocConsole")
 global g_ := {"BasePath" : A_mydocuments "\WineHooks\"
 ,"HelpPath"        : A_mydocuments "\WineHooks\Help\"
 ,"Profiles"        : A_mydocuments "\WineHooks\Profiles\"
@@ -61,7 +61,8 @@ global g_ := {"BasePath" : A_mydocuments "\WineHooks\"
 ,"Stabe"           : "https://github.com/Daniel-Lobo/WineHooks/releases/download/v0.10.12/Peixoto.zip"
 ,"Hierarchy"       : {"wineoff" : ["layeroff"], "32Bit" :  ["z24", "Safe", "DisableFontAA", "SYS"
 , {"READ"  : ["CPY"]}
-, {"HD"    : ["GDI", "NEFS", "DSR", "WHKS", "HLFPX", "MHKS", "MCLP", "xBR", "VPOS", "POW2", "WNWM", "BLNK", {"SSAA": ["BLT3D"]}]}  ]}}
+, {"HD"    : ["GDI", "NEFS", "DSR", "WHKS", "HLFPX", "MHKS", "MCLP", "xBR", "VPOS", "POW2", "WNWM", "BLNK", {"SSAA": ["BLT3D"]}]}  ]}
+, "Wip"    : "Crysis 2 - D3D11"}
 
 print(msg){
     FileOpen("*", "w").write(msg "`n")
@@ -233,7 +234,7 @@ Main() {
 	Gui, Main: Color, 0xececec
 	Gui, Main: Font, Times New Roman s10
     Gui, Main: -Theme
-    Gui, Main: Add, ListView, Background0xececec vGamesList gGameSelected x0 y0 h%h%-30 w%ListWidth% -multi +NoSortHdr AltSubmit hwndhListView, Games
+    Gui, Main: Add, ListView, +Icon Background0xececec vGamesList gGameSelected x0 y0 h%h%-30 w%ListWidth% -multi +NoSortHdr AltSubmit hwndhListView, Games
 	GuiControl, Font, GamesList  ; Put the above font into effect for a control.
     Gui, Main: Show, w%w% h%h%, WineHooks`, 0.10.13  
     Gui, Main: Margin, 0, 0, 0, 0 
@@ -243,10 +244,27 @@ Main() {
 }
 ListGames(){
 	Gui, Main:Default 
-	LV_Add("", "Home")
+	ImageListID := IL_Create(2,,1)  
+	LV_SetImageList(ImageListID)
+	IL_Add(ImageListID, "png\home.png")
+	IL_Add(ImageListID, "png\wip-icon.png")
+	IL_Add(ImageListID, "png\gamepad.png") 
+	
+	curr_index := 4
+	LV_Add("Icon1", "Home")
     loop, % g_.BasePath "Profiles\*.*" {   
-        game := StrReplace(A_loopfilename, ".ini", "")          
-        LV_Add("", game)
+        game  := StrReplace(A_loopfilename, ".ini", "") 
+		short := StrReplace(game, " - OpenGl", "") 
+		for k, sulfix in StrSplit("D3D7 D3D8 D3D9 D3D10 D3D11 D3D12 GOG DirectDraw DX6 Software Hardware", " "){
+			short := StrReplace(short, " - " sulfix, "")
+		}
+		if FileExist("GameIcons\" short ".png") {
+			IL_Add(ImageListID, "GameIcons\" short ".png")	
+			icon       := "Icon" . curr_index
+			curr_index += 1
+		}
+		else icon := InStr(g_.wip, game) ? "Icon2" : "Icon3" 			 
+        LV_Add(icon, game)
     }  
 }
 GameSelected(){
