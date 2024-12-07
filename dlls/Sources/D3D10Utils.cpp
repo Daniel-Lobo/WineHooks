@@ -335,7 +335,7 @@ ID3D10Resource * D3D10ShrinkTexture2D(ID3D10Resource * big)
     }
     D3D10_MAPPED_TEXTURE2D b_mapped = {};
     D3D10_MAPPED_TEXTURE2D s_mapped = {};
-    if ( D3D11_Hooks->D3D10Map(Big, 0, D3D10_MAP_READ, 0, &b_mapped) != S_OK)
+    if (D3D11_Hooks->D3D10Map(Big, 0, D3D10_MAP_READ, 0, &b_mapped) != S_OK)
     {
         DBUG_WARN("FAILED TO MAP HD TEXTURE");
         Small->Release();
@@ -344,7 +344,7 @@ ID3D10Resource * D3D10ShrinkTexture2D(ID3D10Resource * big)
     if (D3D11_Hooks->D3D10Map(Small, 0, D3D10_MAP_WRITE, 0, &s_mapped) != S_OK)
     {
         DBUG_WARN("FAILED TO MAP SD TEXTURE");
-        Big->Unmap(0);
+        D3D11_Hooks->D3D10Unmap(Big, 0);
         Small->Release();
         return nullptr;
     }    
