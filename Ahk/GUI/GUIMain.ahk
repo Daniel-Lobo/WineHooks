@@ -46,7 +46,7 @@ Base64Enc(FileName, LineLength := 64, LeadingSpaces := 0 ) { ; By SKAN / 18-Aug-
     Return RTrim( B,"`n" )    
 }
 
-dllcall("AllocConsole")
+;dllcall("AllocConsole")
 global g_ := {"BasePath" : A_mydocuments "\WineHooks\"
 ,"HelpPath"        : A_mydocuments "\WineHooks\Help\"
 ,"Profiles"        : A_mydocuments "\WineHooks\Profiles\"
