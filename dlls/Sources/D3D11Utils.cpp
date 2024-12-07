@@ -1243,6 +1243,39 @@ ID3D11PixelShader * D3D11FixAndCompileDXBCShader(BYTE * bytecode, UINT bytecode_
     return shader;
 }
 
+ID3D10PixelShader * D3D10FixAndCompileDXBCShader(BYTE * bytecode, UINT bytecode_size, string * asm_code, float f_scale, ID3D10Device * pDvc)
+{
+    vector<AssemblerParseError> parse_errors;
+    vector<BYTE> migoto_bytecode(bytecode, bytecode + bytecode_size);
+    migoto_bytecode.reserve(bytecode_size);
+    auto fixed = D3D11FixDXBCShader((char*)asm_code->c_str(), f_scale);
+    string s_fixed;    
+    for (auto & element : *fixed.get()) 
+    {
+       s_fixed += element;
+    }   
+        
+    std::vector<char> migoto_asm(s_fixed.begin(), s_fixed.end());     
+    auto newbcode = assembler(&migoto_asm, migoto_bytecode, &parse_errors);    
+    if (parse_errors.size() > 0)
+    {
+        for (auto & error : parse_errors)
+        {
+            DBUG_WARN(error.what());
+        }
+        return nullptr;
+    }
+
+    if (!pDvc) return nullptr;
+    ID3D10PixelShader * shader = nullptr;
+    if (S_OK != D3D11_Hooks->D3D10CreatePixelShader(pDvc, newbcode.data(), newbcode.size(), &shader))
+    {
+        DBUG_WARN("CreatePixelShader FAILED");
+        return nullptr;
+    }
+    return shader;
+}
+
 extern "C" __declspec(dllexport) char * __stdcall D3D11FixDXBCShaderTest(char * shader, BYTE * bytecode, UINT bytecode_size, float scale)
 {   
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)

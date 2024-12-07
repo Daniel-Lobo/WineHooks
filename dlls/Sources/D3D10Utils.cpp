@@ -308,6 +308,69 @@ ID3D11ProxyTexture * D3D10GetProxy(ID3D10DeviceChild * r, const char * caller)
     return proxy;
 }
 
+ID3D10Resource * D3D10ShrinkTexture2D(ID3D10Resource * big)
+{
+    D3D10_RESOURCE_DIMENSION type = D3D10_RESOURCE_DIMENSION_UNKNOWN;   
+    big->GetType(&type);
+    if (type != D3D10_RESOURCE_DIMENSION_TEXTURE2D)
+    {
+        DBUG_WARN("NOT A 2D TEXTURE");
+        return nullptr;
+    }
+    float scale = g_d3d.mScl->Get() * g_d3d.SSAA;
+    ID3D10Texture2D * Big         = dynamic_cast<ID3D10Texture2D*>(big);
+    ID3D10Texture2D * Small       = nullptr;
+    D3D10_TEXTURE2D_DESC desc     = {};
+    D3D10_TEXTURE2D_DESC new_desc = {};
+    Big->GetDesc(&desc);
+    Big->GetDesc(&new_desc);
+    new_desc.Width         /= scale;
+    new_desc.Height        /= scale;
+    new_desc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
+    new_desc.MipLevels      = 1;    
+    if (D3D11_Hooks->D3D10CreateTexture2D(D3D10GetDevice(big), &new_desc, nullptr, &Small) != S_OK)
+    {
+        DBUG_WARN("FAILED TO CREATE 2D TEXTURE");
+        return nullptr;
+    }
+    D3D10_MAPPED_TEXTURE2D b_mapped = {};
+    D3D10_MAPPED_TEXTURE2D s_mapped = {};
+    if ( D3D11_Hooks->D3D10Map(Big, 0, D3D10_MAP_READ, 0, &b_mapped) != S_OK)
+    {
+        DBUG_WARN("FAILED TO MAP HD TEXTURE");
+        Small->Release();
+        return nullptr;
+    }
+    if (D3D11_Hooks->D3D10Map(Small, 0, D3D10_MAP_WRITE, 0, &s_mapped) != S_OK)
+    {
+        DBUG_WARN("FAILED TO MAP SD TEXTURE");
+        Big->Unmap(0);
+        Small->Release();
+        return nullptr;
+    }    
+    byte * b = (byte*)b_mapped.pData;  // assuming 32bits per pixel
+    byte * s = (byte*)s_mapped.pData;  // assuming 32bits per pixel
+    float Y  = 0.0f;
+    float X  = 0.0f;
+    for (int y = 0; y < new_desc.Height; y++)
+    {   
+        Y  = y * scale;  
+        s  = (byte*) s_mapped.pData;
+        s +=  y * s_mapped.RowPitch;
+        for (int x = 0; x < new_desc.Width; x++)
+        {           
+            X  = x * scale;            
+            b  = (byte*)b_mapped.pData;
+            b += (int)X* sizeof(DWORD32)  + (int)Y * b_mapped.RowPitch;
+            *(DWORD*)s = *(DWORD*)b;
+            s += sizeof(DWORD32);            
+        }
+    }
+    D3D11_Hooks->D3D10Unmap(Small, 0);
+    D3D11_Hooks->D3D10Unmap(Big, 0);       
+    return Small; // Caller must release small
+}
+
 void D3D10Blit(IDXGISwapChain * sc, ID3D10Resource * src, ID3D10PixelShader * px, ID3D10RenderTargetView * dst, RECT * r_dst, RECT* r_src)
 {
     D3D10Bliter(D3D10GetDevice(src), sc).Blt(px, D3D11Globals.m_D3D10VxBlt, src, dst, r_dst, r_src);

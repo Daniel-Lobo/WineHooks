@@ -545,6 +545,8 @@ void D3D10VMirrorBlit(IDXGISwapChain *, ID3D10ShaderResourceView *, ID3D10Render
 void D3D10RenderText(IDXGISwapChain *, const wchar_t *, RECT *);
 char * __stdcall D3D11LoadWine(char *, char *, char*, UINT);
 ID3D11PixelShader * D3D11FixAndCompileDXBCShader(BYTE *, UINT, string *, float, ID3D11Device *);
+ID3D10PixelShader * D3D10FixAndCompileDXBCShader(BYTE * , UINT, string *, float, ID3D10Device *);
+ID3D10Resource * D3D10ShrinkTexture2D(ID3D10Resource *);
 
 //============================HOOKS=========================================//
 
@@ -1054,6 +1056,19 @@ public:
             if (px != nullptr)
             {                
                 Replace(original, px);
+            }
+        }
+    }
+    void Fix10(ID3D10Device * pDvc, ID3D10PixelShader * original)
+    {
+        IsVPostShader();       
+        if ((m_IsVPosShader  == 1) || (m_IsLoadShader == 1) || (m_ResInfo == 1))
+        {           
+            std::string code = (char*)m_blob->GetBufferPointer();                   
+            auto px = D3D10FixAndCompileDXBCShader(m_Bytecode, m_sz, &code, g_d3d.mScl->Get()*g_d3d.SSAA, pDvc);
+            if (px != nullptr)
+            {                
+                Replace10(original, px);
             }
         }
     }

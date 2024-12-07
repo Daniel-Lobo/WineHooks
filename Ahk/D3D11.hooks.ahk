@@ -201,8 +201,8 @@ InitD3D11Hooks()
 	if (g_.cfg.D3D = 10)
 	return InitD3D10Hooks()			
 	dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
-	if (g_.cfg.vPos)
-		logerr("Vpos fix " strget(dllcall(dll "\InitWineHoooks", str, "", ptr)+0, "utf-8"))
+	;if (g_.cfg.vPos)
+		;logerr("Vpos fix " strget(dllcall(dll "\InitWineHoooks", str, "", ptr)+0, "utf-8"))
     dllcall(dll "\NVIDIA_Set", wstr, g_.cfg.target, uint, g_.cfg.NVAA)
 	for k ,v in strsplit(g_.cfg.HD, "|")
 		dllcall(dll "\D3D12Config", astr, v, uint, 2) ; 2 for full precision FSR 

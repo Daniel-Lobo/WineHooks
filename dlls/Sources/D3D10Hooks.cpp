@@ -348,8 +348,22 @@ extern "C" __declspec(dllexport) void __stdcall D3D10CopySubresourceRegionHook(I
                     DBUG_WARN("NO PROXY");
                     return;
                 }
-                D3D11_Hooks->D3D10CopySubresourceRegion(dvc, dest_proxy->m_proxy10, DstSubresource, DstX, DstY, DstZ,
-                                                        src_proxy->m_proxy10, SrcSubresource, pSrcBox);
+                dest_proxy->m_Istarget = TRUE;               
+                float scale = g_d3d.HDPROXIES == 0 ? 1.f : g_d3d.mScl->Get() * g_d3d.SSAA;
+                if (pSrcBox != nullptr && g_d3d.HDPROXIES != 0)
+                {
+                    D3D10_BOX new_box = {};                    
+                    new_box.left   = pSrcBox->left * scale;
+                    new_box.top    = pSrcBox->top * scale;
+                    new_box.front  = pSrcBox->front * scale;
+                    new_box.right  = pSrcBox->right * scale;
+                    new_box.bottom = pSrcBox->bottom * scale;
+                    new_box.back   = pSrcBox->back * scale;
+                    D3D11_Hooks->D3D10CopySubresourceRegion(dvc, dest_proxy->m_proxy10, DstSubresource, DstX* scale, DstY* scale, DstZ* scale,
+                                                            src_proxy->m_proxy10, SrcSubresource, &new_box);
+                }
+                else D3D11_Hooks->D3D10CopySubresourceRegion(dvc, dest_proxy->m_proxy10, DstSubresource, DstX, DstY, DstZ,
+                                                            src_proxy->m_proxy10, SrcSubresource, pSrcBox);
                 return;
             }
         } else if ( (dest_proxy=D3D10GetProxy(pDstResource)) )
@@ -395,8 +409,31 @@ HRESULT __stdcall D3D10MapHook(ID3D10Texture2D* tx, UINT sub, D3D10_MAP type, UI
                                D3D10_MAPPED_TEXTURE2D * map)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    if (g_d3d.HDPROXIES)
+    {
+        ID3D11ProxyTexture* proxy = D3D10GetProxy(tx);
+        if (proxy != nullptr && sub==0 && map != nullptr)
+        {                
+            if (proxy->m_Istarget) 
+            {            
+                ID3D10Resource * shinked = D3D10ShrinkTexture2D(proxy->m_proxy10);
+                if (nullptr != shinked)
+                {                    
+                    D3D11_Hooks->D3D10CopyResource(D3D10GetDevice(shinked), tx, shinked);
+                    shinked->Release();
+                    return D3D11_Hooks->D3D10Map(tx, sub, type, flags, map);    
+                }
+            }
+            else
+            {
+                if (sub == 0) tx->SetPrivateData((GUID&)g_.D3D11ProxyTexture, 0, nullptr);
+            }
+        }
+    }
+
+
     HRESULT err = D3D11_Hooks->D3D10Map(tx, sub, type, flags, map);
-    LPVOID * ID = D3D10TextureID(tx);
+    LPVOID * ID = D3D10TextureID(tx);   
 
     D3D10_TEXTURE2D_DESC * d = (D3D10_TEXTURE2D_DESC *)D3D11_Hooks->textures->Value(ID);
     if (!err && sub==0 && map && d)
@@ -543,6 +580,8 @@ HRESULT __stdcall CreatePixelShader10Hook(ID3D10Device * d, const void *Bytecode
             }
         }
     }
+    if (g_d3d.HDPROXIES && (nullptr != *ppPxShader)/*&& (nullptr ==  c->m_replace)*/)
+    c->Fix10(d, *ppPxShader);
 
     D3D11Globals.lock->lock();
     D3D11_Hooks->Shaders->insert_disposable((void*)*ppPxShader, (void*)c);
