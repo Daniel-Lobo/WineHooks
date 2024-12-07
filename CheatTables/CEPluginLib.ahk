@@ -194,7 +194,35 @@ class CETrainer
                 ;s. " . " this.lua_tonumberx " . " this.lua_pushstring " . " this.lua_isstring " . " this.lua_tolstring  " . " this.lua_settop  "..."
             }
         } 
+        aobscan = 
+        (LTRIM
+        function AHK_AOBScan(bytes, flags)
+            local add = AOBScan(bytes,flags)
+            if (add == nil) then return "nil" end            
+            return add[0]
+        end                  
+        )
+        L := dllcall(CEFuncs.f.GetLuaState, ptr)
+        dllcall(this.luaL_loadstring, ptr, L, astr, aobscan)
+        dllcall(this.lua_pcallk, ptr, L, uint, 0, uint, 0, uint, 0, ptr, 0)
+        registersymbol = 
+        (LTRIM
+        function AHK_registersymbol(symbol, add)
+            registerSymbol(symbol, add)
+            return symbol
+        end                  
+        )
+        L := dllcall(CEFuncs.f.GetLuaState, ptr)
+        dllcall(this.luaL_loadstring, ptr, L, astr, registersymbol)
+        dllcall(this.lua_pcallk, ptr, L, uint, 0, uint, 0, uint, 0, ptr, 0)              
         return this       
+        /* The following must be added in the cheat table:
+        <LuaScript>function __AOBScan(bytes, flags)
+        return AOBScan(bytes,flags)[0]
+        end
+        </LuaScript>
+        * Then it is possible to call aobscan from autohotkey
+        */
     }
     Open(name)
     {

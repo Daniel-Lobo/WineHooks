@@ -234,7 +234,7 @@ Main() {
 	Gui, Main: Color, 0xececec
 	Gui, Main: Font, Times New Roman s10
     Gui, Main: -Theme
-    Gui, Main: Add, ListView, +Icon Background0xececec vGamesList gGameSelected x0 y0 h%h%-30 w%ListWidth% -multi +NoSortHdr AltSubmit hwndhListView, Games
+    Gui, Main: Add, ListView, Background0xececec vGamesList gGameSelected x0 y0 h%h%-30 w%ListWidth% -multi +NoSortHdr AltSubmit hwndhListView, Games
 	GuiControl, Font, GamesList  ; Put the above font into effect for a control.
     Gui, Main: Show, w%w% h%h%, WineHooks`, 0.10.13  
     Gui, Main: Margin, 0, 0, 0, 0 
@@ -251,9 +251,12 @@ ListGames(){
 	IL_Add(ImageListID, "png\gamepad.png") 
 	
 	curr_index := 4
-	LV_Add("Icon1", "Home")
+	;LV_Add("Icon1", "Home")
+	icon := ""
+	LV_Add("", "Home")
     loop, % g_.BasePath "Profiles\*.*" {   
         game  := StrReplace(A_loopfilename, ".ini", "") 
+		/*
 		short := StrReplace(game, " - OpenGl", "") 
 		for k, sulfix in StrSplit("D3D7 D3D8 D3D9 D3D10 D3D11 D3D12 GOG DirectDraw DX6 Software Hardware", " "){
 			short := StrReplace(short, " - " sulfix, "")
@@ -263,7 +266,8 @@ ListGames(){
 			icon       := "Icon" . curr_index
 			curr_index += 1
 		}
-		else icon := InStr(g_.wip, game) ? "Icon2" : "Icon3" 			 
+		else icon := InStr(g_.wip, game) ? "Icon2" : "Icon3" 		
+		*/	 
         LV_Add(icon, game)
     }  
 }
