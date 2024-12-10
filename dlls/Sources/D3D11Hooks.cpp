@@ -666,6 +666,7 @@ extern "C" __declspec(dllexport) BOOL IsD3D11Device(IUnknown * i)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     IUnknown * d3d;
+    if (g_d3d.D3DVERSION == 11) return true;  // on dxvk its valid to query either interface;
     if (i->QueryInterface(__uuidof(ID3D10Device1), (void**)&d3d) != 0)
     return true;
     d3d->Release();
@@ -674,6 +675,35 @@ extern "C" __declspec(dllexport) BOOL IsD3D11Device(IUnknown * i)
 
 void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
 {
+    UINT sz                    = sizeof(IUnknown *);
+    IUnknown * privatedata     = nullptr;
+    ID3D11Texture2D * proxy_tx = nullptr;
+    if (Iface->GetPrivateData((GUID &)g_.D3D11TextImp, &sz, &privatedata) == 0)
+    {        
+        if (privatedata->QueryInterface(__uuidof(ID3D11Texture2D), (void**)&proxy_tx) != 0)
+        {
+            DBUG_WARN("QueryInterface::(__uuidof(ID3D11Texture2D)...)FAILED")
+            privatedata->Release();
+            return;
+        }
+        privatedata->Release();       
+        if (g_d3d.SSAA > 1)
+        {
+            ID3D11Texture2D * RealBackBuffer = nullptr;
+            D3D11_Hooks->GetBuffer(Iface, 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&RealBackBuffer );
+            if (RealBackBuffer != nullptr)
+            {
+                g_d3d.D3D11DvcNT.SSAABlit((ID3D11Texture2D*)proxy_tx, g_d3d.D3D11DvcNT.m_Pass1Output);
+                g_d3d.D3D11DvcNT.Copy2Screen(g_d3d.D3D11DvcNT.m_Pass1Output, RealBackBuffer);
+            } else DBUG_WARN("NULL BACKBUFFER")
+            return;
+        }
+        else D3D11Blit(Iface, proxy_tx, nullptr, &D3D11Globals.BackBufferRect, nullptr);   
+        proxy_tx->Release();       
+        return;
+    }
+
+
     IUnknown * bb = (IUnknown *)D3D11Globals.BackBuffrerID->Get();
     if (bb)
     {        
@@ -689,7 +719,7 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
                     ID3D11Texture2D * RealBackBuffer = nullptr;
                     Backbuff.m_tx2d->QueryInterface(__uuidof(ID3D11Texture2D), (void**)&BB);
                     D3D11_Hooks->GetBuffer(Iface, 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&RealBackBuffer );
-                    if( RealBackBuffer && BB)
+                    if (RealBackBuffer && BB)
                     {
                         if (g_d3d.AMDFSR) g_d3d.D3D11DvcNT.FSR(BB, RealBackBuffer);
                         else              g_d3d.D3D11DvcNT.CSBlit(BB, RealBackBuffer);
@@ -721,7 +751,7 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
                             g_d3d.D3D11DvcNT.Copy2Screen(g_d3d.D3D11DvcNT.m_Pass1Output, RealBackBuffer);
                         }                        
                         RealBackBuffer->Release();
-                    } else DBUG_WARN("NO BACKBUFFER");
+                    } else DBUG_WARN("---NO BACKBUFFER---");
                 }
             } else {
                 ID3D11ProxyTexture * proxybb = D3D11GetProxy(Backbuff.m_tx2d);
@@ -1792,13 +1822,21 @@ char * __stdcall D3D11LoadDXVK(char * dxvkdir, char * game_dir, UINT flags)
     PROC h_D3D11CreateDeviceAndSwapChain              = (PROC) GetProcAddress(hsys_d3d11, "D3D11CreateDeviceAndSwapChain");  
     PROC p_SYS_D3D10CoreCreateDevice                  = (PROC) GetProcAddress(hsys_d3d10core, "D3D10CoreCreateDevice");
     PROC p_DXVK_D3D10CoreCreateDevice                 = (PROC) GetProcAddress(hdxvk_d3d10core, "D3D10CoreCreateDevice"); 
+    PROC p_SYS_D3D11CreateDevice                      = (PROC) GetProcAddress(hsys_d3d11, "D3D11CreateDevice");
+    PROC p_DXVK_D3D11CreateDevice                     = (PROC) GetProcAddress(hdxvk_d3d11, "D3D11CreateDevice");
     if (D3D11Globals.m_DXVkCreateDXGIFactory1   == nullptr || D3D11Globals.m_DXVkD3D11CreateDeviceAndSwapChain == nullptr ||
         D3D11Globals.m_SystemCreateDXGIFactory1 == nullptr || h_D3D11CreateDeviceAndSwapChain                  == nullptr ||
-        p_DXVK_D3D10CoreCreateDevice            == nullptr || p_SYS_D3D10CoreCreateDevice                      == nullptr)
+        p_DXVK_D3D10CoreCreateDevice            == nullptr || p_SYS_D3D10CoreCreateDevice                      == nullptr ||
+        p_DXVK_D3D11CreateDevice                == nullptr || p_SYS_D3D11CreateDevice                          == nullptr)
     {
         error = "GetProcAddress Failed";
         return (char*) error.c_str();
     }
+    if (sethook((void**)&p_SYS_D3D11CreateDevice, (void*)p_DXVK_D3D11CreateDevice))
+    {
+        error = "sethook(p_DXVK_D3D11CreateDevice) failed";
+        return (char*) error.c_str();
+    } 
     if (sethook((void**)& D3D11Globals.m_SystemCreateDXGIFactory1, (void*)DXVKInjector_CreateDXGIFactory1Hook))
     {
         error = "sethook(DXVKInjector_CreateDXGIFactory1Hook) failed";

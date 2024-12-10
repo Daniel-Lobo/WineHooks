@@ -231,7 +231,9 @@ struct DLLMAIN_COMMON_GLOBALS {
     const IID * D3D12ProxyBackbuffer    = (IID *) "D3D12ProxyBackBuffer";
     const IID * D3D11ProxyShader        = (IID *) "D3D11ProxyShader";
     const IID * D3D11ProxyTexture       = (IID *) "D3D11ProxyTexture";
+    const IID * D3D11TextImp            = (IID *) "D3D11TextureImplementation";
     const IID * D3D11Weak               = (IID *) "D3D11WeakContainer";
+    const IID * DXGIBBProxy             = (IID *) "DXGIBackBufferProxy";
     const IID * D3D12SwapChainQueue     = (IID *) "D3D12SChainQueue";    
     const IID * D3D11DepthStencil       = (IID *) "D3D11DepthStencil";
     const IID * D3D11Rendertargets[8]   = {(IID*)"D3D11_1stRTarget", (IID*)"D3D11_2ndRTarget", (IID*)"D3D11_3rdRTarget", (IID*)"D3D11_4thRTarget", 

@@ -180,6 +180,7 @@ extern "C" __declspec(dllexport) void __stdcall D3D12Config(char * option, void*
     else if (Option == "TEXT-SWAP.A8FIX")          g_d3d.TEXTURE_SWAP_A8FIX         = (DWORD)value;
     else if (Option == "TEXT-SWAP.AUTO")           g_d3d.TEXTURE_SWAP_AUTODUMP      = (DWORD)value; 
     else if (Option == "TEXTURE.FILTER")           g_d3d.TEXTURE_FILTER             = (DWORD)value == 2 ? *(DWORD*)"WINE" : *(DWORD*)"TRUE";  
+    else if (Option == "D3D.VERSION")              g_d3d.D3DVERSION                 = (DWORD)value;
 }
 
 extern "C" __declspec(dllexport) void __stdcall D3D12Config64(char * option, LPVOID value)
@@ -527,6 +528,7 @@ D3D12GetDisplayModeListHook(IDXGIOutput1 * out, DXGI_FORMAT fmt, UINT flags, UIN
         OUTPUT_FUNC_DBG_STRING("=(=(=(=(=(=(=(=(=(=(=(=(");
         return g_d3d.m_IDXGIOutputGetDisplayModeList(out, fmt, flags, pCount, pDesc);
     }
+    
     UINT count      = 0;
     UINT full_count = 0;
     std::vector<DXGI_MODE_DESC>Modes;
@@ -554,7 +556,7 @@ D3D12GetDisplayModeListHook(IDXGIOutput1 * out, DXGI_FORMAT fmt, UINT flags, UIN
         if (*pCount != count)
         {
             D3D12LOG("WRONG COUNT");
-            return 0x887A0001; //DXGI_ERROR_INVALID_CALL;
+            //return 0x887A0001; //DXGI_ERROR_INVALID_CALL;
         }
         D3D12LOG( (std::string("RETURNING ")+std::to_string(count)+" Modes").c_str() );
         memcpy(pDesc, &Modes[0], sizeof(DXGI_MODE_DESC)*count);

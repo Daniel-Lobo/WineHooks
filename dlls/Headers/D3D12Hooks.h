@@ -169,6 +169,7 @@ public:
     DWORD                 TEXTURE_SWAP_AUTODUMP      = 0;
     DWORD                 TEXTURE_FILTER             = 0;
     HWND                  D3DWINDOW                  = 0;
+    DWORD                 D3DVERSION                 = 0;  
     /* GUID    */
     char        SwapChainID[17] = "PexD3D12SwpChain";
     IID                                *pSwapChainID;

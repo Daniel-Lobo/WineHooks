@@ -197,8 +197,29 @@ ID3D11ProxyTexture * D3D11GetProxy(ID3D11DeviceChild * r, const char * caller)
     std::string err(caller);
     ID3D11Texture2D    * proxy_tx = nullptr;
     ID3D11ProxyTexture * proxy    = D3D11GetProxy(r);
-    if (!proxy)
+    IDXGISwapChain     * s_chain  = nullptr;    
+    UINT sz = sizeof(IUnknown *);
+    if (proxy == nullptr)
     {
+        /* If the ID3D11DeviceChild object has the swapchain set on as private data, it is the object the 
+         * game got when it called IDXGISwapChain::GetBuffer. As some games may acquire this buffer,
+         * render to it and then discard it every frame, we need to rembeber the ID3D11Texture2D that the 
+         * ID3D11ProxyTexture encapulates, as this texture may be discarded before present. Keeping this
+         * object as private data of the swapchain garauntees that, event of the game acquires a new fake
+         * backbuffer and we create a new ID3D11ProxyTexture for that buffer, the ID3D11ProxyTexture will
+         * encapsulate the same ID3D11Texture2D.
+         */
+        if (r->GetPrivateData((GUID &)g_.DXGISwapChainImp, &sz, &s_chain) == 0)
+        {            
+            sz = sizeof(IUnknown *);
+            if (s_chain->GetPrivateData((GUID &)g_.D3D11ProxyTexture, &sz, &proxy_tx) == 0)
+            {
+                proxy = new ID3D11ProxyTexture(proxy_tx);
+                r->SetPrivateDataInterface((GUID &)g_.D3D11TextImp, (IUnknown*)proxy);
+                return proxy;
+            }
+        } else s_chain = nullptr; // just to be sure
+
         D3D11TexUnWrapp proxy_res(r);
         if (proxy_res.Type() != D3D11_RESOURCE_DIMENSION_TEXTURE2D)
         {
@@ -221,6 +242,12 @@ ID3D11ProxyTexture * D3D11GetProxy(ID3D11DeviceChild * r, const char * caller)
         DBUG_WARN((err + " CREATED PROXY " + to_string(w) + "x" + to_string(h) + " " + to_string(D->Width) + "x" + to_string(D->Height)).c_str());
         proxy = new ID3D11ProxyTexture(proxy_tx);
         r->SetPrivateDataInterface((GUID &)g_.D3D11ProxyTexture, (IUnknown*)proxy);
+        if (s_chain != nullptr) // set the newllt created D3D11texture2D as private data of the swapchain
+        {
+            DBUG_WARN("Setting data to swap chain");           
+            s_chain->SetPrivateDataInterface((GUID &)g_.D3D11TextImp, proxy_tx);
+            s_chain->Release();
+        }
     }
     return proxy;
 }
