@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <shlobj.h>
-#include <Shlwapi.h>
+#include <shlwapi.h>
 #include <wchar.h>
-#include <Psapi.h>
+#include <psapi.h>
 #include <string>
 #include "sethooks.h"
 #include "Dbug.h"
