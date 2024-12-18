@@ -1,5 +1,5 @@
-global g_MainThreadID := 6524 ;<Tag> 
-global g_cmdstring := "-Target^C:\Games\Crysis 2 Maximum Edition\bin32\Crysis2.exe^-D3D^11^-path^Crysis\Crysis 2^/dxvk^-HD^UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAA^/WHKS^/MHKS^/VPOS^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-PxSwap^e=true;^-script_hwnd^0x70498^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispsig.inf_amd64_e6cac7f31a92d62e\nvldumd.dll^-os_version^10.000000^^-target_dir^C:\Games\Crysis 2 Maximum Edition\bin32^-target_name^Crysis2.exe^-wine^9_0^-dxvkv^2_4^-common_path^1"
+global g_MainThreadID := -4478499288736851748 ;<Tag> 
+global g_cmdstring := "-target^C:\Games\Blade of Darkness\blade\bin\bin\crashpad_handler.exe^-d3d^11^-path^Crysis\Crysis 2^/dxvk^-HD^UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES^-RLMT^5^/WHKS^/MHKS^/VSNC^/VPOS^-#Target^G:\Games\Metal Gear Solid 2\METAL GEAR SOLID2.exe^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-PxSwap^e=true;sw=Insert;n=.;p=,;q=q;d=Home;^-script_hwnd^0x805a6^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^C:\Games\Blade of Darkness\blade\bin\bin^-target_name^crashpad_handler.exe^-wine^9_0^-dxvkv^2_4^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -1727,7 +1727,6 @@ r := dllcall("GetBinaryType", astr, trgt, "uint*", btype)
 if (btype = 6)
 return true
 }
-
 
 ; <COMPILER: v1.1.15.03>
 global D3D11_QUERY_EVENT              := 0
@@ -6231,5 +6230,4 @@ return 0
 }
 
 
-printl()
 resume()

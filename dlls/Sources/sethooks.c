@@ -63,6 +63,7 @@ HOOKMEMBER(ID3D11DeviceContext, DrawIndexedInstanced)
 HOOKMEMBER(ID3D11DeviceContext, DrawIndexedInstancedIndirect)
 HOOKMEMBER(ID3D11DeviceContext, RSSetViewports)
 HOOKMEMBER(ID3D11DeviceContext, OMSetRenderTargetsAndUnorderedAccessViews)
+HOOKMEMBER(ID3D11DeviceContext, PSGetShaderResources)
 HOOKMEMBER(ID3D11DeviceContext1, ClearView)
 HOOKMEMBER(ID3D10Device, DrawAuto)
 HOOKMEMBER(ID3D10Device, Draw)
@@ -71,10 +72,10 @@ HOOKMEMBER(ID3D10Device, DrawIndexed)
 HOOKMEMBER(ID3D10Device, DrawIndexedInstanced)
 
 #define GETMEMBERADD(Interface, method, pInterface)     \
-void * Interface##_##method##_Add(void*pInterface)    \
+void * Interface##_##method##_Add(void*pInterface)      \
 {                                                       \
    Interface * i = (Interface *) pInterface;            \
-   return (LPVOID) i->lpVtbl->method;                 \
+   return (LPVOID) i->lpVtbl->method;                   \
 }
 
 GETMEMBERADD(IDXGIFactory2, CreateSwapChain, pInterface)

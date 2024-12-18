@@ -156,6 +156,7 @@ DWORD GetDirect3D11(HWND hWnd, ID3D11 * _D3D,  D3D_FEATURE_LEVEL * level)
         LOGHOOK(ID3D11DeviceContext, DrawInstancedIndirect, _D3D->pContext, &D3D11Globals.m_DrawInstancedIndirect, D3D11DrawInstancedIndirectHook)
         LOGHOOK(ID3D11DeviceContext, DrawIndexedInstanced, _D3D->pContext, &D3D11Globals.m_DrawIndexedInstanced, D3D11DrawIndexedInstancedHook)
         LOGHOOK(ID3D11DeviceContext, DrawIndexedInstancedIndirect, _D3D->pContext, &D3D11Globals.m_DrawIndexedInstancedIndirect, D3D11DrawIndexedInstancedIndirectHook)
+        LOGHOOK(ID3D11DeviceContext, PSGetShaderResources, _D3D->pContext, &D3D11Globals.m_PSGetShaderResources, D3D11PSGetShaderResourcesHook)
         if (nullptr != ctx1)
         LOGHOOK(ID3D11DeviceContext1, ClearView, ctx1, &D3D11Globals.m_ClearView, D3D11ClearViewHook)
         //LOGHOOK(ID3D11DeviceContext, RSSetViewports, _D3D->pContext, &D3D11Globals.m_RSSetViewports, D3D11RSSetViewportsHook)
@@ -330,8 +331,12 @@ void __stdcall D3D11UpdateSubresourceHook(ID3D11DeviceContext* ctx, ID3D11Resour
                                           UINT SrcDepthPitch)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)  
-    D3D11_Hooks->UpdateSubresource(ctx, pDstResource, DstSubresource, pDstBox,
-                                   pSrcData, SrcRowPitch, SrcDepthPitch);
+    D3D11_Hooks->UpdateSubresource(ctx, pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch);
+
+    if (D3D11GetProxy( pDstResource ))
+    {
+        DBUG_WARN("UPDATING PROXYED RESOURCE");
+    }
 
     if (pSrcData == nullptr) return;
     D3D11TexUnWrapp tx(pDstResource);
@@ -370,8 +375,8 @@ void __stdcall D3D11ResolveSubresourceHook(ID3D11DeviceContext* dvc, ID3D11Resou
                 DBUG_WARN("NO PROXY");
                 return;
             }
-            D3D11_Hooks->ResolveSubresource(dvc, dest_proxy->m_proxy, DstSub,
-                                                 src_proxy->m_proxy, SrcSub, Format);
+            dest_proxy->m_Istarget = true;
+            D3D11_Hooks->ResolveSubresource(dvc, dest_proxy->m_proxy, DstSub, src_proxy->m_proxy, SrcSub, Format);
             return;
         }
     } else if ( (dest_proxy=D3D11GetProxy(pDst)) )
@@ -386,7 +391,8 @@ extern "C" __declspec(dllexport) void __stdcall D3D11CopyResourceHook(ID3D11Devi
     if (!g_d3d.USEPROXIES)
     {
         D3D11_Hooks->CopyResource(dvc, pDst, pSrc);
-    }
+        return;
+    }    
 
     ID3D11ProxyTexture * dest_proxy = nullptr;
     ID3D11ProxyTexture * src_proxy  = D3D11GetProxy( pSrc );
@@ -400,6 +406,7 @@ extern "C" __declspec(dllexport) void __stdcall D3D11CopyResourceHook(ID3D11Devi
                 DBUG_WARN("NO PROXY");
                 return;
             }
+            dest_proxy->m_Istarget = TRUE;
             D3D11_Hooks->CopyResource(dvc, dest_proxy->m_proxy, src_proxy->m_proxy);
             return;
         }
@@ -412,7 +419,7 @@ extern "C" __declspec(dllexport) void __stdcall D3D11CopyResourceHook(ID3D11Devi
 
 extern "C" __declspec(dllexport) 
 void __stdcall D3D11CopySubresourceRegionHook(ID3D11DeviceContext* ctx, ID3D11Resource *pDstResource,  UINT DstSubresource, UINT DstX, UINT DstY,
-                                                UINT DstZ, ID3D11Resource *pSrcResource, UINT SrcSubresource, D3D11_BOX *pSrcBox)
+                                            UINT DstZ, ID3D11Resource *pSrcResource, UINT SrcSubresource, D3D11_BOX *pSrcBox)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)   
     if (g_d3d.USEPROXIES)
@@ -425,23 +432,23 @@ void __stdcall D3D11CopySubresourceRegionHook(ID3D11DeviceContext* ctx, ID3D11Re
             {
                 ID3D11ProxyTexture * dest_proxy = D3D11GetProxy(pDstResource, __FUNCTION__);
                 /* This texture might not be a render target, and may even be sysmem, but we tag it as render target 
-                 * because we must copy the contents of the proxy back to the original, if it is mapped latter */
-                dest_proxy->m_Istarget = TRUE;
+                 * because we must copy the contents of the proxy back to the original, if it is mapped latter */                
                 if (!dest_proxy)
                 {
                     DBUG_WARN("NO PROXY");
                     return;
                 }   
+                dest_proxy->m_Istarget = TRUE;
                 float scale = g_d3d.HDPROXIES == 0 ? 1.f : g_d3d.mScl->Get() * g_d3d.SSAA;
                 if (pSrcBox != nullptr && g_d3d.HDPROXIES != 0)
                 {
                     D3D11_BOX new_box = {};                    
                     new_box.left   = pSrcBox->left * scale;
                     new_box.top    = pSrcBox->top * scale;
-                    new_box.front  = pSrcBox->front * scale;
+                    new_box.front  = pSrcBox->front; //* scale;
                     new_box.right  = pSrcBox->right * scale;
                     new_box.bottom = pSrcBox->bottom * scale;
-                    new_box.back   = pSrcBox->back * scale;
+                    new_box.back   = pSrcBox->back; //* scale;
                     D3D11_Hooks->CopySubresourceRegion(ctx, dest_proxy->m_proxy, DstSubresource, DstX * scale, DstY * scale, DstZ * scale,
                                                        src_proxy->m_proxy, SrcSubresource, &new_box);
                 }
@@ -455,7 +462,7 @@ void __stdcall D3D11CopySubresourceRegionHook(ID3D11DeviceContext* ctx, ID3D11Re
             if (dest_proxy->m_Istarget) DBUG_WARN("COPY TO RENDER TARGET");
         }
     }
-
+    
     D3D11_Hooks->CopySubresourceRegion(ctx, pDstResource, DstSubresource, DstX, DstY, DstZ, pSrcResource, SrcSubresource, pSrcBox);
     return;
 
@@ -483,9 +490,25 @@ HRESULT __stdcall D3D11MapHook(ID3D11DeviceContext* ctx, ID3D11Resource* r, UINT
     {
         /* signalis photos and save thumbnails */
         if (proxy->m_Istarget) 
-        {
-            //DBUG_WARN((string("RENDER TARGET MAP ") + to_string(sub)).c_str());
-            g_d3d.D3D11DvcNT.DwnScaleBlit(proxy->m_proxy, r);
+        {      
+            D3D11_RESOURCE_DIMENSION dim = D3D11_RESOURCE_DIMENSION_UNKNOWN;
+            D3D11_TEXTURE2D_DESC    desc = {};    
+            r->GetType(&dim);
+            if (dim == D3D11_RESOURCE_DIMENSION_TEXTURE2D)
+            {
+                dynamic_cast<ID3D11Texture2D*>(r)->GetDesc(&desc);
+                if (desc.Usage == D3D11_USAGE_STAGING)
+                {
+                    auto shrink = D3D11CPUShrinkTexture2D(ctx, proxy->m_proxy, r);
+                    if (shrink.get()->c_str() == "S_OK")
+                    {
+                        DBUG_LOG((char*)shrink.get()->c_str());
+                    }
+                } else g_d3d.D3D11DvcNT.DwnScaleBlit(proxy->m_proxy, r);
+            }  
+            //DBUG_LOG((string("RENDER TARGET MAP ") + to_string(sub) + " type: " + 
+            //to_string(type) + " (READ = 1, WRITE = 2, READ_WRITE = 3, WRITE_DISCARD = 4, WRITE_NO_OVERWRITE = 5)").c_str());
+           else g_d3d.D3D11DvcNT.DwnScaleBlit(proxy->m_proxy, r);
         }
         else
         {
@@ -591,6 +614,13 @@ LPVOID D3D11TextureIDFromView(ID3D11View * v)
     return r;
 }
 
+void D3D11SRVGUID(GUID* id, UINT index)
+{
+    static char GUID[15] = "D3D11_SRV_GUID";  // The index will be at least ' char, so we get to the 16 chars (64 bytes) needed
+    auto guid            =  string(to_string(index) + "GUID");
+    memcpy((void*)id, guid.c_str(), sizeof(GUID)); 
+}
+
 extern "C" __declspec(dllexport) 
 void __stdcall D3D11PSSetShaderResourcesHook(ID3D11DeviceContext* d, UINT a, UINT b, ID3D11ShaderResourceView * const * r)
 {
@@ -600,9 +630,15 @@ void __stdcall D3D11PSSetShaderResourcesHook(ID3D11DeviceContext* d, UINT a, UIN
     ID3D11ProxyTexture          * tx_proxy     = nullptr;
     ID3D11Resource                 *   res     = nullptr;
     DWORD  i;
+    GUID  id;
     for (i=0; i<b; i++)
     {
         proxy_views[i] = r[i];
+        D3D11SRVGUID(&id, a+i);
+        if (d->SetPrivateDataInterface((GUID&)id, proxy_views[i]))
+        {
+            DBUG_WARN("SET PRIVATE DATA FAILED");
+        }
         if (r[i] == nullptr) continue;
 
         res     = D3D11GetResource(r[i]);
@@ -639,6 +675,26 @@ void __stdcall D3D11PSSetShaderResourcesHook(ID3D11DeviceContext* d, UINT a, UIN
         D3D11_Hooks->ImPSSetShaderResources(d, a+64, b, r);
     }
 }
+
+void D3D11PSGetShaderResourcesHook(ID3D11DeviceContext * d, UINT a, UINT b, ID3D11ShaderResourceView ** r)
+{
+    if (!g_d3d.HDPROXIES)
+    return D3D11Globals.m_PSGetShaderResources(d, a, b, r);  
+
+    if (a == 0 or nullptr == r)
+    return D3D11Globals.m_PSGetShaderResources(d, a, b, r);
+
+    GUID id;
+    UINT sz = sizeof(IUnknown *);
+    for (UINT i=0; i<b; i++)
+    {
+        D3D11SRVGUID(&id, a+i);
+        if (d->GetPrivateData(id, &sz, &r[i]) != S_OK)
+        {
+            D3D11LOG("GET PRIVATE DATA FAILED. I'm crashing now, Bye Bye");
+        }
+    }
+}    
 
 ID3D11DeviceContext * D3D11Cntxt(ID3D11Device * d)
 {
@@ -696,14 +752,17 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
                 g_d3d.D3D11DvcNT.SSAABlit((ID3D11Texture2D*)proxy_tx, g_d3d.D3D11DvcNT.m_Pass1Output);
                 g_d3d.D3D11DvcNT.Copy2Screen(g_d3d.D3D11DvcNT.m_Pass1Output, RealBackBuffer);
             } else DBUG_WARN("NULL BACKBUFFER")
+            RealBackBuffer->Release();
             return;
         }
         else D3D11Blit(Iface, proxy_tx, nullptr, &D3D11Globals.BackBufferRect, nullptr);   
+        auto ctx1 = dynamic_cast<ID3D11DeviceContext1*>(D3D11Cntxt(D3D11DvcFromSChain(Iface)));
+        ctx1->DiscardResource((ID3D11Resource*)proxy_tx);
         proxy_tx->Release();       
-        return;
+       // return;
     }
 
-
+    /*
     IUnknown * bb = (IUnknown *)D3D11Globals.BackBuffrerID->Get();
     if (bb)
     {        
@@ -713,7 +772,7 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
             if (g_d3d.USEINTEROP)
             {
                 ID3D11ProxyTexture * proxybb = D3D11GetProxy(Backbuff.m_tx2d);  
-                if (proxybb == nullptr)  /* will be null if g_d3d.USEPROXIES == FALSE */
+                if (proxybb == nullptr)  // will be null if g_d3d.USEPROXIES == FALSE 
                 {                   
                     ID3D11Texture2D * BB             = nullptr;
                     ID3D11Texture2D * RealBackBuffer = nullptr;
@@ -755,12 +814,13 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
                 }
             } else {
                 ID3D11ProxyTexture * proxybb = D3D11GetProxy(Backbuff.m_tx2d);
-                /* will be null if g_d3d.USEPROXIES == FALSE */
+                // will be null if g_d3d.USEPROXIES == FALSE
                 if (proxybb == nullptr)  D3D11Blit(Iface, Backbuff.m_tx2d, nullptr, &D3D11Globals.BackBufferRect, nullptr);                
                 else                     D3D11Blit(Iface, proxybb->m_proxy, nullptr, &D3D11Globals.BackBufferRect, nullptr);                
             }
         }
     }
+    */
     
     ID3D11Device * pDvc = D3D11DvcFromSChain(Iface);
     if (pDvc == nullptr)
@@ -1026,7 +1086,7 @@ void __stdcall D3D11OMSetRenderTargetsHook(ID3D11DeviceContext *d, UINT NumViews
 
     if (NumViews > 8)
     {
-        DBUG_WARN("CANT RANDLE MORE THEN 8 TARGETS");
+        DBUG_WARN("CANT HANDLE MORE THEN 8 TARGETS");
         return D3D11_Hooks->OMSetRenderTargets(d, NumViews, Views, zView);;
     }
 
@@ -1214,7 +1274,7 @@ void __stdcall D3D11ClearRenderTargetViewHook(ID3D11DeviceContext * cxt,
         ID3D11Resource * res = D3D11GetResource(view);
         if (res == nullptr)
         {
-            DBUG_WARN("NO Z RESOURCE");
+            DBUG_WARN("NO RESOURCE");
             return;
         }
 
@@ -1314,6 +1374,21 @@ void __stdcall D3D11ClearViewHook(ID3D11DeviceContext1* ctx, ID3D11View *pView, 
         if (!view)
         {
             DBUG_WARN("NO VIEW");
+            return;
+        }
+        if (NumRects > 0)
+        {
+            float scale           =  g_d3d.mScl->Get() * g_d3d.SSAA;
+            D3D11_RECT * hd_rects = new D3D11_RECT[NumRects];
+            for (int i=0; i<NumRects; i++)
+            {
+                hd_rects[i].bottom = pRect[i].bottom * scale;
+                hd_rects[i].top    = pRect[i].top * scale;
+                hd_rects[i].left   = pRect[i].left * scale;
+                hd_rects[i].right  = pRect[i].right * scale;                
+            }
+            D3D11Globals.m_ClearView(ctx, view, Color, hd_rects, NumRects);
+            delete [] hd_rects;
             return;
         }
         D3D11Globals.m_ClearView(ctx, view, Color, pRect, NumRects);
@@ -1581,6 +1656,12 @@ D3D11CreateSwapChainForHwnd(LPVOID Factory2/* IDXGIFactory2* */, IUnknown * Dvc,
     return D3D11_Hooks->CreateSwapChainForHwnd(Factory2, Dvc, hWin, Desc, F, Out, pChain);
     D3D11Globals.lock->lock(); D3D11Globals.lock->unlock();
 
+    if (Desc != nullptr && Desc->Width == Desc->Height == 1)
+    {
+        // mgs collection fix
+        return D3D11_Hooks->CreateSwapChainForHwnd(Factory2, Dvc, hWin, Desc, F, Out, pChain); 
+    }     
+
     DXGI_SWAP_CHAIN_DESC_1 NewDesc;
     DXGI_SWAP_CHAIN_FULLSCREEN_DESC f = {0, 0, DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED, DXGI_MODE_SCALING_UNSPECIFIED, 0};
     const DXGI_SWAP_CHAIN_DESC_1  * d = D3D11SetUPSwapChain1(Desc, &NewDesc, (char*)__FUNCTION__, hWin);
@@ -1611,6 +1692,11 @@ D3D11CreateSwapChain(IDXGIFactory * Factory, IUnknown*Dvc, DXGI_SWAP_CHAIN_DESC*
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     D3D11Globals.lock->lock(); D3D11Globals.lock->unlock();
+    if (pDesc != nullptr && pDesc->BufferDesc.Width == pDesc->BufferDesc.Height == 1)
+    {
+        // white shadows
+        return  D3D11_Hooks->CreateSwapChain(Factory, Dvc, pDesc, pChain); 
+    }     
     DXGI_SWAP_CHAIN_DESC                   NewDesc             = {};
     if (0 != g_d3d.FORCE_DOUBLE_BUFFERING) NewDesc.BufferCount = 3;
     if (pDesc)
@@ -1653,8 +1739,9 @@ D3D11ResizeBuffersHook(IDXGISwapChain* Sc, UINT BufferCount, UINT Width, UINT He
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     DBUG_WARN((to_string(Width)+"x"+to_string(Height)).c_str());
+    if (Sc) DBUG_WARN((string("FREE PRIVATE DATA: ") + to_string(Sc->SetPrivateDataInterface((GUID &)g_.D3D11TextImp, nullptr))).c_str());
 
-    if (Width && Height) D3D11HDSetUP(Width, Height, (char*)__FUNCTION__);
+    if (Width && Height) D3D11HDSetUP(Width, Height, (char*)__FUNCTION__);   
 
     RECT                              r = {0};
     DXGI_SWAP_CHAIN_DESC              d = {0};
@@ -1681,6 +1768,7 @@ extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D11ResizeTargetHook(IDXGISwapChain* Sc, DXGI_MODE_DESC * d)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    if (Sc) DBUG_WARN((string("FREE PRIVATE DATA: ") + to_string(Sc->SetPrivateDataInterface((GUID &)g_.D3D11TextImp, nullptr))).c_str());
 
     if (d == nullptr) return DXGI_ERROR_INVALID_CALL;
     DBUG_WARN((to_string(d->Width)+"x"+to_string(d->Height)).c_str())

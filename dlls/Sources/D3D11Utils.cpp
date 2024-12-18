@@ -212,11 +212,14 @@ ID3D11ProxyTexture * D3D11GetProxy(ID3D11DeviceChild * r, const char * caller)
         if (r->GetPrivateData((GUID &)g_.DXGISwapChainImp, &sz, &s_chain) == 0)
         {            
             sz = sizeof(IUnknown *);
-            if (s_chain->GetPrivateData((GUID &)g_.D3D11ProxyTexture, &sz, &proxy_tx) == 0)
+            if (s_chain->GetPrivateData((GUID &)g_.D3D11TextImp, &sz, &proxy_tx) == 0)
             {
-                proxy = new ID3D11ProxyTexture(proxy_tx);
-                r->SetPrivateDataInterface((GUID &)g_.D3D11TextImp, (IUnknown*)proxy);
-                return proxy;
+                if (proxy_tx != 0)
+                {
+                    proxy = new ID3D11ProxyTexture(proxy_tx);
+                    r->SetPrivateDataInterface((GUID &)g_.D3D11ProxyTexture, (IUnknown*)proxy);
+                    return proxy;
+                }
             }
         } else s_chain = nullptr; // just to be sure
 
@@ -233,6 +236,11 @@ ID3D11ProxyTexture * D3D11GetProxy(ID3D11DeviceChild * r, const char * caller)
         {
             D->Width  *= g_d3d.mScl->Get() * g_d3d.SSAA;
             D->Height *= g_d3d.mScl->Get() * g_d3d.SSAA;
+        }
+        if (s_chain != nullptr)
+        {
+            //D->Usage     = D3D11_USAGE_DYNAMIC;
+            //D->BindFlags = D3D11_BIND_SHADER_RESOURCE|D3D11_BIND_RENDER_TARGET;
         }
         if ( D3D11_Hooks->CreateTexture2D(D3D11GetDevice(r), D, nullptr, &proxy_tx) != 0 )
         {
@@ -1317,4 +1325,52 @@ extern "C" __declspec(dllexport) char * __stdcall D3D11FixDXBCShaderTest(char * 
     }
     
     return (char*)err.c_str();    
+}
+
+unique_ptr<string> D3D11CPUShrinkTexture2D(ID3D11DeviceContext * c, ID3D11Resource * src, ID3D11Resource * dst)
+{    
+    float scale = g_d3d.mScl->Get() * g_d3d.SSAA;
+    ID3D11Texture2D * Big           = dynamic_cast<ID3D11Texture2D*>(src);
+    ID3D11Texture2D * Small         = dynamic_cast<ID3D11Texture2D*>(dst);
+    D3D11_TEXTURE2D_DESC big_desc   = {};
+    D3D11_TEXTURE2D_DESC small_desc = {};
+    Big->GetDesc(&big_desc);
+    Small->GetDesc(&small_desc);
+   
+    D3D11_MAPPED_SUBRESOURCE  b_mapped = {};
+    D3D11_MAPPED_SUBRESOURCE  s_mapped = {};
+    if (D3D11_Hooks->Map(c, Big, 0, D3D11_MAP_READ, 0, &b_mapped) != S_OK)
+    {
+        return unique_ptr<string>(new string("FAILED TO MAP HD TEXTURE")); 
+        Small->Release();
+        return nullptr;
+    }
+    if (D3D11_Hooks->Map(c, Small, 0, D3D11_MAP_WRITE, 0, &s_mapped) != S_OK)
+    {
+        return unique_ptr<string>(new string("FAILED TO MAP SD TEXTURE"));
+        D3D11_Hooks->Unmap(c, Big, 0);
+        Small->Release();
+        return nullptr;
+    }    
+    BYTE * b = (BYTE*)b_mapped.pData;  // assuming 32bits per pixel
+    BYTE * s = (BYTE*)s_mapped.pData;  // assuming 32bits per pixel
+    float Y  = 0.0f;
+    float X  = 0.0f;
+    for (int y = 0; y < small_desc.Height; y++)
+    {   
+        Y  = y * scale;  
+        s  = (BYTE*) s_mapped.pData;
+        s +=  y * s_mapped.RowPitch;
+        for (int x = 0; x < small_desc.Width; x++)
+        {           
+            X  = x * scale;            
+            b  = (BYTE*)b_mapped.pData;
+            b += (int)X* sizeof(DWORD32)  + (int)Y * b_mapped.RowPitch;
+            *(DWORD*)s = *(DWORD*)b;
+            s += sizeof(DWORD32);            
+        }
+    }
+    D3D11_Hooks->Unmap(c, Small, 0);
+    D3D11_Hooks->Unmap(c, Big, 0);       
+    return unique_ptr<string>(new string("S_OK"));
 }

@@ -85,7 +85,7 @@ void D3D12_HOOKS::CompileDXBC(const char* srcfile, D3D_SHADER_MACRO * defs, cons
     auto ascii = ASCii((wchar_t*)source.c_str());
     ID3DBlob * err = nullptr;
     if (m_D3DCompile(ascii.str(), ascii.ASCii_string.capacity(), src.c_str(), defs,
-                     D3D_COMPILE_STANDARD_FILE_INCLUDE, entrypoint, target, 0, 0, bytecode, &err))
+                    D3D_COMPILE_STANDARD_FILE_INCLUDE, entrypoint, target, 0, 0, bytecode, &err))
     {
         DBUG_LOG((src + " Compilation FAILED\n" + (char*)err->GetBufferPointer()).c_str());
         err->Release();

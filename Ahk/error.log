@@ -1,13 +1,14 @@
 Peixotos's patch remote settings:
-Command Line: "C:\Games\Crysis 2 Maximum Edition\bin32\Crysis2.exe" 
+Command Line: "C:\Games\Blade of Darkness\blade\bin\bin\crashpad_handler.exe" --no-rate-limit "--database=C:\Games\Blade of Darkness\blade\bin\bin\.sentry-native" "--metrics-dir=C:\Games\Blade of Darkness\blade\bin\bin\.sentry-native" --url=https://o1028424.ingest.sentry.io:443/api/5996733/minidump/?sentry_client=sentry.native/0.4.12&sentry_key=26df6860eb3040fe91f452c088034b9e "--attachment=C:\Games\Blade of Darkness\blade\bin\bin\.sentry-native\31886d0c-ca66-4a42-66cd-3ea8e7ab994d.run\__sentry-event" "--attachment=C:\Games\Blade of Darkness\blade\bin\bin\.sentry-native\31886d0c-ca66-4a42-66cd-3ea8e7ab994d.run\__sentry-breadcrumb1" "--attachment=C:\Games\Blade of Darkness\blade\bin\bin\.sentry-native\31886d0c-ca66-4a42-66cd-3ea8e7ab994d.run\__sentry-breadcrumb2" --initial-client-data=0x70c,0x710,0x714,0x708,0x718,0x7ff7c349a5b0,0x7ff7c349a5d0,0x7ff7c349a5e8
+#Target: G:\Games\Metal Gear Solid 2\METAL GEAR SOLID2.exe
 common_path: 1
-D3D: 11
-D3D_Driver: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispsig.inf_amd64_e6cac7f31a92d62e\nvldumd.dll
+d3d: 11
+D3D_Driver: 
 dsk: 1920x1080
 dxvk: 1
 dxvkv: 2_4
 error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
-HD: UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAA
+HD: UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES
 injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
 J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
 k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
@@ -16,18 +17,20 @@ MHKS: 1
 Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
 path: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\
-PxSwap: e=true;
+PxSwap: e=true;sw=Insert;n=.;p=,;q=q;d=Home;
+RLMT: 5
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
-script_hwnd: 0x70498
-Target: C:\Games\Crysis 2 Maximum Edition\bin32\Crysis2.exe
-target_dir: C:\Games\Crysis 2 Maximum Edition\bin32
-target_name: Crysis2.exe
+script_hwnd: 0x805a6
+target: C:\Games\Blade of Darkness\blade\bin\bin\crashpad_handler.exe
+target_dir: C:\Games\Blade of Darkness\blade\bin\bin
+target_name: crashpad_handler.exe
 Textswap: e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;
 VPOS: 1
+VSNC: 1
 WHKS: 1
 wine: 9_0
 
-Working directory: C:\Games\Crysis 2 Maximum Edition\bin32
+Working directory: C:\Games\Blade of Darkness\blade\bin\bin
 C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\cfgFiles: 
 HasFiles 0
 C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\cfgFiles: 
@@ -41,8 +44,6 @@ Init: SUCCEEDED TO GET THE FreeEnvironmentStringsA ENTRYPOINT ON Kernel32.dll
 Init: SUCCEEDED TO GET THE FreeEnvironmentStringsW ENTRYPOINT ON Kernel32.dll
 CreateProcessA Hook: 0
 CreateProcessW Hook: 0
-ShellExecuteA Hook  :0
-ShellExecuteExW Hook  :0
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -80,8 +81,8 @@ Init: SUCCEEDED TO GET THE D3D10CreateDevice ENTRYPOINT ON d3d10.dll
 Init: SUCCEEDED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
 D3D11LoadWine: S_OK
 SetReslimit: ENUMERATING
-SetReslimit: MODE 61: 1920x1080
-InitD3D11Hooks: Highest mode: 1920x1080
+SetReslimit: MODE 21: 1280x720
+InitD3D11Hooks: Highest mode: 1280x720
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsExWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
@@ -95,7 +96,7 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SetWindowPosHook
-~LogWinSize: D3D12SetWindowPosHook: 1434x760 -> 1434x760
+~LogWinSize: D3D12SetWindowPosHook: 1424x750 -> 1424x750
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexed
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::Draw
@@ -104,14 +105,41 @@ GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstanced
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstancedIndirect
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstanced
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstancedIndirect
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::PSGetShaderResources
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext1::ClearView
-Texture 93719264 93444560
+Texture 2774217825904 2774217711664
 Releasing Texture 0
 Releasing ResView 0
 Succeded to create the Direct3D11 device with feature level 
 Succeeded to hook IDXGIFactory2::CreateSwapChainForHwnd
 Succeeded to hook IDXGIFactory::CreateSwapChain
 Succeeded to hook IDXGISwapChain::Present
+AppendDump: Loading dump: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Dumps\dump0.dds
+AppendDump: PIXEL FORMAT: A8RGB
+AppendDump: CREATING SUBCOLLECTION FOR FORMAT: A8RGB
+AppendDump: CREATING SUBCOLLECION FOR SIZE: 41943400 640x640 on format: A8RGB
+ProcessPath: Replacement: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Replacements\dump0.dds
+AppendDump: 4216688000 A8RGB 640x640 size: 1
+AppendDump: Loading dump: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Dumps\dump1.dds
+AppendDump: PIXEL FORMAT: A8RGB
+AppendDump: CREATING SUBCOLLECION FOR SIZE: 83886800 1280x1280 on format: A8RGB
+ProcessPath: Replacement: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Replacements\dump1.dds
+AppendDump: 4216686592 A8RGB 1280x1280 size: 1
+AppendDump: Loading dump: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Dumps\dump2.dds
+AppendDump: PIXEL FORMAT: A8RGB
+AppendDump: CREATING SUBCOLLECION FOR SIZE: 16777412 256x256 on format: A8RGB
+ProcessPath: Replacement: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Replacements\dump2.dds
+AppendDump: 4216687744 A8RGB 256x256 size: 1
+AppendDump: Loading dump: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Dumps\dump3.dds
+AppendDump: PIXEL FORMAT: A8RGB
+AppendDump: CREATING SUBCOLLECION FOR SIZE: 30146894 460x460 on format: A8RGB
+ProcessPath: Replacement: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Replacements\dump3.dds
+AppendDump: 4216686336 A8RGB 460x460 size: 1
+AppendDump: Loading dump: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Dumps\dump4.dds
+AppendDump: PIXEL FORMAT: A8RGB
+AppendDump: CREATING SUBCOLLECION FOR SIZE: 15073447 230x230 on format: A8RGB
+ProcessPath: Replacement: C:\Users\Peixoto\Documents\WineHooks\Games\Crysis\Crysis 2\Textures\VOKSI\Replacements\dump4.dds
+AppendDump: 4216688512 A8RGB 230x230 size: 1
 Succeeded to hook ID3D11Device::CreateTexture2D
 Succeeded to hook ID3D11Texture2D::Release
 Succeeded to hook ID3D11DeviceContext::PSSetShaderResources
@@ -141,180 +169,520 @@ ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain::GetDesc
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain1::GetDesc1
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::GetDisplayModeList
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::FindClosestMatchingMode
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1152x864
-D3D12GetModes: MODE 10: 1176x664
-D3D12GetModes: MODE 11: 1176x664
-D3D12GetModes: MODE 12: 1176x664
-D3D12GetModes: MODE 13: 1176x664
-D3D12GetModes: MODE 14: 1176x664
-D3D12GetModes: MODE 15: 1176x664
-D3D12GetModes: MODE 16: 1176x664
-D3D12GetModes: MODE 17: 1176x664
-D3D12GetModes: MODE 18: 1176x664
-D3D12GetModes: MODE 19: 1280x720
-D3D12GetModes: MODE 20: 1280x720
-D3D12GetModes: MODE 21: 1280x720
-D3D12GetModes: MODE 22: 1280x768
-D3D12GetModes: MODE 23: 1280x768
-D3D12GetModes: MODE 24: 1280x768
-D3D12GetModes: MODE 25: 1280x800
-D3D12GetModes: MODE 26: 1280x960
-D3D12GetModes: MODE 27: 1280x960
-D3D12GetModes: MODE 28: 1280x960
-D3D12GetModes: MODE 29: 1280x1024
-D3D12GetModes: MODE 30: 1360x768
-D3D12GetModes: MODE 31: 1360x768
-D3D12GetModes: MODE 32: 1360x768
-D3D12GetModes: MODE 33: 1366x768
-D3D12GetModes: MODE 34: 1366x768
-D3D12GetModes: MODE 35: 1366x768
-D3D12GetModes: MODE 36: 1440x900
-D3D12GetModes: MODE 37: 1440x1080
-D3D12GetModes: MODE 38: 1440x1080
-D3D12GetModes: MODE 39: 1440x1080
-D3D12GetModes: MODE 40: 1440x1080
-D3D12GetModes: MODE 41: 1440x1080
-D3D12GetModes: MODE 42: 1440x1080
-D3D12GetModes: MODE 43: 1440x1080
-D3D12GetModes: MODE 44: 1440x1080
-D3D12GetModes: MODE 45: 1440x1080
-D3D12GetModes: MODE 46: 1600x900
-D3D12GetModes: MODE 47: 1600x900
-D3D12GetModes: MODE 48: 1600x900
-D3D12GetModes: MODE 49: 1600x900
-D3D12GetModes: MODE 50: 1600x900
-D3D12GetModes: MODE 51: 1600x900
-D3D12GetModes: MODE 52: 1600x1024
-D3D12GetModes: MODE 53: 1600x1024
-D3D12GetModes: MODE 54: 1600x1024
-D3D12GetModes: MODE 55: 1600x1024
-D3D12GetModes: MODE 56: 1600x1024
-D3D12GetModes: MODE 57: 1600x1024
-D3D12GetModes: MODE 58: 1680x1050
-D3D12GetModes: MODE 59: 1680x1050
-D3D12GetModes: MODE 60: 1920x1080
-D3D12GetModes: MODE 61: 1920x1080
-D3D12GetModes: MODE 62: 1920x1080
-D3D12GetDisplayModeListHook: WRONG COUNT
-D3D12GetDisplayModeListHook: RETURNING 63 Modes
-Setup: D3D11CreateSwapChain Requested mode    : 960x540
-Setup: D3D11CreateSwapChain Scale             : 2.000000
-Setup: D3D11CreateSwapChain Viewport XOffset  : 0
-~LogWinSize: D3D12SetWindowPosHook: 960x540 -> 1920x1080
-D3D11CreateShaders: OK =)
-~LogWinSize: D3D11CreateSwapChain: 960x540 -> 1920x1080
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: Setting data to swap chain
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
 ~LogWinSize: D3D12SetWindowPosHook: 120x0 -> 120x0
+~LogWinSize: D3D12SetWindowPosHook: 1280x720 -> 1280x720
+~LogWinSize: D3D12SetWindowPosHook: 1280x720 -> 1280x720
+~LogWinSize: D3D12SetWindowPosHook: 1280x720 -> 1920x1080
+Setup: D3D12ChangeDisplaySettingsExWHook Requested mode    : 1280x720
+Setup: D3D12ChangeDisplaySettingsExWHook Scale             : 1.500000
+Setup: D3D12ChangeDisplaySettingsExWHook Viewport XOffset  : 0
 ~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
-D3D11ResizeTargetHook: 960x540
-Setup: D3D11ResizeTargetHook Requested mode    : 960x540
-Setup: D3D11ResizeTargetHook Scale             : 2.000000
-Setup: D3D11ResizeTargetHook Viewport XOffset  : 0
-~LogWinSize: D3D11ResizeTargetHook: 1920x1080 -> 1920x1080
 ~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
-D3D11ResizeBuffersHook: 960x540
-Setup: D3D11ResizeBuffersHook Requested mode    : 960x540
-Setup: D3D11ResizeBuffersHook Scale             : 2.000000
+Setup: D3D12ChangeDisplaySettingsExWHook Requested mode    : 1280x720
+Setup: D3D12ChangeDisplaySettingsExWHook Scale             : 1.500000
+Setup: D3D12ChangeDisplaySettingsExWHook Viewport XOffset  : 0
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+Setup: D3D11CreateSwapChain Requested mode    : 1280x720
+Setup: D3D11CreateSwapChain Scale             : 1.500000
+Setup: D3D11CreateSwapChain Viewport XOffset  : 0
+D3D11CreateShaders: OK =)
+~LogWinSize: D3D11CreateSwapChain: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1424x750 -> 1424x750
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+D3D11ResizeBuffersHook: 1280x720
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1280x720
+Setup: D3D11ResizeBuffersHook Scale             : 1.500000
 Setup: D3D11ResizeBuffersHook Viewport XOffset  : 0
 ~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
 DXGIGetBufferHook: 0
 InitResources: SUCCESS
 Reset: SUCCESS
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
 D3D11GetProxy: Setting data to swap chain
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11ResizeBuffersHook: 1176x664
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1176x664
+Setup: D3D11ResizeBuffersHook Scale             : 1.626506
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 3
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
 DXGIGetBufferHook: 0
 InitResources: SUCCESS
 Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 588x332 956x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11ResizeBuffersHook: 1152x864
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1152x864
+Setup: D3D11ResizeBuffersHook Scale             : 1.250000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 240
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 576x432 720x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11ResizeBuffersHook: 1024x768
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1024x768
+Setup: D3D11ResizeBuffersHook Scale             : 1.406250
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 240
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 512x384 720x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11ResizeBuffersHook: 1280x720
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1280x720
+Setup: D3D11ResizeBuffersHook Scale             : 1.500000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 0
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11ResizeBuffersHook: 1176x664
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1176x664
+Setup: D3D11ResizeBuffersHook Scale             : 1.626506
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 3
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 588x332 956x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11ResizeBuffersHook: 1152x864
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1152x864
+Setup: D3D11ResizeBuffersHook Scale             : 1.250000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 240
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 576x432 720x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11ResizeBuffersHook: 1024x768
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1024x768
+Setup: D3D11ResizeBuffersHook Scale             : 1.406250
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 240
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 512x384 720x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11ResizeBuffersHook: 1280x720
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1280x720
+Setup: D3D11ResizeBuffersHook Scale             : 1.500000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 0
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11ResizeBuffersHook: 1176x664
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1176x664
+Setup: D3D11ResizeBuffersHook Scale             : 1.626506
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 3
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 588x332 956x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11ResizeBuffersHook: 1152x864
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1152x864
+Setup: D3D11ResizeBuffersHook Scale             : 1.250000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 240
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 576x432 720x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11ResizeBuffersHook: 1024x768
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1024x768
+Setup: D3D11ResizeBuffersHook Scale             : 1.406250
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 240
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 512x384 720x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11ResizeBuffersHook: 1280x720
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1280x720
+Setup: D3D11ResizeBuffersHook Scale             : 1.500000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 0
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11ResizeBuffersHook: 1024x768
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1024x768
+Setup: D3D11ResizeBuffersHook Scale             : 1.406250
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 240
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 512x384 720x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x768 1440x1080
+D3D11ResizeBuffersHook: 1152x864
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1152x864
+Setup: D3D11ResizeBuffersHook Scale             : 1.250000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 240
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 576x432 720x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1152x864 1440x1080
+D3D11ResizeBuffersHook: 1176x664
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1176x664
+Setup: D3D11ResizeBuffersHook Scale             : 1.626506
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 3
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 588x332 956x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11ResizeBuffersHook: 1280x720
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1280x720
+Setup: D3D11ResizeBuffersHook Scale             : 1.500000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 0
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11ResizeBuffersHook: 1176x664
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1176x664
+Setup: D3D11ResizeBuffersHook Scale             : 1.626506
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 3
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 588x332 956x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1176x664 1912x1080
 ~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 1024x1024
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 1024x1024
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x1024 4096x4096
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x1024 4096x4096
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x1024 4096x4096
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x128 1024x512
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 256x128 1024x512
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2048x2048 8192x8192
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 256x256 1024x1024
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 384x216 1536x864
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 384x216 1536x864
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 64x64 256x256
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 16x16 64x64
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 4x4 16x16
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 4x4
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 4x4
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 480x268
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 480x268
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 60x33 240x132
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 60x33 240x132
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 480x268
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x128 1024x512
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 256x128 1024x512
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 4x4
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x16 1024x64
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x16 1024x64
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 64x64 256x256
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 4x4
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 4x4
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 4x4
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 4x4
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 4x4
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 4x4
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x1024 4096x4096
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 480x268
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080

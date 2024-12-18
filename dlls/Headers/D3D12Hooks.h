@@ -187,8 +187,8 @@ public:
     SYNC::Atomic       * HD_X              = nullptr;
     SYNC::AtomicFloat  * mScl              = nullptr;
     ID3DBlob           * m_CSBlt           = nullptr;
-    ID3DBlob           * m_RCAS            = nullptr; // AMD's FSR Robust Contrast Adaptive Sharpening pass
-    ID3DBlob           * m_EASU            = nullptr; // AMD's FSR Edge Adaptive Spatial Upsampling pass
+    ID3DBlob           * m_RCAS            = nullptr; // AMD's FSR Sharpening pass
+    ID3DBlob           * m_EASU            = nullptr; // AMD's FSR Upsampling pass
     ID3DBlob           * m_PSBlt           = nullptr;
     ID3DBlob           * m_PSVMirrorBlt    = nullptr;
     ID3DBlob           * m_VSBlt           = nullptr;

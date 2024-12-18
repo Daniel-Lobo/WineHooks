@@ -277,6 +277,7 @@ public:
     void (__stdcall * m_RSSetViewports)               (ID3D11DeviceContext*, UINT,const D3D11_VIEWPORT*);
     void (__stdcall * m_OMSetRenderTargetsAndUAVs)    (ID3D11DeviceContext*, UINT, ID3D11RenderTargetView* const*,ID3D11DepthStencilView*,
                                                        UINT, UINT, ID3D11UnorderedAccessView* const*, const UINT*);
+    void (__stdcall * m_PSGetShaderResources)         (ID3D11DeviceContext*, UINT, UINT, ID3D11ShaderResourceView **);
     void (__stdcall * m_ClearView)                    (ID3D11DeviceContext1*, ID3D11View*, const FLOAT [4], const D3D11_RECT*, UINT);
     void (__stdcall * m_D3D10DrawIndexed)             (ID3D10Device*, UINT, UINT, INT);        
     void (__stdcall * m_D3D10Draw)                    (ID3D10Device* ,UINT, UINT);
@@ -547,6 +548,7 @@ char * __stdcall D3D11LoadWine(char *, char *, char*, UINT);
 ID3D11PixelShader * D3D11FixAndCompileDXBCShader(BYTE *, UINT, string *, float, ID3D11Device *);
 ID3D10PixelShader * D3D10FixAndCompileDXBCShader(BYTE * , UINT, string *, float, ID3D10Device *);
 ID3D10Resource * D3D10ShrinkTexture2D(ID3D10Resource *);
+unique_ptr<string> D3D11CPUShrinkTexture2D(ID3D11DeviceContext *, ID3D11Resource *, ID3D11Resource *);
 
 //============================HOOKS=========================================//
 
@@ -567,6 +569,7 @@ void __stdcall D3D10DrawIndexedHook(ID3D10Device*, UINT, UINT, INT);
 void __stdcall D3D10DrawHook(ID3D10Device*, UINT , UINT);
 void __stdcall D3D10DrawInstancedHook(ID3D10Device*, UINT, UINT, UINT, UINT);
 void __stdcall D3D10DrawIndexedInstancedHook(ID3D10Device*, UINT, UINT, UINT, INT, UINT);
+void __stdcall D3D11PSGetShaderResourcesHook(ID3D11DeviceContext*, UINT, UINT, ID3D11ShaderResourceView **);
 
 //========================VARIABLES=========================================//
 
