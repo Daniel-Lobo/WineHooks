@@ -83,7 +83,10 @@ ${PROJECT_SOURCE_DIR}/LAYERS/DDRAW/Sources/Direct3DViewport.cpp
 ${PROJECT_SOURCE_DIR}/LAYERS/DDRAW/Sources/Direct3DVertexBuffer.cpp 
 ${PROJECT_SOURCE_DIR}/LAYERS/DDRAW/Sources/Direct3DMaterial.cpp 
 ${PROJECT_SOURCE_DIR}/LAYERS/DINPUT/Sources/DirectInput.cpp
-${PROJECT_SOURCE_DIR}/LAYERS/DSOUND/Sources/DirectSound.cpp)
+${PROJECT_SOURCE_DIR}/LAYERS/DSOUND/Sources/DirectSound.cpp
+${PROJECT_SOURCE_DIR}/Simple-HTTP-Server/http_server.cpp
+${PROJECT_SOURCE_DIR}/Simple-HTTP-Server/log.cpp
+${PROJECT_SOURCE_DIR}/Simple-HTTP-Server/utils.cpp)
 
 set(SRC64	
 ${PROJECT_SOURCE_DIR}/Sources/dllmain.cpp
@@ -147,7 +150,9 @@ target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS/DINPUT/H
 target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/LAYERS/DSOUND/Headers)
 target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/Includes/cheat-engine/7_5)
 target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/Includes/MS)
+target_include_directories(peixoto PRIVATE ${PROJECT_SOURCE_DIR}/Simple-HTTP-Server)
 target_include_directories(peixoto PRIVATE ${parent_dir}/Shaders/FSR_1_0/) 
+
 
 if (WIN32)
     target_include_directories(peixoto PRIVATE "${PROJECT_SOURCE_DIR}/minhook/include")

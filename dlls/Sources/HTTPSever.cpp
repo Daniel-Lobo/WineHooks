@@ -3,7 +3,9 @@
 #include "EZString.h"
 #include "Sync.h"
 #include "dllmain.h"
+#include "headers/http_server.h"
 
+/*
 extern "C" __declspec(dllexport) HRESULT __stdcall Serve(LPVOID RequestHandler)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -23,3 +25,49 @@ extern "C" __declspec(dllexport) HRESULT __stdcall Serve(LPVOID RequestHandler)
     std::cout << listening << std::endl;
     return listening;   
 }
+*/
+
+class PexHTTPServer: public Server{
+public:
+    PexHTTPServer(ServerConfig config) : Server(config) {};
+};
+
+extern "C" __declspec(dllexport) void __stdcall Serve(LPVOID GETHandler, LPVOID PostHandler)
+{
+    /*
+    ServerConfig config;
+    config.PORT = 5000;  
+
+    
+    auto server = new PexHTTPServer(config);
+    server->GetHandler  = decltype(server->GetHandler)(GETHandler);
+    server->PostHandler = decltype(server->PostHandler)(PostHandler);
+    server->setStaticDirectory("..\\"); 
+    server->_listen();
+    */
+
+    
+    ServerConfig config;
+    PexHTTPServer * server = nullptr;
+    for (int i = 3000; i < 8000; i++) {    
+        config.PORT = i;
+        server = new PexHTTPServer(config);
+        if (server->bound == FALSE){
+            delete server;      
+            server = nullptr;      
+            continue;
+        }
+        break;;
+    }
+    if (server == nullptr){
+        MessageBoxA(NULL, "Could not find a port on localhost", "", MB_ICONERROR|MB_OK);
+        ExitProcess(1);
+    }
+    server->GetHandler  = decltype(server->GetHandler)(GETHandler);
+    server->PostHandler = decltype(server->PostHandler)(PostHandler);
+    server->setStaticDirectory("..\\"); 
+    server->_listen();
+    delete server;    
+    
+}
+    

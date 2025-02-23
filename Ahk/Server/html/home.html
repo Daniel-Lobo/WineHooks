@@ -1,0 +1,371 @@
+<script>
+	(async function () {
+		document.getElementById('home').style.backgroundColor = 'rgb(90, 90, 90)';
+	})()
+</script>
+
+<div id="create-profile-dialog"  class="dialog-container">
+	<div class="dialog" style="width:600px;height:600px;background-color: rgb(243, 226, 169); padding: 20px;">
+		<div style="display:flex;flex-direction:column;gap:0px;margin-top:10px;border: 1px solid gray; 
+			border-radius:10px; padding: 10px;">
+			<p class="h5">API</p>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="api" value="gl" checked>
+				<label class="form-check-label" for="gl">
+					OpenGl
+				</label>
+			</div>	
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="api" value="dx6">
+				<label class="form-check-label" for="dx6">
+					DirectX 1-6
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="api" value="dx7">
+				<label class="form-check-label" for="dx7">
+					DirectX 7
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="api" value="dx8">
+				<label class="form-check-label" for="dx8">
+					DirectX 8
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="api" value="dx9">
+				<label class="form-check-label" for="dx9">
+					DirectX 9
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="api" value="dx10">
+				<label class="form-check-label" for="dx10">
+					DirectX 10
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="api" value="dx11">
+				<label class="form-check-label" for="dx11">
+					DirectX 11
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="api" value="dx12">
+				<label class="form-check-label" for="dx12">
+					DirectX 12
+				</label>
+			</div>	
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="api" value="vk">
+				<label class="form-check-label" for="vk">
+					Vulkan
+				</label>
+			</div>				
+		</div>	
+
+		<div class="input-group mb-3" data-bs-toggle="tooltip" data-bs-placement="left" 
+			data-bs-title="Click the button to browse the games .exe file">
+			<button class="btn btn-secondary" id="find-game" onclick="FindGame()"><i class="fa-solid fa-folder"></i></button>
+			<input type="text" class="form-control" placeholder="Game path" aria-describedby="find-game" disabled id="game-path"
+			style="border: 1px solid gray; background-color: rgb(243, 226, 169);">
+		</div>
+
+		<div class="mb-3">
+			<input type="text" class="form-control" id="game-name" placeholder="Entry name"
+			style="border: 1px solid gray; background-color: rgb(243, 226, 169); margin-top: -16px;"
+			data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="The name that will appear in the games list, on the left">
+  		</div>
+
+		<div class="mb-3">
+			<input type="text" class="form-control" id="game-folder" placeholder="Data folder"
+			style="border: 1px solid gray; background-color: rgb(243, 226, 169); margin-top: -16px;"
+			data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-container="body" 
+			data-bs-html="true" data-bs-title="Enter a folder name. That folder will be created on: <i>%My Documents%\WineHooks\Games</i>, where winehooks 
+			will dump textures and shaders, if you use any of these features">
+  		</div>
+
+		<div style="flex-grow: 1;"></div>
+		<div style="display:flex;flex-direction:row-reverse;gap:10px;">
+			<button class="button btn btn-danger" onclick="document.getElementById('create-profile-dialog').style.display = 'none'">Close</button>
+			<button class="button btn btn-secondary" onclick="CreateProfile()">Create game profile</button>
+		</div>	
+	</div>
+</div>
+
+<div class="cntrl_group">
+	<p class="h1"> Wellcome to winehooks - formerly peixoto's patch </p>
+	<div class="alert alert-secondary">
+		<p class="h4"> Find your game in the list on the left or</p>
+		<div style="display:flex;gap:10px;margin-top:10px">
+			<button class="button btn btn-secondary" style="width:220px" onclick="DownloadProfiles()"><i class="fa-solid fa-download"></i> Download
+				profiles</button>
+			<button class="button btn btn-secondary" style="width:220px" onclick="document.getElementById('create-profile-dialog').style.display = 'flex'">
+				<i class="fa-solid fa-plus"></i> Create a game profile
+			</button>
+		</div>
+	</div>
+	<div id="git-games-list-container" style="display:flex;flex-direction:column;gap:10px;margin-top:0px">
+	</div>
+	<div class="alert alert-secondary">
+		<p class="h4">Support winehooks</p>
+		<div style="display:flex;gap:10px;margin-top:10px">
+			<button class="button btn btn-secondary" style="width:220px" id="patreon_home" onclick="PostAction(event)"><i class="fa-brands fa-patreon"></i>
+				Get and offer support 
+			</button>
+			<button class="button btn btn-secondary" style="width:220px" id="Donate" onclick="PostAction(event)"><i class="fa-brands fa-paypal"></i>
+				Donate
+			</button>		
+		</div>
+	</div>	
+	<div class="alert alert-danger">
+		<h2> VERSION WARNING</h2>
+		<ul>
+			<li style="margin-top:10px;">
+				This in the 2nd "stable" version of the ongoing effort to adapt the program to be fully compatible
+				with <a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine</a> and use <a id='Wine'
+					onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls
+				on Windows
+			</li>
+			<li style="margin-top:10px;">
+				Even though I have decided to promote this to stable, it is expected that some things might still be
+				broken, like the
+				<strike><b>XInput to DirectInput translation</b> feature, which I found out to be broken moments after
+					publishing this
+					version</strike> (fixed), or <b>xBR scaling</b> on directdraw games
+			</li>
+			<li style="margin-top:10px;">
+				The 2nd update, after the promotion to stable, was merelly a fix for the GUI, which stopped working on
+				wine 10, so none of the above was
+				fixed yet
+			</li>
+			<li style="margin-top:10px;">
+				If you're on Windows, you can always download an <a id='Archive' onclick="PostAction(event)"
+					href='javascript:dummy()'>older version</a>
+				<br>
+			</li>	
+		<ul>			<!--<img src="WINE.ico"/>-->					
+	</div>
+</div>
+
+<script>
+	function GetHelpFileDownLoadPath(github_nfo, name) {
+		for (let i = 0; i < github_nfo.length; i++) {
+			let nfo = github_nfo[i]
+			if (name.toLowerCase() === nfo.name.toLowerCase()) {
+				//Print(nfo.name + " " + name);
+				return nfo.download_url;
+			}
+		}
+		return ""
+	}
+	function GetCommonHelpFileName(name) {
+		let names = ["ddraw", "directdraw", "gl", "gldefault", "DX8", "DX9", "DX10", "DX11", "DX12", "CPU", "Sound", "Input"]
+		for (let i = 0; i < names.length; i++) {
+			let n = names[i];
+			if (n.toLowerCase() + ".txt" === name.toLowerCase()) {
+				return name;
+			}
+		}
+		return null
+	}
+	function DownLoadCommonHelpFiles(github_nfo) {
+		for (let i = 0; i < github_nfo.length; i++) {
+			let nfo  = github_nfo[i]
+			let name = GetCommonHelpFileName(nfo.name)
+
+			if (name !== null) {
+				let xmlHttp = new XMLHttpRequest();
+				xmlHttp.onload = onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						SaveFile("Help\\" + nfo.name, this.responseText);
+					}
+				};
+				xmlHttp.open("GET", nfo.download_url, false); // false for synchronous request
+				xmlHttp.send();
+			}
+		}
+	}
+	async function DownloadProfiles() {
+		document.getElementById("git-games-list-container").className ="alert alert-secondary"
+		document.getElementById("git-games-list-container").innerHTML = /*html*/ `
+		<div style="display:flex;flex-direction:row;gap:10px;margin-top:10px">
+			<div class="spinner-border" role="status"></div>
+			<span style="margin-top:2px">Loading profiles list from github</span>
+		</div>
+		`
+		
+		let jsn = await GetGitProfilesList();
+		for (const key in jsn) {
+			if ("message" in jsn[key] && jsn[key].message.startsWith("API rate")) {
+				alert("Github api rate limit has been reached, please try again later");
+				document.getElementById("git-games-list-container").innerHTML = "";
+				document.getElementById("git-games-list-container").className = ""
+				return
+			}
+		}		
+		ParseGITHubReply(jsn.Profiles, jsn.Help, jsn.CheatTables, jsn.Scripts);
+	}
+				
+	function ParseGITHubReply(jsn, help_nfo, tables_nfo, scripts_nfo) {		
+		let pretty = JSON.stringify(jsn, null, 4);
+		document.getElementById("git-games-list-container").innerHTML = /*html*/`
+			<div class='cntrl_group' style='overflow:auto;height:330px;width:100%' id='profiles'></div>
+            <div style='margin-top:10px;display:flex;flex-direction:row-reverse'>
+				<button class='button btn btn-secondary' disabled id='download'><i class="fa-solid fa-download"></i> Download selected profiles</button>
+				<div class="spinner-border" role="status" id="progress" style="display:flex;margin-right:10px;margin-top:2px"></div>
+			</div>
+			`
+		document.getElementById("git-games-list-container").className="alert alert-secondary"
+		for (let i = 0; i < jsn.length; i++) {
+			let html = /*html*/`
+				<div>
+					<input  class="form-check-input" type="checkbox" id="__id__" name="__id__">
+                	<label for="__id__">__label__</label><br>
+				<div>`.replace("__id__", "profile" + i).replace("__label__", jsn[i]["name"]);
+			document.getElementById("profiles").innerHTML += html;
+		}
+		
+		DownLoadCommonHelpFiles(help_nfo);
+		document.getElementById("download").disabled	  = false
+		document.getElementById("progress").style.display = "none"
+		document.getElementById("download").onclick = function () {			
+			
+			console.log("Event handler function executed");
+			document.getElementById("download").disabled      = true
+			console.log("Disabled property set to true");
+			document.getElementById("progress").style.display = "flex"
+			console.log("Display style set to flex");			
+
+			setTimeout(() => {
+			    
+				let children = document.getElementById("profiles").children;
+				let count    = 0
+				let total    = 0
+				let errors   = []
+				for (let i = 0; i < children.length; i++) {
+					if (children[i].children[0].checked)
+						total += 1
+				}
+				let promisses = []
+				for (let i = 0; i < children.length; i++) {
+					let box   = children[i].children[0];
+					let label = children[i].children[1];
+					if (box.checked) {
+						count += 1;					    
+						let xmlHttp	   = new XMLHttpRequest();
+						xmlHttp.onload = onreadystatechange = function () {
+							if (this.readyState == 4 && this.status == 200) {
+								promisses.push(SaveFile("Profiles\\" + jsn[i].name, this.responseText));													
+								let hlp_fle_name = GetHelpFileName(this.responseText);
+								if (GetHelpFileDownLoadPath(help_nfo, hlp_fle_name) !== "") {
+									let h_xmlHttp = new XMLHttpRequest();
+									h_xmlHttp.onload = onreadystatechange = function () {
+										if (this.readyState == 4 && this.status == 200) {
+											promisses.push(SaveFile("Help\\" + hlp_fle_name, this.responseText));										
+										}
+									};
+									try {
+										h_xmlHttp.open("GET", GetHelpFileDownLoadPath(help_nfo, hlp_fle_name), false); // false for synchronous request
+										h_xmlHttp.send();
+									} catch (err) {
+										errors.push(hlp_fle_name);
+									}
+								}
+								let cheat_table_name = GetCheatTableName(jsn[i].name);
+								let cheat_table_path = GetHelpFileDownLoadPath(tables_nfo, cheat_table_name);
+								if (cheat_table_path !== "") {
+									let c_xmlHttp = new XMLHttpRequest();
+									c_xmlHttp.onload = onreadystatechange = function () {
+										if (this.readyState == 4 && this.status == 200) {
+											promisses.push(SaveFile("CheatTables\\" + cheat_table_name, this.responseText));
+										}
+									};
+									try {
+										c_xmlHttp.open("GET", cheat_table_path, false); // false for synchronous request
+										c_xmlHttp.send();
+									} catch (err) {
+										errors.push(cheat_table_name);
+									}
+									cheat_table_name = cheat_table_name + ".ahk"
+									cheat_table_path = GetHelpFileDownLoadPath(tables_nfo, cheat_table_name);
+									c_xmlHttp.onload = onreadystatechange = function () {
+										if (this.readyState == 4 && this.status == 200) {
+											promisses.push(SaveFile("CheatTables\\" + cheat_table_name, this.responseText));
+										}
+									};
+									try {
+										c_xmlHttp.open("GET", cheat_table_path, false); // false for synchronous request
+										c_xmlHttp.send();
+									} catch (err) {
+										errors.push(cheat_table_name);
+									}
+								}
+								let script_fle_name = GetScriptFileName(this.responseText);
+								let script_path     = GetHelpFileDownLoadPath(scripts_nfo, script_fle_name);
+								if (script_path !== "") {
+									let src_xmlHttp = new XMLHttpRequest();
+									src_xmlHttp.onload = onreadystatechange = function () {
+										if (this.readyState == 4 && this.status == 200) {
+											promisses.push(SaveFile("scripts\\" + script_fle_name, this.responseText));
+										}
+									};
+									try {
+										src_xmlHttp.open("GET", script_path, false); // false for synchronous request
+										src_xmlHttp.send();
+									} catch (err) {
+										errors.push(script_fle_name);
+									}
+								}
+							}
+						};
+						xmlHttp.open("GET", jsn[i].download_url, false); // false for synchronous request
+						xmlHttp.send();
+					};
+				}
+				if (errors.length > 0) {
+					let failed = "";
+					for (let i = 0; i < errors.length; i++) {
+						failed += errors[i] + "\n"
+					}
+					Print("Error processing files:\n" + failed);
+				}
+				document.getElementById("progress").style.display = "none"
+				document.getElementById("download").disabled = false
+				Done("Downloads finished\n" + count + " of " + total + " files downloaded");	
+			}, 1000)		
+		}
+	}
+	function IsNameValid(name) {
+		if (name === "") {
+			return false
+		}
+		for (let char of  '* \" / \\ < > : | ?'.split("")) {
+			if (name.includes(char)) {
+				return false;
+			}
+		}
+		return true
+	}
+	async function CreateProfile() {
+		let exe_path     = document.getElementById("game-path").value;
+		let profile_name = document.getElementById("game-name").value;
+		let folder_path  = document.getElementById("game-folder").value;
+		let api          = document.querySelector('input[name = "api"]:checked').value;
+		console.log(exe_path, profile_name, folder_path, api, await FileExists(exe_path) )
+		if (await FileExists(exe_path) === '') {
+			return Failed("Game path is empty or does not exist")			
+		}
+		if (!IsNameValid(profile_name)) {
+			return Failed("Please review the profile name\nIt's either empty or contains invalid characters:\n* \" / \\ < > : | ?")
+		}
+		if (!IsNameValid(folder_path)) {
+			return Failed("Please review the folder name\nIt's either empty or contains invalid characters:\n* \" / \\ < > : | ?")
+		}
+		Done("ok")
+	}
+	async function FindGame() {
+		document.getElementById("game-path").value = await(await fetch("/FindGame", FetchOPtions())).text()	
+	}
+</script>
