@@ -187,7 +187,11 @@ serve(){
 }
 
 LoadFile(filename){
-    return StrReplace(FileOpen("html\" Filename ".html", "r").read(), "%My Documents%", A_mydocuments)
+    html := StrReplace(FileOpen("html\" Filename ".html", "r").read(), "%My Documents%", A_mydocuments)
+    html := StrReplace(html, "%BasePath%", SubStr(g_.BasePath, 1,-1))
+    html := StrReplace(html, "%HelpPath%", Substr(g_.HelpPath, 1,-1))
+    html := StrReplace(html, "%ProfilesPath%", SubStr(g_.Profiles, 1,-1))
+    return html
 }
 
 HTMLReply(html){
@@ -255,7 +259,7 @@ HomeRoute(){
         html = 
         (LTRIM
             <button type="button" class="btn btn-light nav-item-container" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="%game%">
-				<span class='nav-item nav-item-containe'>  %game% </span>
+				<span class='nav-item nav-item-container'>  %game% </span>
 			</button>   
         )        
         games_list .= html
@@ -294,6 +298,8 @@ HandleAction(action){
         run, %link%    
         return
     }
+    print(action)
+    run, %action%
 }
 
 GetHelpFileName(cfg){
@@ -346,10 +352,10 @@ GetGitProfilesList(){
 
 SaveFile(file_name, contents){	
 	try {
-		;FileOpen(g_.BasePath . file_name, "w").write(contents)
-        print("saved " . file_name)
-        print(contents)
-        Sleep, 1000
+		FileOpen(g_.BasePath . file_name, "w").write(contents)
+        ;print("saved " . file_name)
+        ;print(contents)
+        ;Sleep, 1000
         Return JSONReply("{""Err"" : ""S_OK""}")
     } catch {
         Return JSONReply("{""Err"" : ""Error saving file""}")
@@ -395,6 +401,7 @@ PostHandler(socket, p, a, b){
         reply := PlainReply(FindGame())
     }
     else if (path.__str = "/FileExist"){
+        print(body)
         reply := PlainReply(FileExist(body))
     }
     DllCall(g_.p_send, uint, socket, astr, reply, uint, strlen(reply), uint, 0, uint) 

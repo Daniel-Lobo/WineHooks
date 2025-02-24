@@ -27,9 +27,15 @@
 			return json;
 		}
 
-		function Done(msg) {
+		function Done(msg, callback) {
 			document.getElementById("msgbox-sucess-msg").innerHTML  = msg.replaceAll("\n", "<br>");
 			document.getElementById("msgbox-success").style.display = "flex";
+			if (callback) {
+				document.getElementById("msgbox-success-ok").onclick = function () {
+					callback()
+					document.getElementById("msgbox-success").style.display = "none"
+				}
+			}
 		}
 		function Failed(msg) {
 			document.getElementById("msgbox-err-msg").innerHTML = msg.replaceAll("\n", "<br>");
@@ -63,8 +69,12 @@
 			parser.parse(ini_string);
 			return parser;
 		}
+		async function PostActionB(_this) {
+			Fetch(`/Action?Action=${_this.id}`, FetchOPtions());
+		}
 		async function PostAction(event) {
 			let action = event.target.id;
+			console.log(event.target);
 			Fetch(`/Action?Action=${action}`, FetchOPtions());
 		}
 		async function Print(text) {
@@ -132,7 +142,7 @@
 			</div>
 			<div style="flex-grow: 1;"></div>
 			<div style="display:flex;flex-direction:row-reverse;gap:10px;padding:6px;border-top:1px solid gray;margin-bottom:-20px;">
-				<button style="width:100px;border:1px solid gray" class="btn btn-light" 
+				<button style="width:100px;border:1px solid gray" class="btn btn-light" id="msgbox-success-ok"
 				onclick="document.getElementById('msgbox-success').style.display = 'none'">OK</button>
 			</div>
 		</div>

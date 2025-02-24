@@ -1,6 +1,10 @@
 <Button id="home" class="btn btn-light nav-item-container" onclick="window.location.href = '/home';">
 	<i class="fa-solid fa-house"></i> <span style="margin-left:10px;margin-top:2px">Home</span>
 </Button>
+<Button class="btn btn-light nav-item-container" id="%ProfilesPath%" onclick="PostActionB(this)"
+	data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Open the profiles folder">
+	<i class="fa-solid fa-folder-open"></i> <span style="margin-left:10px;margin-top:2px">Open profiles folder</span>
+</Button>
 <div class="spacer"></div>
 <div style="display:flex;flex-direction:row;margin-left:20px">
 	<span class="loader"></span>
@@ -13,18 +17,18 @@
 		console.log("reply", reply);
 		let container = document.getElementById("games-list-container");
 		for (let game of reply.Games) {
-			let list_item             = document.createElement("Button");			
+			let list_item        = document.createElement("Button");			
 			container.appendChild(list_item);	
 			list_item.outerHTML  = 
 			`<button type="button" class="btn btn-light nav-item-container" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${game}">
-				<span class='nav-item nav-item-containe'>  ${game} </span>
+				<span class='nav-item nav-item-container'>  ${game} </span>
 			</button>
 			`		
 		}		
 		let children              = document.getElementById("games-list-container").children;
-		children[1].style.display = "none";
 		children[2].style.display = "none";
-		children[3].style.display = "none";	
+		children[3].style.display = "none";
+		children[4].style.display = "none";	
 		activatetooltips();		
 	})()
 </script>

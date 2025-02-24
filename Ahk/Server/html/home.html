@@ -333,7 +333,9 @@
 				}
 				document.getElementById("progress").style.display = "none"
 				document.getElementById("download").disabled = false
-				Done("Downloads finished\n" + count + " of " + total + " files downloaded");	
+				Done("Downloads finished\n" + count + " of " + total + " files downloaded", function () {
+					window.location.href = "/";
+				});	
 			}, 1000)		
 		}
 	}
@@ -354,6 +356,8 @@
 		let folder_path  = document.getElementById("game-folder").value;
 		let api          = document.querySelector('input[name = "api"]:checked').value;
 		console.log(exe_path, profile_name, folder_path, api, await FileExists(exe_path) )
+		let full_path    = String.raw`%ProfilesPath%\\`;
+		full_path       += profile_name + ".ini";
 		if (await FileExists(exe_path) === '') {
 			return Failed("Game path is empty or does not exist")			
 		}
@@ -363,7 +367,51 @@
 		if (!IsNameValid(folder_path)) {
 			return Failed("Please review the folder name\nIt's either empty or contains invalid characters:\n* \" / \\ < > : | ?")
 		}
-		Done("ok")
+		if (await FileExists(full_path) != '') {
+			return Failed("Profile:\n<i>" + profile_name + "</i>\nalready exists. Try a different name")	
+		}
+		let d3d = api === "dx6" ? "1" : api.replaceAll("dx", "");
+		help    = api === "dx6" ? "ddraw" : api;
+		cfg=`Target=${exe_path}
+D3D=${d3d}
+Help=${help}
+path=${folder_path}
+		
+[Textswap]
+e=False
+sw=End
+n=>
+p=<
+d=Home
+q=Shift
+sz=256
+s=4
+path=Textures\VOKSI		
+
+[J2K]
+mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+a=,,,,,,,,,,,,,,,,,,,
+b=,,,,,,,,,,,,,,,,,,,
+x=,,,,,,,,,,,,,,,,,,,
+y=,,,,,,,,,,,,,,,,,,,
+rs=False
+u=false
+FF=False
+
+[k2k]
+r0e=false
+r1e=false
+s0e=false
+s1e=false
+s2e=false
+s3e=false
+s4e=false
+s5e=false
+t0e=false`
+		SaveFile("Profiles\\" + profile_name + ".ini", cfg)
+		Done("Profile\n<i>" + profile_name + "</i>\nhas been created", () => {
+			window.location.href = "/"
+		})		
 	}
 	async function FindGame() {
 		document.getElementById("game-path").value = await(await fetch("/FindGame", FetchOPtions())).text()	

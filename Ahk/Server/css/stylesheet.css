@@ -44,6 +44,8 @@ html {
     margin-top     : 0px!important ;
     margin-bottom  : 0px!important ;   
     color: inherit!important;
+    text-align     : left !important;
+    padding-left   : 6px!important;
 }
 
 .nav-item-container:hover{
