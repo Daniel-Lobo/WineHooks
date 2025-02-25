@@ -3,9 +3,22 @@
 		return await (await fetch('/GetVal?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text();
 	}
 
+	async function LaunchCE(game) {
+		fetch('/LaunchCE?IniFileName=' + game, FetchOPtions());
+	}
+
+	function SelectTab(tab){
+		for (let child of document.getElementById("tabs-divs").children) {
+			child.classList     = "tab-pane fade";	
+			child.style.display = "none";
+		}
+		document.getElementById(tab.id.replace("-tab", "_div")).classList     = "tab-pane fade show active";
+		document.getElementById(tab.id.replace("-tab", "_div")).style.display = "flex";
+	}
+
 	async function RenderGamePage(_this) {
 		let GameName     = _this.innerText;
-		document.getElementById("game-page").innerHTML = /*html*/ `<div class="cntrl_group"></div>`
+		document.getElementById("game-page").innerHTML = /*html*/ `<div class="cntrl_group" style="gap:10px"></div>`
 		let parent       = document.getElementById("game-page").children[0];
 		let help		 = await (await fetch('/GameHelp?Game=' + GameName, FetchOPtions())).text();
 		tokens           = help.split("::");
@@ -18,18 +31,41 @@
 				title     = title.toLowerCase().trim() === 'user' ? GameName : title
 				let wiki  = await IniGet(GameName, 'wiki', '')
 				wiki      = wiki === '' ? '' : /*html*/` 
-				<button class="button btn btn-light" style="width:150px;border:1px solid #000066"> 
+				<button class="button btn btn-light" style="width:150px;border:1px solid #000066" onclick="window.open('${wiki}', '_blank')"> 
 					<img style="fill:white" src="PCGamingWiki_wide.svg"><img>
 				</button> ` 
 				let table = await GetCheatTablePath(GameName)
 				table     = table === '' ? '' : /*html*/` 
-				<button class="button btn btn-light" style="width:120px;border:1px solid #000066"> 
+				<button class="button btn btn-light" style="width:120px;border:1px solid #000066"
+					onclick="document.getElementById('CE::Div').style.display = 'flex'"> 
 					<img style="margin-top:-4px;margin-right:10px" src="Cheats_small.png"><img>Cheats
-				</button> `
-				console.log(table)
+				</button>`
+				let cediv = table === '' ? '' : /*html*/`
+				<div id="CE::Div" class="alert alert-warning" style="z-index:1;position:absolute;display:none;flex-direction:column;top:60px">
+					<p class="h3"><b>Using cheats</b><p>
+					<ul> 
+						<li>Install <a id="cheat" onclick="PostActionB(this)" href="javascript:dummy()">cheat engine (64bit)</a> if you don\'t already have it
+						<li> Start <a id="cheat" onclick="PostActionB(this)" href="javascript:dummy()">cheat engine (64bit)</a> using the button bellow and the appropriate table will beloaded
+						<li> If you have already stated the game once with WineHooks, cheat engine will attatch itself to the game, and close itself when you exit the game                                                                                                                 	
+						<li> Configure cheat engine to aways exectute lua scripts:<br>                                                                                         
+						edit &#x2192 settings &#x2192 general settings &#x2192 when a table has a lua script, execute it &#x2192 <b>ALWAYS</b>                                	
+						<li> All tables use an Autohotkey plugin, so if you modify or start them directly with cheat engine, they might not work properly                      
+						<li> If a cheat doesn\'t work because you have a different version of the game, click table extras on cheat engine                               
+						exception made for very old games, I leave comments there which sould help you adapt the table
+					</ul>                                                    
+					<div style="display:flex;flex-direction:row-reverse;gap:10px">
+						<button class="btn btn-light" style="border: 1px solid #000066" onclick="LaunchCE('${GameName.replaceAll('\'', '%27')}')">
+							<img style="height:30px" src="ce.svg">
+						</button>
+						<button class="btn btn-danger"
+							onclick="document.getElementById('CE::Div').style.display = 'none'">Close
+						</button>
+					</div>
+				</div>
+				` 
 				parent.insertAdjacentHTML('beforeend', /*html*/`
 					<p class="h1">${title}</p>
-					<div style="display:flex;flex-direction:row;gap:10px;margin-top:10px">
+					<div style="display:flex;flex-direction:row;gap:10px;margin-top:10px;margin-bottom:20px;position:relative">
 						<button class="button btn btn-secondary" style="width:100px">
 							<i class="fa-solid fa-circle-play fa-2xl"></i>
 							Play
@@ -40,8 +76,58 @@
 						</button>
 						${wiki}
 						${table}
+						${cediv}
 					</div>
 				`)		
+			} else if (sec === 'parent') {
+				parent = document.getElementById(tokens.at(i + 1).toLowerCase().trim())
+			}else if (sec === 'tab') {
+				let tbs  = tokens.at(i + 1).toLowerCase().trim().split("|")
+				let tabs = tbs.map(t => 
+				t.replace("graphics", "&#128250;")
+				.replace("sound", "&#127911;")
+				.replace("input", "&#128377;")
+				.replace("file system", "&#128193;")
+				.replace("cpu", "MISC"))
+				let html  = /*html*/`<ul class="nav nav-tabs" id="tabs-buttons" style="display:inline" role="tablist">`
+				for (const [index, tab] of tabs.entries()) {
+					let active = index === 0 ? "active" : ""
+					html += /*html*/`
+					<li class="nav-item" role="presentation" style="display:inline">
+    					<button class="nav-link ${active}" id="${tbs[index]}-tab" style="display:inline"
+						data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" 
+						aria-controls="profile" aria-selected="false" onclick="SelectTab(this)">${tab}</button>
+  					</li>
+					`
+				} 
+				html +=  /*html*/`</ul><div class="tab-content" id="tabs-divs">`
+				for (const [index, tab] of tabs.entries()) {
+					let active = index === 0 ? "show active" : ""
+					html += /*html*/`
+					<div class="tab-pane fade ${active}" id="${tbs[index]}_div" role="tabpanel" style="display:flex;flex-direction:column"
+						aria-labelledby="${tbs[index]}-tab" tabindex="${index}">
+					</div>`
+				}
+				html +=  /*html*/`</div>`
+				parent.insertAdjacentHTML("beforeend", html)
+			} else if (sec.endsWith("tab")) {
+				let id = sec.replace("tab", "_div")
+				console.log(id)
+				parent = document.getElementById(id)
+				console.log(parent)
+			} else if (sec === 'bool') {
+				let id = tokens.at(i + 1).toLowerCase().trim()
+				parent.insertAdjacentHTML("beforeend", /*html*/`
+				<div style="display:flex;flex-direction:column;gap:0px">
+					<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
+						<input type="checkbox" id="${id}" class="form-check-input">
+						<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}">${tokens.at(i + 2)}</label>					
+					</div>
+					<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}"
+						style="margin-left:26px">${tokens.at(i + 3)}
+					</label>
+					<div style="margin-left:26px;margin-top:10px; display:flex;flex-direction:column;gap:10px" id="${id}_details"></div>
+				</div>`)	
 			}
 		}
 	}

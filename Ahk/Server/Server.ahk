@@ -228,7 +228,9 @@ Image(socket, path){
     ext := SubStr(file, -2)
     if (ext = "svg")
         ext .= "+xml"
-    ;print(file)
+    else if (ext = "ico")
+        ext .= "x-icon"
+    print(file)
     file   := FileOpen(file, "r")    
     header := "HTTP/1.1 200 OK`r`nContent-Type: image/" . ext . "`r`nContent-Length: " . file.Length() . "`r`n`r`n"
     file.RawRead(bin:=0, file.Length())    
@@ -275,7 +277,7 @@ HomeRoute(){
 }
 
 GetHandler(socket, p, a){    
-    ;print("GetHandler: " strGet(p+0, ,"CP0"))
+    print("GetHandler: " strGet(p+0, ,"CP0"))
     path := S(StrGet(p+0, ,"CP0"))       
     ext  := SubStr(path.__str, -3, 4)
     if InStr(".png .jpg .ico .svg", ext)
@@ -359,12 +361,15 @@ GetGitProfilesList(){
     whr.Send()
     whr.WaitForResponse()
     scripts   := whr.ResponseText . ""
-    print(profiles " " help " " tables " " scripts)
+    ;print(profiles " " help " " tables " " scripts)
     return JSONReply("{""Profiles"" : " . profiles . ", ""Help"" : " . help . ", ""CheatTables"" : " . tables . ", ""Scripts"" : " . scripts . "}")    	
 }
 
 SaveFile(file_name, contents){	
 	try {
+        print(file_name)
+        if (file_name="help\directdraw.txt")
+            print(contents)
 		FileOpen(g_.BasePath . file_name, "w").write(contents)
         ;print("saved " . file_name)
         ;print(contents)
@@ -442,6 +447,14 @@ GetVal(ini_file_name, key, section){
     return new IniFile(g_.Profiles . ini_file_name . ".ini").Get(key, section)
 }
 
+LaunchCE(IniFileName){
+    cfg    := new IniFile(g_.Profiles . IniFileName . ".ini")
+    target := cfg.Get("Target")    
+	table  := StrReplace(GetCheatTablePath(IniFileName), "\", "\\")
+	SplitPath, target, exe		
+	run ..\injector.exe "Cheat Engine.ahk" "%table%" "%exe%"
+}
+
 PostHandler(socket, p, a, b){
     ;print("Post")
     path  := S(StrGet(p+0, ,"CP0"))  
@@ -479,12 +492,17 @@ PostHandler(socket, p, a, b){
         reply := PlainReply(FindGame())
     }
     else if (path.__str = "/FileExist"){
-        print(body)
+        ;print(body)
         reply := PlainReply(FileExist(body))
-    } else if (path.__str = "/GameHelp"){
+    } 
+    else if (path.__str = "/GameHelp"){
         reply := PlainReply(ProcessHelpDocument(GetGameHelp(args.Game)))
-    } else if (path.__str = "/GetVal"){
+    } 
+    else if (path.__str = "/GetVal"){
         reply := PlainReply(GetVal(args.Game, args.Key, args.Section))
+    }
+    else if (path.__str = "/LaunchCE"){
+        LaunchCE(args.IniFileName)
     }
     DllCall(g_.p_send, uint, socket, astr, reply, uint, strlen(reply), uint, 0, uint) 
 }

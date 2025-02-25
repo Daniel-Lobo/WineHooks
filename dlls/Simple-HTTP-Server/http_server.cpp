@@ -113,7 +113,7 @@ std::string ParseArgs(std::unordered_map<std::string, std::string>& queryParams)
     return args;
 }
 
-std::string GetPostBody(std::vector<std::string> lines, char buffer[4096]){
+std::string GetPostBody(std::vector<std::string> lines, char buffer[20480]){
     int content_length = 0;
     for (const auto& line : lines) {
         std::string lower_line = toLower(line); // force to lower case to ensure no case sensitive issues
@@ -151,7 +151,7 @@ void Server::_listen(){
         }        
 
         // Read the HTTP request from the client.
-        char buffer[4096] = {0};
+        char buffer[20480] = {0};
         int bytes_received = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
         if (bytes_received < 0) {
             Error("Receive failed.");
