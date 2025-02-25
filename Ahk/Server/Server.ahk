@@ -132,9 +132,10 @@ class IniString Extends IniFile {
 }
 
 global g_ = {"p_send" : 0, "games_list" : []
-,"BasePath"   : A_mydocuments "\WineHooks\"
-,"HelpPath"   : A_mydocuments "\WineHooks\Help\"
-,"Profiles"   : A_mydocuments "\WineHooks\Profiles\"} 
+,"BasePath"        : A_mydocuments "\WineHooks\"
+,"HelpPath"        : A_mydocuments "\WineHooks\Help\"
+,"CheatTablesPath" : A_mydocuments "\WineHooks\CheatTables\"
+,"Profiles"        : A_mydocuments "\WineHooks\Profiles\"} 
 
 g_.Links :=  {"Donate"   : "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E68RE3UWG2ZEU&lc=US&"
     . "item_name=Peixoto&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted"
@@ -206,6 +207,7 @@ PlainReply(txt){
 
 GetArgs(args){
     args := StrReplace(StrGet(args+0, ,"CP0"), "%20", " ")
+    args := StrReplace(args, "%27", "'")
     ;print("args " args)
     ret  := {}
     for _, arg in StrSplit(args, "&")
@@ -223,7 +225,9 @@ GetArgs(args){
 
 Image(socket, path){
     file:= "img" . path
-    ext := SubStr(file, -3)
+    ext := SubStr(file, -2)
+    if (ext = "svg")
+        ext .= "+xml"
     ;print(file)
     file   := FileOpen(file, "r")    
     header := "HTTP/1.1 200 OK`r`nContent-Type: image/" . ext . "`r`nContent-Length: " . file.Length() . "`r`n`r`n"
@@ -244,6 +248,7 @@ CSS(socket, path){
 RootRoute(){
     home_html         := StrReplace(LoadFile("base"), "{home}", LoadFile("home"))
     home_html         := StrReplace(home_html, "{config-ini}", LoadFile("config-ini"))
+    home_html         := StrReplace(home_html, "{game-page-renderer}", LoadFile("game-page-renderer"))
     games_list_loader := LoadFile("games-list-loader")
     return StrReplace(home_html, "{games-list}", games_list_loader)
 }
@@ -253,12 +258,13 @@ HomeRoute(){
     BuidGamesList()    
     home_html           := StrReplace(LoadFile("base"), "{home}", LoadFile("home"))
     home_html           := StrReplace(home_html, "{config-ini}", LoadFile("config-ini"))
+    home_html           := StrReplace(home_html, "{game-page-renderer}", LoadFile("game-page-renderer"))
     games_list_template := LoadFile("games-list")
     games_list          := ""
     for _, game in g_.games_list {
         html = 
         (LTRIM
-            <button type="button" class="btn btn-light nav-item-container" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="%game%">
+            <button type="button"  onclick="RenderGamePage(this);" class="btn btn-light nav-item-container" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="%game%">
 				<span class='nav-item nav-item-container'>  %game% </span>
 			</button>   
         )        
@@ -272,7 +278,7 @@ GetHandler(socket, p, a){
     ;print("GetHandler: " strGet(p+0, ,"CP0"))
     path := S(StrGet(p+0, ,"CP0"))       
     ext  := SubStr(path.__str, -3, 4)
-    if InStr(".png .jpg .ico", ext)
+    if InStr(".png .jpg .ico .svg", ext)
     return Image(socket, path.__str)
     else if (ext = ".css")
     return CSS(socket, path.__str)    
@@ -315,6 +321,13 @@ GetCheatTableName(name){
 		name := StrReplace(name, " - " vv, "")	
 	}
 	return trim(StrReplace(name, ".ini", ".ct"))
+}
+
+GetCheatTablePath(name){		
+	for kk, vv in StrSplit("OpenGl D3D7 D3D8 D3D9 D3D10 D3D11 D3D12 GOG DirectDraw DX6 Software Hardware", " ")
+	name := StrReplace(name, " - " vv, "")	
+	path := g_.CheatTablesPath name ".ct"	
+	return fileexist(path) ? path : ""	
 }
 
 GetScriptFileName(cfg){	
@@ -367,6 +380,68 @@ FindGame(){
 	Return newtarget
 }
 
+ReadFile(path){
+    ; 4:= read and replace \n\r with \n
+    return FileOpen(path, 4).read()
+}
+
+ProcessHelpDocument(txt, wip=False) {
+    if (InStr(txt, "::Title::")) {
+        txt := "::Title::" . StrSplit(txt, "::Title::")[2]
+    }
+	for k, v in {"DX9SSAA" : "DX9", "DX8HDSA" : "DX8", "glSSAA" : "gl", "DX11FSR" : "DX11", "DX12FSR" : "DX12"
+			,"DX11CE"  : "DX11", "DX9CE"  : "DX9"} 
+	{
+		if (txt = k)	
+		{		
+			txt := "::Title::user::{h1 Fixes and improvements}`n" 
+			if (instr(k, "SSAA") && (instr(k, "9") || instr(k, "8") || instr(k, "gl")))
+			{
+				txt .= "{i [gototab_graphics_HD Forced resolution], while not absolutely necessary"
+				. "  on this game, allows a<gototab_graphics_SSAA -- super sampling anti aliasing>a}"
+			}
+			if (instr(k, "HDSA") && (instr(k, "9") || instr(k, "8") || instr(k, "gl")))
+			{
+				txt .= "{i [gototab_graphics_HD Forced resolution] allows hight resolution " 
+				. "without shrinking the HUD\menus and [gototab_...graphics_SSAA super "
+				. " sampling anti aliasing]}"  
+			}
+			if (instr(k, "CE"))
+			{
+				txt .= "{ce [show_ce_div Cheats]}" 
+			}
+			if (instr(k, "FSR"))
+			{
+				txt .= "{i [gototab_graphics_HD FidelityFx super resolution] upscaling}" 
+			}
+			txt  .= "%" v "%"								
+		}
+	}	
+	
+	for k, v in ["ddraw", "directdraw", "gl", "DX8", "DX9", "DX10","DX11", "DX12", "CPU", "Sound", "Input"]  
+	{
+		if instr(txt, "%" v "%")
+		{
+			dx  := ReadFile(g_.HelpPath v ".txt")
+			dx  := StrReplace(dx, "::Title::user", "")
+			txt := StrReplace(txt, "%" v "%", dx)					
+		}
+	}	
+    return txt
+}
+
+GetGameHelp(ini_file_name){
+    cfg  := new IniFile(g_.Profiles . ini_file_name . ".ini")
+    path := trim(cfg.Get("help"))
+    path := FileExist(g_.HelpPath path ".txt") ? g_.HelpPath path ".txt" : g_.Profiles "\" path
+    path := StrReplace(path, "user\", "")	
+    return FileExist(path) ? ReadFile(path) : trim(cfg.Get("help"))
+}
+
+GetVal(ini_file_name, key, section){
+    return new IniFile(g_.Profiles . ini_file_name . ".ini").Get(key, section)
+}
+
 PostHandler(socket, p, a, b){
     ;print("Post")
     path  := S(StrGet(p+0, ,"CP0"))  
@@ -388,6 +463,9 @@ PostHandler(socket, p, a, b){
     else if (path.__str = "/GetCheatTableName"){
         reply := PlainReply(GetCheatTableName(args.IniFileName))
     }
+    else if (path.__str = "/GetCheatTablePath"){
+        reply := PlainReply(GetCheatTablePath(args.IniFileName))        
+    }
     else if (path.__str = "/GetScriptFileName"){
         reply := PlainReply(GetScriptFileName(body))
     }
@@ -403,6 +481,10 @@ PostHandler(socket, p, a, b){
     else if (path.__str = "/FileExist"){
         print(body)
         reply := PlainReply(FileExist(body))
+    } else if (path.__str = "/GameHelp"){
+        reply := PlainReply(ProcessHelpDocument(GetGameHelp(args.Game)))
+    } else if (path.__str = "/GetVal"){
+        reply := PlainReply(GetVal(args.Game, args.Key, args.Section))
     }
     DllCall(g_.p_send, uint, socket, astr, reply, uint, strlen(reply), uint, 0, uint) 
 }

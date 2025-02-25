@@ -125,7 +125,7 @@ html {
 }
 
 .dialog-container {
-    position        : absolute;
+    position        : absolute!important;
     left            : 0;
     right           : 0;
     margin          : auto;
@@ -138,8 +138,7 @@ html {
 }
 
 .dialog {
-    margin          : auto;
-    background-color: white;
+    margin          : auto!important;
     display         : flex;
     flex-direction  : column;
     border-radius : 10px;

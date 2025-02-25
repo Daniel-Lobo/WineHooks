@@ -1,0 +1,48 @@
+<script>
+	async function IniGet(game, key, section){
+		return await (await fetch('/GetVal?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text();
+	}
+
+	async function RenderGamePage(_this) {
+		let GameName     = _this.innerText;
+		document.getElementById("game-page").innerHTML = /*html*/ `<div class="cntrl_group"></div>`
+		let parent       = document.getElementById("game-page").children[0];
+		let help		 = await (await fetch('/GameHelp?Game=' + GameName, FetchOPtions())).text();
+		tokens           = help.split("::");
+		console.log(help);
+
+		for (let [i, token] of tokens.entries()) {
+			let sec = token.toLowerCase().trim();
+			if (sec === 'title') {
+				let title = tokens.at(i + 1)
+				title     = title.toLowerCase().trim() === 'user' ? GameName : title
+				let wiki  = await IniGet(GameName, 'wiki', '')
+				wiki      = wiki === '' ? '' : /*html*/` 
+				<button class="button btn btn-light" style="width:150px;border:1px solid #000066"> 
+					<img style="fill:white" src="PCGamingWiki_wide.svg"><img>
+				</button> ` 
+				let table = await GetCheatTablePath(GameName)
+				table     = table === '' ? '' : /*html*/` 
+				<button class="button btn btn-light" style="width:120px;border:1px solid #000066"> 
+					<img style="margin-top:-4px;margin-right:10px" src="Cheats_small.png"><img>Cheats
+				</button> `
+				console.log(table)
+				parent.insertAdjacentHTML('beforeend', /*html*/`
+					<p class="h1">${title}</p>
+					<div style="display:flex;flex-direction:row;gap:10px;margin-top:10px">
+						<button class="button btn btn-secondary" style="width:100px">
+							<i class="fa-solid fa-circle-play fa-2xl"></i>
+							Play
+						</button>	
+						<button class="button btn btn-secondary" style="width:200px">
+							<i class="fa-solid fa-share fa-2xl"></i>
+							Create shortcut
+						</button>
+						${wiki}
+						${table}
+					</div>
+				`)		
+			}
+		}
+	}
+</script>	

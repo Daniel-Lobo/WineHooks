@@ -16,6 +16,7 @@
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
 	{config-ini}
+	{game-page-renderer}
 	<script>
 		async function Fetch(url, options) {
 			try {
@@ -98,6 +99,9 @@
 				name = name.replace(" - " + sufix, "")
 			}
 			return name.replace(".ini", ".ct").trim()
+		}
+		async function GetCheatTablePath(name) {
+			return await (await fetch(`/GetCheatTablePath?IniFileName=${name}`, FetchOPtions())).text();
 		}
 		function GetScriptFileName(cfg) {
 			let script = ParseIni(cfg).get(null, "script", "");

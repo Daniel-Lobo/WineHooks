@@ -20,7 +20,7 @@
 			let list_item        = document.createElement("Button");			
 			container.appendChild(list_item);	
 			list_item.outerHTML  = 
-			`<button type="button" class="btn btn-light nav-item-container" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${game}">
+			`<button onclick="RenderGamePage(this);" type="button" class="btn btn-light nav-item-container" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${game}">
 				<span class='nav-item nav-item-container'>  ${game} </span>
 			</button>
 			`		
