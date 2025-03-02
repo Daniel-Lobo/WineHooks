@@ -474,6 +474,10 @@ GetVal(ini_file_name, key, section){
     return new IniFile(g_.Profiles . ini_file_name . ".ini").Get(key, section)
 }
 
+SetValue(ini_file_name, key, val, section){
+	return new IniFile(g_.Profiles . ini_file_name . ".ini").Edit(key, val, section).Save()
+}
+
 IsTrue(ini_file_name, key, section){
     return new IniFile(g_.Profiles . ini_file_name . ".ini").IsTrue(key, section) = true ? "true" : "false"
 }
@@ -705,6 +709,9 @@ PostHandler(socket, p, a, b){
     else if (path.__str = "/IsTrue"){
         reply := PlainReply(IsTrue(args.Game, args.Key, args.Section))
     }
+	else if (path.__str = "/SetVal"){
+		SetValue(args.Game, args.Key, args.Val, args.Section)
+	}
     else if (path.__str = "/ParseText"){
         reply := PlainReply(ParseText(body))
     }

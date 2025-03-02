@@ -191,7 +191,7 @@
 				let xmlHttp    = new XMLHttpRequest();
 				xmlHttp.onload = onreadystatechange = function () {
 					if (this.readyState == 4 && this.status == 200) {
-						SaveFile("Help\\" + nfo.name, this.responseText);
+						SaveFile("CheatTables\\" + nfo.name, this.responseText);
 					}
 				};
 				xmlHttp.open("GET", nfo.download_url, false); // false for synchronous request

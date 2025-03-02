@@ -3,6 +3,10 @@
 		return await (await fetch('/GetVal?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text();
 	}
 
+	function IniSet(game, key, val, section){
+		fetch('/SetVal?Game=' + game + '&Key=' + key + '&Val=' + val + '&Section=' + section, FetchOPtions());
+	}
+
 	async function IniIsTrue(game, key, section){
 		reply = await (await fetch('/IsTrue?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text();
 		return reply === 'true' ? true : false;	
@@ -19,16 +23,14 @@
 		//console.log(text, reply)
 		return reply;
 	}
-
-	function GetFields(key_sec){
-		let split = key_sec.toLowerCase().trim().split(".");
-		if (split.length === 1) {
-			return {'Key': split[0], 'Section': ''}
-		} else {
-			return {'Key': split[1], 'Section': split[0]}
-		}
-	}
 	
+	function SetResLimitWidgetLabel(_id) {
+		let slider = document.getElementById(_id);
+		let label  = document.getElementById(_id + "_label");
+		label.innerHTML = ["No limit", "640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900"
+		,"1920x1080", "2560x1440", "3840x2160"][slider.value];
+	}	
+
 	async function AppendLink(link) {
 		try {
 			let lnk = link.split("->");
@@ -68,23 +70,33 @@
 		document.getElementById(tab.id.replace("-tab", "_div")).style.display = "flex";
 	}
 
-	function SetThreeState(element, state){
+	function SetThreeState(element, state, game) {
 		if (element.tagName.toLowerCase() === "input" && element.hasAttribute("type")) {
 			//element.disabled = state === true ? false : true;
 			if (element.type.toLowerCase() === "checkbox") {
 				let parent = document.getElementById(element.dataset.parent);
 				if (parent != null) {
 					element.disabled = GetDisabled(parent);
-					if (element.disabled === true) element.checked = false;
+					if (element.disabled === true) {
+						element.checked = false;
+						let [key, section] = element.id.includes(".") ? element.id.split(".") : [element.id, ''];
+						IniSet(game, key, element.checked ? "true" : "false", section);
+					}
 				}				
 			}
 			else if (element.type.toLowerCase() === "radio") {
 				let parent = document.getElementById(element.dataset.parent);
-				console.log(parent.id);
+				//console.log(parent.id);
 				if (parent != null) {
 					element.disabled = GetDisabled(parent, element.name);
-					console.log(element.disabled, element.value);
-					if (element.disabled === true) element.checked = element.value === '0' ? true : false;
+					//console.log(element.disabled, element.value);
+					if (element.disabled === true) {
+						element.checked = element.value === '0' ? true : false;
+						if (element.value === '0') {
+							let [key, section] = element.name.includes(".") ? element.name.split(".") : [element.name, ''];
+							IniSet(game, key, element.value, section);							
+						}
+					}
 				}
 			}
 		}
@@ -93,15 +105,20 @@
 		}
 	}
 
-	function CheckboxChanged(_this){
+	function CheckboxChanged(game, _this){
 		let children_container = document.getElementById(_this.id + "_details");
-		SetThreeState(children_container, _this.checked);
+		SetThreeState(children_container, _this.checked, game);
+		let [key, section] = _this.id.includes(".") ? _this.id.split(".") : [_this.id, ''];
+		console.log(key, section, _this.checked);
+		IniSet(game, key, _this.checked ? "true" : "false", section);
 	}
 	
-	function RadioChanged(_this){
+	function RadioChanged(game, _this){
 		let children_container = document.getElementById(_this.name + "_details");
 		let state              = _this.value === '0' ? true : false
 		SetThreeState(children_container, _this.checked);
+		let [key, section]     = _this.name.includes(".") ? _this.name.split(".") : [_this.name, ''];
+		IniSet(game, key, _this.value, section);
 	}
 
 	async function RenderGamePage(_this) {
@@ -174,7 +191,14 @@
 					${await ParseText(tokens.at(i + 2))}
 				`)		
 			} else if (sec === 'parent') {
-				parent = document.getElementById(tokens.at(i + 1).toLowerCase().trim())
+				let new_parent_id = tokens.at(i + 1).toLowerCase().trim()
+				if (new_parent_id.startsWith("pxswap") || new_parent_id.startsWith("textswap")) {
+					parent = null;
+				}
+				if (document.getElementById(new_parent_id) === null) {
+					continue
+				}
+				parent = document.getElementById(new_parent_id)
 				if (parent === null) {
 					console.error(`parent ${tokens.at(i + 1)} not found`)
 				}
@@ -230,7 +254,7 @@
 				<div style="display:flex;flex-direction:column;gap:0px">
 					<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
 						<input type="checkbox" id="${id}" class="form-check-input" ${checked} ${disabled} data-parent="${parent.id}"
-						style="margin-top:2px" onchange="CheckboxChanged(this)">
+						style="margin-top:2px" onchange="CheckboxChanged('${GameName}', this)">
 						<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}">${label}</label>					
 					</div>
 					<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}"
@@ -261,12 +285,29 @@
 				parent.insertAdjacentHTML("beforeend", /*html*/`
 				<div style="display:flex;flex-direction:row;gap:10px;align-items:left;margin-left:-26px">
 					<input type="radio" name="${name}" value="${value}" id="${name}=${value}" class="form-check-input" 
-					style="margin-top:2px" ${checked} ${disabled} data-parent="${parent_id}" onchange="RadioChanged(this)">
+					style="margin-top:2px" ${checked} ${disabled} data-parent="${parent_id}" onchange="RadioChanged('${GameName}', this)">
 					<label class="form-check-label" for="${name}=${value}">${tokens.at(i + 3)}</label>					
 				</div>`)
 			} else if (sec === "link"){
 				AppendLink(tokens.at(i + 1))
-			}
+			} else if (sec === "text") {
+				parent.insertAdjacentHTML("beforeend", await ParseText(tokens.at(i + 1)))
+			} else if (sec === "_rlmt_") {
+				let _id     = tokens.at(i + 1).toLowerCase().trim()
+				let head    = tokens.at(i + 2)
+				let index   = parseInt(await IniGet(GameName, 'rlmt', ''))
+				let val     = ["No limit", "640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900"
+				,"1920x1080", "2560x1440", "3840x2160"][index];           
+				let html = /*html*/`
+					<label style='margin-left:7px;margin-bottom:0px'>&bull; &ensp;${head}</label>
+						<div style='display:flex;flex-direction:row;margin-left:26px;margin-bottom:0px;margin-top:0px'>
+							<input class='slider' onchange='SetResLimitWidgetLabel("${_id}")' 
+								type='range' min='0' max='10' step='1' id='${_id}' value='${index}'>
+							<label style='margin-left:6px;margin-top:0px' id='${_id}_label'>${val}</label>                     
+						</div>
+					<div style='margin-left:24px;margin-top:0px'></div>`
+				parent.insertAdjacentHTML("beforeend", html)	
+				}
 		} catch (error) {
 			console.log(error)
 		}}
