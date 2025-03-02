@@ -8,6 +8,33 @@ print(msg){
     FileOpen("*", "w").write(msg "`n")
 }
 
+GetCommonPath( csidl )
+{
+	CSIDL_APPDATA = 0x001A               ; Application Data, new for NT4
+	CSIDL_COMMON_APPDATA = 0x0023        ; All Users\Application Data
+	CSIDL_COMMON_DOCUMENTS = 0x002e      ; All Users\Documents
+	CSIDL_DESKTOP = 0x0010               ; C:\Documents and Settings\username\Desktop
+	CSIDL_FONTS = 0x0014                 ; C:\Windows\Fonts
+	CSIDL_LOCAL_APPDATA = 0x001C         ; non roaming, user\Local Settings\Application Data
+	CSIDL_MYMUSIC = 0x000d               ; "My Music" folder
+	CSIDL_MYPICTURES = 0x0027            ; My Pictures, new for Win2K
+	CSIDL_PERSONAL = 0x0005              ; My Documents
+	CSIDL_PROGRAM_FILES_COMMON = 0x002b  ; C:\Program Files\Common
+	CSIDL_PROGRAM_FILES = 0x0026         ; C:\Program Files
+	CSIDL_PROGRAMS = 0x0002              ; C:\Documents and Settings\username\Start Menu\Programs
+	CSIDL_RESOURCES = 0x0038             ; %windir%\Resources\, For theme and other windows resources.
+	CSIDL_STARTMENU = 0x000b             ; C:\Documents and Settings\username\Start Menu
+	CSIDL_STARTUP = 0x0007               ; C:\Documents and Settings\username\Start Menu\Programs\Startup.
+	CSIDL_SYSTEM = 0x0025                ; GetSystemDirectory()
+	CSIDL_WINDOWS = 0x0024               ; GetWindowsDirectory()
+	
+	val = % CSIDL_%csidl%
+	SHGetFolderPath := A_IsUnicode ? "shell32\SHGetFolderPath" : "shell32\SHGetFolderPathA"
+	VarSetCapacity(fpath, A_IsUnicode ? 260 * 2 : 260)
+	DllCall(SHGetFolderPath, uint, 0, int, val, uint, 0, int, 0, str, fpath)
+	return %fpath%
+}
+
 class IniFile {
     __new(path){
 		this.__path  := path
@@ -447,12 +474,186 @@ GetVal(ini_file_name, key, section){
     return new IniFile(g_.Profiles . ini_file_name . ".ini").Get(key, section)
 }
 
+IsTrue(ini_file_name, key, section){
+    return new IniFile(g_.Profiles . ini_file_name . ".ini").IsTrue(key, section) = true ? "true" : "false"
+}
+
+ParseText(txt){
+    _MCI =
+	(LTRIM
+	To get the CD music working properly, check the a|gototab_sound_WNMM.MCI ^ MCI emulation |a option on the 
+	a|gototab_sound_WNMM.MCI ^ sound tab |a
+	)
+	autodmp =
+	(
+	{b <b>Dumping textures</b>  <br> <br>	
+
+	Manual dumps are impratical for dumping several textures for obvios reazons, plus the fact that there is no check 
+	if a texture was already dumped and so one can be dumped many times over <br>	
+	Auto dumping in the other hand, never dumps the same texture twice, but for other reazons is still impratical 
+	in several games <br>	
+	In future versions, a feature to dump all currently loaded texures with a check for duplicates will be added to 
+	complement the two curent options}
+	)
+	autodmp := StrReplace(autodmp, "`n")
+	stringreplace, txt, txt, `%_MCI`%, %_MCI%
+	txt := StrReplace(txt, "%Xinput%", " Better compatibility with Xinput gamepads, see a|gototab_input_j2k.u ^ this|a")
+	txt := StrReplace(txt, "%EAX%", " Restores 3D audio and EAX, see a|gototab_sound_Dsnd.e ^ this|a")
+	txt := StrReplace(txt, "`r", "")
+	txt := StrReplace(txt, "`n", " ")	
+	txt := StrReplace(txt, "\", "&#92;")	
+	;txt := StrReplace(txt, "'", "&#96;")
+	txt := StrReplace(txt, "||n", "<br><br>")	
+	txt := StrReplace(txt, "|n", "<br>")	
+	txt := StrReplace(txt, "i|", "<i>")
+	txt := StrReplace(txt, "|i", "</i>")
+	txt := StrReplace(txt, "b|", "<b>")
+	txt := StrReplace(txt, "|b", "</b>")
+	txt := StrReplace(txt, ">>n", "<br><br>")	
+	txt := StrReplace(txt, ">n", "<br>")		
+	;txt := StrReplace(txt, "cc<", "<font color='" g_.color_c "'><b>")
+	txt := StrReplace(txt, ">cc", "</b></font>")
+	;txt := StrReplace(txt, "c<", "<font color='" g_.color_c "'>")
+	txt := StrReplace(txt, ">c", "</font>")
+	txt := StrReplace(txt, "a|", "<a id='")
+	txt := StrReplace(txt, " ^ ", "' href='javascript:dummy()' onclick='PostActionB(this)'>")
+	txt := StrReplace(txt, "|a", "</a>")	
+	txt := StrReplace(txt, "l|", "<li>")	
+	txt := StrReplace(txt, "<ul>", "<ul style='margin-top:0px;margin-bottom:0px;'>")
+	;txt := StrReplace(txt, "%__path__%", this.__path__)
+	
+	;p := A_mydocuments "\games\" new ini(this.cfg_file).read("path") 
+	txt := StrReplace(txt, "<td>", "<td style='vertical-align: top; padding-right: 20px'>")
+	txt := RegExReplace(txt, "i<([^>.]*)>i", "<i>$1</i>")	
+	txt := RegExReplace(txt, "b<([^>.]*)>b", "<b>$1</b>")	
+	txt := RegExReplace(txt, "t<([^>.]*)>t", "<table>$1</table>")				
+	txt := RegExReplace(txt, "a<([^>.]*)--([^>.]*)>a", "<a id='$1' href='javascript:dummy()' onclick='PostActionB(this)'>$2</a>")
+	StringReplace, txt, txt, `", `',1
+	stringreplace, txt, txt, `%ModsLink`%, <a id='gototab_File System_modstuto' href='javascript:dummy()'>Mods manager</a>
+	stringreplace, txt, txt, `%TexturesB`%, <a id='gototab_graphics..._Textswap.e' href='javascript:dummy()'>Texture swapping</a>
+	stringreplace, txt, txt, `%Textures`%, <a id='gototab_graphics..._Textswap.e' href='javascript:dummy()'>Texture swapping</a>
+	stringreplace, txt, txt, `%TexturesC`%, <a id='gototab_graphics_Textswap.e' href='javascript:dummy()'>Texture swapping</a>
+	stringreplace, txt, txt, `%FOLDERID_LocalAppData`%, % GetCommonPath("LOCAL_APPDATA"), All
+	stringreplace, txt, txt, `%FOLDERID_RoamingAppData`%, % GetCommonPath("APPDATA"), All
+	stringreplace, txt, txt, `%FOLDERID_ProgramData`%, % GetCommonPath("COMMON_APPDATA"), All
+	stringreplace, txt, txt, `%FOLDERID_Documents`%, % A_mydocuments, All	
+	;stringreplace, txt, txt, `%smallres`%, <b>%g_smallres%</b>, All
+	;stringreplace, txt, txt, `%path`%, <b>%p%</b>, All
+	;stringreplace, txt, txt, `%verysmallres`%, <b>%g_verysmallres%</b>, Al ;g_verysmallres not 'defined'
+	txt := StrReplace(txt, "\", "\\")
+	txt := StrReplace(txt, "%autodmp%", autodmp)
+	
+	txt := StrReplace(txt, "{f}", "<img width='20px'; height='20px'; src='fix.svg';></img>")
+	txt := StrReplace(txt, "{nfo}", "<img width='20px'; height='20px'; src='nfo.svg';></img>")
+	txt := StrReplace(txt, "{i}", "<img width='20px'; height='20px'; src='star.svg';></img>")
+	txt := StrReplace(txt, "{bad}", "<img width='20px'; height='20px'; src='bad.svg';></img>")		
+	txt := RegExReplace(txt, "s)==\[([^=]*)\]==", "<div class='center'><b>$1</b></div><br><br>" )	
+	txt := RegExReplace(txt, "s)=\[([^=]*)\]=", "<b>$1</b>" )	
+	txt := RegExReplace(txt, "s)-\[([^-]*)\]-", "<i>$1</i>" )	
+	txt := RegExReplace(txt, "s)\[([^]\s]*)\s([^]]*)\]", "<a id='$1' href='javascript:dummy()' onclick='PostActionB(this)'>$2</a>" )	
+	fix =
+	(LTRIM
+	<div style='display:flex;margin-left:40px'>
+		<div style="color:transparent;text-shadow:0 0 0 darkblue;font-size:24px;font-weight:normal;margin-top:-8px;margin-right:4px">🛠️</div>
+		<div>$1</div>
+	</div>	
+	)
+	imp =
+	(LTRIM
+	<div style='display:flex;margin-left:40px'>
+		<div style="color:transparent;text-shadow:0 0 0 #1ab288;font-size:24px;margin-top:-8px;margin-right:4px">&#x1F44D</div>
+		<div>$1</div>
+	</div>	
+	)
+	nfo =
+	(LTRIM
+	<div style='display:flex;margin-left:40px'>
+		<div style="font-size:24px;margin-top:-8px;margin-right:4px"><i class="fa-solid fa-info"></i></div>
+		<div>$1</div>
+	</div>	
+	)
+	bad =
+	(LTRIM
+	<div style='display:flex;margin-left:40px'>
+		<div style="color:transparent;text-shadow:0 0 0 #b00111;font-size:24px;margin-top:-4px;margin-right:4px">&#x1F44E</div>
+		<div>$1</div>
+	</div>
+	)
+	ce =
+	(LTRIM
+	<dd><div class='fix-master'>
+		<div class='ce-icon'></div>
+		<div class='fix-text'>$1</div>
+	</div></dd>
+	)
+	linux =
+	(LTRIM
+	<div style='display:flex;'>
+		<div style='margin-right:2px'><img src='linux.svg' width='18px' height='18px'></img></div>
+		<div>$1</div>
+	</div>
+	)
+	win =
+	(LTRIM
+	<div style='display:flex;'>
+		<div style='margin-right:2px'><img src='windows.svg' width='18px' height='18px'></img></div>
+		<div>$1</div>
+	</div>
+	)
+	txt :=  RegExReplace(txt, "s){lnx\s([^}]*)}", StrReplace(linux, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){win\s([^}]*)}", StrReplace(win, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){f\s([^}]*)}", StrReplace(fix, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){i\s([^}]*)}", StrReplace(imp, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){nfo\s([^}]*)}", StrReplace(nfo, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){bad\s([^}]*)}", StrReplace(bad, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){ce\s([^}]*)}", StrReplace(ce, "`n", "") )
+	fix =
+	(LTRIM
+	<div class='fix-master'>
+		<div class='fix-icon'></div>
+		<div class='fix-text'>$1</div>
+	</div>
+	)
+	imp =
+	(LTRIM
+	<div class='fix-master'>
+		<div class='improve-icon'></div>
+		<div class='fix-text'>$1</div>
+	</div>
+	)
+	nfo =
+	(LTRIM
+	<div class='fix-master'>
+		<div class='nfo-icon'></div>
+		<div class='fix-text'>$1</div>
+	</div>
+	)
+	WARN = 
+	(LTRIM
+	<div class='warning'>			
+		<div>$1</div>
+	</div>
+	)		
+	txt :=  RegExReplace(txt, "s){F\s([^}]*)}", StrReplace(fix, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){I\s([^}]*)}", StrReplace(imp, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){NFO\s([^}]*)}", StrReplace(nfo, "`n", "") )		
+	txt :=  RegExReplace(txt, "s){ce\s([^}]*)}", StrReplace(ce, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){WARN\s([^}]*)}", StrReplace(WARN, "`n", "") )	
+	txt :=  RegExReplace(txt, "s){h1\s([^}]*)}", "<div class='features'>$1</div>" )	
+	txt :=  RegExReplace(txt, "s){b\s([^}]*)}", "<div class='box'>$1</div>" )					
+	return txt
+}
+
 LaunchCE(IniFileName){
     cfg    := new IniFile(g_.Profiles . IniFileName . ".ini")
     target := cfg.Get("Target")    
 	table  := StrReplace(GetCheatTablePath(IniFileName), "\", "\\")
 	SplitPath, target, exe		
 	run ..\injector.exe "Cheat Engine.ahk" "%table%" "%exe%"
+}
+
+AppendLink(name, url){
+    g_.Links[name] := url
 }
 
 PostHandler(socket, p, a, b){
@@ -500,6 +701,15 @@ PostHandler(socket, p, a, b){
     } 
     else if (path.__str = "/GetVal"){
         reply := PlainReply(GetVal(args.Game, args.Key, args.Section))
+    } 
+    else if (path.__str = "/IsTrue"){
+        reply := PlainReply(IsTrue(args.Game, args.Key, args.Section))
+    }
+    else if (path.__str = "/ParseText"){
+        reply := PlainReply(ParseText(body))
+    }
+    else if (path.__str = "/AppendLink"){
+        AppendLink(args.Name, args.Url)
     }
     else if (path.__str = "/LaunchCE"){
         LaunchCE(args.IniFileName)

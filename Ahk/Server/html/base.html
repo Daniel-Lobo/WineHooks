@@ -87,7 +87,7 @@
 			Fetch(`/Action?Action=${action}`, FetchOPtions());
 		}
 		async function Print(text) {
-			let options = FetchOPtions();
+			let options  = FetchOPtions();
 			options.body = text
 			Fetch(`/Print`, options);
 		}

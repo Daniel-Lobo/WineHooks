@@ -3,8 +3,60 @@
 		return await (await fetch('/GetVal?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text();
 	}
 
+	async function IniIsTrue(game, key, section){
+		reply = await (await fetch('/IsTrue?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text();
+		return reply === 'true' ? true : false;	
+	}
+
 	async function LaunchCE(game) {
 		fetch('/LaunchCE?IniFileName=' + game, FetchOPtions());
+	}
+
+	async function ParseText(text) {
+		let options  = FetchOPtions();
+		options.body = text;
+		reply = await (await fetch('/ParseText', options)).text();
+		//console.log(text, reply)
+		return reply;
+	}
+
+	function GetFields(key_sec){
+		let split = key_sec.toLowerCase().trim().split(".");
+		if (split.length === 1) {
+			return {'Key': split[0], 'Section': ''}
+		} else {
+			return {'Key': split[1], 'Section': split[0]}
+		}
+	}
+	
+	async function AppendLink(link) {
+		try {
+			let lnk = link.split("->");
+			console.log(lnk);
+			fetch('/AppendLink?Name=' + lnk[0] + '&Url=' + lnk[1], FetchOPtions());
+		} catch (error) {
+			console.log(error);
+		}	
+	}
+
+	function GetDisabled(parent, radio_name){
+		if (false === parent.hasAttribute("id"))      return false;
+		if (false === parent.id.endsWith("_details")) return false;
+		let input = document.getElementById(parent.id.replace("_details", ""));
+		if (input === null) return false;
+		//console.log(input.tagName.toLowerCase(), input.id);
+		if (input.tagName.toLowerCase() === "label" && input.hasAttribute("id")) {
+			try {
+				let value = document.querySelector(`input[name="${input.id}"]:checked`).value;
+				console.log(input.id, "=", value);
+				return value === '0' ? true : false;
+			} catch (error) {
+				return false;
+			}
+		}
+		if (false === input.tagName.toLowerCase() == "input" ||
+			false === input.hasAttribute("type"))     return false;
+		if (input.type.toLowerCase() === "checkbox")  return input.checked ? false : true;
 	}
 
 	function SelectTab(tab){
@@ -16,15 +68,56 @@
 		document.getElementById(tab.id.replace("-tab", "_div")).style.display = "flex";
 	}
 
+	function SetThreeState(element, state){
+		if (element.tagName.toLowerCase() === "input" && element.hasAttribute("type")) {
+			//element.disabled = state === true ? false : true;
+			if (element.type.toLowerCase() === "checkbox") {
+				let parent = document.getElementById(element.dataset.parent);
+				if (parent != null) {
+					element.disabled = GetDisabled(parent);
+					if (element.disabled === true) element.checked = false;
+				}				
+			}
+			else if (element.type.toLowerCase() === "radio") {
+				let parent = document.getElementById(element.dataset.parent);
+				console.log(parent.id);
+				if (parent != null) {
+					element.disabled = GetDisabled(parent, element.name);
+					console.log(element.disabled, element.value);
+					if (element.disabled === true) element.checked = element.value === '0' ? true : false;
+				}
+			}
+		}
+		for (let child of element.children) {
+			SetThreeState(child, state);
+		}
+	}
+
+	function CheckboxChanged(_this){
+		let children_container = document.getElementById(_this.id + "_details");
+		SetThreeState(children_container, _this.checked);
+	}
+	
+	function RadioChanged(_this){
+		let children_container = document.getElementById(_this.name + "_details");
+		let state              = _this.value === '0' ? true : false
+		SetThreeState(children_container, _this.checked);
+	}
+
 	async function RenderGamePage(_this) {
 		let GameName     = _this.innerText;
-		document.getElementById("game-page").innerHTML = /*html*/ `<div class="cntrl_group" style="gap:10px"></div>`
-		let parent       = document.getElementById("game-page").children[0];
+		document.getElementById("game-page").innerHTML = /*html*/ `
+		<div class="cntrl_group" style="gap:10px;overflow-y:hidden">
+			<div class="cntrl_group" style="gap:0px;overflow-y:auto;min-height:480px">
+		</div>
+		`
+		let parent       = document.getElementById("game-page").children[0].children[0];
 		let help		 = await (await fetch('/GameHelp?Game=' + GameName, FetchOPtions())).text();
 		tokens           = help.split("::");
 		console.log(help);
 
 		for (let [i, token] of tokens.entries()) {
+			try{
 			let sec = token.toLowerCase().trim();
 			if (sec === 'title') {
 				let title = tokens.at(i + 1)
@@ -78,11 +171,15 @@
 						${table}
 						${cediv}
 					</div>
+					${await ParseText(tokens.at(i + 2))}
 				`)		
 			} else if (sec === 'parent') {
 				parent = document.getElementById(tokens.at(i + 1).toLowerCase().trim())
-			}else if (sec === 'tab') {
-				let tbs  = tokens.at(i + 1).toLowerCase().trim().split("|")
+				if (parent === null) {
+					console.error(`parent ${tokens.at(i + 1)} not found`)
+				}
+			} else if (sec === 'tab') {
+				let tbs  = ('🏠' + '|' + tokens.at(i + 1)).toLowerCase().trim().split("|")
 				let tabs = tbs.map(t => 
 				t.replace("graphics", "&#128250;")
 				.replace("sound", "&#127911;")
@@ -100,16 +197,20 @@
   					</li>
 					`
 				} 
-				html +=  /*html*/`</ul><div class="tab-content" id="tabs-divs">`
+				html +=  /*html*/`</ul><div class="tab-content" id="tabs-divs" style="overflow-y:auto;height:100%">`
 				for (const [index, tab] of tabs.entries()) {
 					let active = index === 0 ? "show active" : ""
 					html += /*html*/`
-					<div class="tab-pane fade ${active}" id="${tbs[index]}_div" role="tabpanel" style="display:flex;flex-direction:column"
+					<div class="tab-pane fade ${active}" id="${tbs[index]}_div" role="tabpanel" 
+						style="display:flex;flex-direction:column;overflow-y:auto"
 						aria-labelledby="${tbs[index]}-tab" tabindex="${index}">
 					</div>`
 				}
 				html +=  /*html*/`</div>`
-				parent.insertAdjacentHTML("beforeend", html)
+				document.getElementById("game-page").children[0].insertAdjacentHTML("beforeend", html)
+				let home = document.getElementById("game-page").children[0].children[0]
+				document.getElementById("game-page").children[0].removeChild(home)
+				document.getElementById('🏠_div').insertAdjacentElement("beforeend", home)
 			} else if (sec.endsWith("tab")) {
 				let id = sec.replace("tab", "_div")
 				console.log(id)
@@ -117,18 +218,57 @@
 				console.log(parent)
 			} else if (sec === 'bool') {
 				let id = tokens.at(i + 1).toLowerCase().trim()
+				if (id.startsWith("pxswap") || id.startsWith("textswap"))
+				continue	
+				
+				let [key, section] = id.includes(".") ? id.split(".") : [id, '']
+				let checked  = await IniIsTrue(GameName, key, section) ? "checked" : ""
+				let label    = await ParseText(tokens.at(i + 2))
+				let details  = await ParseText(tokens.at(i + 3))
+				let disabled = GetDisabled(parent) ? "disabled" : ""
 				parent.insertAdjacentHTML("beforeend", /*html*/`
 				<div style="display:flex;flex-direction:column;gap:0px">
 					<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
-						<input type="checkbox" id="${id}" class="form-check-input">
-						<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}">${tokens.at(i + 2)}</label>					
+						<input type="checkbox" id="${id}" class="form-check-input" ${checked} ${disabled} data-parent="${parent.id}"
+						style="margin-top:2px" onchange="CheckboxChanged(this)">
+						<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}">${label}</label>					
 					</div>
 					<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}"
-						style="margin-left:26px">${tokens.at(i + 3)}
+						style="margin-left:26px">${details}
 					</label>
-					<div style="margin-left:26px;margin-top:10px; display:flex;flex-direction:column;gap:10px" id="${id}_details"></div>
-				</div>`)	
+					<div style="margin-left:26px;margin-top:0px; display:flex;flex-direction:column;gap:0px" id="${id}_details"></div>
+				</div>`)
+			} else if (sec === 'radiohead') {
+				let id     = tokens.at(i + 1).toLowerCase().trim()
+				let label  = await ParseText(tokens.at(i + 2))
+				let html   = /*html*/`
+            	<div style='display:flex;flex-direction:column;'>
+                    <label id="${id}" class="form-check-label">${label}</label>                                                         
+                	<div id="${id}_details" style='margin-left:26px;display:flex;flex-direction:column' data-parent="${parent.id}"></div>
+            	</div>`;
+				console.log('=======================================rhead=====================================', id)
+				parent.insertAdjacentHTML("beforeend", html)
+			} else if (sec === 'radio') {
+				let [name, value]  = tokens.at(i + 1).toLowerCase().trim().split("=")			
+				if (value === 'false') value = '0';
+				let [key, section] = name.includes(".") ? name.split(".") : [name, '']
+				let curr_value     = await IniGet(GameName, key, section)
+				if (curr_value === 'false' || curr_value === '') curr_value = '0'
+				let checked   = curr_value === value ? "checked" : ""
+				let parent_id = parent.dataset.parent
+				let disabled  = GetDisabled(document.getElementById(parent_id))  ? "disabled" : ""
+				console.log(name, value, curr_value, checked)
+				parent.insertAdjacentHTML("beforeend", /*html*/`
+				<div style="display:flex;flex-direction:row;gap:10px;align-items:left;margin-left:-26px">
+					<input type="radio" name="${name}" value="${value}" id="${name}=${value}" class="form-check-input" 
+					style="margin-top:2px" ${checked} ${disabled} data-parent="${parent_id}" onchange="RadioChanged(this)">
+					<label class="form-check-label" for="${name}=${value}">${tokens.at(i + 3)}</label>					
+				</div>`)
+			} else if (sec === "link"){
+				AppendLink(tokens.at(i + 1))
 			}
-		}
+		} catch (error) {
+			console.log(error)
+		}}
 	}
 </script>	

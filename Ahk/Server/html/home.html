@@ -170,7 +170,7 @@
 		}
 		return null
 	}
-	function DownLoadCommonHelpFiles(github_nfo) {
+	function DownLoadCommonHelpFiles(github_nfo, tables_nfo) {
 		for (let i = 0; i < github_nfo.length; i++) {
 			let nfo  = github_nfo[i]
 			let name = GetCommonHelpFileName(nfo.name)
@@ -184,6 +184,19 @@
 				};
 				xmlHttp.open("GET", nfo.download_url, false); // false for synchronous request
 				xmlHttp.send();
+			}
+		}
+		for (let nfo of tables_nfo) {
+			if (nfo.name.toLowerCase() === "cepluginlib.ahk") {
+				let xmlHttp    = new XMLHttpRequest();
+				xmlHttp.onload = onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						SaveFile("Help\\" + nfo.name, this.responseText);
+					}
+				};
+				xmlHttp.open("GET", nfo.download_url, false); // false for synchronous request
+				xmlHttp.send();
+				break
 			}
 		}
 	}
@@ -227,7 +240,7 @@
 			document.getElementById("profiles").innerHTML += html;
 		}
 		
-		DownLoadCommonHelpFiles(help_nfo);
+		DownLoadCommonHelpFiles(help_nfo, tables_nfo);
 		document.getElementById("download").disabled	  = false
 		document.getElementById("progress").style.display = "none"
 		document.getElementById("download").onclick = function () {			

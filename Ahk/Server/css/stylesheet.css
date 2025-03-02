@@ -1,13 +1,13 @@
-body {    
-    display               : flex;
-    flex-direction        : row;
-    overflow              : hidden;
-    width                 : 100%;
-    height                : 100%;
-    margin                : 0;
-    padding               : 0;    
-    font-size             : 16px ;
-    position              : relative;
+body {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    position: relative;
 }
 
 html {
@@ -17,88 +17,90 @@ html {
     padding: 0;
 }
 
-.games-list-container {    
-    display       : flex;
+.games-list-container {
+    display: flex;
     flex-direction: column;
-    overflow-y    : auto;
-    overflow-x    : hidden;
-    width         : 300px;
-    height        : calc(100% - 20px);    
-    margin-left   : 10px;
-    margin-right  : 10px;
-    margin-top    : 10px; 
-    margin-bottom : 10px;
-    gap           : 10px;
-    margin-bottom : 20px;
-    border-radius : 20px;
-    padding-left  : 6px ;
-    padding-top   : 10px;
-    gap           : 0px;    
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 300px;
+    height: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    padding-left: 6px;
+    padding-top: 10px;
+    gap: 0px;
     box-shadow: 0px 0px 10px 0px;
 }
 
-.nav-item-container{
-    background-color: transparent!important;
-    outline        : none!important;;
-    border         : none!important;;
-    margin-top     : 0px!important ;
-    margin-bottom  : 0px!important ;   
-    color: inherit!important;
-    text-align     : left !important;
-    padding-left   : 6px!important;
+.nav-item-container {
+    background-color: transparent !important;
+    outline: none !important;
+    ;
+    border: none !important;
+    ;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    color: inherit !important;
+    text-align: left !important;
+    padding-left: 6px !important;
 }
 
-.nav-item-container:hover{
-    opacity: 1!important;
-    background-color: rgb(135, 135, 248)!important;
+.nav-item-container:hover {
+    opacity: 1 !important;
+    background-color: rgb(135, 135, 248) !important;
 }
 
-.nav-item{
+.nav-item {
     background-color: transparent;
-    width         : 100%;
-    overflow      : hidden;
-    white-space   : nowrap;
-    display       : block;
-    text-overflow : ellipsis;
-    text-align    : left ;
-    margin-top     : 0px!important ;
-    margin-bottom  : 0px!important ;
-    color: inherit!important;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    text-overflow: ellipsis;
+    text-align: left;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    color: inherit !important;
 }
 
-.games-list-item-tip{
-    border-radius   :10px;    
-    margin-left     :0px;
-    padding-right   :14px;
-    margin-top      :0px; 
-    padding-top     :8px;
-    padding-left    :14px;
-    height          :26px; 
-    pointer-events  :none;  
-    min-width       :200px;
+.games-list-item-tip {
+    border-radius: 10px;
+    margin-left: 0px;
+    padding-right: 14px;
+    margin-top: 0px;
+    padding-top: 8px;
+    padding-left: 14px;
+    height: 26px;
+    pointer-events: none;
+    min-width: 200px;
 }
 
 .games-list-item-tip-container {
-    position    : absolute;
-    overflow    : visible;
-    display     : none;
-    white-space : nowrap;
-    left:400px;
+    position: absolute;
+    overflow: visible;
+    display: none;
+    white-space: nowrap;
+    left: 400px;
 }
 
 .game-page {
-    display         : flex;
-    flex-direction  : column;
-    overflow-x      : hidden;
-    overflow-y      : auto;    
-    width           : 100%;
-    padding-right   : 20px;
-    padding-left    : 20px ;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
-.tooltip{   
+.tooltip {
     border-radius: 10px;
-    position:absolute
+    position: absolute
 }
 
 .spacer {
@@ -106,55 +108,136 @@ html {
 }
 
 .loader {
-    width        : 38px;
-    height       : 38px;
-    border       : 5px dotted #FFF;
+    width: 38px;
+    height: 38px;
+    border: 5px dotted #FFF;
     border-radius: 50%;
-    display      : inline-block;
-    position     : relative;
-    box-sizing   : border-box;
-    animation    : rotation 2s linear infinite;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 2s linear infinite;
 }
 
-.cntrl_group{    
-    display         : flex;
-    flex-direction  : column;
-    width           : calc(100%-20px);
-    margin          : 10px 10px 10px 10px;   
-    padding         : 10px 10px 10px 10px;    
+.cntrl_group {
+    display: flex;
+    flex-direction: column;
+    width: calc(100%-20px);
+    margin: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
 }
 
 .dialog-container {
-    position        : absolute!important;
-    left            : 0;
-    right           : 0;
-    margin          : auto;
-    width           : 100%;
-    height          : 100%;
-    top             : 0;
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    top: 0;
     background-color: #50505050;
-    display         : none;
-    z-index         :1 ;
+    display: none;
+    z-index: 1;
 }
 
 .dialog {
-    margin          : auto!important;
-    display         : flex;
-    flex-direction  : column;
-    border-radius : 10px;
-    padding-left  : 6px;
-    padding-right : 6px;
-    padding-top   : 10px;
+    margin: auto !important;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 10px;
     padding-bottom: 10px;
-    gap           : 10px;    
+    gap: 10px;
     box-shadow: 0px 0px 10px 0px;
 }
 
-.warning{    
-    border-radius   : 20px;
-    font-size       : 16px;
-    padding         : 10px 10px 10px 10px ;
+
+
+.center {
+    display: inline;
+    background-color: #f9edbe;
+    position: relative;
+    left: 25px;
+    font-size: 20px;
+    color: #0000aa;
 }
+
+.warning {
+    background-color: #f5dddd;
+    border: 1px solid #9e0c07;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-bottom: 10px;
+}
+
+.box {
+    background-color: #f9edbe;
+    border: 1px solid #0000aa;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #0000aa;
+    font-size: 18px;
+}
+
+.fix-icon {
+    background-image: url("fix.svg");
+    width: 20px;
+    height: 20px;
+    color: #f9edbe;
+}
+
+.improve-icon {
+    background-image: url("star.svg");
+    width: 20px;
+    height: 20px;
+    color: "#f9edbe";
+}
+
+.nfo-icon {
+    background-image: url("nfo.svg");
+    width: 20px;
+    height: 20px;
+    color: "#f9edbe";
+}
+
+.bad-icon {
+    background-image: url("bad.svg");
+    width: 20px;
+    height: 20px;
+    color: "#f9edbe";
+}
+
+.ce-icon {
+    background-image: url("Cheats_small.png");
+    width: 20px;
+    height: 20px;
+    color: "#f9edbe";
+}
+
+.fix-master {
+    margin-left: 48px;
+}
+
+.fix-text {
+    position: relative;
+    left: 25px;
+    top: -20px;
+    margin-right: 35px;
+    margin-bottom: -15px;
+}
+
+.features {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #0000aa;
+}
+
 @keyframes rotation {
     0% {
         transform: rotate(0deg);
