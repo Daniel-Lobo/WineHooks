@@ -95,11 +95,23 @@
 			let action = _this.id.toLowerCase().trim();
 			if (action.startsWith('goto')){
 				if (false === action.startsWith('gototab')) {
-					action = action.replace("goto", "gototab_home");
+					action = action.replace("goto", "gototab_" + '🏠');
 				}
-				console.log(action, action.split("_"));
-				let [_, tab_id, control_id]= action.split("_");
-				document.getElementById(tab_id + "-tab").click();
+				let _          = ''
+				let tab_id     = ''
+				let control_id = ''
+				let split = action.split("_");
+				console.log(split)
+				if (split.length === 3) {
+					[_, tab_id, control_id]= action.split("_");
+				}
+				else if (split.length === 2) {
+					[_, control_id]= action.split("_");
+				}
+				if (tab_id != ''){
+					console.log(tab_id)
+					document.getElementById(tab_id + "-tab").click();
+				}				
 				document.getElementById(control_id).scrollIntoView();
 				document.getElementById(control_id).focus();
 				Blink(document.getElementById(control_id).parentElement, 10);
