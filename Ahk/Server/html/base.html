@@ -36,6 +36,19 @@
 			return json;
 		}
 
+		function BlinkOff(element, count) {
+			element.style.backgroundColor = "white";
+			setTimeout(() => { Blink(element, count-1) }, 200);
+		}
+
+		function Blink(element, count) {
+			if (count <= 0) {				
+				return;
+			}
+			element.style.backgroundColor = "red";
+			setTimeout(() => { BlinkOff(element, count-1) }, 200);
+		}
+
 		function Done(msg, callback) {
 			document.getElementById("msgbox-sucess-msg").innerHTML  = msg.replaceAll("\n", "<br>");
 			document.getElementById("msgbox-success").style.display = "flex";
@@ -79,7 +92,20 @@
 			return parser;
 		}
 		async function PostActionB(_this) {
-			Fetch(`/Action?Action=${_this.id}`, FetchOPtions());
+			let action = _this.id.toLowerCase().trim();
+			if (action.startsWith('goto')){
+				if (false === action.startsWith('gototab')) {
+					action = action.replace("goto", "gototab_home");
+				}
+				console.log(action, action.split("_"));
+				let [_, tab_id, control_id]= action.split("_");
+				document.getElementById(tab_id + "-tab").click();
+				document.getElementById(control_id).scrollIntoView();
+				document.getElementById(control_id).focus();
+				Blink(document.getElementById(control_id).parentElement, 10);
+				return;
+			}
+			Fetch(`/Action?Action=${action}`, FetchOPtions());
 		}
 		async function PostAction(event) {
 			let action = event.target.id;
