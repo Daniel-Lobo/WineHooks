@@ -1,6 +1,6 @@
 <script>
 	async function IniGet(game, key, section){
-		return await (await fetch('/GetVal?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text();
+		return (await (await fetch('/GetVal?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text()).toLowerCase();
 	}
 
 	function IniSet(game, key, val, section){
@@ -24,12 +24,22 @@
 		return reply;
 	}
 	
-	function SetResLimitWidgetLabel(_id) {
+	function SetResLimitWidgetLabel(_id, game) {
+		let [key, section] = _id.includes(".") ? _id.split(".") : [_id, ''];
+		IniSet(game, key, document.getElementById(_id).value, section);
 		let slider = document.getElementById(_id);
 		let label  = document.getElementById(_id + "_label");
 		label.innerHTML = ["No limit", "640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900"
 		,"1920x1080", "2560x1440", "3840x2160"][slider.value];
 	}	
+
+	function SetFloatSliderLabelValue(_id, game) {
+		let [key, section] = _id.includes(".") ? _id.split(".") : [_id, ''];
+		IniSet(game, key, document.getElementById(_id).value, section);
+		let slider = document.getElementById(_id);
+		let label  = document.getElementById(_id + "_label");
+		label.innerHTML = slider.value;
+	}
 
 	async function AppendLink(link) {
 		try {
@@ -42,6 +52,7 @@
 	}
 
 	function GetDisabled(parent, radio_name){
+		if (parent === null) return false;
 		if (false === parent.hasAttribute("id"))      return false;
 		if (false === parent.id.endsWith("_details")) return false;
 		let input = document.getElementById(parent.id.replace("_details", ""));
@@ -124,11 +135,12 @@
 	async function RenderGamePage(_this) {
 		let GameName     = _this.innerText;
 		document.getElementById("game-page").innerHTML = /*html*/ `
-		<div class="cntrl_group" style="gap:10px;overflow-y:hidden">
+		<p class="h5" style="margin-top:10px">${GameName}</p>
+		<div class="cntrl_group" style="gap:10px;overflow-y:hidden">			
 			<div class="cntrl_group" style="gap:0px;overflow-y:auto;min-height:480px">
 		</div>
 		`
-		let parent       = document.getElementById("game-page").children[0].children[0];
+		let parent       = document.getElementById("game-page").children[1].children[0];
 		let help		 = await (await fetch('/GameHelp?Game=' + GameName, FetchOPtions())).text();
 		tokens           = help.split("::");
 		console.log(help);
@@ -231,9 +243,9 @@
 					</div>`
 				}
 				html +=  /*html*/`</div>`
-				document.getElementById("game-page").children[0].insertAdjacentHTML("beforeend", html)
-				let home = document.getElementById("game-page").children[0].children[0]
-				document.getElementById("game-page").children[0].removeChild(home)
+				document.getElementById("game-page").children[1].insertAdjacentHTML("beforeend", html)
+				let home = document.getElementById("game-page").children[1].children[0]
+				document.getElementById("game-page").children[1].removeChild(home)
 				document.getElementById('🏠_div').insertAdjacentElement("beforeend", home)
 			} else if (sec.endsWith("tab")) {
 				let id = sec.replace("tab", "_div")
@@ -249,12 +261,12 @@
 				let checked  = await IniIsTrue(GameName, key, section) ? "checked" : ""
 				let label    = await ParseText(tokens.at(i + 2))
 				let details  = await ParseText(tokens.at(i + 3))
-				let disabled = GetDisabled(parent) ? "disabled" : ""
+				let disabled = GetDisabled(parent) || id == '4k' ? "disabled" : ""
 				parent.insertAdjacentHTML("beforeend", /*html*/`
 				<div style="display:flex;flex-direction:column;gap:0px">
 					<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
 						<input type="checkbox" id="${id}" class="form-check-input" ${checked} ${disabled} data-parent="${parent.id}"
-						style="margin-top:2px" onchange="CheckboxChanged('${GameName}', this)">
+						style="margin-top:4px" onchange="CheckboxChanged('${GameName}', this)">
 						<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}">${label}</label>					
 					</div>
 					<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}"
@@ -285,7 +297,7 @@
 				parent.insertAdjacentHTML("beforeend", /*html*/`
 				<div style="display:flex;flex-direction:row;gap:10px;align-items:left;margin-left:-26px">
 					<input type="radio" name="${name}" value="${value}" id="${name}=${value}" class="form-check-input" 
-					style="margin-top:2px" ${checked} ${disabled} data-parent="${parent_id}" onchange="RadioChanged('${GameName}', this)">
+					style="margin-top:4px" ${checked} ${disabled} data-parent="${parent_id}" onchange="RadioChanged('${GameName}', this)">
 					<label class="form-check-label" for="${name}=${value}">${tokens.at(i + 3)}</label>					
 				</div>`)
 			} else if (sec === "link"){
@@ -301,13 +313,61 @@
 				let html = /*html*/`
 					<label style='margin-left:7px;margin-bottom:0px'>&bull; &ensp;${head}</label>
 						<div style='display:flex;flex-direction:row;margin-left:26px;margin-bottom:0px;margin-top:0px'>
-							<input class='slider' onchange='SetResLimitWidgetLabel("${_id}")' 
+							<input class='slider' onchange='SetResLimitWidgetLabel("${_id}", "${GameName}")' 
 								type='range' min='0' max='10' step='1' id='${_id}' value='${index}'>
 							<label style='margin-left:6px;margin-top:0px' id='${_id}_label'>${val}</label>                     
 						</div>
 					<div style='margin-left:24px;margin-top:0px'></div>`
 				parent.insertAdjacentHTML("beforeend", html)	
-				}
+			} else if (sec === "float") {
+			let [min, max, step]  = tokens.at(i + 3).split("-")
+			let details			  = await ParseText(tokens.at(i + 4))
+			let _id 			  = tokens.at(i + 1).toLowerCase().trim()
+			let head 			  = tokens.at(i + 2)
+			let value             = await IniGet(GameName, _id, '')
+
+			let html = /*html*/`
+			<div style='display:flex;flex-direction:column;'>
+				<label style='margin-top:2px;'>${head}</label>
+				<div style='display:flex;margin-left:20px;margin-top:0px'>
+				<input class='slider' 
+						onchange='SetFloatSliderLabelValue("${_id}", "${GameName}")' 
+						type='range' 
+						min='${min}' 
+						max='${max}' 
+						value='${value}' 
+						step='${step}' 
+						id='${_id}'>
+				<label style='margin-left:6px;margin-top:0px' id='${_id}_label'>${value}</label>
+				</div>
+				<div style='display:flex;flex-direction:column;margin-top:0px;margin-left:19px' id='${_id}_details'>${details}</div>
+			</div>`
+			parent.insertAdjacentHTML("beforeend", html)
+          	} else if (sec === "hidden") {
+				let hint_id  = tokens.at(i + 1).toLowerCase().trim()
+				let label	 = await ParseText(tokens.at(i + 2))
+				let hint	 = (await ParseText(tokens.at(i + 3))).replaceAll("<br>", "")
+				if (parent === null) continue;              
+								
+				let html = /*html*/`
+				<button class="btn btn-primary" 
+					data-bs-toggle="collapse" data-bs-target="#${hint_id}_colapse" 
+					aria-expanded="false" aria-controls="collapseExample" 				
+					style="display:flex;flex-direction:row;margin-left:0px;gap:2px;width:max-content; padding-bottom:0px;padding-top:0px;
+					padding-left:4px;padding-right:8px;margin-bottom:2px">
+					<div style="width:40px;rotate:180deg;cursor:pointer;margin-left:0px;margin-top:2px">
+						💬 
+					</div>
+					${label}
+				</button>
+				<div class="collapse" id="${hint_id}_colapse">
+					<div class="card card-body">
+						${hint}
+					</div>
+				</div>
+				`
+				parent.insertAdjacentHTML("beforeend", html)
+			}
 		} catch (error) {
 			console.log(error)
 		}}

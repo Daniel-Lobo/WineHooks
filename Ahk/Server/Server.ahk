@@ -251,7 +251,7 @@ GetArgs(args){
 }
 
 Image(socket, path){
-    file:= "img" . path
+    file:= "img" . StrReplace(path, "/png", "")
     ext := SubStr(file, -2)
     if (ext = "svg")
         ext .= "+xml"
