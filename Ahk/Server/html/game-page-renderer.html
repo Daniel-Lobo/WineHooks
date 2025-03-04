@@ -1,15 +1,23 @@
 <script>
-	async function IniGet(game, key, section){
+	async function IniGet(game, key, section) {
 		return (await (await fetch('/GetVal?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text()).toLowerCase();
 	}
 
-	function IniSet(game, key, val, section){
+	async function IniGetJ2k(game, key, section) {
+		let val = (await IniGet(game, key, section)).split(",")
+		while (val.length < 20) {
+			val.push("")
+		}
+		return val
+	}
+
+	function IniSet(game, key, val, section) {
 		fetch('/SetVal?Game=' + game + '&Key=' + key + '&Val=' + val + '&Section=' + section, FetchOPtions());
 	}
 
-	async function IniIsTrue(game, key, section){
+	async function IniIsTrue(game, key, section) {
 		reply = await (await fetch('/IsTrue?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text();
-		return reply === 'true' ? true : false;	
+		return reply === 'true' ? true : false;
 	}
 
 	async function LaunchCE(game) {
@@ -17,27 +25,27 @@
 	}
 
 	async function ParseText(text) {
-		let options  = FetchOPtions();
+		let options = FetchOPtions();
 		options.body = text;
 		reply = await (await fetch('/ParseText', options)).text();
 		//console.log(text, reply)
 		return reply;
 	}
-	
+
 	function SetResLimitWidgetLabel(_id, game) {
 		let [key, section] = _id.includes(".") ? _id.split(".") : [_id, ''];
 		IniSet(game, key, document.getElementById(_id).value, section);
 		let slider = document.getElementById(_id);
-		let label  = document.getElementById(_id + "_label");
+		let label = document.getElementById(_id + "_label");
 		label.innerHTML = ["No limit", "640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900"
-		,"1920x1080", "2560x1440", "3840x2160"][slider.value];
-	}	
+			, "1920x1080", "2560x1440", "3840x2160"][slider.value];
+	}
 
 	function SetFloatSliderLabelValue(_id, game) {
 		let [key, section] = _id.includes(".") ? _id.split(".") : [_id, ''];
 		IniSet(game, key, document.getElementById(_id).value, section);
 		let slider = document.getElementById(_id);
-		let label  = document.getElementById(_id + "_label");
+		let label = document.getElementById(_id + "_label");
 		label.innerHTML = slider.value;
 	}
 
@@ -48,12 +56,12 @@
 			fetch('/AppendLink?Name=' + lnk[0] + '&Url=' + lnk[1], FetchOPtions());
 		} catch (error) {
 			console.log(error);
-		}	
+		}
 	}
 
-	function GetDisabled(parent, radio_name){
+	function GetDisabled(parent, radio_name) {
 		if (parent === null) return false;
-		if (false === parent.hasAttribute("id"))      return false;
+		if (false === parent.hasAttribute("id")) return false;
 		if (false === parent.id.endsWith("_details")) return false;
 		let input = document.getElementById(parent.id.replace("_details", ""));
 		if (input === null) return false;
@@ -68,16 +76,16 @@
 			}
 		}
 		if (false === input.tagName.toLowerCase() == "input" ||
-			false === input.hasAttribute("type"))     return false;
-		if (input.type.toLowerCase() === "checkbox")  return input.checked ? false : true;
+			false === input.hasAttribute("type")) return false;
+		if (input.type.toLowerCase() === "checkbox") return input.checked ? false : true;
 	}
 
-	function SelectTab(tab){
+	function SelectTab(tab) {
 		for (let child of document.getElementById("tabs-divs").children) {
-			child.classList     = "tab-pane fade";	
 			child.style.display = "none";
+			child.classList = "tab-pane fade";
 		}
-		document.getElementById(tab.id.replace("-tab", "_div")).classList     = "tab-pane fade show active";
+		document.getElementById(tab.id.replace("-tab", "_div")).classList = "tab-pane fade show active";
 		document.getElementById(tab.id.replace("-tab", "_div")).style.display = "flex";
 	}
 
@@ -93,7 +101,7 @@
 						let [key, section] = element.id.includes(".") ? element.id.split(".") : [element.id, ''];
 						IniSet(game, key, element.checked ? "true" : "false", section);
 					}
-				}				
+				}
 			}
 			else if (element.type.toLowerCase() === "radio") {
 				let parent = document.getElementById(element.dataset.parent);
@@ -105,7 +113,7 @@
 						element.checked = element.value === '0' ? true : false;
 						if (element.value === '0') {
 							let [key, section] = element.name.includes(".") ? element.name.split(".") : [element.name, ''];
-							IniSet(game, key, element.value, section);							
+							IniSet(game, key, element.value, section);
 						}
 					}
 				}
@@ -116,48 +124,48 @@
 		}
 	}
 
-	function CheckboxChanged(game, _this){
+	function CheckboxChanged(game, _this) {
 		let children_container = document.getElementById(_this.id + "_details");
 		SetThreeState(children_container, _this.checked, game);
 		let [key, section] = _this.id.includes(".") ? _this.id.split(".") : [_this.id, ''];
 		console.log(key, section, _this.checked);
 		IniSet(game, key, _this.checked ? "true" : "false", section);
 	}
-	
-	function RadioChanged(game, _this){
+
+	function RadioChanged(game, _this) {
 		let children_container = document.getElementById(_this.name + "_details");
-		let state              = _this.value === '0' ? true : false
+		let state = _this.value === '0' ? true : false
 		SetThreeState(children_container, _this.checked);
-		let [key, section]     = _this.name.includes(".") ? _this.name.split(".") : [_this.name, ''];
+		let [key, section] = _this.name.includes(".") ? _this.name.split(".") : [_this.name, ''];
 		IniSet(game, key, _this.value, section);
 	}
 
 	async function RenderGamePage(_this) {
-		let GameName     = _this.innerText;
+		let GameName = _this.innerText;
 		document.getElementById("game-page").innerHTML = /*html*/ `
 		<p class="h5" style="margin-top:10px">${GameName}</p>
 		<div class="cntrl_group" style="gap:10px;overflow-y:hidden">			
 			<div class="cntrl_group" style="gap:0px;overflow-y:auto;min-height:480px">
 		</div>
 		`
-		let parent       = document.getElementById("game-page").children[1].children[0];
-		let help		 = await (await fetch('/GameHelp?Game=' + GameName, FetchOPtions())).text();
-		tokens           = help.split("::");
+		let parent = document.getElementById("game-page").children[1].children[0];
+		let help = await (await fetch('/GameHelp?Game=' + GameName, FetchOPtions())).text();
+		tokens = help.split("::");
 		console.log(help);
 
 		for (let [i, token] of tokens.entries()) {
-			try{
-			let sec = token.toLowerCase().trim();
-			if (sec === 'title') {
-				let title = tokens.at(i + 1)
-				title     = title.toLowerCase().trim() === 'user' ? GameName : title
-				let wiki  = await IniGet(GameName, 'wiki', '')
-				wiki      = wiki === '' ? '' : /*html*/` 
+			try {
+				let sec = token.toLowerCase().trim();
+				if (sec === 'title') {
+					let title = tokens.at(i + 1)
+					title = title.toLowerCase().trim() === 'user' ? GameName : title
+					let wiki = await IniGet(GameName, 'wiki', '')
+					wiki = wiki === '' ? '' : /*html*/` 
 				<button class="button btn btn-light" style="width:150px;border:1px solid #000066" onclick="window.open('${wiki}', '_blank')"> 
 					<img style="fill:white" src="PCGamingWiki_wide.svg"><img>
-				</button> ` 
-				let table = await GetCheatTablePath(GameName)
-				table     = table === '' ? '' : /*html*/` 
+				</button> `
+					let table = await GetCheatTablePath(GameName)
+					table = table === '' ? '' : /*html*/` 
 				<button class="button btn btn-light" style="width:120px;border:1px solid #000066" id="CE::Button"
 					onclick="
 					document.getElementById('CE::Div').classList = 
@@ -174,7 +182,7 @@
 					"> 
 					<img style="margin-top:-4px;margin-right:10px" src="Cheats_small.png"><img>Cheats
 				</button>`
-				let cediv = table === '' ? '' : /*html*/`
+					let cediv = table === '' ? '' : /*html*/`
 				<div id="CE::Div" class="alert alert-warning shrink-vertical" style="z-index:1;display:none;flex-direction:column;">
 					<p class="h3"><b>Using cheats</b><p>
 					<ul> 
@@ -196,8 +204,8 @@
 						</button>-->
 					</div>
 				</div>
-				` 
-				parent.insertAdjacentHTML('beforeend', /*html*/`
+				`
+					parent.insertAdjacentHTML('beforeend', /*html*/`
 					<p class="h1">${title}</p>
 					<div style="display:flex;flex-direction:row;gap:10px;margin-top:10px;margin-bottom:20px;position:relative">
 						<button class="button btn btn-secondary" style="width:100px">
@@ -213,68 +221,68 @@
 					</div>
 					${cediv}
 					${await ParseText(tokens.at(i + 2))}
-				`)		
-			} else if (sec === 'parent') {
-				let new_parent_id = tokens.at(i + 1).toLowerCase().trim()
-				if (new_parent_id.startsWith("pxswap") || new_parent_id.startsWith("textswap")) {
-					parent = null;
-				}
-				if (document.getElementById(new_parent_id) === null) {
-					continue
-				}
-				parent = document.getElementById(new_parent_id)
-				if (parent === null) {
-					console.error(`parent ${tokens.at(i + 1)} not found`)
-				}
-			} else if (sec === 'tab') {
-				let tbs  = ('🏠' + '|' + tokens.at(i + 1)).toLowerCase().trim().split("|")
-				let tabs = tbs.map(t => 
-				t.replace("graphics", "&#128250;")
-				.replace("sound", "&#127911;")
-				.replace("input", "&#128377;")
-				.replace("file system", "&#128193;")
-				.replace("cpu", "MISC"))
-				let html  = /*html*/`<ul class="nav nav-tabs" id="tabs-buttons" style="display:inline" role="tablist">`
-				for (const [index, tab] of tabs.entries()) {
-					let active = index === 0 ? "active" : ""
-					html += /*html*/`
+				`)
+				} else if (sec === 'parent') {
+					let new_parent_id = tokens.at(i + 1).toLowerCase().trim()
+					if (new_parent_id.startsWith("pxswap") || new_parent_id.startsWith("textswap")) {
+						parent = null;
+					}
+					if (document.getElementById(new_parent_id) === null) {
+						continue
+					}
+					parent = document.getElementById(new_parent_id)
+					if (parent === null) {
+						console.error(`parent ${tokens.at(i + 1)} not found`)
+					}
+				} else if (sec === 'tab') {
+					let tbs = ('🏠' + '|' + tokens.at(i + 1)).toLowerCase().trim().split("|")
+					let tabs = tbs.map(t =>
+						t.replace("graphics", "&#128250;")
+							.replace("sound", "&#127911;")
+							.replace("input", "&#128377;")
+							.replace("file system", "&#128193;")
+							.replace("cpu", "MISC"))
+					let html = /*html*/`<ul class="nav nav-tabs" id="tabs-buttons" style="display:inline" role="tablist">`
+					for (const [index, tab] of tabs.entries()) {
+						let active = index === 0 ? "active" : ""
+						html += /*html*/`
 					<li class="nav-item" role="presentation" style="display:inline">
     					<button class="nav-link ${active}" id="${tbs[index]}-tab" style="display:inline"
 						data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" 
 						aria-controls="profile" aria-selected="false" onclick="SelectTab(this)">${tab}</button>
   					</li>
 					`
-				} 
-				html +=  /*html*/`</ul><div class="tab-content" id="tabs-divs" style="overflow-y:auto;height:100%">`
-				for (const [index, tab] of tabs.entries()) {
-					let active = index === 0 ? "show active" : ""
-					html += /*html*/`
+					}
+					html +=  /*html*/`</ul><div class="tab-content" id="tabs-divs" style="overflow-y:auto;height:100%">`
+					for (const [index, tab] of tabs.entries()) {
+						let active = index === 0 ? "show active" : ""
+						html += /*html*/`
 					<div class="tab-pane fade ${active}" id="${tbs[index]}_div" role="tabpanel" 
 						style="display:flex;flex-direction:column;overflow-y:auto"
 						aria-labelledby="${tbs[index]}-tab" tabindex="${index}">
 					</div>`
-				}
-				html +=  /*html*/`</div>`
-				document.getElementById("game-page").children[1].insertAdjacentHTML("beforeend", html)
-				let home = document.getElementById("game-page").children[1].children[0]
-				document.getElementById("game-page").children[1].removeChild(home)
-				document.getElementById('🏠_div').insertAdjacentElement("beforeend", home)
-			} else if (sec.endsWith("tab") && !(sec === 'inputtab')) {
-				let id = sec.replace("tab", "_div")
-				console.log(id)
-				parent = document.getElementById(id)
-				console.log(parent)
-			} else if (sec === 'bool') {
-				let id = tokens.at(i + 1).toLowerCase().trim()
-				if (id.startsWith("pxswap") || id.startsWith("textswap") || id.startsWith("j2k"))
-				continue	
-				
-				let [key, section] = id.includes(".") ? id.split(".") : [id, '']
-				let checked  = await IniIsTrue(GameName, key, section) ? "checked" : ""
-				let label    = await ParseText(tokens.at(i + 2))
-				let details  = await ParseText(tokens.at(i + 3))
-				let disabled = GetDisabled(parent) || id == '4k' ? "disabled" : ""
-				parent.insertAdjacentHTML("beforeend", /*html*/`
+					}
+					html +=  /*html*/`</div>`
+					document.getElementById("game-page").children[1].insertAdjacentHTML("beforeend", html)
+					let home = document.getElementById("game-page").children[1].children[0]
+					document.getElementById("game-page").children[1].removeChild(home)
+					document.getElementById('🏠_div').insertAdjacentElement("beforeend", home)
+				} else if (sec.endsWith("tab") && !(sec === 'inputtab')) {
+					let id = sec.replace("tab", "_div")
+					console.log(id)
+					parent = document.getElementById(id)
+					console.log(parent)
+				} else if (sec === 'bool') {
+					let id = tokens.at(i + 1).toLowerCase().trim()
+					if (id.startsWith("pxswap") || id.startsWith("textswap") || id.startsWith("j2k"))
+						continue
+
+					let [key, section] = id.includes(".") ? id.split(".") : [id, '']
+					let checked = await IniIsTrue(GameName, key, section) ? "checked" : ""
+					let label = await ParseText(tokens.at(i + 2))
+					let details = await ParseText(tokens.at(i + 3))
+					let disabled = GetDisabled(parent) || id == '4k' ? "disabled" : ""
+					parent.insertAdjacentHTML("beforeend", /*html*/`
 				<div style="display:flex;flex-direction:column;gap:0px">
 					<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
 						<input type="checkbox" id="${id}" class="form-check-input" ${checked} ${disabled} data-parent="${parent.id}"
@@ -286,43 +294,43 @@
 					</label>
 					<div style="margin-left:26px;margin-top:0px; display:flex;flex-direction:column;gap:0px" id="${id}_details"></div>
 				</div>`)
-			} else if (sec === 'radiohead') {
-				let id     = tokens.at(i + 1).toLowerCase().trim()
-				let label  = await ParseText(tokens.at(i + 2))
-				let html   = /*html*/`
+				} else if (sec === 'radiohead') {
+					let id = tokens.at(i + 1).toLowerCase().trim()
+					let label = await ParseText(tokens.at(i + 2))
+					let html = /*html*/`
             	<div style='display:flex;flex-direction:column;'>
                     <label id="${id}" class="form-check-label">${label}</label>                                                         
                 	<div id="${id}_details" style='margin-left:26px;display:flex;flex-direction:column' data-parent="${parent.id}"></div>
             	</div>`;
-				console.log('=======================================rhead=====================================', id)
-				parent.insertAdjacentHTML("beforeend", html)
-			} else if (sec === 'radio') {
-				let [name, value]  = tokens.at(i + 1).toLowerCase().trim().split("=")			
-				if (value === 'false') value = '0';
-				let [key, section] = name.includes(".") ? name.split(".") : [name, '']
-				let curr_value     = await IniGet(GameName, key, section)
-				if (curr_value === 'false' || curr_value === '') curr_value = '0'
-				let checked   = curr_value === value ? "checked" : ""
-				let parent_id = parent.dataset.parent
-				let disabled  = GetDisabled(document.getElementById(parent_id))  ? "disabled" : ""
-				console.log(name, value, curr_value, checked)
-				parent.insertAdjacentHTML("beforeend", /*html*/`
+					console.log('=======================================rhead=====================================', id)
+					parent.insertAdjacentHTML("beforeend", html)
+				} else if (sec === 'radio') {
+					let [name, value] = tokens.at(i + 1).toLowerCase().trim().split("=")
+					if (value === 'false') value = '0';
+					let [key, section] = name.includes(".") ? name.split(".") : [name, '']
+					let curr_value = await IniGet(GameName, key, section)
+					if (curr_value === 'false' || curr_value === '') curr_value = '0'
+					let checked = curr_value === value ? "checked" : ""
+					let parent_id = parent.dataset.parent
+					let disabled = GetDisabled(document.getElementById(parent_id)) ? "disabled" : ""
+					console.log(name, value, curr_value, checked)
+					parent.insertAdjacentHTML("beforeend", /*html*/`
 				<div style="display:flex;flex-direction:row;gap:10px;align-items:left;margin-left:-26px">
 					<input type="radio" name="${name}" value="${value}" id="${name}=${value}" class="form-check-input" 
 					style="margin-top:4px" ${checked} ${disabled} data-parent="${parent_id}" onchange="RadioChanged('${GameName}', this)">
 					<label class="form-check-label" for="${name}=${value}">${tokens.at(i + 3)}</label>					
 				</div>`)
-			} else if (sec === "link"){
-				AppendLink(tokens.at(i + 1))
-			} else if (sec === "text") {
-				parent.insertAdjacentHTML("beforeend", await ParseText(tokens.at(i + 1)))
-			} else if (sec === "_rlmt_") {
-				let _id     = tokens.at(i + 1).toLowerCase().trim()
-				let head    = tokens.at(i + 2)
-				let index   = parseInt(await IniGet(GameName, 'rlmt', ''))
-				let val     = ["No limit", "640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900"
-				,"1920x1080", "2560x1440", "3840x2160"][index];           
-				let html = /*html*/`
+				} else if (sec === "link") {
+					AppendLink(tokens.at(i + 1))
+				} else if (sec === "text") {
+					parent.insertAdjacentHTML("beforeend", await ParseText(tokens.at(i + 1)))
+				} else if (sec === "_rlmt_") {
+					let _id = tokens.at(i + 1).toLowerCase().trim()
+					let head = tokens.at(i + 2)
+					let index = parseInt(await IniGet(GameName, 'rlmt', ''))
+					let val = ["No limit", "640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900"
+						, "1920x1080", "2560x1440", "3840x2160"][index];
+					let html = /*html*/`
 					<label style='margin-left:7px;margin-bottom:0px'>&bull; &ensp;${head}</label>
 						<div style='display:flex;flex-direction:row;margin-left:26px;margin-bottom:0px;margin-top:0px'>
 							<input class='slider' onchange='SetResLimitWidgetLabel("${_id}", "${GameName}")' 
@@ -330,15 +338,15 @@
 							<label style='margin-left:6px;margin-top:0px' id='${_id}_label'>${val}</label>                     
 						</div>
 					<div style='margin-left:24px;margin-top:0px'></div>`
-				parent.insertAdjacentHTML("beforeend", html)	
-			} else if (sec === "float") {
-			let [min, max, step]  = tokens.at(i + 3).split("-")
-			let details			  = await ParseText(tokens.at(i + 4))
-			let _id 			  = tokens.at(i + 1).toLowerCase().trim()
-			let head 			  = tokens.at(i + 2)
-			let value             = await IniGet(GameName, _id, '')
+					parent.insertAdjacentHTML("beforeend", html)
+				} else if (sec === "float") {
+					let [min, max, step] = tokens.at(i + 3).split("-")
+					let details = await ParseText(tokens.at(i + 4))
+					let _id = tokens.at(i + 1).toLowerCase().trim()
+					let head = tokens.at(i + 2)
+					let value = await IniGet(GameName, _id, '')
 
-			let html = /*html*/`
+					let html = /*html*/`
 			<div style='display:flex;flex-direction:column;'>
 				<label style='margin-top:2px;'>${head}</label>
 				<div style='display:flex;margin-left:20px;margin-top:0px'>
@@ -354,14 +362,14 @@
 				</div>
 				<div style='display:flex;flex-direction:column;margin-top:0px;margin-left:19px' id='${_id}_details'>${details}</div>
 			</div>`
-			parent.insertAdjacentHTML("beforeend", html)
-          	} else if (sec === "hidden") {
-				let hint_id  = tokens.at(i + 1).toLowerCase().trim()
-				let label	 = await ParseText(tokens.at(i + 2))
-				let hint	 = (await ParseText(tokens.at(i + 3))).replaceAll("<br>", "")
-				if (parent === null) continue;              
-								
-				let html = /*html*/`
+					parent.insertAdjacentHTML("beforeend", html)
+				} else if (sec === "hidden") {
+					let hint_id = tokens.at(i + 1).toLowerCase().trim()
+					let label = await ParseText(tokens.at(i + 2))
+					let hint = (await ParseText(tokens.at(i + 3))).replaceAll("<br>", "")
+					if (parent === null) continue;
+
+					let html = /*html*/`
 				<button class="btn btn-primary" 
 					data-bs-toggle="collapse" data-bs-target="#${hint_id}_colapse" 
 					aria-expanded="false" aria-controls="collapseExample" 				
@@ -378,71 +386,139 @@
 					</div>
 				</div>
 				`
-				parent.insertAdjacentHTML("beforeend", html)
-			} else if (sec === "endofsettings") {
-				let id       = "hdpi"
-				let [key, section] = id.includes(".") ? id.split(".") : [id, '']
-				let checked  = await IniIsTrue(GameName, key, section) ? "checked" : ""
-				let label    = "Hight DPI aware"
-				let details  = ""
-				let disabled = GetDisabled(parent) || id == '4k' ? "disabled" : ""
-				parent.insertAdjacentHTML("beforeend", /*html*/`
-				<div style="display:flex;flex-direction:column;gap:0px">
-					<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
-						<input type="checkbox" id="${id}" class="form-check-input" ${checked} ${disabled} data-parent="${parent.id}"
-						style="margin-top:4px" onchange="CheckboxChanged('${GameName}', this)">
-						<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}">${label}</label>					
-					</div>
-					<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}"
-						style="margin-left:26px">On windows, enables the hight dpi aware shim
-					</label>
-					<div style="margin-left:26px;margin-top:0px; display:flex;flex-direction:column;gap:0px" id="${id}_details"></div>
-				</div>`)
+					parent.insertAdjacentHTML("beforeend", html)
+				} else if (sec === "endofsettings") {
+					let id = "hdpi"
+					let [key, section] = id.includes(".") ? id.split(".") : [id, '']
+					let checked = await IniIsTrue(GameName, key, section) ? "checked" : ""
+					let label = "Hight DPI aware"
+					let details = ""
+					let disabled = GetDisabled(parent) || id == '4k' ? "disabled" : ""
+					parent.insertAdjacentHTML("beforeend", /*html*/`
+						<div style="display:flex;flex-direction:column;gap:0px">
+							<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
+								<input type="checkbox" id="${id}" class="form-check-input" ${checked} ${disabled} data-parent="${parent.id}"
+								style="margin-top:4px" onchange="CheckboxChanged('${GameName}', this)">
+								<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}">${label}</label>					
+							</div>
+							<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}"
+								style="margin-left:26px">On windows, enables the hight dpi aware shim
+							</label>
+							<div style="margin-left:26px;margin-top:0px; display:flex;flex-direction:column;gap:0px" id="${id}_details"></div>
+						</div>`)
 
-				let curr_value = await IniGet(GameName, 'compatlayer', '')
-				console.log(curr_value)
-             
-				let html  = /*html*/`
-				<div style='display:flex;flex-direction:column;margin-top:0px;margin-left:0px'>
-					<label style='margin-top:10px;width:max-content;margin-right:10px'>Windows compatibility modes</label>
-					<select class="form-select" id="compatlayer" 
-						style="width:max-content;margin-top:6px">
-						<option value="don't change">Don't Change</option>
-						<option value="none">None</option>
-						<option value="dwm8and16bitmitigation">DWM8And16BitMitigation</option>
-						<option value="layer_win95versionlie">Layer_Win95VersionLie</option>
-						<option value="win95">Win95</option>
-						<option value="win98">Win98</option>
-						<option value="faulttolerantheap">FaultTolerantHeap</option>
-						<option value="win2000">Win2000</option>
-						<option value="win2000sp2">Win2000Sp2</option>
-						<option value="win2000sp3">Win2000Sp3</option>
-						<option value="winxp">WinXP</option>
-						<option value="winxpsp2">WinXPSp2</option>
-						<option value="winxpsp3">WinXPSp3</option>
-						<option value="vistasp2">VistaSp2</option>
-					</select>
-				</div>
-				`
-				parent.insertAdjacentHTML("beforeend", html)
-				$('.dropdown-toggle').dropdown()
-				if      (curr_value === "")  curr_value = "don\'t change"
-				else if (curr_value === '#') curr_value = 'none'
-				document.getElementById("compatlayer").value = curr_value;
-				document.getElementById("compatlayer").onchange = function() {
-					let val = this.value;
-					if      (val === "don't change") val = ""
-					else if (val === "none")         val = "#"
-					IniSet(GameName, 'compatlayer', val, '')
+					let curr_value = await IniGet(GameName, 'compatlayer', '')
+					console.log(curr_value)
+
+					let html = /*html*/`
+					<div style='display:flex;flex-direction:column;margin-top:0px;margin-left:0px'>
+						<label style='margin-top:10px;width:max-content;margin-right:10px'>Windows compatibility modes</label>
+						<select class="form-select" id="compatlayer" 
+							style="width:max-content;margin-top:6px">
+							<option value="don't change">Don't Change</option>
+							<option value="none">None</option>
+							<option value="dwm8and16bitmitigation">DWM8And16BitMitigation</option>
+							<option value="layer_win95versionlie">Layer_Win95VersionLie</option>
+							<option value="win95">Win95</option>
+							<option value="win98">Win98</option>
+							<option value="faulttolerantheap">FaultTolerantHeap</option>
+							<option value="win2000">Win2000</option>
+							<option value="win2000sp2">Win2000Sp2</option>
+							<option value="win2000sp3">Win2000Sp3</option>
+							<option value="winxp">WinXP</option>
+							<option value="winxpsp2">WinXPSp2</option>
+							<option value="winxpsp3">WinXPSp3</option>
+							<option value="vistasp2">VistaSp2</option>
+						</select>
+					</div>
+					`
+					parent.insertAdjacentHTML("beforeend", html)
+					$('.dropdown-toggle').dropdown()
+					if (curr_value === "") curr_value = "don\'t change"
+					else if (curr_value === '#') curr_value = 'none'
+					document.getElementById("compatlayer").value = curr_value;
+					document.getElementById("compatlayer").onchange = function () {
+						let val = this.value;
+						if (val === "don't change") val = ""
+						else if (val === "none") val = "#"
+						IniSet(GameName, 'compatlayer', val, '')
+					}
+				} else if (sec === "inputtab") {
+					let Key_A = await IniGetJ2k(GameName, 'a', 'j2k')
+					let Key_B = await IniGetJ2k(GameName, 'b', 'j2k')
+					let Alt_A = await IniGetJ2k(GameName, 'x', 'j2k')
+					let Alt_B = await IniGetJ2k(GameName, 'y', 'j2k')
+					console.log(Key_A, Key_B, Alt_A, Alt_B)
+					parent = document.getElementById(sec.replace("tab", "_div"))
+					parent.insertAdjacentHTML("beforeend", /*html*/`
+						<div>${Key_A}</div>
+						<div>${Key_B}</div>
+						<div>${Alt_A}</div>
+						<div>${Alt_B}</div>
+						<div>
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">Button</th>
+										<th scope="col">Mode</th>
+										<th scope="col">Key A</th>
+										<th scope="col">Key B</th>
+										<th scope="col">Alt A</th>
+										<th scope="col">Alt B</th>
+									</tr>
+								</thead>
+								<tbody id="dinput_table">									
+								</tbody>
+							</table>
+						</div>`
+					)
+					for (let [index, button] of ["A", "B", "X", "Y", "Left Bumper", "Right Bumper", "Left Trigger", "Right Trigger", "Back", "Start"
+						, "Left Stick - Press", "Right Stick - Press"].entries()) {
+						CreateDinputTableRow(button, Key_A, Key_B, Alt_A, Alt_B, index+4)
+					}					
 				}
-			} else if (sec === "inputtab") {
-				parent = document.getElementById(sec.replace("tab", "_div"))
-				parent.insertAdjacentHTML("beforeend", /*html*/`
-				<div>test
-				</div>`)
+			} catch (error) {
+				console.log(error)
 			}
-		} catch (error) {
-			console.log(error)
-		}}
+		}
 	}
-</script>	
+	function GetElementsByData(element, elemements) {
+		if (element.dataset.self) {
+			elemements[element.dataset.self] = element
+		}
+		for (let child of element.children) {
+			GetElementsByData(child, elemements)
+		}
+	}
+	function CreateDinputTableRow(cntr, Key_A, Key_B, Alt_A, Alt_B, i) {
+		let [a, b, x, y] = [Key_A[i], Key_B[i], Alt_A[i], Alt_B[i]]
+		if (a === "") a = "None"
+		if (b === "") b = "None"
+		if (x === "") x = "None"
+		if (y === "") y = "None"
+		let html = /*html*/`
+			<tr>
+				<th scope="row">${cntr}</th>
+				<td>
+					<select class="form-select" data-self="select">
+						<option value="0">Keyboard</option>
+						<option value="1">Keyboard Repeat</option>
+						<option value="2">Keyboard Toggle</option>
+						<option value="4">Keyboard Tap</option>
+						<option value="3">DirectInput Gamepad</option>						
+					</select>
+				</td>
+				<td><button data-self="ButtonA" class="btn btn-dark" style="width:120px">${a}</button></td>
+				<td><button data-self="ButtonB" class="btn btn-dark" style="width:120px">${b}</button></td>
+				<td><button data-self="ButtonX" class="btn btn-dark" style="width:120px">${x}</button></td>
+				<td><button data-self="ButtonY" class="btn btn-dark" style="width:120px">${y}</button></td>
+			</tr>
+		`
+		document.getElementById("dinput_table").insertAdjacentHTML("beforeend", html)		
+		let elemements = {}
+		GetElementsByData(Array.from(document.getElementById("dinput_table").children).at(-1), elemements)
+		elemements.select.onchange = function () {
+			elemements.ButtonA.innerHTML = elemements.select.value;
+		}
+	}
+</script>
