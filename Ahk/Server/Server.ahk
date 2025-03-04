@@ -2,6 +2,7 @@
 #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory. 
+Menu, Tray, Icon, img\favicon.ico
 
 dllcall("AllocConsole")
 print(msg){
@@ -660,6 +661,70 @@ AppendLink(name, url){
     g_.Links[name] := url
 }
 
+SelectKey(){	
+	Gui, SelectKey:New
+	Gui, SelectKey:+Hwndhwin
+	Gui, SelectKey:+AlwaysOnTop
+	Gui, SelectKey:Add, Text, x60 y20, Waiting for key
+	Gui, SelectKey:Show, w200 h60		
+	keys := "LButton RButton MButton WheelDown WheelUp CapsLock Space Tab Enter Esc BS ScrollLock Del Ins Home End PgUp PgDn Up Down Left Right" 
+	. " Numpad0 Numpad1 Numpad2 Numpad3 Numpad4 Numpad5 Numpad6 Numpad7 Numpad8 Numpad9 NumpadDiv NumpadMult NumpadAdd NumpadSub" 
+	. " F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 Ctrl Alt Shift Q W E R T Y U I O P A S D F G H J K L Z X C V B N M < > [ ] 1 2 3 4 5 6 7 8 9 0 / \ ~ - ="
+	;keywait, LButton
+	While True
+	{
+		for k, key in StrSplit(keys, " ")
+		{
+			if not WinActive("ahk_id" hwin)
+			return ""
+			KeyWait, %key%, D T0.001
+			if (ErrorLevel = 0)
+			{			
+				KeyWait, %key%
+				Gui, SelectKey:destroy
+				return key
+			}	
+		}	
+	}	
+}
+
+SelectXButton(){
+	static selected := ""
+	selected        := ""
+	Gui, SelectKey:New
+	Gui, SelectKey:+Hwndhwin
+	Gui, SelectKey:Add, Button, Section x10 y10 g_SelectXButton, Button 1
+	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 2
+	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 3
+	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 4
+	Gui, SelectKey:Add, Button, Section ys xs+60  g_SelectXButton, Button 5
+	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 6
+	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 7
+	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 8
+	Gui, SelectKey:Add, Button, xs ys xs+60  g_SelectXButton, Button 9
+	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 10
+	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 11
+	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 12
+	Gui, SelectKey:Show	
+	While (selected=""){
+		if not WinActive("ahk_id" hwin)
+		return ""
+		Sleep, 100
+	}
+	Gui, SelectKey:Destroy
+	return selected
+
+	_SelectXButton:
+		selected := StrReplace(A_GuiControl, "Button", "Gamepad")
+	return 
+}
+
+GuiClose(){
+	MsgBox
+	;SoundPlay, *16
+	Return true
+}
+
 PostHandler(socket, p, a, b){
     ;print("Post")
     path  := S(StrGet(p+0, ,"CP0"))  
@@ -720,7 +785,13 @@ PostHandler(socket, p, a, b){
     }
     else if (path.__str = "/LaunchCE"){
         LaunchCE(args.IniFileName)
-    }
+	}    
+	else if (path.__str = "/SelectKey"){
+		reply := PlainReply(SelectKey())
+	}
+	else if (path.__str = "/SelectXButton"){
+		reply := PlainReply(SelectXButton())
+	}
     DllCall(g_.p_send, uint, socket, astr, reply, uint, strlen(reply), uint, 0, uint) 
 }
 
