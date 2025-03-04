@@ -434,13 +434,13 @@
 					`
 					parent.insertAdjacentHTML("beforeend", html)
 					$('.dropdown-toggle').dropdown()
-					if (curr_value === "") curr_value = "don\'t change"
-					else if (curr_value === '#') curr_value = 'none'
+					if (curr_value === "#") curr_value = "don\'t change"
+					else if (curr_value === '') curr_value = 'none'
 					document.getElementById("compatlayer").value = curr_value;
 					document.getElementById("compatlayer").onchange = function () {
 						let val = this.value;
-						if (val === "don't change") val = ""
-						else if (val === "none") val = "#"
+						if (val === "don't change") val = "#"
+						else if (val === "none") val = ""
 						IniSet(GameName, 'compatlayer', val, '')
 					}
 				} else if (sec === "inputtab") {
