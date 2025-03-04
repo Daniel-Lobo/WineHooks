@@ -116,6 +116,8 @@
 				document.getElementById(control_id).focus();
 				Blink(document.getElementById(control_id).parentElement, 10);
 				return;
+			} else if (action === 'show_ce_div') {
+				return document.getElementById('CE::Button').click();
 			}
 			Fetch(`/Action?Action=${action}`, FetchOPtions());
 		}

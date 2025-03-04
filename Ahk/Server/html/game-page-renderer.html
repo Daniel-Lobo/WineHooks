@@ -158,12 +158,24 @@
 				</button> ` 
 				let table = await GetCheatTablePath(GameName)
 				table     = table === '' ? '' : /*html*/` 
-				<button class="button btn btn-light" style="width:120px;border:1px solid #000066"
-					onclick="document.getElementById('CE::Div').style.display = 'flex'"> 
+				<button class="button btn btn-light" style="width:120px;border:1px solid #000066" id="CE::Button"
+					onclick="
+					document.getElementById('CE::Div').classList = 
+					document.getElementById('CE::Div').classList.toString() === 'alert alert-warning grow-vertical' ? 
+					'alert alert-warning shrink-vertical' : 'alert alert-warning grow-vertical';
+					console.log(document.getElementById('CE::Div').classList.toString())
+					if (document.getElementById('CE::Div').classList.toString() === 'alert alert-warning srink-vertical') {
+						setTimeout(()=>{
+							document.getElementById('CE::Div').style.display = 'none';
+						}, 500);
+					} else{
+						document.getElementById('CE::Div').style.display = 'flex';
+					}
+					"> 
 					<img style="margin-top:-4px;margin-right:10px" src="Cheats_small.png"><img>Cheats
 				</button>`
 				let cediv = table === '' ? '' : /*html*/`
-				<div id="CE::Div" class="alert alert-warning" style="z-index:1;position:absolute;display:none;flex-direction:column;top:60px">
+				<div id="CE::Div" class="alert alert-warning shrink-vertical" style="z-index:1;display:none;flex-direction:column;">
 					<p class="h3"><b>Using cheats</b><p>
 					<ul> 
 						<li>Install <a id="cheat" onclick="PostActionB(this)" href="javascript:dummy()">cheat engine (64bit)</a> if you don\'t already have it
@@ -179,9 +191,9 @@
 						<button class="btn btn-light" style="border: 1px solid #000066" onclick="LaunchCE('${GameName.replaceAll('\'', '%27')}')">
 							<img style="height:30px" src="ce.svg">
 						</button>
-						<button class="btn btn-danger"
+						<!--<button class="btn btn-danger"
 							onclick="document.getElementById('CE::Div').style.display = 'none'">Close
-						</button>
+						</button>-->
 					</div>
 				</div>
 				` 
@@ -197,9 +209,9 @@
 							Create shortcut
 						</button>
 						${wiki}
-						${table}
-						${cediv}
+						${table}						
 					</div>
+					${cediv}
 					${await ParseText(tokens.at(i + 2))}
 				`)		
 			} else if (sec === 'parent') {
@@ -247,14 +259,14 @@
 				let home = document.getElementById("game-page").children[1].children[0]
 				document.getElementById("game-page").children[1].removeChild(home)
 				document.getElementById('🏠_div').insertAdjacentElement("beforeend", home)
-			} else if (sec.endsWith("tab")) {
+			} else if (sec.endsWith("tab") && !(sec === 'inputtab')) {
 				let id = sec.replace("tab", "_div")
 				console.log(id)
 				parent = document.getElementById(id)
 				console.log(parent)
 			} else if (sec === 'bool') {
 				let id = tokens.at(i + 1).toLowerCase().trim()
-				if (id.startsWith("pxswap") || id.startsWith("textswap"))
+				if (id.startsWith("pxswap") || id.startsWith("textswap") || id.startsWith("j2k"))
 				continue	
 				
 				let [key, section] = id.includes(".") ? id.split(".") : [id, '']
@@ -367,6 +379,67 @@
 				</div>
 				`
 				parent.insertAdjacentHTML("beforeend", html)
+			} else if (sec === "endofsettings") {
+				let id       = "hdpi"
+				let [key, section] = id.includes(".") ? id.split(".") : [id, '']
+				let checked  = await IniIsTrue(GameName, key, section) ? "checked" : ""
+				let label    = "Hight DPI aware"
+				let details  = ""
+				let disabled = GetDisabled(parent) || id == '4k' ? "disabled" : ""
+				parent.insertAdjacentHTML("beforeend", /*html*/`
+				<div style="display:flex;flex-direction:column;gap:0px">
+					<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
+						<input type="checkbox" id="${id}" class="form-check-input" ${checked} ${disabled} data-parent="${parent.id}"
+						style="margin-top:4px" onchange="CheckboxChanged('${GameName}', this)">
+						<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}">${label}</label>					
+					</div>
+					<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}"
+						style="margin-left:26px">On windows, enables the hight dpi aware shim
+					</label>
+					<div style="margin-left:26px;margin-top:0px; display:flex;flex-direction:column;gap:0px" id="${id}_details"></div>
+				</div>`)
+
+				let curr_value = await IniGet(GameName, 'compatlayer', '')
+				console.log(curr_value)
+             
+				let html  = /*html*/`
+				<div style='display:flex;flex-direction:column;margin-top:0px;margin-left:0px'>
+					<label style='margin-top:10px;width:max-content;margin-right:10px'>Windows compatibility modes</label>
+					<select class="form-select" id="compatlayer" 
+						style="width:max-content;margin-top:6px">
+						<option value="don't change">Don't Change</option>
+						<option value="none">None</option>
+						<option value="dwm8and16bitmitigation">DWM8And16BitMitigation</option>
+						<option value="layer_win95versionlie">Layer_Win95VersionLie</option>
+						<option value="win95">Win95</option>
+						<option value="win98">Win98</option>
+						<option value="faulttolerantheap">FaultTolerantHeap</option>
+						<option value="win2000">Win2000</option>
+						<option value="win2000sp2">Win2000Sp2</option>
+						<option value="win2000sp3">Win2000Sp3</option>
+						<option value="winxp">WinXP</option>
+						<option value="winxpsp2">WinXPSp2</option>
+						<option value="winxpsp3">WinXPSp3</option>
+						<option value="vistasp2">VistaSp2</option>
+					</select>
+				</div>
+				`
+				parent.insertAdjacentHTML("beforeend", html)
+				$('.dropdown-toggle').dropdown()
+				if      (curr_value === "")  curr_value = "don\'t change"
+				else if (curr_value === '#') curr_value = 'none'
+				document.getElementById("compatlayer").value = curr_value;
+				document.getElementById("compatlayer").onchange = function() {
+					let val = this.value;
+					if      (val === "don't change") val = ""
+					else if (val === "none")         val = "#"
+					IniSet(GameName, 'compatlayer', val, '')
+				}
+			} else if (sec === "inputtab") {
+				parent = document.getElementById(sec.replace("tab", "_div"))
+				parent.insertAdjacentHTML("beforeend", /*html*/`
+				<div>test
+				</div>`)
 			}
 		} catch (error) {
 			console.log(error)
