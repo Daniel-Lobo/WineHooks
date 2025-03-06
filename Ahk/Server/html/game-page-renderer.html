@@ -145,7 +145,7 @@
 		document.getElementById("game-page").innerHTML = /*html*/ `
 		<p class="h5" style="margin-top:10px">${GameName}</p>
 		<div class="cntrl_group" style="gap:10px;overflow-y:hidden">			
-			<div class="cntrl_group" style="gap:0px;overflow-y:auto;min-height:480px">
+			<div class="cntrl_group" style="gap:0px;overflow-y:auto;min-height:480px;padding-left:10px">
 		</div>
 		`
 		let parent = document.getElementById("game-page").children[1].children[0];
@@ -252,16 +252,16 @@
 							aria-controls="profile" aria-selected="false" onclick="SelectTab(this)">${tab}</button>
 						</li>
 						`
-						}
+					}
 					html +=  /*html*/`</ul><div class="tab-content" id="tabs-divs" style="overflow-y:auto;height:100%">`
 					for (const [index, tab] of tabs.entries()) {
 						let active = index === 0 ? "show active" : ""
 						html += /*html*/`
 						<div class="tab-pane fade ${active}" id="${tbs[index]}_div" role="tabpanel" 
-							style="display:flex;flex-direction:column;overflow-y:auto"
+							style="display:flex;flex-direction:column;overflow-y:auto;padding-left:10px"
 							aria-labelledby="${tbs[index]}-tab" tabindex="${index}">
 						</div>`
-						}
+					}
 					html +=  /*html*/`</div>`
 					document.getElementById("game-page").children[1].insertAdjacentHTML("beforeend", html)
 					let home = document.getElementById("game-page").children[1].children[0]
@@ -278,9 +278,9 @@
 						continue
 
 					let [key, section] = id.includes(".") ? id.split(".") : [id, '']
-					let checked  = await IniIsTrue(GameName, key, section) ? "checked" : ""
-					let label    = await ParseText(tokens.at(i + 2))
-					let details  = await ParseText(tokens.at(i + 3))
+					let checked = await IniIsTrue(GameName, key, section) ? "checked" : ""
+					let label = await ParseText(tokens.at(i + 2))
+					let details = await ParseText(tokens.at(i + 3))
 					let disabled = GetDisabled(parent) || id == '4k' ? "disabled" : ""
 					parent.insertAdjacentHTML("beforeend", /*html*/`
 					<div style="display:flex;flex-direction:column;gap:0px">
@@ -449,7 +449,7 @@
 					let Alt_A = await IniGetJ2k(GameName, 'x', 'j2k')
 					let Alt_B = await IniGetJ2k(GameName, 'y', 'j2k')
 					let Modes = await IniGetJ2k(GameName, 'mds', 'j2k')
-					let cfg   = {
+					let cfg = {
 						'Key_A': Key_A,
 						'Key_B': Key_B,
 						'Alt_A': Alt_A,
@@ -495,23 +495,34 @@
 								<button id='dinput_apply' class="button btn btn-primary" style="width:140px">Apply</button>
 							</div>
 						</div>`
-					)
+					)					
 					for (let [index, button] of ["A", "B", "X", "Y", "Left Bumper", "Right Bumper", "Left Trigger", "Right Trigger", "Back", "Start"
 						, "Left Stick - Press", "Right Stick - Press"].entries()) {
-						CreateDinputTableRow(button, Key_A, Key_B, Alt_A, Alt_B, index+4)
-					}				
-					SetTableThreeState(document.getElementById('dinput_table_root'),  document.getElementById("dinput.e").checked)
+						CreateDinputTableRow(button, Key_A, Key_B, Alt_A, Alt_B, index + 4)
+					}
+					document.getElementById("dinput_table").insertAdjacentHTML("beforeend", /*html*/`
+						<tr>
+							<th scope="col"></th>
+							<th scope="col">Mode</th>
+							<th scope="col">Up</th>
+							<th scope="col">Down</th>
+							<th scope="col">Left</th>
+							<th scope="col">Right</th>
+						</tr>
+					`)
+					CeateDpadTableRow(Key_A)
+					SetTableThreeState(document.getElementById('dinput_table_root'), document.getElementById("j2k.u").checked)
 					document.getElementById("dinput_apply").onclick = function () {
 						let cfg = GetDinputCfg()
 						console.log(cfg)
-					}	
+					}
 				}
 			} catch (error) {
 				console.log(error)
 			}
 		}
 	}
-	function SetTableThreeState(table, state){
+	function SetTableThreeState(table, state) {
 		if (table.tagName.toLowerCase() === "select" || table.tagName.toLowerCase() === "button") {
 			table.disabled = state === true ? false : true;
 		}
@@ -538,10 +549,72 @@
 		return cfg
 	}
 	async function SelectKey() {
-		return await (await fetch(`/SelectKey`, FetchOPtions())).text();		
+		return await (await fetch(`/SelectKey`, FetchOPtions())).text();
 	}
 	async function SelectXButton() {
-		return await (await fetch(`/SelectXButton`, FetchOPtions())).text();				
+		return await (await fetch(`/SelectXButton`, FetchOPtions())).text();
+	}
+	function CeateDpadTableRow(Key_A) {		
+		let [up, down, left, right] = [Key_A[0], Key_A[1], Key_A[2], Key_A[3]]
+		console.log("======",up, down, left, right)
+		if (up    === "") up    = "None"
+		if (down  === "") down  = "None"
+		if (left  === "") left  = "None"
+		if (right === "") right = "None"
+		let html = /*html*/`		
+			<tr>
+				<th scope="row">Dpad</th>
+				<td>
+					<select class="form-select" data-self="select" style="width:max-content">
+						<option value="0">Dpad</option>
+						<option value="3">Keyboard</option>
+						<option value="4">Keyboard Tap</option>										
+					</select>
+				</td>
+				<td><button data-self="up" class="btn btn-dark" style="width:140px">${up}</button></td>
+				<td><button data-self="down" class="btn btn-dark" style="width:140px">${down}</button></td>
+				<td><button data-self="left" class="btn btn-dark" style="width:140px">${left}</button></td>
+				<td><button data-self="right" class="btn btn-dark" style="width:140px">${right}</button></td>
+			</tr>
+		`
+		document.getElementById("dinput_table").insertAdjacentHTML("beforeend", html)
+		let elemements = {}
+		GetElementsByData(Array.from(document.getElementById("dinput_table").children).at(-1), elemements)
+		console.log(elemements)
+		elemements.select.value = GetDinputCfg().Modes[0]
+		elemements.select.onchange = () => {
+			let cfg = GetDinputCfg()
+			cfg.Modes[0] = elemements.select.value
+			cfg.Modes[1] = elemements.select.value
+			cfg.Modes[2] = elemements.select.value
+			cfg.Modes[3] = elemements.select.value
+			elemements.up.innerHTML    = "None";
+			elemements.down.innerHTML  = "None";
+			elemements.left.innerHTML  = "None";
+			elemements.right.innerHTML = "None";
+			cfg.Key_A[0] = ""
+			cfg.Key_A[1] = ""
+			cfg.Key_A[2] = ""
+			cfg.Key_A[3] = ""
+			cfg.update()
+		}
+		for (let button of ["up", "down", "left", "right"]) {
+			elemements[button].onclick = async() => {
+				if (elemements.select.value === "0") {
+					alert("The dpad as configured as a Dpad, there is no need to assign keys")
+					return
+				}
+				let key = await SelectKey()
+				elemements[button].innerHTML = key === "" ? "None" : key
+				let cfg = GetDinputCfg()
+				if (button === "up")    cfg.Key_A[0] = key
+				if (button === "down")  cfg.Key_A[1] = key
+				if (button === "left")  cfg.Key_A[2] = key
+				if (button === "right") cfg.Key_A[3] = key
+				//console.log(cfg)	
+				cfg.update()
+			}	
+		}
 	}
 	function CreateDinputTableRow(cntr, Key_A, Key_B, Alt_A, Alt_B, i) {
 		let [a, b, x, y] = [Key_A[i], Key_B[i], Alt_A[i], Alt_B[i]]
@@ -567,13 +640,13 @@
 				<td><button data-self="ButtonY" class="btn btn-dark" style="width:140px">${y}</button></td>
 			</tr>
 		`
-		document.getElementById("dinput_table").insertAdjacentHTML("beforeend", html)		
+		document.getElementById("dinput_table").insertAdjacentHTML("beforeend", html)
 		let elemements = {}
 		GetElementsByData(Array.from(document.getElementById("dinput_table").children).at(-1), elemements)
 		elemements.select.value = GetDinputCfg().Modes[i]
 		elemements.select.onchange = function () {
 			let cfg = GetDinputCfg()
-			cfg.Modes[i]                 = this.value
+			cfg.Modes[i] = this.value
 			elemements.ButtonA.innerHTML = "None";
 			elemements.ButtonB.innerHTML = "None";
 			elemements.ButtonX.innerHTML = "None";
@@ -589,8 +662,8 @@
 			elemements[button].onclick = async function () {
 				let key = ""
 				if (elemements.select.value === "3") key = await SelectXButton()
-				else                                 key = await SelectKey()
-				
+				else key = await SelectKey()
+
 				elemements[button].innerHTML = key === "" ? "None" : key
 				let cfg = GetDinputCfg()
 				if (button === "ButtonA") cfg.Key_A[i] = key
