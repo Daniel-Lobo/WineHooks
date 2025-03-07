@@ -454,11 +454,17 @@
 						'Key_B': Key_B,
 						'Alt_A': Alt_A,
 						'Alt_B': Alt_B,
-						'Modes': Modes
+						'Modes': Modes,
+						'm'    : isNaN(parseInt(await IniGet(GameName, "m", "j2k")))? "0" : await IniGet(GameName, "m", "j2k"),
+						'rs'   : isNaN(parseInt(await IniGet(GameName, "rs", "j2k")))? "0" : await IniGet(GameName, "rs", "j2k"),
+						'spd'  : isNaN(parseFloat(await IniGet(GameName, "spd", "j2k")))? "0.05" : await IniGet(GameName, "spd", "j2k"),
+						'dz'   : isNaN(parseFloat(await IniGet(GameName, "dz", "j2k")))? "0.15" : await IniGet(GameName, "dz", "j2k")
 					}
 					console.log(cfg)
-					parent = document.getElementById(sec.replace("tab", "_div"))
-					let checked = await IniIsTrue(GameName, 'u', 'j2k') ? "checked" : ""
+					let deadzone = cfg.dz * 100
+					let speed    = cfg.spd * 1000
+					parent 		 = document.getElementById(sec.replace("tab", "_div"))
+					let checked  = await IniIsTrue(GameName, 'u', 'j2k') ? "checked" : ""
 					parent.insertAdjacentHTML("beforeend", /*html*/`
 						<div style="display:flex;flex-direction:column;gap:0px">
 							<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
@@ -491,6 +497,20 @@
 								<tbody id="dinput_table" data-cfg='${JSON.stringify(cfg)}'>									
 								</tbody>
 							</table>
+							<div style='display:flex;flex-direction:column;'>
+								<label style='margin-top:2px;'>Deadzone</label>
+								<div style='display:flex;margin-left:20px;margin-top:0px'>
+									<input class='slider' type='range' 	min='10' max='50' value='${deadzone}' step='1' id='dinput.deadzone'>
+									<label style='margin-left:6px;margin-top:0px' id='dinput.deadzone_label'>${deadzone}%</label>
+								</div>						
+							</div>
+							<div style='display:flex;flex-direction:column;'>
+								<label style='margin-top:2px;'>Mouse Speed</label>
+								<div style='display:flex;margin-left:20px;margin-top:0px'>
+									<input class='slider' type='range' 	min='50' max='100' value='${speed}' step='1' id='dinput.speed'>
+									<label style='margin-left:6px;margin-top:0px' id='dinput.speed_label'>${speed/10}%</label>
+								</div>						
+							</div>
 							<div style="display:flex;flex-direction:row-reverse;gap:10px">
 								<button id='dinput_apply' class="button btn btn-primary" style="width:140px">Apply</button>
 							</div>
@@ -511,6 +531,50 @@
 						</tr>
 					`)
 					CeateDpadTableRow(Key_A)
+					CeateLStickTableRow(Key_A)
+					html = /*html*/`		
+					<tr>
+						<th scope="row">Right Stick</th>
+						<td>
+							<select id="dinput.rs" class="form-select" data-self="select" style="width:max-content">
+								<option value="0">Default</option>
+								<option value="1">Swapped</option>
+								<option value="2">Mouse</option>											
+							</select>
+						</td>
+						<td></td><td></td><td></td><td></td>
+					</tr>
+					`	
+					document.getElementById("dinput_table").insertAdjacentHTML("beforeend", html)
+					document.getElementById("dinput.rs").value = cfg.rs
+					document.getElementById("dinput.rs").onchange = () => {
+						let cfg = GetDinputCfg()
+						cfg.rs = document.getElementById("dinput.rs").value	
+						cfg.update()
+					}
+					let modifier_buttons="A,B,X,Y,Left Button,Right Button,Left Trigger,Right Trigger,Back,Start,Left Stick - Press,Right Stick - Press".split(",")
+					html = /*html*/`		
+					<tr>
+						<th scope="row"><div class="text-bg-danger" 
+							style="width:max-content;border-radius:10px;height:40px;padding:8px 16px 16px 16px">Modifier</div>
+						</th>
+						<td>
+							<select id="dinput.modifier" class="form-select" data-self="select" style="width:max-content">
+								<option value="0">None</option>
+								${modifier_buttons.map((button, index) => `<option value="${index+5}">${button}</option>`).join("")}													
+							</select>
+						</td>
+						<td></td><td></td><td></td><td></td>
+					</tr>
+					`
+					document.getElementById("dinput_table").insertAdjacentHTML("beforeend", html)
+					document.getElementById("dinput.modifier").value = cfg.m
+					document.getElementById("dinput.modifier").onchange = () => {
+						let cfg = GetDinputCfg()
+						cfg.m = document.getElementById("dinput.modifier").value	
+						cfg.update()
+					}							
+
 					SetTableThreeState(document.getElementById('dinput_table_root'), document.getElementById("j2k.u").checked)
 					document.getElementById("dinput_apply").onclick = function () {
 						let cfg = GetDinputCfg()
@@ -611,6 +675,67 @@
 				if (button === "down")  cfg.Key_A[1] = key
 				if (button === "left")  cfg.Key_A[2] = key
 				if (button === "right") cfg.Key_A[3] = key
+				//console.log(cfg)	
+				cfg.update()
+			}	
+		}
+	}
+	function CeateLStickTableRow(Key_A) {		
+		let [up, down, left, right] = [Key_A[16], Key_A[17], Key_A[18], Key_A[19]]
+		console.log("======",up, down, left, right)
+		if (up    === "") up    = "None"
+		if (down  === "") down  = "None"
+		if (left  === "") left  = "None"
+		if (right === "") right = "None"
+		let html = /*html*/`		
+			<tr>
+				<th scope="row">Left Stick</th>
+				<td>
+					<select class="form-select" data-self="select" style="width:max-content">
+						<option value="0">Default</option>
+						<option value="3">Keyboard</option>															
+					</select>
+				</td>
+				<td><button data-self="up" class="btn btn-dark" style="width:140px">${up}</button></td>
+				<td><button data-self="down" class="btn btn-dark" style="width:140px">${down}</button></td>
+				<td><button data-self="left" class="btn btn-dark" style="width:140px">${left}</button></td>
+				<td><button data-self="right" class="btn btn-dark" style="width:140px">${right}</button></td>
+			</tr>
+		`
+		document.getElementById("dinput_table").insertAdjacentHTML("beforeend", html)
+		let elemements = {}
+		GetElementsByData(Array.from(document.getElementById("dinput_table").children).at(-1), elemements)
+		console.log(elemements)
+		elemements.select.value = GetDinputCfg().Modes[0]
+		elemements.select.onchange = () => {
+			let cfg = GetDinputCfg()
+			cfg.Modes[0] = elemements.select.value
+			cfg.Modes[1] = elemements.select.value
+			cfg.Modes[2] = elemements.select.value
+			cfg.Modes[3] = elemements.select.value
+			elemements.up.innerHTML    = "None";
+			elemements.down.innerHTML  = "None";
+			elemements.left.innerHTML  = "None";
+			elemements.right.innerHTML = "None";
+			cfg.Key_A[16] = ""
+			cfg.Key_A[17] = ""
+			cfg.Key_A[18] = ""
+			cfg.Key_A[19] = ""
+			cfg.update()
+		}
+		for (let button of ["up", "down", "left", "right"]) {
+			elemements[button].onclick = async() => {
+				if (elemements.select.value === "0") {
+					alert("The dpad as configured as a Dpad, there is no need to assign keys")
+					return
+				}
+				let key = await SelectKey()
+				elemements[button].innerHTML = key === "" ? "None" : key
+				let cfg = GetDinputCfg()
+				if (button === "up")    cfg.Key_A[16] = key
+				if (button === "down")  cfg.Key_A[17] = key
+				if (button === "left")  cfg.Key_A[18] = key
+				if (button === "right") cfg.Key_A[19] = key
 				//console.log(cfg)	
 				cfg.update()
 			}	
