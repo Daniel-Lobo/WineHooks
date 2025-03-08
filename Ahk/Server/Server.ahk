@@ -314,7 +314,7 @@ GetHandler(socket, p, a){
     return CSS(socket, path.__str)    
 
     args  := GetArgs(a)  
-    reply := HTMLReply("<div><img src=""WINE.png"" /></div>")    
+    reply := HTMLReply("<div>Not Found</div>")    
     if (path.__str = "/")
         reply := HTMLReply(RootRoute())
     else if (path.__str = "/home")
@@ -396,8 +396,7 @@ GetGitProfilesList(){
 SaveFile(file_name, contents){	
 	try {
         print(file_name)
-        if (file_name="help\directdraw.txt")
-            print(contents)
+        ;print(contents)
 		FileOpen(g_.BasePath . file_name, "w").write(contents)
         ;print("saved " . file_name)
         ;print(contents)
@@ -666,7 +665,8 @@ SelectKey(){
 	Gui, SelectKey:+Hwndhwin
 	Gui, SelectKey:+AlwaysOnTop
 	Gui, SelectKey:Add, Text, x60 y20, Waiting for key
-	Gui, SelectKey:Show, w200 h60		
+	Gui, SelectKey:Add, Text, x6 y36, Close this window to clear the assigment
+	Gui, SelectKey:Show, w214 h80		
 	keys := "LButton RButton MButton WheelDown WheelUp CapsLock Space Tab Enter Esc BS ScrollLock Del Ins Home End PgUp PgDn Up Down Left Right" 
 	. " Numpad0 Numpad1 Numpad2 Numpad3 Numpad4 Numpad5 Numpad6 Numpad7 Numpad8 Numpad9 NumpadDiv NumpadMult NumpadAdd NumpadSub" 
 	. " F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 Ctrl Alt Shift Q W E R T Y U I O P A S D F G H J K L Z X C V B N M < > [ ] 1 2 3 4 5 6 7 8 9 0 / \ ~ - ="
@@ -705,6 +705,7 @@ SelectXButton(){
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 10
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 11
 	Gui, SelectKey:Add, Button, y+10 g_SelectXButton, Button 12
+	Gui, SelectKey:Add, text, y+10 x10, To clear the assigment, close this window
 	Gui, SelectKey:Show	
 	While (selected=""){
 		if not WinActive("ahk_id" hwin)

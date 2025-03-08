@@ -113,7 +113,9 @@ std::string ParseArgs(std::unordered_map<std::string, std::string>& queryParams)
     return args;
 }
 
-std::string GetPostBody(std::vector<std::string> lines, char buffer[20480]){
+#define _1MB 1024 * 1024
+
+std::string GetPostBody(std::vector<std::string> lines, char buffer[_1MB]){
     int content_length = 0;
     for (const auto& line : lines) {
         std::string lower_line = toLower(line); // force to lower case to ensure no case sensitive issues
@@ -151,9 +153,10 @@ void Server::_listen(){
         }        
 
         // Read the HTTP request from the client.
-        char buffer[40960] = {0};
+        char buffer[_1MB] = {0};  ;; 
         int bytes_received = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
         if (bytes_received < 0) {
+            MessageBoxA(NULL, "Failed to receive data from client.", "", MB_ICONERROR|MB_OK);
             Error("Receive failed.");
         } else {
 

@@ -450,28 +450,34 @@
 					let Alt_B = await IniGetJ2k(GameName, 'y', 'j2k')
 					let Modes = await IniGetJ2k(GameName, 'mds', 'j2k')
 					let cfg = {
-						'Key_A': Key_A,
-						'Key_B': Key_B,
-						'Alt_A': Alt_A,
-						'Alt_B': Alt_B,
-						'Modes': Modes,
-						'm'    : isNaN(parseInt(await IniGet(GameName, "m", "j2k")))? "0" : await IniGet(GameName, "m", "j2k"),
-						'rs'   : isNaN(parseInt(await IniGet(GameName, "rs", "j2k")))? "0" : await IniGet(GameName, "rs", "j2k"),
-						'spd'  : isNaN(parseFloat(await IniGet(GameName, "spd", "j2k")))? "0.05" : await IniGet(GameName, "spd", "j2k"),
-						'dz'   : isNaN(parseFloat(await IniGet(GameName, "dz", "j2k")))? "0.15" : await IniGet(GameName, "dz", "j2k")
+						'Key_A' : Key_A,
+						'Key_B' : Key_B,
+						'Alt_A' : Alt_A,
+						'Alt_B' : Alt_B,
+						'Modes' : Modes,
+						'm'     : isNaN(parseInt(await IniGet(GameName, "m", "j2k")))? "0" : await IniGet(GameName, "m", "j2k"),
+						'rs'    : isNaN(parseInt(await IniGet(GameName, "rs", "j2k")))? "0" : await IniGet(GameName, "rs", "j2k"),
+						'spd'   : isNaN(parseFloat(await IniGet(GameName, "spd", "j2k")))? "0.2" : await IniGet(GameName, "spd", "j2k"),
+						'dz'    : isNaN(parseFloat(await IniGet(GameName, "dz", "j2k")))? "0.15" : await IniGet(GameName, "dz", "j2k"),
+						'rs_alt': await IniIsTrue(GameName, 'rs_alt', 'j2k'),
+						'FF'	: await IniIsTrue(GameName, 'FF', 'j2k'),
+						'u'		: await IniIsTrue(GameName, 'u', 'j2k')
 					}
 					console.log(cfg)
 					let deadzone = cfg.dz * 100
-					let speed    = cfg.spd * 1000
+					let speed    = cfg.spd * 100
 					parent 		 = document.getElementById(sec.replace("tab", "_div"))
 					let checked  = await IniIsTrue(GameName, 'u', 'j2k') ? "checked" : ""
 					parent.insertAdjacentHTML("beforeend", /*html*/`
-						<div style="display:flex;flex-direction:column;gap:0px">
+						<div style="display:flex;flex-direction:column;gap:0px;position:relative">
 							<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
 								<input type="checkbox" id="j2k.u" class="form-check-input" ${checked}
 									style="margin-top:4px" 
-									onchange="IniSet('${GameName}', 'u', this.checked ? 'true' : 'false', 'j2k');
-									SetTableThreeState(document.getElementById('dinput_table_root'),  this.checked)">
+									onchange="
+									let cfg = GetDinputCfg();
+									cfg.u = this.checked;
+									cfg.update();
+									SetTableThreeState(document.getElementById('j2kroot'),  this.checked)">
 								<label class="form-check-label" for="${"dinput.e".toLowerCase().trim()}">
 									Enable Xinput to DirectInput translation
 								</label>									
@@ -480,10 +486,62 @@
 								Input from a <a href="javascript:dummy()" id="dinput" onclick="PostActionB(this)">XInput gamepad</a>
 								is translated to <a href="javascript:dummy()" id="dinput" onclick="PostActionB(this)">DirectInput</a>,
 								keyboard or mouse input		
-							</label>				
+							</label>
+							<div style="display:none;flex-direction:column;gap:4px;position:absolute;z-index:2" id="dinput-help-div"
+								class="alert alert-warning" id="dinput-help" style="width:100%;height:max-content;text-align:justify">	
+								<h4 class="h4">Buttons</h4>			
+								<ul>
+									<li><b>DirectInput Gamepad mode:</b> the button emulates the gamepad button configured in the <b>Key A</b> column</li>
+									<li><b>Keyboard mode:</b> the button emulates the keyboard keys or mouse buttons configured in the <i><b>Key A</b></i> and
+										<i><b>Key B</b></i> (if any) columns or, if the 
+										<div class="text-bg-danger" 
+											style="width:max-content;border-radius:10px;height:34px;padding:4px 4px 0px 4px;display:inline-block">
+											Modifier
+										</div> 
+									button is pressed, the keys configured in the  
+									<i><b>Alt A</b></i> and <i><b>Alt B</b></i> columns</li>
+									<li><b>Keyboard repeat:</b> while held down, the button continuously generates input events from the keyboard key or mouse button configured in the  
+									<i><b>Key A</b></i> column. Key combinations or alternative keys are not supported in this mode and neither is the mouse wheel 
+									<li><b>Keyboard toggle:</b> when the button is pressed, a <i><b>keydown</b></i> event from the
+									<i><b>Key A</b></i> key is generated and a when the button is pressed again, a <i><b>keyup</b></i> event will be sent.
+									Mouse input is not supported in this mode and neither are key combinations or alternative keys
+									<li><b>Keyboard tap:</b> Simnilar to <b>Keyboard</b>, but pressing the button generates a single tap of the correspoding key even if the\
+									button is held down<br></li>\
+									<li><b>NOTE:</b> there will be some games on which <b>Keyboard</b> behaves as <b>Keyboard repeat</b> and <b>Keyboard tap</b> behaves as <b>Keyboard</b>
+								</ul>
+								<h4 class="h4">Dpad</h4>		
+								<ul>
+									<li><b>Default:</b> The dpad behaves as it normally does and whatever is set on the <b>Up\\Down\\Left\\Right</b> columns is ignored</li>
+									<li><b>Keyboard:</b> The dpad emulates four keyboard keys or mouse buttons configured on the <b>Up\\Down\\Left\\Right</b> columns</li>
+                				</ul>	
+								<h4 class="h4">Left Stick</h4>		
+								<ul>
+									<li><b>Default:</b> The left stick behaves as it normally does and whatever is set on the <b>Left\\Right\\Up\\Down</b> columns is ignored.
+									If however, the <i><b>Right Stick</b></i> is set to <i><b>Swapped</b></i>, the <i><b>Left Stick</b></i> emulates the <i><b>Right Stick</b></i> 
+									instead
+									<li><b>Keyboard:</b> The left stick emulates four keyboard keys or mouse buttons configured on the <b>Left\\Right\\Up\\Down</b> columns</li>
+								</ul>			
+								<h4 class="h4">Right Stick</h4>		
+								<ul>
+									<li><b>Default:</b> The <i><b>Right Stick</b></i> behaves as it normally does</li>
+									<li><b>Swapped:</b> The <i><b>Right Stick</b></i> emulates the <i><b>Left Stick</b></i></li>
+									<li><b>Mouse:</b> The <i><b>Right Stick</b></i> emulates the mouse</li>		
+								</ul>				
+								<div style='display:inline-block'><b>Dead Zone:</b> The dead zone of the controller sticks when they\'re configured to emulate DirectInput sticks</div>
+								<div style='display:inline-block'><b>Mouse sensitivity:</b> How fast the mouse moves when the Right Stick is configured to emulate the mouse</div>
+								<div style='display:inline-block'><b>Alt mouse method:</b> Use an alternative method to emulate the mouse with the right stick</div>
+								<div style='display:inline-block'><b>Enable force feedback:</b> Force feedback is the DirectInput terminology for vibration\\rumble and 
+									also (already back as 1996) haptic feedback, which encompassed, back in the day, four effects: intertia, dampening, friction, and spring. On
+									today's XInput controllers, however, only rumble is emulated</div>
+								<div style='display:flex;flex-direction:row-reverse'>
+									<button type="button" class="btn btn-danger"
+										onclick="this.parentElement.parentElement.style.display = 'none'">
+										Close
+									</button>
+							</div>
 						</div>
-						<div>
-							<table class="table" id="dinput_table_root">
+						<div id="j2kroot">
+							<table class="table table-sm table-borderless" id="dinput_table_root">
 								<thead>
 									<tr>
 										<th scope="col">Button</th>
@@ -497,22 +555,61 @@
 								<tbody id="dinput_table" data-cfg='${JSON.stringify(cfg)}'>									
 								</tbody>
 							</table>
-							<div style='display:flex;flex-direction:column;'>
-								<label style='margin-top:2px;'>Deadzone</label>
-								<div style='display:flex;margin-left:20px;margin-top:0px'>
-									<input class='slider' type='range' 	min='10' max='50' value='${deadzone}' step='1' id='dinput.deadzone'>
+							<div style='display:flex;flex-direction:row;'>
+								<label style='margin-top:2px;margin-right:26px'>Deadzone</label>
+								<div style='display:flex;margin-left:6px;margin-top:4px'>
+									<input class='slider' type='range' 	min='10' max='50' value='${deadzone}' step='1' id='dinput.deadzone'
+									onchange='
+										document.getElementById("dinput.deadzone_label").innerText = this.value + "%"
+										let cfg = GetDinputCfg()
+										cfg.dz = this.value/100
+										cfg.update()
+									'>
 									<label style='margin-left:6px;margin-top:0px' id='dinput.deadzone_label'>${deadzone}%</label>
 								</div>						
 							</div>
-							<div style='display:flex;flex-direction:column;'>
+							<div style='display:flex;flex-direction:row;'>
 								<label style='margin-top:2px;'>Mouse Speed</label>
-								<div style='display:flex;margin-left:20px;margin-top:0px'>
-									<input class='slider' type='range' 	min='50' max='100' value='${speed}' step='1' id='dinput.speed'>
-									<label style='margin-left:6px;margin-top:0px' id='dinput.speed_label'>${speed/10}%</label>
+								<div style='display:flex;margin-left:6px;margin-top:4px'>
+									<input class='slider' type='range' 	min='10' max='100' value='${speed}' step='1' id='dinput.speed'
+									onchange='
+										document.getElementById("dinput.speed_label").innerText = this.value/100
+										let cfg = GetDinputCfg()
+										cfg.spd = this.value/100
+										cfg.update()
+									'>
+									<label style='margin-left:6px;margin-top:0px' id='dinput.speed_label'>${speed/100}</label>
 								</div>						
+							</div>							
+							
+							<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
+								<input type="checkbox" class="form-check-input" ${cfg.rs_alt ? "checked" : ""}
+									style="margin-top:4px" 
+									onchange="
+									let cfg    = GetDinputCfg();
+									cfg.rs_alt = this.checked;
+									cfg.update()">
+								<label class="form-check-label">
+									Alt mouse method
+								</label>									
 							</div>
-							<div style="display:flex;flex-direction:row-reverse;gap:10px">
+							<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
+								<input type="checkbox" class="form-check-input" ${cfg.FF ? "checked" : ""}
+									style="margin-top:4px" 
+									onchange="
+									let cfg = GetDinputCfg();
+									cfg.FF  = this.checked;
+									cfg.update()">
+								<label class="form-check-label">
+									Enable force feedback
+								</label>									
+							</div>
+							
+							<div style="display:flex;flex-direction:row-reverse;gap:10px">								
 								<button id='dinput_apply' class="button btn btn-primary" style="width:140px">Apply</button>
+								<button id='dinput_help' class="button btn btn-primary" style="width:max-content">
+									💬 Options explanation
+								</button>
 							</div>
 						</div>`
 					)					
@@ -575,10 +672,13 @@
 						cfg.update()
 					}							
 
-					SetTableThreeState(document.getElementById('dinput_table_root'), document.getElementById("j2k.u").checked)
+					SetTableThreeState(document.getElementById('j2kroot'), document.getElementById("j2k.u").checked)
 					document.getElementById("dinput_apply").onclick = function () {
 						let cfg = GetDinputCfg()
 						console.log(cfg)
+					}
+					document.getElementById("dinput_help").onclick = function () {
+						document.getElementById("dinput-help-div").style.display = "flex"
 					}
 				}
 			} catch (error) {
@@ -587,7 +687,7 @@
 		}
 	}
 	function SetTableThreeState(table, state) {
-		if (table.tagName.toLowerCase() === "select" || table.tagName.toLowerCase() === "button") {
+		if (table.tagName.toLowerCase() === "select" || table.tagName.toLowerCase() === "button" || table.tagName.toLowerCase() === "input") {
 			table.disabled = state === true ? false : true;
 		}
 		for (let child of table.children) {
@@ -630,9 +730,8 @@
 				<th scope="row">Dpad</th>
 				<td>
 					<select class="form-select" data-self="select" style="width:max-content">
-						<option value="0">Dpad</option>
-						<option value="3">Keyboard</option>
-						<option value="4">Keyboard Tap</option>										
+						<option value="0">Default</option>
+						<option value="3">Keyboard</option>											
 					</select>
 				</td>
 				<td><button data-self="up" class="btn btn-dark" style="width:140px">${up}</button></td>
@@ -665,7 +764,7 @@
 		for (let button of ["up", "down", "left", "right"]) {
 			elemements[button].onclick = async() => {
 				if (elemements.select.value === "0") {
-					alert("The dpad as configured as a Dpad, there is no need to assign keys")
+					alert("The dpad is configured at default mode, acting like a Dpad, there is no need to assign keys")
 					return
 				}
 				let key = await SelectKey()
@@ -726,7 +825,7 @@
 		for (let button of ["up", "down", "left", "right"]) {
 			elemements[button].onclick = async() => {
 				if (elemements.select.value === "0") {
-					alert("The dpad as configured as a Dpad, there is no need to assign keys")
+					alert("The left stick is configured at default mode, there is no need to assign keys")
 					return
 				}
 				let key = await SelectKey()

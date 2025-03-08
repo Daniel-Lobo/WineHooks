@@ -170,32 +170,32 @@
 		}
 		return null
 	}
-	function DownLoadCommonHelpFiles(github_nfo, tables_nfo) {
+	async function DownLoadCommonHelpFiles(github_nfo, tables_nfo) {
 		for (let i = 0; i < github_nfo.length; i++) {
 			let nfo  = github_nfo[i]
 			let name = GetCommonHelpFileName(nfo.name)
 
 			if (name !== null) {
 				let xmlHttp = new XMLHttpRequest();
-				xmlHttp.onload = onreadystatechange = function () {
+				xmlHttp.onload = onreadystatechange = async function () {
 					if (this.readyState == 4 && this.status == 200) {
-						SaveFile("Help\\" + nfo.name, this.responseText);
+						await SaveFile("Help\\" + nfo.name, this.responseText);
 					}
 				};
 				xmlHttp.open("GET", nfo.download_url, false); // false for synchronous request
-				xmlHttp.send();
+				await xmlHttp.send();
 			}
 		}
 		for (let nfo of tables_nfo) {
 			if (nfo.name.toLowerCase() === "cepluginlib.ahk") {
 				let xmlHttp    = new XMLHttpRequest();
-				xmlHttp.onload = onreadystatechange = function () {
+				xmlHttp.onload = onreadystatechange = async function () {
 					if (this.readyState == 4 && this.status == 200) {
-						SaveFile("CheatTables\\" + nfo.name, this.responseText);
+						await SaveFile("CheatTables\\" + nfo.name, this.responseText);
 					}
 				};
 				xmlHttp.open("GET", nfo.download_url, false); // false for synchronous request
-				xmlHttp.send();
+				await xmlHttp.send();
 				break
 			}
 		}
@@ -221,7 +221,7 @@
 		ParseGITHubReply(jsn.Profiles, jsn.Help, jsn.CheatTables, jsn.Scripts);
 	}
 				
-	function ParseGITHubReply(jsn, help_nfo, tables_nfo, scripts_nfo) {		
+	async function ParseGITHubReply(jsn, help_nfo, tables_nfo, scripts_nfo) {		
 		let pretty = JSON.stringify(jsn, null, 4);
 		document.getElementById("git-games-list-container").innerHTML = /*html*/`
 			<div class='cntrl_group' style='overflow:auto;height:330px;width:100%' id='profiles'></div>
@@ -240,7 +240,7 @@
 			document.getElementById("profiles").innerHTML += html;
 		}
 		
-		DownLoadCommonHelpFiles(help_nfo, tables_nfo);
+		await DownLoadCommonHelpFiles(help_nfo, tables_nfo);
 		document.getElementById("download").disabled	  = false
 		document.getElementById("progress").style.display = "none"
 		document.getElementById("download").onclick = function () {			
@@ -251,7 +251,7 @@
 			document.getElementById("progress").style.display = "flex"
 			console.log("Display style set to flex");			
 
-			setTimeout(() => {
+			setTimeout(async() => {
 			    
 				let children = document.getElementById("profiles").children;
 				let count    = 0
@@ -268,20 +268,20 @@
 					if (box.checked) {
 						count += 1;					    
 						let xmlHttp	   = new XMLHttpRequest();
-						xmlHttp.onload = onreadystatechange = function () {
+						xmlHttp.onload = onreadystatechange = async function () {
 							if (this.readyState == 4 && this.status == 200) {
-								promisses.push(SaveFile("Profiles\\" + jsn[i].name, this.responseText));													
+								await SaveFile("Profiles\\" + jsn[i].name, this.responseText)											
 								let hlp_fle_name = GetHelpFileName(this.responseText);
 								if (GetHelpFileDownLoadPath(help_nfo, hlp_fle_name) !== "") {
 									let h_xmlHttp = new XMLHttpRequest();
-									h_xmlHttp.onload = onreadystatechange = function () {
+									h_xmlHttp.onload = onreadystatechange = async function () {
 										if (this.readyState == 4 && this.status == 200) {
-											promisses.push(SaveFile("Help\\" + hlp_fle_name, this.responseText));										
+											await SaveFile("Help\\" + hlp_fle_name, this.responseText)									
 										}
 									};
 									try {
 										h_xmlHttp.open("GET", GetHelpFileDownLoadPath(help_nfo, hlp_fle_name), false); // false for synchronous request
-										h_xmlHttp.send();
+										await  h_xmlHttp.send();
 									} catch (err) {
 										errors.push(hlp_fle_name);
 									}
@@ -290,27 +290,28 @@
 								let cheat_table_path = GetHelpFileDownLoadPath(tables_nfo, cheat_table_name);
 								if (cheat_table_path !== "") {
 									let c_xmlHttp = new XMLHttpRequest();
-									c_xmlHttp.onload = onreadystatechange = function () {
+									c_xmlHttp.onload = onreadystatechange = async function () {
 										if (this.readyState == 4 && this.status == 200) {
-											promisses.push(SaveFile("CheatTables\\" + cheat_table_name, this.responseText));
+											console.log( new TextEncoder().encode(this.responseText).length );
+											await SaveFile("CheatTables\\" + cheat_table_name, this.responseText)
 										}
 									};
 									try {
-										c_xmlHttp.open("GET", cheat_table_path, false); // false for synchronous request
-										c_xmlHttp.send();
+										c_xmlHttp.open("GET", cheat_table_path, true); // false for synchronous request
+										await  c_xmlHttp.send();
 									} catch (err) {
 										errors.push(cheat_table_name);
 									}
 									cheat_table_name = cheat_table_name + ".ahk"
 									cheat_table_path = GetHelpFileDownLoadPath(tables_nfo, cheat_table_name);
-									c_xmlHttp.onload = onreadystatechange = function () {
+									c_xmlHttp.onload = onreadystatechange = async function () {
 										if (this.readyState == 4 && this.status == 200) {
-											promisses.push(SaveFile("CheatTables\\" + cheat_table_name, this.responseText));
+											await SaveFile("CheatTables\\" + cheat_table_name, this.responseText)
 										}
 									};
 									try {
 										c_xmlHttp.open("GET", cheat_table_path, false); // false for synchronous request
-										c_xmlHttp.send();
+										await  c_xmlHttp.send();
 									} catch (err) {
 										errors.push(cheat_table_name);
 									}
@@ -319,14 +320,14 @@
 								let script_path     = GetHelpFileDownLoadPath(scripts_nfo, script_fle_name);
 								if (script_path !== "") {
 									let src_xmlHttp = new XMLHttpRequest();
-									src_xmlHttp.onload = onreadystatechange = function () {
+									src_xmlHttp.onload = onreadystatechange = async function () {
 										if (this.readyState == 4 && this.status == 200) {
-											promisses.push(SaveFile("scripts\\" + script_fle_name, this.responseText));
+											await SaveFile("scripts\\" + script_fle_name, this.responseText)
 										}
 									};
 									try {
 										src_xmlHttp.open("GET", script_path, false); // false for synchronous request
-										src_xmlHttp.send();
+										await src_xmlHttp.send();
 									} catch (err) {
 										errors.push(script_fle_name);
 									}
@@ -334,7 +335,7 @@
 							}
 						};
 						xmlHttp.open("GET", jsn[i].download_url, false); // false for synchronous request
-						xmlHttp.send();
+						await xmlHttp.send();
 					};
 				}
 				if (errors.length > 0) {

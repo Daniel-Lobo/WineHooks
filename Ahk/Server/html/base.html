@@ -110,7 +110,11 @@
 				}
 				if (tab_id != ''){
 					console.log(tab_id)
-					document.getElementById(tab_id + "-tab").click();
+					try {
+						document.getElementById(tab_id + "-tab").click();
+					} catch (err) {
+						console.log(err)
+					}					
 				}				
 				document.getElementById(control_id).scrollIntoView();
 				document.getElementById(control_id).focus();
@@ -162,10 +166,10 @@
 		async function GetGitProfilesList(cfg) {
 			return await (await fetch(`/GetGitProfilesList`, FetchOPtions())).json();
 		}
-		function SaveFile(path, data) {
+		async function SaveFile(path, data) {
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', `/SaveFile?Path=${path}`, false);
-			xhr.send(data);
+			xhr.open('POST', `/SaveFile?Path=${path}`, true);
+			await xhr.send(data);
 			return;	
 		}
 		async function FileExists(path) {
