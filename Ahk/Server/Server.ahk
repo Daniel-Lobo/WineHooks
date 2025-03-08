@@ -338,8 +338,10 @@ HandleAction(action){
     run, %action%
 }
 
-GetHelpFileName(cfg){
-    help   := trim(new IniString(cfg).Get("Help"))
+GetHelpFileName(profile_name){
+	cfg    := new IniFile(g_.BasePath . profile_name)
+    help   := trim(cfg.Get("Help"))
+	print(g_.BasePath . profile_name . " " . help)
 	ignore := {"ddraw" : True, "directdraw" : True, "gl" : True, "DX8" : True, "DX9" : True, "DX10" : True, "DX11" : True, "DX12" : True, "CPU" : True, "Sound" : True, "Input" : True}
 	if not InStr(help, ".") and not ignore[help]
 		return help ".txt"
@@ -726,6 +728,12 @@ GuiClose(){
 	Return true
 }
 
+DownloadFile(url, dest){
+	dest := g_.BasePath dest
+	print(url " "dest)
+	UrlDownloadToFile, %url%, %dest%
+}
+
 PostHandler(socket, p, a, b){
     ;print("Post")
     path  := S(StrGet(p+0, ,"CP0"))  
@@ -742,7 +750,7 @@ PostHandler(socket, p, a, b){
         print(body)
     }
     else if (path.__str = "/GetHelpFileName"){
-        reply := PlainReply(GetHelpFileName(body))
+        reply := PlainReply(GetHelpFileName(args.Profile))
     }
     else if (path.__str = "/GetCheatTableName"){
         reply := PlainReply(GetCheatTableName(args.IniFileName))
@@ -792,7 +800,10 @@ PostHandler(socket, p, a, b){
 	}
 	else if (path.__str = "/SelectXButton"){
 		reply := PlainReply(SelectXButton())
-	}
+	} 
+	else if (path.__str = "/DownloadFile"){
+		DownloadFile(args.Url, args.Path)
+	} 
     DllCall(g_.p_send, uint, socket, astr, reply, uint, strlen(reply), uint, 0, uint) 
 }
 

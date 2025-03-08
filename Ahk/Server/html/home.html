@@ -150,6 +150,9 @@
 </div>
 
 <script>
+	async function DownLoadFile(url, path) {
+		return await fetch(`/DownloadFile?Url=${url}&Path=${path}`, FetchOPtions())
+	}
 	function GetHelpFileDownLoadPath(github_nfo, name) {
 		for (let i = 0; i < github_nfo.length; i++) {
 			let nfo = github_nfo[i]
@@ -159,6 +162,12 @@
 			}
 		}
 		return ""
+	}
+	async function GetHelpFileNameFromServer(profile_path) {
+		let options  = FetchOPtions();
+		let name    = await (await fetch(`/GetHelpFileName?Profile=${profile_path}`, options)).text();
+		//Print(name)
+		return name
 	}
 	function GetCommonHelpFileName(name) {
 		let names = ["ddraw", "directdraw", "gl", "gldefault", "DX8", "DX9", "DX10", "DX11", "DX12", "CPU", "Sound", "Input"]
@@ -263,6 +272,7 @@
 				}
 				let promisses = []
 				for (let i = 0; i < children.length; i++) {
+					/*
 					let box   = children[i].children[0];
 					let label = children[i].children[1];
 					if (box.checked) {
@@ -336,7 +346,25 @@
 						};
 						xmlHttp.open("GET", jsn[i].download_url, false); // false for synchronous request
 						await xmlHttp.send();
+						
 					};
+					*/
+					let box   = children[i].children[0];
+					let label = children[i].children[1];
+					if (box.checked) {
+						count += 1;		
+						await DownLoadFile(jsn[i].download_url, "Profiles\\" + jsn[i].name)
+						let hlp_fle_name = await GetHelpFileNameFromServer("Profiles\\" + jsn[i].name);
+						let hlp_fle_path = GetHelpFileDownLoadPath(help_nfo, hlp_fle_name);
+						if (hlp_fle_path !== "") {
+							await DownLoadFile(hlp_fle_path, "Help\\" + hlp_fle_name)
+						}
+						let cheat_table_name = GetCheatTableName(jsn[i].name);
+						let cheat_table_path = GetHelpFileDownLoadPath(tables_nfo, cheat_table_name);
+						if (cheat_table_path !== "") {
+							await DownLoadFile(cheat_table_path, "CheatTables\\" + cheat_table_name)
+						}						
+					}		
 				}
 				if (errors.length > 0) {
 					let failed = "";
