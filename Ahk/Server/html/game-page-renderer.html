@@ -489,7 +489,7 @@
 							</label>
 							<div style="display:none;flex-direction:column;gap:4px;position:absolute;z-index:2" id="dinput-help-div"
 								class="alert alert-warning" id="dinput-help" style="width:100%;height:max-content;text-align:justify">	
-								<h4 class="h4">Buttons</h4>			
+								<h5 class="h5">Buttons</h5>			
 								<ul>
 									<li><b>DirectInput Gamepad mode:</b> the button emulates the gamepad button configured in the <b>Key A</b> column</li>
 									<li><b>Keyboard mode:</b> the button emulates the keyboard keys or mouse buttons configured in the <i><b>Key A</b></i> and
@@ -505,23 +505,23 @@
 									<li><b>Keyboard toggle:</b> when the button is pressed, a <i><b>keydown</b></i> event from the
 									<i><b>Key A</b></i> key is generated and a when the button is pressed again, a <i><b>keyup</b></i> event will be sent.
 									Mouse input is not supported in this mode and neither are key combinations or alternative keys
-									<li><b>Keyboard tap:</b> Simnilar to <b>Keyboard</b>, but pressing the button generates a single tap of the correspoding key even if the\
+									<li><b>Keyboard tap:</b> Simnilar to <b>Keyboard</b>, but pressing the button generates a single tap of the correspoding key, even if the
 									button is held down<br></li>\
 									<li><b>NOTE:</b> there will be some games on which <b>Keyboard</b> behaves as <b>Keyboard repeat</b> and <b>Keyboard tap</b> behaves as <b>Keyboard</b>
 								</ul>
-								<h4 class="h4">Dpad</h4>		
+								<h5 class="h5">Dpad</h5>		
 								<ul>
 									<li><b>Default:</b> The dpad behaves as it normally does and whatever is set on the <b>Up\\Down\\Left\\Right</b> columns is ignored</li>
 									<li><b>Keyboard:</b> The dpad emulates four keyboard keys or mouse buttons configured on the <b>Up\\Down\\Left\\Right</b> columns</li>
                 				</ul>	
-								<h4 class="h4">Left Stick</h4>		
+								<h5 class="h5">Left Stick</h5>	
 								<ul>
 									<li><b>Default:</b> The left stick behaves as it normally does and whatever is set on the <b>Left\\Right\\Up\\Down</b> columns is ignored.
 									If however, the <i><b>Right Stick</b></i> is set to <i><b>Swapped</b></i>, the <i><b>Left Stick</b></i> emulates the <i><b>Right Stick</b></i> 
 									instead
 									<li><b>Keyboard:</b> The left stick emulates four keyboard keys or mouse buttons configured on the <b>Left\\Right\\Up\\Down</b> columns</li>
 								</ul>			
-								<h4 class="h4">Right Stick</h4>		
+								<h5 class="h5">Right Stick</h5>		
 								<ul>
 									<li><b>Default:</b> The <i><b>Right Stick</b></i> behaves as it normally does</li>
 									<li><b>Swapped:</b> The <i><b>Right Stick</b></i> emulates the <i><b>Left Stick</b></i></li>
@@ -531,7 +531,7 @@
 								<div style='display:inline-block'><b>Mouse sensitivity:</b> How fast the mouse moves when the Right Stick is configured to emulate the mouse</div>
 								<div style='display:inline-block'><b>Alt mouse method:</b> Use an alternative method to emulate the mouse with the right stick</div>
 								<div style='display:inline-block'><b>Enable force feedback:</b> Force feedback is the DirectInput terminology for vibration\\rumble and 
-									also (already back as 1996) haptic feedback, which encompassed, back in the day, four effects: intertia, dampening, friction, and spring. On
+									also (already back at 1996) haptic feedback, which encompassed, back in the day, four effects: intertia, dampening, friction, and spring. On
 									today's XInput controllers, however, only rumble is emulated</div>
 								<div style='display:flex;flex-direction:row-reverse'>
 									<button type="button" class="btn btn-danger"
@@ -676,6 +676,19 @@
 					document.getElementById("dinput_apply").onclick = function () {
 						let cfg = GetDinputCfg()
 						console.log(cfg)
+						IniSet(GameName, "u",      cfg.u      === true ? "true" : "false", "j2k")
+						IniSet(GameName, "ff",     cfg.FF     === true ? "true" : "false", "j2k")
+						IniSet(GameName, "rs_alt", cfg.rs_alt === true ? "true" : "false", "j2k")
+						IniSet(GameName, "m",   cfg.m,   "j2k")
+						IniSet(GameName, "rs",  cfg.rs,  "j2k")
+						IniSet(GameName, "spd", cfg.spd, "j2k")
+						IniSet(GameName, "dz",  cfg.dz,  "j2k")
+						IniSet(GameName, "a", cfg.Key_A.toString(), "j2k")
+						IniSet(GameName, "b", cfg.Key_B.toString(), "j2k")
+						IniSet(GameName, "x", cfg.Alt_A.toString(), "j2k")
+						IniSet(GameName, "y", cfg.Alt_B.toString(), "j2k")
+						IniSet(GameName, "mds", cfg.Modes.toString(), "j2k")
+						Done("Configuration updated", ()=>{})					
 					}
 					document.getElementById("dinput_help").onclick = function () {
 						document.getElementById("dinput-help-div").style.display = "flex"
