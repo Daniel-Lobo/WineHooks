@@ -469,7 +469,7 @@
 					parent 		 = document.getElementById(sec.replace("tab", "_div"))
 					let checked  = await IniIsTrue(GameName, 'u', 'j2k') ? "checked" : ""
 					parent.insertAdjacentHTML("beforeend", /*html*/`
-						<div style="display:flex;flex-direction:column;gap:0px;position:relative">
+						<div style="display:flex;flex-direction:column;gap:0px;position:relative"  class="alert alert-secondary">
 							<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
 								<input type="checkbox" id="j2k.u" class="form-check-input" ${checked}
 									style="margin-top:4px" 
@@ -541,7 +541,7 @@
 								</div>
 						</div>
 						<div id="j2kroot">
-							<table class="table table-sm table-borderless" id="dinput_table_root">
+							<table class="table table-sm table-borderless table-secondary" id="dinput_table_root">
 								<thead>
 									<tr>
 										<th scope="col">Button</th>
@@ -693,10 +693,52 @@
 					document.getElementById("dinput_help").onclick = function () {
 						document.getElementById("dinput-help-div").style.display = "flex"
 					}
+					parent.insertAdjacentHTML("beforeend", /*html*/`
+						<div class="alert alert-secondary" id=macros-div><h5 class="h5" style="margin-bottom:36px">Macros</h5></div>
+					`)
+					for (let macro of "s0,s1,s2,s3,s4,s5,r0,r1,t0,t1".split(',')) {
+						await AddMacrosRow(macro, document.getElementById("macros-div"), GameName)
+					}
 				}
 			} catch (error) {
 				console.log(error)
 			}
+		}
+	}
+	async function AddMacrosRow(macro, parent, game){
+		let label    = macro.indexOf('s') > -1 ? 'replaces' :  macro.indexOf('r') > -1 ? 'repeats &nbsp;' : 'toggles &nbsp;';
+		let checked  = await IniIsTrue(game, macro + "e", "k2k")
+		let trigger  = await IniGet(game, macro + "k", "k2k")
+		let replaces = await IniGet(game, macro + "v", "k2k")
+		let disabned = checked === false ? "disabled" : ""
+		checked      = checked === true  ? "checked" : ""
+		console.log(checked, disabned, trigger, replaces)
+		if (trigger  === "") trigger  = "None"
+		if (replaces === "") replaces = "None"
+		let html = /*html*/`
+			<div style="display:flex;flex-direction:row;gap:10px;;margin-top:10px">
+				<input type="checkbox" id="${macro}e" class="form-check" ${checked}>
+				<button id="${macro}k" class="btn btn-dark" style="width:140px" ${disabned}>${trigger}</button>
+				${label}
+				<button id="${macro}v" class="btn btn-dark" style="width:140px" ${disabned}>${replaces}</button>
+			</div>	
+		`
+		parent.insertAdjacentHTML("beforeend", html)
+		document.getElementById(macro + "e").onchange = () => {
+			let checked = document.getElementById(macro + "e").checked
+			IniSet(game, macro + "e", checked ? "true" : "false", "k2k")
+			document.getElementById(macro + "k").disabled = !checked
+			document.getElementById(macro + "v").disabled = !checked
+		}
+		document.getElementById(macro + "k").onclick = async() => {
+			let value = await SelectKey()
+			document.getElementById(macro + "k").innerHTML = value === "" ? "None" : value
+			IniSet(game, macro + "k", value, "k2k")			
+		}
+		document.getElementById(macro + "v").onclick = async() => {
+			let value = await SelectKey()
+			document.getElementById(macro + "v").innerHTML = value === "" ? "None" : value
+			IniSet(game, macro + "v", value, "k2k")			
 		}
 	}
 	function SetTableThreeState(table, state) {
