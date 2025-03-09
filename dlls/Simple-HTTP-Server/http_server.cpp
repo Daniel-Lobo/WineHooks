@@ -140,7 +140,7 @@ std::string GetPostBody(std::vector<std::string> lines, char buffer[_1MB]){
 }
 
 void Server::_listen(){
-    std::string utl = "http://localhost:" + std::to_string(m_Config.PORT);
+    std::string utl = "http://127.0.0.1:" + std::to_string(m_Config.PORT);
     if (bound) 
     ShellExecuteA(NULL, "open", utl.c_str(), NULL, NULL, SW_SHOWNORMAL);
     // For now, just keep the server running indefinitely
