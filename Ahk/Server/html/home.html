@@ -185,26 +185,12 @@
 			let name = GetCommonHelpFileName(nfo.name)
 
 			if (name !== null) {
-				let xmlHttp = new XMLHttpRequest();
-				xmlHttp.onload = onreadystatechange = async function () {
-					if (this.readyState == 4 && this.status == 200) {
-						await SaveFile("Help\\" + nfo.name, this.responseText);
-					}
-				};
-				xmlHttp.open("GET", nfo.download_url, false); // false for synchronous request
-				await xmlHttp.send();
+				await DownLoadFile(nfo.download_url, "Help\\" + nfo.name);				
 			}
 		}
 		for (let nfo of tables_nfo) {
 			if (nfo.name.toLowerCase() === "cepluginlib.ahk") {
-				let xmlHttp    = new XMLHttpRequest();
-				xmlHttp.onload = onreadystatechange = async function () {
-					if (this.readyState == 4 && this.status == 200) {
-						await SaveFile("CheatTables\\" + nfo.name, this.responseText);
-					}
-				};
-				xmlHttp.open("GET", nfo.download_url, false); // false for synchronous request
-				await xmlHttp.send();
+				await DownLoadFile(nfo.download_url, "CheatTables\\" + nfo.name);
 				break
 			}
 		}
