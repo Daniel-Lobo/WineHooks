@@ -443,6 +443,38 @@
 						else if (val === "none") val = ""
 						IniSet(GameName, 'compatlayer', val, '')
 					}
+				} else if (sec === "%_textswap_%") {
+					let prnt = document.getElementById("graphics..._div") 
+					if (prnt === null) prnt = document.getElementById("graphics_div")					
+					if (prnt === null) prnt = document.getElementById("🏠_div")
+					prnt.insertAdjacentHTML("beforeend", /*html*/`
+						<div style="display:flex;flex-direction:row;gap:20px" id="tswap-button-container">
+							<button class="btn btn-primary" style="width:max-content;margin-top:20px" onclick="ShowTextSwapDialog('${GameName}')">
+								<div style="display:flex;flex-direction:row;gap:10px">
+									<i class="fa-solid fa-wrench fa-2xl" style="margin-top:20px"></i>
+									<div style="border-right:1px solid white; width:1px"></div>
+									<div style="display:flex;flex-direction:column;gap:0px">
+										<p style="font-weight:bold;margin-bottom:0px; text-align:left;">Texture Swap</p>
+										<p style="margin-top:0px;margin-bottom:0px;text-align:left;font-weight:lighter">Enable, disable or configure texture swap</p>
+									</div>
+								</div>	
+							</button>
+						</div>
+					`)
+				} else if (sec === "%_pixelswap_%") {
+					let prnt = document.getElementById("tswap-button-container")
+					prnt.insertAdjacentHTML("beforeend", /*html*/`
+						<button class="btn btn-primary" style="width:max-content;margin-top:20px" onclick="ShowPxSwapDialog('${GameName}')">
+							<div style="display:flex;flex-direction:row;gap:10px">
+								<i class="fa-solid fa-wrench fa-2xl" style="margin-top:20px"></i>
+								<div style="border-right:1px solid white; width:1px"></div>
+								<div style="display:flex;flex-direction:column;gap:0px">
+									<p style="font-weight:bold;margin-bottom:0px; text-align:left;">Pixel shader Swap</p>
+									<p style="margin-top:0px;margin-bottom:0px;text-align:left;font-weight:lighter">Enable, disable or configure pixel shader swap</p>
+								</div>
+							</div>	
+						</button>						
+					`)										
 				} else if (sec === "inputtab") {
 					let Key_A = await IniGetJ2k(GameName, 'a', 'j2k')
 					let Key_B = await IniGetJ2k(GameName, 'b', 'j2k')
@@ -953,5 +985,283 @@
 				cfg.update()
 			}
 		}
+	}
+	async function ShowTextSwapDialog(GameName) {
+		let mydocs       = String.raw`%ProfilesPath%\\`.replace("\\\\", "\\");
+		let enabled      = await IniIsTrue(GameName, "e", "textswap")
+		let autodump     = await IniIsTrue(GameName, "a", "textswap")
+		let delay        = await IniIsTrue(GameName, "dly", "textswap")
+		let a8fix        = await IniIsTrue(GameName, "a8fix", "textswap")
+		let dynamic_tx   = await IniIsTrue(GameName, "l", "textswap")
+		let toggle       = await IniGet(GameName, "sw", "textswap")
+		let next         = await IniGet(GameName, "n", "textswap")
+		let prev	     = await IniGet(GameName, "p", "textswap")
+		let dump         = await IniGet(GameName, "d", "textswap")
+		let quick        = await IniGet(GameName, "q", "textswap")		
+		let tumb_sz      = await IniGet(GameName, "sz", "textswap")
+		let sample_count = await IniGet(GameName, "s", "textswap")
+		let path  	     = await IniGet(GameName, "path", "textswap")
+		console.log(enabled, autodump, delay, a8fix, toggle, next, prev, dump, quick, tumb_sz, sample_count, path)
+		prev   = prev   === "" ? "None" : prev
+		next   = next   === "" ? "None" : next
+		dump   = dump   === "" ? "None" : dump
+		quick  = quick  === "" ? "None" : quick
+		toggle = toggle === "" ? "None" : toggle	
+		
+		let alpha_textures_popover = (await ParseText(/*html*/`This fixes a bug related to alpha texture on Blade of darkness and maybe other games,
+The correct rendering of fonts on Blade of darkness depends on alpha 
+textures returning 1.0 for the color channels when sampled on the pixel stage. 
+With the introduction of the programable pipeline, the default value of 
+the color channels in alpha only textures on the pixel shader was changed to 
+<a href='https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/texld---ps-2-0' target='_blank'>0.0</a>.
+On windows vista - and latter, the  Direct3D runtimes implement the fixed 
+function pipeline with 
+<a href='https://docs.microsoft.com/en-us/windows-hardware/drivers/display/converting-the-direct3d-fixed-function-state' target='_blank'>shaders</a>. 
+What  
+I guess happened was that, at that point, the MS programers did not correctly
+replicated the fixed function alpha textures behavior on the pixel shaders 
+emulating the fixed function pipeline.   
+This fix is applied by replacing alpha only textures with full RGBA textures 
+with the color channels set to 255`)).replaceAll("\"", "'")
+
+		console.log(alpha_textures_popover)
+
+		let elements = bff(/*html*/`
+		<div id="create-profile-dialog"  class="dialog-container" data-self="container">
+			<div class="dialog text-bg-light" style="width:1240px;height:900px;padding: 20px;">
+				<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px">
+					<h6 class="h6" style="text-align:justify; margin-bottom:0">Texture swapping allows replacement of a game's textures with no restrictions on size and format and whithout modifing 
+						the game's files. <br>
+						Bellow are the texture swapping options (individual, per game), which also seve as a simple tutorial on how to use it 
+					</h6>
+					<button type="button" class="btn-close" aria-label="Close" data-self="close" style="padding: 5px; margin-left: 10px;"></button>
+				</div>
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" data-self="enabled">
+					<label class="form-check-label">Enabled</label>
+				</div>
+				<h6 class="h6" style="text-align:justify;margin-top:0px;margin-bottom:4px">
+					To replace textures in a game, you'll start by dumpinfg the textures to disk
+				</h6>
+				<div style="display:flex;flex-direction:row; gap:4px">
+					<div style="display:flex;flex-direction:column; gap:5px">						
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="sw">${toggle}</button>
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="n">${next}</button>
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="p">${prev}</button>
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="q">${quick}</button>
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="d">${dump}</button>
+					</div>
+					<div style="display:flex;flex-direction:column;width:calc(100% - 20px);gap:5px;font-size:14px">
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Browse textures:</b> while playing, hit this key to browse textures. After pressing this key, you should immediately see a thumbnail of one of the  
+                            game's currently loaded textures, in the top left corner of the screen
+						</div>
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Next</b>: Press this key to select the next texture. 
+							You'll notice the texture shown in the top left corner of the screen will change. The current selected texure is also replaced in game by a 
+							white and green checkboard patern
+						</div>
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Prev</b>: Press this key to select the previous texture. 
+							You'll notice the texture shown in the top left corner of the screen will change. The current selected texure is also replaced in game by a 
+							white and green checkboard patern
+						</div>
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Quick</b>: Browse textures more quickly. Holdind the next or prev keys quickly scrolls through the textures
+						</div>
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Dump</b>: Dump the currently selected texture to disk
+						</div>
+					</div>					
+				</div>
+				<div style="display:flex;flex-direction:row;gap:50px">
+					<div style="display:flex;flex-direction:column;gap:5px;with:70%" class="alert alert-secondary">
+						<h6 class="h6" style="text-align:justify;margin-bottom:2px"><b>Path:</b> The path where the textures are dumped</h6>
+						<div style="display:flex;flex-direction:row"> 
+							<input type="radio" name="tswap_path" value="textures\\voksi">
+							<a href="javascript:dummy()" id="${mydocs}textures\\voksi" onclick="PostActionB(this)"
+								style="margin-left:4px;margin-top:-4px">${mydocs}textures\\Voksi
+							</a>
+						</div>	
+						<div style="display:flex;flex-direction:row;margin-top:-6px">
+							<input type="radio" name="tswap_path" value="textures\\empress">
+							<a href="javascript:dummy()" id="${mydocs}textures\\empress" onclick="PostActionB(this)"
+								style="margin-left:4px;margin-top:-4px">${mydocs}textures\\Empress
+							</a>
+						</div>
+						<div style="display:flex;flex-direction:row;margin-top:-6px">	
+							<input type="radio" name="tswap_path" value="textures\\cpy">
+							<a href="javascript:dummy()" id="${mydocs}textures\\cpy" onclick="PostActionB(this)"
+								style="margin-left:4px;margin-top:-4px">${mydocs}textures\\CPY
+							</a>
+						</div>
+						<div style="display:flex;flex-direction:row;margin-top:-6px">
+							<input type="radio" name="tswap_path" value="textures\\skidrow">
+							<a href="javascript:dummy()" id="${mydocs}textures\\skidrow" onclick="PostActionB(this)"
+								style="margin-left:4px;margin-top:-4px">${mydocs}textures\\Skidrow
+							</a>
+						</div>
+						<div style="display:flex;flex-direction:row;margin-top:-6px">
+							<input type="radio" name="tswap_path" value="textures\\reloaded">
+							<a href="javascript:dummy()" id="${mydocs}textures\\reloaded" onclick="PostActionB(this)"
+								style="margin-left:4px;margin-top:-4px">${mydocs}textures\\Reloaded
+							</a>
+						</div>
+						<div style="display:flex;flex-direction:row;margin-top:-6px">
+							<input type="radio" name="tswap_path" value="textures\\codex">
+							<a href="javascript:dummy()" id="${mydocs}textures\\codex" onclick="PostActionB(this)"
+								style="margin-left:4px;margin-top:-4px">${mydocs}textures\\CODEX
+							</a>
+						</div>
+						<div style="display:flex;flex-direction:row;margin-top:-6px">
+							<input type="radio" name="tswap_path" value="textures\\fitgirl">
+							<a href="javascript:dummy()" id="${mydocs}textures\\fitgirl" onclick="PostActionB(this)"
+								style="margautodumpin-left:4px;margin-top:-4px">${mydocs}textures\\Fitgirl
+							</a>
+						</div>
+						<div style="display:flex;flex-direction:row;margin-top:-6px">
+					</div>
+				</div>	
+				<div style="display:flex;flex-direction:column;gap:5px;with:70%">
+					<div style="display:flex;flex-direction:row;gap:10px"
+						data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" 
+						data-bs-title="Number of lines sampled to <i>'hash'</i> the texture. A smaller count results in smaller dumps, but may also
+						cause replacements meant for a particular texture to end up replacing another one.">
+						<b>Sample count:</b>
+						<input type="range" min="2" max="16" value="${sample_count}" step="2" class="slider" data-self="sample_count" style="margin-left:12px">
+						<label data-self="sample_count-label">${sample_count}</label>
+					</div>
+					<div style="display:flex;flex-direction:row;gap:10px"
+						data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" 
+						data-bs-title="Size of the thumbnail shown in the top left corner of the screen">
+						<b>Thumbnail size:</b>
+						<input type="range" min="64" max="512" step="64" value="${tumb_sz}" class="slider" data-self="thumb_size">
+						<label data-self="thumb_size-label">${tumb_sz}</label>
+					</div>
+					<div style="height:10px"></div>
+					<div class="form-check form-switch" style="position:relative;width:max-content">
+						<input class="form-check-input" type="checkbox" data-self="a8fix">
+						<label class="form-check-label" style="width:200px">Alpha textures fix</label>						
+						<div style="cursor:pointer;position:absolute;top:-4px;right:-14px"
+						data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
+						data-bs-content="${alpha_textures_popover}">
+							💬 
+						</div>	
+					</div>
+					<div class="form-check form-switch" style="position:relative;width:max-content">
+						<input class="form-check-input" type="checkbox" data-self="autodump">
+						<label class="form-check-label" style="width:200px">Auto dump textures</label>
+						<div style="cursor:pointer;position:absolute;top:-4px;right:-14px"
+						data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
+						data-bs-content="Automatically dump textures to while you play - wip 🚧">
+							💬 
+						</div>	
+					</div>					
+					<div class="form-check form-switch" style="position:relative;width:max-content">
+						<input class="form-check-input" type="checkbox" data-self="dynamic_tx">
+						<label class="form-check-label" style="width:200px">Dynamic textures - D3D9</label>
+						<div style="cursor:pointer;position:absolute;top:-4px;right:-14px"
+						data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
+						data-bs-content="On Direct3D 9, some textures can only be dumped if they're loaded after you enable the search. 
+						This option circumvents this requirement, but incurs a performance penalty.">
+							💬 
+						</div>	
+					</div>
+				</div>					
+			</div>
+			<div class="alert alert-secondary shadow" style="flex-grow:1;margin-top:-20px;margin-bottom:0px;overflow-y:scroll">
+				&#11166; REPLACING THE TEXTURE<br>
+				<div style='margin-left:40px;margin-bottom:10px'>To finally replace a texture, all you have to do is to place a replacement image with the right
+				format and name in the right location<br>
+				Say the path option was configured as: <br> <b>${mydocs}VOKSI\\SomeGame</b>, textures will de dumped to:<br>
+				<b> ${mydocs}VOKSI\\SomeGame\\Dumps</b> and the replacement should be placed in:<br>
+				<b> ${mydocs}VOKSI\\SomeGame\\Replacements</b><br>
+				The replacement file must have the same name as the dump, but is installed on the replacements folder</div>
+				&#11166; REPLACEMENT FILE PIXEL FORMAT<br>
+				<ul>
+				<li> Replacement textures must also be in the .dds file format. The recommended pixel format for all games is DXT5, but remember that textures in compressed DXTn formats must have
+				sizes that are integer multiples of 4. Even if some programs can create DXTn files with different sizes, those won't be loaded<br>
+				<li> To get arround this limitation, or if you want the best possible quality, use the A8R8G8B8 format or - for OpenGl, Direct3D 10 and Direct3D 11 games - A8B8G8R8
+				<li> If you want small files, use the DXT1 format, but note that this format doesn't support partial transparency<br>
+				<li> On Direct3D 7 and earlier, you will frequently find textures with transparency, but no alpha channel. These textures use 
+				<a href='https://en.wikipedia.org/wiki/Chroma_Key' target='_blank'>chroma keying</a>. For these, create replacements
+				preferably in the X8R8G8B8 format - R5G6B5 and X1R5G5B5 will also work. The replacement texture will inherit the color key of the original texture. If the replacement texture
+				doesn't display transparency correctly, use the same pixel format as the original. This will be fixed in a (not so near) future</ul>
+				\
+				&#11166; MIPMAPS\
+				- Mipmaps are supported in all formats and APIs, but pay attention to the following:<ul>
+				<li> On DirectX 7 and earlier, mipmapped textures must have power of two dimensions
+				<li> On modern OpenGl games, as in Direct3D 10 and 11, always use mipmapped textures with at least as many levels as the textures they are intended to replace</ul>
+				
+				&#11166; Distributing textures<br>\
+				<div style='margin-left:40px'>If you want to distribute textures you have created, you can <a id=compile  href='javascript:dummy()' onclick='PostActionB(this)'>compile</a> your dumps into a single tinny file: dump._dds. That reduces the size of the files you have to distribute
+				and avoid trouble by distributing copyrighted material, asn you can distribute only the dump._dds file no the original dumps. The replacements, obviously, must be distributed.
+				After compiling your, the program ignores all .dds files in the dumps folder, therefore, if you dump new textures, run the compiler again or delete the dump._dds file	
+			</div>	
+		</div>	
+		`).PrepentTo(document.body)
+
+		elements.sample_count.onchange = () => {
+			elements["sample_count-label"].innerText = elements.sample_count.value
+			IniSet(GameName, "s", elements.sample_count.value, "textswap")
+		}
+		elements.thumb_size.onchange = () => {
+			elements["thumb_size-label"].innerText = elements.thumb_size.value
+			IniSet(GameName, "sz", elements.thumb_size.value, "textswap")
+		}			
+		elements.container.style.display = "flex"	
+		elements.enabled.onchange        = () => {
+			elements.autodump.disabled              = elements.enabled.checked ? false : "disabled"
+			elements.dynamic_tx.disabled            = elements.enabled.checked ? false : "disabled"
+			elements.a8fix.disabled                 = elements.enabled.checked ? false : "disabled"
+			elements.sample_count.disabled          = elements.enabled.checked ? false : "disabled"
+			elements.thumb_size.disabled            = elements.enabled.checked ? false : "disabled"						
+			elements.sw.disabled                    = elements.enabled.checked ? false : "disabled"
+			elements.n.disabled                     = elements.enabled.checked ? false : "disabled"
+			elements.p.disabled                     = elements.enabled.checked ? false : "disabled"
+			elements.q.disabled                     = elements.enabled.checked ? false : "disabled"
+			elements.d.disabled                     = elements.enabled.checked ? false : "disabled"	
+			
+			const radios = document.querySelectorAll('input[type="radio"][name="tswap_path"]');
+			for (let radio of radios) {
+				radio.disabled = elements.enabled.checked ? false : "disabled"
+			}
+			IniSet(GameName, "e", elements.enabled.checked ? "true" : "false", "textswap")
+		}
+		elements.enabled.checked = enabled	
+		elements.enabled.onchange()
+		elements.close.onclick = () => {
+			elements.container.remove()
+		}
+		for (let el of "sw n p q d".split(" ")) {
+			elements[el].onclick = async () => {
+				elements[el].innerText = await SelectKey()
+				IniSet(GameName, el, elements[el].innerText, "textswap")
+			}
+		}
+		for (let radio of document.querySelectorAll('input[type="radio"][name="tswap_path"]')) {
+			if (radio.value.toLowerCase() === path) {
+				radio.checked = true
+			}
+			radio.onchange = () => {
+				if (radio.checked){
+					IniSet(GameName, "path", radio.value, "textswap")
+				}
+			}
+		}
+		elements.a8fix.checked       = a8fix
+		elements.autodump.checked    = autodump
+		elements.dynamic_tx.checked  = dynamic_tx
+		elements.a8fix.onchange      = () => {IniSet(GameName, "A8Fix",    elements.a8fix.checked      ? "true" : "false", "textswap")}
+		elements.autodump.onchange   = () => {IniSet(GameName, "a",        elements.autodump.checked   ? "true" : "false", "textswap")}
+		elements.dynamic_tx.onchange = () => {IniSet(GameName, "l",        elements.dynamic_tx.checked ? "true" : "false", "textswap")}
+		activatetooltips()
+		const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+		console.log(popoverTriggerList)
+		const popoverList        = [...popoverTriggerList].map(popoverTriggerEl => new 	bootstrap.Popover(popoverTriggerEl))
+	}
+
+	async function ShowPxSwapDialog() {
+		alert()
 	}
 </script>

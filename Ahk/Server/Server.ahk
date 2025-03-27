@@ -236,6 +236,8 @@ PlainReply(txt){
 GetArgs(args){
     args := StrReplace(StrGet(args+0, ,"CP0"), "%20", " ")
     args := StrReplace(args, "%27", "'")
+	args := StrReplace(args, "%3C", "<")
+	args := StrReplace(args, "%3E", ">")
     ;print("args " args)
     ret  := {}
     for _, arg in StrSplit(args, "&")
@@ -334,6 +336,13 @@ HandleAction(action){
         run, %link%    
         return
     }
+	if (RegExMatch(action, "[A-Za-z]:\\")){
+		if (!FileExist(action)){
+			MsgBox, 64, ,%action%`ndoesn't exist`nMake sure you start the game once with WineHooks
+			return
+		}		
+	}	
+	print(RegExMatch(action, "[A-Z]:\\"))
     print(action)
     run, %action%
 }

@@ -38,17 +38,18 @@
 			return json;
 		}
 
-		function BlinkOff(element, count) {
-			element.style.backgroundColor = "white";
+		function BlinkOff(element, count, color) {
+			element.style.backgroundColor = color;
 			setTimeout(() => { Blink(element, count-1) }, 200);
 		}
 
 		function Blink(element, count) {
+			let color = element.style.backgroundColor;
 			if (count <= 0) {				
 				return;
 			}
 			element.style.backgroundColor = "red";
-			setTimeout(() => { BlinkOff(element, count-1) }, 200);
+			setTimeout(() => { BlinkOff(element, count-1, color) }, 200);
 		}
 
 		function Done(msg, callback) {
@@ -189,6 +190,57 @@
 			//let profiles = await GetGitProfilesList()	
 			//console.log("profiles", profiles)
 		})()
+
+		function bff(html){
+            let _this = {
+				html        : html,
+				containner  : document.createElement('div'),
+				elements    : {},
+				GetElementsByData(element) {
+					if (element.dataset.self) {
+						this.elements[element.dataset.self] = element
+					}
+					if (element.dataset.data) {
+						this.elements.data_container = element;
+					}
+					for (let child of element.children) {
+						this.GetElementsByData(child)
+					}
+				},
+				GetElements(position, new_parent){
+					this.containner.insertAdjacentHTML('beforeend', this.html);
+					this.GetElementsByData(this.containner)
+					let children = Array.from(this.containner.children)
+					if (position === 'afterbegin') children = children.reverse();
+					for (let child of children){
+						new_parent.insertAdjacentElement(position, child)
+					}             
+					return this.elements
+				},
+				AppendTo(parent){
+					return this.GetElements('beforeend', parent)
+				},
+				PrepentTo(parent){
+					return this.GetElements('afterbegin', parent)
+				},
+				Data(){
+					if (this.elemements.data_container){
+						let data = JSON.parse(elemements.data_container.dataset.data)								
+						return data;
+					} else {
+						throw new Error('No data container')
+					}
+				},
+				UpDate(new_data){
+					if (this.elemements.data_container){
+						this.elemements.data_container.dataset.data = JSON.stringify(new_data)
+					} else {
+						throw new Error('No data container')
+					}
+				}
+			}
+            return _this    
+        }
 
 		//document.body.setAttribute("data-bs-theme", "dark"); //data-bs-theme
 	</script>

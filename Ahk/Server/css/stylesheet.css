@@ -15,6 +15,7 @@ html {
     width: 100%;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 .games-list-container {
@@ -136,7 +137,7 @@ html {
     top: 0;
     background-color: #50505050;
     display: none;
-    z-index: 1;
+    z-index: 2;
 }
 
 .dialog {
@@ -158,7 +159,9 @@ html {
     position: relative;
     left: 25px;
     font-size: 20px;
-    color: #0000aa;
+    color: #0000aa;.popover{
+        max-width: 100%; /* Max Width of the popover (depending on the container!) */
+    }
 }
 
 .warning {
@@ -294,4 +297,9 @@ html {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.popover{
+    max-width:600px!important; /* Max Width of the popover (depending on the container!) */
+    text-align: justify !important;;
 }
