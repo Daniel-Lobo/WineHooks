@@ -89,8 +89,8 @@ Server::Server(ServerConfig config) : m_Config(config) {
     if(bind(m_ServerFD, (struct  sockaddr*)&m_Address, m_Addrlen) == SOCKET_ERROR)
     {
         close("Bind failed.");
-    };
-    bound = TRUE;
+    }
+    else bound = TRUE;
 
     if (listen(m_ServerFD, 3) == SOCKET_ERROR){
         close("Listen failed.");

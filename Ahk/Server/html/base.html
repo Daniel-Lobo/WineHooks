@@ -180,15 +180,25 @@
 			options.body = path;
 			return await(await fetch(`/FileExist`, options)).text();
 		}
+		function Unimplemented() {
+			let elements = bff(/*html*/`
+			<div class="dialog-container" data-self="container" style="z-index: 2;">
+				<div class="dialog bg-primary" style="width:400px;padding: 20px;">
+					<div style="display:flex;flex-direction:row;gap:10px;padding-top:10px;">
+						<i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: rgb(58, 2, 2);"></i>
+						<span class="h3" id="msgbox-err-msg" style="margin-top:-13px;margin-left: 15px;color:rgb(58, 2, 2);">placeholder</span>
+					</div>
+					<div style="flex-grow: 1;"></div>
+					<div style="display:flex;flex-direction:row-reverse;gap:10px;padding:6px;border-top:1px solid gray;margin-bottom:-20px;">
+						<button style="width:100px;border:1px solid gray" class="btn btn-danger" 
+						onclick="document.getElementById('msgbox-err').style.display = 'none'">Close</button>
+					</div>
+				</div>
+			</div>`).AppendTo(document.body)
+		}
 		function dummy() { };
 		(async function () {
-			Print("This is a Test")
-			let cfg = 'key=value\nhelp=test\nkey2=value\nscript=test.ahk'
-			Print(GetHelpFileName(cfg))
-			Print(GetCheatTableName("test - OpenGl.ini"))
-			Print(GetScriptFileName(cfg))
-			//let profiles = await GetGitProfilesList()	
-			//console.log("profiles", profiles)
+			//document.body.setAttribute("data-bs-theme", "dark");
 		})()
 
 		function bff(html){
@@ -245,7 +255,7 @@
 		//document.body.setAttribute("data-bs-theme", "dark"); //data-bs-theme
 	</script>
 	<div class="dialog-container" id="msgbox-success" style="z-index: 2;">
-		<div class="dialog" style="width:400px;;background-color:white; padding: 20px;">
+		<div class="dialog bg-primary" style="width:400px; padding: 20px;">
 			<div style="display:flex;flex-direction:row;gap:10px;padding-top:10px;">
 				<i class="fa-solid fa-thumbs-up fa-2xl" style="color: green;"></i>
 				<span class="h3" id="msgbox-sucess-msg" style="margin-top:-13px;margin-left: 15px;">placeholder</span>
@@ -258,7 +268,7 @@
 		</div>
 	</div>		
 	<div class="dialog-container" id="msgbox-err" style="z-index: 2;">
-		<div class="dialog" style="width:400px;;background-color:white; padding: 20px;">
+		<div class="dialog bg-primary" style="width:400px;padding: 20px;">
 			<div style="display:flex;flex-direction:row;gap:10px;padding-top:10px;">
 				<i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: rgb(58, 2, 2);"></i>
 				<span class="h3" id="msgbox-err-msg" style="margin-top:-13px;margin-left: 15px;color:rgb(58, 2, 2);">placeholder</span>

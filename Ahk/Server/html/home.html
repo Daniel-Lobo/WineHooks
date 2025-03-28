@@ -5,7 +5,7 @@
 </script>
 
 <div id="create-profile-dialog"  class="dialog-container">
-	<div class="dialog" style="width:600px;height:600px;background-color: rgb(243, 226, 169); padding: 20px;">
+	<div class="dialog bg-light" style="width:600px;height:600px; padding: 20px;">
 		<div style="display:flex;flex-direction:column;gap:0px;margin-top:10px;border: 1px solid gray; 
 			border-radius:10px; padding: 10px;">
 			<p class="h5">API</p>
@@ -68,19 +68,19 @@
 		<div class="input-group mb-3" data-bs-toggle="tooltip" data-bs-placement="left" 
 			data-bs-title="Click the button to browse the games .exe file">
 			<button class="btn btn-secondary" id="find-game" onclick="FindGame()"><i class="fa-solid fa-folder"></i></button>
-			<input type="text" class="form-control" placeholder="Game path" aria-describedby="find-game" disabled id="game-path"
-			style="border: 1px solid gray; background-color: rgb(243, 226, 169);">
+			<input type="text" class="form-control bg-light" placeholder="Game path" aria-describedby="find-game" disabled id="game-path"
+			style="border: 1px solid gray; ;">
 		</div>
 
 		<div class="mb-3">
-			<input type="text" class="form-control" id="game-name" placeholder="Entry name"
-			style="border: 1px solid gray; background-color: rgb(243, 226, 169); margin-top: -16px;"
+			<input type="text" class="form-control bg-light" id="game-name" placeholder="Entry name"
+			style="border: 1px solid gray; margin-top: -16px;"
 			data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="The name that will appear in the games list, on the left">
   		</div>
 
 		<div class="mb-3">
-			<input type="text" class="form-control" id="game-folder" placeholder="Data folder"
-			style="border: 1px solid gray; background-color: rgb(243, 226, 169); margin-top: -16px;"
+			<input type="text" class="form-control bg-light" id="game-folder" placeholder="Data folder"
+			style="border: 1px solid gray; margin-top: -16px;"
 			data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-container="body" 
 			data-bs-html="true" data-bs-title="Enter a folder name. That folder will be created on: <i>%My Documents%\WineHooks\Games</i>, where winehooks 
 			will dump textures and shaders, if you use any of these features">

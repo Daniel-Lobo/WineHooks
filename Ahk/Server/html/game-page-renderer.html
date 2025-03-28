@@ -1008,7 +1008,7 @@
 		quick  = quick  === "" ? "None" : quick
 		toggle = toggle === "" ? "None" : toggle	
 		
-		let alpha_textures_popover = (await ParseText(/*html*/`This fixes a bug related to alpha texture on Blade of darkness and maybe other games,
+		let alpha_textures_popover = (await ParseText(/*html*/`This fixes a bug related to alpha only textures on Blade of darkness and maybe other games,
 The correct rendering of fonts on Blade of darkness depends on alpha 
 textures returning 1.0 for the color channels when sampled on the pixel stage. 
 With the introduction of the programable pipeline, the default value of 
@@ -1027,7 +1027,7 @@ with the color channels set to 255`)).replaceAll("\"", "'")
 		console.log(alpha_textures_popover)
 
 		let elements = bff(/*html*/`
-		<div id="create-profile-dialog"  class="dialog-container" data-self="container">
+		<div class="dialog-container" data-self="container">
 			<div class="dialog text-bg-light" style="width:1240px;height:900px;padding: 20px;">
 				<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px">
 					<h6 class="h6" style="text-align:justify; margin-bottom:0">Texture swapping allows replacement of a game's textures with no restrictions on size and format and whithout modifing 
@@ -1116,7 +1116,7 @@ with the color channels set to 255`)).replaceAll("\"", "'")
 						<div style="display:flex;flex-direction:row;margin-top:-6px">
 							<input type="radio" name="tswap_path" value="textures\\fitgirl">
 							<a href="javascript:dummy()" id="${mydocs}textures\\fitgirl" onclick="PostActionB(this)"
-								style="margautodumpin-left:4px;margin-top:-4px">${mydocs}textures\\Fitgirl
+								style="margin-left:4px;margin-top:-4px">${mydocs}textures\\Fitgirl
 							</a>
 						</div>
 						<div style="display:flex;flex-direction:row;margin-top:-6px">
@@ -1145,6 +1145,15 @@ with the color channels set to 255`)).replaceAll("\"", "'")
 						<div style="cursor:pointer;position:absolute;top:-4px;right:-14px"
 						data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
 						data-bs-content="${alpha_textures_popover}">
+							💬 
+						</div>	
+					</div>
+					<div class="form-check form-switch" style="position:relative;width:max-content">
+						<input class="form-check-input" type="checkbox" data-self="dly">
+						<label class="form-check-label" style="width:200px">Delay Texture Release</label>						
+						<div style="cursor:pointer;position:absolute;top:-4px;right:-14px"
+						data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true"
+						data-bs-content="Valid for Direct3D <b><i>1</i></b> Games. Fixes crashes on die by the sword and outlaws">
 							💬 
 						</div>	
 					</div>
@@ -1211,6 +1220,7 @@ with the color channels set to 255`)).replaceAll("\"", "'")
 		}			
 		elements.container.style.display = "flex"	
 		elements.enabled.onchange        = () => {
+			elements.dly.disabled                   = elements.enabled.checked ? false : "disabled"
 			elements.autodump.disabled              = elements.enabled.checked ? false : "disabled"
 			elements.dynamic_tx.disabled            = elements.enabled.checked ? false : "disabled"
 			elements.a8fix.disabled                 = elements.enabled.checked ? false : "disabled"
@@ -1252,16 +1262,97 @@ with the color channels set to 255`)).replaceAll("\"", "'")
 		elements.a8fix.checked       = a8fix
 		elements.autodump.checked    = autodump
 		elements.dynamic_tx.checked  = dynamic_tx
+		elements.dly.checked         = delay
 		elements.a8fix.onchange      = () => {IniSet(GameName, "A8Fix",    elements.a8fix.checked      ? "true" : "false", "textswap")}
 		elements.autodump.onchange   = () => {IniSet(GameName, "a",        elements.autodump.checked   ? "true" : "false", "textswap")}
 		elements.dynamic_tx.onchange = () => {IniSet(GameName, "l",        elements.dynamic_tx.checked ? "true" : "false", "textswap")}
+		elements.dly.onchange        = () => {IniSet(GameName, "dly",      elements.dly.checked        ? "true" : "false", "textswap")}
 		activatetooltips()
 		const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 		console.log(popoverTriggerList)
 		const popoverList        = [...popoverTriggerList].map(popoverTriggerEl => new 	bootstrap.Popover(popoverTriggerEl))
 	}
 
-	async function ShowPxSwapDialog() {
-		alert()
+	async function ShowPxSwapDialog(GameName) {
+		
+		let enabled = await IniIsTrue(GameName, "e", "PxSwap");
+		let sw      = await IniGet(GameName, "sw", "PxSwap") ;
+		let n       = await IniGet(GameName, "n", "PxSwap") ;
+		let p       = await IniGet(GameName, "p", "PxSwap") ;
+		let q       = await IniGet(GameName, "q", "PxSwap") ;
+		let d       = await IniGet(GameName, "d", "PxSwap") ;
+		if (sw === "") sw = "None"
+		if (n  === "") n  = "None"
+		if (p  === "") p  = "None"
+		if (q  === "") q  = "None"
+		if (d  === "") d  = "None"
+		
+		let elements = bff(/*html*/`
+		<div class="dialog-container" data-self="container">
+			<div class="dialog text-bg-light" style="width:1240px;height:550px;padding: 20px;">
+				<div style="display: flex; justify-content: space-between; flex-direction: row-reverse; margin-bottom: 4px">
+					<button type="button" class="btn-close" aria-label="Close" data-self="close" style="padding: 5px; margin-left: 10px;"></button>
+				</div>
+				<h6 class="h6" style="text-align:justify;margin-left:20px;margin-right:4px;">
+					<li>Pixel shader override is very similar to texture swapping, except that when you dump a shader, you'll have two files on the same folder. A binary file and a text file<br>\
+					<li style='margin-top:10px'>The text file contains DirectX Shader Asm code. For DirectX 8 and 9, you can modify that file directly and the changes will take effect next time you start the game<br>\
+					<li style='margin-top:10px'> For Direct3D 10 and 11 (and optionally 9) you must create an additional .hlsl file (same name as the .bin and .txt files) and the code in that file will replace the one in\
+					the .bin\.txt files. Use the respective shader models supported by each API"					
+				</h6>	
+				<div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" data-self="enabled">
+					<label class="form-check-label">Enabled</label>
+				</div>
+				<div style="display:flex;flex-direction:row; gap:4px">
+					<div style="display:flex;flex-direction:column; gap:5px">						
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="sw">${sw}</button>
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="n">${n}</button>
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="p">${p}</button>
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="q">${q}</button>
+						<button class="btn btn-dark" style="width:200px;height:50px" data-self="d">${d}</button>
+					</div>	
+					<div style="display:flex;flex-direction:column;width:calc(100% - 20px);gap:5px;font-size:14px">
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Browse shaders:</b> while playing, hit this key to browse textures. After pressing this key, you should immediately some text on 
+							in the top left corner of the screen, display the current loaded sahders count and the current pixel shader index
+						</div>
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Next</b>: Press this key to select the next pixel shader. 
+							The current selected pixel shader is also replaced in game by a simple shader the only outputs the a pixel from the texture bouond on the 1st texture stage
+						</div>
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Prev</b>: Press this key to select the previous pixel shader. 
+							The current selected pixel shader is also replaced in game by a simple shader the only outputs the a pixel from the texture bouond on the 1st texture stage
+						</div>						
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Quick</b>: Browse shaders more quickly. Holdind the next or prev keys quickly scrolls through the shaders
+						</div>
+						<div style="border-radius:6px;border:1px solid #000066;padding:10px;width:100%;height:50px;padding-top:4px;">
+							<b>Dump</b>: Dump the currently selected shader to disk
+						</div>
+					</div>						
+				</div>			
+			</div>
+		</div>`).PrepentTo(document.body)
+		elements.container.style.display = "flex"
+		elements.close.onclick = () => {
+			elements.container.remove()
+		}	
+		elements.enabled.onchange = () => {
+			IniSet(GameName, "e", elements.enabled.checked  ? "true" : "false", "PxSwap")
+			elements.sw.disabled = elements.enabled.checked ? false : "disabled"
+			elements.n.disabled = elements.enabled.checked  ? false : "disabled"
+			elements.p.disabled = elements.enabled.checked  ? false : "disabled"
+			elements.q.disabled = elements.enabled.checked  ? false : "disabled"
+			elements.d.disabled = elements.enabled.checked  ? false : "disabled"
+		}
+		elements.enabled.checked = enabled
+		elements.enabled.onchange()
+		for (let e of ["sw", "n", "p", "q", "d"]){
+			elements[e].onclick = async () => {
+				elements[e].innerText = await SelectKey()
+				IniSet(GameName, e, elements[e].innerText, "PxSwap")
+			}
+		}
 	}
 </script>
