@@ -96,6 +96,9 @@
 		}
 		async function PostActionB(_this) {
 			let action = _this.id.toLowerCase().trim();
+			if (action === "compile") {
+				return Unimplemented();
+			}
 			if (action.startsWith('goto')){
 				if (false === action.startsWith('gototab')) {
 					action = action.replace("goto", "gototab_" + '🏠');
@@ -189,18 +192,29 @@
 		function Unimplemented() {
 			let elements = bff(/*html*/`
 			<div class="dialog-container" data-self="container" style="z-index: 2;">
-				<div class="dialog bg-primary" style="width:400px;padding: 20px;">
+				<div class="dialog alert alert-danger" style="width:600px;padding: 20px;">
 					<div style="display:flex;flex-direction:row;gap:10px;padding-top:10px;">
 						<i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: rgb(58, 2, 2);"></i>
-						<span class="h3" id="msgbox-err-msg" style="margin-top:-13px;margin-left: 15px;color:rgb(58, 2, 2);">placeholder</span>
+						<span class="h3" data-self="msg" style="margin-top:-13px;margin-left: 15px;color:rgb(58, 2, 2);">Uninplemented</span>
 					</div>
+						<span class="h6" style="text-align: justify"> This is the 3rd release of the ongoing effort to adapt the program to be fully compatible
+						with <a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine</a> and use <a id='Wine'
+						onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls
+						and, at present, some things are still broken or not implemented.<br><br>
+						If you're on windows please download <a id='Archive' onclick="PostAction(event)"
+						href='javascript:dummy()'>version 0.10.12</a> or earlier
+					</span>
 					<div style="flex-grow: 1;"></div>
 					<div style="display:flex;flex-direction:row-reverse;gap:10px;padding:6px;border-top:1px solid gray;margin-bottom:-20px;">
 						<button style="width:100px;border:1px solid gray" class="btn btn-danger" 
-						onclick="document.getElementById('msgbox-err').style.display = 'none'">Close</button>
+						data-self="close">Close</button>
 					</div>
 				</div>
-			</div>`).AppendTo(document.body)
+			</div>`).AppendTo(document.body)			
+			elements.container.style.display = 'flex'
+			elements.close.onclick = function () {
+				elements.container.style.display = 'none'
+			}
 		}
 		function dummy() { };
 		(async function () {
