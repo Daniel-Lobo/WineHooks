@@ -1,4 +1,6 @@
 <script>
+	var g_ = {Game : ""}
+
 	async function IniGet(game, key, section) {
 		return (await (await fetch('/GetVal?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text()).toLowerCase();
 	}
@@ -141,6 +143,7 @@
 	}
 
 	async function RenderGamePage(_this) {
+		g_.Game      = _this.innerText;
 		let GameName = _this.innerText;
 		document.getElementById("game-page").innerHTML = /*html*/ `
 		<p class="h5" style="margin-top:10px">${GameName}</p>
@@ -986,7 +989,7 @@
 			}
 		}
 	}
-	async function ShowTextSwapDialog(GameName) {
+	async function ShowTextSwapDialog(GameName, addbackbutton = false) {
 		let mydocs       = String.raw`%ProfilesPath%\\`.replace("\\\\", "\\");
 		let enabled      = await IniIsTrue(GameName, "e", "textswap")
 		let autodump     = await IniIsTrue(GameName, "a", "textswap")
@@ -1007,6 +1010,14 @@
 		dump   = dump   === "" ? "None" : dump
 		quick  = quick  === "" ? "None" : quick
 		toggle = toggle === "" ? "None" : toggle	
+
+		let backtopx = /*html*/`
+		<button class="btn btn-outline-secondary" style="width:250px;margin-left:10px" data-self="backtopx">
+			<i class="fa-solid fa-arrow-up-right-from-square"></i> Back to Pixel Shader Swap
+		</button>`
+		if (addbackbutton === false) {
+			backtopx = ""
+		}
 		
 		let alpha_textures_popover = (await ParseText(/*html*/`This fixes a bug related to alpha only textures on Blade of darkness and maybe other games,
 The correct rendering of fonts on Blade of darkness depends on alpha 
@@ -1036,9 +1047,12 @@ with the color channels set to 255`)).replaceAll("\"", "'")
 					</h6>
 					<button type="button" class="btn-close" aria-label="Close" data-self="close" style="padding: 5px; margin-left: 10px;"></button>
 				</div>
-				<div class="form-check form-switch">
-					<input class="form-check-input" type="checkbox" data-self="enabled">
-					<label class="form-check-label">Enabled</label>
+				<div style="display:flex;flex-direction:row; gap:4px">
+					<div class="form-check form-switch" style="margin-top:8px">
+						<input class="form-check-input" type="checkbox" data-self="enabled">
+						<label class="form-check-label">Enabled</label>
+					</div>
+					${backtopx}
 				</div>
 				<h6 class="h6" style="text-align:justify;margin-top:0px;margin-bottom:4px">
 					To replace textures in a game, you'll start by dumpinfg the textures to disk
@@ -1267,6 +1281,12 @@ with the color channels set to 255`)).replaceAll("\"", "'")
 		elements.autodump.onchange   = () => {IniSet(GameName, "a",        elements.autodump.checked   ? "true" : "false", "textswap")}
 		elements.dynamic_tx.onchange = () => {IniSet(GameName, "l",        elements.dynamic_tx.checked ? "true" : "false", "textswap")}
 		elements.dly.onchange        = () => {IniSet(GameName, "dly",      elements.dly.checked        ? "true" : "false", "textswap")}
+		if (elements.backtopx) {
+			elements.backtopx.onclick = () => {
+				elements.container.remove()
+				ShowPxSwapDialog(GameName)
+			}
+		}
 		activatetooltips()
 		const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 		console.log(popoverTriggerList)
@@ -1294,10 +1314,12 @@ with the color channels set to 255`)).replaceAll("\"", "'")
 					<button type="button" class="btn-close" aria-label="Close" data-self="close" style="padding: 5px; margin-left: 10px;"></button>
 				</div>
 				<h6 class="h6" style="text-align:justify;margin-left:20px;margin-right:4px;">
-					<li>Pixel shader override is very similar to texture swapping, except that when you dump a shader, you'll have two files on the same folder. A binary file and a text file<br>\
+					<li>Pixel shader override is very similar to <span style="text-decoration: underline; cursor: pointer; color:blue"
+						data-self="textswap">texture swapping</span>, 
+						except that when you dump a shader, you'll have two files on the same folder. A binary file and a text file<br>\
 					<li style='margin-top:10px'>The text file contains DirectX Shader Asm code. For DirectX 8 and 9, you can modify that file directly and the changes will take effect next time you start the game<br>\
 					<li style='margin-top:10px'> For Direct3D 10 and 11 (and optionally 9) you must create an additional .hlsl file (same name as the .bin and .txt files) and the code in that file will replace the one in\
-					the .bin\.txt files. Use the respective shader models supported by each API"					
+					the .bin\.txt files. Use the respective shader backtopxmodels supported by each API"					
 				</h6>	
 				<div class="form-check form-switch">
 					<input class="form-check-input" type="checkbox" data-self="enabled">
@@ -1353,6 +1375,10 @@ with the color channels set to 255`)).replaceAll("\"", "'")
 				elements[e].innerText = await SelectKey()
 				IniSet(GameName, e, elements[e].innerText, "PxSwap")
 			}
+		}
+		elements.textswap.onclick = () => {
+			elements.container.remove()
+			ShowTextSwapDialog(GameName, true)
 		}
 	}
 </script>

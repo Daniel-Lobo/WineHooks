@@ -109,7 +109,7 @@
 					[_, tab_id, control_id]= action.split("_");
 				}
 				else if (split.length === 2) {
-					[_, control_id]= action.split("_");
+					[_, control_id] = action.split("_");
 				}
 				if (tab_id != ''){
 					console.log(tab_id)
@@ -118,10 +118,16 @@
 					} catch (err) {
 						console.log(err)
 					}					
-				}				
-				document.getElementById(control_id).scrollIntoView();
-				document.getElementById(control_id).focus();
-				Blink(document.getElementById(control_id).parentElement, 10);
+				}		
+				if (control_id.startsWith("textswap")) {
+					ShowTextSwapDialog(g_.Game);
+				} else if (control_id.startsWith("pxswap")) {
+					ShowPxSwapDialog(g_.Game);
+				} else {	
+					document.getElementById(control_id).scrollIntoView();
+					document.getElementById(control_id).focus();
+					Blink(document.getElementById(control_id).parentElement, 10);
+				}
 				return;
 			} else if (action === 'show_ce_div') {
 				return document.getElementById('CE::Button').click();
