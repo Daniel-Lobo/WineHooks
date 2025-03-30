@@ -34,12 +34,17 @@
 		fetch('/LaunchCE?IniFileName=' + game, FetchOPtions());
 	}
 
-	async function ParseText(text) {
-		let options = FetchOPtions();
-		options.body = text;
-		reply = await (await fetch('/ParseText', options)).text();
-		//console.log(text, reply)
-		return reply;
+	async function ParseText(text) {	
+		// Fails frequenlly on edge	
+		try {
+			let options  = FetchOPtions();
+			options.body = text;
+			reply = await (await fetch('/ParseText', options)).text();
+			console.log(reply)
+			return reply;
+		} catch (e) {
+			return ParseText(text)
+		}
 	}
 
 	function SetResLimitWidgetLabel(_id, game) {
