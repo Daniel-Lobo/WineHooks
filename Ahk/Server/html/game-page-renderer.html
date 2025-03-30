@@ -1,6 +1,14 @@
 <script>
 	var g_ = {Game : ""}
 
+	async function LaunchGame(game) {		
+		fetch('/LaunchGame?Game=' + game, FetchOPtions());
+	}
+
+	async function CreateShortCut(game) {
+		fetch('/CreateShortCut?Game=' + game, FetchOPtions());		
+	}
+
 	async function IniGet(game, key, section) {
 		return (await (await fetch('/GetVal?Game=' + game + '&Key=' + key + '&Section=' + section, FetchOPtions())).text()).toLowerCase();
 	}
@@ -53,9 +61,11 @@
 
 	async function AppendLink(link) {
 		try {
-			let lnk = link.split("->");
+			let lnk      = link.split("->");
 			console.log(lnk);
-			fetch('/AppendLink?Name=' + lnk[0] + '&Url=' + lnk[1], FetchOPtions());
+			options      = FetchOPtions();
+			options.body = lnk[1];
+			fetch('/AppendLink?Name=' + lnk[0] + '&Url=' + lnk[1], options);
 		} catch (error) {
 			console.log(error);
 		}
@@ -145,6 +155,8 @@
 	async function RenderGamePage(_this) {
 		g_.Game      = _this.innerText;
 		let GameName = _this.innerText;
+		let UrlFriendlyGameName = encodeURIComponent(GameName).replaceAll("'", "%27");
+		
 		document.getElementById("game-page").innerHTML = /*html*/ `
 		<p class="h5" style="margin-top:10px">${GameName}</p>
 		<div class="cntrl_group" style="gap:10px;overflow-y:hidden">			
@@ -168,6 +180,16 @@
 						<img style="fill:white" src="PCGamingWiki_wide.svg"><img>
 					</button> `
 					let table = await GetCheatTablePath(GameName)
+					let ver   = await IniGet(GameName, 'ver', '');
+					if (ver !== '') {
+						ver = /*html*/`
+						<div class="alert alert-danger">
+							<h3>Version warning</h3>This warning means that I don't have this game installed anymore and therefore
+           					I can't test it when I make changes on parts of the program that can affect it, and that I don't offer support for it
+            				<br><br>This game was last tested on version
+            				<a id='old_version_redirect' href='javascript:dummy()' onclick="PostActionB(this)"> ${ver} </a>
+						</div>`
+					}
 					table = table === '' ? '' : /*html*/` 
 					<button class="button btn btn-light" style="width:120px;border:1px solid #000066" id="CE::Button"
 						onclick="
@@ -211,17 +233,18 @@
 					parent.insertAdjacentHTML('beforeend', /*html*/`
 					<p class="h1">${title}</p>
 					<div style="display:flex;flex-direction:row;gap:10px;margin-top:10px;margin-bottom:20px;position:relative">
-						<button class="button btn btn-secondary" style="width:100px">
+						<button class="button btn btn-secondary" style="width:100px" onclick="LaunchGame('${UrlFriendlyGameName}')">	
 							<i class="fa-solid fa-circle-play fa-2xl"></i>
 							Play
 						</button>	
-						<button class="button btn btn-secondary" style="width:200px">
+						<button class="button btn btn-secondary" style="width:200px" onclick="CreateShortCut('${UrlFriendlyGameName}')">
 							<i class="fa-solid fa-share fa-2xl"></i>
 							Create shortcut
-						</button>
+						</button>						
 						${wiki}
 						${table}						
 					</div>
+					${ver}
 					${cediv}
 					${await ParseText(tokens.at(i + 2))}
 				`)
@@ -452,7 +475,7 @@
 					if (prnt === null) prnt = document.getElementById("🏠_div")
 					prnt.insertAdjacentHTML("beforeend", /*html*/`
 						<div style="display:flex;flex-direction:row;gap:20px" id="tswap-button-container">
-							<button class="btn btn-primary" style="width:max-content;margin-top:20px" onclick="ShowTextSwapDialog('${GameName}')">
+							<button class="btn btn-primary" style="width:max-content;margin-top:20px" onclick="ShowTextSwapDialog('${UrlFriendlyGameName}')">
 								<div style="display:flex;flex-direction:row;gap:10px">
 									<i class="fa-solid fa-wrench fa-2xl" style="margin-top:20px"></i>
 									<div style="border-right:1px solid white; width:1px"></div>
@@ -467,7 +490,7 @@
 				} else if (sec === "%_pixelswap_%") {
 					let prnt = document.getElementById("tswap-button-container")
 					prnt.insertAdjacentHTML("beforeend", /*html*/`
-						<button class="btn btn-primary" style="width:max-content;margin-top:20px" onclick="ShowPxSwapDialog('${GameName}')">
+						<button class="btn btn-primary" style="width:max-content;margin-top:20px" onclick="ShowPxSwapDialog('${UrlFriendlyGameName}')">
 							<div style="display:flex;flex-direction:row;gap:10px">
 								<i class="fa-solid fa-wrench fa-2xl" style="margin-top:20px"></i>
 								<div style="border-right:1px solid white; width:1px"></div>

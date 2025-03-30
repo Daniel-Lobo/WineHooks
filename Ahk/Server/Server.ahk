@@ -163,7 +163,14 @@ global g_ = {"p_send" : 0, "games_list" : []
 ,"BasePath"        : A_mydocuments "\WineHooks\"
 ,"HelpPath"        : A_mydocuments "\WineHooks\Help\"
 ,"CheatTablesPath" : A_mydocuments "\WineHooks\CheatTables\"
-,"Profiles"        : A_mydocuments "\WineHooks\Profiles\"} 
+,"Profiles"        : A_mydocuments "\WineHooks\Profiles\"
+,"URLScapeCodes"   : {"%20" : " ", "%21" : "!", "%22" : """", "%23" : "#", "%24" : "$"
+	, "%25" : "%", "%26" : "&", "%27" : "'", "%28" : "(", "%29" : ")"
+	, "%2A" : "*", "%2B" : "+", "%2C" : ",", "%2D" : "-", "%2E" : "."
+	, "%2F" : "/", "%3A" : ":", "%3B" : ";", "%3C" : "<", "%3D" : "="
+	, "%3E" : ">", "%3F" : "?", "%40" : "@", "%5B" : "[", "%5C" : "\"
+	, "%5D" : "]", "%5E" : "^", "%5F" : "_", "%60" : "`", "%7B" : "{"
+	, "%7C" : "|", "%7D" : "}", "%7E" : "~", "%09" : "`t"}} 
 
 g_.Links :=  {"Donate"   : "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E68RE3UWG2ZEU&lc=US&"
     . "item_name=Peixoto&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted"
@@ -172,7 +179,9 @@ g_.Links :=  {"Donate"   : "https://www.paypal.com/cgi-bin/webscr?cmd=_donations
     , "patreon_home" : "https://www.patreon.com/user/about?u=44312848"
     , "Archive"      : "https://github.com/Daniel-Lobo/WineHooks/releases"
     , "Wine"         : "https://www.winehq.org/"
-    , "dxvk"         : "https://github.com/doitsujin/dxvk/releases"}
+    , "dxvk"         : "https://github.com/doitsujin/dxvk/releases"
+	, "old_version_redirect" : "https://github.com/Daniel-Lobo/WineHooks/releases"}
+
 ReverseString(Str) {
     nStr := ""
     Loop, Parse, Str
@@ -234,19 +243,19 @@ PlainReply(txt){
 }
 
 GetArgs(args){
-    args := StrReplace(StrGet(args+0, ,"CP0"), "%20", " ")
-    args := StrReplace(args, "%27", "'")
-	args := StrReplace(args, "%3C", "<")
-	args := StrReplace(args, "%3E", ">")
+    args := StrGet(args+0, ,"CP0")
+	for scape, char in g_.URLScapeCodes {
+		args := StrReplace(args, scape, char)
+	}
     ;print("args " args)
     ret  := {}
     for _, arg in StrSplit(args, "&")
     {
         split := StrSplit(arg, "=")
-        if (split.Length() = 2)
+        if (split.Length() >= 2)
         {
-            ret[split[1]] := split[2]
-        }
+            ret[split[1]] := StrReplace(arg, split[1] "=", "") 
+        } 
     }
     ;for key, val in ret
         ;print(key " = " val)
@@ -330,18 +339,27 @@ JSONReply(reply){
     return "HTTP/1.1 200 OK`r`nContent-Type: application/json`r`nContent-Length: " . strlen(reply) . "`r`n`r`n" . reply 
 }
 
+Runscript(script){	
+	path       := FileExist(path := "..\AutoHotkey.dll") ? path : A_mydocuments "\AutoHotkey\dlls\AutoHotkey.dll"
+	ahktextdll := dllcall("GetProcAddress", uint, dllcall("LoadLibraryW", str, path), astr, "ahktextdll")
+	hThread    := dllcall(ahktextdll, Str, fileopen("lib.txt", "r").read() "`n" script, Str, "", Str, "", "Cdecl UPTR")
+	dllcall("WaitForSingleObject", "ptr", hThread, "uint", 0xffffffff)
+}
+
 HandleAction(action){
     if (link := g_.Links[action]){
-        ;print(link)
+        if (Instr(action, "script")){
+			return RunScript(link)
+		}
         run, %link%    
         return
     }
-	if (RegExMatch(action, "[A-Za-z]:\\")){
+	else if (RegExMatch(action, "[A-Za-z]:\\")){
 		if (!FileExist(action)){
 			MsgBox, 64, ,%action%`ndoesn't exist`nMake sure you start the game once with WineHooks
 			return
 		}		
-	}	
+	} 	
 	print(RegExMatch(action, "[A-Z]:\\"))
     print(action)
     run, %action%
@@ -544,10 +562,10 @@ ParseText(txt){
 	txt := RegExReplace(txt, "t<([^>.]*)>t", "<table>$1</table>")				
 	txt := RegExReplace(txt, "a<([^>.]*)--([^>.]*)>a", "<a id='$1' href='javascript:dummy()' onclick='PostActionB(this)'>$2</a>")
 	StringReplace, txt, txt, `", `',1
-	stringreplace, txt, txt, `%ModsLink`%, <a id='gototab_File System_modstuto' href='javascript:dummy()'>Mods manager</a>
-	stringreplace, txt, txt, `%TexturesB`%, <a id='gototab_graphics..._Textswap.e' href='javascript:dummy()'>Texture swapping</a>
-	stringreplace, txt, txt, `%Textures`%, <a id='gototab_graphics..._Textswap.e' href='javascript:dummy()'>Texture swapping</a>
-	stringreplace, txt, txt, `%TexturesC`%, <a id='gototab_graphics_Textswap.e' href='javascript:dummy()'>Texture swapping</a>
+	stringreplace, txt, txt, `%ModsLink`%, <a onclick='PostActionB(this)' id='gototab_File System_modstuto' href='javascript:dummy()'>Mods manager</a>
+	stringreplace, txt, txt, `%TexturesB`%, <a onclick='PostActionB(this)' id='gototab_graphics..._Textswap.e' href='javascript:dummy()'>Texture swapping</a>
+	stringreplace, txt, txt, `%Textures`%, <a onclick='PostActionB(this)' id='gototab_graphics..._Textswap.e' href='javascript:dummy()'>Texture swapping</a>
+	stringreplace, txt, txt, `%TexturesC`%, <a onclick='PostActionB(this)' id='gototab_graphics_Textswap.e' href='javascript:dummy()'>Texture swapping</a>
 	stringreplace, txt, txt, `%FOLDERID_LocalAppData`%, % GetCommonPath("LOCAL_APPDATA"), All
 	stringreplace, txt, txt, `%FOLDERID_RoamingAppData`%, % GetCommonPath("APPDATA"), All
 	stringreplace, txt, txt, `%FOLDERID_ProgramData`%, % GetCommonPath("COMMON_APPDATA"), All
@@ -743,6 +761,51 @@ DownloadFile(url, dest){
 	UrlDownloadToFile, %url%, %dest%
 }
 
+IsExecutable(path)
+{
+	r := dllcall("GetBinaryType", astr, path, "uint*", bintype:=0, "uint")
+	return (r > 0 && (bintype = 0 || bintype = 6)) ? true : false
+}
+
+FindGameExecutable(){
+	msgbox, 64, ,Prease indicate the path of the game's executable`nThis is a one time only procedure
+	FileSelectFile, newtarget, Options, , , (*.exe)
+	return newtarget
+}
+
+LaunchGame(game){
+	cfgfile  := g_.Profiles . game . ".ini"
+	cfg      := new IniFile(cfgfile)
+	path     := cfg.Get("Target")
+	if (!FileExist(path) or !IsExecutable(path)){
+		newpath := FindGameExecutable()
+		if (newpath = "")
+		return
+		cfg.Edit("Target", newpath).save()
+	}
+	run ..\injector.exe src\injector.txt -f "%cfgfile%", ..\
+}
+
+CreateShortCut(game){
+	cfgfile  := g_.Profiles . game . ".ini"
+	cfg      := new IniFile(cfgfile)
+	path     := cfg.Get("Target")
+	if (!FileExist(path) or !IsExecutable(path)){
+		newpath := FindGameExecutable()
+		if (newpath = "")
+		return
+		path := newpath
+		cfg.Edit("Target", newpath).save()
+	}
+	splitpath, path, , , ,name
+	path := StrReplace(A_ScriptDir, "Server", "injector.exe")	
+	name := name
+	lnk  := A_desktop "\" name ".lnk"
+	dir  := StrReplace(A_ScriptDir, "Server", "")
+	FileCreateShortcut, %path%, %lnk%, %dir%, src\injector.txt -f "%cfgfile%", ,%path%
+	msgbox, 64, ,Done! A shortcut was placed in the desktop
+}
+
 PostHandler(socket, p, a, b){
     ;print("Post")
     path  := S(StrGet(p+0, ,"CP0"))  
@@ -799,7 +862,8 @@ PostHandler(socket, p, a, b){
         reply := PlainReply(ParseText(body))
     }
     else if (path.__str = "/AppendLink"){
-        AppendLink(args.Name, args.Url)
+        ;AppendLink(args.Name, args.Url)
+		AppendLink(args.Name, body)
     }
     else if (path.__str = "/LaunchCE"){
         LaunchCE(args.IniFileName)
@@ -813,6 +877,12 @@ PostHandler(socket, p, a, b){
 	else if (path.__str = "/DownloadFile"){
 		DownloadFile(args.Url, args.Path)
 	} 
+	else if (path.__str = "/LaunchGame"){
+		LaunchGame(args.Game)
+	}
+	else if (path.__str = "/CreateShortCut"){
+		CreateShortCut(args.Game)
+	}
     DllCall(g_.p_send, uint, socket, astr, reply, uint, strlen(reply), uint, 0, uint) 
 }
 

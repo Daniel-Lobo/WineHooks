@@ -8,6 +8,13 @@ std::vector<std::string> split(const std::string& str, char delimiter) {
     while (std::getline(ss, token, delimiter)) {
         tokens.push_back(token);
     }
+    if (delimiter == '=' && tokens.size() > 2) {
+        for (size_t i = 2; i < tokens.size(); i++) {
+            tokens[1] += delimiter + tokens[i];
+        }
+        // Erase all items after index 1
+        tokens.erase(tokens.begin() + 2, tokens.end());
+    }
     return tokens;
 }
 
