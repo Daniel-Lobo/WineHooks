@@ -109,14 +109,21 @@
 	<div id="git-games-list-container" style="display:flex;flex-direction:column;gap:10px;margin-top:0px">
 	</div>
 	<div class="alert alert-secondary">
-		<p class="h4">Support winehooks</p>
+		<!--<p class="h4">Support winehooks</p>-->
 		<div style="display:flex;gap:10px;margin-top:10px">
 			<button class="button btn btn-secondary" style="width:220px" id="patreon_home" onclick="PostAction(event)"><i class="fa-brands fa-patreon"></i>
 				Get and offer support 
 			</button>
 			<button class="button btn btn-secondary" style="width:220px" id="Donate" onclick="PostAction(event)"><i class="fa-brands fa-paypal"></i>
 				Donate
-			</button>		
+			</button>	
+			<button class="button btn btn-secondary" style="width:220px" id="winwhooks_git" onclick="PostAction(event)"><i class="fa-brands fa-github"></i>
+				Source
+			</button>
+			<button class="button btn btn-secondary" style="width:220px" id="winwhooks_updatehistory" onclick="PostAction(event)">
+				<i class="fa-solid fa-newspaper"></i>
+				Update history
+			</button>
 		</div>
 	</div>	
 	<div class="alert alert-danger">
@@ -130,19 +137,17 @@
 			</li>
 			<li style="margin-top:10px;">
 				Even though I have decided to promote this to stable, it is expected that some things might still be
-				broken, like the
-				<strike><b>XInput to DirectInput translation</b> feature, which I found out to be broken moments after
-					publishing this
-					version</strike> (fixed), or <b>xBR scaling</b> on directdraw games
+				broken, like
+				<b>xBR scaling</b> on directdraw games or the Installer for <b>Installshield</b> 3 and 5 installers
 			</li>
 			<li style="margin-top:10px;">
-				The 2nd update, after the promotion to stable, was merelly a fix for the GUI, which stopped working on
+				The 2nd update, after the promotion to stable (this version), was merelly a fix for the GUI, which stopped working on
 				wine 10, so none of the above was
 				fixed yet
 			</li>
 			<li style="margin-top:10px;">
 				If you're on Windows, you can always download an <a id='Archive' onclick="PostAction(event)"
-					href='javascript:dummy()'>older version</a>
+					href='javascript:dummy()'>version 0.10.12</a> or earlier
 				<br>
 			</li>	
 		<ul>			<!--<img src="WINE.ico"/>-->					

@@ -473,6 +473,7 @@
 					let prnt = document.getElementById("graphics..._div") 
 					if (prnt === null) prnt = document.getElementById("graphics_div")					
 					if (prnt === null) prnt = document.getElementById("🏠_div")
+					if (prnt === null) prnt = prnt = document.getElementById("game-page").children[1].children[0];
 					prnt.insertAdjacentHTML("beforeend", /*html*/`
 						<div style="display:flex;flex-direction:row;gap:20px" id="tswap-button-container">
 							<button class="btn btn-primary" style="width:max-content;margin-top:20px" onclick="ShowTextSwapDialog('${UrlFriendlyGameName}')">

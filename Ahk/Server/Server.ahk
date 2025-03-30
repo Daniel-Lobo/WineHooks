@@ -180,7 +180,9 @@ g_.Links :=  {"Donate"   : "https://www.paypal.com/cgi-bin/webscr?cmd=_donations
     , "Archive"      : "https://github.com/Daniel-Lobo/WineHooks/releases"
     , "Wine"         : "https://www.winehq.org/"
     , "dxvk"         : "https://github.com/doitsujin/dxvk/releases"
-	, "old_version_redirect" : "https://github.com/Daniel-Lobo/WineHooks/releases"}
+	, "old_version_redirect" : "https://github.com/Daniel-Lobo/WineHooks/releases"
+	, "winwhooks_git"        : "https://github.com/Daniel-Lobo/WineHooks"
+	, "winwhooks_updatehistory" : "https://daniel-lobo.github.io/"}
 
 ReverseString(Str) {
     nStr := ""
