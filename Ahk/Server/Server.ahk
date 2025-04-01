@@ -244,11 +244,16 @@ PlainReply(txt){
     return reply . txt
 }
 
+ScapeUrlString(url){
+	for scape, char in g_.URLScapeCodes {
+		url := StrReplace(url, scape, char)
+	}
+	return url
+}
+
 GetArgs(args){
     args := StrGet(args+0, ,"CP0")
-	for scape, char in g_.URLScapeCodes {
-		args := StrReplace(args, scape, char)
-	}
+	args := ScapeUrlString(args)
     ;print("args " args)
     ret  := {}
     for _, arg in StrSplit(args, "&")

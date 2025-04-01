@@ -160,8 +160,8 @@
 	async function RenderGamePage(_this) {
 		g_.Game      = _this.innerText;
 		let GameName = _this.innerText;
-		let UrlFriendlyGameName = encodeURIComponent(GameName).replaceAll("'", "%27");
-		
+		let UrlFriendlyGameName = encodeURIComponent(GameName).replaceAll(/'/g, "%27");
+				
 		document.getElementById("game-page").innerHTML = /*html*/ `
 		<p class="h5" style="margin-top:10px">${GameName}</p>
 		<div class="cntrl_group" style="gap:10px;overflow-y:hidden">			
@@ -317,7 +317,7 @@
 					<div style="display:flex;flex-direction:column;gap:0px">
 						<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
 							<input type="checkbox" id="${id}" class="form-check-input" ${checked} ${disabled} data-parent="${parent.id}"
-							style="margin-top:4px" onchange="CheckboxChanged('${GameName}', this)">
+							style="margin-top:4px" onchange="CheckboxChanged('${UrlFriendlyGameName}', this)">
 							<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}">${label}</label>					
 						</div>
 						<label class="form-check-label" for="${tokens.at(i + 1).toLowerCase().trim()}"
@@ -348,7 +348,7 @@
 					parent.insertAdjacentHTML("beforeend", /*html*/`
 					<div style="display:flex;flex-direction:row;gap:10px;align-items:left;margin-left:-26px">
 						<input type="radio" name="${name}" value="${value}" id="${name}=${value}" class="form-check-input" 
-						style="margin-top:4px" ${checked} ${disabled} data-parent="${parent_id}" onchange="RadioChanged('${GameName}', this)">
+						style="margin-top:4px" ${checked} ${disabled} data-parent="${parent_id}" onchange="RadioChanged('${UrlFriendlyGameName}', this)">
 						<label class="form-check-label" for="${name}=${value}">${tokens.at(i + 3)}</label>					
 					</div>`)
 				} else if (sec === "link") {
@@ -364,7 +364,7 @@
 					let html = /*html*/`
 					<label style='margin-left:7px;margin-bottom:0px'>&bull; &ensp;${head}</label>
 						<div style='display:flex;flex-direction:row;margin-left:26px;margin-bottom:0px;margin-top:0px'>
-							<input class='slider' onchange='SetResLimitWidgetLabel("${_id}", "${GameName}")' 
+							<input class='slider' onchange='SetResLimitWidgetLabel("${_id}", "${UrlFriendlyGameName}")' 
 								type='range' min='0' max='10' step='1' id='${_id}' value='${index}'>
 							<label style='margin-left:6px;margin-top:0px' id='${_id}_label'>${val}</label>                     
 						</div>
@@ -373,16 +373,16 @@
 				} else if (sec === "float") {
 					let [min, max, step] = tokens.at(i + 3).split("-")
 					let details = await ParseText(tokens.at(i + 4))
-					let _id = tokens.at(i + 1).toLowerCase().trim()
-					let head = tokens.at(i + 2)
-					let value = await IniGet(GameName, _id, '')
+					let _id     = tokens.at(i + 1).toLowerCase().trim()
+					let head    = tokens.at(i + 2)
+					let value   = await IniGet(GameName, _id, '')
 
 					let html = /*html*/`
 					<div style='display:flex;flex-direction:column;'>
 						<label style='margin-top:2px;'>${head}</label>
 						<div style='display:flex;margin-left:20px;margin-top:0px'>
 							<input class='slider' 
-									onchange='SetFloatSliderLabelValue("${_id}", "${GameName}")' 
+									onchange='SetFloatSliderLabelValue("${_id}", "${UrlFriendlyGameName}")' 
 									type='range' 
 									min='${min}' 
 									max='${max}' 
