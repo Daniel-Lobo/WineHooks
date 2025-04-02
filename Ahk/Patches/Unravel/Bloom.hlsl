@@ -1,5 +1,5 @@
 //ps_4_0@
-cbuffer cbuff0: register (c0) 
+cbuffer cbuff0: register (b0) 
 {
 	float4 cb0[6];
 };

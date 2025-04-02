@@ -93,6 +93,7 @@ public:
         GETPROCADDRESS(m_D3D12GetDebugInterface, "D3D12GetDebugInterface", "d3d12.dll");
         if (LoadLibraryA("wined3d.dll") == nullptr)
         {
+            D3D12LOG("Using System Compilers");
             GETPROCADDRESS(m_D3DReflect, "D3DReflect", "D3dcompiler_47.dll");
             GETPROCADDRESS(m_D3DDisassemble, "D3DDisassemble", "D3dcompiler_47.dll");
             GETPROCADDRESS(m_D3DCompile, "D3DCompile", "D3dcompiler_47.dll");
@@ -100,6 +101,7 @@ public:
             GETPROCADDRESS(m_D3DXCreateBuffer, "D3DXCreateBuffer", "d3dx9_43.dll");
             GETPROCADDRESS(m_D3DXDisassembleShader, "D3DXDisassembleShader", "d3dx9_43.dll");  
         } else {
+            D3D12LOG("Using MS Compilers");
             _GETPROCADDRESS(m_D3DReflect, "D3DReflect", _D3dcompiler_47.c_str());
             _GETPROCADDRESS(m_D3DDisassemble, "D3DDisassemble", _D3dcompiler_47.c_str());
             _GETPROCADDRESS(m_D3DCompile, "D3DCompile", _D3dcompiler_47.c_str());

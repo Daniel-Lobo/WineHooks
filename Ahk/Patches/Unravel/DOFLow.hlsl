@@ -1,10 +1,10 @@
 //ps_4_0@
 // Whatever the automatic translation dit wrong here, removes the blur
-cbuffer cbuff0: register (c0) 
+cbuffer cbuff0: register (b0) 
 {
 	float4 cb0[4];
 };
-cbuffer cbuff1: register (c1) 
+cbuffer cbuff1: register (b1) 
 {
 	float4 cb1[19];
 };
