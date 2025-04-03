@@ -890,7 +890,12 @@ PostHandler(socket, p, a, b){
 	else if (path.__str = "/CreateShortCut"){
 		CreateShortCut(args.Game)
 	}
-    DllCall(g_.p_send, uint, socket, astr, reply, uint, strlen(reply), uint, 0, uint) 
+    result := DllCall(g_.p_send, uint, socket, astr, reply, uint, strlen(reply), uint, 0, int) 
+	if (result = -1)
+		print("Socket error")
+	else if (result != strlen(reply)){
+		print("Reply was" StrLen(reply) " bytes, but " result "were sent")
+	}
 }
 
 serve()

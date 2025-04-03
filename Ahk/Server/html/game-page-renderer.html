@@ -37,8 +37,9 @@
 	async function ParseText(text) {	
 		// Fails frequenlly on edge	
 		try {
-			let options  = FetchOPtions();
-			options.body = text;
+			let options     = FetchOPtions();
+			options.headers = { 'Content-Type': 'text/plain' };
+			options.body    = text;
 			reply = await (await fetch('/ParseText', options)).text();
 			console.log(reply)
 			return reply;
