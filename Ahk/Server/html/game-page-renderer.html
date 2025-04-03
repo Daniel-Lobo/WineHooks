@@ -1,5 +1,5 @@
 <script>
-	var g_ = {Game : ""}
+	var g_ = {Game : "", Loading : false}
 
 	async function LaunchGame(game) {		
 		fetch('/LaunchGame?Game=' + game, FetchOPtions());
@@ -38,7 +38,8 @@
 		// Fails frequenlly on edge	
 		try {
 			let options     = FetchOPtions();
-			options.headers = { 'Content-Type': 'text/plain' };
+			options.headers['Content-Type']   = 'text/plain', 
+			options.headers["Content-Length"] = text.length,
 			options.body    = text;
 			reply = await (await fetch('/ParseText', options)).text();
 			console.log(reply)
@@ -67,11 +68,13 @@
 
 	async function AppendLink(link) {
 		try {
-			let lnk      = link.split("->");
-			console.log(lnk);
-			options      = FetchOPtions();
-			options.body = lnk[1];
-			fetch('/AppendLink?Name=' + lnk[0] + '&Url=' + lnk[1], options);
+			let [key, url]  = link.split("->");
+			console.log(url);
+			options         = FetchOPtions();
+			options.headers['Content-Type']   = 'text/plain',
+			options.headers["Content-Length"] = url.length;
+			options.body    = url;
+			fetch('/AppendLink?Name=' + key + '&Url=' + url, options);
 		} catch (error) {
 			console.log(error);
 		}
@@ -159,6 +162,10 @@
 	}
 
 	async function RenderGamePage(_this) {
+		while (g_.Loading === true) {
+			setTimeout(() => { }, 1000);
+		}
+		g_.Loading   = true;
 		g_.Game      = _this.innerText;
 		let GameName = _this.innerText;
 		let UrlFriendlyGameName = encodeURIComponent(GameName).replaceAll(/'/g, "%27");
@@ -769,6 +776,7 @@
 				console.log(error)
 			}
 		}
+		g_.Loading = false
 	}
 	async function AddMacrosRow(macro, parent, game){
 		let label    = macro.indexOf('s') > -1 ? 'replaces' :  macro.indexOf('r') > -1 ? 'repeats &nbsp;' : 'toggles &nbsp;';
@@ -1049,7 +1057,7 @@
 			backtopx = ""
 		}
 		
-		let alpha_textures_popover = (await ParseText(/*html*/`This fixes a bug related to alpha only textures on Blade of darkness and maybe other games,
+		let alpha_textures_popover = /*html*/`This fixes a bug related to alpha only textures on Blade of darkness and maybe other games,
 The correct rendering of fonts on Blade of darkness depends on alpha 
 textures returning 1.0 for the color channels when sampled on the pixel stage. 
 With the introduction of the programable pipeline, the default value of 
@@ -1063,7 +1071,7 @@ I guess happened was that, at that point, the MS programers did not correctly
 replicated the fixed function alpha textures behavior on the pixel shaders 
 emulating the fixed function pipeline.   
 This fix is applied by replacing alpha only textures with full RGBA textures 
-with the color channels set to 255`)).replaceAll("\"", "'")
+with the color channels set to 255`
 
 		console.log(alpha_textures_popover)
 
