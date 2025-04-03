@@ -31,7 +31,7 @@ struct ServerConfig {
 class Server {
 public:
     Server(ServerConfig);
-    ~Server(){};
+    ~Server(){close();};
 private:
     int m_Addrlen;
     sockaddr_in m_Address;
