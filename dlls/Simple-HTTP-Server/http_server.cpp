@@ -122,7 +122,9 @@ std::string GetPostBody(std::vector<std::string> lines, char buffer[_1MB]){
         if (lower_line.find("content-length:") != std::string::npos) {
             std::vector<std::string> parts = split(line, ' ');
             if (parts.size() == 2) {
+                Info("content_length: ");
                 content_length = std::stoi(parts[1]);
+                Info("Content-Length: " + std::to_string(content_length));
             }
         }
     }
@@ -166,11 +168,11 @@ void Server::_listen(){
                 // Parse the request line.
                 std::vector<std::string> request_line = split(lines[0], ' ');
                 if (request_line.size() == 3) {
-                    std::string method = request_line[0];
-                    std::string full_path = request_line[1];
+                    std::string method       = request_line[0];
+                    std::string full_path    = request_line[1];
                     std::string http_version = request_line[2];
-                    std::string path = full_path;
-                    std::string response = "";
+                    std::string path         = full_path;
+                    std::string response     = "";
 
                     // Query parser
                     std::unordered_map<std::string, std::string> queryParams;
