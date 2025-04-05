@@ -1,12 +1,12 @@
 <script>
-	var g_ = {Game : "", Loading : false}
+	var g_ = { Game: "" }
 
-	async function LaunchGame(game) {		
+	async function LaunchGame(game) {
 		fetch('/LaunchGame?Game=' + game, FetchOPtions());
 	}
 
 	async function CreateShortCut(game) {
-		fetch('/CreateShortCut?Game=' + game, FetchOPtions());		
+		fetch('/CreateShortCut?Game=' + game, FetchOPtions());
 	}
 
 	async function IniGet(game, key, section) {
@@ -34,13 +34,179 @@
 		fetch('/LaunchCE?IniFileName=' + game, FetchOPtions());
 	}
 
-	async function ParseText(text) {	
+	// JavaScript implementation of the AutoHotkey ParseText function
+	async function ParseTextImp(txt) {
+		const _MCI = `To get the CD music working properly, check the a|gototab_sound_WNMM.MCI ^ MCI emulation |a option on the a|gototab_sound_WNMM.MCI ^ sound tab |a`;
+
+		const autodmp = `{b <b>Dumping textures</b>  <br> <br>	
+
+  Manual dumps are impratical for dumping several textures for obvios reazons, plus the fact that there is no check 
+  if a texture was already dumped and so one can be dumped many times over <br>	
+  Auto dumping in the other hand, never dumps the same texture twice, but for other reazons is still impratical 
+  in several games <br>	
+  In future versions, a feature to dump all currently loaded texures with a check for duplicates will be added to 
+  complement the two curent options}`.replace(/\n/g, '');
+
+		// Case insensitive replacements
+		const caseInsensitiveReplace = (text, search, replacement) => {
+			const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+			const regex = new RegExp(escapeRegExp(search), 'gi');
+			return text.replace(regex, replacement);
+		};
+
+		// Handle common replacements
+		txt = txt.replace(/\%_MCI\%/g, _MCI);
+		txt = txt.replace(/\%Xinput\%/g, " Better compatibility with Xinput gamepads, see a|gototab_input_j2k.u ^ this|a");
+		txt = txt.replace(/\%EAX\%/g, " Restores 3D audio and EAX, see a|gototab_sound_Dsnd.e ^ this|a");
+		txt = txt.replace(/\r/g, "");
+		txt = txt.replace(/\n/g, " ");
+		txt = txt.replace(/\\/g, "&#92;");
+		txt = txt.replace(/\|\|n/g, "<br><br>");
+		txt = txt.replace(/\|n/g, "<br>");
+		txt = txt.replace(/i\|/g, "<i>");
+		txt = txt.replace(/\|i/g, "</i>");
+		txt = txt.replace(/b\|/g, "<b>");
+		txt = txt.replace(/\|b/g, "</b>");
+		txt = txt.replace(/>>n/g, "<br><br>");
+		txt = txt.replace(/>n/g, "<br>");
+		txt = txt.replace(/>cc/g, "</b></font>");
+		txt = txt.replace(/>c/g, "</font>");
+		txt = txt.replace(/a\|/g, "<a id='");
+		txt = txt.replace(/ \^ /g, "' href='javascript:dummy()' onclick='PostActionB(this)'>");
+		txt = txt.replace(/\|a/g, "</a>");
+		txt = txt.replace(/l\|/g, "<li>");
+		txt = txt.replace(/<ul>/g, "<ul style='margin-top:0px;margin-bottom:0px;'>");
+		txt = txt.replace(/<td>/g, "<td style='vertical-align: top; padding-right: 20px'>");
+
+		// RegEx replacements (simulating AutoHotkey's case insensitivity)
+		txt = txt.replace(/i<([^>.]*)>i/gi, "<i>$1</i>");
+		txt = txt.replace(/b<([^>.]*)>b/gi, "<b>$1</b>");
+		txt = txt.replace(/t<([^>.]*)>t/gi, "<table>$1</table>");
+		txt = txt.replace(/a<([^>.]*)--([^>.]*)>a/gi, "<a id='$1' href='javascript:dummy()' onclick='PostActionB(this)'>$2</a>");
+
+		// Replace quotes
+		txt = txt.replace(/"/g, "'");
+
+		// Handle specific replacements
+		txt = txt.replace(/\%ModsLink\%/gi, "<a onclick='PostActionB(this)' id='gototab_File System_modstuto' href='javascript:dummy()'>Mods manager</a>");
+		txt = txt.replace(/\%TexturesB\%/gi, "<a onclick='PostActionB(this)' id='gototab_graphics..._Textswap.e' href='javascript:dummy()'>Texture swapping</a>");
+		txt = txt.replace(/\%Textures\%/gi, "<a onclick='PostActionB(this)' id='gototab_graphics..._Textswap.e' href='javascript:dummy()'>Texture swapping</a>");
+		txt = txt.replace(/\%TexturesC\%/gi, "<a onclick='PostActionB(this)' id='gototab_graphics_Textswap.e' href='javascript:dummy()'>Texture swapping</a>");
+
+		// Handle folder path replacements
+		// Note: JavaScript doesn't have direct access to Windows folder paths
+		// These would need to be provided from elsewhere
+
+		txt = txt.replace(/\\/g, "\\\\");
+		txt = txt.replace(/\%autodmp\%/gi, autodmp);
+
+		// Icon replacements
+		txt = txt.replace(/\{f\}/gi, "<img width='20px'; height='20px'; src='fix.svg';></img>");
+		txt = txt.replace(/\{nfo\}/gi, "<img width='20px'; height='20px'; src='nfo.svg';></img>");
+		txt = txt.replace(/\{i\}/gi, "<img width='20px'; height='20px'; src='star.svg';></img>");
+		txt = txt.replace(/\{bad\}/gi, "<img width='20px'; height='20px'; src='bad.svg';></img>");
+
+		// Section headings and formatting
+		txt = txt.replace(/==\[([^=]*)\]==/gi, "<div class='center'><b>$1</b></div><br><br>");
+		txt = txt.replace(/=\[([^=]*)\]=/gi, "<b>$1</b>");
+		txt = txt.replace(/-\[([^-]*)\]-/gi, "<i>$1</i>");
+		txt = txt.replace(/\[([^\]\s]+)\s+([^\]]+)\]/gi, "<a id='$1' href='javascript:dummy()' onclick='PostActionB(this)'>$2</a>");
+
+		// Complex HTML fragments
+		const fix = /*html*/ `
+		<div style='display:flex;margin-left:40px'>
+			<div style="color:transparent;text-shadow:0 0 0 darkblue;font-size:24px;font-weight:normal;margin-top:-8px;margin-right:4px">🛠️</div>
+			<div>$1</div>
+		</div>`;
+
+		const imp = /*html*/`
+		<div style='display:flex;margin-left:40px'>
+			<div style="color:transparent;text-shadow:0 0 0 #1ab288;font-size:24px;margin-top:-8px;margin-right:4px">&#x1F44D</div>
+			<div>$1</div>
+		</div>`;
+
+		const nfo = /*html*/ `
+		<div style='display:flex;margin-left:40px'>
+			<div style="font-size:24px;margin-top:-8px;margin-right:4px"><i class="fa-solid fa-info"></i></div>
+			<div>$1</div>
+		</div>`;
+
+		const bad = /*html*/`
+		<div style='display:flex;margin-left:40px'>
+			<div style="color:transparent;text-shadow:0 0 0 #b00111;font-size:24px;margin-top:-4px;margin-right:4px">&#x1F44E</div>
+			<div>$1</div>
+		</div>`;
+
+		const ce = /*html*/
+		`<dd><div class='fix-master'>
+			<div class='ce-icon'></div>
+			<div class='fix-text'>$1</div>
+		</div></dd>`;
+
+		const linux = /*html*/`
+		<div style='display:flex;'>
+			<div style='margin-right:2px'><img src='linux.svg' width='18px' height='18px'></img></div>
+			<div>$1</div>
+		</div>`;
+
+		const win = /*html*/`
+		<div style='display:flex;'>
+			<div style='margin-right:2px'><img src='windows.svg' width='18px' height='18px'></img></div>
+			<div>$1</div>
+		</div>`;
+
+		// Apply special content replacements
+		txt = txt.replace(/\{lnx\s([^}]*)\}/gi, (match, p1) => linux.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{win\s([^}]*)\}/gi, (match, p1) => win.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{f\s([^}]*)\}/gi, (match, p1) => fix.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{i\s([^}]*)\}/gi, (match, p1) => imp.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{nfo\s([^}]*)\}/gi, (match, p1) => nfo.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{bad\s([^}]*)\}/gi, (match, p1) => bad.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{ce\s([^}]*)\}/gi, (match, p1) => ce.replace(/\n/g, '').replace('$1', p1));
+
+		// Additional HTML templating
+		const fix2 = /*html*/ 
+		`<div class='fix-master'>
+			<div class='fix-icon'></div>
+			<div class='fix-text'>$1</div>
+		</div>`;
+
+		const imp2 = /*html*/`
+		<div class='fix-master'>
+			<div class='improve-icon'></div>
+			<div class='fix-text'>$1</div>
+		</div>`;
+
+		const nfo2 = /*html*/`
+		<div class='fix-master'>
+			<div class='nfo-icon'></div>
+			<div class='fix-text'>$1</div>
+		</div>`;
+
+		const WARN = /*html*/
+		`<div class='warning'>
+			<div>$1</div>
+		</div>`;
+
+		// Apply additional formatting
+		txt = txt.replace(/\{F\s([^}]*)\}/gi, (match, p1) => fix2.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{I\s([^}]*)\}/gi, (match, p1) => imp2.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{NFO\s([^}]*)\}/gi, (match, p1) => nfo2.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{ce\s([^}]*)\}/gi, (match, p1) => ce.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{WARN\s([^}]*)\}/gi, (match, p1) => WARN.replace(/\n/g, '').replace('$1', p1));
+		txt = txt.replace(/\{h1\s([^}]*)\}/gi, "<div class='features'>$1</div>");
+		txt = txt.replace(/\{b\s([^}]*)\}/gi, "<div class='box'>$1</div>");
+
+		return txt;
+	}
+
+	async function ParseText(text) {
+		return ParseTextImp(text);
 		// Fails frequenlly on edge	
 		try {
-			let options     = FetchOPtions();
-			options.headers['Content-Type']   = 'text/plain', 
-			options.headers["Content-Length"] = text.length,
-			options.body    = text;
+			let options = FetchOPtions();
+			options.headers = { 'Content-Type': 'text/plain' };
+			options.body = text;
 			reply = await (await fetch('/ParseText', options)).text();
 			console.log(reply)
 			return reply;
@@ -68,13 +234,11 @@
 
 	async function AppendLink(link) {
 		try {
-			let [key, url]  = link.split("->");
-			console.log(url);
-			options         = FetchOPtions();
-			options.headers['Content-Type']   = 'text/plain',
-			options.headers["Content-Length"] = url.length;
-			options.body    = url;
-			fetch('/AppendLink?Name=' + key + '&Url=' + url, options);
+			let lnk = link.split("->");
+			console.log(lnk);
+			options = FetchOPtions();
+			options.body = lnk[1];
+			fetch('/AppendLink?Name=' + lnk[0] + '&Url=' + lnk[1], options);
 		} catch (error) {
 			console.log(error);
 		}
@@ -162,14 +326,10 @@
 	}
 
 	async function RenderGamePage(_this) {
-		while (g_.Loading === true) {
-			setTimeout(() => { }, 1000);
-		}
-		g_.Loading   = true;
-		g_.Game      = _this.innerText;
+		g_.Game = _this.innerText;
 		let GameName = _this.innerText;
 		let UrlFriendlyGameName = encodeURIComponent(GameName).replaceAll(/'/g, "%27");
-				
+
 		document.getElementById("game-page").innerHTML = /*html*/ `
 		<p class="h5" style="margin-top:10px">${GameName}</p>
 		<div class="cntrl_group" style="gap:10px;overflow-y:hidden">			
@@ -193,7 +353,7 @@
 						<img style="fill:white" src="PCGamingWiki_wide.svg"><img>
 					</button> `
 					let table = await GetCheatTablePath(GameName)
-					let ver   = await IniGet(GameName, 'ver', '');
+					let ver = await IniGet(GameName, 'ver', '');
 					if (ver !== '') {
 						ver = /*html*/`
 						<div class="alert alert-danger">
@@ -381,9 +541,9 @@
 				} else if (sec === "float") {
 					let [min, max, step] = tokens.at(i + 3).split("-")
 					let details = await ParseText(tokens.at(i + 4))
-					let _id     = tokens.at(i + 1).toLowerCase().trim()
-					let head    = tokens.at(i + 2)
-					let value   = await IniGet(GameName, _id, '')
+					let _id = tokens.at(i + 1).toLowerCase().trim()
+					let head = tokens.at(i + 2)
+					let value = await IniGet(GameName, _id, '')
 
 					let html = /*html*/`
 					<div style='display:flex;flex-direction:column;'>
@@ -483,8 +643,8 @@
 						IniSet(GameName, 'compatlayer', val, '')
 					}
 				} else if (sec === "%_textswap_%") {
-					let prnt = document.getElementById("graphics..._div") 
-					if (prnt === null) prnt = document.getElementById("graphics_div")					
+					let prnt = document.getElementById("graphics..._div")
+					if (prnt === null) prnt = document.getElementById("graphics_div")
 					if (prnt === null) prnt = document.getElementById("🏠_div")
 					if (prnt === null) prnt = prnt = document.getElementById("game-page").children[1].children[0];
 					prnt.insertAdjacentHTML("beforeend", /*html*/`
@@ -514,7 +674,7 @@
 								</div>
 							</div>	
 						</button>						
-					`)										
+					`)
 				} else if (sec === "inputtab") {
 					let Key_A = await IniGetJ2k(GameName, 'a', 'j2k')
 					let Key_B = await IniGetJ2k(GameName, 'b', 'j2k')
@@ -522,24 +682,24 @@
 					let Alt_B = await IniGetJ2k(GameName, 'y', 'j2k')
 					let Modes = await IniGetJ2k(GameName, 'mds', 'j2k')
 					let cfg = {
-						'Key_A' : Key_A,
-						'Key_B' : Key_B,
-						'Alt_A' : Alt_A,
-						'Alt_B' : Alt_B,
-						'Modes' : Modes,
-						'm'     : isNaN(parseInt(await IniGet(GameName, "m", "j2k")))? "0" : await IniGet(GameName, "m", "j2k"),
-						'rs'    : isNaN(parseInt(await IniGet(GameName, "rs", "j2k")))? "0" : await IniGet(GameName, "rs", "j2k"),
-						'spd'   : isNaN(parseFloat(await IniGet(GameName, "spd", "j2k")))? "0.2" : await IniGet(GameName, "spd", "j2k"),
-						'dz'    : isNaN(parseFloat(await IniGet(GameName, "dz", "j2k")))? "0.15" : await IniGet(GameName, "dz", "j2k"),
+						'Key_A': Key_A,
+						'Key_B': Key_B,
+						'Alt_A': Alt_A,
+						'Alt_B': Alt_B,
+						'Modes': Modes,
+						'm': isNaN(parseInt(await IniGet(GameName, "m", "j2k"))) ? "0" : await IniGet(GameName, "m", "j2k"),
+						'rs': isNaN(parseInt(await IniGet(GameName, "rs", "j2k"))) ? "0" : await IniGet(GameName, "rs", "j2k"),
+						'spd': isNaN(parseFloat(await IniGet(GameName, "spd", "j2k"))) ? "0.2" : await IniGet(GameName, "spd", "j2k"),
+						'dz': isNaN(parseFloat(await IniGet(GameName, "dz", "j2k"))) ? "0.15" : await IniGet(GameName, "dz", "j2k"),
 						'rs_alt': await IniIsTrue(GameName, 'rs_alt', 'j2k'),
-						'FF'	: await IniIsTrue(GameName, 'FF', 'j2k'),
-						'u'		: await IniIsTrue(GameName, 'u', 'j2k')
+						'FF': await IniIsTrue(GameName, 'FF', 'j2k'),
+						'u': await IniIsTrue(GameName, 'u', 'j2k')
 					}
 					console.log(cfg)
 					let deadzone = cfg.dz * 100
-					let speed    = cfg.spd * 100
-					parent 		 = document.getElementById(sec.replace("tab", "_div"))
-					let checked  = await IniIsTrue(GameName, 'u', 'j2k') ? "checked" : ""
+					let speed = cfg.spd * 100
+					parent = document.getElementById(sec.replace("tab", "_div"))
+					let checked = await IniIsTrue(GameName, 'u', 'j2k') ? "checked" : ""
 					parent.insertAdjacentHTML("beforeend", /*html*/`
 						<div style="display:flex;flex-direction:column;gap:0px;position:relative"  class="alert alert-secondary">
 							<div style="display:flex;flex-direction:row;gap:10px;align-items:left">
@@ -650,7 +810,7 @@
 										cfg.spd = this.value/100
 										cfg.update()
 									'>
-									<label style='margin-left:6px;margin-top:0px' id='dinput.speed_label'>${speed/100}</label>
+									<label style='margin-left:6px;margin-top:0px' id='dinput.speed_label'>${speed / 100}</label>
 								</div>						
 							</div>							
 							
@@ -684,7 +844,7 @@
 								</button>
 							</div>
 						</div>`
-					)					
+					)
 					for (let [index, button] of ["A", "B", "X", "Y", "Left Bumper", "Right Bumper", "Left Trigger", "Right Trigger", "Back", "Start"
 						, "Left Stick - Press", "Right Stick - Press"].entries()) {
 						CreateDinputTableRow(button, Key_A, Key_B, Alt_A, Alt_B, index + 4)
@@ -713,15 +873,15 @@
 						</td>
 						<td></td><td></td><td></td><td></td>
 					</tr>
-					`	
+					`
 					document.getElementById("dinput_table").insertAdjacentHTML("beforeend", html)
 					document.getElementById("dinput.rs").value = cfg.rs
 					document.getElementById("dinput.rs").onchange = () => {
 						let cfg = GetDinputCfg()
-						cfg.rs = document.getElementById("dinput.rs").value	
+						cfg.rs = document.getElementById("dinput.rs").value
 						cfg.update()
 					}
-					let modifier_buttons="A,B,X,Y,Left Button,Right Button,Left Trigger,Right Trigger,Back,Start,Left Stick - Press,Right Stick - Press".split(",")
+					let modifier_buttons = "A,B,X,Y,Left Button,Right Button,Left Trigger,Right Trigger,Back,Start,Left Stick - Press,Right Stick - Press".split(",")
 					html = /*html*/`		
 					<tr>
 						<th scope="row"><div class="text-bg-danger" 
@@ -730,7 +890,7 @@
 						<td>
 							<select id="dinput.modifier" class="form-select" data-self="select" style="width:max-content">
 								<option value="0">None</option>
-								${modifier_buttons.map((button, index) => `<option value="${index+5}">${button}</option>`).join("")}													
+								${modifier_buttons.map((button, index) => `<option value="${index + 5}">${button}</option>`).join("")}													
 							</select>
 						</td>
 						<td></td><td></td><td></td><td></td>
@@ -740,27 +900,27 @@
 					document.getElementById("dinput.modifier").value = cfg.m
 					document.getElementById("dinput.modifier").onchange = () => {
 						let cfg = GetDinputCfg()
-						cfg.m = document.getElementById("dinput.modifier").value	
+						cfg.m = document.getElementById("dinput.modifier").value
 						cfg.update()
-					}							
+					}
 
 					SetTableThreeState(document.getElementById('j2kroot'), document.getElementById("j2k.u").checked)
 					document.getElementById("dinput_apply").onclick = function () {
 						let cfg = GetDinputCfg()
 						console.log(cfg)
-						IniSet(GameName, "u",      cfg.u      === true ? "true" : "false", "j2k")
-						IniSet(GameName, "ff",     cfg.FF     === true ? "true" : "false", "j2k")
+						IniSet(GameName, "u", cfg.u === true ? "true" : "false", "j2k")
+						IniSet(GameName, "ff", cfg.FF === true ? "true" : "false", "j2k")
 						IniSet(GameName, "rs_alt", cfg.rs_alt === true ? "true" : "false", "j2k")
-						IniSet(GameName, "m",   cfg.m,   "j2k")
-						IniSet(GameName, "rs",  cfg.rs,  "j2k")
+						IniSet(GameName, "m", cfg.m, "j2k")
+						IniSet(GameName, "rs", cfg.rs, "j2k")
 						IniSet(GameName, "spd", cfg.spd, "j2k")
-						IniSet(GameName, "dz",  cfg.dz,  "j2k")
+						IniSet(GameName, "dz", cfg.dz, "j2k")
 						IniSet(GameName, "a", cfg.Key_A.toString(), "j2k")
 						IniSet(GameName, "b", cfg.Key_B.toString(), "j2k")
 						IniSet(GameName, "x", cfg.Alt_A.toString(), "j2k")
 						IniSet(GameName, "y", cfg.Alt_B.toString(), "j2k")
 						IniSet(GameName, "mds", cfg.Modes.toString(), "j2k")
-						Done("Configuration updated", ()=>{})					
+						Done("Configuration updated", () => { })
 					}
 					document.getElementById("dinput_help").onclick = function () {
 						document.getElementById("dinput-help-div").style.display = "flex"
@@ -776,17 +936,16 @@
 				console.log(error)
 			}
 		}
-		g_.Loading = false
 	}
-	async function AddMacrosRow(macro, parent, game){
-		let label    = macro.indexOf('s') > -1 ? 'replaces' :  macro.indexOf('r') > -1 ? 'repeats &nbsp;' : 'toggles &nbsp;';
-		let checked  = await IniIsTrue(game, macro + "e", "k2k")
-		let trigger  = await IniGet(game, macro + "k", "k2k")
+	async function AddMacrosRow(macro, parent, game) {
+		let label = macro.indexOf('s') > -1 ? 'replaces' : macro.indexOf('r') > -1 ? 'repeats &nbsp;' : 'toggles &nbsp;';
+		let checked = await IniIsTrue(game, macro + "e", "k2k")
+		let trigger = await IniGet(game, macro + "k", "k2k")
 		let replaces = await IniGet(game, macro + "v", "k2k")
 		let disabned = checked === false ? "disabled" : ""
-		checked      = checked === true  ? "checked" : ""
+		checked = checked === true ? "checked" : ""
 		console.log(checked, disabned, trigger, replaces)
-		if (trigger  === "") trigger  = "None"
+		if (trigger === "") trigger = "None"
 		if (replaces === "") replaces = "None"
 		let html = /*html*/`
 			<div style="display:flex;flex-direction:row;gap:10px;;margin-top:10px">
@@ -803,15 +962,15 @@
 			document.getElementById(macro + "k").disabled = !checked
 			document.getElementById(macro + "v").disabled = !checked
 		}
-		document.getElementById(macro + "k").onclick = async() => {
+		document.getElementById(macro + "k").onclick = async () => {
 			let value = await SelectKey()
 			document.getElementById(macro + "k").innerHTML = value === "" ? "None" : value
-			IniSet(game, macro + "k", value, "k2k")			
+			IniSet(game, macro + "k", value, "k2k")
 		}
-		document.getElementById(macro + "v").onclick = async() => {
+		document.getElementById(macro + "v").onclick = async () => {
 			let value = await SelectKey()
 			document.getElementById(macro + "v").innerHTML = value === "" ? "None" : value
-			IniSet(game, macro + "v", value, "k2k")			
+			IniSet(game, macro + "v", value, "k2k")
 		}
 	}
 	function SetTableThreeState(table, state) {
@@ -846,12 +1005,12 @@
 	async function SelectXButton() {
 		return await (await fetch(`/SelectXButton`, FetchOPtions())).text();
 	}
-	function CeateDpadTableRow(Key_A) {		
+	function CeateDpadTableRow(Key_A) {
 		let [up, down, left, right] = [Key_A[0], Key_A[1], Key_A[2], Key_A[3]]
-		console.log("======",up, down, left, right)
-		if (up    === "") up    = "None"
-		if (down  === "") down  = "None"
-		if (left  === "") left  = "None"
+		console.log("======", up, down, left, right)
+		if (up === "") up = "None"
+		if (down === "") down = "None"
+		if (left === "") left = "None"
 		if (right === "") right = "None"
 		let html = /*html*/`		
 			<tr>
@@ -879,9 +1038,9 @@
 			cfg.Modes[1] = elemements.select.value
 			cfg.Modes[2] = elemements.select.value
 			cfg.Modes[3] = elemements.select.value
-			elemements.up.innerHTML    = "None";
-			elemements.down.innerHTML  = "None";
-			elemements.left.innerHTML  = "None";
+			elemements.up.innerHTML = "None";
+			elemements.down.innerHTML = "None";
+			elemements.left.innerHTML = "None";
 			elemements.right.innerHTML = "None";
 			cfg.Key_A[0] = ""
 			cfg.Key_A[1] = ""
@@ -890,7 +1049,7 @@
 			cfg.update()
 		}
 		for (let button of ["up", "down", "left", "right"]) {
-			elemements[button].onclick = async() => {
+			elemements[button].onclick = async () => {
 				if (elemements.select.value === "0") {
 					alert("The dpad is configured at default mode, acting like a Dpad, there is no need to assign keys")
 					return
@@ -898,21 +1057,21 @@
 				let key = await SelectKey()
 				elemements[button].innerHTML = key === "" ? "None" : key
 				let cfg = GetDinputCfg()
-				if (button === "up")    cfg.Key_A[0] = key
-				if (button === "down")  cfg.Key_A[1] = key
-				if (button === "left")  cfg.Key_A[2] = key
+				if (button === "up") cfg.Key_A[0] = key
+				if (button === "down") cfg.Key_A[1] = key
+				if (button === "left") cfg.Key_A[2] = key
 				if (button === "right") cfg.Key_A[3] = key
 				//console.log(cfg)	
 				cfg.update()
-			}	
+			}
 		}
 	}
-	function CeateLStickTableRow(Key_A) {		
+	function CeateLStickTableRow(Key_A) {
 		let [up, down, left, right] = [Key_A[16], Key_A[17], Key_A[18], Key_A[19]]
-		console.log("======",up, down, left, right)
-		if (up    === "") up    = "None"
-		if (down  === "") down  = "None"
-		if (left  === "") left  = "None"
+		console.log("======", up, down, left, right)
+		if (up === "") up = "None"
+		if (down === "") down = "None"
+		if (left === "") left = "None"
 		if (right === "") right = "None"
 		let html = /*html*/`		
 			<tr>
@@ -940,9 +1099,9 @@
 			cfg.Modes[1] = elemements.select.value
 			cfg.Modes[2] = elemements.select.value
 			cfg.Modes[3] = elemements.select.value
-			elemements.up.innerHTML    = "None";
-			elemements.down.innerHTML  = "None";
-			elemements.left.innerHTML  = "None";
+			elemements.up.innerHTML = "None";
+			elemements.down.innerHTML = "None";
+			elemements.left.innerHTML = "None";
 			elemements.right.innerHTML = "None";
 			cfg.Key_A[16] = ""
 			cfg.Key_A[17] = ""
@@ -951,7 +1110,7 @@
 			cfg.update()
 		}
 		for (let button of ["up", "down", "left", "right"]) {
-			elemements[button].onclick = async() => {
+			elemements[button].onclick = async () => {
 				if (elemements.select.value === "0") {
 					alert("The left stick is configured at default mode, there is no need to assign keys")
 					return
@@ -959,13 +1118,13 @@
 				let key = await SelectKey()
 				elemements[button].innerHTML = key === "" ? "None" : key
 				let cfg = GetDinputCfg()
-				if (button === "up")    cfg.Key_A[16] = key
-				if (button === "down")  cfg.Key_A[17] = key
-				if (button === "left")  cfg.Key_A[18] = key
+				if (button === "up") cfg.Key_A[16] = key
+				if (button === "down") cfg.Key_A[17] = key
+				if (button === "left") cfg.Key_A[18] = key
 				if (button === "right") cfg.Key_A[19] = key
 				//console.log(cfg)	
 				cfg.update()
-			}	
+			}
 		}
 	}
 	function CreateDinputTableRow(cntr, Key_A, Key_B, Alt_A, Alt_B, i) {
@@ -1028,26 +1187,26 @@
 		}
 	}
 	async function ShowTextSwapDialog(GameName, addbackbutton = false) {
-		let mydocs       = String.raw`%ProfilesPath%\\`.replace("\\\\", "\\");
-		let enabled      = await IniIsTrue(GameName, "e", "textswap")
-		let autodump     = await IniIsTrue(GameName, "a", "textswap")
-		let delay        = await IniIsTrue(GameName, "dly", "textswap")
-		let a8fix        = await IniIsTrue(GameName, "a8fix", "textswap")
-		let dynamic_tx   = await IniIsTrue(GameName, "l", "textswap")
-		let toggle       = await IniGet(GameName, "sw", "textswap")
-		let next         = await IniGet(GameName, "n", "textswap")
-		let prev	     = await IniGet(GameName, "p", "textswap")
-		let dump         = await IniGet(GameName, "d", "textswap")
-		let quick        = await IniGet(GameName, "q", "textswap")		
-		let tumb_sz      = await IniGet(GameName, "sz", "textswap")
+		let mydocs = String.raw`%ProfilesPath%\\`.replace("\\\\", "\\");
+		let enabled = await IniIsTrue(GameName, "e", "textswap")
+		let autodump = await IniIsTrue(GameName, "a", "textswap")
+		let delay = await IniIsTrue(GameName, "dly", "textswap")
+		let a8fix = await IniIsTrue(GameName, "a8fix", "textswap")
+		let dynamic_tx = await IniIsTrue(GameName, "l", "textswap")
+		let toggle = await IniGet(GameName, "sw", "textswap")
+		let next = await IniGet(GameName, "n", "textswap")
+		let prev = await IniGet(GameName, "p", "textswap")
+		let dump = await IniGet(GameName, "d", "textswap")
+		let quick = await IniGet(GameName, "q", "textswap")
+		let tumb_sz = await IniGet(GameName, "sz", "textswap")
 		let sample_count = await IniGet(GameName, "s", "textswap")
-		let path  	     = await IniGet(GameName, "path", "textswap")
+		let path = await IniGet(GameName, "path", "textswap")
 		console.log(enabled, autodump, delay, a8fix, toggle, next, prev, dump, quick, tumb_sz, sample_count, path)
-		prev   = prev   === "" ? "None" : prev
-		next   = next   === "" ? "None" : next
-		dump   = dump   === "" ? "None" : dump
-		quick  = quick  === "" ? "None" : quick
-		toggle = toggle === "" ? "None" : toggle	
+		prev = prev === "" ? "None" : prev
+		next = next === "" ? "None" : next
+		dump = dump === "" ? "None" : dump
+		quick = quick === "" ? "None" : quick
+		toggle = toggle === "" ? "None" : toggle
 
 		let backtopx = /*html*/`
 		<button class="btn btn-outline-secondary" style="width:250px;margin-left:10px" data-self="backtopx">
@@ -1056,8 +1215,8 @@
 		if (addbackbutton === false) {
 			backtopx = ""
 		}
-		
-		let alpha_textures_popover = /*html*/`This fixes a bug related to alpha only textures on Blade of darkness and maybe other games,
+
+		let alpha_textures_popover = (await ParseText(/*html*/`This fixes a bug related to alpha only textures on Blade of darkness and maybe other games,
 The correct rendering of fonts on Blade of darkness depends on alpha 
 textures returning 1.0 for the color channels when sampled on the pixel stage. 
 With the introduction of the programable pipeline, the default value of 
@@ -1071,7 +1230,7 @@ I guess happened was that, at that point, the MS programers did not correctly
 replicated the fixed function alpha textures behavior on the pixel shaders 
 emulating the fixed function pipeline.   
 This fix is applied by replacing alpha only textures with full RGBA textures 
-with the color channels set to 255`
+with the color channels set to 255`)).replaceAll("\"", "'")
 
 		console.log(alpha_textures_popover)
 
@@ -1269,28 +1428,28 @@ with the color channels set to 255`
 		elements.thumb_size.onchange = () => {
 			elements["thumb_size-label"].innerText = elements.thumb_size.value
 			IniSet(GameName, "sz", elements.thumb_size.value, "textswap")
-		}			
-		elements.container.style.display = "flex"	
-		elements.enabled.onchange        = () => {
-			elements.dly.disabled                   = elements.enabled.checked ? false : "disabled"
-			elements.autodump.disabled              = elements.enabled.checked ? false : "disabled"
-			elements.dynamic_tx.disabled            = elements.enabled.checked ? false : "disabled"
-			elements.a8fix.disabled                 = elements.enabled.checked ? false : "disabled"
-			elements.sample_count.disabled          = elements.enabled.checked ? false : "disabled"
-			elements.thumb_size.disabled            = elements.enabled.checked ? false : "disabled"						
-			elements.sw.disabled                    = elements.enabled.checked ? false : "disabled"
-			elements.n.disabled                     = elements.enabled.checked ? false : "disabled"
-			elements.p.disabled                     = elements.enabled.checked ? false : "disabled"
-			elements.q.disabled                     = elements.enabled.checked ? false : "disabled"
-			elements.d.disabled                     = elements.enabled.checked ? false : "disabled"	
-			
+		}
+		elements.container.style.display = "flex"
+		elements.enabled.onchange = () => {
+			elements.dly.disabled = elements.enabled.checked ? false : "disabled"
+			elements.autodump.disabled = elements.enabled.checked ? false : "disabled"
+			elements.dynamic_tx.disabled = elements.enabled.checked ? false : "disabled"
+			elements.a8fix.disabled = elements.enabled.checked ? false : "disabled"
+			elements.sample_count.disabled = elements.enabled.checked ? false : "disabled"
+			elements.thumb_size.disabled = elements.enabled.checked ? false : "disabled"
+			elements.sw.disabled = elements.enabled.checked ? false : "disabled"
+			elements.n.disabled = elements.enabled.checked ? false : "disabled"
+			elements.p.disabled = elements.enabled.checked ? false : "disabled"
+			elements.q.disabled = elements.enabled.checked ? false : "disabled"
+			elements.d.disabled = elements.enabled.checked ? false : "disabled"
+
 			const radios = document.querySelectorAll('input[type="radio"][name="tswap_path"]');
 			for (let radio of radios) {
 				radio.disabled = elements.enabled.checked ? false : "disabled"
 			}
 			IniSet(GameName, "e", elements.enabled.checked ? "true" : "false", "textswap")
 		}
-		elements.enabled.checked = enabled	
+		elements.enabled.checked = enabled
 		elements.enabled.onchange()
 		elements.close.onclick = () => {
 			elements.container.remove()
@@ -1306,19 +1465,19 @@ with the color channels set to 255`
 				radio.checked = true
 			}
 			radio.onchange = () => {
-				if (radio.checked){
+				if (radio.checked) {
 					IniSet(GameName, "path", radio.value, "textswap")
 				}
 			}
 		}
-		elements.a8fix.checked       = a8fix
-		elements.autodump.checked    = autodump
-		elements.dynamic_tx.checked  = dynamic_tx
-		elements.dly.checked         = delay
-		elements.a8fix.onchange      = () => {IniSet(GameName, "A8Fix",    elements.a8fix.checked      ? "true" : "false", "textswap")}
-		elements.autodump.onchange   = () => {IniSet(GameName, "a",        elements.autodump.checked   ? "true" : "false", "textswap")}
-		elements.dynamic_tx.onchange = () => {IniSet(GameName, "l",        elements.dynamic_tx.checked ? "true" : "false", "textswap")}
-		elements.dly.onchange        = () => {IniSet(GameName, "dly",      elements.dly.checked        ? "true" : "false", "textswap")}
+		elements.a8fix.checked = a8fix
+		elements.autodump.checked = autodump
+		elements.dynamic_tx.checked = dynamic_tx
+		elements.dly.checked = delay
+		elements.a8fix.onchange = () => { IniSet(GameName, "A8Fix", elements.a8fix.checked ? "true" : "false", "textswap") }
+		elements.autodump.onchange = () => { IniSet(GameName, "a", elements.autodump.checked ? "true" : "false", "textswap") }
+		elements.dynamic_tx.onchange = () => { IniSet(GameName, "l", elements.dynamic_tx.checked ? "true" : "false", "textswap") }
+		elements.dly.onchange = () => { IniSet(GameName, "dly", elements.dly.checked ? "true" : "false", "textswap") }
 		if (elements.backtopx) {
 			elements.backtopx.onclick = () => {
 				elements.container.remove()
@@ -1328,23 +1487,23 @@ with the color channels set to 255`
 		activatetooltips()
 		const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 		console.log(popoverTriggerList)
-		const popoverList        = [...popoverTriggerList].map(popoverTriggerEl => new 	bootstrap.Popover(popoverTriggerEl))
+		const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 	}
 
 	async function ShowPxSwapDialog(GameName) {
-		
+
 		let enabled = await IniIsTrue(GameName, "e", "PxSwap");
-		let sw      = await IniGet(GameName, "sw", "PxSwap") ;
-		let n       = await IniGet(GameName, "n", "PxSwap") ;
-		let p       = await IniGet(GameName, "p", "PxSwap") ;
-		let q       = await IniGet(GameName, "q", "PxSwap") ;
-		let d       = await IniGet(GameName, "d", "PxSwap") ;
+		let sw = await IniGet(GameName, "sw", "PxSwap");
+		let n = await IniGet(GameName, "n", "PxSwap");
+		let p = await IniGet(GameName, "p", "PxSwap");
+		let q = await IniGet(GameName, "q", "PxSwap");
+		let d = await IniGet(GameName, "d", "PxSwap");
 		if (sw === "") sw = "None"
-		if (n  === "") n  = "None"
-		if (p  === "") p  = "None"
-		if (q  === "") q  = "None"
-		if (d  === "") d  = "None"
-		
+		if (n === "") n = "None"
+		if (p === "") p = "None"
+		if (q === "") q = "None"
+		if (d === "") d = "None"
+
 		let elements = bff(/*html*/`
 		<div class="dialog-container" data-self="container">
 			<div class="dialog text-bg-light" style="width:1240px;height:550px;padding: 20px;">
@@ -1397,18 +1556,18 @@ with the color channels set to 255`
 		elements.container.style.display = "flex"
 		elements.close.onclick = () => {
 			elements.container.remove()
-		}	
+		}
 		elements.enabled.onchange = () => {
-			IniSet(GameName, "e", elements.enabled.checked  ? "true" : "false", "PxSwap")
+			IniSet(GameName, "e", elements.enabled.checked ? "true" : "false", "PxSwap")
 			elements.sw.disabled = elements.enabled.checked ? false : "disabled"
-			elements.n.disabled = elements.enabled.checked  ? false : "disabled"
-			elements.p.disabled = elements.enabled.checked  ? false : "disabled"
-			elements.q.disabled = elements.enabled.checked  ? false : "disabled"
-			elements.d.disabled = elements.enabled.checked  ? false : "disabled"
+			elements.n.disabled = elements.enabled.checked ? false : "disabled"
+			elements.p.disabled = elements.enabled.checked ? false : "disabled"
+			elements.q.disabled = elements.enabled.checked ? false : "disabled"
+			elements.d.disabled = elements.enabled.checked ? false : "disabled"
 		}
 		elements.enabled.checked = enabled
 		elements.enabled.onchange()
-		for (let e of ["sw", "n", "p", "q", "d"]){
+		for (let e of ["sw", "n", "p", "q", "d"]) {
 			elements[e].onclick = async () => {
 				elements[e].innerText = await SelectKey()
 				IniSet(GameName, e, elements[e].innerText, "PxSwap")
