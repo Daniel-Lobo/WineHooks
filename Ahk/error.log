@@ -1,34 +1,33 @@
 Peixotos's patch remote settings:
-Command Line: "F:\Games\SIGNALIS\UnityCrashHandler64.exe" "1824" "140737469353984" 
+Command Line: Unravel.exe 
 common_path: 1
 D3D: 11
 D3D_Driver: 
 dsk: 1920x1080
+dxvk: 1
 dxvkv: 2_4
 error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
-HD: UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES
+HD: upscale|useinterop|hdproxies|useproxies
 injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
 max_4x3_res: 1152x864
-MCLP: FREE
 Mydocs: C:\users\gotardo\Documents
 os_version: 10.000000
-path: C:\users\gotardo\Documents\WineHooks\Games\Signalis\
-PxSwap: e=false;sw=Del;n=];p=[;d=Home;q=Shift;
-RLMT: 11
+path: C:\users\gotardo\Documents\WineHooks\Games\Unravel\Unravel\
+PxSwap: e=true;sw=Del;n=[;p=];d=Home;q=Shift;
+RLMT: 8
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 
-script_hwnd: 0xd0238
-target: F:\Games\SIGNALIS\UnityCrashHandler64.exe
-target_dir: F:\Games\SIGNALIS
-target_name: UnityCrashHandler64.exe
-Textswap: e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;
-ver: 0.10.11
-WHKS: 1
+script_hwnd: 0x1a015c
+target: F:\Games\Unravel\Unravel.exe
+target_dir: F:\Games\Unravel
+target_name: Unravel.exe
+Textswap: e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;
+wiki: https://www.pcgamingwiki.com/wiki/Unravel
 wine: 9_0
 
-Working directory: F:\Games\SIGNALIS
-C:\users\gotardo\Documents\WineHooks\Games\Signalis\cfgFiles: 
+Working directory: F:\Games\Unravel
+C:\users\gotardo\Documents\WineHooks\Games\Unravel\Unravel\cfgFiles: 
 HasFiles 0
-C:\users\gotardo\Documents\WineHooks\Games\Signalis\cfgFiles: 
+C:\users\gotardo\Documents\WineHooks\Games\Unravel\Unravel\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -51,6 +50,7 @@ Init: SUCCEEDED TO GET THE D3D11CreateDeviceAndSwapChain ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D11On12CreateDevice ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D12CreateDevice ENTRYPOINT ON d3d12.dll
 Init: SUCCEEDED TO GET THE D3D12GetDebugInterface ENTRYPOINT ON d3d12.dll
+Init: Using MS Compilers
 Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT
 Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT
 Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT
@@ -76,45 +76,25 @@ Init: SUCCEEDED TO GET THE D3D10CreateDevice ENTRYPOINT ON d3d10.dll
 Init: FAILED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
 D3D11LoadWine: S_OK
 SetReslimit: ENUMERATING
-SetReslimit: MODE 1: 640x360
-InitD3D11Hooks: Highest mode: 640x360
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsExWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsAHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SetWindowPosHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ClipCursorHook
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexed
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::Draw
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawAuto
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstanced
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstancedIndirect
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstanced
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstancedIndirect
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::PSGetShaderResources
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext1::ClearView
-Texture 139665561042528 139665561043312
+SetReslimit: MODE 18: 1920x1080
+InitD3D11Hooks: Highest mode: 1920x1080
+Texture 28653552 28646080
 Releasing Texture 0
 Releasing ResView 0
 Succeded to create the Direct3D11 device with feature level 
 Succeeded to hook IDXGIFactory2::CreateSwapChainForHwnd
 Succeeded to hook IDXGIFactory::CreateSwapChain
 Succeeded to hook IDXGISwapChain::Present
+Succeeded to hook ID3D11Device::CreateTexture2D
 Succeeded to hook ID3D11Texture2D::Release
 Succeeded to hook ID3D11DeviceContext::PSSetShaderResources
 Succeeded to hook ID3D11DeviceContext::Map
 Succeeded to hook ID3D11DeviceContext::Unmap
 Succeeded to hook ID3D11DeviceContext::CopySubresourceRegion
 Succeeded to hook ID3D11DeviceContext::UpdateSubresource
+Inserted Dump 1 Bloom.hlsl
+Inserted Dump 2 DOFHigh.hlsl
+Inserted Dump 3 DOFLow.hlsl
 Succeeded to hook ID3D11DeviceContext::PsSetShader
 Succeeded to hook ID3D11Device::CreatePixelShader
 Succeeded to hook ID3D11DeviceContext::ResolveSubresource
