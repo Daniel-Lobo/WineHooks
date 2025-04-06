@@ -2,7 +2,9 @@
 {
 	dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"	
 	(g_.cfg.MCLP)   ? dllcall(dll "\D3D12Config", astr, "MOUSECLIP" , str, g_.cfg.MCLP)
-	for k ,v in strsplit(g_.cfg.HD, "|")
+	hd_cfg := g_.cfg.HD
+	StringUpper, hd_cfg_up, hd_cfg
+	for k ,v in strsplit(hd_cfg_up, "|")
 		dllcall(dll "\D3D12Config", astr, v, uint, 2) ; 2 for full precision FSR 
 	(g_.cfg.WHKS)   ? dllcall(dll "\D3D12Config", astr, "FIXWINSIZE", ptr, 1)
 	(g_.cfg.MHKS)   ? dllcall(dll "\D3D12Config", astr, "MOUSEHOOKS", ptr, 1)

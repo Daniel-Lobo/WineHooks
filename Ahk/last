@@ -1,5 +1,5 @@
-global g_MainThreadID := 446676599688 ;<Tag> 
-global g_cmdstring := "-target^F:\Games\Unravel\Unravel.exe^-D3D^11^-wiki^https://www.pcgamingwiki.com/wiki/Unravel^-path^Unravel\Unravel^-HD^upscale|useinterop|hdproxies|useproxies^-RLMT^8^/dxvk^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;^-PxSwap^e=true;sw=Del;n=[;p=];d=Home;q=Shift;^-script_hwnd^0x1a015c^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 ^-max_4x3_res^1152x864^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^F:\Games\Unravel^-target_name^Unravel.exe^-wine^9_0^-dxvkv^2_4^-common_path^1"
+global g_MainThreadID := 8820 ;<Tag> 
+global g_cmdstring := "-Target^G:\Games\Unravel Two\UnravelTwo.exe^-D3D^11^-path^Unravel\Unravel Two^-HD^upscale|useinterop|hdproxies|useproxies^/WHKS^/dxvk^-Textswap^e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;^-PxSwap^e=false;sw=Del;n=];p=[;q=Shift;d=Home;^-script_hwnd^0x240872^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^G:\Games\Unravel Two^-target_name^UnravelTwo.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -5784,7 +5784,7 @@ dllcall(dll "\D3D12Config", astr, v, uint, 2)
 (g_.cfg.WHKS)   ? dllcall(dll "\D3D12Config", astr, "FIXWINSIZE", ptr, 1)
 (g_.cfg.MHKS)   ? dllcall(dll "\D3D12Config", astr, "MOUSEHOOKS", ptr, 1)
 (g_.cfg.VSNC)   ? dllcall(dll "\D3D12Config", astr, "VSYNC", ptr, 1)
-arch      := A_PtrSize == 8 ? "x64" : "x32"
+arch      := A_PtrSize == 8 ? "System32" : "SysWOW64"
 wine_path := g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\" arch
 dxvk_path := g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch
 flags     := g_.cfg.dxvk ? 0xd : 0
@@ -6005,7 +6005,9 @@ return InitD3D10Hooks()
 dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
 dllcall(dll "\D3D12Config", astr, "D3D.VERSION", ptr, 11)
 dllcall(dll "\NVIDIA_Set", wstr, g_.cfg.target, uint, g_.cfg.NVAA)
-for k ,v in strsplit(g_.cfg.HD, "|")
+hd_cfg := g_.cfg.HD
+StringUpper, hd_cfg_up, hd_cfg
+for k ,v in strsplit(hd_cfg_up, "|")
 dllcall(dll "\D3D12Config", astr, v, uint, 2)
 (g_.cfg.WHKS)    ? dllcall(dll "\D3D12Config", astr, "FIXWINSIZE", ptr, 1)
 (g_.cfg.MHKS)    ? dllcall(dll "\D3D12Config", astr, "MOUSEHOOKS", ptr, 1)
@@ -6013,7 +6015,7 @@ dllcall(dll "\D3D12Config", astr, v, uint, 2)
 (g_.cfg.VSNC)    ? dllcall(dll "\D3D12Config", astr, "VSYNC", ptr, 1)
 (g_.cfg.MCLP)    ? dllcall(dll "\D3D12Config", astr, "MOUSECLIP" , str, g_.cfg.MCLP)
 (g_.cfg.DBLBFF)  ? dllcall(dll "\D3D12Config", astr, "DOUBLEBUFF", uint, 1)
-arch      := A_PtrSize == 8 ? "x64" : "x32"
+arch      := A_PtrSize == 8 ? "System32" : "SysWOW64"
 wine_path := g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\" arch
 dxvk_path := g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch
 flags     := g_.cfg.dxvk ? 0xd : 0

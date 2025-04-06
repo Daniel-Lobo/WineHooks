@@ -204,7 +204,9 @@ InitD3D11Hooks()
 	
 	dllcall(dll "\D3D12Config", astr, "D3D.VERSION", ptr, 11)
     dllcall(dll "\NVIDIA_Set", wstr, g_.cfg.target, uint, g_.cfg.NVAA)
-	for k ,v in strsplit(g_.cfg.HD, "|")
+	hd_cfg := g_.cfg.HD
+	StringUpper, hd_cfg_up, hd_cfg
+	for k ,v in strsplit(hd_cfg_up, "|")
 		dllcall(dll "\D3D12Config", astr, v, uint, 2) ; 2 for full precision FSR 
 	(g_.cfg.WHKS)    ? dllcall(dll "\D3D12Config", astr, "FIXWINSIZE", ptr, 1)
 	(g_.cfg.MHKS)    ? dllcall(dll "\D3D12Config", astr, "MOUSEHOOKS", ptr, 1)	

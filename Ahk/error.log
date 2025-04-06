@@ -1,33 +1,32 @@
 Peixotos's patch remote settings:
-Command Line: Unravel.exe 
+Command Line: "G:\Games\Unravel Two\UnravelTwo.exe" 
 common_path: 1
 D3D: 11
 D3D_Driver: 
 dsk: 1920x1080
 dxvk: 1
-dxvkv: 2_4
-error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
+dxvkv: 2_6
+error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
 HD: upscale|useinterop|hdproxies|useproxies
-injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
-max_4x3_res: 1152x864
-Mydocs: C:\users\gotardo\Documents
+injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
+max_4x3_res: 1440x1080
+Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
-path: C:\users\gotardo\Documents\WineHooks\Games\Unravel\Unravel\
-PxSwap: e=true;sw=Del;n=[;p=];d=Home;q=Shift;
-RLMT: 8
-rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 
-script_hwnd: 0x1a015c
-target: F:\Games\Unravel\Unravel.exe
-target_dir: F:\Games\Unravel
-target_name: Unravel.exe
-Textswap: e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;
-wiki: https://www.pcgamingwiki.com/wiki/Unravel
-wine: 9_0
+path: C:\Users\Peixoto\Documents\WineHooks\Games\Unravel\Unravel Two\
+PxSwap: e=false;sw=Del;n=];p=[;q=Shift;d=Home;
+rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
+script_hwnd: 0x240872
+Target: G:\Games\Unravel Two\UnravelTwo.exe
+target_dir: G:\Games\Unravel Two
+target_name: UnravelTwo.exe
+Textswap: e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;
+WHKS: 1
+wine: 10_0
 
-Working directory: F:\Games\Unravel
-C:\users\gotardo\Documents\WineHooks\Games\Unravel\Unravel\cfgFiles: 
+Working directory: G:\Games\Unravel Two
+C:\Users\Peixoto\Documents\WineHooks\Games\Unravel\Unravel Two\cfgFiles: 
 HasFiles 0
-C:\users\gotardo\Documents\WineHooks\Games\Unravel\Unravel\cfgFiles: 
+C:\Users\Peixoto\Documents\WineHooks\Games\Unravel\Unravel Two\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -50,51 +49,70 @@ Init: SUCCEEDED TO GET THE D3D11CreateDeviceAndSwapChain ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D11On12CreateDevice ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D12CreateDevice ENTRYPOINT ON d3d12.dll
 Init: SUCCEEDED TO GET THE D3D12GetDebugInterface ENTRYPOINT ON d3d12.dll
-Init: Using MS Compilers
-Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT
+Init: Using System Compilers
+Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT ON d3dx9_43.dll
 Init: 1920x1080
 Init: 144
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
 Init: SUCCEEDED TO GET THE D3D11CreateDevice ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D10CreateDevice ENTRYPOINT ON d3d10.dll
-Init: FAILED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
+Init: SUCCEEDED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
 D3D11LoadWine: S_OK
 SetReslimit: ENUMERATING
-SetReslimit: MODE 18: 1920x1080
+SetReslimit: MODE 61: 1920x1080
 InitD3D11Hooks: Highest mode: 1920x1080
-Texture 28653552 28646080
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsExWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsAHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SetWindowPosHook
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexed
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::Draw
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawAuto
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstanced
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstancedIndirect
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstanced
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstancedIndirect
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::PSGetShaderResources
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext1::ClearView
+Texture 181214256 7089072
 Releasing Texture 0
 Releasing ResView 0
 Succeded to create the Direct3D11 device with feature level 
 Succeeded to hook IDXGIFactory2::CreateSwapChainForHwnd
 Succeeded to hook IDXGIFactory::CreateSwapChain
 Succeeded to hook IDXGISwapChain::Present
-Succeeded to hook ID3D11Device::CreateTexture2D
 Succeeded to hook ID3D11Texture2D::Release
 Succeeded to hook ID3D11DeviceContext::PSSetShaderResources
 Succeeded to hook ID3D11DeviceContext::Map
 Succeeded to hook ID3D11DeviceContext::Unmap
 Succeeded to hook ID3D11DeviceContext::CopySubresourceRegion
 Succeeded to hook ID3D11DeviceContext::UpdateSubresource
-Inserted Dump 1 Bloom.hlsl
-Inserted Dump 2 DOFHigh.hlsl
-Inserted Dump 3 DOFLow.hlsl
 Succeeded to hook ID3D11DeviceContext::PsSetShader
 Succeeded to hook ID3D11Device::CreatePixelShader
 Succeeded to hook ID3D11DeviceContext::ResolveSubresource
@@ -110,3 +128,401 @@ ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain::GetDesc
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain1::GetDesc1
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::GetDisplayModeList
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::FindClosestMatchingMode
+D3D12GetDisplayModeListHook: =====
+D3D12GetModes: MODE 0: 640x480
+D3D12GetModes: MODE 1: 640x480
+D3D12GetModes: MODE 2: 960x540
+D3D12GetModes: MODE 3: 960x540
+D3D12GetModes: MODE 4: 960x540
+D3D12GetModes: MODE 5: 800x600
+D3D12GetModes: MODE 6: 800x600
+D3D12GetModes: MODE 7: 1024x768
+D3D12GetModes: MODE 8: 1024x768
+D3D12GetModes: MODE 9: 1152x864
+D3D12GetModes: MODE 10: 1176x664
+D3D12GetModes: MODE 11: 1176x664
+D3D12GetModes: MODE 12: 1176x664
+D3D12GetModes: MODE 13: 1176x664
+D3D12GetModes: MODE 14: 1176x664
+D3D12GetModes: MODE 15: 1176x664
+D3D12GetModes: MODE 16: 1176x664
+D3D12GetModes: MODE 17: 1176x664
+D3D12GetModes: MODE 18: 1176x664
+D3D12GetModes: MODE 19: 1280x720
+D3D12GetModes: MODE 20: 1280x720
+D3D12GetModes: MODE 21: 1280x720
+D3D12GetModes: MODE 22: 1280x768
+D3D12GetModes: MODE 23: 1280x768
+D3D12GetModes: MODE 24: 1280x768
+D3D12GetModes: MODE 25: 1280x800
+D3D12GetModes: MODE 26: 1280x960
+D3D12GetModes: MODE 27: 1280x960
+D3D12GetModes: MODE 28: 1280x960
+D3D12GetModes: MODE 29: 1280x1024
+D3D12GetModes: MODE 30: 1360x768
+D3D12GetModes: MODE 31: 1360x768
+D3D12GetModes: MODE 32: 1360x768
+D3D12GetModes: MODE 33: 1366x768
+D3D12GetModes: MODE 34: 1366x768
+D3D12GetModes: MODE 35: 1366x768
+D3D12GetModes: MODE 36: 1440x900
+D3D12GetModes: MODE 37: 1440x1080
+D3D12GetModes: MODE 38: 1440x1080
+D3D12GetModes: MODE 39: 1440x1080
+D3D12GetModes: MODE 40: 1440x1080
+D3D12GetModes: MODE 41: 1440x1080
+D3D12GetModes: MODE 42: 1440x1080
+D3D12GetModes: MODE 43: 1440x1080
+D3D12GetModes: MODE 44: 1440x1080
+D3D12GetModes: MODE 45: 1440x1080
+D3D12GetModes: MODE 46: 1600x900
+D3D12GetModes: MODE 47: 1600x900
+D3D12GetModes: MODE 48: 1600x900
+D3D12GetModes: MODE 49: 1600x900
+D3D12GetModes: MODE 50: 1600x900
+D3D12GetModes: MODE 51: 1600x900
+D3D12GetModes: MODE 52: 1600x1024
+D3D12GetModes: MODE 53: 1600x1024
+D3D12GetModes: MODE 54: 1600x1024
+D3D12GetModes: MODE 55: 1600x1024
+D3D12GetModes: MODE 56: 1600x1024
+D3D12GetModes: MODE 57: 1600x1024
+D3D12GetModes: MODE 58: 1680x1050
+D3D12GetModes: MODE 59: 1680x1050
+D3D12GetModes: MODE 60: 1920x1080
+D3D12GetModes: MODE 61: 1920x1080
+D3D12GetModes: MODE 62: 1920x1080
+D3D12GetDisplayModeListHook: RETURNING COUNT=63
+D3D12GetDisplayModeListHook: =====
+D3D12GetModes: MODE 0: 640x480
+D3D12GetModes: MODE 1: 640x480
+D3D12GetModes: MODE 2: 960x540
+D3D12GetModes: MODE 3: 960x540
+D3D12GetModes: MODE 4: 960x540
+D3D12GetModes: MODE 5: 800x600
+D3D12GetModes: MODE 6: 800x600
+D3D12GetModes: MODE 7: 1024x768
+D3D12GetModes: MODE 8: 1024x768
+D3D12GetModes: MODE 9: 1152x864
+D3D12GetModes: MODE 10: 1176x664
+D3D12GetModes: MODE 11: 1176x664
+D3D12GetModes: MODE 12: 1176x664
+D3D12GetModes: MODE 13: 1176x664
+D3D12GetModes: MODE 14: 1176x664
+D3D12GetModes: MODE 15: 1176x664
+D3D12GetModes: MODE 16: 1176x664
+D3D12GetModes: MODE 17: 1176x664
+D3D12GetModes: MODE 18: 1176x664
+D3D12GetModes: MODE 19: 1280x720
+D3D12GetModes: MODE 20: 1280x720
+D3D12GetModes: MODE 21: 1280x720
+D3D12GetModes: MODE 22: 1280x768
+D3D12GetModes: MODE 23: 1280x768
+D3D12GetModes: MODE 24: 1280x768
+D3D12GetModes: MODE 25: 1280x800
+D3D12GetModes: MODE 26: 1280x960
+D3D12GetModes: MODE 27: 1280x960
+D3D12GetModes: MODE 28: 1280x960
+D3D12GetModes: MODE 29: 1280x1024
+D3D12GetModes: MODE 30: 1360x768
+D3D12GetModes: MODE 31: 1360x768
+D3D12GetModes: MODE 32: 1360x768
+D3D12GetModes: MODE 33: 1366x768
+D3D12GetModes: MODE 34: 1366x768
+D3D12GetModes: MODE 35: 1366x768
+D3D12GetModes: MODE 36: 1440x900
+D3D12GetModes: MODE 37: 1440x1080
+D3D12GetModes: MODE 38: 1440x1080
+D3D12GetModes: MODE 39: 1440x1080
+D3D12GetModes: MODE 40: 1440x1080
+D3D12GetModes: MODE 41: 1440x1080
+D3D12GetModes: MODE 42: 1440x1080
+D3D12GetModes: MODE 43: 1440x1080
+D3D12GetModes: MODE 44: 1440x1080
+D3D12GetModes: MODE 45: 1440x1080
+D3D12GetModes: MODE 46: 1600x900
+D3D12GetModes: MODE 47: 1600x900
+D3D12GetModes: MODE 48: 1600x900
+D3D12GetModes: MODE 49: 1600x900
+D3D12GetModes: MODE 50: 1600x900
+D3D12GetModes: MODE 51: 1600x900
+D3D12GetModes: MODE 52: 1600x1024
+D3D12GetModes: MODE 53: 1600x1024
+D3D12GetModes: MODE 54: 1600x1024
+D3D12GetModes: MODE 55: 1600x1024
+D3D12GetModes: MODE 56: 1600x1024
+D3D12GetModes: MODE 57: 1600x1024
+D3D12GetModes: MODE 58: 1680x1050
+D3D12GetModes: MODE 59: 1680x1050
+D3D12GetModes: MODE 60: 1920x1080
+D3D12GetModes: MODE 61: 1920x1080
+D3D12GetModes: MODE 62: 1920x1080
+D3D12GetDisplayModeListHook: RETURNING 63 Modes
+~LogWinSize: D3D12SetWindowPosHook: 1920x1061 -> 1920x1061
+D3D12GetDisplayModeListHook: =====
+D3D12GetModes: MODE 0: 640x480
+D3D12GetModes: MODE 1: 640x480
+D3D12GetModes: MODE 2: 960x540
+D3D12GetModes: MODE 3: 960x540
+D3D12GetModes: MODE 4: 960x540
+D3D12GetModes: MODE 5: 800x600
+D3D12GetModes: MODE 6: 800x600
+D3D12GetModes: MODE 7: 1024x768
+D3D12GetModes: MODE 8: 1024x768
+D3D12GetModes: MODE 9: 1152x864
+D3D12GetModes: MODE 10: 1176x664
+D3D12GetModes: MODE 11: 1176x664
+D3D12GetModes: MODE 12: 1176x664
+D3D12GetModes: MODE 13: 1176x664
+D3D12GetModes: MODE 14: 1176x664
+D3D12GetModes: MODE 15: 1176x664
+D3D12GetModes: MODE 16: 1176x664
+D3D12GetModes: MODE 17: 1176x664
+D3D12GetModes: MODE 18: 1176x664
+D3D12GetModes: MODE 19: 1280x720
+D3D12GetModes: MODE 20: 1280x720
+D3D12GetModes: MODE 21: 1280x720
+D3D12GetModes: MODE 22: 1280x768
+D3D12GetModes: MODE 23: 1280x768
+D3D12GetModes: MODE 24: 1280x768
+D3D12GetModes: MODE 25: 1280x800
+D3D12GetModes: MODE 26: 1280x960
+D3D12GetModes: MODE 27: 1280x960
+D3D12GetModes: MODE 28: 1280x960
+D3D12GetModes: MODE 29: 1280x1024
+D3D12GetModes: MODE 30: 1360x768
+D3D12GetModes: MODE 31: 1360x768
+D3D12GetModes: MODE 32: 1360x768
+D3D12GetModes: MODE 33: 1366x768
+D3D12GetModes: MODE 34: 1366x768
+D3D12GetModes: MODE 35: 1366x768
+D3D12GetModes: MODE 36: 1440x900
+D3D12GetModes: MODE 37: 1440x1080
+D3D12GetModes: MODE 38: 1440x1080
+D3D12GetModes: MODE 39: 1440x1080
+D3D12GetModes: MODE 40: 1440x1080
+D3D12GetModes: MODE 41: 1440x1080
+D3D12GetModes: MODE 42: 1440x1080
+D3D12GetModes: MODE 43: 1440x1080
+D3D12GetModes: MODE 44: 1440x1080
+D3D12GetModes: MODE 45: 1440x1080
+D3D12GetModes: MODE 46: 1600x900
+D3D12GetModes: MODE 47: 1600x900
+D3D12GetModes: MODE 48: 1600x900
+D3D12GetModes: MODE 49: 1600x900
+D3D12GetModes: MODE 50: 1600x900
+D3D12GetModes: MODE 51: 1600x900
+D3D12GetModes: MODE 52: 1600x1024
+D3D12GetModes: MODE 53: 1600x1024
+D3D12GetModes: MODE 54: 1600x1024
+D3D12GetModes: MODE 55: 1600x1024
+D3D12GetModes: MODE 56: 1600x1024
+D3D12GetModes: MODE 57: 1600x1024
+D3D12GetModes: MODE 58: 1680x1050
+D3D12GetModes: MODE 59: 1680x1050
+D3D12GetModes: MODE 60: 1920x1080
+D3D12GetModes: MODE 61: 1920x1080
+D3D12GetModes: MODE 62: 1920x1080
+D3D12GetDisplayModeListHook: RETURNING COUNT=63
+D3D12GetDisplayModeListHook: =====
+D3D12GetModes: MODE 0: 640x480
+D3D12GetModes: MODE 1: 640x480
+D3D12GetModes: MODE 2: 960x540
+D3D12GetModes: MODE 3: 960x540
+D3D12GetModes: MODE 4: 960x540
+D3D12GetModes: MODE 5: 800x600
+D3D12GetModes: MODE 6: 800x600
+D3D12GetModes: MODE 7: 1024x768
+D3D12GetModes: MODE 8: 1024x768
+D3D12GetModes: MODE 9: 1152x864
+D3D12GetModes: MODE 10: 1176x664
+D3D12GetModes: MODE 11: 1176x664
+D3D12GetModes: MODE 12: 1176x664
+D3D12GetModes: MODE 13: 1176x664
+D3D12GetModes: MODE 14: 1176x664
+D3D12GetModes: MODE 15: 1176x664
+D3D12GetModes: MODE 16: 1176x664
+D3D12GetModes: MODE 17: 1176x664
+D3D12GetModes: MODE 18: 1176x664
+D3D12GetModes: MODE 19: 1280x720
+D3D12GetModes: MODE 20: 1280x720
+D3D12GetModes: MODE 21: 1280x720
+D3D12GetModes: MODE 22: 1280x768
+D3D12GetModes: MODE 23: 1280x768
+D3D12GetModes: MODE 24: 1280x768
+D3D12GetModes: MODE 25: 1280x800
+D3D12GetModes: MODE 26: 1280x960
+D3D12GetModes: MODE 27: 1280x960
+D3D12GetModes: MODE 28: 1280x960
+D3D12GetModes: MODE 29: 1280x1024
+D3D12GetModes: MODE 30: 1360x768
+D3D12GetModes: MODE 31: 1360x768
+D3D12GetModes: MODE 32: 1360x768
+D3D12GetModes: MODE 33: 1366x768
+D3D12GetModes: MODE 34: 1366x768
+D3D12GetModes: MODE 35: 1366x768
+D3D12GetModes: MODE 36: 1440x900
+D3D12GetModes: MODE 37: 1440x1080
+D3D12GetModes: MODE 38: 1440x1080
+D3D12GetModes: MODE 39: 1440x1080
+D3D12GetModes: MODE 40: 1440x1080
+D3D12GetModes: MODE 41: 1440x1080
+D3D12GetModes: MODE 42: 1440x1080
+D3D12GetModes: MODE 43: 1440x1080
+D3D12GetModes: MODE 44: 1440x1080
+D3D12GetModes: MODE 45: 1440x1080
+D3D12GetModes: MODE 46: 1600x900
+D3D12GetModes: MODE 47: 1600x900
+D3D12GetModes: MODE 48: 1600x900
+D3D12GetModes: MODE 49: 1600x900
+D3D12GetModes: MODE 50: 1600x900
+D3D12GetModes: MODE 51: 1600x900
+D3D12GetModes: MODE 52: 1600x1024
+D3D12GetModes: MODE 53: 1600x1024
+D3D12GetModes: MODE 54: 1600x1024
+D3D12GetModes: MODE 55: 1600x1024
+D3D12GetModes: MODE 56: 1600x1024
+D3D12GetModes: MODE 57: 1600x1024
+D3D12GetModes: MODE 58: 1680x1050
+D3D12GetModes: MODE 59: 1680x1050
+D3D12GetModes: MODE 60: 1920x1080
+D3D12GetModes: MODE 61: 1920x1080
+D3D12GetModes: MODE 62: 1920x1080
+D3D12GetDisplayModeListHook: RETURNING 63 Modes
+Setup: D3D11CreateSwapChain Requested mode    : 1920x1080
+Setup: D3D11CreateSwapChain Scale             : 1.000000
+Setup: D3D11CreateSwapChain Viewport XOffset  : 0
+D3D11CreateShaders: OK =)
+~LogWinSize: D3D11CreateSwapChain: 1920x1061 -> 1920x1061
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: Setting data to swap chain
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1061 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1424x750 -> 1424x750
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 195, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r17.w, stride=4)(mixed,mixed,mixed,mixed) r0.w"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 198, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r17.w, r0.w, l(0), t10.xxxx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 386, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r11.xyzw, stride=48)(mixed,mixed,mixed,mixed) r5.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 389, Invalid number of operands for instruction. Expected 6-6, found 2:
+"  ld_structured_indexable(structured_buffer, r11.xyzw, r4.x, l(0), t9.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 411, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r11.xyzw, stride=48)(mixed,mixed,mixed,mixed) r5.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 414, Invalid number of operands for instruction. Expected 6-6, found 2:
+"  ld_structured_indexable(structured_buffer, r11.xyzw, r4.x, l(16), t9.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 420, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r11.yzw, stride=48)(mixed,mixed,mixed,mixed) r4.yzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 423, Invalid number of operands for instruction. Expected 6-6, found 2:
+"  ld_structured_indexable(structured_buffer, r11.yzw, r4.x, l(32), t9.xxyz"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 124, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r5.y, stride=36)(mixed,mixed,mixed,mixed) r0.y"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 127, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r5.y, r0.x, l(0), t0.xxxx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 134, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r5.xy, stride=36)(mixed,mixed,mixed,mixed) r0.xy"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 137, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r5.xy, r0.x, l(16), t0.xyxx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 83, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r4.xy, stride=36)(mixed,mixed,mixed,mixed) r0.xy"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 86, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r4.xy, r0.x, l(16), t0.xyxx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 194, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.yz, stride=132)(mixed,mixed,mixed,mixed) r0.yz"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 197, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.yz, r0.x, l(124), t1.xxyx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 232, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.xyzw, stride=132)(mixed,mixed,mixed,mixed) r1.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 235, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.xyzw, r0.x, l(0), t1.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 241, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.xyzw, stride=132)(mixed,mixed,mixed,mixed) r2.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 244, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.xyzw, r0.x, l(16), t1.zwxy"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 250, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.xyzw, stride=132)(mixed,mixed,mixed,mixed) r3.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 253, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.xyzw, r0.x, l(32), t1.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 271, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.y, stride=36)(mixed,mixed,mixed,mixed) r0.y"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 274, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.y, r0.y, l(12), t2.xxxx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 124, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r5.y, stride=36)(mixed,mixed,mixed,mixed) r0.y"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 127, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r5.y, r0.x, l(0), t0.xxxx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 134, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r5.xy, stride=36)(mixed,mixed,mixed,mixed) r0.xy"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 137, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r5.xy, r0.x, l(16), t0.xyxx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 83, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r4.xy, stride=36)(mixed,mixed,mixed,mixed) r0.xy"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 86, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r4.xy, r0.x, l(16), t0.xyxx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 194, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.yz, stride=132)(mixed,mixed,mixed,mixed) r0.yz"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 197, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.yz, r0.x, l(124), t1.xxyx"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 232, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.xyzw, stride=132)(mixed,mixed,mixed,mixed) r1.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 235, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.xyzw, r0.x, l(0), t1.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 241, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.xyzw, stride=132)(mixed,mixed,mixed,mixed) r2.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 244, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.xyzw, r0.x, l(16), t1.zwxy"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 250, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.xyzw, stride=132)(mixed,mixed,mixed,mixed) r3.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 253, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.xyzw, r0.x, l(32), t1.xyzw"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 271, Invalid number of operands for instruction. Expected 2-2, found 3:
+"itof r8.y, stride=36)(mixed,mixed,mixed,mixed) r0.y"
+D3D11FixAndCompileDXBCShader: Assembly parse error on line 274, Invalid number of operands for instruction. Expected 6-6, found 2:
+"ld_structured_indexable(structured_buffer, r8.y, r0.y, l(12), t2.xxxx"
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 120x0 -> 120x0
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x960 960x960
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 480x270
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x1080 120x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 120x67
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 120x67
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 480x270
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 240x135
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 120x67
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 60x33 60x33
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 60x33 60x33
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 60x33 60x33
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 120x67
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 120x67
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 240x135
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 240x135
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 480x270
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 480x270
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 304x201 -> 304x201
+~LogWinSize: D3D12SetWindowPosHook: 304x201 -> 304x201
+~LogWinSize: D3D12SetWindowPosHook: 304x201 -> 304x201
+~LogWinSize: D3D12SetWindowPosHook: 304x201 -> 1920x1061
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
