@@ -267,8 +267,8 @@ InitD3DHook()
 		g_.cfg.layeroff := false
 		if (!IsLinux)
 		{
-			dllcall("LoadLibraryW", str,  g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\x32\wined3d.dll")
-			h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\wined3d\" . g_.cfg.wine . "\x32\ddraw.dll")
+			dllcall("LoadLibraryW", str,  g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\SysWOW64\wined3d.dll")
+			h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\wined3d\" . g_.cfg.wine . "\SysWOW64\ddraw.dll")
 			g_.p.DDCreateEx        := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
 			g_.p.DirectDrawCreate  := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
 		}

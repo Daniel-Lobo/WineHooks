@@ -7,7 +7,7 @@
 	(g_.cfg.WHKS)   ? dllcall(dll "\D3D12Config", astr, "FIXWINSIZE", ptr, 1)
 	(g_.cfg.MHKS)   ? dllcall(dll "\D3D12Config", astr, "MOUSEHOOKS", ptr, 1)
 	(g_.cfg.VSNC)   ? dllcall(dll "\D3D12Config", astr, "VSYNC", ptr, 1)	
-	arch      := A_PtrSize == 8 ? "x64" : "x32"
+	arch      := A_PtrSize == 8 ? "System32" : "SysWOW64"
 	wine_path := g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\" arch 
 	dxvk_path := g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch 
 	flags     := g_.cfg.dxvk ? 0xd : 0

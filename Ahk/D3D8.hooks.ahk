@@ -115,7 +115,7 @@ else
 	g_.pDirect3DCreate8 := pDirect3DCreate8
 
 	if (! dllcall("GetModuleHandleW", str, "wined3d.dll")) {  ; only load wine if not on linux
-		arch        := A_PtrSize == 8 ? "x64" : "x32"
+		arch        := A_PtrSize == 8 ? "System32" : "SysWOW64"
 		;g_.cfg.dxvk := True
 		if (g_.cfg.dxvk){
 			h_wined3d8    := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch "\d3d8.dll")

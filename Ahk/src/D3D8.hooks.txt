@@ -1497,7 +1497,7 @@ DllCall("GetSystemDirectoryW", Str, SysDir, UInt, 261)
 logerr("Direct3DCreate8 Hook: " InstallHook(isfunc("AltDirect3DCreate8") ? "AltDirect3DCreate8" : "Direct3DCreate8_hook", pDirect3DCreate8, SysDir "\d3d8.dll", "Direct3DCreate8"))
 g_.pDirect3DCreate8 := pDirect3DCreate8
 if (! dllcall("GetModuleHandleW", str, "wined3d.dll")) {
-arch        := A_PtrSize == 8 ? "x64" : "x32"
+arch        := A_PtrSize == 8 ? "System32" : "SysWOW64"
 if (g_.cfg.dxvk){
 h_wined3d8    := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch "\d3d8.dll")
 p_dxvkCreate9 := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch "\d3d9.dll"), astr, "Direct3DCreate9", ptr)

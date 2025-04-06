@@ -116,7 +116,7 @@ HookD3D9Create(){
 D3D9LoadWine(){
 	if dllcall("GetModuleHandleW", str, "wined3d.dll")
 	return	
-	arch        := A_PtrSize == 8 ? "x64" : "x32"
+	arch        := A_PtrSize == 8 ? "System32" : "SysWOW64"
 	;g_.cfg.dxvk := True
 	if (g_.cfg.dxvk)
 		h_wined3d9  := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\dxvk\" . g_.cfg.dxvkv "\" arch "\d3d9.dll")
