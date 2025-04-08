@@ -5,7 +5,7 @@
 ::GraphicsTab::
 
 ::parent::Graphics_div::  
-::BOOL::dxvk::Use [__dxvk dxvx] instead of [wine wine's] Direct3D implementation|n::
+::BOOL::dxvk::Use [__dxvk dxvx] instead of [wine wine's] Direct3D implementation. No effect on Linux use [winecfg winecfg] instead|n::
 ::BOOL::VSNC::Force Vsync:: 
 ::BOOL::DBLBFF::Force Triple Buffering::
        
@@ -22,8 +22,11 @@ High quality super sampling anti aliasing::::
 ::TEXT::{b
 	<b>WIP</b><br>
 	Some simpler unity games work.<br> 
-	This feature will be the major focus after adoption of wine dlls for Direct3D 7 and earlier is finished
-}|n 
+	This feature will be the major focus after adoption of wine dlls for Direct3D 7 and earlier is finished<br><br>
+	<i class="fa-brands fa-unity"></i> <b>Some unity games...</b><br>
+	...may start on a small window on the top left corner of the screen. Use alt+enter to go to windowed and back to fullscreen and that should fix those games
+}
+::
     
 ::parent::HD_details::
 ::_RLMT_::RLMT::Limit resolutions::0-10-1::
