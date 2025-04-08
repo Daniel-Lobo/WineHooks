@@ -168,6 +168,7 @@ global ID3DXBuffer:=0
 class D3DX9 {
 __new(dll = "d3dx9_43.dll")
 {
+logerr(dll . " loaded")
 this.h_dll := ""
 this.pD3DXLoadSurfaceFromFile := ""
 this.pD3DXCreateFont := ""

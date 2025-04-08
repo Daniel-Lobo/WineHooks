@@ -6,6 +6,10 @@ class D3DX9 {
 
 __new(dll = "d3dx9_43.dll")
 {
+	;if (dllcall("GetModuleHandleW", str, "wined3d.dll"))
+		;dll := g_.cfg.injector_dir . "\D3DCompilers\" . arch . "\d3dx9_43.dll" 
+
+	logerr(dll . " loaded")	
 	this.h_dll := ""
 	this.pD3DXLoadSurfaceFromFile := ""
 	this.pD3DXCreateFont := ""
