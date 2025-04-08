@@ -353,6 +353,24 @@ Runscript(script){
 	dllcall("WaitForSingleObject", "ptr", hThread, "uint", 0xffffffff)
 }
 
+SetDeviceGammaRamp(brightness, ramp=1.0){
+	(brightness > 256) ? brightness := 256
+	(brightness < 0) ? brightness := 0
+	VarSetCapacity(gr, 512*3)
+	x := 1/ramp
+	Loop, 256
+	{
+		(nValue:=(brightness+128)*(A_Index-1))>65535 ? nValue:=65535
+		nValue := (nValue**x/65535**x)*65535
+		NumPut(nValue, gr,      2*(A_Index-1), "Ushort")
+		NumPut(nValue, gr,  512+2*(A_Index-1), "Ushort")
+		NumPut(nValue, gr, 1024+2*(A_Index-1), "Ushort")
+	}
+	hDC := DllCall("GetDC", "Uint", A_scripthwnd)
+	DllCall("SetDeviceGammaRamp", "Uint", hDC, "Uint", &gr)
+	DllCall("ReleaseDC", "Uint", 0, "Uint", hDC)
+}
+
 HandleAction(action){
     if (link := g_.Links[action]){
         if (Instr(action, "script")){
@@ -367,6 +385,9 @@ HandleAction(action){
 			return
 		}		
 	} 	
+	else if (action = "gammatool"){
+		return SetDeviceGammaRamp(128, 1)
+	}
 	print(RegExMatch(action, "[A-Z]:\\"))
     print(action)
     run, %action%

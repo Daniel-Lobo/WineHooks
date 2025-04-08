@@ -155,11 +155,12 @@ html {
 
 .center {
     display: inline;
-    background-color: #f9edbe;
+    /*background-color: #f9edbe;*/
     position: relative;
     left: 25px;
     font-size: 20px;
-    color: #0000aa;.popover{
+   /* color: #0000aa;*/
+    .popover {
         max-width: 100%; /* Max Width of the popover (depending on the container!) */
     }
 }

@@ -295,11 +295,12 @@
 			}, 1000)		
 		}
 	}
-	function IsNameValid(name) {
+	function IsNameValid(name, ispath=false) {
 		if (name === "") {
 			return false
 		}
-		for (let char of  '* \" / \\ < > : | ?'.split("")) {
+		badchars = ispath ? '* \" / < > : | ?' : '* \" / \\ < > : | ?';
+		for (let char of  badchars.split(" ")) {
 			if (name.includes(char)) {
 				return false;
 			}
@@ -320,8 +321,8 @@
 		if (!IsNameValid(profile_name)) {
 			return Failed("Please review the profile name\nIt's either empty or contains invalid characters:\n* \" / \\ < > : | ?")
 		}
-		if (!IsNameValid(folder_path)) {
-			return Failed("Please review the folder name\nIt's either empty or contains invalid characters:\n* \" / \\ < > : | ?")
+		if (!IsNameValid(folder_path, true)) {
+			return Failed("Please review the folder name\nIt's either empty or contains invalid characters:\n* \" / < > : | ?")
 		}
 		if (await FileExists(full_path) != '') {
 			return Failed("Profile:\n<i>" + profile_name + "</i>\nalready exists. Try a different name")	

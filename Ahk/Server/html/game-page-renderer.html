@@ -54,9 +54,10 @@
 			return text.replace(regex, replacement);
 		};
 
-		// Handle common replacements
+		// Handle common replacements		
+		txt = txt.replace(/\%smallres\%/g, '960 x 540');
 		txt = txt.replace(/\%_MCI\%/g, _MCI);
-		txt = txt.replace(/\%Xinput\%/g, " Better compatibility with Xinput gamepads, see a|gototab_input_j2k.u ^ this|a");
+		txt = txt.replace(/\%Xinput\%/gi, " Better compatibility with Xinput gamepads, see a|gototab_input_j2k.u ^ this|a");
 		txt = txt.replace(/\%EAX\%/g, " Restores 3D audio and EAX, see a|gototab_sound_Dsnd.e ^ this|a");
 		txt = txt.replace(/\r/g, "");
 		txt = txt.replace(/\n/g, " ");
