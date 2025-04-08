@@ -179,6 +179,7 @@ g_.Links :=  {"Donate"   : "https://www.paypal.com/cgi-bin/webscr?cmd=_donations
     , "patreon_home" : "https://www.patreon.com/user/about?u=44312848"
     , "Archive"      : "https://github.com/Daniel-Lobo/WineHooks/releases"
     , "Wine"         : "https://www.winehq.org/"
+	, "winecfg"      : "https://gitlab.winehq.org/wine/wine/-/wikis/Commands/winecfg"
     , "dxvk"         : "https://github.com/doitsujin/dxvk/releases"
 	, "old_version_redirect" : "https://github.com/Daniel-Lobo/WineHooks/releases"
 	, "winwhooks_git"        : "https://github.com/Daniel-Lobo/WineHooks"
