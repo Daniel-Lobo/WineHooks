@@ -808,6 +808,9 @@ LaunchGame(game){
 	cfgfile  := g_.Profiles . game . ".ini"
 	cfg      := new IniFile(cfgfile)
 	path     := cfg.Get("Target")
+	if (InStr("A-Dx11 A-Dx10 A-Dx9 A-Dx8 A-Dx7 A-GL", game)){
+		path := ""
+	}
 	if (!FileExist(path) or !IsExecutable(path)){
 		newpath := FindGameExecutable()
 		if (newpath = "")

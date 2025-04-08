@@ -113,10 +113,28 @@ HookD3D9Create(){
 	g_.pD3D9CreateEx := pEx		
 }
 
+D3D9IsLinux(){
+	if (dllcall("LoadLibraryW", str, "wined3d.dll"))
+	{
+		if (h_d3d9 := dllcall("LoadLibraryW", str, "d3d9.dll"))
+		{
+			if dllcall("GetProcAddress", uint, h_d3d9, astr, "Direct3DCreate9On12")
+			{				
+				dllcall("peixoto.dll\D3D12Config", astr, "DXVK", uint, 9)
+				return "dxvk"
+			} 
+			return "wined"
+		}
+	}	
+	RETURN ""
+}
+
 D3D9LoadWine(){
-	if dllcall("GetModuleHandleW", str, "wined3d.dll")
+	;if dllcall("GetModuleHandleW", str, "wined3d.dll")
+	logerr("D3D9LoadWin, linux: " D3D9IsLinux())
+	if (D3D9IsLinux())
 	return	
-	arch        := A_PtrSize == 8 ? "System32" : "SysWOW64"
+	arch  := A_PtrSize = 8 ? "System32" : "SysWOW64"
 	;g_.cfg.dxvk := True
 	if (g_.cfg.dxvk)
 		h_wined3d9  := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\dxvk\" . g_.cfg.dxvkv "\" arch "\d3d9.dll")
@@ -185,7 +203,7 @@ D3D9IniHooks()
 			D3D9_HOOKS.H := r[2]
 		}			
 
-		if (!g_.cfg.dxvk)
+		if (!g_.cfg.dxvk and !(D3D9IsLinux()="dxvk") )
 			logerr(IDirect3DSwapChain9.Hook("Present")) 
 		logerr(IDirect3DDevice9.dllHook("Present", (g_.cfg.xBR) ? "xBRPresent9Hook":"Present9Hook"))
 		D3D9_HOOKS.Prsnt     := IDirect3DDevice9.Present		

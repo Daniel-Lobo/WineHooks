@@ -84,6 +84,21 @@ D3DDDI_Init(){
 	return
 }
 
+D3D8IsLinux(){
+	if (dllcall("LoadLibraryW", str, "wined3d.dll"))
+	{
+		if (h_d3d9 := dllcall("LoadLibraryW", str, "d3d9.dll"))
+		{
+			if dllcall("GetProcAddress", uint, h_d3d9, astr, "Direct3DCreate9On12")
+			{				
+				dllcall("peixoto.dll\D3D12Config", astr, "DXVK", uint, 8)
+				return "dxvk"
+			} 
+			return "wined"
+		}
+	}	
+	RETURN ""
+}
 
 HookD3D8Create()
 {
@@ -114,7 +129,7 @@ else
 	logerr("Direct3DCreate8 Hook: " InstallHook(isfunc("AltDirect3DCreate8") ? "AltDirect3DCreate8" : "Direct3DCreate8_hook", pDirect3DCreate8, SysDir "\d3d8.dll", "Direct3DCreate8"))
 	g_.pDirect3DCreate8 := pDirect3DCreate8
 
-	if (! dllcall("GetModuleHandleW", str, "wined3d.dll")) {  ; only load wine if not on linux
+	if (! D3D8IsLinux()) {  ; only load wine if not on linux
 		arch        := A_PtrSize == 8 ? "System32" : "SysWOW64"
 		;g_.cfg.dxvk := True
 		if (g_.cfg.dxvk){

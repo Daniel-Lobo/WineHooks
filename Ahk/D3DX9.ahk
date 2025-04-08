@@ -6,8 +6,11 @@ class D3DX9 {
 
 __new(dll = "d3dx9_43.dll")
 {
-	;if (dllcall("GetModuleHandleW", str, "wined3d.dll"))
-		;dll := g_.cfg.injector_dir . "\D3DCompilers\" . arch . "\d3dx9_43.dll" 
+	f := IsFunc("D3D9IsLinux") ? Func("D3D9IsLinux") : Func("D3D8IsLinux")
+	if (f.call()){
+		arch := A_PtrSize = 8 ? "x64" : "x86"
+		dll  := g_.cfg.injector_dir . "\D3DCompilers\" . arch . "\d3dx9_43.dll" 
+	}
 
 	logerr(dll . " loaded")	
 	this.h_dll := ""
