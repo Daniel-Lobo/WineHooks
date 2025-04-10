@@ -85,6 +85,8 @@ D3DDDI_Init(){
 }
 
 D3D8IsLinux(){
+	if (FileExist(GetSystemDir() "\wined3d.dll")) 
+	return ""
 	if (dllcall("LoadLibraryW", str, "wined3d.dll"))
 	{
 		if (h_d3d9 := dllcall("LoadLibraryW", str, "d3d9.dll"))

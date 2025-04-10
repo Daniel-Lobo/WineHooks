@@ -117,7 +117,7 @@ void DLLMAIN_COMMON_GLOBALS::ListGameModules()
             continue;
         }        
         if (path.find(windir.m_dir) != std::string::npos || name == pex || name == ahk || name == wine || name == winedxgi ||
-        (name == dxvk_d3d9 && g_d3d.DXVK == 9) || (name == dxvk_d3d9 && g_d3d.DXVK == 8) || (name == dxvk_d3d9 && g_d3d.DXVK == 9))
+        (name == dxvk_d3d8 && g_d3d.DXVK == 8) || (name == dxvk_d3d9 && g_d3d.DXVK == 8) || (name == dxvk_d3d9 && g_d3d.DXVK == 9))
         {
             this->m_lock->lock();
             this->m_LoadedModules->insert_disposable(enm.m_dll.modBaseAddr, enm.m_dll.modBaseAddr+enm.m_dll.modBaseSize);

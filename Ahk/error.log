@@ -1,32 +1,35 @@
 Peixotos's patch remote settings:
-Command Line: "D:\Games\Castlevania - Lords of Shadow 2\bin\CLOS2.exe" 
+Command Line: "F:\Games\The Talos Principle\Bin\x64\Talos.exe" 
 common_path: 1
-D3D: 9
+D3D: 11
 D3D_Driver: 
 dsk: 1920x1080
-dxvk: 1
 dxvkv: 2_6
 error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
+HD: upscale|useinterop|hdproxies|useproxies
 injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
-J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
-k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
+J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;
+k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;
 max_4x3_res: 1152x864
 Mydocs: C:\users\gotardo\Documents
 os_version: 10.000000
-path: C:\users\gotardo\Documents\WineHooks\Games\Dev\
-PxSwap: e=true;
+path: C:\users\gotardo\Documents\WineHooks\Games\The Talos Principle\
+PxSwap: sw=Insert;n=.;p=,;q=\;d=Home;
+RLMT: 6
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 
-script_hwnd: 0x14015a
-Target: D:\Games\Castlevania - Lords of Shadow 2\bin\CLOS2.exe
-target_dir: D:\Games\Castlevania - Lords of Shadow 2\bin
-target_name: CLOS2.exe
-Textswap: e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=TexturesVOKSI;
+script_hwnd: 0x1a0162
+Target: F:\Games\The Talos Principle\Bin\x64\Talos.exe
+target_dir: F:\Games\The Talos Principle\Bin\x64
+target_name: Talos.exe
+Textswap: e=false;sw=Insert;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;c=Alt;k=false;
+wiki: https://www.pcgamingwiki.com/wiki/The_Talos_Principle
 wine: 10_0
+WNMM: MCI=false;
 
-Working directory: D:\Games\Castlevania - Lords of Shadow 2\bin
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+Working directory: F:\Games\The Talos Principle\Bin\x64
+C:\users\gotardo\Documents\WineHooks\Games\The Talos Principle\cfgFiles: 
 HasFiles 0
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+C:\users\gotardo\Documents\WineHooks\Games\The Talos Principle\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -37,29 +40,6 @@ Init: SUCCEEDED TO GET THE FreeEnvironmentStringsA ENTRYPOINT ON Kernel32.dll
 Init: SUCCEEDED TO GET THE FreeEnvironmentStringsW ENTRYPOINT ON Kernel32.dll
 CreateProcessA Hook: 0
 CreateProcessW Hook: 0
-ShellExecuteA Hook  :0
-ShellExecuteExW Hook  :0
-D3D9Create Hook: 0
-D3D9Create Hook: 0
-D3D9LoadWin, linux: dxvk
-24 
-Z:\home\gotardo\Code\WineHooks\Ahk\D3DCompilers\x86\d3dx9_43.dll loaded
-Succeeded to create the Direct3D9 interfaces
-Succeeded to hook IDirect3D9::CreateDevice
-Succeeded to hook IDirect3DDevice9::Reset
-Succeeded to hook IDirect3DDevice9::BeginStateBlock
-Succeeded to hook IDirect3DDevice9::EndScene
-Succeeded to hook IDirect3DDevice9::CreateTexture
-Succeeded to hook IDirect3DDevice9::SetTexture
-Succeeded to hook IDirect3DTexture9::Release
-Succeeded to hook IDirect3DSurface9::Release
-Succeeded to hook IDirect3DDevice9::UpdateSurface
-Shader dumps Path: Z:\home\gotardo\Code\WineHooks\Ahk\patches\clos2 C:\users\gotardo\Documents\WineHooks\Games\Dev\pixelshaders
-Succeeded to hook IDirect3DDevice9::CreatePixelShader
-Succeeded to hook IDirect3DDevice9::SetPixelShader
-Succeeded to hook IDirect3DPixelShader9::Release
-0 Shaders 1 1
-0 Shaders 1 1
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -93,41 +73,161 @@ CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBlt
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-==================================================================
-CREATE DEVICE
-About to create device:
-0 Replacements
-0 Render surfaces
-BackBufferWidth->1280
-BackBufferHeight->720
-BackBufferFormat->22
-BackBufferCount->1
-MultiSampleType->0
-MultiSampleQuality->0
-SwapEffect->1
-hDeviceWindow->1114584
-Windowed->0
-EnableAutoDepthStencil->1
-AutoDepthStencilFormat->75
-Flags->0
-FullScreen_RefreshRateInHz->60
-PresentationInterval->0
-Focus 1114584
-multithread 1
-Compiling shader compilation failed memory:124:108: E5017: Aborting due to not yet implemented feature: SM1 non-float expression.
-memory:124:108: E5017: Aborting due to not yet implemented feature: SM1 non-float expression.
-memory:138:108: E5017: Aborting due to not yet implemented feature: SM1 non-float expression.
-memory:138:108: E5017: Aborting due to not yet implemented feature: SM1 non-float expression.
-memory:151:108: E5017: Aborting due to not yet implemented feature: SM1 non-float expression.
-memory:151:108: E5017: Aborting due to not yet implemented feature: SM1 non-float expression.
-memory:164:108: E5017: Aborting due to not yet implemented feature: SM1 non-float expression.
-memory:164:108: E5017: Aborting due to not yet implemented feature: SM1 non-float expression.
-memory:62:14: E5017: Aborting due to not yet implemented feature: SM1 cast from bool to integer.
-memory:62:14: E5017: Aborting due to not yet implemented feature: SM1 cast from bool to integer.
-memory:62:14: E5017: Aborting due to not yet implemented feature: SM1 cast from bool to integer.
-memory:62:14: E5017: Aborting due to not yet implemented feature: SM1 cast from bool to integer.
-memory:62:14: E5017: Aborting due to not yet implemented feature: SM1 cast from bool to integer.
-memory:62:14: E5017: Aborting due to not yet implemented feature: SM1 cast from bool to integer.
-memory:62:14: E5017: Aborting due to not yet implemented feature: SM1 cast from bool to integer.
-memory:62:14: E5017: Aborting due to not yet implemented feature: SM1 cast from bool to integer.
-
+Init: SUCCEEDED TO GET THE D3D11CreateDevice ENTRYPOINT ON d3d11.dll
+Init: SUCCEEDED TO GET THE D3D10CreateDevice ENTRYPOINT ON d3d10.dll
+Init: FAILED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
+D3D11LoadWine: S_OK
+SetReslimit: ENUMERATING
+InitD3D11Hooks: Highest mode: 1366x768
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsExWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsAHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexed
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::Draw
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawAuto
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstanced
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstancedIndirect
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstanced
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstancedIndirect
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::PSGetShaderResources
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext1::ClearView
+Texture 27113856 26483904
+Releasing Texture 0
+Releasing ResView 0
+Succeded to create the Direct3D11 device with feature level 
+Succeeded to hook IDXGIFactory2::CreateSwapChainForHwnd
+Succeeded to hook IDXGIFactory::CreateSwapChain
+Succeeded to hook IDXGISwapChain::Present
+Succeeded to hook ID3D11Texture2D::Release
+Succeeded to hook ID3D11DeviceContext::PSSetShaderResources
+Succeeded to hook ID3D11DeviceContext::Map
+Succeeded to hook ID3D11DeviceContext::Unmap
+Succeeded to hook ID3D11DeviceContext::CopySubresourceRegion
+Succeeded to hook ID3D11DeviceContext::UpdateSubresource
+Succeeded to hook ID3D11DeviceContext::PsSetShader
+Succeeded to hook ID3D11Device::CreatePixelShader
+Succeeded to hook ID3D11DeviceContext::ResolveSubresource
+Succeeded to hook ID3D11DeviceContext::CopyResource
+Succeeded to hook ID3D11DeviceContext::OMSetRenderTargets
+Succeeded to hook ID3D11DeviceContext::OMGetRenderTargets
+Succeeded to hook ID3D11DeviceContext::ClearDepthStencilView
+Succeeded to hook ID3D11DeviceContext::ClearRenderTargetView
+Succeeded to hook IDXGISwapChain::ResizeTarget
+Succeeded to hook IDXGISwapChain::ResizeBuffers
+Succeeded to hook IDXGISwapChain::GetBuffer
+ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain::GetDesc
+ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain1::GetDesc1
+ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::GetDisplayModeList
+ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::FindClosestMatchingMode
+D3D12GetDisplayModeListHook: =====
+D3D12GetModes: MODE 0: 640x480
+D3D12GetModes: MODE 1: 640x480
+D3D12GetModes: MODE 2: 960x540
+D3D12GetModes: MODE 3: 960x540
+D3D12GetModes: MODE 4: 800x600
+D3D12GetModes: MODE 5: 800x600
+D3D12GetModes: MODE 6: 1024x768
+D3D12GetModes: MODE 7: 1024x768
+D3D12GetModes: MODE 8: 1152x864
+D3D12GetModes: MODE 9: 1280x720
+D3D12GetModes: MODE 10: 1280x720
+D3D12GetModes: MODE 11: 1280x720
+D3D12GetModes: MODE 12: 1280x800
+D3D12GetModes: MODE 13: 1280x1024
+D3D12GetModes: MODE 14: 1440x900
+D3D12GetModes: MODE 15: 1680x1050
+D3D12GetModes: MODE 16: 1920x1080
+D3D12GetModes: MODE 17: 1920x1080
+D3D12GetModes: MODE 18: 1920x1080
+D3D12GetDisplayModeListHook: RETURNING COUNT=19
+D3D12GetDisplayModeListHook: =====
+D3D12GetModes: MODE 0: 640x480
+D3D12GetModes: MODE 1: 640x480
+D3D12GetModes: MODE 2: 960x540
+D3D12GetModes: MODE 3: 960x540
+D3D12GetModes: MODE 4: 800x600
+D3D12GetModes: MODE 5: 800x600
+D3D12GetModes: MODE 6: 1024x768
+D3D12GetModes: MODE 7: 1024x768
+D3D12GetModes: MODE 8: 1152x864
+D3D12GetModes: MODE 9: 1280x720
+D3D12GetModes: MODE 10: 1280x720
+D3D12GetModes: MODE 11: 1280x720
+D3D12GetModes: MODE 12: 1280x800
+D3D12GetModes: MODE 13: 1280x1024
+D3D12GetModes: MODE 14: 1440x900
+D3D12GetModes: MODE 15: 1680x1050
+D3D12GetModes: MODE 16: 1920x1080
+D3D12GetModes: MODE 17: 1920x1080
+D3D12GetModes: MODE 18: 1920x1080
+D3D12GetDisplayModeListHook: RETURNING 19 Modes
+Setup: D3D11CreateSwapChain Requested mode    : 1280x720
+Setup: D3D11CreateSwapChain Scale             : 1.500000
+Setup: D3D11CreateSwapChain Viewport XOffset  : 0
+D3D11CreateShaders: OK =)
+~LogWinSize: D3D11CreateSwapChain: 1280x720 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 384x384
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: Setting data to swap chain
+Setup: D3D11CreateSwapChain Requested mode    : 1280x720
+Setup: D3D11CreateSwapChain Scale             : 1.500000
+Setup: D3D11CreateSwapChain Viewport XOffset  : 0
+D3D11CreateShaders: OK =)
+~LogWinSize: D3D11CreateSwapChain: 1280x720 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: SUCCESS
+Reset: SUCCESS
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 384x384
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: Setting data to swap chain
+CreateProcess  lpApplicationName: lpCommandLine:F:\Games\The Talos Principle\Bin\x64\RemoteSam.exe trgt: F:\Games\The args: F:\Games\The Talos Principle\Bin\x64\RemoteSam.exe
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 1280x720 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 320x180 480x270
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 160x90 240x135
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 80x45 120x67
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 40x23 60x34
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 20x12 30x18
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 10x6 15x9
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2048x2048 3072x3072
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x4 384x6
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 155x74 232x111
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 155x74 232x111
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 234x102 351x153
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 234x102 351x153
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 398x102 597x153
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 597x111
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 597x111
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 597x111
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 597x111
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 234x102 351x153
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 155x74 232x111
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 155x74 232x111

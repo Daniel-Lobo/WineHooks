@@ -214,7 +214,7 @@ InitD3D11Hooks()
 	(g_.cfg.VSNC)    ? dllcall(dll "\D3D12Config", astr, "VSYNC", ptr, 1)	
 	(g_.cfg.MCLP)    ? dllcall(dll "\D3D12Config", astr, "MOUSECLIP" , str, g_.cfg.MCLP)
     (g_.cfg.DBLBFF)  ? dllcall(dll "\D3D12Config", astr, "DOUBLEBUFF", uint, 1)
-	arch      := A_PtrSize == 8 ? "System32" : "SysWOW64"
+	arch      := A_PtrSize = 8 ? "System32" : "SysWOW64"
 	wine_path := g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\" arch 
 	dxvk_path := g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch 
 	flags     := g_.cfg.dxvk ? 0xd : 0

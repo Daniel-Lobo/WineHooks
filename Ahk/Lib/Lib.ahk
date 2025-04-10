@@ -488,6 +488,12 @@ ProcessD3DShader(code, w=0, h=0, tw=1, th=1)
 	return c . "`n" code
 }
 
+GetSystemDir(){
+	VarSetCapacity(SysDir, 261)
+	DllCall("GetSystemDirectoryW", Str, SysDir, UInt, 261)
+	return SysDir
+}
+
 class Comptr {
 	__new(ptr, obj=""){
 		this.p   := ptr

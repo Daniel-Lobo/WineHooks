@@ -743,6 +743,11 @@ c .= "`n#define tw 1./" tw "."
 c .= "`n#define th 1./" th "."
 return c . "`n" code
 }
+GetSystemDir(){
+VarSetCapacity(SysDir, 261)
+DllCall("GetSystemDirectoryW", Str, SysDir, UInt, 261)
+return SysDir
+}
 class Comptr {
 __new(ptr, obj=""){
 this.p   := ptr
