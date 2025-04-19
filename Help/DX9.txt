@@ -1,8 +1,9 @@
 ::Title::user::
 
-Text::{b
-<i class="fa-brands fa-linux"></i> <b>Notice:</b></br> On Linux, winehooks is not yet compatible with [dxvk dxvk]
-on Direct3D 8 or 9
+::Text::{b
+<i class="fa-brands fa-linux"></i> <strike><b>Notice:</b></br> On Linux, winehooks is not yet compatible with [dxvk dxvk]
+on Direct3D 8 or 9</strike><br>
+Fixed on version 0.10.15
 }::
 
 
@@ -11,8 +12,7 @@ on Direct3D 8 or 9
 ::GraphicsTab::
 
 ::parent::Graphics_div::
-::BOOL::dxvk::Use [__dxvk dxvx] instead of [wine wine's] Direct3D implementation - this has no effect on linux, where, for Direct3D 8 and 9,
- winehooks is not complatible with [__dxvk dxvx]|n::
+::BOOL::dxvk::Use [__dxvk dxvx] instead of [wine wine's] Direct3D implementation.  No effect on Linux use [winecfg winecfg] instead|n::
  
 ::parent::Graphics_div::
 ::BOOL::SYNC::Force triple buffering::VSync is always forced on all Direct3D 9 games
