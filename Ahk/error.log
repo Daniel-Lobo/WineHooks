@@ -1,35 +1,37 @@
 Peixotos's patch remote settings:
-Command Line: "F:\Games\The Talos Principle\Bin\x64\Talos.exe" 
+Command Line: "E:\Games\Turok - Dinosaur Hunter\Turok.exe" 
+32bit: 1
+4K: 1
 common_path: 1
-D3D: 11
-D3D_Driver: 
+D3D: 2
+D3D_Driver: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll
 dsk: 1920x1080
+DSnd: e=False;
 dxvkv: 2_6
-error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
-HD: upscale|useinterop|hdproxies|useproxies
-injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
-J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;
+error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
+HD: 1
+injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
+J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
 k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;
-max_4x3_res: 1152x864
-Mydocs: C:\users\gotardo\Documents
+max_4x3_res: 1440x1080
+Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
-path: C:\users\gotardo\Documents\WineHooks\Games\The Talos Principle\
-PxSwap: sw=Insert;n=.;p=,;q=\;d=Home;
-RLMT: 6
-rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 
-script_hwnd: 0x1a0162
-Target: F:\Games\The Talos Principle\Bin\x64\Talos.exe
-target_dir: F:\Games\The Talos Principle\Bin\x64
-target_name: Talos.exe
-Textswap: e=false;sw=Insert;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;c=Alt;k=false;
-wiki: https://www.pcgamingwiki.com/wiki/The_Talos_Principle
+Path: C:\Users\Peixoto\Documents\WineHooks\Games\Turok\Turok\
+rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
+script_hwnd: 0xe0640
+Target: E:\Games\Turok - Dinosaur Hunter\Turok.exe
+target_dir: E:\Games\Turok - Dinosaur Hunter
+target_name: Turok.exe
+Textswap: s=4;sz=256;path=Textures\VOKSI;n=PgUP;p=PgDn;d=home;sw=end;c=del;q=ins;e=true;dly=false;a=false;l=false;
+ver: 0.10.11
+wiki: https://www.pcgamingwiki.com/wiki/Turok:_Dinosaur_Hunter
 wine: 10_0
 WNMM: MCI=false;
 
-Working directory: F:\Games\The Talos Principle\Bin\x64
-C:\users\gotardo\Documents\WineHooks\Games\The Talos Principle\cfgFiles: 
+Working directory: E:\Games\Turok - Dinosaur Hunter
+C:\Users\Peixoto\Documents\WineHooks\Games\Turok\Turok\cfgFiles: 
 HasFiles 0
-C:\users\gotardo\Documents\WineHooks\Games\The Talos Principle\cfgFiles: 
+C:\Users\Peixoto\Documents\WineHooks\Games\Turok\Turok\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -40,6 +42,12 @@ Init: SUCCEEDED TO GET THE FreeEnvironmentStringsA ENTRYPOINT ON Kernel32.dll
 Init: SUCCEEDED TO GET THE FreeEnvironmentStringsW ENTRYPOINT ON Kernel32.dll
 CreateProcessA Hook: 0
 CreateProcessW Hook: 0
+ShellExecuteA Hook  :0
+ShellExecuteExW Hook  :0
+Desktop 1920x1080
+DDraw.dll : C:\WINDOWS\SYSTEM32\DDRAW.dll
+DirectDrawCreate Hook: 0
+1922202416============================================
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -52,35 +60,27 @@ Init: SUCCEEDED TO GET THE D3D11CreateDeviceAndSwapChain ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D11On12CreateDevice ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D12CreateDevice ENTRYPOINT ON d3d12.dll
 Init: SUCCEEDED TO GET THE D3D12GetDebugInterface ENTRYPOINT ON d3d12.dll
-Init: Using MS Compilers
-Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT
+Init: Using System Compilers
+Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT ON d3dx9_43.dll
 Init: 1920x1080
 Init: 144
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-Init: SUCCEEDED TO GET THE D3D11CreateDevice ENTRYPOINT ON d3d11.dll
-Init: SUCCEEDED TO GET THE D3D10CreateDevice ENTRYPOINT ON d3d10.dll
-Init: FAILED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
-D3D11LoadWine: S_OK
-SetReslimit: ENUMERATING
-InitD3D11Hooks: Highest mode: 1366x768
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsExWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsWHook
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
@@ -91,143 +91,257 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexed
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::Draw
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawAuto
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstanced
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstancedIndirect
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstanced
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstancedIndirect
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::PSGetShaderResources
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext1::ClearView
-Texture 27113856 26483904
-Releasing Texture 0
-Releasing ResView 0
-Succeded to create the Direct3D11 device with feature level 
-Succeeded to hook IDXGIFactory2::CreateSwapChainForHwnd
-Succeeded to hook IDXGIFactory::CreateSwapChain
-Succeeded to hook IDXGISwapChain::Present
-Succeeded to hook ID3D11Texture2D::Release
-Succeeded to hook ID3D11DeviceContext::PSSetShaderResources
-Succeeded to hook ID3D11DeviceContext::Map
-Succeeded to hook ID3D11DeviceContext::Unmap
-Succeeded to hook ID3D11DeviceContext::CopySubresourceRegion
-Succeeded to hook ID3D11DeviceContext::UpdateSubresource
-Succeeded to hook ID3D11DeviceContext::PsSetShader
-Succeeded to hook ID3D11Device::CreatePixelShader
-Succeeded to hook ID3D11DeviceContext::ResolveSubresource
-Succeeded to hook ID3D11DeviceContext::CopyResource
-Succeeded to hook ID3D11DeviceContext::OMSetRenderTargets
-Succeeded to hook ID3D11DeviceContext::OMGetRenderTargets
-Succeeded to hook ID3D11DeviceContext::ClearDepthStencilView
-Succeeded to hook ID3D11DeviceContext::ClearRenderTargetView
-Succeeded to hook IDXGISwapChain::ResizeTarget
-Succeeded to hook IDXGISwapChain::ResizeBuffers
-Succeeded to hook IDXGISwapChain::GetBuffer
-ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain::GetDesc
-ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain1::GetDesc1
-ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::GetDisplayModeList
-ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::FindClosestMatchingMode
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING COUNT=19
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING 19 Modes
-Setup: D3D11CreateSwapChain Requested mode    : 1280x720
-Setup: D3D11CreateSwapChain Scale             : 1.500000
-Setup: D3D11CreateSwapChain Viewport XOffset  : 0
-D3D11CreateShaders: OK =)
-~LogWinSize: D3D11CreateSwapChain: 1280x720 -> 1920x1080
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 384x384
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
-D3D11GetProxy: Setting data to swap chain
-Setup: D3D11CreateSwapChain Requested mode    : 1280x720
-Setup: D3D11CreateSwapChain Scale             : 1.500000
-Setup: D3D11CreateSwapChain Viewport XOffset  : 0
-D3D11CreateShaders: OK =)
-~LogWinSize: D3D11CreateSwapChain: 1280x720 -> 1920x1080
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 1x1
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 384x384
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
-D3D11GetProxy: Setting data to swap chain
-CreateProcess  lpApplicationName: lpCommandLine:F:\Games\The Talos Principle\Bin\x64\RemoteSam.exe trgt: F:\Games\The args: F:\Games\The Talos Principle\Bin\x64\RemoteSam.exe
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 1920x1080
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 1280x720 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 320x180 480x270
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 160x90 240x135
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 80x45 120x67
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 40x23 60x34
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 20x12 30x18
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 10x6 15x9
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2048x2048 3072x3072
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x4 384x6
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 155x74 232x111
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 155x74 232x111
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 234x102 351x153
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 234x102 351x153
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 398x102 597x153
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 597x111
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 597x111
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 597x111
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 597x111
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 234x102 351x153
-D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 155x74 232x111
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 155x74 232x111
+DDraw: 117751512
+PrivateDataObjectParent: 1
+DirectDraw: Object created. m_refcount=[1]
+Wrapped: 41723040
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[41723008]
+DirectDraw_QueryInterface: DirectDraw2
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[41723008]
+DirectDraw_QueryInterface: DirectDraw4
+DirectDraw4_SetCooperativeLevel: Return adress=[268972556]
+DirectDraw4_SetCooperativeLevel: _this=[41723008]
+DirectDraw4_CreateSurface: Return adress=[268972556]
+DirectDraw4_CreateSurface: _this=[41723008]
+PrivateDataObject: 2
+DirectDraw4_CreateSurface: Created Surface: 54219736
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[54219736]
+DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface3
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[54219736]
+DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[54219736]
+DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[54219736]
+DirectDrawSurface_QueryInterface: Unhandled GUID:{69C11C3E-B46B-11D1-AD7A-00C04FC29B4E} Implementation hr=0
+DirectDraw_CreateClipper: Return adress=[268972556]
+DirectDraw_CreateClipper: _this=[41723008]
+PrivateDataObjectParent: 3
+DirectDraw_CreateClipper: Created Cliper =[41729752
+DirectDraw_CreatePalette: Return adress=[268972556]
+DirectDraw_CreatePalette: _this=[41723008]
+PrivateDataObjectParent: 4
+DirectDraw_CreatePalette: Created Palette =[41729864]
+Succeeded to create DirectDraw
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[41723008]
+DirectDraw_QueryInterface: IDirect3D
+Direct3D_CreateViewport: Return adress=[268972556]
+Direct3D_CreateViewport: _this=[41723008]
+Direct3D_CreateViewport: Created ViewPort=[41735280]
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[54219736]
+DirectDrawSurface_QueryInterface: IID_IDirect3DTexture
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[41723008]
+DirectDraw_QueryInterface: IDirect3D2
+Direct3D2_CreateViewport: Return adress=[268972556]
+Direct3D2_CreateViewport: _this=[41723008]
+Direct3D2_CreateViewport: Created ViewPort=[41742208]
+DirectDrawSurface_QueryInterface: Return adress=[268972556]
+DirectDrawSurface_QueryInterface: _this=[54219736]
+DirectDrawSurface_QueryInterface: IID_IDirect3DTexture2
+DirectDraw_QueryInterface: Return adress=[268972556]
+DirectDraw_QueryInterface: _this=[41723008]
+DirectDraw_QueryInterface: IDirect3D3
+Direct3D3_CreateViewport: Return adress=[268972556]
+Direct3D3_CreateViewport: _this=[41723008]
+Direct3D3_CreateViewport: Created ViewPort=[54219368]
+Direct3D3_CreateVertexBuffer: Return adress=[268972556]
+Direct3D3_CreateVertexBuffer: _this=[41723008]
+Direct3D3_CreateVertexBuffer: FAILED: 0
+Direct3D3_CreateDevice: Return adress=[268972556]
+Direct3D3_CreateDevice: _this=[41723008]
+PrivateDataObjectParent: 5
+Direct3D3_CreateDevice: Created device=[54238520]
+Direct3D3_CreateDevice: DD_OK
+Direct3DDevice2_QueryInterface: Return adress=[268972556]
+Direct3DDevice2_QueryInterface: _this=[54238520]
+Direct3DDevice2_QueryInterface: Direct3DDevice2
+Direct3DDevice2_QueryInterface: Return adress=[268972556]
+Direct3DDevice2_QueryInterface: _this=[54238520]
+Direct3DDevice2_QueryInterface: Direct3DDevice1
+Direct3DDevice_CreateExecuteBuffer: Return adress=[268972556]
+Direct3DDevice_CreateExecuteBuffer: _this=[54238520]
+Direct3DDevice_CreateExecuteBuffer: Created buffer=[41738360]
+Succeeded to create Direct3D
+IDirect3DDevice::BeginScene[1923385600] reimplement in IDirect3DDevice2[1923396912], 
+IDirect3DDevice::CreateExecuteBuffer[1923373120] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::CreateMatrix[1923380384] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::DeleteMatrix[1923384304] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::EndScene[1923386896] reimplement in IDirect3DDevice2[1923395840], 
+IDirect3DDevice::Execute[1923458400] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::GetCaps[1923370192] reimplement in IDirect3DDevice2[1923392912], 
+IDirect3DDevice::GetDirect3D[1923388464] reimplement in IDirect3DDevice2[1923398208], 
+IDirect3DDevice::GetMatrix[1923382992] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::GetPickRecords[1923377760] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::Initialize[1923340112] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::Pick[1923376256] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::SetMatrix[1923381680] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::SwapTextureHandles[1923371504] reimplement in IDirect3DDevice2[1923394224], 
+Succeeded to hook IDirectDraw4::CreateSurface
+Succeeded to hook IDirectDraw2::CreateSurface
+Succeeded to hook IDirectDraw::CreateSurface
+Succeeded to hook IDirectDrawSurface::restore
+Succeeded to hook IDirect3DDevice::EndScene
+Succeeded to hook IDirect3DDevice3::EndScene
+Succeeded to hook IDirect3D3::CreateDevice
+Succeeded to hook IDirect3D2::CreateDevice
+Succeeded to hook IDirectDraw::SetDisplayMode
+Succeeded to hook IDirectDraw2::SetDisplayMode
+Succeeded to hook IDirectDraw4::SetDisplayMode
+Succeeded to hook IDirectDraw4::EnumDisplayModes
+Succeeded to hook IDirect3DViewport3::SetViewPort2
+Succeeded to hook IDirect3DViewport3::GetViewPort2
+Succeeded to hook IDirect3DViewport3::Clear
+Succeeded to hook IDirect3DViewport3::Clear2
+Succeeded to hook IDirect3DViewport::SetViewPort
+Succeeded to hook IDirect3DViewport::GetViewPort
+SetupPrxs4(...)
+Succeeded to hook IDirectDrawSurface::flip
+Succeeded to hook IDirectDrawSurface4::EnumAttachedSurfaces
+Succeeded to hook IDirectDrawSurface::EnumAttachedSurfaces
+Succeeded to hook IDirectDrawSurface4::GetSurfaceDesc
+Succeeded to hook IDirectDraw::CreatePalette
+Succeeded to hook IDirectDraw::GetDisplayMode
+Succeeded to hook IDirectDraw4::GetDisplayMode
+Succeeded to hook IDirectDrawSurface::GetPixelFormat
+Succeeded to hook IDirectDrawSurface::GetSurfaceDesc
+Succeeded to hook IDirectDrawSurface::AddAttachedSurface
+Succeeded to hook IDirectDrawSurface::GetPalette
+Succeeded to hook IDirectDrawSurface::SetPalette
+Succeeded to hook IDirectDrawPalette::SetEntries
+Succeeded to hook IDirectDrawPalette::GetEntries
+Succeeded to hook IDirectDrawSurface::QueryInterface
+Succeeded to hook IDirectDrawSurface4::Lock
+Succeeded to hook IDirectDrawSurface4::UnLock
+Succeeded to hook IDirectDrawSurface::UnLock
+Succeeded to hook IDirectDrawSurface4::Blt
+Succeeded to hook IDirectDrawSurface4::Bltfast
+Succeeded to hook IDirectDrawSurface4::GetDC
+Succeeded to hook IDirectDrawSurface4::ReleaseDC
+Succeeded to hook IDirect3DDevice2::SetRenderTarget
+Succeeded to hook IDirect3DViewport3::TransformVertices
+Succeeded to hook IDirect3DDevice3::DrawPrimitive
+Succeeded to hook IDirect3DDevice3::DrawIndexedPrimitive
+Succeeded to hook IDirect3DDevice3::DrawPrimitiveVB
+Succeeded to hook IDirect3DDevice3::DrawIndexedPrimitiveVB
+Succeeded to hook IDirect3DDevice2::DrawPrimitive
+Succeeded to hook IDirect3DDevice2::DrawIndexedPrimitive
+Succeeded to hook IDirect3DDevice::Execute
+Succeeded to hook IDirectDraw::SetCooperativeLevel
+Succeeded to hook IDirectDraw2::SetCooperativeLevel
+Succeeded to hook IDirectDraw4::SetCooperativeLevel
+Direct3DDevice2_Release: Return adress=[268972556]
+PublicRelease: IUnknown_ref=2, this_ref=3
+Direct3DDevice2_Release: 2
+Releasing IDirect3DDevice3 54238596 2
+Direct3DViewport_Release: Return adress=[268972556]
+Direct3DViewport_Release: _this=[54219368]
+Releasing IDirect3DViewport3 54219420 0
+Direct3DVertexBuffer_Release: Return adress=[268972556]
+Direct3DVertexBuffer_Release: _this=[41729928]
+Releasing IDirect3DVertexBuffer 41729936 0
+Direct3DDevice2_Release: Return adress=[268972556]
+PublicRelease: IUnknown_ref=1, this_ref=2
+Direct3DDevice2_Release: 1
+Releasing IDirect3DDevice2 54238580 1
+Direct3DViewport_Release: Return adress=[268972556]
+Direct3DViewport_Release: _this=[41742208]
+Releasing IDirect3DViewport2 41742252 0
+DirectDrawSurface_Release: Return adress=[268972556]
+DirectDrawSurface_Release: _this=[54219736]
+DirectDrawSurface_Release: 6
+Releasing IDirect3DTexture2 54219868 6
+Release: this=[12207520] Return adress=[268972556]
+Release: 0
+Releasing IDirect3DExecuteBuffer 41738360 0
+Direct3DDevice2_Release: Return adress=[268972556]
+PublicRelease: WARNING iunknown_ref == 0, but this_ref == 1
+PublicRelease: IUnknown_ref=0, this_ref=1
+Direct3DDevice2_Release: 0
+Releasing IDirect3DDevice 54238564 0
+Direct3DViewport_Release: Return adress=[268972556]
+Direct3DViewport_Release: _this=[41735280]
+Releasing IDirect3DViewport 41735316 0
+DirectDrawSurface_Release: Return adress=[268972556]
+DirectDrawSurface_Release: _this=[54219736]
+DirectDrawSurface_Release: 4
+Releasing IDirect3DTexture 54219860 4
+DirectDraw_Release: Return adress=[268972556]
+DirectDraw_Release: _this=[41723008]
+PublicRelease: IUnknown_ref=4, this_ref=5
+DirectDraw_Release: 4
+Releasing IDirect3D3 41723088 4
+DirectDraw_Release: Return adress=[268972556]
+DirectDraw_Release: _this=[41723008]
+PublicRelease: IUnknown_ref=3, this_ref=4
+DirectDraw_Release: 3
+Releasing IDirect3D2 41723080 3
+DirectDraw_Release: Return adress=[268972556]
+DirectDraw_Release: _this=[41723008]
+PublicRelease: IUnknown_ref=2, this_ref=3
+DirectDraw_Release: 2
+Releasing IDirect3D 41723072 2
+DirectDrawClipper_Release: Return adress=[268972556]
+DirectDrawClipper_Release: _this=[41729736]
+~PrivateDataObjectParent: 4
+PublicRelease: IUnknown_ref=0, this_ref=0
+DirectDrawClipper_Release: 0
+Releasing IDirectDrawClipper 41729752 0
+DirectDrawPalette_Release: Return adress=[268972556]
+DirectDrawPalette_Release: _this=[41729864]
+~PrivateDataObjectParent: 3
+PublicRelease: IUnknown_ref=0, this_ref=0
+DirectDrawPalette_Release: 0
+Releasing IDirectDrawPalette 41729880 0
+Releasing IDirectDrawGammaControl 117751320 0
+DirectDrawSurface_Release: Return adress=[268972556]
+DirectDrawSurface_Release: _this=[54219736]
+DirectDrawSurface_Release: 3
+Releasing IDirectDrawSurface 54219812 3
+DirectDrawSurface_Release: Return adress=[268972556]
+DirectDrawSurface_Release: _this=[54219736]
+DirectDrawSurface_Release: 2
+Releasing IDirectDrawSurface2 54219820 2
+DirectDrawSurface_Release: Return adress=[268972556]
+DirectDrawSurface_Release: _this=[54219736]
+DirectDrawSurface_Release: 1
+Releasing IDirectDrawSurface3 54219828 1
+DirectDrawSurface_Release: Return adress=[268972556]
+DirectDrawSurface_Release: _this=[54219736]
+~PrivateDataObjectParent: 2
+~PrivateDataObject: 1
+DirectDrawSurface_Release: 0
+Releasing IDirectDrawSurface4 54219836 0
+DirectDraw_Release: Return adress=[268972556]
+DirectDraw_Release: _this=[41723008]
+PublicRelease: IUnknown_ref=1, this_ref=1
+DirectDraw_Release: 1
+Releasing IDirectDraw4 41723056 1
+DirectDraw2_Release: Return adress=[268972556]
+DirectDraw2_Release: _this=[41723008]
+Releasing IDirectDraw2 41723048 0
+PrivateDataObjectParent: 2
+DirectDraw: Object created. m_refcount=[1]
+DirectDraw_AddRef: Return adress=[268972556]
+DirectDraw_AddRef: _this=[54261880]
+DirectDraw_AddRef: 2
+DirectDraw_QueryInterface: Return adress=[114515864]
+DirectDraw_QueryInterface: _this=[54261880]
+DirectDraw_QueryInterface: IDirect3D2
+Direct3D_EnumDevices: Return adress=[114515926]
+Direct3D_EnumDevices: _this=[54261880]
+DirectDraw_Release: Return adress=[114515937]
+DirectDraw_Release: _this=[54261880]
+PublicRelease: IUnknown_ref=2, this_ref=2
+DirectDraw_Release: 2
+DirectDraw_Release: Return adress=[114515954]
+DirectDraw_Release: _this=[54261880]
+PublicRelease: IUnknown_ref=1, this_ref=1
+DirectDraw_Release: 1
