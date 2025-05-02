@@ -17,9 +17,11 @@ using std::string;
 //#define LAYER_VERBOSE_LOGS
 
 #ifndef LAYER_VERBOSE_LOGS
+    #define LAYER_LOG_CALLER
     #define LAYER_HR_CALL(call) HRESULT hr = call; if (FAILED(hr)) DBUG_WARN(LAYER_PARSE_ERROR(hr)) return hr;
 #else
-    #define LAYER_HR_CALL(call) HRESULT hr = call; if (FAILED(hr)) DBUG_WARN(LAYER_PARSE_ERROR(hr)) else DBUG_WARN(LAYER_OK) return hr;
+    #define LAYER_LOG_CALLER  DBUG_WARN(ASCii((wchar_t*)DllFromAdress(__builtin_return_address(0)).m_name.c_str()).str()); 
+    #define LAYER_HR_CALL(call) HRESULT hr = call; LAYER_LOG_CALLER; if (FAILED(hr)) DBUG_WARN(LAYER_PARSE_ERROR(hr)) else DBUG_WARN(LAYER_OK) return hr;
 #endif
 
 #ifdef LAYER_LOGS
@@ -30,8 +32,8 @@ using std::string;
         #define LAYER_MEMBER_LOG_CALL   LAYER_LOG_CALL
     #else
         //#define LAYER_LOG_CALL         DBUG_WARN((string("Return adress=[") + to_string((long)__builtin_return_address(0)) + string("]")).c_str())
-        #define LAYER_LOG_CALL         DBUG_WARN((string("Return adress=[") + to_string((long)__builtin_return_address(0)) + string("]")).c_str())
-        #define LAYER_MEMBER_LOG_CALL  if (this == nullptr)  DBUG_WARN(std::to_string((long)__builtin_return_address(0)).c_str()) \
+        #define LAYER_LOG_CALL         DBUG_WARN((string("Return adress=[") + to_string((long)__builtin_return_address(0)) + string("]")).c_str()); LAYER_LOG_CALLER
+        #define LAYER_MEMBER_LOG_CALL  LAYER_LOG_CALLER; if (this == nullptr)  DBUG_WARN(std::to_string((long)__builtin_return_address(0)).c_str()) \
                                        else DBUG_WARN((string("this=[") + to_string((long)m_Imp) + "] Return adress=[" + std::to_string((long)__builtin_return_address(0))+ string("]")).c_str())
     #endif
 #else

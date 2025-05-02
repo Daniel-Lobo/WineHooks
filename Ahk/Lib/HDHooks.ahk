@@ -95,6 +95,7 @@ SetDisplayMode(byref p2, byref p3, byref p4)
 	}
 	D3DHOOKS_DATA.HD_W := p2
 	D3DHOOKS_DATA.HD_H := p3
+	/*
 	if g_.cfg.8bitColorfix
 	{
 		DDRAWI_DIRECTDRAW_INT[] := p1
@@ -103,6 +104,7 @@ SetDisplayMode(byref p2, byref p3, byref p4)
 		DDRAWI_DIRECTDRAW_LCL.dwAppHackFlags |= 0x800
 		else DDRAWI_DIRECTDRAW_LCL.dwAppHackFlags &= ~ 0x800
 	}
+	*/
 }
 
 _rect_setscale(scale="")

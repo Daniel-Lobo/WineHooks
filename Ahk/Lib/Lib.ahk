@@ -331,8 +331,9 @@ logErr(msg){
 	call += 1
 	if not file
 	{
-		file := strsplit(msg, "|")[1]
+		file    := strsplit(msg, "|")[1]
 		maxlogs := strsplit(msg, "|")[2]
+		maxlogs := 10 * 10 * 10
 		filedelete, %file%
 		return
 	} 

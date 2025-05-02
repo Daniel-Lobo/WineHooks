@@ -41,10 +41,12 @@ InitGlobals()
 	cfg := "Peixotos's patch remote settings:`nCommand Line: " dllcall("GetCommandLineA", astr) "`n"
 	for kk, vv in g_.cfg
 		cfg .= kk ": " vv "`n"
+	;FileAppend, , % g_.cfg.error_log
+	;g_.cfg.error_log := StrReplace(g_.cfg.error_log, "error.log", "d3d_hooks.log")
 	if g_.cfg.console
 	logErr(g_.cfg.error_log "|10000")
 	else 
-	logErr(g_.cfg.error_log "|100")	
+	logErr(g_.cfg.error_log "|10000")	
 	logerr(cfg)
 	logerr("Working directory: " A_workingdir)
 	

@@ -399,7 +399,8 @@ GetRemoteScript()
 	if Parsecfg(g_.J2K).u
 		g_.remoteScript .= "`n" LoadResource("dinput.hooks.txt") "`n"
 	if (g_.D3D > 0 and g_.D3D < 4) or (g_.D3D = 7) or (g_.ddraw)
-		g_.remoteScript .= "`n" LoadResource((g_.ver or g_.layeroff) ? "D3D.hooks.txt" : "D3D.hooks.txt") "`n" LoadResource("WinAPI.hooks.txt")
+		;g_.remoteScript .= "`n" LoadResource((g_.ver or g_.layeroff) ? "D3D.hooks.txt" : "D3D.hooks.txt") "`n" LoadResource("WinAPI.hooks.txt")
+		g_.remoteScript .= "`n" LoadResource("D3D.hooks.txt") "`n" LoadResource("WinAPI.hooks.txt")
 	else if (g_.D3D = 8)
 		g_.remoteScript .=  "`n" LoadResource("D3DX9.txt") "`n" LoadResource("D3D8.hooks.txt")
 	else if (g_.D3D = 9)

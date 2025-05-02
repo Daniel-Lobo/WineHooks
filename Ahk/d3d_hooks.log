@@ -1,0 +1,148 @@
+Peixotos's patch remote settings:
+Command Line: CLIENT.EXE -windowtitle "Blood2: Nightmares" -rez Blood2.rez -rez sound.rez -rez custom -rez Blood2p.rez -rez Blood2p2.rez -rez Blood2l.rez -rez Blood2Nm.rez -rez Blood2Nm2.rez +multiplayer 0  +EnableOptSurf 1 +EnableTripBuf 1 +EnableTjuncs 1 +EnableMipSharp 1 +EnablePixDub 1 +EnableMultiTex 1  
+32bit: 1
+common_path: 1
+compatlayer: dwm8and16bitmitigation
+D3D: 1
+D3D_Driver: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll
+dsk: 1920x1080
+dxvkv: 2_6
+error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
+gamma: 1
+hd: 1
+injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
+J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
+k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
+max_4x3_res: 1440x1080
+mngr: 1
+Mydocs: C:\Users\Peixoto\Documents
+os_version: 10.000000
+path: C:\Users\Peixoto\Documents\WineHooks\Games\Blood 2\
+rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
+script_hwnd: 0x8d06b4
+Target: E:\Games\Blood II - The Chosen\BLOOD2.EXE
+target_dir: E:\Games\Blood II - The Chosen
+target_name: BLOOD2.EXE
+Textswap: e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=TexturesVOKSI;
+wine: 10_0
+
+Working directory: E:\Games\Blood II - The Chosen
+C:\Users\Peixoto\Documents\WineHooks\Games\Blood 2\cfgFiles: 
+HasFiles 0
+C:\Users\Peixoto\Documents\WineHooks\Games\Blood 2\cfgFiles: 
+HasFiles 0
+CreateProcessA Hook: 0
+CreateProcessW Hook: 0
+ShellExecuteA Hook  :0
+ShellExecuteExW Hook  :0
+Desktop 1920x1080
+DDraw.dll : C:\WINDOWS\SYSTEM32\DDRAW.dll
+DirectDrawCreate Hook: 0
+1937210240============================================
+DDraw: 8567892
+Wrapped: 10409368
+Succeeded to create DirectDraw
+Succeeded to create Direct3D
+IDirect3DDevice::BeginScene[1938393184] reimplement in IDirect3DDevice2[1938404512], 
+IDirect3DDevice::CreateExecuteBuffer[1938380720] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::CreateMatrix[1938387968] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::DeleteMatrix[1938391888] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::EndScene[1938394480] reimplement in IDirect3DDevice2[1938403440], 
+IDirect3DDevice::Execute[1938465936] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::GetCaps[1938377792] reimplement in IDirect3DDevice2[1938400512], 
+IDirect3DDevice::GetDirect3D[1938396064] reimplement in IDirect3DDevice2[1938405808], 
+IDirect3DDevice::GetMatrix[1938390576] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::GetPickRecords[1938385344] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::Initialize[1938347824] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::Pick[1938383840] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::SetMatrix[1938389264] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::SwapTextureHandles[1938379104] reimplement in IDirect3DDevice2[1938401824], 
+Succeeded to hook IDirectDraw4::CreateSurface
+Succeeded to hook IDirectDraw2::CreateSurface
+Succeeded to hook IDirectDraw::CreateSurface
+Succeeded to hook IDirectDrawSurface::restore
+Succeeded to hook IDirect3DDevice::EndScene
+Succeeded to hook IDirect3DDevice3::EndScene
+Succeeded to hook IDirect3D3::CreateDevice
+Succeeded to hook IDirect3D2::CreateDevice
+Succeeded to hook IDirectDraw::SetDisplayMode
+Succeeded to hook IDirectDraw2::SetDisplayMode
+Succeeded to hook IDirectDraw4::SetDisplayMode
+Succeeded to hook IDirectDraw4::EnumDisplayModes
+Succeeded to hook IDirect3DViewport3::SetViewPort2
+Succeeded to hook IDirect3DViewport3::GetViewPort2
+Succeeded to hook IDirect3DViewport3::Clear
+Succeeded to hook IDirect3DViewport3::Clear2
+Succeeded to hook IDirect3DViewport::SetViewPort
+Succeeded to hook IDirect3DViewport::GetViewPort
+SetupPrxs4(...)
+Succeeded to hook IDirectDrawSurface::flip
+Succeeded to hook IDirectDrawSurface4::EnumAttachedSurfaces
+Succeeded to hook IDirectDrawSurface::EnumAttachedSurfaces
+Succeeded to hook IDirectDrawSurface4::GetSurfaceDesc
+Succeeded to hook IDirectDraw::CreatePalette
+Succeeded to hook IDirectDraw::GetDisplayMode
+Succeeded to hook IDirectDraw4::GetDisplayMode
+Succeeded to hook IDirectDrawSurface::GetPixelFormat
+Succeeded to hook IDirectDrawSurface::GetSurfaceDesc
+Succeeded to hook IDirectDrawSurface::AddAttachedSurface
+Succeeded to hook IDirectDrawSurface::GetPalette
+Succeeded to hook IDirectDrawSurface::SetPalette
+Succeeded to hook IDirectDrawPalette::SetEntries
+Succeeded to hook IDirectDrawPalette::GetEntries
+Succeeded to hook IDirectDrawSurface::QueryInterface
+Succeeded to hook IDirectDrawSurface4::Lock
+Succeeded to hook IDirectDrawSurface4::UnLock
+Succeeded to hook IDirectDrawSurface::UnLock
+Succeeded to hook IDirectDrawSurface4::Blt
+Succeeded to hook IDirectDrawSurface4::Bltfast
+Succeeded to hook IDirectDrawSurface4::GetDC
+Succeeded to hook IDirectDrawSurface4::ReleaseDC
+Succeeded to hook IDirect3DDevice2::SetRenderTarget
+Succeeded to hook IDirect3DViewport3::TransformVertices
+Succeeded to hook IDirect3DDevice3::DrawPrimitive
+Succeeded to hook IDirect3DDevice3::DrawIndexedPrimitive
+Succeeded to hook IDirect3DDevice3::DrawPrimitiveVB
+Succeeded to hook IDirect3DDevice3::DrawIndexedPrimitiveVB
+Succeeded to hook IDirect3DDevice2::DrawPrimitive
+Succeeded to hook IDirect3DDevice2::DrawIndexedPrimitive
+Succeeded to hook IDirect3DDevice::Execute
+Succeeded to hook IDirectDraw::SetCooperativeLevel
+Succeeded to hook IDirectDraw2::SetCooperativeLevel
+Succeeded to hook IDirectDraw4::SetCooperativeLevel
+Succeeded to hook IDirectDrawGammaControl::SetGammaRamp
+Releasing IDirect3DDevice3 48728652 2
+Releasing IDirect3DViewport3 48728556 0
+Releasing IDirect3DVertexBuffer 10403104 0
+Releasing IDirect3DDevice2 48728636 1
+Releasing IDirect3DViewport2 48714196 0
+Releasing IDirect3DTexture2 48728468 6
+Releasing IDirect3DExecuteBuffer 10411480 0
+Releasing IDirect3DDevice 48728620 0
+Releasing IDirect3DViewport 48732220 0
+Releasing IDirect3DTexture 48728460 4
+Releasing IDirect3D3 10409416 4
+Releasing IDirect3D2 10409408 3
+Releasing IDirect3D 10409400 2
+Releasing IDirectDrawClipper 10402600 0
+Releasing IDirectDrawPalette 10403080 0
+Releasing IDirectDrawGammaControl 197211340 0
+Releasing IDirectDrawSurface 48728412 3
+Releasing IDirectDrawSurface2 48728420 2
+Releasing IDirectDrawSurface3 48728428 1
+Releasing IDirectDrawSurface4 48728436 0
+Releasing IDirectDraw4 10409384 1
+Releasing IDirectDraw2 10409376 0
+
+Resolution\Viewport:
+Requested                 : 640 x 480
+Real                      : 1920 x 1080
+Correction                : 2.250000
+Viewport width correction : 240.000000
+======================PRIMARY CREATED=====================1 0
+IDirectDrawSurface4_EnumAttachedSurfaces PRIMARY
+enum: 0 0 1938291472
+Enumerated backbuffer 49207596 get: 1 enum: 0
+======================Z CREATED=====================2 0
+z id 49207740
+IDirect3DDevice3 0 D3DERR_OK

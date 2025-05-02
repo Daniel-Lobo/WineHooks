@@ -260,7 +260,7 @@ InitD3DHook()
 		g_.p.DirectDrawCreate := pDirectDrawCreate
 	}		
 		
-	g_.cfg.wineoff := True
+	;g_.cfg.wineoff := True
 	if ((!g_.cfg.wineoff) or (IsLinux := dllcall("LoadLibraryW", str, "wined3d.dll")))
 	{
 		g_.cfg.winedd   := True
@@ -272,7 +272,7 @@ InitD3DHook()
 			g_.p.DDCreateEx        := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
 			g_.p.DirectDrawCreate  := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
 		}
-		logerr("InitWineHooks " strget(dllcall("peixoto.dll\InitWineHoooks", wstr, "", ptr)+0, "UTF-8"))
+		;logerr("InitWineHooks " strget(dllcall("peixoto.dll\InitWineHoooks", wstr, "", ptr)+0, "UTF-8"))
 	}
 	
 	g_.p.SetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "SetDDSurfacePixelFormat", uint)
@@ -760,7 +760,13 @@ IDirectDraw4_CreateSurface(pIDirectDraw4, pSurfaceDesc, ppSurface, pIUnknown)
 	if r := dllcall(g_.p.CreateSrfc, uint, pIDirectDraw4, uint, DDSURFACEDESC2[], uint, ppSurface, uint, pIUnknown
 	                               , uint, IDirectDraw4.CreateSurface, uint, D3DHOOKS_DATA[], "uint*", p:=0)
 	return r	
-	
+
+	if (DDSURFACEDESC2.ddsCaps.dwCaps & DDSCAPS_PRIMARYSURFACE){
+		logerr("======================PRIMARY CREATED=====================" p " " r)
+	} else if (DDSURFACEDESC2.ddsCaps.dwCaps & DDSCAPS_ZBUFFER) {
+		logerr("======================Z CREATED=====================" p " " r)
+	}
+		
 	if (p=1)
 	{
 		g_.proxies.flp := ""
@@ -991,9 +997,10 @@ IDirectDrawSurface_EnumAttachedSurfaces(p1, p2, p3)
 }
 
 IDirectDrawSurface4_EnumAttachedSurfaces(p1, p2, p3)
-{
+{	
 	if ( GetSurfaceCaps4(p1) & DDSCAPS_PRIMARYSURFACE )
 	{
+		logerr("IDirectDrawSurface4_EnumAttachedSurfaces PRIMARY")
 		NEFS(p1, D, DD, sz, fmt, sys)	
 		D.dwSize         := DDSURFACEDESC2.size()		
 		D.ddsCaps.dwCaps := DDSCAPS_BACKBUFFER | DDSCAPS_FLIP | DDSCAPS_3DDEVICE		
@@ -1013,13 +1020,19 @@ IDirectDrawSurface4_EnumAttachedSurfaces(p1, p2, p3)
 		}
 		else
 		{
-			if dllcall(IDirectDrawSurface4.GetAttachedSurface, uint, p1, uint, DDSCAPS_BACKBUFFER, "uint*", f:=0)
+			/*  || errorlevel is a pretty ugly workarround for 0xc0000005 (access violation) 
+			 *  when calling GetAttachedSurface, layer fault ?
+			 */
+			g := dllcall(IDirectDrawSurface4.GetAttachedSurface, uint, p1, uint, DDSCAPS_BACKBUFFER, "uint*", f:=0) || errorlevel			
+			if (g)
 			{
-				c := RegisterCallback("SrfEnum")
-				dllcall(IDirectDrawSurface4.EnumAttachedSurfaces, uint, p1, uint, p2, uint, c)
+				c  := RegisterCallback("SrfEnum")
+				en := dllcall(IDirectDrawSurface4.EnumAttachedSurfaces, uint, p1, uint, p2, uint, c)
+				logerr("enum: " en " " errorlevel " " IDirectDrawSurface4.EnumAttachedSurfaces)
 				DllCall("GlobalFree", "Ptr", c, "Ptr")
-				f := SrfEnum(0,0,0)				
+				f  := SrfEnum(0,0,0)				
 			}
+			logerr("Enumerated backbuffer " f " get: " g " enum: " en)
 			dllcall(p3, uint, f, uint, D[], uint, p2)
 		}			
 		return			

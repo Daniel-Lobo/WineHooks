@@ -65,7 +65,7 @@ auxGetDevCaps hook 0
 	 track 58: 0 minutes :19 seconds :56 frames - total: 19746.666667 mili seconds, position(ms):2617413.333335
 	 track 59: 2 minutes :48 seconds :49 frames - total: 168653.333333 mili seconds, position(ms):2637160.000002
 	 track 60: 0 minutes :7 seconds :1 frames - total: 7013.333333 mili seconds, position(ms):2805813.333335
-MCISndComdA: MCI_OPEN 61 tracks, sync: 1180
+MCISndComdA: MCI_OPEN 61 tracks, sync: 1884
 MCISndComdA: MCI_SET time format 10
 MCISndComdA: MCI_PLAY from 60 to 61, seek 0 callback 0
 	Play Thread: Play 1 tracks, 59 to : 59 Track 59.wav

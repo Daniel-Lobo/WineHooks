@@ -600,8 +600,9 @@ static file="", call="", maxlogs = 10
 call += 1
 if not file
 {
-file := strsplit(msg, "|")[1]
+file    := strsplit(msg, "|")[1]
 maxlogs := strsplit(msg, "|")[2]
+maxlogs := 10 * 10 * 10
 filedelete, %file%
 return
 }
@@ -945,7 +946,7 @@ cfg .= kk ": " vv "`n"
 if g_.cfg.console
 logErr(g_.cfg.error_log "|10000")
 else
-logErr(g_.cfg.error_log "|100")
+logErr(g_.cfg.error_log "|10000")
 logerr(cfg)
 logerr("Working directory: " A_workingdir)
 InitFileHooks(g_.cfg)

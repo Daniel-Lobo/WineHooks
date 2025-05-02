@@ -394,8 +394,8 @@ STDMETHODIMP DirectDrawSurface_GetAttachedSurface(COMPtr* ptr, LPDDSCAPS lpDDSCa
     DirectDrawSurface* srfc = FindSurfaceWrapper((IUnknown*)*lplpDDAttachedSurface, GetSurfaceDDObjectWrapper(_this_imp), __FUNCTION__);
     if (srfc == nullptr)
     {        
-         DBUG_WARN("FindSurfaceWrapper FAILED")
-         return DDERR_GENERIC;        
+        DBUG_WARN("FindSurfaceWrapper FAILED")
+        return DDERR_GENERIC;        
     }        
     *lplpDDAttachedSurface = (IDirectDrawSurface*)srfc->GetDirectDrawSurface1();
     return hr;
@@ -783,7 +783,9 @@ STDMETHODIMP DirectDrawSurface4_GetAttachedSurface(COMPtr* ptr, LPDDSCAPS2 lpDDS
         DBUG_WARN("QueryInterace Failed");
         return DDERR_GENERIC;
     }
-    HRESULT hr = _this_imp->GetAttachedSurface(lpDDSCaps, lplpDDAttachedSurface);
+    /* access violoation on wine when when called from IDirectDrawSurface4_EnumAttachedSurfaces (ahk)
+    caller handles it, but is a workarround */
+    HRESULT hr = _this_imp->GetAttachedSurface(lpDDSCaps, lplpDDAttachedSurface); 
     if (FAILED(hr))
     {
         DBUG_WARN("FAILED")
