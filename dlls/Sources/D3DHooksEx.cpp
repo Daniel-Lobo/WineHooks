@@ -195,8 +195,15 @@ extern "C" __declspec(dllexport) HRESULT CreateSurfaceHook(LPVOID p1, DDSURFACED
             if      (cfg->Requested_Depth == 16) format = "RG6B";
             else if (cfg->Requested_Depth == 8)  format = "PAL8";
             else                                 format = "X8RGB";
-            SetDDSurfacePixelFormat((DDPIXELFORMAT *)&Desc->ddpfPixelFormat, format);
-            Desc->dwFlags |= DDSD_PIXELFORMAT;
+            /*
+            * If the game requested 32 bit we dont need to set the pixedlformat as the runtime will set it
+            * to "X8RGB" anyway. Explicictly setting it however, should be a problem, but on winde it 
+            * crashes soul reaver FMVs when using wrace's patch 
+            */
+            if (strcmp(format, "X8RGB") != 0){
+                SetDDSurfacePixelFormat((DDPIXELFORMAT *)&Desc->ddpfPixelFormat, format);
+                Desc->dwFlags |= DDSD_PIXELFORMAT;
+            }
             if (!(Desc->ddsCaps.dwCaps & DDSCAPS_TEXTURE)   &&
                 !(Desc->ddsCaps.dwCaps & DDSCAPS_RESERVED2) &&
                 !(Desc->ddpfPixelFormat.dwRGBBitCount == 8) )
@@ -542,7 +549,7 @@ public:
 
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE IDirect3DDevice_ExecuteHook(LPVOID dev, LPVOID buff, DWORD dummy, LPVOID dummyb)
 {
-    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)    
     //auto view_scaler = std::unique_ptr<D3DViewportScaler>( new D3DViewportScaler((IDirect3DViewport*)dummy) );
     XYZRHW                     *v;
     D3DINSTRUCTION * pInstruction;
@@ -582,6 +589,10 @@ extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE IDirect3DDevice_Execu
     v = (XYZRHW *) ((DWORD)eBuffDesc.lpData + eData.dwVertexOffset);
     scale_and_displace(v, nvertex, sizeof(TLVERTEX));
     IDirect3DExecuteBuffer_Unlock(eBuff);
+    D3DEXECUTEDATA exec_data;
+    // force wine to update its internal vertex buffer
+    ((IDirect3DExecuteBuffer*)buff)->GetExecuteData(&exec_data);
+    ((IDirect3DExecuteBuffer*)buff)->SetExecuteData(&exec_data);
     return D3DHooksData->Execute(dev, (DWORD)buff, dummy, dummyb);
 }
 

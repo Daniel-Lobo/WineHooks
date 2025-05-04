@@ -745,14 +745,16 @@ class Surface {
     }  
 	Attach(s)
 	{
-		if ! dllcall(IDirectDrawSurface.AddAttachedSurface, uint, this.surface, uint, s)
+		if ( (r := dllcall(IDirectDrawSurface.AddAttachedSurface, uint, this.surface, uint, s, uint)) = 0)
 		{
 			dllcall(IDirectDrawSurface.addref, uint, this.flip := s	)
 			GUID_FromString(iid, ddraw.IID_IDirectDrawSurface4)
 			if (dllcall(IDirectDrawSurface.QueryInterface, uint, this.flip, ptr, &iid, "ptr*", p4:=0, uint) = 0)
 			dllcall(IDirectDrawSurface4.release, uint, p4)
 			this.flip4 := p4
-		}			
+		} else {
+			logerr("Surface::Attach : AddAttachedSurface FAILED " r " " ddraw.err[r . ""])
+		}		
 	}
 	Mip4()
 	{

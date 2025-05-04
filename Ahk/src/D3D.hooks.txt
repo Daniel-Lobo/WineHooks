@@ -2993,13 +2993,15 @@ this.handle := handle
 }
 Attach(s)
 {
-if ! dllcall(IDirectDrawSurface.AddAttachedSurface, uint, this.surface, uint, s)
+if ( (r := dllcall(IDirectDrawSurface.AddAttachedSurface, uint, this.surface, uint, s, uint)) = 0)
 {
 dllcall(IDirectDrawSurface.addref, uint, this.flip := s	)
 GUID_FromString(iid, ddraw.IID_IDirectDrawSurface4)
 if (dllcall(IDirectDrawSurface.QueryInterface, uint, this.flip, ptr, &iid, "ptr*", p4:=0, uint) = 0)
 dllcall(IDirectDrawSurface4.release, uint, p4)
 this.flip4 := p4
+} else {
+logerr("Surface::Attach : AddAttachedSurface FAILED " r " " ddraw.err[r . ""])
 }
 }
 Mip4()
@@ -5562,6 +5564,7 @@ g_.p.DirectDrawCreate := pDirectDrawCreate
 }
 if ((!g_.cfg.wineoff) or (IsLinux := dllcall("LoadLibraryW", str, "wined3d.dll")))
 {
+g_.cfg.NEFS     := False
 g_.cfg.winedd   := True
 g_.cfg.layeroff := false
 if (!IsLinux)
@@ -6158,6 +6161,7 @@ IDirectDrawSurface_EnumAttachedSurfaces(p1, p2, p3)
 {
 if ( GetSurfaceCaps(p1) & DDSCAPS_PRIMARYSURFACE )
 {
+logerr("IDirectDrawSurface_EnumAttachedSurfaces PRIMARY")
 NEFS(p1, D, DD, sz, fmt, sys)
 D.ddsCaps.dwCaps := DDSCAPS_BACKBUFFER | DDSCAPS_FLIP | DDSCAPS_3DDEVICE
 if (g_.cfg.HD)
@@ -6176,7 +6180,8 @@ dllcall(p3, uint, g_.proxies.flp.surface, uint, D[], uint, p2)
 }
 else
 {
-if dllcall(IDirectDrawSurface.GetAttachedSurface, uint, p1, uint, DDSCAPS_BACKBUFFER, "uint*", f:=0)
+g := dllcall(IDirectDrawSurface.GetAttachedSurface, uint, p1, uint, DDSCAPS_BACKBUFFER, "uint*", f:=0) || errorlevel
+if (g)
 {
 c := RegisterCallback("SrfEnum")
 dllcall(IDirectDrawSurface.EnumAttachedSurfaces, uint, p1, uint, p2, uint, c)
@@ -6193,7 +6198,6 @@ IDirectDrawSurface4_EnumAttachedSurfaces(p1, p2, p3)
 {
 if ( GetSurfaceCaps4(p1) & DDSCAPS_PRIMARYSURFACE )
 {
-logerr("IDirectDrawSurface4_EnumAttachedSurfaces PRIMARY")
 NEFS(p1, D, DD, sz, fmt, sys)
 D.dwSize         := DDSURFACEDESC2.size()
 D.ddsCaps.dwCaps := DDSCAPS_BACKBUFFER | DDSCAPS_FLIP | DDSCAPS_3DDEVICE
@@ -6222,7 +6226,6 @@ logerr("enum: " en " " errorlevel " " IDirectDrawSurface4.EnumAttachedSurfaces)
 DllCall("GlobalFree", "Ptr", c, "Ptr")
 f  := SrfEnum(0,0,0)
 }
-logerr("Enumerated backbuffer " f " get: " g " enum: " en)
 dllcall(p3, uint, f, uint, D[], uint, p2)
 }
 return
