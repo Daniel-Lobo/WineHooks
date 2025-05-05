@@ -1,5 +1,5 @@
-global g_MainThreadID := 13748 ;<Tag> 
-global g_cmdstring := "-Target^E:\Games\Darkstone\Darkstone.exe^-wiki^https://www.pcgamingwiki.com/wiki/Darkstone^-D3D^2^-Path^Darkstone^/32bit^/HD^-SSAA^1^/4K^-MCLP^1^-ver^0.10.11^-Textswap^path=Textures\VOKSI;sw=End;n=<;p=>;d=Home;q=Ins;c=Del;sz=256;s=4;e=true;dly=false;a=false;l=false;^-WNMM^MCI=false;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,;a=,,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;high resolution and [gototab_...graphics_SSAA=1 super sampling anti aliasing] };{b {f} ==[Installing the game on 64 bit systems]==;{b {f} ==[Installing the game on 64 bit systems]==;{b {f} ==[Installing the game on 64 bit systems]==;^-DSnd^e=False;s=False;x=False;^-script_hwnd^0x5209e6^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Darkstone^-target_name^Darkstone.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 1416 ;<Tag> 
+global g_cmdstring := "-Target^D:\Games\Darkstone\Darkstone.exe^-wiki^https://www.pcgamingwiki.com/wiki/Darkstone^-D3D^2^-Path^Darkstone^/32bit^/HD^/4K^-MCLP^1^-ver^0.10.11^-Textswap^path=Textures\VOKSI;sw=End;n=<;p=>;d=Home;q=Ins;c=Del;sz=256;s=4;e=true;dly=false;a=false;l=false;^-WNMM^MCI=false;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,;a=,,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;high resolution and [gototab_...graphics_SSAA=1 super sampling anti aliasing] };{b {f} ==[Installing the game on 64 bit systems]==;{b {f} ==[Installing the game on 64 bit systems]==;{b {f} ==[Installing the game on 64 bit systems]==;^-DSnd^e=False;s=False;x=False;^-script_hwnd^0x14019e^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 ^-max_4x3_res^1152x864^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Darkstone^-target_name^Darkstone.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -7299,12 +7299,12 @@ g_.p.DirectDrawCreate := pDirectDrawCreate
 logerr("DirectDrawCreate Hook: " InstallHook(isfunc("AltDDrawCreate") ? "AltDDrawCreate" : "DirectDrawCreate_hook", pDirectDrawCreate, "ddraw.dll", "DirectDrawCreate"))
 g_.p.DirectDrawCreate := pDirectDrawCreate
 }
-if ((!g_.cfg.wineoff) or (IsLinux := dllcall("LoadLibraryW", str, "wined3d.dll")))
+if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 {
 g_.cfg.NEFS     := False
 g_.cfg.winedd   := True
 g_.cfg.layeroff := false
-if (!IsLinux)
+if (!FileExist(GetSystemDir() "\wined3d.dll"))
 {
 dllcall("LoadLibraryW", str,  g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\SysWOW64\wined3d.dll")
 h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\wined3d\" . g_.cfg.wine . "\SysWOW64\ddraw.dll")

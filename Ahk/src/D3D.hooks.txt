@@ -5562,12 +5562,12 @@ g_.p.DirectDrawCreate := pDirectDrawCreate
 logerr("DirectDrawCreate Hook: " InstallHook(isfunc("AltDDrawCreate") ? "AltDDrawCreate" : "DirectDrawCreate_hook", pDirectDrawCreate, "ddraw.dll", "DirectDrawCreate"))
 g_.p.DirectDrawCreate := pDirectDrawCreate
 }
-if ((!g_.cfg.wineoff) or (IsLinux := dllcall("LoadLibraryW", str, "wined3d.dll")))
+if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 {
 g_.cfg.NEFS     := False
 g_.cfg.winedd   := True
 g_.cfg.layeroff := false
-if (!IsLinux)
+if (!FileExist(GetSystemDir() "\wined3d.dll"))
 {
 dllcall("LoadLibraryW", str,  g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\SysWOW64\wined3d.dll")
 h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\wined3d\" . g_.cfg.wine . "\SysWOW64\ddraw.dll")

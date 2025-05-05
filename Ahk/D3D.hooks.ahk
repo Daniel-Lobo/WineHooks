@@ -261,12 +261,12 @@ InitD3DHook()
 	}		
 		
 	;g_.cfg.wineoff := True
-	if ((!g_.cfg.wineoff) or (IsLinux := dllcall("LoadLibraryW", str, "wined3d.dll")))
+	if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 	{
 		g_.cfg.NEFS     := False
 		g_.cfg.winedd   := True
-		g_.cfg.layeroff := false
-		if (!IsLinux)
+		g_.cfg.layeroff := false		
+		if (!FileExist(GetSystemDir() "\wined3d.dll"))
 		{
 			dllcall("LoadLibraryW", str,  g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\SysWOW64\wined3d.dll")
 			h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\wined3d\" . g_.cfg.wine . "\SysWOW64\ddraw.dll")
