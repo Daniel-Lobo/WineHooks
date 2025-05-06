@@ -1,5 +1,5 @@
-global g_MainThreadID := 1416 ;<Tag> 
-global g_cmdstring := "-Target^D:\Games\Darkstone\Darkstone.exe^-wiki^https://www.pcgamingwiki.com/wiki/Darkstone^-D3D^2^-Path^Darkstone^/32bit^/HD^/4K^-MCLP^1^-ver^0.10.11^-Textswap^path=Textures\VOKSI;sw=End;n=<;p=>;d=Home;q=Ins;c=Del;sz=256;s=4;e=true;dly=false;a=false;l=false;^-WNMM^MCI=false;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,;a=,,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;high resolution and [gototab_...graphics_SSAA=1 super sampling anti aliasing] };{b {f} ==[Installing the game on 64 bit systems]==;{b {f} ==[Installing the game on 64 bit systems]==;{b {f} ==[Installing the game on 64 bit systems]==;^-DSnd^e=False;s=False;x=False;^-script_hwnd^0x14019e^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 ^-max_4x3_res^1152x864^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Darkstone^-target_name^Darkstone.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 1496 ;<Tag> 
+global g_cmdstring := "-Target^D:\Games\Blood II - The Chosen\BLOOD2.EXE^-D3D^1^-path^Blood 2^-ssaa^4^/32bit^/hd^-Textswap^e=False;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=TexturesVOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-script_hwnd^0x40262^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 ^-max_4x3_res^1152x864^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Blood II - The Chosen^-target_name^BLOOD2.EXE^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -4767,6 +4767,13 @@ return
 dllcall(IDirectDrawSurface.restore, uint, this.surface)
 (this.flip) ? dllcall(IDirectDrawSurface.restore, uint, this.flip)
 }
+IsThatYou(s){
+_this := dllcall(g_.p.GetSurfaceID, ptr, this.surface)
+_that := dllcall(g_.p.GetSurfaceID, ptr, s)
+if (_this and _this = _that)
+return True
+return False
+}
 __Delete()
 {
 (this.Texture) ? printl("Releasing Surrogate Texture2 " dllcall(IDirect3DTexture2.release, uint, this.Texture, uint))
@@ -5671,20 +5678,23 @@ GetProxy4(s, byref z)
 {
 return _GetProxy(s, GetSurfaceCaps4(s), z)
 }
+FindProxy(cps, s)
+{
+p := cps & DDSCAPS_PRIMARYSURFACE ? g_.proxies.prim
+: cps & DDSCAPS_FLIP or (g_.cfg.winedd and g_.proxies.flp.IsThatYou(s)) ? g_.proxies.dev
+: {"surface4" : s, "surface" : s}
+return p
+}
 _GetProxy(s, cps, byref z)
 {
-cps & DDSCAPS_PRIMARYSURFACE ? p := g_.proxies.prim
-: cps & DDSCAPS_FLIP ? p := g_.proxies.dev
-: p := {"surface4" : s, "surface" : s}
+p := FindProxy(cps, s)
 if (z := cps & DDSCAPS_ZBUFFER)
 return _GetZ(s)
 return p
 }
 GetProxy(s, byref z)
 {
-(cps := GetSurfaceCaps(s)) & DDSCAPS_PRIMARYSURFACE  ? p := g_.proxies.prim
-: cps & DDSCAPS_FLIP ? p := g_.proxies.dev
-: p := {"surface4" : s, "surface" : s}
+p := FindProxy(cps := GetSurfaceCaps(s), s)
 if (z := cps & DDSCAPS_ZBUFFER)
 return _GetZ(s)
 return p
@@ -7778,12 +7788,19 @@ p2           := g_.proxies.z.Surface
 }
 return dllcall(IDirectDrawSurface.AddAttachedSurface, uint, p1, uint, p2)
 }
+IsProxy(caps, srfc)
+{
+if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+return True
+if (g_.cfg.winedd and g_.proxies.flp.IsThatYou(s))
+return True
+}
 IDirectDrawSurface_GetSurfaceDesc(p1, p2)
 {
 if (r := dllcall(IDirectDrawSurface.GetSurfaceDesc, uint, p1, uint, p2))
 return r
 caps := GetSurfaceCaps(p1)
-if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+if IsProxy(caps, p1)
 {
 (desc:= struct(DDSURFACEDESC)).dwSize  :=  DDSURFACEDESC.size()
 if ! dllcall(IDirectDrawSurface.GetSurfaceDesc, uint, g_.proxies.dev.surface, uint, desc[])
@@ -7801,7 +7818,7 @@ IDirectDrawSurface4_GetSurfaceDesc(p1, p2)
 if (r := dllcall(IDirectDrawSurface4.GetSurfaceDesc, uint, p1, uint, p2))
 return r
 caps := GetSurfaceCaps4(p1)
-if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+if IsProxy(caps, p1)
 {
 (desc:= struct(DDSURFACEDESC2)).dwSize  :=  DDSURFACEDESC2.size()
 if ! dllcall(IDirectDrawSurface4.GetSurfaceDesc, uint, g_.proxies.dev.surface4, uint, desc[])
@@ -7820,8 +7837,7 @@ return r
 }
 IDirectDrawSurface_GetPixelFormat(p1, p2)
 {
-if (caps := GetSurfaceCaps(p1)) & DDSCAPS_PRIMARYSURFACE
-or (caps & DDSCAPS_3DDEVICE) or (caps & DDSCAPS_FLIP)
+if IsProxy(GetSurfaceCaps(p1), p1)
 return dllcall("peixoto.dll\SetDDSurfacePixelFormat", uint, p2, astr, (D3DHOOKS_DATA.D=16) ? "RG6B" : (D3DHOOKS_DATA.D=8) ? "PAL8" : "X8RGB")
 return dllcall(IDirectDrawSurface.GetPixelFormat, uint, p1, uint, p2)
 }

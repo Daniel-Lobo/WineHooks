@@ -437,11 +437,22 @@ GetProxy4(s, byref z)
 	return _GetProxy(s, GetSurfaceCaps4(s), z)	
 }
 
+FindProxy(cps, s)
+{
+	p := cps & DDSCAPS_PRIMARYSURFACE ? g_.proxies.prim 
+	: cps & DDSCAPS_FLIP or (g_.cfg.winedd and g_.proxies.flp.IsThatYou(s)) ? g_.proxies.dev
+	: {"surface4" : s, "surface" : s}
+	return p
+}
+
 _GetProxy(s, cps, byref z)
 {
+	/*
 	cps & DDSCAPS_PRIMARYSURFACE ? p := g_.proxies.prim 
 	: cps & DDSCAPS_FLIP ? p := g_.proxies.dev	
 	: p := {"surface4" : s, "surface" : s}
+	*/
+	p := FindProxy(cps, s)
 	if (z := cps & DDSCAPS_ZBUFFER)
 	return _GetZ(s)
 	return p
@@ -449,9 +460,12 @@ _GetProxy(s, cps, byref z)
 
 GetProxy(s, byref z)
 {
+	/*
 	(cps := GetSurfaceCaps(s)) & DDSCAPS_PRIMARYSURFACE  ? p := g_.proxies.prim 
 	: cps & DDSCAPS_FLIP ? p := g_.proxies.dev	
 	: p := {"surface4" : s, "surface" : s}
+	*/
+	p := FindProxy(cps := GetSurfaceCaps(s), s)
 	if (z := cps & DDSCAPS_ZBUFFER)
 	return _GetZ(s)
 	return p

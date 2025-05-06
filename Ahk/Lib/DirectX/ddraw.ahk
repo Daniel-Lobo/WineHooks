@@ -782,6 +782,13 @@ class Surface {
         dllcall(IDirectDrawSurface.restore, uint, this.surface)
         (this.flip) ? dllcall(IDirectDrawSurface.restore, uint, this.flip)
     }
+	IsThatYou(s){
+		_this := dllcall(g_.p.GetSurfaceID, ptr, this.surface)
+		_that := dllcall(g_.p.GetSurfaceID, ptr, s)
+		if (_this and _this = _that)
+		return True
+		return False		
+	}
 	__Delete()
     {
         (this.Texture) ? printl("Releasing Surrogate Texture2 " dllcall(IDirect3DTexture2.release, uint, this.Texture, uint))

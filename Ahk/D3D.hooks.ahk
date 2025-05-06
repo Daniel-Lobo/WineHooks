@@ -832,13 +832,22 @@ IDirectDrawSurface_AddAttachedSurface(p1, p2)
 	return dllcall(IDirectDrawSurface.AddAttachedSurface, uint, p1, uint, p2)
 }
 
+IsProxy(caps, srfc)
+{
+	if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+	return True
+	if (g_.cfg.winedd and g_.proxies.flp.IsThatYou(s))
+	return True	
+}
+
 IDirectDrawSurface_GetSurfaceDesc(p1, p2)
 {
 	if (r := dllcall(IDirectDrawSurface.GetSurfaceDesc, uint, p1, uint, p2))
 	return r
 	caps := GetSurfaceCaps(p1)
 	
-	if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+	;if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+	if IsProxy(caps, p1)
 	{
 		(desc:= struct(DDSURFACEDESC)).dwSize  :=  DDSURFACEDESC.size()
 		if ! dllcall(IDirectDrawSurface.GetSurfaceDesc, uint, g_.proxies.dev.surface, uint, desc[])
@@ -858,7 +867,8 @@ IDirectDrawSurface4_GetSurfaceDesc(p1, p2)
 	return r
 	
 	caps := GetSurfaceCaps4(p1)	
-	if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+	;if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+	if IsProxy(caps, p1)
 	{
 		(desc:= struct(DDSURFACEDESC2)).dwSize  :=  DDSURFACEDESC2.size()
 		if ! dllcall(IDirectDrawSurface4.GetSurfaceDesc, uint, g_.proxies.dev.surface4, uint, desc[])
@@ -878,8 +888,9 @@ IDirectDrawSurface4_GetSurfaceDesc(p1, p2)
 
 IDirectDrawSurface_GetPixelFormat(p1, p2)
 {
-	if (caps := GetSurfaceCaps(p1)) & DDSCAPS_PRIMARYSURFACE  
-	or (caps & DDSCAPS_3DDEVICE) or (caps & DDSCAPS_FLIP) 
+	;if (caps := GetSurfaceCaps(p1)) & DDSCAPS_PRIMARYSURFACE  
+	;or (caps & DDSCAPS_3DDEVICE) or (caps & DDSCAPS_FLIP) 
+	if IsProxy(GetSurfaceCaps(p1), p1)
 		return dllcall("peixoto.dll\SetDDSurfacePixelFormat", uint, p2, astr, (D3DHOOKS_DATA.D=16) ? "RG6B" : (D3DHOOKS_DATA.D=8) ? "PAL8" : "X8RGB")
 	return dllcall(IDirectDrawSurface.GetPixelFormat, uint, p1, uint, p2)	
 }

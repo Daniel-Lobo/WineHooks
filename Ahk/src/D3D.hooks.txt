@@ -3030,6 +3030,13 @@ return
 dllcall(IDirectDrawSurface.restore, uint, this.surface)
 (this.flip) ? dllcall(IDirectDrawSurface.restore, uint, this.flip)
 }
+IsThatYou(s){
+_this := dllcall(g_.p.GetSurfaceID, ptr, this.surface)
+_that := dllcall(g_.p.GetSurfaceID, ptr, s)
+if (_this and _this = _that)
+return True
+return False
+}
 __Delete()
 {
 (this.Texture) ? printl("Releasing Surrogate Texture2 " dllcall(IDirect3DTexture2.release, uint, this.Texture, uint))
@@ -3934,20 +3941,23 @@ GetProxy4(s, byref z)
 {
 return _GetProxy(s, GetSurfaceCaps4(s), z)
 }
+FindProxy(cps, s)
+{
+p := cps & DDSCAPS_PRIMARYSURFACE ? g_.proxies.prim
+: cps & DDSCAPS_FLIP or (g_.cfg.winedd and g_.proxies.flp.IsThatYou(s)) ? g_.proxies.dev
+: {"surface4" : s, "surface" : s}
+return p
+}
 _GetProxy(s, cps, byref z)
 {
-cps & DDSCAPS_PRIMARYSURFACE ? p := g_.proxies.prim
-: cps & DDSCAPS_FLIP ? p := g_.proxies.dev
-: p := {"surface4" : s, "surface" : s}
+p := FindProxy(cps, s)
 if (z := cps & DDSCAPS_ZBUFFER)
 return _GetZ(s)
 return p
 }
 GetProxy(s, byref z)
 {
-(cps := GetSurfaceCaps(s)) & DDSCAPS_PRIMARYSURFACE  ? p := g_.proxies.prim
-: cps & DDSCAPS_FLIP ? p := g_.proxies.dev
-: p := {"surface4" : s, "surface" : s}
+p := FindProxy(cps := GetSurfaceCaps(s), s)
 if (z := cps & DDSCAPS_ZBUFFER)
 return _GetZ(s)
 return p
@@ -6041,12 +6051,19 @@ p2           := g_.proxies.z.Surface
 }
 return dllcall(IDirectDrawSurface.AddAttachedSurface, uint, p1, uint, p2)
 }
+IsProxy(caps, srfc)
+{
+if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+return True
+if (g_.cfg.winedd and g_.proxies.flp.IsThatYou(s))
+return True
+}
 IDirectDrawSurface_GetSurfaceDesc(p1, p2)
 {
 if (r := dllcall(IDirectDrawSurface.GetSurfaceDesc, uint, p1, uint, p2))
 return r
 caps := GetSurfaceCaps(p1)
-if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+if IsProxy(caps, p1)
 {
 (desc:= struct(DDSURFACEDESC)).dwSize  :=  DDSURFACEDESC.size()
 if ! dllcall(IDirectDrawSurface.GetSurfaceDesc, uint, g_.proxies.dev.surface, uint, desc[])
@@ -6064,7 +6081,7 @@ IDirectDrawSurface4_GetSurfaceDesc(p1, p2)
 if (r := dllcall(IDirectDrawSurface4.GetSurfaceDesc, uint, p1, uint, p2))
 return r
 caps := GetSurfaceCaps4(p1)
-if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
+if IsProxy(caps, p1)
 {
 (desc:= struct(DDSURFACEDESC2)).dwSize  :=  DDSURFACEDESC2.size()
 if ! dllcall(IDirectDrawSurface4.GetSurfaceDesc, uint, g_.proxies.dev.surface4, uint, desc[])
@@ -6083,8 +6100,7 @@ return r
 }
 IDirectDrawSurface_GetPixelFormat(p1, p2)
 {
-if (caps := GetSurfaceCaps(p1)) & DDSCAPS_PRIMARYSURFACE
-or (caps & DDSCAPS_3DDEVICE) or (caps & DDSCAPS_FLIP)
+if IsProxy(GetSurfaceCaps(p1), p1)
 return dllcall("peixoto.dll\SetDDSurfacePixelFormat", uint, p2, astr, (D3DHOOKS_DATA.D=16) ? "RG6B" : (D3DHOOKS_DATA.D=8) ? "PAL8" : "X8RGB")
 return dllcall(IDirectDrawSurface.GetPixelFormat, uint, p1, uint, p2)
 }
