@@ -3033,6 +3033,7 @@ dllcall(IDirectDrawSurface.restore, uint, this.surface)
 IsThatYou(s){
 _this := dllcall(g_.p.GetSurfaceID, ptr, this.surface)
 _that := dllcall(g_.p.GetSurfaceID, ptr, s)
+logerr("Surface::IsThatYou " _this " " _that)
 if (_this and _this = _that)
 return True
 return False
@@ -4184,6 +4185,7 @@ logerr("Requested                 : " D3DHOOKS_DATA.w " x " D3DHOOKS_DATA.h)
 logerr("Real                      : " D3DHOOKS_DATA.HD_W " x " D3DHOOKS_DATA.HD_H)
 logerr("Correction                : " D3DHOOKS_DATA.scale)
 logerr("Viewport width correction : " D3DHOOKS_DATA.HD_X)
+logerr("Depth                     : " D3DHOOKS_DATA.D " bbp")
 _rect_setscale()
 if g_.cfg.MCLP
 ClipCursor(0)

@@ -52,6 +52,7 @@ SetupHD(p2, p3)
 	logerr("Real                      : " D3DHOOKS_DATA.HD_W " x " D3DHOOKS_DATA.HD_H)
 	logerr("Correction                : " D3DHOOKS_DATA.scale)
 	logerr("Viewport width correction : " D3DHOOKS_DATA.HD_X)
+	logerr("Depth                     : " D3DHOOKS_DATA.D " bbp")
 		
 	_rect_setscale()
 	if g_.cfg.MCLP
