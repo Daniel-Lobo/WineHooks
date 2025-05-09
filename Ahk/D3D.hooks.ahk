@@ -836,7 +836,7 @@ IsProxy(caps, srfc)
 {
 	if ((caps & DDSCAPS_PRIMARYSURFACE) || (caps & DDSCAPS_FLIP))
 	return True
-	if (g_.cfg.winedd and g_.proxies.flp.IsThatYou(s))
+	if (g_.cfg.winedd and g_.proxies.flp.IsThatYou(srfc))
 	return True	
 }
 
@@ -1084,6 +1084,7 @@ IDirectDrawSurface_flip(p1, p2, p3)
 		g_.Device3 ? dllcall(IDirect3DDevice3.SetRenderTarget, uint, g_.Device3, uint, g_.proxies.dev.surface4)
 		: g_.Device2 ? dllcall(IDirect3DDevice2.SetRenderTarget, uint, g_.Device2, uint, g_.proxies.dev.surface)
 		DDWait(p1, p2&DDFLIP_WAIT)
+		logerr("==========================flip=============================")
 		Surface1UpDatePrim(p1, g_.proxies.skp := 0)
 		return 0 ; TODO: Some error checking here
 	}

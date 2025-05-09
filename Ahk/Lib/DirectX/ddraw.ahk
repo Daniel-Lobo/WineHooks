@@ -784,8 +784,7 @@ class Surface {
     }
 	IsThatYou(s){
 		_this := dllcall(g_.p.GetSurfaceID, ptr, this.surface)
-		_that := dllcall(g_.p.GetSurfaceID, ptr, s)
-		logerr("Surface::IsThatYou " _this " " _that)
+		_that := dllcall(g_.p.GetSurfaceID, ptr, s)		
 		if (_this and _this = _that)
 		return True
 		return False		
