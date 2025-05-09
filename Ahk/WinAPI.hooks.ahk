@@ -21,24 +21,26 @@ InitWWnAPIHooks()
 			
 		if (g_.cfg.GDI)	
 		{
+			dll := g_.cfg.winedd ? "gdi32.dll" : "Gdi32Full.dll"
+
 			hook := isfunc(h:="AltStretchBltHook") ? h : "StretchBltHook"
-			logerr("StretchBlthook " InstallHook(hook, p, "Gdi32Full.dll", "StretchBlt")) 
+			logerr("StretchBlthook " InstallHook(hook, p, dll, "StretchBlt")) 
 			g_.WnAPI.Sblt         := p
 			
 			hook := isfunc(h:="AltBitBltHook") ? h : "BitBltHook"
-			logerr("BitBlthook " InstallHook(hook, p, "Gdi32Full.dll", "BitBlt")) 
+			logerr("BitBlthook " InstallHook(hook, p, dll, "BitBlt")) 
 			g_.WnAPI.Bitblt       := p
 			
 			hook := isfunc(h:="PatBlt") ? h : "PatBltHook"
-			logerr("PatBlthook " InstallHook(hook, p, "Gdi32Full.dll", "PatBlt")) 
+			logerr("PatBlthook " InstallHook(hook, p, dll, "PatBlt")) 
 			g_.WnAPI.PatBlt       := p
 			
 			hook := isfunc(h:="TextOutA") ? h : "TextOutAHook"
-			logerr("TextOutAhook " InstallHook(hook, p, "Gdi32Full.dll", "TextOutA")) 
+			logerr("TextOutAhook " InstallHook(hook, p, dll, "TextOutA")) 
 			g_.WnAPI.TextOutA    := p
 			
 			hook := isfunc(h:="ExtTextOutA") ? h : "ExtTextOutAHook"
-			logerr("ExtTextOutAhook " InstallHook(hook, p, "Gdi32Full.dll", "ExtTextOutA")) 
+			logerr("ExtTextOutAhook " InstallHook(hook, p, dll, "ExtTextOutA")) 
 			g_.WnAPI.ExtTextOutA := p
 		}
 	}

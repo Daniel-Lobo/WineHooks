@@ -331,8 +331,7 @@ Surface7Unlock(p1, p2)
 }
 
 Surface4Unlock(p1, p2)
-{
-	logerr("Surface4Unlock")
+{	
 	r := dllcall(IDirectDrawSurface4.Unlock, uint, (p := GetProxy4(p1, z)).surface4, uint, p2)
 	UpdateSrfc(p.surface, p1, z, D3DHOOKS_DATA._rct, D3DHOOKS_DATA.rct, g_.cfg.cpy)
 	return r
@@ -353,16 +352,14 @@ Surface1ReleaseDC(p1, p2)
 }
 
 Surface1lock(p1, p2, p3, p4, p5)
-{
-	logerr("Surface1lock")
+{	
 	UpdateProxy(p := GetSrcProxy(p1).surface, p1, p2, g_.cfg.READ, g_.cfg.cpy)
 	r := dllcall(IDirectDrawSurface.lock, uint, p, uint, p2, uint, p3, uint, p4, uint, P5, uint)
 	return r
 }
 
 Surface1Unlock(p1, p2)
-{	
-	logerr("Surface1Unlock")
+{		
 	r := dllcall(IDirectDrawSurface.Unlock, uint, (p := GetProxy(p1, z)).surface, uint, p2)
 	UpdateSrfc(p.surface, p1, z, D3DHOOKS_DATA._rct, D3DHOOKS_DATA.rct, g_.cfg.cpy)
 	return r
@@ -392,8 +389,7 @@ zclear(fx)
 }
 
 Surface1Blt(p1, p2, p3, p4, p5, p6)
-{	
-	logerr("Surface1Blt")
+{		
 	UpdateProxy(src:=GetSrcProxy(p3).surface, p3, p4, True)
 	r := dllcall(IDirectDrawSurface.blt, uint, dst:=GetProxy(p1, z).surface, uint, p2, uint, src, uint, p4, uint, p5, uint, p6, uint)
 	UpdateSrfc(dst, p1, z, p2, p2)
@@ -443,10 +439,9 @@ GetProxy4(s, byref z)
 
 FindProxy(cps, s)
 {
-	p := cps & DDSCAPS_PRIMARYSURFACE ? {"surface4" : s, "surface" : s} ;g_.proxies.prim 
+	p := cps & DDSCAPS_PRIMARYSURFACE ? g_.proxies.prim 
 	: cps & DDSCAPS_FLIP or (g_.cfg.winedd and g_.proxies.flp.IsThatYou(s)) ? g_.proxies.dev
-	: {"surface4" : s, "surface" : s}
-	logerr(p = g_.proxies.prim ? "primary" : p = g_.proxies.dev ? "flip" : "surface")
+	: {"surface4" : s, "surface" : s}	
 	return p
 }
 
@@ -624,7 +619,7 @@ Surface1UpDatePrim(p, pRECT)
 {
 	(g_.cfg.xBRh) ? keyevent(g_.cfg.xBRh) ?	g_.cfg.xBR := (g_.cfg.xBR) ? 0 : 1
 	(g_.cfg.xBR or g_.cfg.SCLR) ? dllcall(g_.p.Scale, uint, pRECT, uint, g_HD._Sclr[])
-	if g_.proxies.32bit
+	if (g_.proxies.32bit)
 	{
 		Pal2RGB(g_.proxies.prim.surface, (g_.cfg.xBR or g_.cfg.SCLR) ? g_HD._Sclr.src : pRECT)
 		src := g_.proxies.32bit

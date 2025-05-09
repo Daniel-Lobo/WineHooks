@@ -3849,7 +3849,6 @@ return r
 }
 Surface4Unlock(p1, p2)
 {
-logerr("Surface4Unlock")
 r := dllcall(IDirectDrawSurface4.Unlock, uint, (p := GetProxy4(p1, z)).surface4, uint, p2)
 UpdateSrfc(p.surface, p1, z, D3DHOOKS_DATA._rct, D3DHOOKS_DATA.rct, g_.cfg.cpy)
 return r
@@ -3868,14 +3867,12 @@ return r
 }
 Surface1lock(p1, p2, p3, p4, p5)
 {
-logerr("Surface1lock")
 UpdateProxy(p := GetSrcProxy(p1).surface, p1, p2, g_.cfg.READ, g_.cfg.cpy)
 r := dllcall(IDirectDrawSurface.lock, uint, p, uint, p2, uint, p3, uint, p4, uint, P5, uint)
 return r
 }
 Surface1Unlock(p1, p2)
 {
-logerr("Surface1Unlock")
 r := dllcall(IDirectDrawSurface.Unlock, uint, (p := GetProxy(p1, z)).surface, uint, p2)
 UpdateSrfc(p.surface, p1, z, D3DHOOKS_DATA._rct, D3DHOOKS_DATA.rct, g_.cfg.cpy)
 return r
@@ -3904,7 +3901,6 @@ return
 }
 Surface1Blt(p1, p2, p3, p4, p5, p6)
 {
-logerr("Surface1Blt")
 UpdateProxy(src:=GetSrcProxy(p3).surface, p3, p4, True)
 r := dllcall(IDirectDrawSurface.blt, uint, dst:=GetProxy(p1, z).surface, uint, p2, uint, src, uint, p4, uint, p5, uint, p6, uint)
 UpdateSrfc(dst, p1, z, p2, p2)
@@ -3950,7 +3946,6 @@ FindProxy(cps, s)
 p := cps & DDSCAPS_PRIMARYSURFACE ? g_.proxies.prim
 : cps & DDSCAPS_FLIP or (g_.cfg.winedd and g_.proxies.flp.IsThatYou(s)) ? g_.proxies.dev
 : {"surface4" : s, "surface" : s}
-logerr(p = g_.proxies.prim ? "primary" : p = g_.proxies.dev ? "flip" : "surface")
 return p
 }
 _GetProxy(s, cps, byref z)
@@ -4007,7 +4002,6 @@ GetRT(rct, cpy)
 }
 UpdateSrfc(p, s, z, PrmrRct=0, RTRct=0, cpy=False)
 {
-Logerr("UpdateSrfc")
 if (p = g_.proxies.prim.surface)
 return (g_.rtrgt) ? Surface1UpDatePrimB(s, PrmrRct) : Surface1UpDatePrim(s, PrmrRct)
 else if (p = g_.proxies.dev.Surface) and g_.rtrgt
@@ -4098,7 +4092,6 @@ Surface1UpDatePrim(p, pRECT)
 {
 (g_.cfg.xBRh) ? keyevent(g_.cfg.xBRh) ?	g_.cfg.xBR := (g_.cfg.xBR) ? 0 : 1
 (g_.cfg.xBR or g_.cfg.SCLR) ? dllcall(g_.p.Scale, uint, pRECT, uint, g_HD._Sclr[])
-Logerr("Surface1UpDatePrim")
 if (g_.proxies.32bit)
 {
 Pal2RGB(g_.proxies.prim.surface, (g_.cfg.xBR or g_.cfg.SCLR) ? g_HD._Sclr.src : pRECT)
@@ -4127,8 +4120,8 @@ dllcall(IDirectDrawSurface.blt, uint, p, uint, g_HD._Sclr.dst, uint, src, uint, 
 return
 }
 DDWait(p)
-logerr("blt to real primary " dllcall(IDirectDrawSurface.blt, uint, p, uint, _RECT[], uint, src.surface, uint, 0
-, uint, 0, uint, 0, uint))
+dllcall(IDirectDrawSurface.blt, uint, p, uint, _RECT[], uint, src.surface, uint, 0
+, uint, 0, uint, 0, uint)
 return
 }
 Pal2RGB(src, rect_=0)
@@ -4141,8 +4134,7 @@ l2 := dllcall(IDirectDrawSurface.lock, uint, g_.proxies.s32bit.surface, uint, re
 dllcall(g_.p.Pal2RGB, uint, D.lpSurface, uint, D.lPitch, uint, g_.palette, uint, D2.lpSurface, uint, D2.lPitch, uint, D.dwWidth, uint, D.dwHeight, uint, rect_)
 dllcall(IDirectDrawSurface.Unlock, uint, src, uint, 0)
 dllcall(IDirectDrawSurface.Unlock, uint, g_.proxies.s32bit.surface, uint, 0)
-logerr("blt to 32 bit surface " dllcall(IDirectDrawSurface.blt, uint, g_.proxies.32bit.surface, uint, rect_, uint, g_.proxies.s32bit.surface, uint, rect_, uint, 0, uint, 0))
-logerr(IsObject(g_.proxies.32bit) " " IsObject(g_.proxies.s32bit))
+dllcall(IDirectDrawSurface.blt, uint, g_.proxies.32bit.surface, uint, rect_, uint, g_.proxies.s32bit.surface, uint, rect_, uint, 0, uint, 0)
 }
 global g_HD   := {}
 g_HD.Sclr     := struct("LPVOID ww, hh, DWORD step[4]; DWORD xOffset; DWORD x, y, w, h; DWORD dx, dy, dw, dh; LPVOID src, dst;")
@@ -5593,6 +5585,8 @@ h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\w
 g_.p.DDCreateEx        := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
 g_.p.DirectDrawCreate  := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
 }
+logerr("wined3d_device_context_blt_hook " InstallHook("wined3d_device_context_blt_hook", p, "wined3d.dll", "wined3d_device_context_blt", "CDecl"))
+g_.p.wined3d_device_context_blt := p
 }
 g_.p.SetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "SetDDSurfacePixelFormat", uint)
 g_.p.GetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "GetDDSPixelFormat", uint)
@@ -5762,6 +5756,12 @@ DEVICE3_RECT.GetTextureStageState   := IDirect3DDevice7.GetTextureStageState
 DEVICE3_RECT.ReleaseTexture         := IDirectDrawSurface7.Release
 g_.Dev7_DrawRect         := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "IDirect3DDevice7_DrawRect")
 g_.Dev7_DrawRctWithFlags := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "IDirect3DDevice7_DrawRectWithFlags")
+}
+wined3d_device_context_blt_hook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10){
+err := dllcall(g_.p.wined3d_device_context_blt, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7
+, uint, p8, uint, p9, uint, 0, "CDecl")
+logerr("wined3d_device_context_blt_hook" err " " ErrorLevel)
+return err
 }
 IDirectDrawGammaControl_SetGammaRamp(p1, p2, p3)
 {
@@ -6284,7 +6284,6 @@ flip()
 g_.Device3 ? dllcall(IDirect3DDevice3.SetRenderTarget, uint, g_.Device3, uint, g_.proxies.dev.surface4)
 : g_.Device2 ? dllcall(IDirect3DDevice2.SetRenderTarget, uint, g_.Device2, uint, g_.proxies.dev.surface)
 DDWait(p1, p2&DDFLIP_WAIT)
-logerr("==========================flip=============================")
 Surface1UpDatePrim(p1, g_.proxies.skp := 0)
 return 0
 }

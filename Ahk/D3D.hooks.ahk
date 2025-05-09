@@ -273,6 +273,8 @@ InitD3DHook()
 			g_.p.DDCreateEx        := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
 			g_.p.DirectDrawCreate  := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
 		}
+		logerr("wined3d_device_context_blt_hook " InstallHook("wined3d_device_context_blt_hook", p, "wined3d.dll", "wined3d_device_context_blt", "CDecl")) 
+		g_.p.wined3d_device_context_blt := p
 		;logerr("InitWineHooks " strget(dllcall("peixoto.dll\InitWineHoooks", wstr, "", ptr)+0, "UTF-8"))
 	}
 	
@@ -489,6 +491,13 @@ if (g_.cfg.D3D = "7")
 	DEVICE3_RECT.ReleaseTexture         := IDirectDrawSurface7.Release
 	g_.Dev7_DrawRect         := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "IDirect3DDevice7_DrawRect")	
 	g_.Dev7_DrawRctWithFlags := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "IDirect3DDevice7_DrawRectWithFlags")	
+}
+
+wined3d_device_context_blt_hook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10){
+	err := dllcall(g_.p.wined3d_device_context_blt, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7
+	, uint, p8, uint, p9, uint, 0, "CDecl")
+	logerr("wined3d_device_context_blt_hook" err " " ErrorLevel)
+	return err
 }
 
 IDirectDrawGammaControl_SetGammaRamp(p1, p2, p3)
@@ -1083,8 +1092,7 @@ IDirectDrawSurface_flip(p1, p2, p3)
 		flip()
 		g_.Device3 ? dllcall(IDirect3DDevice3.SetRenderTarget, uint, g_.Device3, uint, g_.proxies.dev.surface4)
 		: g_.Device2 ? dllcall(IDirect3DDevice2.SetRenderTarget, uint, g_.Device2, uint, g_.proxies.dev.surface)
-		DDWait(p1, p2&DDFLIP_WAIT)
-		logerr("==========================flip=============================")
+		DDWait(p1, p2&DDFLIP_WAIT)		
 		Surface1UpDatePrim(p1, g_.proxies.skp := 0)
 		return 0 ; TODO: Some error checking here
 	}
