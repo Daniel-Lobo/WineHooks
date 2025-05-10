@@ -22,12 +22,26 @@ enum WINEHOOKS_POSTFX_FLAGS
     XBRZ = 1
 };
 
+enum wined3d_texture_filter_type
+{
+    WINED3D_TEXF_NONE                       = 0,
+    WINED3D_TEXF_POINT                      = 1,
+    WINED3D_TEXF_LINEAR                     = 2,
+    WINED3D_TEXF_ANISOTROPIC                = 3,
+    WINED3D_TEXF_FLAT_CUBIC                 = 4,
+    WINED3D_TEXF_GAUSSIAN_CUBIC             = 5,
+    WINED3D_TEXF_PYRAMIDAL_QUAD             = 6,
+    WINED3D_TEXF_GAUSSIAN_QUAD              = 7,
+};
+
 class WINEHOOKS
 {
 public:  
     WINEHOOKS(){
         m_Context.Set(0);
     }
+    HRESULT (__cdecl  * wined3d_device_context_blt) (LPVOID, LPVOID, UINT, LPVOID, LPVOID, UINT, LPVOID, UINT, LPVOID, UINT) = nullptr;
+    SYNC::Atomic wined3d_filter_blits;
     PROC    (WINAPI   * wglGetProcAddress)(LPCSTR)   = nullptr; 
     BOOL    (APIENTRY * wglDeleteContext)(HGLRC)     = nullptr;    
     BOOL    (APIENTRY * wglMakeCurrent)(HDC, HGLRC)  = nullptr;  

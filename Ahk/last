@@ -1,5 +1,5 @@
-global g_MainThreadID := 4016 ;<Tag> 
-global g_cmdstring := "-Target^E:\Games\Alien Earth\Alien.exe^-D3D^2^-Path^Alien Earth^/32bit^/HD^-MCLP^2^/4K^/DinputEmu^-WNMM^MCI=false;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;m=none;spd=0.4;dz=0.2;{b {f} ==[Installing the game on 64 bit systems]==;FF=False;^-Textswap^e=false;s=16;dly=False;path=Textures\VOKSI;sz=256;a=False;l=False;A8Fix=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-DSnd^e=false;^-script_hwnd^0x23071c^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Alien Earth^-target_name^Alien.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 4284 ;<Tag> 
+global g_cmdstring := "-Target^E:\Games\Blood II - The Chosen\BLOOD2.EXE^-D3D^1^-path^Blood 2^-ssaa^4^/32bit^/hd^/gamma^-compatlayer^dwm8and16bitmitigation^-Textswap^e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=TexturesVOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-script_hwnd^0x520590^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Blood II - The Chosen^-target_name^BLOOD2.EXE^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -5759,7 +5759,12 @@ DumpSurface(g_.proxies.dev.surface, str " Proxy.dds")
 }
 DDBlt(d, dr, s, sr, f, bfx)
 {
-fgs := [(g_.cfg.winedd)?DDBLT_KEYSRC:DDBLT_KEYSRCOVERRIDE, DDBLT_COLORFILL][f] | DDBLT_WAIT
+if (f=3){
+dllcall(g_.p_SetFilterBlits, "uint")
+fgs := DDBLT_WAIT
+} else if (f=0){
+fgs := DDBLT_WAIT
+} else fgs := [(g_.cfg.winedd)?DDBLT_KEYSRC:DDBLT_KEYSRCOVERRIDE, DDBLT_COLORFILL][f] | DDBLT_WAIT
 return dllcall(Idirectdrawsurface.blt, uint, d, uint, dr, uint, s, uint, sr, uint, fgs, uint, bfx, uint)
 }
 D3DBlt(dst, dst_rct, src, src_rect, f, bfx, dvc="")
@@ -7322,8 +7327,7 @@ h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\w
 g_.p.DDCreateEx        := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
 g_.p.DirectDrawCreate  := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
 }
-logerr("wined3d_device_context_blt_hook " InstallHook("wined3d_device_context_blt_hook", p, "wined3d.dll", "wined3d_device_context_blt", "CDecl"))
-g_.p.wined3d_device_context_blt := p
+logerr("InitDDrawWineHoooks " DllCall("peixoto\InitDDrawWineHoooks", uint, 0, "wstr"))
 }
 g_.p.SetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "SetDDSurfacePixelFormat", uint)
 g_.p.GetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "GetDDSPixelFormat", uint)
@@ -7343,6 +7347,7 @@ g_.p.DDSSrfcAttchDat       := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, as
 g_.p.ddiCreatePx           := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiCreatePxShader")
 g_.p.ddiDeletePx           := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiDeletePxShader")
 g_.p.ddiSetOvrrd           := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiSetOverride")
+g_.p_SetFilterBlits        := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "SetWineD3DFilterBlits")
 (g_.cfg.MHKS)              ? dllcall("Peixoto.dll\InitMouseHooks")
 (g_.cfg.DisableFontAA)     ? (dllcall("Peixoto.dll\DisableFontAA"), g_.cfg.DisableFontAA := "")
 logerr(g_.p.Dev3_DrawRctWithFlags "============================================")

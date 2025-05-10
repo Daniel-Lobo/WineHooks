@@ -109,7 +109,7 @@ void glBlitFramebufferHook(GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, G
             WINE_HOOKS_GL_CALL( WineHooks.glEnableVertexAttribArray(1) )
 
             WINE_HOOKS_GL_CALL( WineHooks.glVertexAttribPointer(0, GL_FLOAT, sizeof(float)*2, FALSE, sizeof(quad), 0) )
-            WINE_HOOKS_GL_CALL( WineHooks.glVertexAttribPointer(0, GL_FLOAT, sizeof(float)*3, FALSE, sizeof(quad), sizeof(float)*2) )
+            WINE_HOOKS_GL_CALL( WineHooks.glVertexAttribPointer(0, GL_FLOAT, sizeof(float)*3, FALSE, sizeof(quad), (const void*)(sizeof(float)*2)) )
             WINE_HOOKS_GL_CALL( WineHooks.glBufferData(GL_ARRAY_BUFFER, sizeof(quad), &quad, GL_STATIC_DRAW) )
 
             WINE_HOOKS_GL_CALL( glDrawArrays(GL_TRIANGLE_STRIP, 0, 4) )
@@ -161,6 +161,45 @@ PROC WINAPI wglGetProcAddressHook(LPCSTR proc)
     } 
     return WineHooks.wglGetProcAddress(proc);       
 } 
+
+extern "C"  __declspec(dllexport) HRESULT SetWineD3DFilterBlits()
+{
+    WineHooks.wined3d_filter_blits.Set(1);
+    return 1;
+}
+
+HRESULT __cdecl wined3d_device_context_blt_hook(LPVOID dcv_ctxt, LPVOID dst_srfc, UINT dst_srfc_index, LPVOID dst_rect, 
+LPVOID src_srfc, UINT src_srfc_index, LPVOID src_rect, UINT flags, LPVOID fx, UINT){
+    wined3d_texture_filter_type filter = WineHooks.wined3d_filter_blits.Get() == 1 ? WINED3D_TEXF_LINEAR : WINED3D_TEXF_NONE; 
+    auto err = WineHooks.wined3d_device_context_blt(dcv_ctxt, dst_srfc, dst_srfc_index, dst_rect, src_srfc, src_srfc_index, src_rect, flags, fx, filter);
+    if (filter == WINED3D_TEXF_LINEAR)
+    WineHooks.wined3d_filter_blits.Set(0);
+    return err;
+}
+
+extern "C"  __declspec(dllexport) wchar_t * __stdcall InitDDrawWineHoooks(wchar_t * flags){
+    static string err = "S_OK";
+    HMODULE h_wined3d = GetModuleHandleA("wined3d.dll");
+    if (h_wined3d == nullptr)
+    {
+        err = "GetModuleHandleA(wined3d.dll) FAILED";
+        return (wchar_t *)err.c_str(); 
+    }
+    WineHooks.wined3d_device_context_blt = (decltype(WineHooks.wined3d_device_context_blt))GetProcAddress(h_wined3d, "wined3d_device_context_blt");
+    if (WineHooks.wined3d_device_context_blt == nullptr)
+    {
+        err = "GetProcAddress(wined3d_device_context_blt) FAILED";
+        return  (wchar_t *)err.c_str();
+    }   
+    int hook = sethook((void**)&WineHooks.wined3d_device_context_blt, (void*)wined3d_device_context_blt_hook);
+    if (hook != 0)
+    {
+        err = "FAILED to HOOK wined3d_device_context_blt ";
+        err += to_string(hook);
+        return (wchar_t *)err.c_str();
+    } 
+    return  (wchar_t *) err.c_str();
+}
 
 extern "C" __declspec(dllexport) wchar_t * __stdcall InitWineHoooks(wchar_t * flags)
 {

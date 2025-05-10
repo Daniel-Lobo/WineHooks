@@ -4022,7 +4022,12 @@ DumpSurface(g_.proxies.dev.surface, str " Proxy.dds")
 }
 DDBlt(d, dr, s, sr, f, bfx)
 {
-fgs := [(g_.cfg.winedd)?DDBLT_KEYSRC:DDBLT_KEYSRCOVERRIDE, DDBLT_COLORFILL][f] | DDBLT_WAIT
+if (f=3){
+dllcall(g_.p_SetFilterBlits, "uint")
+fgs := DDBLT_WAIT
+} else if (f=0){
+fgs := DDBLT_WAIT
+} else fgs := [(g_.cfg.winedd)?DDBLT_KEYSRC:DDBLT_KEYSRCOVERRIDE, DDBLT_COLORFILL][f] | DDBLT_WAIT
 return dllcall(Idirectdrawsurface.blt, uint, d, uint, dr, uint, s, uint, sr, uint, fgs, uint, bfx, uint)
 }
 D3DBlt(dst, dst_rct, src, src_rect, f, bfx, dvc="")
@@ -5585,8 +5590,7 @@ h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\w
 g_.p.DDCreateEx        := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
 g_.p.DirectDrawCreate  := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
 }
-logerr("wined3d_device_context_blt_hook " InstallHook("wined3d_device_context_blt_hook", p, "wined3d.dll", "wined3d_device_context_blt", "CDecl"))
-g_.p.wined3d_device_context_blt := p
+logerr("InitDDrawWineHoooks " DllCall("peixoto\InitDDrawWineHoooks", uint, 0, "wstr"))
 }
 g_.p.SetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "SetDDSurfacePixelFormat", uint)
 g_.p.GetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "GetDDSPixelFormat", uint)
@@ -5606,6 +5610,7 @@ g_.p.DDSSrfcAttchDat       := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, as
 g_.p.ddiCreatePx           := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiCreatePxShader")
 g_.p.ddiDeletePx           := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiDeletePxShader")
 g_.p.ddiSetOvrrd           := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiSetOverride")
+g_.p_SetFilterBlits        := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "SetWineD3DFilterBlits")
 (g_.cfg.MHKS)              ? dllcall("Peixoto.dll\InitMouseHooks")
 (g_.cfg.DisableFontAA)     ? (dllcall("Peixoto.dll\DisableFontAA"), g_.cfg.DisableFontAA := "")
 logerr(g_.p.Dev3_DrawRctWithFlags "============================================")

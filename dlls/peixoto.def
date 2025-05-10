@@ -282,3 +282,5 @@ CEPlugin_GetVersion=CEPlugin_GetVersion@8
 CEPlugin_DisablePlugin=CEPlugin_DisablePlugin@0
 DisableFontAA=DisableFontAA@0
 GDISetHz=GDISetHz@4
+InitDDrawWineHoooks=InitDDrawWineHoooks@4
+SetWineD3DFilterBlits=SetWineD3DFilterBlits@0

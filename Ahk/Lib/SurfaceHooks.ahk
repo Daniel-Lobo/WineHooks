@@ -536,7 +536,12 @@ DumpRT(s)
 
 DDBlt(d, dr, s, sr, f, bfx)
 {
-	fgs := [(g_.cfg.winedd)?DDBLT_KEYSRC:DDBLT_KEYSRCOVERRIDE, DDBLT_COLORFILL][f] | DDBLT_WAIT ;| DDBLT_DDFX 
+	if (f=3){
+		dllcall(g_.p_SetFilterBlits, "uint")
+		fgs := DDBLT_WAIT
+	} else if (f=0){
+		fgs := DDBLT_WAIT
+	} else fgs := [(g_.cfg.winedd)?DDBLT_KEYSRC:DDBLT_KEYSRCOVERRIDE, DDBLT_COLORFILL][f] | DDBLT_WAIT ;| DDBLT_DDFX 
 	return dllcall(Idirectdrawsurface.blt, uint, d, uint, dr, uint, s, uint, sr, uint, fgs, uint, bfx, uint)
 }
 

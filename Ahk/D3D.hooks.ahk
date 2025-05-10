@@ -273,8 +273,9 @@ InitD3DHook()
 			g_.p.DDCreateEx        := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
 			g_.p.DirectDrawCreate  := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
 		}
-		logerr("wined3d_device_context_blt_hook " InstallHook("wined3d_device_context_blt_hook", p, "wined3d.dll", "wined3d_device_context_blt", "CDecl")) 
-		g_.p.wined3d_device_context_blt := p
+		;logerr("wined3d_device_context_blt_hook " InstallHook("wined3d_device_context_blt_hook", p, "wined3d.dll", "wined3d_device_context_blt", "CDecl")) 
+		;g_.p.wined3d_device_context_blt := p
+		logerr("InitDDrawWineHoooks " DllCall("peixoto\InitDDrawWineHoooks", uint, 0, "wstr"))
 		;logerr("InitWineHooks " strget(dllcall("peixoto.dll\InitWineHoooks", wstr, "", ptr)+0, "UTF-8"))
 	}
 	
@@ -296,6 +297,7 @@ InitD3DHook()
 	g_.p.ddiCreatePx           := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiCreatePxShader")
 	g_.p.ddiDeletePx           := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiDeletePxShader")	
 	g_.p.ddiSetOvrrd           := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiSetOverride")	
+	g_.p_SetFilterBlits        := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "SetWineD3DFilterBlits")
 	(g_.cfg.MHKS)              ? dllcall("Peixoto.dll\InitMouseHooks")
 	(g_.cfg.DisableFontAA)     ? (dllcall("Peixoto.dll\DisableFontAA"), g_.cfg.DisableFontAA := "")
     ;dllcall("Peixoto.dll\NVIDIA_Set", wstr, g_.cfg.target, uint, g_.cfg.NVAA:=2)
