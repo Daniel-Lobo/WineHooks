@@ -3371,6 +3371,19 @@ return
 dllcall(IDirectDrawSurface.restore, uint, this.surface)
 (this.flip) ? dllcall(IDirectDrawSurface.restore, uint, this.flip)
 }
+IsThatYou(s){
+if (s = this.surface7 || s = this.surface4 || s = this.surface)
+return True
+GUID_FromString(idd_srfc7, ddraw.IID_IDirectDrawSurface7)
+q := dllcall(IDirectDrawSurface.QueryInterface, ptr, s, ptr, &idd_srfc7, "uint*", that:=0)
+if (q = 0)
+{
+dllcall(IDirectDrawSurface.release, uint, that)
+}
+if (that and that = this.surface7)
+return True
+return False
+}
 __Delete()
 {
 (this.Surface7) ? printl("Releasing Surrogate Surface7 " dllcall(IDirectDrawSurface7.release, uint, this.Surface7))
@@ -4032,7 +4045,7 @@ return dllcall(Idirectdrawsurface.blt, uint, d, uint, dr, uint, s, uint, sr, uin
 }
 D3DBlt(dst, dst_rct, src, src_rect, f, bfx, dvc="")
 {
-if (!g_.cfg.Blt3D and !dvc)
+if (!g_.cfg.Blt3D and !dvc or g_.cfg.winedd)
 return DDBlt(dst.surface, dst_rct, src.surface, src_rect, f, bfx)
 if (dvc)
 return dvc.DrawRect(dst, dst_rct, src, src_rect, f)
@@ -6519,8 +6532,7 @@ return r
 }
 IDirectDrawSurface7_GetPixelFormat(p1, p2)
 {
-if (caps := GetSurfaceCaps7(p1)) & DDSCAPS_PRIMARYSURFACE
-or (caps & DDSCAPS_3DDEVICE) or (caps & DDSCAPS_FLIP)
+if IsProxy(GetSurfaceCaps7(p1), p1)
 return dllcall("peixoto.dll\SetDDSurfacePixelFormat", uint, p2, astr, (D3DHOOKS_DATA.D=16) ? "RG6B" : (D3DHOOKS_DATA.D=8) ? "PAL8" : "X8RGB")
 return dllcall(IDirectDrawSurface7.GetPixelFormat, uint, p1, uint, p2)
 }
@@ -6529,7 +6541,7 @@ IDirectDrawSurface7_GetSurfaceDesc(p1, p2)
 if (r := dllcall(IDirectDrawSurface7.GetSurfaceDesc, uint, p1, uint, p2))
 return r
 caps := GetSurfaceCaps7(p1)
-if (caps & DDSCAPS_FLIP) or (caps & DDSCAPS_PRIMARYSURFACE)
+if IsProxy(caps, p1)
 {
 (desc:= struct(DDSURFACEDESC2)).dwSize  :=  DDSURFACEDESC2.size()
 if ! dllcall(IDirectDrawSurface7.GetSurfaceDesc, uint, g_.proxies.dev.surface7, uint, desc[])
@@ -6583,7 +6595,8 @@ dllcall(p3, uint, g_.proxies.flp.surface7, uint, D[], uint, p2)
 }
 else
 {
-if dllcall(IDirectDrawSurface7.GetAttachedSurface, uint, p1, uint, DDSCAPS_BACKBUFFER, "uint*", f:=0)
+g := dllcall(IDirectDrawSurface7.GetAttachedSurface, uint, p1, uint, DDSCAPS_BACKBUFFER, "uint*", f:=0) || errorlevel
+if (g)
 {
 c := RegisterCallback("SrfEnum")
 dllcall(IDirectDrawSurface7.EnumAttachedSurfaces, uint, p1, uint, p2, uint, c)

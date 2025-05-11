@@ -547,7 +547,7 @@ DDBlt(d, dr, s, sr, f, bfx)
 
 D3DBlt(dst, dst_rct, src, src_rect, f, bfx, dvc="")
 {
-	if (!g_.cfg.Blt3D and !dvc)
+	if (!g_.cfg.Blt3D and !dvc or g_.cfg.winedd)
 	return DDBlt(dst.surface, dst_rct, src.surface, src_rect, f, bfx)	
 		 	
 	if (dvc)

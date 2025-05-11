@@ -1368,8 +1368,9 @@ IDirectDraw7_CreateSurface(p1, p2, p3, p4)
 
 IDirectDrawSurface7_GetPixelFormat(p1, p2)
 {
-	if (caps := GetSurfaceCaps7(p1)) & DDSCAPS_PRIMARYSURFACE  
-	or (caps & DDSCAPS_3DDEVICE) or (caps & DDSCAPS_FLIP) 
+	;if (caps := GetSurfaceCaps7(p1)) & DDSCAPS_PRIMARYSURFACE  
+	;or (caps & DDSCAPS_3DDEVICE) or (caps & DDSCAPS_FLIP) 
+	if IsProxy(GetSurfaceCaps7(p1), p1)
 		return dllcall("peixoto.dll\SetDDSurfacePixelFormat", uint, p2, astr, (D3DHOOKS_DATA.D=16) ? "RG6B" : (D3DHOOKS_DATA.D=8) ? "PAL8" : "X8RGB")
 	return dllcall(IDirectDrawSurface7.GetPixelFormat, uint, p1, uint, p2)	
 }
@@ -1379,7 +1380,8 @@ IDirectDrawSurface7_GetSurfaceDesc(p1, p2)
 	if (r := dllcall(IDirectDrawSurface7.GetSurfaceDesc, uint, p1, uint, p2))
 	return r
 	caps := GetSurfaceCaps7(p1)
-	if (caps & DDSCAPS_FLIP) or (caps & DDSCAPS_PRIMARYSURFACE)
+	;if (caps & DDSCAPS_FLIP) or (caps & DDSCAPS_PRIMARYSURFACE)
+	if IsProxy(caps, p1)
 	{
 		(desc:= struct(DDSURFACEDESC2)).dwSize  :=  DDSURFACEDESC2.size()
 		if ! dllcall(IDirectDrawSurface7.GetSurfaceDesc, uint, g_.proxies.dev.surface7, uint, desc[])
@@ -1438,7 +1440,11 @@ IDirectDrawSurface7_EnumAttachedSurfaces(p1, p2, p3)
 		}		
 		else
 		{
-			if dllcall(IDirectDrawSurface7.GetAttachedSurface, uint, p1, uint, DDSCAPS_BACKBUFFER, "uint*", f:=0)
+			/*  || errorlevel is a pretty ugly workarround for 0xc0000005 (access violation) 
+			 *  when calling GetAttachedSurface, layer fault ?
+			 */
+		 	g := dllcall(IDirectDrawSurface7.GetAttachedSurface, uint, p1, uint, DDSCAPS_BACKBUFFER, "uint*", f:=0) || errorlevel
+			if (g)
 			{
 				c := RegisterCallback("SrfEnum")
 				dllcall(IDirectDrawSurface7.EnumAttachedSurfaces, uint, p1, uint, p2, uint, c)

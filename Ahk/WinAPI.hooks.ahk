@@ -21,7 +21,7 @@ InitWWnAPIHooks()
 			
 		if (g_.cfg.GDI)	
 		{
-			dll := g_.cfg.winedd ? "gdi32.dll" : "Gdi32Full.dll"
+			dll := g_.cfg.winedd ? "Gdi32Full.dll" : "Gdi32Full.dll"
 
 			hook := isfunc(h:="AltStretchBltHook") ? h : "StretchBltHook"
 			logerr("StretchBlthook " InstallHook(hook, p, dll, "StretchBlt")) 

@@ -533,7 +533,7 @@ GetVal(ini_file_name, key, section){
 }
 
 SetValue(ini_file_name, key, val, section){
-	if ini_file_name = "undefined" or key = "undefined" or val = "undefined" or section = "undefined"
+	if (ini_file_name = "undefined" or key = "undefined" or val = "undefined" or section = "undefined")
 	return
 	return new IniFile(g_.Profiles . ini_file_name . ".ini").Edit(key, val, section).Save()
 }

@@ -1144,6 +1144,20 @@ class Surface7 {
         dllcall(IDirectDrawSurface.restore, uint, this.surface)
         (this.flip) ? dllcall(IDirectDrawSurface.restore, uint, this.flip)
     }
+	IsThatYou(s){
+		if (s = this.surface7 || s = this.surface4 || s = this.surface)
+		return True	
+		GUID_FromString(idd_srfc7, ddraw.IID_IDirectDrawSurface7)	
+		q := dllcall(IDirectDrawSurface.QueryInterface, ptr, s, ptr, &idd_srfc7, "uint*", that:=0)
+		if (q = 0)
+		{
+			dllcall(IDirectDrawSurface.release, uint, that)			
+		}
+		;logerr("IsThatYou " that  " " q)
+		if (that and that = this.surface7)
+		return True
+		return False		
+	}
 	__Delete()
     {
         (this.Surface7) ? printl("Releasing Surrogate Surface7 " dllcall(IDirectDrawSurface7.release, uint, this.Surface7))
