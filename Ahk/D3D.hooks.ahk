@@ -263,7 +263,7 @@ InitD3DHook()
 	;g_.cfg.wineoff := True
 	if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 	{
-		;g_.cfg.NEFS     := False
+		g_.cfg.NEFS     := False
 		g_.cfg.winedd   := True
 		g_.cfg.layeroff := false		
 		if (!FileExist(GetSystemDir() "\wined3d.dll"))
