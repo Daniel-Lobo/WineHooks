@@ -44,9 +44,9 @@ InitGlobals()
 	;FileAppend, , % g_.cfg.error_log
 	;g_.cfg.error_log := StrReplace(g_.cfg.error_log, "error.log", "d3d_hooks.log")
 	if g_.cfg.console
-	logErr(g_.cfg.error_log "|10000")
+	logErr(g_.cfg.error_log "|100")
 	else 
-	logErr(g_.cfg.error_log "|10000")	
+	logErr(g_.cfg.error_log "|100")	
 	logerr(cfg)
 	logerr("Working directory: " A_workingdir)
 	

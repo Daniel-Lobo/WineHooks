@@ -944,9 +944,9 @@ cfg := "Peixotos's patch remote settings:`nCommand Line: " dllcall("GetCommandLi
 for kk, vv in g_.cfg
 cfg .= kk ": " vv "`n"
 if g_.cfg.console
-logErr(g_.cfg.error_log "|10000")
+logErr(g_.cfg.error_log "|100")
 else
-logErr(g_.cfg.error_log "|10000")
+logErr(g_.cfg.error_log "|100")
 logerr(cfg)
 logerr("Working directory: " A_workingdir)
 InitFileHooks(g_.cfg)
