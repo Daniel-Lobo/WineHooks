@@ -1,5 +1,5 @@
-global g_MainThreadID := 2424 ;<Tag> 
-global g_cmdstring := "-Target^E:\Games\Forsaken\FORSAKEN.EXE^-wiki^https://www.pcgamingwiki.com/wiki/Forsaken^-D3D^1^-Path^Forsaken^/32bit^/HD^-CompatLayer^WinXPSp3^/READ^/4K^/CPY^-ver^0.10.11^/DLY^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;rs_alt=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;dly=false;a=false;l=false;A8Fix=false;^-WNMM^MCI=false;^-DSnd^e=false;r=False;s=False;S3D=False;{b {nfo} {f} ==[Supported versions\Patching the game]==;^-script_hwnd^0x7f0778^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Forsaken^-target_name^FORSAKEN.EXE^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 7724 ;<Tag> 
+global g_cmdstring := "-Target^E:\Games\Aliens vs. Predator 2\AVP2.exe^-wiki^https://www.pcgamingwiki.com/wiki/Aliens_versus_Predator_2^-D3D^7^-Path^Aliens vs Predator\AvP2^/32bit^/HD^/WHKS^/MHKS^-MCLP^2^/singlecore^-SSAA^4^/DLY^/SYS^/4K^/DDRefcountfix^/SXTY^-SYNC^1^-<Gpad>^^-K2K^t0e=false;t1e=false;r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;^-MCI^WNMM=false;^-WNMM^MCI=false;^-J2K^rs=False;u=false;a=,,,,,,,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,,,,,,,;mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,;FF=False;layer=False;^-Textswap^sz=384;e=false;path=Textures\VOKSI;sw=End;n=[;p=];d=Home;q=Shift;s=4;dly=false;a=false;l=false;A8Fix=false;^-sz^Textswap=256;^-DSnd^e=false;s=true;x=true;shrinking the HUD\menus and [gototab_...graphics_SSAA=1 super sampling anti aliasing];^-script_hwnd^0x48080c^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Aliens vs. Predator 2^-target_name^AVP2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -7331,6 +7331,8 @@ g_.p.DirectDrawCreate := pDirectDrawCreate
 }
 if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 {
+g_.cfg.mngr     := false
+g_.cfg.NEFS     := False
 g_.cfg.winedd   := True
 g_.cfg.layeroff := false
 if (!FileExist(GetSystemDir() "\wined3d.dll"))
@@ -8542,6 +8544,4 @@ return dllcall(g_.WnAPI.SetPos, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5
 }
 
 printl()
-ReleaseDirectDraw()
-
 resume()
