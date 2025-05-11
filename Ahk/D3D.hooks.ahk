@@ -263,7 +263,7 @@ InitD3DHook()
 	;g_.cfg.wineoff := True
 	if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 	{
-		g_.cfg.NEFS     := False
+		;g_.cfg.NEFS     := False
 		g_.cfg.winedd   := True
 		g_.cfg.layeroff := false		
 		if (!FileExist(GetSystemDir() "\wined3d.dll"))
@@ -308,7 +308,7 @@ InitD3DHook()
 	{
         LayerInitTextSwap(g_.cfg.TextSwap, g_.cfg.mngr)        
     }
-
+	
 	D3DHOOKS_DATA.HD       := (g_.cfg.HD)    ? 1 : 0
 	D3DHOOKS_DATA.32Bit    := (g_.cfg.32bit) ? 1 : 0
 	D3DHOOKS_DATA.NEFS     := (g_.cfg.NEFS)  ? 1 : 0
@@ -320,7 +320,7 @@ InitD3DHook()
 	dllcall("peixoto.dll\D3D12Config", astr, "DBUG", uint, 1)
 	g_.cfg.FLTR := ""
 	if (g_.cfg.FLTR)
-	dllcall("peixoto.dll\D3D12Config", astr, "TEXTURE.FILTER", uint, g_.cfg.winedd ? 2 : 1)
+	dllcall("peixoto.dll\D3D12Config", astr, "TEXTURE.FILTER", uint, 1)
 	g_.dbg := {"frm" : 0}
 	
 	g_.palette := dllcall("VirtualAlloc", ptr, 0, ptr, 1024, uint, 0x3000, uint, 0x04, ptr)	
@@ -1105,7 +1105,7 @@ IDirectDrawSurface_flip(p1, p2, p3)
 	}
     ; drakan SSAA shadow glich: g_.proxies.d3d.draw()
 	if (g_.cfg.SSAA){	
-		dvc := new D3DDevice(dllcall(g_.p.DDFrmSrfc, ptr,  g_.proxies.filtered.surface))		
+		dvc := g_.cfg.winedd ? False : new D3DDevice(dllcall(g_.p.DDFrmSrfc, ptr,  g_.proxies.filtered.surface))	
 		if (g_.cfg.SSAA=4)	
 		{			
 			D3DBlt(g_.proxies.hlf, hRECT[], g_.proxies.flp, 0, 3, DDBLTFX[], dvc)
@@ -1473,7 +1473,7 @@ IDirectDrawSurface7_flip(p1, p2, p3)
 	}
 	if (g_.cfg.SSAA){	
 		;dvc := new D3DDevice7(dllcall(g_.p.DDFrmSrfc, ptr, g_.proxies.filtered.surface))	
-		dvc := g_.proxies.D3DZ	
+		dvc := g_.cfg.winedd ? False : g_.proxies.D3DZ
 		if (g_.cfg.SSAA=4)	
 		{			
 			D3DBlt(g_.proxies.hlf, hRECT[], g_.proxies.flp, 0, 3, DDBLTFX[], dvc)

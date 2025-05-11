@@ -34,14 +34,32 @@ enum wined3d_texture_filter_type
     WINED3D_TEXF_GAUSSIAN_QUAD              = 7,
 };
 
+enum wined3d_sampler_state
+{
+    WINED3D_SAMP_ADDRESS_U                  = 1,
+    WINED3D_SAMP_ADDRESS_V                  = 2,
+    WINED3D_SAMP_ADDRESS_W                  = 3,
+    WINED3D_SAMP_BORDER_COLOR               = 4,
+    WINED3D_SAMP_MAG_FILTER                 = 5,
+    WINED3D_SAMP_MIN_FILTER                 = 6,
+    WINED3D_SAMP_MIP_FILTER                 = 7,
+    WINED3D_SAMP_MIPMAP_LOD_BIAS            = 8,
+    WINED3D_SAMP_MAX_MIP_LEVEL              = 9,
+    WINED3D_SAMP_MAX_ANISOTROPY             = 10,
+    WINED3D_SAMP_SRGB_TEXTURE               = 11,
+    WINED3D_SAMP_ELEMENT_INDEX              = 12,
+    WINED3D_SAMP_DMAP_OFFSET                = 13,
+};
+
 class WINEHOOKS
 {
 public:  
     WINEHOOKS(){
         m_Context.Set(0);
     }
-    HRESULT (__cdecl  * wined3d_device_context_blt) (LPVOID, LPVOID, UINT, LPVOID, LPVOID, UINT, LPVOID, UINT, LPVOID, UINT) = nullptr;
     SYNC::Atomic wined3d_filter_blits;
+    HRESULT (__cdecl  * wined3d_device_context_blt) (LPVOID, LPVOID, UINT, LPVOID, LPVOID, UINT, LPVOID, UINT, LPVOID, UINT)    = nullptr;
+    void    (__cdecl  * wined3d_stateblock_set_sampler_state)(LPVOID, UINT, wined3d_sampler_state, wined3d_texture_filter_type) = nullptr;
     PROC    (WINAPI   * wglGetProcAddress)(LPCSTR)   = nullptr; 
     BOOL    (APIENTRY * wglDeleteContext)(HGLRC)     = nullptr;    
     BOOL    (APIENTRY * wglMakeCurrent)(HDC, HGLRC)  = nullptr;  

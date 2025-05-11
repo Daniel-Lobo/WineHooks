@@ -1,5 +1,5 @@
-global g_MainThreadID := 11084 ;<Tag> 
-global g_cmdstring := "-Target^E:\Games\Rune\System\Rune.exe^-wiki^https://www.pcgamingwiki.com/wiki/Rune^-D3D^7^-Path^Rune^/Gamma^/32bit^/HD^-script^scripts\DeusEx.ahk^-SSAA^4^/4K^-<Gpad>^A=1;B=2;X=3;Y=4;LEFT_SHOULDER=5;RIGHT_SHOULDER=6;bLeftTrigger=7;bRightTrigger=8;Start=9;Back=10;LEFT_THUMB=11;RIGHT_THUMB=12;deadzone=0.25;^-J2K^u=false;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;m=0;spd=0;dz=0.25;rs=False;FF=False;^-<Textswap>^s=4;sz=256;path=Textures\VOKSI;n=PgUP;p=PgDn;d=Home;sw=End;c=Del;q=Ins;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-Textswap^e=true;s=4;sz=256;path=Textures\VOKSI;sw=End;n=<;p=>;d=Home;q=Shift;dly=false;a=false;l=false;^-WNMM^MCI=false;^-DSnd^e=False;^-script_hwnd^0x35094c^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Rune\System^-target_name^Rune.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 2424 ;<Tag> 
+global g_cmdstring := "-Target^E:\Games\Forsaken\FORSAKEN.EXE^-wiki^https://www.pcgamingwiki.com/wiki/Forsaken^-D3D^1^-Path^Forsaken^/32bit^/HD^-CompatLayer^WinXPSp3^/READ^/4K^/CPY^-ver^0.10.11^/DLY^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;rs_alt=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;dly=false;a=false;l=false;A8Fix=false;^-WNMM^MCI=false;^-DSnd^e=false;r=False;s=False;S3D=False;{b {nfo} {f} ==[Supported versions\Patching the game]==;^-script_hwnd^0x7f0778^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Forsaken^-target_name^FORSAKEN.EXE^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -5838,7 +5838,8 @@ Surface1UpDatePrimB(p, pRECT)
 g_.dbg.frm += 1
 g_.dbg.op  := 0
 dllcall(IDirectDrawSurface.blt, uint, g_.proxies.primcpy.surface, uint, 0, uint, p, uint, _RECT[], uint, DDBLT_WAIT, uint, 0, uint)
-dllcall(IDirectDrawSurface.blt, uint, g_.proxies.primcpy.surface, uint, 0, uint, g_.proxies.prim.Surface, uint, 0, uint, DDBLT_KEYSRCOVERRIDE, uint, g_HD.DDBLTFX[], uint)
+dllcall(IDirectDrawSurface.blt, uint, g_.proxies.primcpy.surface, uint, 0, uint, g_.proxies.prim.Surface, uint, 0
+, uint, (g_.cfg.winedd)?DDBLT_KEYSRC:DDBLT_KEYSRCOVERRIDE, uint, g_HD.DDBLTFX[], uint)
 dllcall(IDirectDrawSurface.blt, uint, p, uint, _RECT[], uint, g_.proxies.primcpy.surface, uint, 0, uint, DDBLT_WAIT, uint, 0, uint)
 dllcall(IDirectdrawSurface.blt, uint, g_.proxies.prim.Surface, uint, 0, uint, 0, uint, 0, uint, DDBLT_COLORFILL, uint, g_HD.DDBLTFX[], uint)
 return
@@ -7330,7 +7331,6 @@ g_.p.DirectDrawCreate := pDirectDrawCreate
 }
 if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 {
-g_.cfg.NEFS     := False
 g_.cfg.winedd   := True
 g_.cfg.layeroff := false
 if (!FileExist(GetSystemDir() "\wined3d.dll"))
@@ -7380,7 +7380,7 @@ if (g_.cfg.console)
 dllcall("peixoto.dll\D3D12Config", astr, "DBUG", uint, 1)
 g_.cfg.FLTR := ""
 if (g_.cfg.FLTR)
-dllcall("peixoto.dll\D3D12Config", astr, "TEXTURE.FILTER", uint, g_.cfg.winedd ? 2 : 1)
+dllcall("peixoto.dll\D3D12Config", astr, "TEXTURE.FILTER", uint, 1)
 g_.dbg := {"frm" : 0}
 g_.palette := dllcall("VirtualAlloc", ptr, 0, ptr, 1024, uint, 0x3000, uint, 0x04, ptr)
 if g_.cfg.D3D != "7"
@@ -8048,7 +8048,7 @@ Surface1UpDateRT(0, g_.cfg.cpy)
 D3DHOOKS_DATA.Delay := 1
 }
 if (g_.cfg.SSAA){
-dvc := new D3DDevice(dllcall(g_.p.DDFrmSrfc, ptr,  g_.proxies.filtered.surface))
+dvc := g_.cfg.winedd ? False : new D3DDevice(dllcall(g_.p.DDFrmSrfc, ptr,  g_.proxies.filtered.surface))
 if (g_.cfg.SSAA=4)
 {
 D3DBlt(g_.proxies.hlf, hRECT[], g_.proxies.flp, 0, 3, DDBLTFX[], dvc)
@@ -8360,7 +8360,7 @@ Surface1UpDateRT(0, g_.cfg.cpy)
 D3DHOOKS_DATA.Delay := 1
 }
 if (g_.cfg.SSAA){
-dvc := g_.proxies.D3DZ
+dvc := g_.cfg.winedd ? False : g_.proxies.D3DZ
 if (g_.cfg.SSAA=4)
 {
 D3DBlt(g_.proxies.hlf, hRECT[], g_.proxies.flp, 0, 3, DDBLTFX[], dvc)
@@ -8541,44 +8541,7 @@ p6 := d.h
 return dllcall(g_.WnAPI.SetPos, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7)
 }
 
-
-
-InitDeusExHooks()
-InitDeusExHooks()
-{
-	if g_.cfg.fovfix
-	{
-		g_.desktop := desk()		
-		if (g_.cfg.target_name = "DeusEx.exe" or g_.cfg.target_name = "Rune.exe") 
-		{
-			fov := FOV(FOV(75, "3:4"), g_.desktop.w ":" g_.desktop.h) 
-			Logerr("Desktop resolution is " g_.desktop.w "x" g_.desktop.h)
-			Logerr("Optimal fov is " fov)
-				
-			iniwrite, %fov%, user.ini, Engine.PlayerPawn, DesiredFOV
-			iniwrite, %fov%, user.ini, Engine.PlayerPawn, DefaultFOV
-			path := g_.cfg.Path "cfg\user.ini"
-			if Fileexist(path)
-			{
-				iniwrite, %fov%, %path%, Engine.PlayerPawn, DesiredFOV
-			    iniwrite, %fov%, %path%, Engine.PlayerPawn, DefaultFOV
-			}
-		} 
-		else if (g_.cfg.target_name = "Unreal.exe") 
-		{
-			fov := FOV(FOV(90, "3:4"), g_.desktop.w ":" g_.desktop.h) 
-			Logerr("Desktop resolution is " g_.desktop.w "x" g_.desktop.h)
-			Logerr("Optimal fov is " fov)			
-			iniwrite, %fov%, user.ini, Engine.PlayerPawn, MainFOV	
-			path := g_.cfg.Path "cfg\user.ini"
-			if Fileexist(path)
-			{
-				iniwrite, %fov%, %path%, Engine.PlayerPawn, DesiredFOV
-			    iniwrite, %fov%, %path%, Engine.PlayerPawn, DefaultFOV
-			}	
-		}
-	}	
-}
-
 printl()
+ReleaseDirectDraw()
+
 resume()

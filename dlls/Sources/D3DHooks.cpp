@@ -176,7 +176,8 @@ SurfaceBltHook(LPVOID pSurf, LPVOID p2, LPVOID p3, LPVOID p4, LPVOID p5, LPVOID 
 		(caps2.dwCaps & DDSCAPS_3DDEVICE) ||
 		(caps2.dwCaps & DDSCAPS_FLIP) ||
 		(caps2.dwCaps & DDSCAPS_ZBUFFER) ||
-		(srccaps.dwCaps & DDSCAPS_PRIMARYSURFACE) ||
+		(srccaps.dwCaps & DDSCAPS_PRIMARYSURFACE) ||		
+		(srccaps.dwCaps & DDSCAPS_3DDEVICE) ||
 		(srccaps.dwCaps & DDSCAPS_FLIP))
 	{
 		DDLOCK()

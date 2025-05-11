@@ -4101,7 +4101,8 @@ Surface1UpDatePrimB(p, pRECT)
 g_.dbg.frm += 1
 g_.dbg.op  := 0
 dllcall(IDirectDrawSurface.blt, uint, g_.proxies.primcpy.surface, uint, 0, uint, p, uint, _RECT[], uint, DDBLT_WAIT, uint, 0, uint)
-dllcall(IDirectDrawSurface.blt, uint, g_.proxies.primcpy.surface, uint, 0, uint, g_.proxies.prim.Surface, uint, 0, uint, DDBLT_KEYSRCOVERRIDE, uint, g_HD.DDBLTFX[], uint)
+dllcall(IDirectDrawSurface.blt, uint, g_.proxies.primcpy.surface, uint, 0, uint, g_.proxies.prim.Surface, uint, 0
+, uint, (g_.cfg.winedd)?DDBLT_KEYSRC:DDBLT_KEYSRCOVERRIDE, uint, g_HD.DDBLTFX[], uint)
 dllcall(IDirectDrawSurface.blt, uint, p, uint, _RECT[], uint, g_.proxies.primcpy.surface, uint, 0, uint, DDBLT_WAIT, uint, 0, uint)
 dllcall(IDirectdrawSurface.blt, uint, g_.proxies.prim.Surface, uint, 0, uint, 0, uint, 0, uint, DDBLT_COLORFILL, uint, g_HD.DDBLTFX[], uint)
 return
@@ -5593,7 +5594,6 @@ g_.p.DirectDrawCreate := pDirectDrawCreate
 }
 if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 {
-g_.cfg.NEFS     := False
 g_.cfg.winedd   := True
 g_.cfg.layeroff := false
 if (!FileExist(GetSystemDir() "\wined3d.dll"))
@@ -5643,7 +5643,7 @@ if (g_.cfg.console)
 dllcall("peixoto.dll\D3D12Config", astr, "DBUG", uint, 1)
 g_.cfg.FLTR := ""
 if (g_.cfg.FLTR)
-dllcall("peixoto.dll\D3D12Config", astr, "TEXTURE.FILTER", uint, g_.cfg.winedd ? 2 : 1)
+dllcall("peixoto.dll\D3D12Config", astr, "TEXTURE.FILTER", uint, 1)
 g_.dbg := {"frm" : 0}
 g_.palette := dllcall("VirtualAlloc", ptr, 0, ptr, 1024, uint, 0x3000, uint, 0x04, ptr)
 if g_.cfg.D3D != "7"
@@ -6311,7 +6311,7 @@ Surface1UpDateRT(0, g_.cfg.cpy)
 D3DHOOKS_DATA.Delay := 1
 }
 if (g_.cfg.SSAA){
-dvc := new D3DDevice(dllcall(g_.p.DDFrmSrfc, ptr,  g_.proxies.filtered.surface))
+dvc := g_.cfg.winedd ? False : new D3DDevice(dllcall(g_.p.DDFrmSrfc, ptr,  g_.proxies.filtered.surface))
 if (g_.cfg.SSAA=4)
 {
 D3DBlt(g_.proxies.hlf, hRECT[], g_.proxies.flp, 0, 3, DDBLTFX[], dvc)
@@ -6623,7 +6623,7 @@ Surface1UpDateRT(0, g_.cfg.cpy)
 D3DHOOKS_DATA.Delay := 1
 }
 if (g_.cfg.SSAA){
-dvc := g_.proxies.D3DZ
+dvc := g_.cfg.winedd ? False : g_.proxies.D3DZ
 if (g_.cfg.SSAA=4)
 {
 D3DBlt(g_.proxies.hlf, hRECT[], g_.proxies.flp, 0, 3, DDBLTFX[], dvc)

@@ -177,6 +177,14 @@ LPVOID src_srfc, UINT src_srfc_index, LPVOID src_rect, UINT flags, LPVOID fx, UI
     return err;
 }
 
+void __cdecl wined3d_stateblock_set_sampler_state_hook(LPVOID p_stablock, UINT index, wined3d_sampler_state state, wined3d_texture_filter_type value){
+    WineHooks.wined3d_stateblock_set_sampler_state(p_stablock, index, state, value);
+    WineHooks.wined3d_stateblock_set_sampler_state(p_stablock, index, WINED3D_SAMP_MAG_FILTER, WINED3D_TEXF_POINT);
+    WineHooks.wined3d_stateblock_set_sampler_state(p_stablock, index, WINED3D_SAMP_MIN_FILTER, WINED3D_TEXF_ANISOTROPIC);
+    WineHooks.wined3d_stateblock_set_sampler_state(p_stablock, index, WINED3D_SAMP_MIP_FILTER, WINED3D_TEXF_LINEAR);
+    WineHooks.wined3d_stateblock_set_sampler_state(p_stablock, index, WINED3D_SAMP_MAX_ANISOTROPY, static_cast<wined3d_texture_filter_type>(16.f));
+}
+
 extern "C"  __declspec(dllexport) wchar_t * __stdcall InitDDrawWineHoooks(wchar_t * flags){
     static string err = "S_OK";
     HMODULE h_wined3d = GetModuleHandleA("wined3d.dll");
@@ -195,6 +203,19 @@ extern "C"  __declspec(dllexport) wchar_t * __stdcall InitDDrawWineHoooks(wchar_
     if (hook != 0)
     {
         err = "FAILED to HOOK wined3d_device_context_blt ";
+        err += to_string(hook);
+        return (wchar_t *)err.c_str();
+    } 
+    WineHooks.wined3d_stateblock_set_sampler_state = (decltype(WineHooks.wined3d_stateblock_set_sampler_state))GetProcAddress(h_wined3d, "wined3d_stateblock_set_sampler_state");
+    if (WineHooks.wined3d_stateblock_set_sampler_state == nullptr)
+    {
+        err = "GetProcAddress(wined3d_stateblock_set_sampler_state) FAILED";
+        return  (wchar_t *)err.c_str();
+    }   
+    hook = sethook((void**)&WineHooks.wined3d_stateblock_set_sampler_state, (void*)wined3d_stateblock_set_sampler_state_hook);
+    if (hook != 0)
+    {
+        err = "FAILED to HOOK wined3d_stateblock_set_sampler_state ";
         err += to_string(hook);
         return (wchar_t *)err.c_str();
     } 

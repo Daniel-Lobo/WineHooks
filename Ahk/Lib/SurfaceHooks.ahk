@@ -614,7 +614,8 @@ Surface1UpDatePrimB(p, pRECT)
 	g_.dbg.frm += 1
 	g_.dbg.op  := 0		
 	dllcall(IDirectDrawSurface.blt, uint, g_.proxies.primcpy.surface, uint, 0, uint, p, uint, _RECT[], uint, DDBLT_WAIT, uint, 0, uint)
-	dllcall(IDirectDrawSurface.blt, uint, g_.proxies.primcpy.surface, uint, 0, uint, g_.proxies.prim.Surface, uint, 0, uint, DDBLT_KEYSRCOVERRIDE, uint, g_HD.DDBLTFX[], uint)
+	dllcall(IDirectDrawSurface.blt, uint, g_.proxies.primcpy.surface, uint, 0, uint, g_.proxies.prim.Surface, uint, 0
+	, uint, (g_.cfg.winedd)?DDBLT_KEYSRC:DDBLT_KEYSRCOVERRIDE, uint, g_HD.DDBLTFX[], uint)
 	dllcall(IDirectDrawSurface.blt, uint, p, uint, _RECT[], uint, g_.proxies.primcpy.surface, uint, 0, uint, DDBLT_WAIT, uint, 0, uint)							   
 	dllcall(IDirectdrawSurface.blt, uint, g_.proxies.prim.Surface, uint, 0, uint, 0, uint, 0, uint, DDBLT_COLORFILL, uint, g_HD.DDBLTFX[], uint)	
 	return 	
