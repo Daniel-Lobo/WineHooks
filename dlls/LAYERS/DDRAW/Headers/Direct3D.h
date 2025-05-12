@@ -50,7 +50,13 @@ public:
 		return ref; 
 	}
 	STDMETHOD(Initialize)(THIS_ LPDIRECT3D) { LAYER_LOG_CALL return DDERR_ALREADYINITIALIZED; }
-	COM_FOWARD(SetLight, LPD3DLIGHT);
+	//COM_FOWARD(SetLight, LPD3DLIGHT);
+	STDMETHOD(SetLight)(THIS_ LPD3DLIGHT l) { 
+		LAYER_LOG_CALL; 
+		D3DPtr * ptr = (D3DPtr *)this; 
+		GET_COM_PTR(Direct3DLight, DDERR_GENERIC);
+		LAYER_HR_CALL(m_Imp->SetLight(l))  ;
+	}
 	COM_FOWARD(GetLight, LPD3DLIGHT);
 	virtual IDirect3DLight* GetImp() {
 		return m_Imp;

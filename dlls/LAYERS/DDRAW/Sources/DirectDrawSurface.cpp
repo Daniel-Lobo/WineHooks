@@ -805,7 +805,20 @@ STDMETHODIMP DirectDrawSurface4_GetCaps(COMPtr* ptr, LPDDSCAPS2 lpDDSCaps) {
 }
 
 STDMETHODIMP DirectDrawSurface4_GetSurfaceDesc(COMPtr* ptr, LPDDSURFACEDESC2 lpDDSurfaceDesc) {
-    LAYER_LOG_CALL; GET_COM_PTR(DirectDrawSurface, DDERR_GENERIC); LAYER_COM_CALL(GetSurfaceDesc, lpDDSurfaceDesc);
+    LAYER_LOG_CALL; GET_COM_PTR(DirectDrawSurface, DDERR_GENERIC); //LAYER_COM_CALL(GetSurfaceDesc, lpDDSurfaceDesc);
+    auto _this_imp = (IDirectDrawSurface4*)EZInterface(LAYER_GUID, _this->GetImp()).I();
+    if (_this_imp == nullptr)
+    {
+        DBUG_WARN("QueryInterace Failed");
+        return DDERR_GENERIC;
+    }
+    HRESULT hr = _this_imp->GetSurfaceDesc(lpDDSurfaceDesc);
+    if (FAILED(hr))
+    {
+        DBUG_WARN("FAILED")
+        return hr;
+    }
+    return hr;
 }
 
 STDMETHODIMP DirectDrawSurface4_Initialize(COMPtr* ptr, LPDIRECTDRAW lpDD, LPDDSURFACEDESC2 lpDDSurfaceDesc) {

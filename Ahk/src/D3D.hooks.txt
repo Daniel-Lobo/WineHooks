@@ -2963,9 +2963,8 @@ if (r = DDERR_NODIRECTDRAWHW)
 D.ddsCaps.dwCaps := 0
 r := dllcall(IDirectDraw.CreateSurface, uint,DD, uint, D[], "ptr*", pSurface, uint, 0, uint)
 }
-printl("Create Surrogate - Surface1 " r " " ddraw.err[r . ""] " format " px " "
-. D.dwWidth "x" D.dwHeight)
-if r
+printl("Create Surrogate - Surface1 " r " " ddraw.err[r . ""] " format " px " " . D.dwWidth "x" D.dwHeight)
+if (r!=0)
 return
 this.Surface := pSurface
 this.flip    := 0
@@ -2973,15 +2972,18 @@ pSurface4 := 0, pTexture2 := 0
 GUID_FromString(idd_surface4, ddraw.IID_IDirectDrawSurface4)
 r := dllcall(IDirectDrawSurface.QueryInterface, uint, this.Surface, ptr, &idd_surface4, "ptr*", pSurface4, uint)
 Printl("Create Surrogate - Surface4 " r " " ddraw.err[r . ""])
-if r
+if (r!=0)
 return
 this.Surface4 := pSurface4
+if (px != "PAL8" && !g_.cfg.winedd)
+{
 GUID_FromString(idd_texture2, d3d.IID_IDirect3DTexture2)
 r := dllcall(IDirectDrawSurface.QueryInterface, uint, this.Surface, ptr, &idd_texture2, "ptr*", pTexture2, uint)
 printl("Create Surrogate - Texture2 " r " " ddraw.err[r . ""])
-if r
+if (r!=0)
 return
 this.Texture := pTexture2
+}
 }
 GetHandle(pDevice) {
 if not this.Texture

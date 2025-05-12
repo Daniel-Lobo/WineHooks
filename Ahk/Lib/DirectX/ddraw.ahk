@@ -682,7 +682,7 @@ GetDirect3D7()
 
 class Surface {
     __new(DD, px="", res="", sys=False, m=False)
-    {
+    {			
 		;DD      := g_.pIDirectDraw
         (D      := struct(DDSURFACEDESC2)).dwSize  :=  DDSURFACEDESC.size()
         (Display:= struct(DDSURFACEDESC2)).dwSize  :=  DDSURFACEDESC.size()
@@ -715,25 +715,27 @@ class Surface {
             D.ddsCaps.dwCaps := 0
             r := dllcall(IDirectDraw.CreateSurface, uint,DD, uint, D[], "ptr*", pSurface, uint, 0, uint)
         } 
-        printl("Create Surrogate - Surface1 " r " " ddraw.err[r . ""] " format " px " "
-        . D.dwWidth "x" D.dwHeight)
-        if r
-        return
+        printl("Create Surrogate - Surface1 " r " " ddraw.err[r . ""] " format " px " " . D.dwWidth "x" D.dwHeight)
+        if (r!=0)		
+        return 
         this.Surface := pSurface
         this.flip    := 0
         pSurface4 := 0, pTexture2 := 0
         GUID_FromString(idd_surface4, ddraw.IID_IDirectDrawSurface4)
         r := dllcall(IDirectDrawSurface.QueryInterface, uint, this.Surface, ptr, &idd_surface4, "ptr*", pSurface4, uint)
         Printl("Create Surrogate - Surface4 " r " " ddraw.err[r . ""])
-        if r
+        if (r!=0)
         return
         this.Surface4 := pSurface4
-        GUID_FromString(idd_texture2, d3d.IID_IDirect3DTexture2)
-        r := dllcall(IDirectDrawSurface.QueryInterface, uint, this.Surface, ptr, &idd_texture2, "ptr*", pTexture2, uint)
-        printl("Create Surrogate - Texture2 " r " " ddraw.err[r . ""])
-        if r
-        return
-        this.Texture := pTexture2		
+		if (px != "PAL8" && !g_.cfg.winedd)
+		{		
+			GUID_FromString(idd_texture2, d3d.IID_IDirect3DTexture2)
+			r := dllcall(IDirectDrawSurface.QueryInterface, uint, this.Surface, ptr, &idd_texture2, "ptr*", pTexture2, uint)
+			printl("Create Surrogate - Texture2 " r " " ddraw.err[r . ""])
+			if (r!=0)
+			return
+			this.Texture := pTexture2	
+		}	
     }
     GetHandle(pDevice) {
         if not this.Texture
@@ -790,8 +792,8 @@ class Surface {
 		return False		
 	}
 	__Delete()
-    {
-        (this.Texture) ? printl("Releasing Surrogate Texture2 " dllcall(IDirect3DTexture2.release, uint, this.Texture, uint))
+    {		
+		(this.Texture) ? printl("Releasing Surrogate Texture2 " dllcall(IDirect3DTexture2.release, uint, this.Texture, uint))
         (this.Surface4) ? printl("Releasing Surrogate Surface4 " dllcall(IDirectDrawSurface4.release, uint, this.Surface4))
         (this.flip)  ? printl("Deleting  Attachment " ddraw.err["" . dllcall(IDirectDrawSurface.release, uint, this.flip, uint, 0, uint, 0, uint)])
         (this.Surface) ? printl("Releasing Surrogate Surface1 " dllcall(IDirectDrawSurface.release, uint, this.Surface))

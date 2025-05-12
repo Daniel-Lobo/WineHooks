@@ -604,6 +604,10 @@ STDMETHODIMP Direct3D_FindDevice(COMPtr* ptr, LPD3DFINDDEVICESEARCH lpD3DFDS, LP
 #undef  LAYER_OK 
 #define LAYER_OK "DD_OK"   
 
+STDMETHODIMP Direct3D2_EnumDevices(COMPtr* ptr, LPD3DENUMDEVICESCALLBACK lpEnumDevicesCallback, LPVOID lpUserArg) {    
+    LAYER_LOG_CALL; GET_COM_PTR(DirectDraw, DDERR_GENERIC) LAYER_COM_CALL(EnumDevices, lpEnumDevicesCallback, lpUserArg);
+}
+
 STDMETHODIMP Direct3D2_CreateMaterial(COMPtr* ptr, LPDIRECT3DMATERIAL2* lplpDirect3DMaterial, IUnknown* pUnkOuter) {
     LAYER_LOG_CALL; GET_COM_PTR(DirectDraw, DDERR_GENERIC)
     auto this_imp = (IDirect3D2*)EZInterface(LAYER_GUID, _this->GetImp()).I();
@@ -671,6 +675,10 @@ STDMETHODIMP Direct3D2_CreateDevice(COMPtr* ptr, REFCLSID rclsid, LPDIRECTDRAWSU
 #define LAYER_GUID IID_IDirect3D3
 #undef  LAYER_OK 
 #define LAYER_OK "DD_OK"   
+
+STDMETHODIMP Direct3D3_EnumDevices(COMPtr* ptr, LPD3DENUMDEVICESCALLBACK lpEnumDevicesCallback, LPVOID lpUserArg) {    
+    LAYER_LOG_CALL; GET_COM_PTR(DirectDraw, DDERR_GENERIC) LAYER_COM_CALL(EnumDevices, lpEnumDevicesCallback, lpUserArg);
+}
 
 STDMETHODIMP Direct3D3_CreateMaterial(COMPtr* ptr, LPDIRECT3DMATERIAL3* lplpDirect3DMaterial, IUnknown* pUnkOuter) {
     LAYER_LOG_CALL; GET_COM_PTR(DirectDraw, DDERR_GENERIC)
@@ -1020,7 +1028,7 @@ struct IDIRECT3D2_VTABLE {
     decltype(DirectDraw_QueryInterface)   * QueryInterface = DirectDraw_QueryInterface;
     decltype(DirectDraw_AddRef)           * AddRef         = DirectDraw_AddRef;
     decltype(DirectDraw_Release)          * Release        = DirectDraw_Release;   
-    decltype(Direct3D_EnumDevices)        * EnumDevice     = Direct3D_EnumDevices;
+    decltype(Direct3D2_EnumDevices)       * EnumDevice     = Direct3D2_EnumDevices;
 #ifdef DDRAW_MINIMAL_LAYER
     decltype(Direct3D_CreateLight)        * CreateLight    = Minimal_Direct3D_CreateLight;
 #else
@@ -1036,7 +1044,7 @@ struct IDIRECT3D3_VTABLE {
     decltype(DirectDraw_QueryInterface)      * QueryInterface       = DirectDraw_QueryInterface;
     decltype(DirectDraw_AddRef)              * AddRef               = DirectDraw_AddRef;
     decltype(DirectDraw_Release)             * Release              = DirectDraw_Release;   
-    decltype(Direct3D_EnumDevices)           * EnumDevice           = Direct3D_EnumDevices;
+    decltype(Direct3D3_EnumDevices)          * EnumDevice           = Direct3D3_EnumDevices;
 #ifdef DDRAW_MINIMAL_LAYER
     decltype(Direct3D_CreateLight)* CreateLight = Minimal_Direct3D_CreateLight;
 #else

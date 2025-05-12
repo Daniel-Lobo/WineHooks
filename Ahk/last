@@ -1,5 +1,5 @@
-global g_MainThreadID := 5980 ;<Tag> 
-global g_cmdstring := "-Target^E:\Games\Soulbringer\Soulbringer.exe^-wiki^https://www.pcgamingwiki.com/wiki/Soulbringer^-D3D^1^-Path^SoulBringer^-script^scripts\soulbringer.ahk^/32bit^/HD^/WHKS^/DDRefcountfix^/4K^/HRT^/rnm^-SSAA^2^-ver^0.10.11^/layeroff^/wineoff^-<Textswap>^s=4;sz=256;path=Textures\VOKSI;n=PgUP;p=PgDn;d=Home;sw=End;c=Del;q=Ins;y=0;^-<Gpad>^A=1;B=2;X=3;Y=4;LEFT_SHOULDER=5;RIGHT_SHOULDER=6;bLeftTrigger=7;bRightTrigger=8;Start=9;Back=10;LEFT_THUMB=11;RIGHT_THUMB=12;deadzone=0.25;^-J2K^u=false;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;m=0;spd=0;dz=0.25;FF=False;rs=False;rs_alt=False;^-Textswap^e=true;path=Textures\VOKSI;sz=256;s=4;sw=End;n=[;p=];d=Home;q=Shift;dly=false;a=false;l=false;A8Fix=false;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-WNMM^MCI=false;^-DSnd^e=false;    {nfo} ==[Suported version]==;    {nfo} ==[Suported version]==;^-script_hwnd^0x80378^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Soulbringer^-target_name^Soulbringer.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 1952 ;<Tag> 
+global g_cmdstring := "-Target^D:\Games\Tomb Raider - The Last Revelation\Tomb4.exe^-wiki^https://www.pcgamingwiki.com/wiki/Tomb_Raider:_The_Last_Revelation^-#script^Scripts\Tomb4.ahk^-args^setup^-D3D^3^-CompatLayer^faulttolerantheap^/dshow^/HD^/32bit^-path^Tomb Raider\TR4^/4K^/wineoff^-GPad^A=1;B=2;X=3;Y=4;LEFT_SHOULDER=5;RIGHT_SHOULDER=6;bLeftTrigger=7;bRightTrigger=8;start=9;back=10;LEFT_THUMB=11;RIGHT_THUMB=12;deadzone=0.25;^-Textswap^path=Textures\VOKSI;s=4;sz=384;n=];p=[;d=o;sw=i;c=u;q=q;l=false;e=false;dly=false;a=false;A8Fix=false;^-WNMM^MCI=false;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;rs_alt=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-DSnd^e=false;^-script_hwnd^0x1d032a^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 ^-max_4x3_res^1152x864^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Tomb Raider - The Last Revelation^-target_name^Tomb4.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -1733,6 +1733,954 @@ if (btype = 6)
 return true
 }
 
+; <COMPILER: v1.1.15.03>
+XinputSetState(index = 1, left_ = 0, right_ = 0)
+{
+static XINPUT_STATE=0, XINPUT_SETSTATE=0, XINPUT_VIBRATION=0
+if ! XINPUT_VIBRATION
+VarSetCapacity(XINPUT_VIBRATION, 4)
+if ! XINPUT_SETSTATATE
+{
+XINPUT_HANDLE := dllcall("LoadLibrary", "wstr", "Xinput1_3.dll")
+if not XINPUT_HANDLE
+XINPUT_HANDLE := dllcall("GetModuleHandle", "wstr", "Xinput1_3.dll")
+XINPUT_SETSTATE := dllcall("GetProcAddress", "Int", XINPUT_HANDLE, "astr", "XInputSetState")
+}
+index -= 1
+numput(left_ * 65535, XINPUT_VIBRATION, "Short")
+numput(right_ * 65535, XINPUT_VIBRATION, 2, "Short")
+return dllcall(XINPUT_SETSTATE, int, index, ptr, &XINPUT_VIBRATION)
+}
+global XINPUT_GAMEPAD :=
+(
+"
+  WORD  wButtons;
+  BYTE  bLeftTrigger;
+  BYTE  bRightTrigger;
+  SHORT sThumbLX;
+  SHORT sThumbLY;
+  SHORT sThumbRX;
+  SHORT sThumbRY;
+"
+)
+global  XINPUT_GAMEPAD_DPAD_UP        := 0
+global  XINPUT_GAMEPAD_DPAD_DOWN      := 0
+global	XINPUT_GAMEPAD_DPAD_LEFT      := 0
+global	XINPUT_GAMEPAD_DPAD_RIGHT     := 0
+global	XINPUT_GAMEPAD_START          := 0
+global	XINPUT_GAMEPAD_BACK           := 0
+global	XINPUT_GAMEPAD_LEFT_THUMB     := 0
+global	XINPUT_GAMEPAD_RIGHT_THUMB	  := 0
+global	XINPUT_GAMEPAD_LEFT_SHOULDER  := 0
+global	XINPUT_GAMEPAD_RIGHT_SHOULDER := 0
+global	XINPUT_GAMEPAD_A              := 0
+global	XINPUT_GAMEPAD_B              := 0
+global	XINPUT_GAMEPAD_X              := 0
+global	XINPUT_GAMEPAD_Y              := 0
+global  XINPUT_GAMEPAD_DPAD_UP_PREV	        := 0
+global  XINPUT_GAMEPAD_DPAD_DOWN_PREV	    := 0
+global	XINPUT_GAMEPAD_DPAD_LEFT_PREV	    := 0
+global	XINPUT_GAMEPAD_DPAD_RIGHT_PREV	    := 0
+global	XINPUT_GAMEPAD_START_PREV	        := 0
+global	XINPUT_GAMEPAD_BACK_PREV	        := 0
+global	XINPUT_GAMEPAD_LEFT_THUMB_PREV	    := 0
+global	XINPUT_GAMEPAD_RIGHT_THUMB_PREV	    := 0
+global	XINPUT_GAMEPAD_LEFT_SHOULDER_PREV   := 0
+global	XINPUT_GAMEPAD_RIGHT_SHOULDER_PREV	:= 0
+global	XINPUT_GAMEPAD_A_PREV		        := 0
+global	XINPUT_GAMEPAD_B_PREV               := 0
+global	XINPUT_GAMEPAD_X_PREV		        := 0
+global	XINPUT_GAMEPAD_Y_PREV	            := 0
+global  XINPUT_GAMEPAD_bLeftTrigger_prev    := 0
+global  XINPUT_GAMEPAD_bRightTrigger_prev   := 0
+global  XINPUT_GAMEPAD_sThumbLX_prev        := 0
+global  XINPUT_GAMEPAD_sThumbLY_prev        := 0
+XINPUT_GAMEPAD := Struct("DWORD dwPacketNumber;`n" XINPUT_GAMEPAD)
+XinputGetState(index = 1)
+{
+static XINPUT_STATE=0
+static XINPUT_GETSTATE_ADRESS=0
+index -= 1
+if ! XINPUT_GETSTATE_ADRESS
+{
+XINPUT_HANDLE := dllcall("LoadLibrary", "wstr", "Xinput1_3.dll")
+if not XINPUT_HANDLE
+XINPUT_HANDLE := dllcall("GetModuleHandle", "wstr", "Xinput1_3.dll")
+if not XINPUT_HANDLE
+return -1
+XINPUT_GETSTATE_ADRESS := dllcall("GetProcAddress", "Int", XINPUT_HANDLE, "astr", "XInputGetState")
+}
+XINPUT_GAMEPAD_bLeftTrigger_prev  := XINPUT_GAMEPAD.bLeftTrigger
+XINPUT_GAMEPAD_bRightTrigger_prev := XINPUT_GAMEPAD.bRightTrigger
+XINPUT_GAMEPAD_sThumbLX_prev      := XINPUT_GAMEPAD.sThumbLX
+XINPUT_GAMEPAD_sThumbLY_prev      := XINPUT_GAMEPAD.sThumbLY
+XINPUT_GAMEPAD_DPAD_UP_PREV	:= XINPUT_GAMEPAD_DPAD_UP
+XINPUT_GAMEPAD_DPAD_DOWN_PREV := XINPUT_GAMEPAD_DPAD_DOWN
+XINPUT_GAMEPAD_DPAD_LEFT_PREV :=  XINPUT_GAMEPAD_DPAD_LEFT
+XINPUT_GAMEPAD_DPAD_RIGHT_PREV := XINPUT_GAMEPAD_DPAD_RIGHT
+XINPUT_GAMEPAD_START_PREV :=  XINPUT_GAMEPAD_START
+XINPUT_GAMEPAD_BACK_PREV :=  XINPUT_GAMEPAD_BACK
+XINPUT_GAMEPAD_LEFT_THUMB_PREV := XINPUT_GAMEPAD_LEFT_THUMB
+XINPUT_GAMEPAD_RIGHT_THUMB_PREV := XINPUT_GAMEPAD_RIGHT_THUMB
+XINPUT_GAMEPAD_LEFT_SHOULDER_PREV := XINPUT_GAMEPAD_LEFT_SHOULDER
+XINPUT_GAMEPAD_RIGHT_SHOULDER_PREV := XINPUT_GAMEPAD_RIGHT_SHOULDER
+XINPUT_GAMEPAD_A_PREV := XINPUT_GAMEPAD_A
+XINPUT_GAMEPAD_B_PREV := XINPUT_GAMEPAD_B
+XINPUT_GAMEPAD_X_PREV := XINPUT_GAMEPAD_X
+XINPUT_GAMEPAD_Y_PREV := XINPUT_GAMEPAD_Y
+r := dllcall(XINPUT_GETSTATE_ADRESS, "int", index, "ptr", XINPUT_GAMEPAD[])
+XINPUT_GAMEPAD_DPAD_UP	:= XINPUT_GAMEPAD.wButtons & 0x0001
+XINPUT_GAMEPAD_DPAD_DOWN := XINPUT_GAMEPAD.wButtons & 	0x0002
+XINPUT_GAMEPAD_DPAD_LEFT := XINPUT_GAMEPAD.wButtons & 	0x0004
+XINPUT_GAMEPAD_DPAD_RIGHT := XINPUT_GAMEPAD.wButtons & 	0x0008
+XINPUT_GAMEPAD_START := XINPUT_GAMEPAD.wButtons & 	0x0010
+XINPUT_GAMEPAD_BACK  := XINPUT_GAMEPAD.wButtons & 0x0020
+XINPUT_GAMEPAD_LEFT_THUMB	:= XINPUT_GAMEPAD.wButtons & 0x0040
+XINPUT_GAMEPAD_RIGHT_THUMB	:= XINPUT_GAMEPAD.wButtons & 	0x0080
+XINPUT_GAMEPAD_LEFT_SHOULDER := XINPUT_GAMEPAD.wButtons & 	0x0100
+XINPUT_GAMEPAD_RIGHT_SHOULDER	:= XINPUT_GAMEPAD.wButtons & 	0x0200
+XINPUT_GAMEPAD_A	:= XINPUT_GAMEPAD.wButtons & 	0x1000
+XINPUT_GAMEPAD_B	:= XINPUT_GAMEPAD.wButtons & 	0x2000
+XINPUT_GAMEPAD_X	:= XINPUT_GAMEPAD.wButtons & 	0x4000
+XINPUT_GAMEPAD_Y	:= XINPUT_GAMEPAD.wButtons & 	0x8000
+return r
+}
+XinputGetLeftStickAngle()
+{
+x := XINPUT_GAMEPAD.sThumbLX/32767
+y := XINPUT_GAMEPAD.sThumbLY/32767
+if ( (x > 0) and (y > 0) )
+return ATan(x/y) * 57.29578
+else if ( (x > 0) and (y < 0) )
+return 180 - (ATan(x/abs(y)) * 57.29578)
+else if ( (x < 0) and (y < 0) )
+return 180 + (ATan(abs(x)/abs(y)) * 57.29578)
+else if ( (x < 0) and (y > 0) )
+return 360 - (ATan(abs(x)/y) * 57.29578)
+}
+XinputGetEvent(index=1, deadzone=0.25, double_tap=100)
+{
+if XinputGetState(index)
+return ""
+dead        := deadzone*32767
+dead_neg    := dead * (-1)
+static freq := 0, prev_event := [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+events := []
+states := [
+, [XINPUT_GAMEPAD_DPAD_UP_PREV, XINPUT_GAMEPAD_DPAD_UP]
+, [XINPUT_GAMEPAD_DPAD_DOWN_PREV, XINPUT_GAMEPAD_DPAD_DOWN]
+, [XINPUT_GAMEPAD_DPAD_LEFT_PREV,  XINPUT_GAMEPAD_DPAD_LEFT]
+, [XINPUT_GAMEPAD_DPAD_RIGHT_PREV, XINPUT_GAMEPAD_DPAD_RIGHT]
+, [XINPUT_GAMEPAD_A_PREV, XINPUT_GAMEPAD_A]
+, [XINPUT_GAMEPAD_B_PREV, XINPUT_GAMEPAD_B]
+, [XINPUT_GAMEPAD_X_PREV, XINPUT_GAMEPAD_X]
+, [XINPUT_GAMEPAD_Y_PREV, XINPUT_GAMEPAD_Y]
+, [XINPUT_GAMEPAD_LEFT_SHOULDER_PREV, XINPUT_GAMEPAD_LEFT_SHOULDER]
+, [XINPUT_GAMEPAD_RIGHT_SHOULDER_PREV, XINPUT_GAMEPAD_RIGHT_SHOULDER]
+, [XINPUT_GAMEPAD_bLeftTrigger_prev, XINPUT_GAMEPAD.bLeftTrigger]
+, [XINPUT_GAMEPAD_bRightTrigger_prev, XINPUT_GAMEPAD.bRightTrigger]
+, [XINPUT_GAMEPAD_BACK_PREV, XINPUT_GAMEPAD_BACK]
+, [XINPUT_GAMEPAD_START_PREV, XINPUT_GAMEPAD_START]
+, [XINPUT_GAMEPAD_LEFT_THUMB_PREV, XINPUT_GAMEPAD_LEFT_THUMB]
+, [XINPUT_GAMEPAD_RIGHT_THUMB_PREV, XINPUT_GAMEPAD_RIGHT_THUMB]
+, [(XINPUT_GAMEPAD_sThumbLY_prev>dead), (XINPUT_GAMEPAD.sThumbLY>dead)]
+, [(XINPUT_GAMEPAD_sThumbLY_prev<dead_neg), (XINPUT_GAMEPAD.sThumbLY<dead_neg)]
+, [(XINPUT_GAMEPAD_sThumbLX_prev<dead_neg), (XINPUT_GAMEPAD.sThumbLX<dead_neg)]
+, [(XINPUT_GAMEPAD_sThumbLX_prev>dead), (XINPUT_GAMEPAD.sThumbLX>dead)] ]
+now  := 0
+freq ?:	DllCall("QueryPerformanceFrequency", "Int64*", freq)
+DllCall("QueryPerformanceCounter", "Int64*", now)
+for k, v in states {
+v[1] and not v[2] ? events.insert(-1) : v[2] and not v[1] ? events.insert(1) : events.insert(0)
+} return events
+}
+XinputAltSetMousePos(deadzone=0.2, sensitivity=1.)
+{
+dead           := deadzone*32767
+dy := (abs(XINPUT_GAMEPAD.sThumbRY) < dead) ? 0 : (XINPUT_GAMEPAD.sThumbRY/32767) * -A_ScreenHeight*0.1*sensitivity
+dx := (abs(XINPUT_GAMEPAD.sThumbRX) < dead) ? 0 : (XINPUT_GAMEPAD.sThumbRX/32767) * A_ScreenWidth*0.1*sensitivity
+MOUSEEVENTF_MOVE := 0x0001
+dllcall("User32.dll\mouse_event", uint, MOUSEEVENTF_MOVE, uint, dx, uint, dy, uint, 0, uint, 0)
+}
+XinputSetMousePos(deadzone=0.2, sensitivity=1.)
+{
+if (J2K.rs_alt) {
+return XinputAltSetMousePos(deadzone, sensitivity)
+}
+static MOUSEINPUT
+MOUSEINPUT ?: MOUSEINPUT := struct("DWORD type; LONG dx; LONG dy; DWORD mouseData; DWORD dwFlags; DWORD time; ULONG_PTR dwExtraInfo;")
+, MOUSEINPUT.dwFlags := 0x0001, MOUSEINPUT.type := 0
+dead          := deadzone*32767
+MOUSEINPUT.dy := (abs(XINPUT_GAMEPAD.sThumbRY) < dead) ? 0 : (XINPUT_GAMEPAD.sThumbRY/32767) * -A_ScreenHeight*0.1*sensitivity
+MOUSEINPUT.dx := (abs(XINPUT_GAMEPAD.sThumbRX) < dead) ? 0 : (XINPUT_GAMEPAD.sThumbRX/32767) * A_ScreenWidth*0.1*sensitivity
+dllcall("User32.dll\SendInput", uint, 1, uint, MOUSEINPUT[], uint, MOUSEINPUT.size())
+}
+
+
+; <COMPILER: v1.1.15.03>
+Global dshow := {}
+dshow.LIBID_QuartzTypeLib := "{56a868b0-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IAMCollection := "{56a868b9-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaControl := "{56a868b1-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaEvent := "{56a868b6-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaEventEx := "{56a868c0-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaPosition := "{56a868b2-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IBasicAudio := "{56a868b3-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IVideoWindow := "{56a868b4-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IBasicVideo := "{56a868b5-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IBasicVideo2 := "{329bb360-f6ea-11d1-9038-00a0c9697298}"
+dshow.IID_IDeferredCommand := "{56a868b8-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IQueueCommand := "{56a868b7-0ad4-11ce-b03a-0020af0ba770}"
+dshow.CLSID_FilgraphManager := "{e436ebb3-524f-11ce-9f53-0020af0ba770}"
+dshow.IID_IFilterInfo := "{56a868ba-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IRegFilterInfo := "{56a868bb-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IMediaTypeInfo := "{56a868bc-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IPinInfo := "{56a868bd-0ad4-11ce-b03a-0020af0ba770}"
+dshow.IID_IAMStats := "{bc9bcf80-dcd2-11d2-abf6-00a0c905f375}"
+dshow.IAMCollection:= {}
+dshow.IAMCollection.name := "IAMCollection"
+dshow.IAMCollection.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Count)(This,plCount)
+STDMETHOD(Item)(This,lItem,ppUnk)
+STDMETHOD(get__NewEnum)(This,ppUnk)
+"
+)
+dshow.IAMStats:= {}
+dshow.IAMStats.name := "IAMStats"
+dshow.IAMStats.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(Reset)(This)
+STDMETHOD(get_Count)(This,plCount)
+STDMETHOD(GetValueByIndex)(This,lIndex,szName,lCount,dLast,dAverage,dStdDev,dMin,dMax)
+STDMETHOD(GetValueByName)(This,szName,lIndex,lCount,dLast,dAverage,dStdDev,dMin,dMax)
+STDMETHOD(GetIndex)(This,szName,lCreate,plIndex)
+STDMETHOD(AddValue)(This,lIndex,dValue)
+"
+)
+dshow.IBasicAudio:= {}
+dshow.IBasicAudio.name := "IBasicAudio"
+dshow.IBasicAudio.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(put_Volume)(This,lVolume)
+STDMETHOD(get_Volume)(This,plVolume)
+STDMETHOD(put_Balance)(This,lBalance)
+STDMETHOD(get_Balance)(This,plBalance)
+"
+)
+dshow.IBasicVideo:= {}
+dshow.IBasicVideo.name := "IBasicVideo"
+dshow.IBasicVideo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_AvgTimePerFrame)(This,pAvgTimePerFrame)
+STDMETHOD(get_BitRate)(This,pBitRate)
+STDMETHOD(get_BitErrorRate)(This,pBitErrorRate)
+STDMETHOD(get_VideoWidth)(This,pVideoWidth)
+STDMETHOD(get_VideoHeight)(This,pVideoHeight)
+STDMETHOD(put_SourceLeft)(This,SourceLeft)
+STDMETHOD(get_SourceLeft)(This,pSourceLeft)
+STDMETHOD(put_SourceWidth)(This,SourceWidth)
+STDMETHOD(get_SourceWidth)(This,pSourceWidth)
+STDMETHOD(put_SourceTop)(This,SourceTop)
+STDMETHOD(get_SourceTop)(This,pSourceTop)
+STDMETHOD(put_SourceHeight)(This,SourceHeight)
+STDMETHOD(get_SourceHeight)(This,pSourceHeight)
+STDMETHOD(put_DestinationLeft)(This,DestinationLeft)
+STDMETHOD(get_DestinationLeft)(This,pDestinationLeft)
+STDMETHOD(put_DestinationWidth)(This,DestinationWidth)
+STDMETHOD(get_DestinationWidth)(This,pDestinationWidth)
+STDMETHOD(put_DestinationTop)(This,DestinationTop)
+STDMETHOD(get_DestinationTop)(This,pDestinationTop)
+STDMETHOD(put_DestinationHeight)(This,DestinationHeight)
+STDMETHOD(get_DestinationHeight)(This,pDestinationHeight)
+STDMETHOD(SetSourcePosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetSourcePosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(SetDefaultSourcePosition)(This)
+STDMETHOD(SetDestinationPosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetDestinationPosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(SetDefaultDestinationPosition)(This)
+STDMETHOD(GetVideoSize)(This,pWidth,pHeight)
+STDMETHOD(GetVideoPaletteEntries)(This,StartIndex,Entries,pRetrieved,pPalette)
+STDMETHOD(GetCurrentImage)(This,pBufferSize,pDIBImage)
+STDMETHOD(IsUsingDefaultSource)(This)
+STDMETHOD(IsUsingDefaultDestination)(This)
+"
+)
+dshow.IBasicVideo2:= {}
+dshow.IBasicVideo2.name := "IBasicVideo2"
+dshow.IBasicVideo2.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_AvgTimePerFrame)(This,pAvgTimePerFrame)
+STDMETHOD(get_BitRate)(This,pBitRate)
+STDMETHOD(get_BitErrorRate)(This,pBitErrorRate)
+STDMETHOD(get_VideoWidth)(This,pVideoWidth)
+STDMETHOD(get_VideoHeight)(This,pVideoHeight)
+STDMETHOD(put_SourceLeft)(This,SourceLeft)
+STDMETHOD(get_SourceLeft)(This,pSourceLeft)
+STDMETHOD(put_SourceWidth)(This,SourceWidth)
+STDMETHOD(get_SourceWidth)(This,pSourceWidth)
+STDMETHOD(put_SourceTop)(This,SourceTop)
+STDMETHOD(get_SourceTop)(This,pSourceTop)
+STDMETHOD(put_SourceHeight)(This,SourceHeight)
+STDMETHOD(get_SourceHeight)(This,pSourceHeight)
+STDMETHOD(put_DestinationLeft)(This,DestinationLeft)
+STDMETHOD(get_DestinationLeft)(This,pDestinationLeft)
+STDMETHOD(put_DestinationWidth)(This,DestinationWidth)
+STDMETHOD(get_DestinationWidth)(This,pDestinationWidth)
+STDMETHOD(put_DestinationTop)(This,DestinationTop)
+STDMETHOD(get_DestinationTop)(This,pDestinationTop)
+STDMETHOD(put_DestinationHeight)(This,DestinationHeight)
+STDMETHOD(get_DestinationHeight)(This,pDestinationHeight)
+STDMETHOD(SetSourcePosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetSourcePosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(SetDefaultSourcePosition)(This)
+STDMETHOD(SetDestinationPosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetDestinationPosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(SetDefaultDestinationPosition)(This)
+STDMETHOD(GetVideoSize)(This,pWidth,pHeight)
+STDMETHOD(GetVideoPaletteEntries)(This,StartIndex,Entries,pRetrieved,pPalette)
+STDMETHOD(GetCurrentImage)(This,pBufferSize,pDIBImage)
+STDMETHOD(IsUsingDefaultSource)(This)
+STDMETHOD(IsUsingDefaultDestination)(This)
+STDMETHOD(GetPreferredAspectRatio)(This,plAspectX,plAspectY)
+"
+)
+dshow.IDeferredCommand:= {}
+dshow.IDeferredCommand.name := "IDeferredCommand"
+dshow.IDeferredCommand.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(Cancel)(This)
+STDMETHOD(Confidence)(This,pConfidence)
+STDMETHOD(Postpone)(This,newtime)
+STDMETHOD(GetHResult)(This,phrResult)
+"
+)
+dshow.IFilterInfo:= {}
+dshow.IFilterInfo.name := "IFilterInfo"
+dshow.IFilterInfo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(FindPin)(This,strPinID,ppUnk)
+STDMETHOD(get_Name)(This,strName)
+STDMETHOD(get_VendorInfo)(This,strVendorInfo)
+STDMETHOD(get_Filter)(This,ppUnk)
+STDMETHOD(get_Pins)(This,ppUnk)
+STDMETHOD(get_IsFileSource)(This,pbIsSource)
+STDMETHOD(get_Filename)(This,pstrFilename)
+STDMETHOD(put_Filename)(This,strFilename)
+"
+)
+dshow.IMediaControl:= {}
+dshow.IMediaControl.name := "IMediaControl"
+dshow.IMediaControl.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(Run)(This)
+STDMETHOD(Pause)(This)
+STDMETHOD(Stop)(This)
+STDMETHOD(GetState)(This,msTimeout,pfs)
+STDMETHOD(RenderFile)(This,strFilename)
+STDMETHOD(AddSourceFilter)(This,strFilename,ppUnk)
+STDMETHOD(get_FilterCollection)(This,ppUnk)
+STDMETHOD(get_RegFilterCollection)(This,ppUnk)
+STDMETHOD(StopWhenReady)(This)
+"
+)
+dshow.IMediaEvent:= {}
+dshow.IMediaEvent.name := "IMediaEvent"
+dshow.IMediaEvent.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(GetEventHandle)(This,hEvent)
+STDMETHOD(GetEvent)(This,lEventCode,lParam1,lParam2,msTimeout)
+STDMETHOD(WaitForCompletion)(This,msTimeout,pEvCode)
+STDMETHOD(CancelDefaultHandling)(This,lEvCode)
+STDMETHOD(RestoreDefaultHandling)(This,lEvCode)
+STDMETHOD(FreeEventParams)(This,lEvCode,lParam1,lParam2)
+"
+)
+dshow.IMediaEventEx:= {}
+dshow.IMediaEventEx.name := "IMediaEventEx"
+dshow.IMediaEventEx.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(GetEventHandle)(This,hEvent)
+STDMETHOD(GetEvent)(This,lEventCode,lParam1,lParam2,msTimeout)
+STDMETHOD(WaitForCompletion)(This,msTimeout,pEvCode)
+STDMETHOD(CancelDefaultHandling)(This,lEvCode)
+STDMETHOD(RestoreDefaultHandling)(This,lEvCode)
+STDMETHOD(FreeEventParams)(This,lEvCode,lParam1,lParam2)
+STDMETHOD(SetNotifyWindow)(This,hwnd,lMsg,lInstanceData)
+STDMETHOD(SetNotifyFlags)(This,lNoNotifyFlags)
+STDMETHOD(GetNotifyFlags)(This,lplNoNotifyFlags)
+"
+)
+dshow.IMediaPosition:= {}
+dshow.IMediaPosition.name := "IMediaPosition"
+dshow.IMediaPosition.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Duration)(This,plength)
+STDMETHOD(put_CurrentPosition)(This,llTime)
+STDMETHOD(get_CurrentPosition)(This,pllTime)
+STDMETHOD(get_StopTime)(This,pllTime)
+STDMETHOD(put_StopTime)(This,llTime)
+STDMETHOD(get_PrerollTime)(This,pllTime)
+STDMETHOD(put_PrerollTime)(This,llTime)
+STDMETHOD(put_Rate)(This,dRate)
+STDMETHOD(get_Rate)(This,pdRate)
+STDMETHOD(CanSeekForward)(This,pCanSeekForward)
+STDMETHOD(CanSeekBackward)(This,pCanSeekBackward)
+"
+)
+dshow.IMediaTypeInfo:= {}
+dshow.IMediaTypeInfo.name := "IMediaTypeInfo"
+dshow.IMediaTypeInfo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Type)(This,strType)
+STDMETHOD(get_Subtype)(This,strType)
+"
+)
+dshow.IPinInfo:= {}
+dshow.IPinInfo.name := "IPinInfo"
+dshow.IPinInfo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Pin)(This,ppUnk)
+STDMETHOD(get_ConnectedTo)(This,ppUnk)
+STDMETHOD(get_ConnectionMediaType)(This,ppUnk)
+STDMETHOD(get_FilterInfo)(This,ppUnk)
+STDMETHOD(get_Name)(This,ppUnk)
+STDMETHOD(get_Direction)(This,ppDirection)
+STDMETHOD(get_PinID)(This,strPinID)
+STDMETHOD(get_MediaTypes)(This,ppUnk)
+STDMETHOD(Connect)(This,pPin)
+STDMETHOD(ConnectDirect)(This,pPin)
+STDMETHOD(ConnectWithType)(This,pPin,pMediaType)
+STDMETHOD(Disconnect)(This)
+STDMETHOD(Render)(This)
+"
+)
+dshow.IQueueCommand:= {}
+dshow.IQueueCommand.name := "IQueueCommand"
+dshow.IQueueCommand.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(InvokeAtStreamTime)(This,pCmd,time,iid,dispidMethod,wFlags,cArgs,pDispParams,pvarResult,puArgErr)
+STDMETHOD(InvokeAtPresentationTime)(This,pCmd,time,iid,dispidMethod,wFlags,cArgs,pDispParams,pvarResult,puArgErr)
+"
+)
+dshow.IRegFilterInfo:= {}
+dshow.IRegFilterInfo.name := "IRegFilterInfo"
+dshow.IRegFilterInfo.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(get_Name)(This,strName)
+STDMETHOD(Filter)(This,ppUnk)
+"
+)
+dshow.IVideoWindow:= {}
+dshow.IVideoWindow.name := "IVideoWindow"
+dshow.IVideoWindow.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(GetTypeInfoCount)(This,pctinfo)
+STDMETHOD(GetTypeInfo)(This,iTInfo,lcid,ppTInfo)
+STDMETHOD(GetIDsOfNames)(This,riid,rgszNames,cNames,lcid,rgDispId)
+STDMETHOD(Invoke)(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
+STDMETHOD(put_Caption)(This,strCaption)
+STDMETHOD(get_Caption)(This,strCaption)
+STDMETHOD(put_WindowStyle)(This,WindowStyle)
+STDMETHOD(get_WindowStyle)(This,WindowStyle)
+STDMETHOD(put_WindowStyleEx)(This,WindowStyleEx)
+STDMETHOD(get_WindowStyleEx)(This,WindowStyleEx)
+STDMETHOD(put_AutoShow)(This,AutoShow)
+STDMETHOD(get_AutoShow)(This,AutoShow)
+STDMETHOD(put_WindowState)(This,WindowState)
+STDMETHOD(get_WindowState)(This,WindowState)
+STDMETHOD(put_BackgroundPalette)(This,BackgroundPalette)
+STDMETHOD(get_BackgroundPalette)(This,pBackgroundPalette)
+STDMETHOD(put_Visible)(This,Visible)
+STDMETHOD(get_Visible)(This,pVisible)
+STDMETHOD(put_Left)(This,Left)
+STDMETHOD(get_Left)(This,pLeft)
+STDMETHOD(put_Width)(This,Width)
+STDMETHOD(get_Width)(This,pWidth)
+STDMETHOD(put_Top)(This,Top)
+STDMETHOD(get_Top)(This,pTop)
+STDMETHOD(put_Height)(This,Height)
+STDMETHOD(get_Height)(This,pHeight)
+STDMETHOD(put_Owner)(This,Owner)
+STDMETHOD(get_Owner)(This,Owner)
+STDMETHOD(put_MessageDrain)(This,Drain)
+STDMETHOD(get_MessageDrain)(This,Drain)
+STDMETHOD(get_BorderColor)(This,Color)
+STDMETHOD(put_BorderColor)(This,Color)
+STDMETHOD(get_FullScreenMode)(This,FullScreenMode)
+STDMETHOD(put_FullScreenMode)(This,FullScreenMode)
+STDMETHOD(SetWindowForeground)(This,Focus)
+STDMETHOD(NotifyOwnerMessage)(This,hwnd,uMsg,wParam,lParam)
+STDMETHOD(SetWindowPosition)(This,Left,Top,Width,Height)
+STDMETHOD(GetWindowPosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(GetMinIdealImageSize)(This,pWidth,pHeight)
+STDMETHOD(GetMaxIdealImageSize)(This,pWidth,pHeight)
+STDMETHOD(GetRestorePosition)(This,pLeft,pTop,pWidth,pHeight)
+STDMETHOD(HideCursor)(This,HideCursor)
+STDMETHOD(IsCursorHidden)(This,CursorHidden)
+"
+)
+dshow.constant := {}
+dshow.constant[500 . ""] := "__REQUIRED_RPCNDR_H_VERSION__"
+dshow.constant[100 . ""] := "__REQUIRED_RPCSAL_H_VERSION__"
+Global __REQUIRED_RPCNDR_H_VERSION__ := 500
+Global __REQUIRED_RPCSAL_H_VERSION__ := 100
+dshow.result := {}
+dshow.IID_IGraphBuilder           := "{56a868a9-0ad4-11ce-b03a-0020af0ba770}"
+dshow.CLSID_FilterGraph           := "{E436EBB3-524F-11CE-9F53-0020AF0BA770}"
+dshow.IID_IDDrawExclModeVideo     := "{153ACC21-D83B-11d1-82BF-00A0C9696C8F}"
+dshow.IID_IDvdGraphBuilder        := "{FCC152B6-F372-11d0-8E00-00C04FD7C08B}"
+dshow.CLSID_OverlayMixer          := "{CD8743A1-3736-11d0-9E69-00C04FD7C15B}"
+dshow.IID_IBaseFilter             := "{56a86895-0ad4-11ce-b03a-0020af0ba770}"
+dshow.CLSID_VideoMixingRenderer   := "{B87BEB7B-8D29-423f-AE4D-6582C10175AC}"
+dshow.CLSID_VideoMixingRenderer9  := "{51b4abf3-748f-4e3b-a276-c828330e926a}"
+dshow.IID_IVMRWindowlessControl9  := "{8f537d09-f85e-4414-b23b-502e54c79927}"
+dshow.IID_IVMRFiltercfg9       := "{5a804648-4f66-4867-9c43-4f5c822cf1b8}"
+dshow.IID_IVMRFiltercfg        := "{9e5530c5-7034-48b4-bb46-0b8a6efc8e36}"
+dshow.IID_IVMRWindowlessControl   := "{0eb1088c-4dcd-46f0-878f-39dae86a51b7}"
+dshow.IVMRWindowlessControl9 := {}
+dshow.IVMRWindowlessControl9.name := "IVMRWindowlessControl9"
+dshow.IVMRWindowlessControl9.def :=
+(
+"
+
+STDMETHOD(QueryInterface);
+STDMETHOD(AddRef);
+STDMETHOD(Release);
+STDMETHOD(GetNativeVideoSize);
+STDMETHOD(GetMinIdealVideoSize);
+STDMETHOD(GetMaxIdealVideoSize);
+STDMETHOD(SetVideoPosition);
+STDMETHOD(GetVideoPosition);
+STDMETHOD(GetAspectRatioMode);
+STDMETHOD(SetAspectRatioMode);
+STDMETHOD(SetVideoClippingWindow);
+STDMETHOD(RepaintVideo);
+STDMETHOD(DisplayModeChanged);
+STDMETHOD(GetCurrentImage);
+STDMETHOD(SetBorderColor);
+STDMETHOD(GetBorderColor);        
+"
+)
+dshow.IVMRFiltercfg9 := {}
+dshow.IVMRFiltercfg9.name := "IVMRFiltercfg9"
+dshow.IVMRFiltercfg9.def :=
+(
+"
+
+STDMETHOD(QueryInterface);
+STDMETHOD(AddRef);
+STDMETHOD(Release);
+STDMETHOD(SetImageCompositor);
+STDMETHOD(SetNumberOfStreams);
+STDMETHOD(GetNumberOfStreams);
+STDMETHOD(SetRenderingPrefs);
+STDMETHOD(GetRenderingPrefs);
+STDMETHOD(SetRenderingMode);
+STDMETHOD(GetRenderingMode);       
+"
+)
+dshow.IGraphBuilder := {}
+dshow.IGraphBuilder.name := "IGraphBuilder"
+dshow.IGraphBuilder.def :=
+( 
+"
+STDMETHOD(QueryInterface)(This,riid,ppvObject)
+STDMETHOD(AddRef)(This)
+STDMETHOD(Release)(This)
+STDMETHOD(AddFilter) (This)	
+STDMETHOD(RemoveFilter) (This)	
+STDMETHOD(EnumFilters)(This) 	
+STDMETHOD(FindFilterByName) (This)	
+STDMETHOD(ConnectDirect) (This)
+STDMETHOD(Reconnect) (This)	
+STDMETHOD(Disconnect) (This)
+STDMETHOD(SetDefaultSyncSource) (This)
+STDMETHOD(Connect) (This)
+STDMETHOD(Render)(This) 	
+STDMETHOD(RenderFile) (This)
+STDMETHOD(AddSourceFilterv (This)
+STDMETHOD(SetLogFile) (This)
+STDMETHOD(Abort) (This)		
+STDMETHOD(ShouldOperationContinue)(This)
+"
+)
+dshow.IBaseFilter := {}
+dshow.IBaseFilter.name := "IBaseFilter"
+dshow.IBaseFilter.def :=
+(
+"
+STDMETHOD(QueryInterface)
+STDMETHOD(AddRef)
+STDMETHOD(Release)
+STDMETHOD(GetClassID)
+STDMETHOD(Stop)
+STDMETHOD(Pause)
+STDMETHOD(Run)
+STDMETHOD(GetState)
+STDMETHOD(SetSyncSource)
+STDMETHOD(GetSyncSource)
+STDMETHOD(EnumPins)
+STDMETHOD(FindPin)
+STDMETHOD(QueryFilterInfo)
+STDMETHOD(JoinFilterGraph)
+STDMETHOD(QueryVendorInfo) 
+"
+)
+dshow.IDDrawExclModeVideo := {}
+dshow.IDDrawExclModeVideo.name := "IDDrawExclModeVideo"
+dshow.IDDrawExclModeVideo.def :=
+(
+"
+STDMETHOD(QueryInterface)
+STDMETHOD(AddRef) 
+STDMETHOD(Release)
+STDMETHOD(SetDDrawObject)
+STDMETHOD(GetDDrawObject)
+STDMETHOD(SetDDrawSurface) 
+STDMETHOD(GetDDrawSurface) 
+STDMETHOD(SetDrawParameters)
+STDMETHOD(GetNativeVideoProps) 
+STDMETHOD(SetCallbackInterface) 
+"
+)
+dshow.IEnumPins := {}
+dshow.IEnumPins.name := "IEnumPins"
+dshow.IEnumPins.def :=
+(
+"
+STDMETHOD(QueryInterface)
+STDMETHOD(AddRef) 
+STDMETHOD(Release)
+STDMETHOD(Next)
+STDMETHOD(Skip)
+STDMETHOD(Reset) 
+STDMETHOD(Clone) 
+"
+)
+dshow.IPin := {}
+dshow.IPin.name := "IPin"
+dshow.IPin.def :=
+(
+"
+STDMETHOD(QueryInterface)
+STDMETHOD(AddRef) 
+STDMETHOD(Release)
+STDMETHOD(Connect)
+STDMETHOD(ReceiveConnection)
+STDMETHOD(Disconnect)
+STDMETHOD(ConnectedTo) 
+STDMETHOD(ConnectionMediaType) 
+STDMETHOD(QueryPinInfo)
+STDMETHOD(QueryDirection)
+STDMETHOD(QueryId) 
+STDMETHOD(QueryAccept) 
+STDMETHOD(EnumMediaTypes)
+STDMETHOD(QueryInternalConnections) 
+STDMETHOD(EndOfStream) 
+STDMETHOD(BeginFlush)
+STDMETHOD(EndFlush) 
+STDMETHOD(NewSegment)
+"
+)
+global IGraphBuilder, IVideoWindow, IMediaControl, IBasicVideo, IMediaEvent
+GetDirectShow()
+{
+pVidwin:=0, pMediaCtrl:=0, pMediaEvent:=0, pBasicVideo:=0
+GUIDFromString := "GUID_FromString"
+pIGraphBuilder := ComObjCreate(dshow.CLSID_FilterGraph, dshow.IID_IGraphBuilder)
+if not pIGraphBuilder
+return "Failed to create the IGraphBuilder interface"
+IGraphBuilder := new ComInterfaceWrapper(dshow.IGraphBuilder, pIGraphBuilder, True)
+%GUIDFromString%(idd_VideoWindow, dshow.IID_IVideoWindow)
+r := dllcall(IGraphBuilder.QueryInterface, uint, pIGraphBuilder, uint, &idd_VideoWindow, "uint*", pVidwin)
+if r
+return "Failed to create the IVideoWindow interface"
+IVideoWindow := new ComInterfaceWrapper(dshow.IVideoWindow, pVidwin, True)
+%GUIDFromString%(idd_IMediaControl, dshow.IID_IMediaControl)
+if dllcall(IGraphBuilder.QueryInterface, uint, IGraphBuilder.p, uint, &idd_IMediaControl, "uint*", pMediaCtrl)
+return "Failed to create the IMediaControl interface"
+IMediaControl := new ComInterfaceWrapper(dshow.IMediaControl, pMediaCtrl, True)
+%GUIDFromString%(idd_IMediaEvent, dshow.IID_IMediaEvent)
+if dllcall(IGraphBuilder.QueryInterface, uint, IGraphBuilder.p, uint, &idd_IMediaEvent, "uint*", pMediaEvent)
+return "Failed to create the IMediaEvent interface"
+IMediaEvent := new ComInterfaceWrapper(dshow.IMediaEvent, pMediaEvent, True)
+%GUIDFromString%(idd_IBasicVideo, dshow.IID_IBasicVideo)
+if dllcall(IMediaControl.QueryInterface, uint, IMediaControl.p, uint, &idd_IBasicVideo, "uint*", pBasicVideo)
+return "Failed to create the IBasicVideo interface"
+IBasicVideo := new ComInterfaceWrapper(dshow.IBasicVideo, pBasicVideo, True)
+return "Succedeed to create the DirectShow interfaces"
+}
+PlayFMV(file, scale=False)
+{
+pVidwin:=0, pMediaCtrl:=0, pMediaEvent:=0, pBasicVideo:=0
+GUIDFromString := "GUID_FromString"
+if ! (pIGraphBuilder := ComObjCreate(dshow.CLSID_FilterGraph, dshow.IID_IGraphBuilder))
+return "Failed to create the IGraphBuilder interface"
+GraphBuilder := new ComInterfaceWrapper(dshow.IGraphBuilder, pIGraphBuilder, True)
+%GUIDFromString%(idd_VideoWindow, dshow.IID_IVideoWindow)
+r := dllcall(GraphBuilder.QueryInterface, uint, pIGraphBuilder, uint, &idd_VideoWindow, "uint*", pVidwin)
+if r
+return "Failed to create the IVideoWindow interface"
+VideoWindow := new ComInterfaceWrapper(dshow.IVideoWindow, pVidwin, True)
+%GUIDFromString%(idd_IMediaControl, dshow.IID_IMediaControl)
+if dllcall(GraphBuilder.QueryInterface, uint, GraphBuilder.p, uint, &idd_IMediaControl, "uint*", pMediaCtrl)
+return "Failed to create the IMediaControl interface"
+MediaControl := new ComInterfaceWrapper(dshow.IMediaControl, pMediaCtrl, True)
+%GUIDFromString%(idd_IMediaEvent, dshow.IID_IMediaEvent)
+if dllcall(GraphBuilder.QueryInterface, uint, GraphBuilder.p, uint, &idd_IMediaEvent, "uint*", pIMediaEvent)
+return "Failed to create the IMediaEvent interface"
+MediaEvent := new ComInterfaceWrapper(dshow.IMediaEvent, pIMediaEvent, True)
+%GUIDFromString%(idd_IBasicVideo, dshow.IID_IBasicVideo)
+if dllcall(MediaControl.QueryInterface, uint, MediaControl.p, uint, &idd_IBasicVideo, "uint*", pBasicVideo)
+return "Failed to create the IBasicVideo interface"
+BasicVideo := new ComInterfaceWrapper(dshow.IBasicVideo, pBasicVideo, True)
+if dllcall(GraphBuilder.RenderFile, uint, GraphBuilder.p, str, file, uint, 0)
+return "FMV playback failed, most likely missing the correct codec"
+r := dllcall(VideoWindow.get_Caption, uint, VideoWindow.p, "uint*", Caption , uint)
+wincap := strget(caption, "UTF-16")
+dllcall(VideoWindow.SetWindowForeground, uint, VideoWindow.p, int, -1)
+dllcall(VideoWindow.put_Visible, uint, VideoWindow.p, int, -1)
+while (hidden = 0)
+{
+sleep, 10
+dllcall(VideoWindow.get_Visible, uint, VideoWindow.p, "int*", hidden)
+}
+if dllcall(VideoWindow.put_FullScreenMode, uint, VideoWindow.p, int, -1)
+{
+VarSetCapacity(local_rect, 32)
+hDesktop := dllcall("User32.dll\GetDesktopWindow", uint)
+dllcall("GetWindowRect", uint, hDesktop, uint, &local_rect)
+dllcall("ReleaseDC", uint, 0, uint, hDesktop)
+winget, winid, ID, %wincap%
+s := dllcall("GetWindowLong", uint, winid, int, -16, uint)
+s &= ~(0x00C00000 | 0x00040000)
+dllcall("SetWindowLong", uint, hWin, int, -16, uint, s)
+dllcall("SetWindowPos", uint, winid, int, 0, uint, 0, uint, 0, uint, numget(&local_rect+8, "int"), uint, numget(&local_rect+12, "int"), uint, 0x0454)
+}
+dllcall(BasicVideo.get_SourceWidth, uint, BasicVideo.p, "int*", w)
+dllcall(BasicVideo.get_SourceHeight, uint, BasicVideo.p, "int*", h)
+wingetpos, , , ww, wh, %wincap%
+DllCall("oleaut32\SysFreeString", "ptr", caption)
+if (scale)
+{
+dllcall(BasicVideo.put_DestinationHeight, uint, pBasicVideo, "uint", wh)
+dllcall(BasicVideo.put_DestinationWidth, uint, pBasicVideo, "uint", wh*w/h)
+dllcall(BasicVideo.put_DestinationLeft, uint, pBasicVideo, "uint", 0)
+dllcall(BasicVideo.put_DestinationTop, uint, pBasicVideo, "uint", 0)
+} else {
+dllcall(BasicVideo.put_DestinationHeight, uint, pBasicVideo, "uint", h)
+dllcall(BasicVideo.put_DestinationWidth, uint, pBasicVideo, "uint", w)
+dllcall(BasicVideo.put_DestinationLeft, uint, pBasicVideo, "uint", (ww-w)/2)
+dllcall(BasicVideo.put_DestinationTop, uint, pBasicVideo, "uint", (wh-h)/2)
+}
+dllcall(MediaControl.Run, uint, MediaControl.p)
+while ! (event=0x0001)
+{
+dllcall(MediaEvent.GetEvent, uint, MediaEvent.p, "uint*", event, "uint*", p1, "uint*", p2, uint, 15)
+if getkeystate("esc", "P") or ( getkeystate("Alt", "P") and  getkeystate("Tab", "P") )
+break
+}
+return file " playback successful"
+}
+PlayFMVOnWindow(file, hWin, scale=False)
+{
+pIGraphBuilder:=0, pBaseFilter:=0, pFiltercfg9:=0, pWindowlessControl9:=0, pMediaCtrl:=0, pIMediaEvent:=0
+vw:=0, vh:=0, aw:=0, ah:=0, event:=0, p1:=0, p2:=0
+GUIDFromString := "GUID_FromString"
+if ! (pIGraphBuilder := ComObjCreate(dshow.CLSID_FilterGraph, dshow.IID_IGraphBuilder))
+return "Failed to create the IGraphBuilder interface"
+GraphBuilder := new ComInterfaceWrapper(dshow.IGraphBuilder, pIGraphBuilder, True)
+if ! (pBaseFilter := ComObjCreate(dshow.CLSID_VideoMixingRenderer9, dshow.IID_IBaseFilter))
+return "Failed to create the IGraphBuilder interface"
+BaseFilter := new ComInterfaceWrapper(dshow.IBaseFilter, pBaseFilter, True)
+if dllcall(GraphBuilder.AddFilter, uint, pIGraphBuilder, uint, pBaseFilter, str, "VMR9")
+return "Failed to add the Mixer filter"
+%GUIDFromString%(idd_Filtercfg9, dshow.IID_IVMRFiltercfg9)
+r := dllcall(BaseFilter.QueryInterface, uint, pBaseFilter, uint, &idd_Filtercfg9, "uint*", pFiltercfg9)
+if r
+return "Failed to create the VMRFiltercfg9 interface"
+VMRFiltercfg9 := new ComInterfaceWrapper(dshow.IVMRFiltercfg9, pFiltercfg9, True)
+if dllcall(VMRFiltercfg9.SetRenderingMode, uint, pFiltercfg9, uint, 0x00000002)
+return "Failed to set windowless mode"
+%GUIDFromString%(idd_WindowlessControl9, dshow.IID_IVMRWindowlessControl9)
+r := dllcall(BaseFilter.QueryInterface, uint, pBaseFilter, uint, &idd_WindowlessControl9, "uint*", pWindowlessControl9, uint)
+if r
+return "Failed to create the WindowlessControl9 interface" r dshow.err[r . ""]
+WindowlessControl9 := new ComInterfaceWrapper(dshow.IVMRWindowlessControl9, pWindowlessControl9, True)
+if dllcall(WindowlessControl9.SetVideoClippingWindow, uint, pWindowlessControl9, uint, hWin)
+return "Failed to set the target window"
+%GUIDFromString%(idd_IMediaControl, dshow.IID_IMediaControl)
+if dllcall(GraphBuilder.QueryInterface, uint, GraphBuilder.p, uint, &idd_IMediaControl, "uint*", pMediaCtrl)
+return "Failed to create the IMediaControl interface"
+MediaControl := new ComInterfaceWrapper(dshow.IMediaControl, pMediaCtrl, True)
+%GUIDFromString%(idd_IMediaEvent, dshow.IID_IMediaEvent)
+if dllcall(GraphBuilder.QueryInterface, uint, GraphBuilder.p, uint, &idd_IMediaEvent, "uint*", pIMediaEvent)
+return "Failed to create the IMediaEvent interface"
+MediaEvent := new ComInterfaceWrapper(dshow.IMediaEvent, pIMediaEvent, True)
+if dllcall(GraphBuilder.RenderFile, uint, GraphBuilder.p, str, file, uint, 0)
+return "FMV playback failed, most likely missing the correct codec"
+client_rect := struct("DWORD x; DWORD y; DWORD w; DWORD h;")
+src_rect    := struct("DWORD x; DWORD y; DWORD w; DWORD h;")
+dst_rect    := struct("DWORD x; DWORD y; DWORD w; DWORD h;")
+dllcall(WindowlessControl9.GetNativeVideoSize, uint, pWindowlessControl9, "uint*", vw, "uint*", vh, "uint*", aw, "uint*", ah)
+src_rect.w := vw
+src_rect.h := vh
+dllcall("GetClientRect", uint, hWin, uint, client_rect[])
+if (scale)
+{
+s := client_rect.h/src_rect.h
+dst_rect.y := 0
+dst_rect.h := src_rect.h*s
+dst_rect.w := src_rect.w*s
+dst_rect.x := (client_rect.w-dst_rect.w)/2
+dst_rect.w += dst_rect.x
+} else {
+dst_rect.x := (client_rect.w-src_rect.w)/2
+dst_rect.y := (client_rect.h-src_rect.h)/2
+dst_rect.w += dst_rect.x + src_rect.w
+dst_rect.h += dst_rect.y + src_rect.h
+}
+dllcall(WindowlessControl9.SetVideoPosition, uint, pWindowlessControl9, uint, src_rect[], uint, dst_rect[])
+client_rect.w +=1, client_rect.h += 1
+brush := dllcall("CreateSolidBrush", uint, 0xff000000, uint)
+wdc   := dllcall("GetDC", uint, hWin, uint)
+dllcall("FillRect", uint, wdc, uint, client_rect[], uint, brush)
+dllcall("DeleteObject", uint, brush)
+dllcall("DeleteObject", uint, wdc)
+dllcall(MediaControl.Run, uint, MediaControl.p)
+while ! (event=0x0001)
+{
+dllcall(MediaEvent.GetEvent, uint, MediaEvent.p, "uint*", event, "uint*", p1, "uint*", p2, uint, 15)
+if getkeystate("esc", "P") or ( getkeystate("Alt", "P") and  getkeystate("Tab", "P") )
+break
+XinputGetState(1)
+if XINPUT_GAMEPAD_BACK
+break
+}
+brush := dllcall("CreateSolidBrush", uint, 0xff000000, uint)
+wdc   := dllcall("GetDC", uint, hWin, uint)
+dllcall("FillRect", uint, wdc, uint, client_rect[], uint, brush)
+dllcall("DeleteObject", uint, brush)
+dllcall("DeleteObject", uint, wdc)
+return file " playback successfull"
+}
 
 ; <COMPILER: v1.1.15.03>
 global D3DHOOKS_DATA :=
@@ -4699,9 +5647,8 @@ if (r = DDERR_NODIRECTDRAWHW)
 D.ddsCaps.dwCaps := 0
 r := dllcall(IDirectDraw.CreateSurface, uint,DD, uint, D[], "ptr*", pSurface, uint, 0, uint)
 }
-printl("Create Surrogate - Surface1 " r " " ddraw.err[r . ""] " format " px " "
-. D.dwWidth "x" D.dwHeight)
-if r
+printl("Create Surrogate - Surface1 " r " " ddraw.err[r . ""] " format " px " " . D.dwWidth "x" D.dwHeight)
+if (r!=0)
 return
 this.Surface := pSurface
 this.flip    := 0
@@ -4709,15 +5656,18 @@ pSurface4 := 0, pTexture2 := 0
 GUID_FromString(idd_surface4, ddraw.IID_IDirectDrawSurface4)
 r := dllcall(IDirectDrawSurface.QueryInterface, uint, this.Surface, ptr, &idd_surface4, "ptr*", pSurface4, uint)
 Printl("Create Surrogate - Surface4 " r " " ddraw.err[r . ""])
-if r
+if (r!=0)
 return
 this.Surface4 := pSurface4
+if (px != "PAL8" && !g_.cfg.winedd)
+{
 GUID_FromString(idd_texture2, d3d.IID_IDirect3DTexture2)
 r := dllcall(IDirectDrawSurface.QueryInterface, uint, this.Surface, ptr, &idd_texture2, "ptr*", pTexture2, uint)
 printl("Create Surrogate - Texture2 " r " " ddraw.err[r . ""])
-if r
+if (r!=0)
 return
 this.Texture := pTexture2
+}
 }
 GetHandle(pDevice) {
 if not this.Texture
@@ -8541,50 +9491,6 @@ p6 := d.h
 }
 return dllcall(g_.WnAPI.SetPos, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7)
 }
-
-
-
-logerr(IDirectDraw.unhook("EnumdisplayModes"))
-logerr(IDirectDraw4.unhook("EnumdisplayModes"))
-
-AltIDirectDraw2_CreateSurface(p1, p2, p3, p4)
-{
-	d    := struct(DDSURFACEDESC)
-	d[] := p2
-	if (d.ddsCaps.dwCaps & DDSCAPS_PRIMARYSURFACE)
-		d.ddsCaps.dwCaps &= ~ DDSCAPS_SYSTEMMEMORY
-	
-	return IDirectDraw2_CreateSurface(p1, p2, p3, p4)	
-}
-
-AltIDirectDrawSurface_GetAttachedSurface(p1, p2, p3)
-{
-	logerr("..............")
-	if ( GetSurfaceCaps(p1) & DDSCAPS_PRIMARYSURFACE )
-	{
-		NEFS(p1, D, DD, sz, fmt, sys)		
-		g_.proxies.flp := new Surface(DD, fmt, sz, sys)
-		g_.proxies.flp.Attach((f:=new Surface(DD, fmt, sz, sys)).surface)	
-		numput(g_.proxies.flp.surface, p3+0, "uint")
-		dllcall(IDirectDrawSurface.addref, uint, g_.proxies.flp.surface) 		
-		return 0
-	}
-	else if (numget(p2+0, "uint") & DDSCAPS_ZBUFFER)
-	{
-		if (g_.proxies.z)
-		{
-			GUID_FromString(iid, ddraw.IID_IDirectDrawSurface)
-			q := dllcall(IDirectDrawSurface.QueryInterface, ptr, g_.proxies.z.id, ptr, &iid, ptr, p3)
-			logerr("IDirectDrawSurface::GetAttachedSurface ZBuffer::QueryInterface " q " "ddraw.err[q . ""])
-			return q
-		}
-	}
-	return dllcall(IDirectDrawSurface.GetAttachedSurface, uint, p1, uint, p2, uint, p3)
-}
-
-
-
-
 
 printl()
 ReleaseDirectDraw()

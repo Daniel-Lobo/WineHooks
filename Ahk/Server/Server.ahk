@@ -787,10 +787,38 @@ GuiClose(){
 }
 
 DownloadFile(url, dest){
+	if dest = "undefined" or url = "undefined"
+	return
 	dest := g_.BasePath dest
-	print(url " "dest)
-	UrlDownloadToFile, %url%, %dest%
-}
+	print(url " " dest)
+
+	success := False
+	while (!success) {
+		whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+		whr.Open("GET", url, false)
+		whr.Send()
+		; Using 'true' above and the call below allows the script to remain responsive.
+		whr.WaitForResponse()
+		file := whr.ResponseText
+		if (file = "")
+			success := False
+		else {
+			FileOpen(dest, "w").Write(file)
+			success := FileOpen(dest, "r").read() = "" ? False : True
+		}
+	}	
+	return
+
+	/*
+	err := 1
+	while (err != 0)
+	{
+		UrlDownloadToFile, %url%, %dest%
+		err := ErrorLevel
+		print("Retying download " err)
+	}
+	*/
+}	
 
 IsExecutable(path)
 {
