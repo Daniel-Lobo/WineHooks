@@ -1,9 +1,19 @@
+::0.10.16+::
+{b
+	<img src="https://icon-library.com/images/gog-icon/gog-icon-11.jpg" style="width:48px;height:48px"></img>
+	==[Gog's DirectX 7 and earlier games...]==
+	
+	...frequently have a <b>DirectDraw\Direct3D</b> or <b>Glide</b> to <b>Direct3D 9 wrapper</b>.
+	For these games, you can either create a new profile and choose <b>Direct3D 9</b> as the API, or
+	delete\rename the <b>ddraw.dll</b>, <b>glide.dll</b>, <b>glide2x.dll</b>, and <b>glide3x.dll</b> files from the game folder
+}::
+
 ::Tab::Graphics...|...Graphics|Sound|Input|CPU::
 
 ::Graphics...Tab::
-::_BOOL_::wineoff::Don't use wine::On windows, don't use [wine wine's] directdraw\direct3d implementation anf fallback to the default MS 
-Implementation, on Linux this has no effect. Wine integration is a work in progress, and at the moment, most games neeed this option enabled::
-::_parent_::wineoff_details::
+::BOOL::wineoff::Don't use [wine wine] <span style="color:var(--bs-danger)">ver 0.10.16+</span> ::On windows, don't use [wine wine's] directdraw\direct3d implementation and fallback to the default MS 
+Implementation, on Linux this has no effect. At present, a few games still require this, but [wine wine's] adoption is almost finished::
+::parent::wineoff_details::
 ::BOOL::layeroff::Disable passthrough layer::This is a thin layer between the game and the directdraw\direct3d implementation, 
 meant to help with the ongoing effort to make the program compatible with [wine wine] on both windows and linux. On linux, this should never be 
 enabled. On windows, the layer works fine for all games tested so far
@@ -38,7 +48,7 @@ the value returned|n by the IDirectDraw&rarr;Release method::
 in fullscreen
 
 ::parent::Graphics..._div::
-::BOOL::DMWM::Disable Maximized windowed mode::::
+::BOOL::DMWM::Disable Maximized windowed mode::With the the adoption of [wine wine] - <span style="color:var(--bs-danger)">ver 0.10.16+</span>, this options has no effect anymore, except on the few games that need [gototab_Graphics..._wineoff wine disabled]::
 ::parent::DMWM_details::
 ::HIDDEN::DMWM_Detailed::Details::
 Advantages
@@ -69,7 +79,8 @@ restored::
 ::parent::Graphics..._div::
 ::BOOL::MNGR::Manage texture locks - DirectX 6 only::
 This was created to fix dynamic lights causing low frame rate on Shogo and Slave
-Zero and might fix games with similar problems 
+Zero and might fix games with similar problems<br>
+These games also need [gototab_Graphics..._wineoff wine disabled] as they suffer poor performance on Windows with [wine wine], although they run fine on linux
 
 ::parent::Graphics..._div::
 ::BOOL::FHAL::Force software transform and lighting - DirectX 7 only::
@@ -159,11 +170,11 @@ l| Fixes glitches on display mode changes which also become instant</li></ul>
 ::BOOL::GDI::GDI hooks::Fixes 2D graphics (most of the time FMVs) not being scaled correctly in some games
 
 ::parent::HD_details::
-::BOOL::NEFS::Non exclusive fullscreen::
+::BOOL::NEFS::Non exclusive fullscreen::With the the adoption of [wine wine] - <span style="color:var(--bs-danger)">ver 0.10.16+</span>, this options has no effect anymore, except on the few games that need [gototab_Graphics..._wineoff wine disabled]
 ::parent::NEFS_details::
 ::HIDDEN::NEFSDetailed::Details::
 My implementation of maximized 
-windowed mode, with different results form microsoft's
+windowed mode, with different results form Microsoft's
 <ul> 
 l| Fixes poor performance</li>
 l| Fixes rendering bugs</li>
@@ -196,7 +207,7 @@ artifacts if supersampling is not enough to fix, or introduces them. This option
 has no effect if supersampling is not enabled  
 
 ::parent::HD_details::
-::BOOL::xBR::a|_xBR ^ xBRz scaling|a:: Pixel art scaler for 2D games:: 
+::BOOL::xBR::a|_xBR ^ xBRz scaling|a:: Pixel art scaler for 2D games::This options had no effect since version 0.10.13, but should be restored on version 0.10.17
 
 ::parent::HD_details::
 ::BOOL::DSR::Dynamic super resolution::
@@ -230,14 +241,17 @@ b|force VSync: half refresh rate|b option bellow
 
 ::RADIOHEAD::SYNC::Force VSYnc::
 ::parent::SYNC_details::
-::TEXT::Windows 10 always forces VSync on DirectX 7 and earlier unless 
-a|gototab_NEFS ^ non-exclusive fullscreen|a or
-a|gototab_DMWM ^ disable maximized window mode|a are enabled. Regardless, the 
-b|half refresh rate|b option is still useful 
-to limit some games to 30 FPS::
 ::RADIO::SYNC=0::SYNC::Disabled::::
 ::RADIO::SYNC=1::SYNC::Enabled::
 ::RADIO::SYNC=2::SYNC::Half refresh rate:: 
+::TEXT::{b
+	<span style="color:var(--bs-danger)">ver 0.10.5-</span>, or  <span style="color:var(--bs-danger)">ver 0.10.6+</span>with [gototab_Graphics..._wineoff wine disabled]|n
+	VSync is always on unless 
+	a|gototab_NEFS ^ non-exclusive fullscreen|a or
+	a|gototab_DMWM ^ disable maximized window mode|a are enabled. Regardless, the 
+	b|half refresh rate|b option is still useful 
+	to limit some games to 30 FPS
+}::
  
 ::parent::Graphics..._div::
 ::BOOL::Textswap.e::Texture swapping::

@@ -46,7 +46,7 @@ logerr(IDirect3DDevice3.Hook("BeginScene"))
 logErr(IDirect3DDevice3.dllHook("DrawPrimitive", "DrawPrimitive3Hook"))
 
 D3DHOOKS_DATA.p_DrawPrimitive := IDirect3DDevice3.DrawPrimitive
-D3DHOOKS_DATA.pCallback := registercallback("drawPrimitiveCallback3", "F")
+;D3DHOOKS_DATA.pCallback := registercallback("drawPrimitiveCallback3", "F")
 ;D3DHOOKS_DATA.callback := false 
 D3DHOOKS_DATA.displace := False
 D3DHOOKS_DATA.scale := 1
@@ -65,10 +65,10 @@ if g_.cfg.create_links
 	CreateLinksCollection(links)
 }	
 
-g_.cfg.target_name = "tomb4.exe" 
-? redirectCall(0x00479f2d, "InventoryAcess", "F CDecl") : redirectCall(0x004AC43D, "InventoryAcess5", "F CDecl") 
+;g_.cfg.target_name = "tomb4.exe" 
+;? redirectCall(0x00479f2d, "InventoryAcess", "F CDecl") : redirectCall(0x004AC43D, "InventoryAcess5", "F CDecl") 
 
-AltIDirect3DDevice3_BeginScene(p1)
+__AltIDirect3DDevice3_BeginScene(p1)
 {
 	D3DHOOKS_DATA.callback := false 
 	numget(g_.tr4_on_inv, "uint") ? D3DHOOKS_DATA.callback := dllcall(IDirectDrawSurface4.Blt, uint, g_.rtrgt

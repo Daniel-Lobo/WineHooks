@@ -96,6 +96,15 @@ If you encounter problems with the FMVs even with
 [patreon let me know] so i can fix it       
 }
 
+::0.10.16+::
+<div class="alert-danger alert">
+	==[Version warning]==
+	Version [old_version_redirect 0.10.16] is the last one on which Tomb Raider 2 and 3 will be tested. Currently, they work fully in this version on both
+	Windows and Linux, but future versions may break compatibility with these titles.
+	With the excellent remasters, the effort of maintaining compatibility with this titles is a bit of a waste 
+</div>::
+::{h1 Fixes a
+
 %ddraw%
 
 ::link::patreon->https://www.buymeacoffee.com/Peixoto
