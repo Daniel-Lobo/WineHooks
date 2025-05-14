@@ -283,11 +283,11 @@
 						if (cheat_table_path !== "") {
 							await DownLoadFile(cheat_table_ahk_script_path, "CheatTables\\" + cheat_table_name + ".ahk")
 						}							
-						let script_name = await IniGet(jsn[i].name.replace(".ini", ""), "script");
+						let script_name = (await IniGet(jsn[i].name.replace(".ini", ""), "script", "")).replace("scripts\\", "");
 						let script_path = GetHelpFileDownLoadPath(scripts_nfo, script_name);
 						console.log("Script name: " + script_name + "\nScript path: " + script_path);
 						if (script_path !== "") {
-							await DownLoadFile(script_path, "Scripts\\" + script_name + ".ahk")
+							await DownLoadFile(script_path, "Scripts\\" + script_name)
 						}					
 					}		
 				}

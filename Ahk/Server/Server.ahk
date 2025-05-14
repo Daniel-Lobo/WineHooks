@@ -537,7 +537,7 @@ GetGameHelp(ini_file_name){
 
 GetVal(ini_file_name, key, section){
 	val := new IniFile(g_.Profiles . ini_file_name . ".ini").Get(key, section)
-	print("GetVal" g_.Profiles . ini_file_name . ".ini val : " val)	
+	;print("GetVal: " g_.Profiles . ini_file_name . ".ini key : " key " val : " val)	
     return val
 }
 
