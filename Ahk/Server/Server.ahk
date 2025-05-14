@@ -246,23 +246,30 @@ PlainReply(txt){
 }
 
 ScapeUrlString(url){
+	_raw := url
+	;needs to be twice to remove scape sequences like %2520
 	for scape, char in g_.URLScapeCodes {
 		url := StrReplace(url, scape, char)
 	}
+	for scape, char in g_.URLScapeCodes {
+		url := StrReplace(url, scape, char)
+	}
+	;print("raw " _raw)
+	;print("url " url)
 	return url
 }
 
 GetArgs(args){
     args := StrGet(args+0, ,"CP0")
-	args := ScapeUrlString(args)
+	;args := ScapeUrlString(args)
     ;print("args " args)
     ret  := {}
     for _, arg in StrSplit(args, "&")
     {
         split := StrSplit(arg, "=")
         if (split.Length() >= 2)
-        {
-            ret[split[1]] := StrReplace(arg, split[1] "=", "") 
+        {		
+            ret[ScapeUrlString(split[1])] := ScapeUrlString(split[2])
         } 
     }
     ;for key, val in ret
@@ -529,7 +536,9 @@ GetGameHelp(ini_file_name){
 }
 
 GetVal(ini_file_name, key, section){
-    return new IniFile(g_.Profiles . ini_file_name . ".ini").Get(key, section)
+	val := new IniFile(g_.Profiles . ini_file_name . ".ini").Get(key, section)
+	print("GetVal" g_.Profiles . ini_file_name . ".ini val : " val)	
+    return val
 }
 
 SetValue(ini_file_name, key, val, section){
@@ -790,7 +799,8 @@ DownloadFile(url, dest){
 	if dest = "undefined" or url = "undefined"
 	return
 	dest := g_.BasePath dest
-	print(url " " dest)
+	print("url : " url)
+	print("path: " dest)
 
 	success := False
 	while (!success) {

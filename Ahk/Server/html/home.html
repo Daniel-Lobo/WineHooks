@@ -156,7 +156,8 @@
 
 <script>
 	async function DownLoadFile(url, path) {
-		return await fetch(`/DownloadFile?Url=${url}&Path=${path}`, FetchOPtions())
+		console.log("Downloading file from: " + url + "\n to: " + path);
+		return await fetch(`/DownloadFile?Url=${encodeURIComponent(url)}&Path=${encodeURIComponent(path)}`, FetchOPtions())
 	}
 	function GetHelpFileDownLoadPath(github_nfo, name) {
 		for (let i = 0; i < github_nfo.length; i++) {
@@ -170,7 +171,7 @@
 	}
 	async function GetHelpFileNameFromServer(profile_path) {
 		let options  = FetchOPtions();
-		let name    = await (await fetch(`/GetHelpFileName?Profile=${profile_path}`, options)).text();
+		let name     = await (await fetch(`/GetHelpFileName?Profile=${profile_path}`, options)).text();
 		//Print(name)
 		return name
 	}
@@ -277,7 +278,17 @@
 						let cheat_table_path = GetHelpFileDownLoadPath(tables_nfo, cheat_table_name);
 						if (cheat_table_path !== "") {
 							await DownLoadFile(cheat_table_path, "CheatTables\\" + cheat_table_name)
-						}						
+						}		
+						let cheat_table_ahk_script_path =  GetHelpFileDownLoadPath(tables_nfo, cheat_table_name + ".ahk");
+						if (cheat_table_path !== "") {
+							await DownLoadFile(cheat_table_ahk_script_path, "CheatTables\\" + cheat_table_name + ".ahk")
+						}							
+						let script_name = await IniGet(jsn[i].name.replace(".ini", ""), "script");
+						let script_path = GetHelpFileDownLoadPath(scripts_nfo, script_name);
+						console.log("Script name: " + script_name + "\nScript path: " + script_path);
+						if (script_path !== "") {
+							await DownLoadFile(script_path, "Scripts\\" + script_name + ".ahk")
+						}					
 					}		
 				}
 				if (errors.length > 0) {

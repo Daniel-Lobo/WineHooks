@@ -338,7 +338,7 @@
 		</div>
 		`
 		let parent = document.getElementById("game-page").children[1].children[0];
-		let help = await (await fetch('/GameHelp?Game=' + GameName, FetchOPtions())).text();
+		let help   = await (await fetch('/GameHelp?Game=' + GameName, FetchOPtions())).text();
 		tokens = help.split("::");
 		console.log(help);
 
