@@ -127,30 +127,57 @@
 		</div>
 	</div>	
 	<div class="alert alert-danger">
-		<h2> VERSION WARNING</h2>
+		<h2> VERSION WARNING</h2>	
+		This is the 4th stable version of the ongoing effort to adapt the program to be fully compatible
+		with <a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine</a> and use <a id='Wine'
+			onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls
+		on Windows, and we're almost there			
+		<ul style="margin-top:10px">
+			<li>What works:
+				<ul>
+					<li>Direct3D 8, 9, 10 and 11: On Windows, <a id='Wine'
+						onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> dlls are completely integrated, and 
+						compatibility on Linux - <a id='Wine'
+						onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a>, 
+						<a id='dxvk'
+						onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a> - is the same as on Windows
+					</li>
+				</ul>	
+			</li>
+		</ul>				
 		<ul>
-			<li style="margin-top:10px;">
-				This in the 2nd "stable" version of the ongoing effort to adapt the program to be fully compatible
-				with <a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine</a> and use <a id='Wine'
-					onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls
-				on Windows
+			<li>Doesn't work:
+				<ul>
+					<li>Direct3D 7 and earlier:
+						<ul>
+							<li>
+								Over  half the games use <a id='Wine'
+								onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> dlls on Windows and work
+								on Linux - <a id='Wine'
+								onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a>, 
+								<a id='dxvk'
+								onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a>.
+								The other half works on Windows with the system's Direct3D implementation							
+							</li>
+							<li>
+								<a target='_blank'
+								href='https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family'>xBRz scaling</a> 
+							</li>
+						</ul>	
+					</li>										
+					<li>
+						OpenGl: <a target='_blank'
+						href='https://en.wikipedia.org/wiki/Supersampling'>supersampling anti-aliasing</a> on Linux
+					</li>
+					<li>
+						Installers: some scripts to install some games or automate  
+						<a target='_blank'
+						href='https://reactos.org/forum/viewtopic.php?t=10988'>this</a> process
+					</li>	
+				</ul>	
 			</li>
-			<li style="margin-top:10px;">
-				Even though I have decided to promote this to stable, it is expected that some things might still be
-				broken, like
-				<b>xBR scaling</b> on directdraw games or the Installer for <b>Installshield</b> 3 and 5 installers
-			</li>
-			<li style="margin-top:10px;">
-				The 2nd update, after the promotion to stable (this version), was merelly a fix for the GUI, which stopped working on
-				wine 10, so none of the above was
-				fixed yet
-			</li>
-			<li style="margin-top:10px;">
-				If you're on Windows, you can always download an <a id='Archive' onclick="PostAction(event)"
-					href='javascript:dummy()'>version 0.10.12</a> or earlier
-				<br>
-			</li>	
-		<ul>			<!--<img src="WINE.ico"/>-->					
+		</ul>		
+									
 	</div>
 </div>
 
