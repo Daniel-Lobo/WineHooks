@@ -26,3 +26,14 @@ AltStretchBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
 	return StretchBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)	
 }
 
+UnhookExtTextOutA(){
+	hgdi                    := dllcall("GetModuleHandleA", "astr", g_.cfg.winedd ? "gdi32.dll" : "Gdi32Full.dll")
+	pTExtTextOutA           := dllcall("GetProcAddress", ptr, hgdi, "astr", "ExtTextOutA")
+	pTExtTextOutATrampoline := g_.WnAPI.ExtTextOutA
+	if !g_.cfg.winedd 
+	return
+	logerr("hdgi: " hgdi " pTExtTextOutA " pTExtTextOutA " pTExtTextOutATrampoline " pTExtTextOutATrampoline) 	
+	UnHook(pTExtTextOutA, pTExtTextOutATrampoline) 
+}
+
+UnhookExtTextOutA()
