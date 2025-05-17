@@ -379,7 +379,111 @@ SetDeviceGammaRamp(brightness, ramp=1.0){
 	DllCall("ReleaseDC", "Uint", 0, "Uint", hDC)
 }
 
-HandleAction(action){
+CloneDir(Template, Clone)
+{
+	FileCreateDir, %Clone%\
+	loop, %Template%*.*, 1, 1
+	{
+		lnk := StrReplace(A_LoopFileFullPath, Template, Clone)		
+		if InStr(FileExist(A_LoopFileFullPath), "D")  
+		{
+			FileCreateDir, %lnk%\
+			msg := "Createdir " lnk " " A_lasterror "`n"
+		}		
+		else 
+		{
+			msg     := "Create link : " lnk "`nto          : " A_LoopFileFullPath "`n"
+			;success := dllcall("CreateSymbolicLinkW", str, lnk, str, A_LoopFileFullPath, uint, 0) || ErrorLevel
+			;if (!success)
+			;{
+				;MsgBox % errorlevel " " A_LastError
+			;}
+			FileCopy, %A_LoopFileFullPath%, %lnk%, 1
+		}
+		print(msg " success: ")		
+	}	
+	;msgbox
+}
+
+InstallShideldInstall(v)
+	{
+		FileRemoveDir, %A_Temp%\InstallShield v3, 1
+		FileRemoveDir, %A_Temp%\InstallShield v5, 1
+		
+		msg = 
+		(LTRIM
+		You will  now  be asked to point to the 16 bit setup
+		program in the game's CD ROM. 
+		
+		This is usually named: "setup.exe"
+		
+		If you left click that file to examine its properties, you 
+		will see in the details tab:
+		
+		Product name: InstallShield		
+		)
+		msgbox, 64, ,% msg		
+		FileSelectFile, setup, 3, c:\, Please select the 16-bit setup executable file, *.exe
+		if !setup
+		return
+		SplitPath, setup, ,dir , , ,Drv
+		FileGetAttrib, att, %setup%
+		setup_temp := StrReplace(dir, Drv, A_Temp "\InstallShield v" v)
+		read_only  := instr(att, "R") ? "Yes" : "No"  
+		Drv_type   := "DRIVE_UNKNOWN DRIVE_NO_ROOT_DIR DRIVE_REMOVABLE DRIVE_FIXED DRIVE_REMOTE DRIVE_CDROM DRIVE_RAMDISK"
+		Drv_type   := strsplit(Drv_type, " ")[dllcall("GetDriveTypeA", astr, Drv "\", uint)+1]
+		msg= 
+		(LTRIM
+		Setup File : %setup%
+		Read Only  : %read_only%
+		Drive      : %Drv%
+		Type       : %Drv_type% 	
+		New Path   : %setup_temp%`n
+		)	
+		print(msg)
+		
+		if (dllcall("GetDriveTypeA", astr, Drv "\", uint) != 5)
+		{
+			msgbox, 16, ,Drive: %Drv%\ is not a CDRom Drive
+			return	
+		}
+		
+		if (!instr(att, "R"))
+		{
+			msgbox, 16, ,File: "%setup%\" is not Read Only
+			return	
+		}	
+		
+			
+		Progress, w200 h50 FS16 M C0 zh0, ,Creating symbolic links
+		CloneDir(Drv "\", A_Temp "\InstallShield v" v "\")
+		Progress, off
+		;dllcall("FreeConsole")
+		filecopy, ..\InstallShield\setupv%v%.exe, %setup_temp%\setupv%v%.exe 
+		
+		ini :=  new IniFile("..\InstallShield\InstallShield.ini")
+		ini.edit("target", setup_temp "\setupv" v ".exe")
+		ini.edit("drive", Drv)
+		ini.edit("tempdir", A_Temp "\InstallShield v" v "\")		
+		if (v=3)
+		msgbox, 36, ,Set Windows 95 compatibility ?
+		else 
+		msgbox, 36, ,Set Windows 98 compatibility ?	
+		IfMsgBox, yes
+		ini.edit("compatlayer", v = 3 ? "win95" : "win98")	
+		else ini.edit("compatlayer", "HIGHDPIAWARE")		
+		ini.save()
+		
+		
+		;run ..\Injector.exe -f InstallShield\InstallShield.ini, ..\
+		;run InstallShield.bat
+		;runwait, ..\injector.exe src\injector.txt -f InstallShield\InstallShield.ini, ..\
+		run, Server.exe InstallShield.ahk %v%		
+		ExitApp
+		return
+	}
+
+HandleAction(action){	
     if (link := g_.Links[action]){
         if (Instr(action, "script")){
 			return RunScript(link)
@@ -395,6 +499,10 @@ HandleAction(action){
 	} 	
 	else if (action = "gammatool"){
 		return SetDeviceGammaRamp(128, 1)
+	}
+	else if S(action).StartsWith("InstallShield"){
+		version := StrReplace(action, "InstallShield", "")
+		return InstallShideldInstall(version)
 	}
 	print(RegExMatch(action, "[A-Z]:\\"))
     print(action)

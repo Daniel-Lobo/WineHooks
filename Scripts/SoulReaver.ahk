@@ -1,11 +1,13 @@
 ;REMOTE SCRIPT START
+/*
 D3DHOOKS_DATA.LockSurface    := IDirectDrawSurface4.lock
 D3DHOOKS_DATA.UnLockSurface4 := IDirectDrawSurface4.Unlock
 D3DHOOKS_DATA.LockPrimary    := RegisterCallback("Alt_lock")
 D3DHOOKS_DATA.UnLockPrimary  := RegisterCallback("Alt_Unlock")
 D3DHOOKS_DATA.Bltprimary     := IDirectDrawSurface4.blt
+*/
 
-InitSRHooks()
+;InitSRHooks()
 InitSRHooks()
 {
 	; Fixes the achivments text on wrace's patch 
@@ -43,11 +45,13 @@ AltGetClientRect(p1, p2)
 	return dllcall(g_.s.getclient, uint, p1, uint, p2)
 }
 
+/*
 AltIDirectDrawSurface_QueryInterface(p1, p2, p3)
 {
 	r := IDirectDrawSurface4_QueryInterface(p1, p2, p3)		
 	return r
 }
+
 
 AltIDirectDraw2_CreateSurface(pIDirectDraw, pSurfaceDesc, ppSurface, pIUnknown)
 {
@@ -104,6 +108,7 @@ Alt_Unlock(p1, p2)
 	}
 	return surface4unlock(p1, p2)
 }
+*/
 
 /*
 AltDDrawCreate(p1, p2, p3)

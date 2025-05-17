@@ -96,7 +96,7 @@
 		}
 		async function PostActionB(_this) {
 			let action = _this.id.toLowerCase().trim();
-			if (action === "compile" || action.startsWith("installshield")) {
+			if (action === "compile" /*|| action.startsWith("installshield")*/) {
 				return Unimplemented();
 			}			
 			else if (action.startsWith('goto')){
