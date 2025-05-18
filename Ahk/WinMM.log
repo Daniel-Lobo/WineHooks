@@ -5,40 +5,74 @@ auxOutGetVolume hook 0
 auxGetNumDevs hook 0
 auxGetDevCaps hook 0
 	Play Thread: OPEN:
-	 track 1: 2 minutes :8 seconds :40 frames - total: 128533.333333 mili seconds, position(ms):0
-	 track 2: 1 minutes :53 seconds :6 frames - total: 113080.000000 mili seconds, position(ms):128533.333333
-	 track 3: 1 minutes :56 seconds :2 frames - total: 116026.666667 mili seconds, position(ms):241613.333333
-	 track 4: 1 minutes :14 seconds :7 frames - total: 74093.333333 mili seconds, position(ms):357640.000000
-	 track 5: 2 minutes :9 seconds :51 frames - total: 129680.000000 mili seconds, position(ms):431733.333333
-	 track 6: 2 minutes :13 seconds :72 frames - total: 133960.000000 mili seconds, position(ms):561413.333333
-	 track 7: 2 minutes :8 seconds :32 frames - total: 128426.666667 mili seconds, position(ms):695373.333333
-	 track 8: 2 minutes :2 seconds :66 frames - total: 122880.000000 mili seconds, position(ms):823800.000000
-	 track 9: 2 minutes :9 seconds :44 frames - total: 129586.666667 mili seconds, position(ms):946680.000000
-	 track 10: 2 minutes :7 seconds :18 frames - total: 127240.000000 mili seconds, position(ms):1076266.666667
-	 track 11: 2 minutes :4 seconds :14 frames - total: 124186.666667 mili seconds, position(ms):1203506.666667
-	 track 12: 4 minutes :37 seconds :7 frames - total: 277093.333333 mili seconds, position(ms):1327693.333334
-MCISndComdA: MCI_OPEN 13 tracks, sync: 2448
-MCISndComdA: MCI_SET time format 0
-MCISndComdA: MCI_STATUS: Disk , 525
-MCISndComdA: MCI_STATUS: Disk , 525
-MCISndComdA: MCI_STATUS: Track[9] position 823800
-MCISndComdA: MCI_STATUS: Track[9] lenth 122880
-MCISndComdA: MCI_STATUS: Disk , 525
-MCISndComdA: MCI_STATUS: Disk , 13
-MCISndComdA: MCI_STATUS: Disk , 525
-MCISndComdA: MCI_STATUS: Disk , 525
-MCISndComdA: MCI_STATUS: Disk , 13
-MCISndComdA: MCI_STATUS: Disk , 525
-MCISndComdA: MCI_STATUS: Track[9] position 823800
-MCISndComdA: MCI_STATUS: Track[9] lenth 122880
-MCISndComdA: MCI_STATUS: Disk , 525
-MCISndComdA: MCI_STATUS: Disk , 13
-MCISndComdA: MCI_STATUS: Disk , 525
-MCISndComdA: MCI_PLAY from 823800 to 946680, seek 0 callback 553682083
-	Play Thread: Play 1 tracks, 8 to : 08 Track 8.wav
-MCISndComdA: MCI_STATUS: Disk , 526
-MCISndComdA: MCI_STATUS: Disk , 526
+	 track 1: 1 minutes :27 seconds :36 frames - total: 87480.000000 mili seconds, position(ms):0
+	 track 2: 1 minutes :56 seconds :26 frames - total: 116346.666667 mili seconds, position(ms):87480.000000
+	 track 3: 2 minutes :17 seconds :62 frames - total: 137826.666667 mili seconds, position(ms):203826.666667
+	 track 4: 0 minutes :9 seconds :61 frames - total: 9813.333333 mili seconds, position(ms):341653.333334
+	 track 5: 0 minutes :8 seconds :73 frames - total: 8973.333333 mili seconds, position(ms):351466.666667
+	 track 6: 0 minutes :7 seconds :2 frames - total: 7026.666667 mili seconds, position(ms):360440.000000
+	 track 7: 0 minutes :7 seconds :4 frames - total: 7053.333333 mili seconds, position(ms):367466.666667
+	 track 8: 0 minutes :8 seconds :1 frames - total: 8013.333333 mili seconds, position(ms):374520.000000
+	 track 9: 0 minutes :13 seconds :26 frames - total: 13346.666667 mili seconds, position(ms):382533.333333
+	 track 10: 0 minutes :17 seconds :61 frames - total: 17813.333333 mili seconds, position(ms):395880.000000
+	 track 11: 0 minutes :10 seconds :39 frames - total: 10520.000000 mili seconds, position(ms):413693.333333
+	 track 12: 0 minutes :11 seconds :10 frames - total: 11133.333333 mili seconds, position(ms):424213.333333
+	 track 13: 0 minutes :7 seconds :2 frames - total: 7026.666667 mili seconds, position(ms):435346.666666
+	 track 14: 0 minutes :7 seconds :2 frames - total: 7026.666667 mili seconds, position(ms):442373.333333
+	 track 15: 0 minutes :7 seconds :3 frames - total: 7040.000000 mili seconds, position(ms):449400.000000
+	 track 16: 0 minutes :11 seconds :4 frames - total: 11053.333333 mili seconds, position(ms):456440.000000
+	 track 17: 0 minutes :7 seconds :2 frames - total: 7026.666667 mili seconds, position(ms):467493.333333
+	 track 18: 0 minutes :7 seconds :2 frames - total: 7026.666667 mili seconds, position(ms):474520.000000
+	 track 19: 0 minutes :7 seconds :2 frames - total: 7026.666667 mili seconds, position(ms):481546.666667
+	 track 20: 0 minutes :7 seconds :2 frames - total: 7026.666667 mili seconds, position(ms):488573.333334
+	 track 21: 0 minutes :7 seconds :2 frames - total: 7026.666667 mili seconds, position(ms):495600.000001
+	 track 22: 0 minutes :18 seconds :51 frames - total: 18680.000000 mili seconds, position(ms):502626.666668
+	 track 23: 0 minutes :11 seconds :2 frames - total: 11026.666667 mili seconds, position(ms):521306.666668
+	 track 24: 0 minutes :7 seconds :2 frames - total: 7026.666667 mili seconds, position(ms):532333.333335
+	 track 25: 0 minutes :53 seconds :67 frames - total: 53893.333333 mili seconds, position(ms):539360.000002
+	 track 26: 2 minutes :0 seconds :13 frames - total: 120173.333333 mili seconds, position(ms):593253.333335
+	 track 27: 1 minutes :59 seconds :60 frames - total: 119800.000000 mili seconds, position(ms):713426.666668
+	 track 28: 2 minutes :48 seconds :35 frames - total: 168466.666667 mili seconds, position(ms):833226.666668
+	 track 29: 3 minutes :5 seconds :61 frames - total: 185813.333333 mili seconds, position(ms):1001693.333335
+	 track 30: 0 minutes :9 seconds :59 frames - total: 9786.666667 mili seconds, position(ms):1187506.666668
+	 track 31: 0 minutes :6 seconds :49 frames - total: 6653.333333 mili seconds, position(ms):1197293.333335
+	 track 32: 0 minutes :18 seconds :37 frames - total: 18493.333333 mili seconds, position(ms):1203946.666668
+	 track 33: 0 minutes :56 seconds :35 frames - total: 56466.666667 mili seconds, position(ms):1222440.000001
+	 track 34: 0 minutes :21 seconds :68 frames - total: 21906.666667 mili seconds, position(ms):1278906.666668
+	 track 35: 2 minutes :40 seconds :71 frames - total: 160946.666667 mili seconds, position(ms):1300813.333335
+	 track 36: 0 minutes :14 seconds :15 frames - total: 14200.000000 mili seconds, position(ms):1461760.000002
+	 track 37: 0 minutes :13 seconds :34 frames - total: 13453.333333 mili seconds, position(ms):1475960.000002
+	 track 38: 0 minutes :16 seconds :65 frames - total: 16866.666667 mili seconds, position(ms):1489413.333335
+	 track 39: 0 minutes :19 seconds :64 frames - total: 19853.333333 mili seconds, position(ms):1506280.000002
+	 track 40: 1 minutes :1 seconds :7 frames - total: 61093.333333 mili seconds, position(ms):1526133.333335
+	 track 41: 0 minutes :35 seconds :31 frames - total: 35413.333333 mili seconds, position(ms):1587226.666668
+	 track 42: 0 minutes :6 seconds :30 frames - total: 6400.000000 mili seconds, position(ms):1622640.000001
+	 track 43: 0 minutes :16 seconds :0 frames - total: 16000.000000 mili seconds, position(ms):1629040.000001
+	 track 44: 0 minutes :11 seconds :74 frames - total: 11986.666667 mili seconds, position(ms):1645040.000001
+	 track 45: 0 minutes :14 seconds :28 frames - total: 14373.333333 mili seconds, position(ms):1657026.666668
+	 track 46: 0 minutes :10 seconds :34 frames - total: 10453.333333 mili seconds, position(ms):1671400.000001
+	 track 47: 2 minutes :45 seconds :9 frames - total: 165120.000000 mili seconds, position(ms):1681853.333334
+	 track 48: 1 minutes :13 seconds :26 frames - total: 73346.666667 mili seconds, position(ms):1846973.333334
+	 track 49: 0 minutes :9 seconds :48 frames - total: 9640.000000 mili seconds, position(ms):1920320.000001
+	 track 50: 0 minutes :44 seconds :9 frames - total: 44120.000000 mili seconds, position(ms):1929960.000001
+	 track 51: 0 minutes :11 seconds :62 frames - total: 11826.666667 mili seconds, position(ms):1974080.000001
+	 track 52: 0 minutes :51 seconds :8 frames - total: 51106.666667 mili seconds, position(ms):1985906.666668
+	 track 53: 3 minutes :31 seconds :46 frames - total: 211613.333333 mili seconds, position(ms):2037013.333335
+	 track 54: 3 minutes :31 seconds :58 frames - total: 211773.333333 mili seconds, position(ms):2248626.666668
+	 track 55: 1 minutes :47 seconds :54 frames - total: 107720.000000 mili seconds, position(ms):2460400.000001
+	 track 56: 0 minutes :25 seconds :47 frames - total: 25626.666667 mili seconds, position(ms):2568120.000001
+	 track 57: 0 minutes :23 seconds :50 frames - total: 23666.666667 mili seconds, position(ms):2593746.666668
+	 track 58: 0 minutes :19 seconds :56 frames - total: 19746.666667 mili seconds, position(ms):2617413.333335
+	 track 59: 2 minutes :48 seconds :49 frames - total: 168653.333333 mili seconds, position(ms):2637160.000002
+	 track 60: 0 minutes :7 seconds :1 frames - total: 7013.333333 mili seconds, position(ms):2805813.333335
+MCISndComdA: MCI_OPEN 61 tracks, sync: 168
+MCISndComdA: MCI_SET time format 10
+MCISndComdA: MCI_PLAY from 60 to 61, seek 0 callback 0
+	Play Thread: Play 1 tracks, 59 to : 59 Track 59.wav
 MCISndComdA: MCI_STATUS: Disk , 526
 MCISndComdA: MCI_STOP
-MCISndComdA: MCI_STATUS: Disk , 525
+MCISndComdA: MCI_PLAY from 5 to 6, seek 0 callback 19968
+	Play Thread: Play 1 tracks, 4 to : 04 Track 4.wav
+MCISndComdA: MCI_STOP
+MCISndComdA: MCI_STOP
 MCISndComdA: MCI_CLOSE

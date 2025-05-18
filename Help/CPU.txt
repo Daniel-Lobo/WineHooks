@@ -35,6 +35,20 @@ CD audio emulation, and therefore the music, in some games
 
 ::parent::CPU_div::
 ::section::EndOfSettings::
+::0.10.16+::{b
+<ul>
+    <li><b>On windows</b>, this has the same effect as right clicking on the game's executable file
+    and setting the <b> compatibility mode</b> on the <b> compatibility tab</b>, but a few additional modes are enumerated here
+    </li>
+    <li>
+    <b>On linux</b>, this has not effect, however on
+    <a href="https://gitlab.winehq.org/wine/wine/-/wikis/Commands/winecfg" target="_blank">wine config's</a>
+    <b>Applications tab</b>, you can change the windows version b|per application|b, without need to use a different prefix, and
+    in some games you might need to mach the settings here wit the one on <a href="https://gitlab.winehq.org/wine/wine/-/wikis/Commands/winecfg" target="_blank">winecfg</a>
+    </li>
+</ul>
+}
+::
 
 ::link::DDcompat->https://github.com/narzoul/DDrawCompat 
 ::link::xlive->https://en.wikipedia.org/wiki/Games_for_Windows_%E2%80%93_Live::

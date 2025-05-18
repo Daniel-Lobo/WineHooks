@@ -126,58 +126,53 @@
 			</button>
 		</div>
 	</div>	
-	<div class="alert alert-danger">
-		<h2> VERSION WARNING</h2>	
-		This is the 4th stable version of the ongoing effort to adapt the program to be fully compatible
+	<div class="alert alert-success">
+		<h2>VERSION NOTES</h2>	
+		Version <b>0.10.17</b> is the 5th and final version of the effort to adapt the program to be fully compatible
 		with <a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine</a> and use <a id='Wine'
-			onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls
-		on Windows, and we're almost there			
-		<ul style="margin-top:10px">
-			<li>What works:
-				<ul>
-					<li>Direct3D 8, 9, 10 and 11: On Windows, <a id='Wine'
-						onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> dlls are completely integrated, and 
-						compatibility on Linux - <a id='Wine'
-						onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a>, 
-						<a id='dxvk'
-						onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a> - is the same as on Windows
-					</li>
-				</ul>	
-			</li>
-		</ul>				
-		<ul>
-			<li>Doesn't work:
-				<ul>
-					<li>Direct3D 7 and earlier:
-						<ul>
-							<li>
-								Over  half the games use <a id='Wine'
-								onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> dlls on Windows and work
-								on Linux - <a id='Wine'
-								onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a>, 
-								<a id='dxvk'
-								onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a>.
-								The other half works on Windows with the system's Direct3D implementation							
-							</li>
-							<li>
-								<a target='_blank'
-								href='https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family'>xBRz scaling</a> 
-							</li>
-						</ul>	
-					</li>										
-					<li>
-						OpenGl: <a target='_blank'
-						href='https://en.wikipedia.org/wiki/Supersampling'>supersampling anti-aliasing</a> on Linux
-					</li>
-					<li>
-						Installers: some scripts to install some games or automate  
-						<a target='_blank'
-						href='https://reactos.org/forum/viewtopic.php?t=10988'>this</a> process
-					</li>	
-				</ul>	
-			</li>
-		</ul>		
-									
+			onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls on windows<br>
+		As o version <b>0.10.17</b> the <i>wine migration</i> effort is finished<br><br>
+
+		<i class="fa-brands fa-linux"></i> On <b>Linux</b>, <b>Winehooks</b> is developed with
+		<a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a> and
+		<a id='dxvk' onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a><br>
+
+		<i class="fa-brands fa-windows"></i> On <b>Windows</b>: <b>Winehooks</b> is developed on <b>Windows 10</b>, with
+		<a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a> and
+		<a id='dxvk' onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a>
+
+		<br><br>
+
+		A few small issues - on the <i>wine migration</i> effort - still remain, but they wont be the sole focus of development anymore with fixes for these pendding
+		issues diluted over the next few releases<br><br>
+
+		Remaining issues are:
+		<div style="color: var(--bs-danger)">
+			<ul>
+				<li>OpenGl: <a target='_blank'
+				href='https://en.wikipedia.org/wiki/Supersampling'>supersampling anti-aliasing</a> doesn't work on Linux</li>
+				<li>Direct3D 7 and earlier:
+					<ul>
+						<li>
+							<a target='_blank'
+							href='https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family'>xBRz scaling</a> doesn't work 
+						</li>
+						<li>
+							A few games have problems:
+							<ul>
+								<li>
+									One Direct3D 7 and another Direct3D 3 (DirectX 6) game crash on <i>Linux</i>, and both require an option to do not use
+									<a id='Wine'
+									onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls enabled <i>on Windows</i>
+								</li>
+								<li>Other two games - Direct3D 3 and Direct3D 1 (Directx 2) - work on Linux, but require that same option enabled on windows</li>
+								<li>Finally, a few others - DirectX 3 and earlier - which have some issues on <i>Linux</i>, have those same issues using <i>WineHooks<i>
+							</ul>	
+						</li>
+					</ul>	
+				</li>	
+			</ul>	
+		</div>								
 	</div>
 </div>
 
@@ -220,6 +215,7 @@
 			if (name !== null) {
 				await DownLoadFile(nfo.download_url, "Help\\" + nfo.name);				
 			}
+			await DownLoadFile("https://raw.githubusercontent.com/Daniel-Lobo/WineHooks/refs/heads/main/Scripts/InstallShield.ahk", "Scripts\\InstallShield.ahk");
 		}
 		for (let nfo of tables_nfo) {
 			if (nfo.name.toLowerCase() === "cepluginlib.ahk") {

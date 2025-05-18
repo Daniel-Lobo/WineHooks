@@ -25,7 +25,7 @@ DX7-:
 - Die by the sword: replacement textures not loaded              
 - Soul reaver (wrace patch): screen not cleared after fmvs
 - Die by the sword, fix slow menus (not related to ddraw) and Direct3D mode -
-  requires win98 compatibility - not working
+  requires win98 compatibility - not working (worst on wine)
 - Fix pop3d save screen 
 - Drakan - Slow when dragon fires. SSAA broken on MS ddraw. Slow with wine on windows
 - Silver: glitches on fast travel and telescope  
@@ -38,6 +38,7 @@ DX7-:
 - POP 3D: FMV scaling broken with wine
 - AVP 2:  crash with wine on IDirect3DDevice7::SetTexture 
 - Soulbringer:  crash with wine on IDirectDrawSurface4::Unlock 
+- Messiah, crash one Linux, but works on windows wine wine's dlls
 LAYER       
  * Dark vengeance: leaking textures 
   
