@@ -1,0 +1,100 @@
+DX9
+- 64 bit (Conscript)
+- Restore wait vblank as alternative to vsync (Portal jerky movement)
+- Implement frame limitation
+- wfog fix ?? (pop sot ??)
+- clip planes fix (far cry)
+- Implement IDirect3DDevice9::Reset when HD is enabled 
+- Never Alone - Noise on shadows if Forced resolution is enabled
+- Halo 1 - Forced resolution breaks shadows, bad detection of transformed 
+  vertices (X)? state blocks related ?
+
+DX8:
+- Soul Reaver 2 always crashes at some point between Usctenheim and the airforge
+  (most of the time on the cutscene with kain)
+- Max Payne 2: intro movie knows the resolution and D3D8_HOOKS_DATA.scale is 0 
+
+DX7-:
+- xBRz not implemented, after migration to wine
+- Star Trek Deep Space Nine - The Fallen. Implement fov correction without 
+  zooming the UI. Use the current widescreen fix to find the FOV value and 
+  search it with CE
+- New frame limit\vsync
+- Fix slow bliting on managed surfaces. Slow 
+  transparency on MGS
+- Die by the sword: replacement textures not loaded              
+- Soul reaver (wrace patch): screen not cleared after fmvs
+- Die by the sword, fix slow menus (not related to ddraw) and Direct3D mode -
+  requires win98 compatibility - not working
+- Fix pop3d save screen 
+- Drakan - Slow when dragon fires. SSAA broken on MS ddraw. Slow with wine on windows
+- Silver: glitches on fast travel and telescope  
+- Outlaws: crashes from time to time accessing the menu
+- Speterra core: broken
+- Shogo: slow with wine
+- Zanzahah: bad shadows with wine
+- Dark vengeance, Forsaken: execute buffer bug wit wine. Call setexecutedata with right data after unlock
+- Outwars: fonts missing with wine (on windows)
+- POP 3D: FMV scaling broken with wine
+- AVP 2:  crash with wine on IDirect3DDevice7::SetTexture 
+- Soulbringer:  crash with wine on IDirectDrawSurface4::Unlock 
+LAYER       
+ * Dark vengeance: leaking textures 
+  
+GL:
+- SSAA broken with Wine
+- Add Forced VSync
+- Alice: Add SSAA (game has custom settings)
+- Clean xBRz scaling
+- Protect swap buffer functions: fix crashes on Alone in the dark 4
+- Fix Texsubimage2d_Hook crashing strangers wrath
+- Enclave, error msg 
+- Rune: portals don't render correctly: plain black 
+- The swapper: HD broken (knows the real res ??)
+- Spynix: broken 
+
+Other:
+- EAX: missing gunshots in HALO
+- Dinput emulation breaks oddworld munch\stranger (can't remember which)
+- Encapsulate MCI's IDiretSoundBuffer in a object, fix delay when playing buffer
+- Clean UP Injector, change detection of process name in createprocess hooks 
+- Implement usage of the home button on Xinput  
+- Injector: Star Trek Deep Space Nine - The Fallen launches multiple instances                                                       
+      
+Cheats tables:
+-> NO TABLES         
+    - Celeste             
+    - MGS     
+	- Bioshock 2
+	- Crysis 2 		
+	- GOW 2
+	- Talos 2
+	- TLOUS 2
+	- Planet of Lana
+	- Cocoon
+	- Jusant
+    
+->FIX         
+    - Silver: add inf mana, inf arrows and quick cooldown for specials     
+    - Control: improve inf HP\easy kills. Check the player\enemy objects instead 
+      of using the code the access the player HP to tag it.  Add inf power, 
+      gain currencies             
+    - Fix trouble to attach on RTCW (partial fix, needs manual attach)
+    - Horace: gain shield on early game
+    - Soul reaver: inf glyph magic, add fire damage to projectile cheat, that would 
+      make a better power UP. A function that references the string: hit by power...
+      may be a place to start    
+    - Enclave: add inf arrows, inf magic and gold           
+    - I'm alive: add inf HP\EZ Kills    
+    - king kong: only works with jack, not kong      
+    - Slave zero, Add ez kills       
+    - Anachronx: add instantly fill action meter                
+    - Half life 2: ez kills kill companions
+    - The entropy centre: inf HP, If a lock is unlocked by a laser or pressure platform,
+      keep it unlocked when the laser or weight is removed
+    - Contrast: get luminaries, code already in code list  
+    - Another world, no clip (clip code writes to coordinates(X)) and invulnerability     
+    - onScapee: ez kills        
+    - AVP 1 e 2: inf predator energy
+	- Brothers: improve brother detection
+  
