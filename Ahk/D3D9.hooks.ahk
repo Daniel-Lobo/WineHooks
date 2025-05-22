@@ -114,8 +114,8 @@ HookD3D9Create(){
 }
 
 D3D9IsLinux(){
-	if (FileExist(GetSystemDir() "\wined3d.dll")) 
-	return ""
+	if (!FileExist(GetSystemDir() "\wined3d.dll")) 
+	return False
 	if (dllcall("LoadLibraryW", str, "wined3d.dll"))
 	{
 		if (h_d3d9 := dllcall("LoadLibraryW", str, "d3d9.dll"))
@@ -128,14 +128,15 @@ D3D9IsLinux(){
 			return "wined"
 		}
 	}	
-	RETURN ""
+	RETURN False
 }
 
 D3D9LoadWine(){
 	;if dllcall("GetModuleHandleW", str, "wined3d.dll")
-	logerr("D3D9LoadWin, linux: " D3D9IsLinux())
+	logerr("Linux: " D3D9IsLinux() " SysDir: " GetSystemDir() " Exists: " FileExist(GetSystemDir() "\wined3d.dll"))
 	if (D3D9IsLinux())
 	return	
+	logerr("Loading WineD3D")
 	arch  := A_PtrSize = 8 ? "System32" : "SysWOW64"
 	;g_.cfg.dxvk := True
 	if (g_.cfg.dxvk)
@@ -664,6 +665,7 @@ D3D9Setup()
 		logerr("Scale      " D3D9_HOOKS.scale)
 		logerr("Viewport X " D3D9_HOOKS.HD_X)
 		logerr("Rect:      " D3D9_HOOKS.rx " " D3D9_HOOKS.ry " " D3D9_HOOKS.rw " " D3D9_HOOKS.rh " ")
+		dllcall("peixoto.dll\ResetViewPortPort9", uint)
 			
 		if g_.cfg.MCLP
 		ClipCursor9(0)	

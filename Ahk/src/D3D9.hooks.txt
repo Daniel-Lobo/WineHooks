@@ -1907,8 +1907,8 @@ logerr("D3D9Create Hook: " InstallHook(isfunc("AltD3D9CreateEx") ? "AltD3D9Creat
 g_.pD3D9CreateEx := pEx
 }
 D3D9IsLinux(){
-if (FileExist(GetSystemDir() "\wined3d.dll"))
-return ""
+if (!FileExist(GetSystemDir() "\wined3d.dll"))
+return False
 if (dllcall("LoadLibraryW", str, "wined3d.dll"))
 {
 if (h_d3d9 := dllcall("LoadLibraryW", str, "d3d9.dll"))
@@ -1921,12 +1921,13 @@ return "dxvk"
 return "wined"
 }
 }
-RETURN ""
+RETURN False
 }
 D3D9LoadWine(){
-logerr("D3D9LoadWin, linux: " D3D9IsLinux())
+logerr("Linux: " D3D9IsLinux() " SysDir: " GetSystemDir() " Exists: " FileExist(GetSystemDir() "\wined3d.dll"))
 if (D3D9IsLinux())
 return
+logerr("Loading WineD3D")
 arch  := A_PtrSize = 8 ? "System32" : "SysWOW64"
 if (g_.cfg.dxvk)
 h_wined3d9  := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\dxvk\" . g_.cfg.dxvkv "\" arch "\d3d9.dll")
@@ -2362,6 +2363,7 @@ logerr("Real       " D3D9_HOOKS.HD_W " x "	D3D9_HOOKS.HD_H)
 logerr("Scale      " D3D9_HOOKS.scale)
 logerr("Viewport X " D3D9_HOOKS.HD_X)
 logerr("Rect:      " D3D9_HOOKS.rx " " D3D9_HOOKS.ry " " D3D9_HOOKS.rw " " D3D9_HOOKS.rh " ")
+dllcall("peixoto.dll\ResetViewPortPort9", uint)
 if g_.cfg.MCLP
 ClipCursor9(0)
 }

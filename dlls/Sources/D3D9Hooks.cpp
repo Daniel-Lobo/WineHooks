@@ -870,6 +870,16 @@ ProcessVertices9Hook(IDirect3DDevice9* d, UINT SrcStartIndex, UINT DestIndex, UI
     return hr;
 }
 
+extern "C" __declspec(dllexport) HRESULT
+ResetViewPortPort9(){
+    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    D3D9Globals.SDViewPort9.X      = 0;
+    D3D9Globals.SDViewPort9.Y      = 0;
+    D3D9Globals.SDViewPort9.Width  = D3D9_Hooks->W;
+    D3D9Globals.SDViewPort9.Height = D3D9_Hooks->H;
+    return 0;
+}
+
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 GetViewPort9Hook(IDirect3DDevice9* d, D3DVIEWPORT9 * vw)
 {

@@ -79,7 +79,7 @@ LPVOID SetPixelFormat;
 "
 )
 GL_HOOKS := struct(GL_HOOKS)
-#include  <DirectX\lib\TexSwapLibGL>
+#include lib\TexSwapLibGL.ahk
 
 GetOpenGlDriverName()
 {
@@ -121,11 +121,12 @@ global g_HD := {}
 InitGLHooks()
 InitGLHooks()
 {
-	d             := Desk()
-	GL_HOOKS.H    := d.h
-    GL_HOOKS.W    := d.w
-	GL_HOOKS.HD_W := d.w
-    GL_HOOKS.HD_H := d.h
+	g_.cfg.IsLinux := FileExist(GetSystemDir() "\wined3d.dll") ? true : false
+	d              := Desk()
+	GL_HOOKS.H     := d.h
+    GL_HOOKS.W     := d.w
+	GL_HOOKS.HD_W  := d.w
+    GL_HOOKS.HD_H  := d.h
 	if (g_.cfg.RLMT)
 	{
 		d := strsplit(["640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160"][g_.cfg.RLMT], "x" )	
@@ -349,7 +350,7 @@ GlOutputDebugStringA(p1)
 }
 
 GLSwap()
-{
+{	
 	if (g_tswap.e)
 	{
 		if keyevent(g_tswap.sw)
@@ -436,7 +437,7 @@ Prxs(p)
 	                                                  , uint, GL_FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE, "uint*", t:=0)												  
 	f          := t = GL_FLOAT ? 1 : 0												   
 	fmt        := {"16\0\0" : "Z16X", "24\0\0" : "Z24X8", "24\8\0" : "Z24X8", "32\0\0" : "Z32X"}[d "\" s "\" f]	
-	logerr("Depth\Stencil:" d "\" s ":" t " " fmt " " g_.proxies.zfrmt " " GL_HOOKS.W " " GL_HOOKS.H " " dllcall(gl.p.wglGetCurrentContext, ptr)" " cb)	
+	logerr("Depth\Stencil:" d "\" s ":" t " " fmt " " g_.proxies.zfrmt " " GL_HOOKS.W " " GL_HOOKS.H " " dllcall(gl.p.wglGetCurrentContext, ptr) " " cb)	
 	if g_.cfg.HD
 	{
 		g_HD.Sclr  := struct("LPVOID ww, hh, DWORD step[4]; DWORD xOffset; DWORD x, y, w, h; DWORD dx, dy, dw, dh; LPVOID src, dst;")
@@ -501,7 +502,7 @@ wglMakeCurrent(hDC, Ctxt)
 	. " glUniform4f glUniform2f glGetUniformLocation glGetFramebufferAttachmentParameteriv glDebugMessageCallback glIsTexture glDrawBuffers" 
 	. " glGenerateMipmap glCompressedTexImage2D glGenSamplers glDeleteSamplers glBindSampler glSamplerParameteri glGenRenderbuffers glRenderbufferStorage"
 	. " glRenderbufferStorageMultisample glBindRenderbuffer glGetRenderbufferParameteriv glDeleteRenderbuffers glTexImage2DMultisample"
-	. " glDrawBufferRegion glReadBufferRegion glGetCompressedTextureImage glGetCompressedTexImage", " ")
+	. " glDrawBufferRegion glReadBufferRegion glGetCompressedTextureImage glGetCompressedTexImage glCheckFramebufferStatus", " ")
 	{
 		gl.p[v]     := dllcall(gl.p.wglGetProcAddress, astr, v, ptr)
 		GL_HOOKS[v] := gl.p[v]
@@ -533,7 +534,7 @@ wglMakeCurrent(hDC, Ctxt)
 		Prxs("wglMakeCurrent()")		
 	}
 	g_.gl.ctxt := Ctxt
-	dllcall(gl.p.glEnable, int, GL_MULTISAMPLE)
+	;dllcall(gl.p.glEnable, int, GL_MULTISAMPLE)
 	return r	
 }
 
@@ -1130,21 +1131,25 @@ class TextGen
 		dllcall(gl.p.glGetIntegerv, uint, GL_PIXEL_UNPACK_BUFFER_BINDING, "uint*", b := 0)	
 		(gl.p.glBindBuffer) ? dllcall(gl.p.glBindBuffer, uint, GL_PIXEL_UNPACK_BUFFER, uint, 0)
 		
-		tx := 9000
-		while dllcall(gl.p.glIsTexture, uint, tx, uchar)
-			tx -= 1
-		
-		dllcall(gl.p.glGetError)
-		dllcall(gl.p.glBindTexture, uint, GL_TEXTURE_2D, uint, tx)
-		if dllcall(gl.p.glGetError, uint)
+		if (g_.cfg.IsLinux = false)
+		{
+			tx := 9000
+			while dllcall(gl.p.glIsTexture, uint, tx, uchar)
+				tx -= 1
+			
+			dllcall(gl.p.glGetError)
+			dllcall(gl.p.glBindTexture, uint, GL_TEXTURE_2D, uint, tx)
+			tex_created := dllcall(gl.p.glGetError, uint) ? false : true
+		} else tex_created := false
+		if (!tex_created)		
 		{
 			dllcall(gl.p.glGenTextures, uint, 1, "uint*", tx)
 			dllcall(gl.p.glBindTexture, uint, GL_TEXTURE_2D, uint, tx)
 		}
 		dllcall(gl.p.glTexParameteri, uint, GL_TEXTURE_2D, uint, GL_TEXTURE_MIN_FILTER, uint, m ? GL_NEAREST_MIPMAP_NEAREST : GL_NEAREST)
 		dllcall(gl.p.glTexParameteri, uint, GL_TEXTURE_2D, uint, GL_TEXTURE_MAG_FILTER, uint, GL_NEAREST)
-		;dllcall(gl.p.glTexParameteri, uint, GL_TEXTURE_2D, uint, GL_TEXTURE_WRAP_S, uint, GL_MIRRORED_REPEAT)
-		;dllcall(gl.p.glTexParameteri, uint, GL_TEXTURE_2D, uint, GL_TEXTURE_WRAP_T, uint, GL_MIRRORED_REPEAT)		
+		dllcall(gl.p.glTexParameteri, uint, GL_TEXTURE_2D, uint, GL_TEXTURE_WRAP_S, uint, GL_CLAMP_TO_EDGE)
+		dllcall(gl.p.glTexParameteri, uint, GL_TEXTURE_2D, uint, GL_TEXTURE_WRAP_T, uint, GL_CLAMP_TO_EDGE)		
 		this.t  := t
 		this.b  := b
 		this.tx := tx
@@ -1163,20 +1168,27 @@ class glText
 		this.t := (t := new TextGen(m)).tx	
 		if (!fmt)
 		{
-			fmt      := GL_RGBA8
-			chnnls   := GL_RGBA
+			fmt       := GL_RGBA8
+			chnnls    := GL_RGBA
+			data_type := GL_UNSIGNED_BYTE
 		} else if instr(fmt, "s")
 		{
-			fmt      := {"Z24S8" : GL_DEPTH24_STENCIL8, "Z32S8" : GL_DEPTH32F_STENCIL8}[fmt]
-			chnnls   := GL_DEPTH_STENCIL
+			data_type := {"Z24S8" : GL_UNSIGNED_INT, "Z32S8" : GL_UNSIGNED_INT}[fmt]
+			fmt       := {"Z24S8" : GL_DEPTH24_STENCIL8, "Z32S8" : GL_DEPTH32F_STENCIL8}[fmt]
+			chnnls    := GL_DEPTH_STENCIL			
 		}
 		else 
 		{
-			fmt      := {"Z16X" : GL_DEPTH_COMPONENT16, "Z24X8" : GL_DEPTH_COMPONENT24, "Z32X" : GL_DEPTH_COMPONENT32, "Z32F" : GL_DEPTH_COMPONENT32F}[fmt]
-			chnnls   := GL_DEPTH_COMPONENT
+			data_type := {"Z16X" : GL_UNSIGNED_SHORT, "Z24X8" : GL_UNSIGNED_INT, "Z32X" : GL_UNSIGNED_INT, "Z32F" : GL_FLOAT}[fmt]
+			fmt       := {"Z16X" : GL_DEPTH_COMPONENT16, "Z24X8" : GL_DEPTH_COMPONENT24, "Z32X" : GL_DEPTH_COMPONENT32, "Z32F" : GL_DEPTH_COMPONENT32F}[fmt]
+			chnnls    := GL_DEPTH_COMPONENT
 		}
+		dllcall(gl.p.glGetError)
 		dllcall(gl.p.glTexImage2D, uint, GL_TEXTURE_2D, uint, 0, uint, fmt, uint, w, uint, h
-								 , uint, 0, uint, chnnls, uint, GL_UNSIGNED_BYTE, uint, 0)		
+								, uint, 0, uint, chnnls, uint, data_type, uint, 0)	
+		if (dllcall(gl.p.glGetError, uint) != 0){
+			logerr("glTexImage2D Error: " dllcall(gl.p.glGetError, uint))
+		}
 	}
 
 	__delete() {
@@ -1198,12 +1210,17 @@ class FBO
 		
 		this.t := new glText(w, h, m)	
 		dllcall(gl.p.glFramebufferTexture2D, uint, GL_FRAMEBUFFER, uint, GL_COLOR_ATTACHMENT0, uint, GL_TEXTURE_2D, uint, this.t.t, uint, 0)	
-			
+		
+		status := dllcall(gl.p.glCheckFramebufferStatus, uint, GL_FRAMEBUFFER)
+		logerr("FB Status: " status)
+		logerr("z " z)
 		if z {		
 			this.z := new glText(w, h, ,z)	
 			dllcall(gl.p.glFramebufferTexture2D, uint, GL_FRAMEBUFFER, uint, GL_DEPTH_ATTACHMENT, uint, GL_TEXTURE_2D, uint, this.z.t, uint, 0)
 			instr(z, "s") ? dllcall(gl.p.glFramebufferTexture2D, uint, GL_FRAMEBUFFER, uint, GL_STENCIL_ATTACHMENT, uint, GL_TEXTURE_2D, uint, this.z.t, uint, 0)
 		}	
+		status := dllcall(gl.p.glCheckFramebufferStatus, uint, GL_FRAMEBUFFER)
+		logerr("FB Status: " status)
 		dllcall(gl.p.glBindFramebuffer, uint, GL_FRAMEBUFFER, uint, crrnt_bff)
 	}
 

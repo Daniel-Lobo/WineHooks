@@ -284,3 +284,4 @@ DisableFontAA=DisableFontAA@0
 GDISetHz=GDISetHz@4
 InitDDrawWineHoooks=InitDDrawWineHoooks@4
 SetWineD3DFilterBlits=SetWineD3DFilterBlits@0
+ResetViewPortPort9=ResetViewPortPort9@0

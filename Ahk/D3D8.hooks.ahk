@@ -86,7 +86,7 @@ D3DDDI_Init(){
 
 D3D8IsLinux(){
 	if (FileExist(GetSystemDir() "\wined3d.dll")) 
-	return ""
+	return true
 	if (dllcall("LoadLibraryW", str, "wined3d.dll"))
 	{
 		if (h_d3d9 := dllcall("LoadLibraryW", str, "d3d9.dll"))
@@ -130,7 +130,7 @@ else
 	DllCall("GetSystemDirectoryW", Str, SysDir, UInt, 261)
 	logerr("Direct3DCreate8 Hook: " InstallHook(isfunc("AltDirect3DCreate8") ? "AltDirect3DCreate8" : "Direct3DCreate8_hook", pDirect3DCreate8, SysDir "\d3d8.dll", "Direct3DCreate8"))
 	g_.pDirect3DCreate8 := pDirect3DCreate8
-
+	logerr("Linux: " D3D8IsLinux() " SysDir: " GetSystemDir() " Exists: " FileExist(GetSystemDir() "\wined3d.dll"))
 	if (! D3D8IsLinux()) {  ; only load wine if not on linux
 		arch        := A_PtrSize == 8 ? "System32" : "SysWOW64"
 		;g_.cfg.dxvk := True
