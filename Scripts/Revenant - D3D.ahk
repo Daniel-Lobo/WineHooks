@@ -10,7 +10,8 @@ if (h_game)
 iniread, soft, revenant.ini, Options, Software3D
 g_.s.soft := (soft="Yes" or g_.s.soft=1) ? True :False
 logerr(IDirect3DDevice3.Hook("GetClipStatus"))
-logErr(IDirect3DDevice3.hook("SetTexture"))
+if (!g_.cfg.winedd)
+	logErr(IDirect3DDevice3.hook("SetTexture"))
 
 IDirect3DDevice3_SetTexture(p1, p2, p3)
 {
