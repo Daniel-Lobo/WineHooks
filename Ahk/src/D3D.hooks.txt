@@ -5607,7 +5607,7 @@ h_wineddraw            := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\w
 g_.p.DDCreateEx        := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreateEx")
 g_.p.DirectDrawCreate  := dllcall("GetProcAddress", ptr, h_wineddraw, astr, "DirectDrawCreate")
 }
-logerr("InitDDrawWineHoooks " DllCall("peixoto\InitDDrawWineHoooks", uint, 0, "wstr"))
+logerr("InitDDrawWineHoooks " DllCall("peixoto\InitDDrawWineHoooks", uint, 0, "astr"))
 }
 g_.p.SetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "SetDDSurfacePixelFormat", uint)
 g_.p.GetDDSPxFmt           := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "GetDDSPixelFormat", uint)
@@ -6281,15 +6281,46 @@ return dllcall(IDirectDrawSurface4.EnumAttachedSurfaces, uint, p1, uint, p2, uin
 }
 DDWait(s, f="")
 {
-if ! (g_.cfg.SYNC || f)
-return
-d := dllcall(g_.p.DDFrmSrfc, uint, s)
+d        := dllcall(g_.p.DDFrmSrfc, uint, s)
+vblank   := 0
+h_timer  := dllcall("Kernel32\CreateWaitableTimerW", "uint", 0, "uint", 1, "uint", 0, ptr)
+interval := -50000
+while (vblank = 0)
+{
 dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 1, uint, 0)
-if (g_.cfg.SYNC = 2)
+dllcall(IDirectDraw.GetVerticalBlankStatus, uint, d, "uint*", vblank)
+if (vblank)
+break
+dllcall("Kernel32\SetWaitableTimer", ptr, h_timer, "int64*", interval, uint, 0, uint, 0, uint, 0, uint, 0)
+dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
+}
+if (!g_.cfg.SXTY)
+{
+dllcall("Kernel32\CloseHandle", ptr, h_timer)
+return
+}
+while (vblank = 1)
 {
 dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 4, uint, 0)
-dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 1, uint, 0)
+dllcall(IDirectDraw.GetVerticalBlankStatus, uint, d, "uint*", vblank)
+if (!vblank)
+break
+dllcall("Kernel32\SetWaitableTimer", ptr, h_timer, "int64*", interval, uint, 0, uint, 0, uint, 0, uint, 0)
+dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
 }
+while (vblank = 0)
+{
+dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 1, uint, 0)
+dllcall(IDirectDraw.GetVerticalBlankStatus, uint, d, "uint*", vblank)
+if (vblank)
+break
+dllcall("Kernel32\SetWaitableTimer", ptr, h_timer, "int64*", interval, uint, 0, uint, 0, uint, 0, uint, 0)
+dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
+}
+dllcall("Kernel32\CloseHandle", ptr, h_timer)
+return
+if ! (g_.cfg.SYNC || f)
+return
 }
 IDirectDrawSurface_flip(p1, p2, p3)
 {

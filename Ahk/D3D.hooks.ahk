@@ -276,7 +276,7 @@ InitD3DHook()
 		}
 		;logerr("wined3d_device_context_blt_hook " InstallHook("wined3d_device_context_blt_hook", p, "wined3d.dll", "wined3d_device_context_blt", "CDecl")) 
 		;g_.p.wined3d_device_context_blt := p
-		logerr("InitDDrawWineHoooks " DllCall("peixoto\InitDDrawWineHoooks", uint, 0, "wstr"))
+		logerr("InitDDrawWineHoooks " DllCall("peixoto\InitDDrawWineHoooks", uint, 0, "astr"))
 		;logerr("InitWineHooks " strget(dllcall("peixoto.dll\InitWineHoooks", wstr, "", ptr)+0, "UTF-8"))
 	}
 	
@@ -1069,16 +1069,47 @@ IDirectDrawSurface4_EnumAttachedSurfaces(p1, p2, p3)
 
 DDWait(s, f="")
 {
+	d        := dllcall(g_.p.DDFrmSrfc, uint, s)
+	vblank   := 0
+	h_timer  := dllcall("Kernel32\CreateWaitableTimerW", "uint", 0, "uint", 1, "uint", 0, ptr)
+	interval := -50000 ; this is set in intervals of 100 ns. 100 * 10 = 1μs; 1μs * 500 = 0.5 ms
+	while (vblank = 0)
+	{
+		dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 1, uint, 0)  ; unimplemented on wine
+		dllcall(IDirectDraw.GetVerticalBlankStatus, uint, d, "uint*", vblank)
+		if (vblank) 
+		break
+		dllcall("Kernel32\SetWaitableTimer", ptr, h_timer, "int64*", interval, uint, 0, uint, 0, uint, 0, uint, 0)		
+		dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
+	}
+	if (!g_.cfg.SXTY)
+	{		
+		dllcall("Kernel32\CloseHandle", ptr, h_timer)
+		return 
+	}
+	while (vblank = 1)
+	{
+		dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 4, uint, 0)  ; unimplemented on wine
+		dllcall(IDirectDraw.GetVerticalBlankStatus, uint, d, "uint*", vblank)
+		if (!vblank) 
+		break
+		dllcall("Kernel32\SetWaitableTimer", ptr, h_timer, "int64*", interval, uint, 0, uint, 0, uint, 0, uint, 0)		
+		dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
+	}
+	while (vblank = 0)
+	{
+		dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 1, uint, 0)  ; unimplemented on wine
+		dllcall(IDirectDraw.GetVerticalBlankStatus, uint, d, "uint*", vblank)
+		if (vblank) 
+		break
+		dllcall("Kernel32\SetWaitableTimer", ptr, h_timer, "int64*", interval, uint, 0, uint, 0, uint, 0, uint, 0)		
+		dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
+	}
+	dllcall("Kernel32\CloseHandle", ptr, h_timer)
+	return 
+
 	if ! (g_.cfg.SYNC || f)
 	return
-	
-	d := dllcall(g_.p.DDFrmSrfc, uint, s)
-	dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 1, uint, 0)
-	if (g_.cfg.SYNC = 2)
-	{
-		dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 4, uint, 0)
-		dllcall(IDirectDraw.WaitForVerticalBlank, uint, d, uint, 1, uint, 0)
-	}	
 }
 
 IDirectDrawSurface_flip(p1, p2, p3)

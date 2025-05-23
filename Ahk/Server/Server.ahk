@@ -627,7 +627,7 @@ ProcessHelpDocument(txt, wip=False) {
 	{
 		if instr(txt, "%" v "%")
 		{
-			dx  := ReadFile(g_.HelpPath v ".txt")
+			dx  := v = "directdraw" ? ReadFile(g_.HelpPath v "-0.10.18+.txt") : ReadFile(g_.HelpPath v ".txt") 
 			dx  := StrReplace(dx, "::Title::user", "")
 			txt := StrReplace(txt, "%" v "%", dx)					
 		}

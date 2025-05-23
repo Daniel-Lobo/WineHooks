@@ -60,6 +60,7 @@ public:
     SYNC::Atomic wined3d_filter_blits;
     HRESULT (__cdecl  * wined3d_device_context_blt) (LPVOID, LPVOID, UINT, LPVOID, LPVOID, UINT, LPVOID, UINT, LPVOID, UINT)    = nullptr;
     void    (__cdecl  * wined3d_stateblock_set_sampler_state)(LPVOID, UINT, wined3d_sampler_state, wined3d_texture_filter_type) = nullptr;
+    HRESULT (__cdecl  * wined3d_swapchain_present)(LPVOID, const RECT *, const RECT *, HWND, unsigned int, uint32_t)            = nullptr;
     PROC    (WINAPI   * wglGetProcAddress)(LPCSTR)   = nullptr; 
     BOOL    (APIENTRY * wglDeleteContext)(HGLRC)     = nullptr;    
     BOOL    (APIENTRY * wglMakeCurrent)(HDC, HGLRC)  = nullptr;  
@@ -91,6 +92,7 @@ public:
     PFNGLBINDVERTEXARRAYPROC    glBindVertexArray    = nullptr;
     PFNGLENABLEVERTEXATTRIBARRAYPROC glEnableVertexAttribArray = nullptr;
     PFNGLVERTEXATTRIBPOINTERPROC     glVertexAttribPointer     = nullptr;
+    unsigned int SwapInterval                                  = 1;
     WINEHOOKS_POSTFX_FLAGS      FxFlag               = WINEHOOKS_POSTFX_FLAGS::NONE;
     SYNC::AtomicPtr             m_Context;   
     unique_ptr<string>InitObjects(HGLRC context) {

@@ -168,6 +168,16 @@ extern "C"  __declspec(dllexport) HRESULT SetWineD3DFilterBlits()
     return 1;
 }
 
+extern "C" __declspec(dllexport) HRESULT SetWineSwapIntervalHRF()
+{
+    WineHooks.SwapInterval = 2;
+    return WineHooks.SwapInterval;
+}
+
+HRESULT __cdecl  wined3d_swapchain_present_hook(LPVOID swap_chain, const RECT * src, const RECT * dest, HWND win, unsigned int swap_interval, uint32_t flags)  {
+    return WineHooks.wined3d_swapchain_present(swap_chain, src, dest, win, swap_interval, flags);
+}
+
 HRESULT __cdecl wined3d_device_context_blt_hook(LPVOID dcv_ctxt, LPVOID dst_srfc, UINT dst_srfc_index, LPVOID dst_rect, 
 LPVOID src_srfc, UINT src_srfc_index, LPVOID src_rect, UINT flags, LPVOID fx, UINT){
     wined3d_texture_filter_type filter = WineHooks.wined3d_filter_blits.Get() == 1 ? WINED3D_TEXF_LINEAR : WINED3D_TEXF_NONE; 
@@ -219,6 +229,20 @@ extern "C"  __declspec(dllexport) wchar_t * __stdcall InitDDrawWineHoooks(wchar_
         err += to_string(hook);
         return (wchar_t *)err.c_str();
     } 
+    return  (wchar_t *) err.c_str();
+    WineHooks.wined3d_swapchain_present = (decltype(WineHooks.wined3d_swapchain_present))GetProcAddress(h_wined3d, "wined3d_swapchain_present");
+    if (WineHooks.wined3d_swapchain_present == nullptr)
+    {
+        err = "GetProcAddress(wined3d_swapchain_present) FAILED";
+        return  (wchar_t *)err.c_str();
+    }
+    hook = sethook((void**)&WineHooks.wined3d_swapchain_present, (void*)wined3d_swapchain_present_hook);
+    if (hook != 0)
+    {
+        err = "FAILED to HOOK wined3d_swapchain_present ";
+        err += to_string(hook);
+        return (wchar_t *)err.c_str();
+    }
     return  (wchar_t *) err.c_str();
 }
 
