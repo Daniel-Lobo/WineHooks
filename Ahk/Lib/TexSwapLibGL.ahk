@@ -154,8 +154,8 @@ BrowseTexturesGl()
 		dllcall(gl.p.glGetIntegerv, uint, GL_CURRENT_PROGRAM, "uint*", p:=0)	
 		dllcall(gl.p.glGetIntegerv, uint, GL_TEXTURE_BINDING_2D, "uint*", t:=0)
 		dllcall(gl.p.glBindTexture, uint, GL_TEXTURE_2D, uint, g_tswap.gl_entry.pTexture)			
-		dllcall(gl.p.glUseProgram, uint, g_tswap.Program.p)
-		g_tswap.Program.v()
+		;dllcall(gl.p.glUseProgram, uint, g_tswap.Program.p)
+		;g_tswap.Program.v()
 		dllcall(gl.p.glGetTexLevelParameteriv, uint, GL_TEXTURE_2D, uint, 0, uint, GL_TEXTURE_WIDTH, "uint*", w:=0)
 		dllcall(gl.p.glGetTexLevelParameteriv, uint, GL_TEXTURE_2D, uint, 0, uint, GL_TEXTURE_HEIGHT, "uint*", h:=0)		
 		dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
@@ -169,8 +169,8 @@ BrowseTexturesGl()
 		. g_HD.RndrBffrs.count() " RenderBuffers`n" 
 		. g_HD.MSTexts.count() " Multisampled Textures"
 
-		dllcall(gl.p.glUseProgram, uint, g_tswap._Program.p)
-		g_tswap._Program.v()	
+		;dllcall(gl.p.glUseProgram, uint, g_tswap._Program.p)
+		;g_tswap._Program.v()	
 		dllcall(gl.p.glBindTexture, uint, GL_TEXTURE_2D, uint, g_tswap.info.t)		
 		r := dllcall(dll "\GlWriteOnTexture", uint, g_tswap.info.t, wstr, info, uint, g_tswap._rect.y, ptr) 		
 		dllcall(dll "\GlDrawRect", ptr, r, uint, 0)

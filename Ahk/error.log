@@ -1,32 +1,34 @@
 Peixotos's patch remote settings:
-Command Line: "D:\Games\Castlevania - Lords of Shadow UE\bin\CastlevaniaLoSUE.exe" 
+Command Line: "D:\Games\Star Trek Elite Force\stvoy.exe" 
 common_path: 1
-D3D: 9
+D3D: Gl
 D3D_Driver: 
 dsk: 2560x1080
+Dsnd: CRSR=false;S3D=false;STTR=false;
 dxvkv: 2_6
 error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
+HD: up
 injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
-J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
-k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
+J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;
+k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;
 max_4x3_res: 1152x864
 Mydocs: C:\users\gotardo\Documents
 os_version: 10.000000
-path: C:\users\gotardo\Documents\WineHooks\Games\Dev\
-PxSwap: e=false;
-rlmt: 4
+path: C:\users\gotardo\Documents\WineHooks\Games\Star Trek\Voyager ? Elite Force\
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 
-script_hwnd: 0xf01be
-Target: D:\Games\Castlevania - Lords of Shadow UE\bin\CastlevaniaLoSUE.exe
-target_dir: D:\Games\Castlevania - Lords of Shadow UE\bin
-target_name: CastlevaniaLoSUE.exe
-Textswap: e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=TexturesVOKSI;
+script_hwnd: 0x230294
+Target: D:\Games\Star Trek Elite Force\stvoy.exe
+target_dir: D:\Games\Star Trek Elite Force
+target_name: stvoy.exe
+Textswap: e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;k=False;
+wik: https://www.pcgamingwiki.com/wiki/Star_Trek:_Voyager_-_Elite_Force
 wine: 10_0
+WNMM: MCI=false;
 
-Working directory: D:\Games\Castlevania - Lords of Shadow UE\bin
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+Working directory: D:\Games\Star Trek Elite Force
+C:\users\gotardo\Documents\WineHooks\Games\Star Trek\Voyager ? Elite Force\cfgFiles: 
 HasFiles 0
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+C:\users\gotardo\Documents\WineHooks\Games\Star Trek\Voyager ? Elite Force\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -39,16 +41,6 @@ CreateProcessA Hook: 0
 CreateProcessW Hook: 0
 ShellExecuteA Hook  :0
 ShellExecuteExW Hook  :0
-D3D9Create Hook: 0
-D3D9Create Hook: 0
-Linux: wined SysDir: C:\windows\system32 Exists: A
-24 
-Z:\home\gotardo\Code\WineHooks\Ahk\D3DCompilers\x86\d3dx9_43.dll loaded
-Succeeded to create the Direct3D9 interfaces
-Succeeded to hook IDirect3D9::CreateDevice
-Succeeded to hook IDirect3DDevice9::Reset
-Succeeded to hook IDirect3DDevice9::BeginStateBlock
-Succeeded to hook IDirect3DDevice9::EndScene
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -82,4 +74,99 @@ CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBlt
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-==================================================================
+Setup: InitGlHooks() Requested mode    : 2560x1080
+Setup: InitGlHooks() Scale             : 1.000000
+Setup: InitGlHooks() Viewport XOffset  : 0
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsAHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
+SetReslimit: ENUMERATING
+SetReslimit: MODE 24: 2560x1080
+Setup: InitGLHooks() Requested mode    : 2560x1080
+Setup: InitGLHooks() Scale             : 1.000000
+Setup: InitGLHooks() Viewport XOffset  : 0
+
+Resolution\Viewport - from: InitGLHooks
+Requested                 : 2560 x 1080
+Real                      : 2560 x 1080
+Correction                : 1.000000
+Viewport width correction : 0
+Creating proxies SetupGl()
+No context
+Setup: InitGLHooks Requested mode    : 2560x1080
+Setup: InitGLHooks Scale             : 1.000000
+Setup: InitGLHooks Viewport XOffset  : 0
+Succeeded to hook wglCreateContext
+Succeeded to hook wglMakeCurrent
+Succeeded to hook wglGetProcAddress
+Succeeded to hook wglSwapBuffers
+Succeeded to hook SwapBuffers
+Succeeded to hook wglSwapLayerBuffers
+Succeeded to hook glDeleteTextures
+glBindTexture Hook: 0
+glTexImage2D  Hook: 0
+glTexSubImage2D  Hook: 0
+ChangeDisplaySettingsW Hook  :0
+ChangeDisplaySettingsExW Hook:0
+ChangeDisplaySettingsA Hook  :0
+GetDC Hook                   :0
+Succeeded to hook glViewport
+Succeeded to hook glScissor
+Succeeded to hook glGetTexLevelParameteriv
+Succeeded to hook glGetTexImage
+Succeeded to hook glCopyTexImage2D
+Succeeded to hook glCopyTexSubImage2D
+Succeeded to hook glDrawBuffer
+Succeeded to hook glReadBuffer
+glGetIntegerv Hook: 0
+
+Resolution\Viewport - from: ChangeDisplaySettingsA
+Requested                 : 1920 x 1080
+Real                      : 2560 x 1080
+Correction                : 1.000000
+Viewport width correction : 0
+Creating proxies SetupGl()
+No context
+Setup: ChangeDisplaySettingsA Requested mode    : 1920x1080
+Setup: ChangeDisplaySettingsA Scale             : 1.000000
+Setup: ChangeDisplaySettingsA Viewport XOffset  : 320
+Creating proxies wglMakeCurrent()
+Depth\Stencil:24\0:35863 Z24X8  1920 1080 69632 0
+FB 1
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+FB 2
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+program 3 A12
+
+Resolution\Viewport - from: ChangeDisplaySettingsA
+Requested                 : 960 x 720
+Real                      : 2560 x 1080
+Correction                : 1.000000
+Viewport width correction : 0
+Creating proxies SetupGl()
+No context
+Setup: ChangeDisplaySettingsA Requested mode    : 960x720
+Setup: ChangeDisplaySettingsA Scale             : 1.500000
+Setup: ChangeDisplaySettingsA Viewport XOffset  : 560
+Creating proxies wglMakeCurrent()
+Depth\Stencil:24\0:35863 Z24X8  960 720 135168 0
+FB 1
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+FB 2
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+program 3 A12

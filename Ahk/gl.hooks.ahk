@@ -504,10 +504,13 @@ wglMakeCurrent(hDC, Ctxt)
 	. " glRenderbufferStorageMultisample glBindRenderbuffer glGetRenderbufferParameteriv glDeleteRenderbuffers glTexImage2DMultisample"
 	. " glDrawBufferRegion glReadBufferRegion glGetCompressedTextureImage glGetCompressedTexImage glCheckFramebufferStatus", " ")
 	{
-		gl.p[v]     := dllcall(gl.p.wglGetProcAddress, astr, v, ptr)
+		if ((p:=dllcall(gl.p.wglGetProcAddress, astr, v, ptr))=0)  ;glDrawArrays==0 on linux, but we get the value from the dll exports
+		continue
+		gl.p[v]     := p
 		GL_HOOKS[v] := gl.p[v]
 		printl(v " address: " gl.p[v] " error " A_lasterror " <- 0 Means no error")
 	}
+	GL_HOOKS.glDrawArrays               := gl.p.glDrawArrays
 	GL_HOOKS.glTexSubImage2D_trampoline := gl.p.glTexSubImage2D 
 	GL_HOOKS.glCompressedTexImage2D     := gl.p.glCompressedTexImage2D 
 		
