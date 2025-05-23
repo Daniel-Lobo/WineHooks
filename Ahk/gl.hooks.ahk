@@ -537,7 +537,7 @@ wglMakeCurrent(hDC, Ctxt)
 		Prxs("wglMakeCurrent()")		
 	}
 	g_.gl.ctxt := Ctxt
-	;dllcall(gl.p.glEnable, int, GL_MULTISAMPLE)
+	dllcall(gl.p.glEnable, int, GL_MULTISAMPLE)
 	return r	
 }
 
