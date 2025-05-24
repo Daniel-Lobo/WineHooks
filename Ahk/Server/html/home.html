@@ -204,7 +204,7 @@
 			if (name !== null) {
 				await DownLoadFile(nfo.download_url, "Help\\" + nfo.name);				
 			}
-			await DownLoadFile("https://raw.githubusercontent.com/Daniel-Lobo/WineHooks/refs/heads/main/Scripts/InstallShield.ahk", "Scripts\\InstallShield.ahk");
+			
 		}
 		for (let nfo of tables_nfo) {
 			if (nfo.name.toLowerCase() === "cepluginlib.ahk") {
@@ -212,6 +212,7 @@
 				break
 			}
 		}
+		await DownLoadFile("https://raw.githubusercontent.com/Daniel-Lobo/WineHooks/refs/heads/main/Scripts/InstallShield.ahk", "Scripts\\InstallShield.ahk");
 	}
 	async function DownloadProfiles() {
 		document.getElementById("git-games-list-container").className ="alert alert-secondary"
