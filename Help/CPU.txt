@@ -44,7 +44,7 @@ CD audio emulation, and therefore the music, in some games
     <b>On linux</b>, this has not effect, however on
     <a href="https://gitlab.winehq.org/wine/wine/-/wikis/Commands/winecfg" target="_blank">wine config's</a>
     <b>Applications tab</b>, you can change the windows version b|per application|b, without need to use a different prefix, and
-    in some games you might need to mach the settings here wit the one on <a href="https://gitlab.winehq.org/wine/wine/-/wikis/Commands/winecfg" target="_blank">winecfg</a>
+    in some games you might need to mach the settings here with the one on <a href="https://gitlab.winehq.org/wine/wine/-/wikis/Commands/winecfg" target="_blank">winecfg</a>
     </li>
 </ul>
 }

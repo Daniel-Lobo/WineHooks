@@ -103,7 +103,15 @@
 				profiles</button>
 			<button class="button btn btn-secondary" style="width:220px" onclick="document.getElementById('create-profile-dialog').style.display = 'flex'">
 				<i class="fa-solid fa-plus"></i> Create a game profile
-			</button>
+			</button>			
+			
+		</div>
+		<div class="alert alert-danger" style="margin-top: 10px;">
+			If you can't find, on the downloads list, a game that you learned is supported by winehooks,
+			<a id="old_version_redirect" onclick="PostAction(event)" href="javascript:dummy()">
+				<i class="fa-solid fa-box-archive"></i> Download and old version
+			</a>. Starting on 0.10.12, some games have been "deprecated": most of the time, I just add a notice of the least
+			vertion that works, but a few were removed alltogether. 
 		</div>
 	</div>
 	<div id="git-games-list-container" style="display:flex;flex-direction:column;gap:10px;margin-top:0px">
@@ -119,7 +127,7 @@
 			</button>	
 			<button class="button btn btn-secondary" style="width:220px" id="winwhooks_git" onclick="PostAction(event)"><i class="fa-brands fa-github"></i>
 				Source
-			</button>
+			</button>			
 			<button class="button btn btn-secondary" style="width:220px" id="winwhooks_updatehistory" onclick="PostAction(event)">
 				<i class="fa-solid fa-newspaper"></i>
 				Update history
@@ -128,51 +136,31 @@
 	</div>	
 	<div class="alert alert-success">
 		<h2>VERSION NOTES</h2>	
-		Version <b>0.10.17</b> is the 5th and final version of the effort to adapt the program to be fully compatible
-		with <a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine</a> and use <a id='Wine'
-			onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls on windows<br>
-		As o version <b>0.10.17</b> the <i>wine migration</i> effort is finished<br><br>
+		<ul>
+			<li>This is version <b>0.10.18</b>, the 6th version after the start of the effort of adapting the program to be fully compatible
+			with <a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine</a> and use <a id='Wine'
+				onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls on windows</li><br>
 
-		<i class="fa-brands fa-linux"></i> On <b>Linux</b>, <b>Winehooks</b> is developed with
-		<a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a> and
-		<a id='dxvk' onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a><br>
+			<li>That effort <i>"completed"</i> on version <b>0.10.17</b>, meaning:
+			some issuews still remmain, but fixing them won't be the sole focus of development from now on. Fixes will come together with other
+			changes on the next few releases</li><br>
 
-		<i class="fa-brands fa-windows"></i> On <b>Windows</b>: <b>Winehooks</b> is developed on <b>Windows 10</b>, with
-		<a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a> and
-		<a id='dxvk' onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a>
+			<li>Remaining issues are: a few DirectX 7 and earlier games - some of which were already troublesome on the system - don't work 
+			on <b>Linux</b>, and <a target='_blank'href='https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family'>xBRz scaling</a>, also on 
+			DirectX 7 and earlier, doesn't work on either system</li><br>
+								
+			
+			<li>Winehooks is developed on<br>
 
-		<br><br>
+				<i class="fa-brands fa-linux"></i>: debian 12 with
+				<a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a> and
+				<a id='dxvk' onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a><br>
 
-		A few small issues - on the <i>wine migration</i> effort - still remain, but they wont be the sole focus of development anymore with fixes for these pendding
-		issues diluted over the next few releases<br><br>
-
-		Remaining issues are:
-		<div style="color: var(--bs-danger)">
-			<ul>
-				<li>OpenGl: <a target='_blank'
-				href='https://en.wikipedia.org/wiki/Supersampling'>supersampling anti-aliasing</a> doesn't work on Linux</li>
-				<li>Direct3D 7 and earlier:
-					<ul>
-						<li>
-							<a target='_blank'
-							href='https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family'>xBRz scaling</a> doesn't work 
-						</li>
-						<li>
-							A few games have problems:
-							<ul>
-								<li>
-									One Direct3D 7 and another Direct3D 3 (DirectX 6) game crash on <i>Linux</i>, and both require an option to do not use
-									<a id='Wine'
-									onclick="PostAction(event)" href='javascript:dummy()'>wine's</a> Direct3D dlls enabled <i>on Windows</i>
-								</li>
-								<li>Other two games - Direct3D 3 and Direct3D 1 (Directx 2) - work on Linux, but require that same option enabled on windows</li>
-								<li>Finally, a few others - DirectX 3 and earlier - which have some issues on <i>Linux</i>, have those same issues using <i>WineHooks<i>
-							</ul>	
-						</li>
-					</ul>	
-				</li>	
-			</ul>	
-		</div>								
+				<i class="fa-brands fa-windows"></i>: Windows 10 also with
+				<a id='Wine' onclick="PostAction(event)" href='javascript:dummy()'>wine 10</a> and
+				<a id='dxvk' onclick="PostAction(event)" href='javascript:dummy()'>dxvk 2.6</a>
+			</li>
+		</ul>					
 	</div>
 </div>
 
@@ -198,7 +186,8 @@
 		return name
 	}
 	function GetCommonHelpFileName(name) {
-		let names = ["ddraw", "directdraw", "gl", "gldefault", "DX8", "DX9", "DX10", "DX11", "DX12", "CPU", "Sound", "Input"]
+		let names = ["ddraw", "directdraw", "directdraw-0.10.18+.txt", "gl", "gldefault"
+		, "DX8", "DX9", "DX10", "DX11", "DX12", "CPU", "Sound", "Input"]
 		for (let i = 0; i < names.length; i++) {
 			let n = names[i];
 			if (n.toLowerCase() + ".txt" === name.toLowerCase()) {
