@@ -20,7 +20,7 @@ using std::unique_ptr;
 WINEHOOKS WineHooks;
 
 #define WINE_HOOKS_GL_CALL(call) call; if (glGetError() != GL_NO_ERROR) \
-{DBUG_WARN(#call " FAILED"); return WineHooks.glBlitFramebuffer(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, GL_NEAREST);}
+{DBUG_WARN(#call " FAILED")}
 
 tuple<string, GLuint>WineHooks_CreatexBRzProgram(const char * vertex_shader, const char * fragment_shader){
     auto context             = wglGetCurrentContext();
@@ -93,14 +93,37 @@ tuple<string, GLuint>WineHooks_CreatexBRzProgram(const char * vertex_shader, con
     return {string("S_OK"), program_id};
 }
 
+string WineHooks_ReadxBRzShaderFile(){
+    std::string src(g_.Path());
+    src.append("\\Shaders\\xBRz.glsl");    ;
+    FILE* fp = std::fopen(src.c_str(), "r");  
+    if (fp == nullptr)
+    {
+        string err = "Could not open:" + src;
+        DBUG_WARN(err.c_str());
+        return err;
+    }    
+    string source;
+    char a;
+    
+    while ((a = std::fgetc(fp)) != EOF)
+        source.append(1, (char)a);
+    std::fclose(fp);
+    DBUG_WARN((string("xBRz Shader: ") + source).c_str());
+
+    return source;
+}
+
 void glDrawArraysHook(GLenum mode, GLint first,	GLsizei count){
     if (WineHooks.UsexBRz == 0) return WineHooks.glDrawArrays(mode, first, count); // No xBRZ
     auto context = wglGetCurrentContext();
     if (WineHooks.Contexts.find(context) == WineHooks.Contexts.end())
     {
-        auto [err, program] = WineHooks_CreatexBRzProgram(WineHooks.vertex_src, WineHooks.frag_src);
+        auto frag_src = WineHooks_ReadxBRzShaderFile();        
+        auto [err, program] = WineHooks_CreatexBRzProgram(WineHooks.vertex_src, frag_src.c_str());
+
         WineHooks.Contexts.insert({context, program});
-        DBUG_WARN((string("Create Program for context: ") + to_string((uintptr_t)context) + " " + err).c_str());                
+        DBUG_WARN((string("Created Program for context: ") + to_string((uintptr_t)context) + " " + err).c_str());                
     } else {
         auto program = WineHooks.Contexts[context];
         if (program != 0)
@@ -118,18 +141,15 @@ void glDrawArraysHook(GLenum mode, GLint first,	GLsizei count){
             }
             auto OutputSize  = glGetUniformLocation(program, "OutputSize"); 
             auto InputSize   = glGetUniformLocation(program, "InputSize");
-            auto TextureSize = glGetUniformLocation(program, "TextureSize");
-            if (OutputSize == -1 || InputSize == -1 || TextureSize == -1)
-            {
-                DBUG_WARN("glGetUniformLocation() FAILED");
-                WineHooks.UsexBRz = 0;
-                glUseProgram(program);
-                return WineHooks.glDrawArrays(mode, first, count);
-            }
-            glUniform2f(OutputSize, g_d3d.HD_W-g_d3d.HD_X->Get()*2.f, g_d3d.HD_H);
-            glUniform2f(InputSize, g_d3d.m_WW->Get(), g_d3d.m_HH->Get());
-            glUniform2f(TextureSize, g_d3d.m_WW->Get(), g_d3d.m_HH->Get());
-            glUseProgram(program);
+            auto TextureSize = glGetUniformLocation(program, "TextureSize");            
+            glUseProgram(program);           
+            float hd_w = (float)g_d3d.HD_W;
+            float hd_h = (float)g_d3d.HD_H; 
+            float w    = (float)g_d3d.m_WW->Get();
+            float h    = (float)g_d3d.m_HH->Get();
+            hd_w      -= (float)g_d3d.HD_X->Get()*2.f;
+            if (OutputSize  != -1) WINE_HOOKS_GL_CALL(glUniform2f(OutputSize, hd_w, hd_h));            
+            if (TextureSize != -1) WINE_HOOKS_GL_CALL(glUniform2f(TextureSize,w, h));            
         }
     }  
     WineHooks.UsexBRz = 0;
