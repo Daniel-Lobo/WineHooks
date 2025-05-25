@@ -86,7 +86,7 @@ void main()                                 \
 {                                           \
     gl_Position.xy = position;              \
     gl_Position.zw = vec2(0.0, 1.0);        \
-    crds           = texCoord.xy;           \
+    crds           = texCoord.xy*1.0001;    \
 }";                      
 };
 #endif // WINEHOOKS_H

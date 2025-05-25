@@ -109,7 +109,7 @@ string WineHooks_ReadxBRzShaderFile(){
     while ((a = std::fgetc(fp)) != EOF)
         source.append(1, (char)a);
     std::fclose(fp);
-    DBUG_WARN((string("xBRz Shader: ") + source).c_str());
+    //DBUG_WARN((string("xBRz Shader: ") + source).c_str());
 
     return source;
 }
@@ -148,6 +148,7 @@ void glDrawArraysHook(GLenum mode, GLint first,	GLsizei count){
             float w    = (float)g_d3d.m_WW->Get();
             float h    = (float)g_d3d.m_HH->Get();
             hd_w      -= (float)g_d3d.HD_X->Get()*2.f;
+
             if (OutputSize  != -1) WINE_HOOKS_GL_CALL(glUniform2f(OutputSize, hd_w, hd_h));            
             if (TextureSize != -1) WINE_HOOKS_GL_CALL(glUniform2f(TextureSize,w, h));            
         }
