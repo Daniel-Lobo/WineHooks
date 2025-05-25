@@ -260,7 +260,7 @@ InitD3DHook()
 		g_.p.DirectDrawCreate := pDirectDrawCreate
 	}		
 		
-	;g_.cfg.wineoff := True
+	g_.cfg.IsLinux := FileExist(GetSystemDir() "\wined3d.dll")
 	if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 	{
 		g_.cfg.mngr     := false
@@ -1080,7 +1080,7 @@ DDWait(s, f="")
 		if (vblank) 
 		break
 		dllcall("Kernel32\SetWaitableTimer", ptr, h_timer, "int64*", interval, uint, 0, uint, 0, uint, 0, uint, 0)		
-		dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
+		(g_.cfg.IsLinux) ? dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
 	}
 	if (!g_.cfg.SXTY)
 	{		
@@ -1094,7 +1094,7 @@ DDWait(s, f="")
 		if (!vblank) 
 		break
 		dllcall("Kernel32\SetWaitableTimer", ptr, h_timer, "int64*", interval, uint, 0, uint, 0, uint, 0, uint, 0)		
-		dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
+		(g_.cfg.IsLinux) ? dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
 	}
 	while (vblank = 0)
 	{
@@ -1103,7 +1103,7 @@ DDWait(s, f="")
 		if (vblank) 
 		break
 		dllcall("Kernel32\SetWaitableTimer", ptr, h_timer, "int64*", interval, uint, 0, uint, 0, uint, 0, uint, 0)		
-		dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
+		(g_.cfg.IsLinux) ? dllcall("Kernel32\WaitForSingleObject", ptr, h_timer, uint, 0xFFFFFFFF)
 	}
 	dllcall("Kernel32\CloseHandle", ptr, h_timer)
 	return 	
