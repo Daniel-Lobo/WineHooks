@@ -1,5 +1,5 @@
-global g_MainThreadID := 2504 ;<Tag> 
-global g_cmdstring := "-Target^C:\Games\Blade of Darkness\classic\Bin\Blade.exe^-wiki^https://www.pcgamingwiki.com/wiki/Blade_of_Darkness^-D3D^7^-path^Blade of darkness^/HD^-SSAA^4^/4K^/32bit^/Gamma^-CompatLayer^winxpsp3^-#script^scripts\BladeofDarknes.ahk^/wineoff^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;a=false;dly=false;l=false;k=False;A8Fix=true;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;^-Dsnd^CRSR=false;S3D=false;STTR=false;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-PxSwap^e=false;^-WNMM^MCI=false;    {nfo} ==[Compatibility modes]==;^-script_hwnd^0x505c0^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^C:\Games\Blade of Darkness\classic\Bin^-target_name^Blade.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 876 ;<Tag> 
+global g_cmdstring := "-wiki^https://www.pcgamingwiki.com/wiki/Dark_Earth^-Target^D:\Games\Dark Earth\dkev.exe^/ddraw^/D3D^/HD^/32bit^-CompatLayer^Win95^/#no_argv0^-#args^D:\Games\Dark Earth-1 32K^-args^-1 32K^-script^scripts\Dark Earth.ahk^/xBR^-FMV^1^-xBRh^X^-MCLP^1^-Path^Dark Earth^/DDRefcountfix^/4K^-Textswap^e=false;dly=False;a=False;l=False;A8Fix=False;^-WNMM^MCI=false;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-DSnd^e=False;s=False;x=False;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;layer=False;^-script_hwnd^0x4001fe^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Dark Earth^-target_name^dkev.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -5864,11 +5864,10 @@ dllcall(IDirectDrawSurface.blt, uint, p, uint, _RECT[], uint, x8.surface, uint, 
 return
 } else if (g_.cfg.xBR)
 {
-system := new Surface(dllcall(g_.p.DDFrmSrfc, uint, p),"X8RGB",, sys=True, m=False)
-DDBlt(system.Surface, 0, src.Surface, 0, 0, g_HD.DDBLTFX[])
-DDWait(p)
-dllcall("peixoto.dll\DDxBRzScale", ptr, system.surface, ptr, p, ptr,  _RECT[], str)
-return
+xbrz := new Surface(dllcall(g_.p.DDFrmSrfc, uint, p), "X8RGB",, sys=False, m=False)
+dllcall("peixoto.dll\SetWineD3DUsexBRz", uint)
+DDBlt(xbrz.Surface, 0, src.Surface, 0, 1, g_HD.DDBLTFX[])
+src  := xbrz
 }
 else if (g_.cfg.SCLR)
 {
@@ -8573,5 +8572,111 @@ p6 := d.h
 return dllcall(g_.WnAPI.SetPos, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7)
 }
 
+
+
+logerr("CloseHandle Hook  : " InstallHook("CloseHandle", pCloseHandle, "Kernel32.dll", "CloseHandle") " <- 0 means no error")	
+g_.pCloseHandle           := pCloseHandle
+g_.FMV                    := 0
+D3DHOOKS_DATA.Bltprimary  := registercallback("Alt_blt", "f")
+(g_.cfg.D3D) ?: GetDirectDraw(), IDirectDraw.Hook("CreateSurface")
+BuildfileslistDE()
+
+Alt_blt(p1, p2, p3, p4, p5, p6)
+{
+	static hint := "Collumn-Line|6-6|3-3|3-5|6-7|6-4|6-2|8-4|5-8|1-5|1-7|8-3|3-7"
+	. "`nClick the board after you beat Sadak to continue the game`nTomb Puzzle:down|up|up|up|down|up"
+	keyevent("h") ? g_.hint := (g_.hint & True) ? False : True
+		
+	if (g_.FMV < 0) 
+		g_.proxies.fmv := 0	
+	else if	(g_.FMV > 0) 
+		g_.proxies.fmv := 1		
+	
+	(g_.hint & True) ? WriteOnSurface(p3, hint, 0x00FFFFFF)
+	Surface1Blt(p1, p2, p3, p4, p5, p6)	
+	return 0	
+}
+
+AltIDirectDraw_CreateSurface(pIDirectDraw, pSurfaceDesc, ppSurface, pIUnknown)
+{
+
+	D    := struct(DDSURFACEDESC)
+	D[]  := pSurfaceDesc
+	;D.ddsCaps.dwCaps &= ~ DDSCAPS_3DDEVICE
+	/*
+	if ! (DDSURFACEDESC.ddsCaps.dwCaps & DDSCAPS_PRIMARYSURFACE)
+	{
+		DDSURFACEDESC.ddsCaps.dwCaps |= DDSCAPS_SYSTEMMEMORY
+		DDSURFACEDESC.ddsCaps.dwCaps &= ~ DDSCAPS_VIDEOMEMORY
+	}
+	*/
+	setformat, integer, hex
+	if not g_.cfg.D3D
+		return dllcall(IDirectDraw.CreateSurface, uint, pIDirectDraw, uint, pSurfaceDesc, uint, ppSurface, uint, pIUnknown, uint)
+	if r := IDirectDraw_CreateSurface(pIDirectDraw, pSurfaceDesc, ppSurface, pIUnknown)
+		logerr(D.ddsCaps.dwCaps GetPixelFormat(D))
+	g_.proxies.fmvs := ""
+	return r
+}	
+
+AltCreateFileA(p1, p2, p3, p4, p5, p6, p7)
+{
+	file := strget(p1, "CP0")
+	VarSetCapacity(stringU, strlen(file)*2)
+	strput(file, &stringU, "UTF-16")
+	r := AltCreateFileW(&stringU, p2, p3, p4, p5, p6, p7)
+		
+	n := 2	
+	while (r = -1)
+	{
+		splitpath, file, file_name, dir, 
+		file := dir "\" SubStr(file_name, 2)
+		VarSetCapacity(stringU, strlen(file)*2)
+		strput(file, &stringU, "UTF-16")
+		r := AltCreateFileW(&stringU, p2, p3, p4, p5, p6, p7)
+		n += 1
+		if n > 5
+			break
+	}	
+
+	splitpath, file, , , ext		
+	if (ext = "CRH"){
+		dllcall(IDirectDrawSurface.blt, uint, g_.primary, uint, 0, uint, 0, uint, 0
+									  , uint, DDBLT_COLORFILL, uint, DDBLTFX[], uint)	
+		g_.FMV := r	
+	}
+	return r
+}
+
+AltCreateFileW(p1, p2, p3, p4, p5, p6, p7)
+{
+	file := strget(p1, "UTF-16")
+	stringreplace, file, file, /, \, 1	
+	Splitpath, file, filename
+		
+	g_.filesList[filename] ? file := g_.filesList[filename]			
+
+	r := dllcall(g_fhks.pCreateFileW, str, file, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7)
+	return r
+}
+
+CloseHandle(hwnd)
+{
+	if (hwnd = g_.FMV) 
+		g_.FMV := -1
+	return dllcall(g_.pCloseHandle, uint, hwnd)
+}
+
+BuildfileslistDE()
+{
+	g_.filesList := {}
+	dir := g_.cfg.target_dir
+	loop, %dir%\*.*, 0, 1
+		g_.filesList[A_loopfilename] := A_loopfilefullpath
+	g_.filesList.remove("error.log")
+}
+
 printl()
+ReleaseDirectDraw()
+
 resume()

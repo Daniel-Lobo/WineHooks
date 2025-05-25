@@ -641,11 +641,17 @@ Surface1UpDatePrim(p, pRECT)
 		return
 	} else if (g_.cfg.xBR)
 	{	
+		/*
 		system := new Surface(dllcall(g_.p.DDFrmSrfc, uint, p),"X8RGB",, sys=True, m=False)
 		DDBlt(system.Surface, 0, src.Surface, 0, 0, g_HD.DDBLTFX[])
 		DDWait(p)			
 		dllcall("peixoto.dll\DDxBRzScale", ptr, system.surface, ptr, p, ptr,  _RECT[], str)			
-		return	
+		return
+		*/
+		xbrz := new Surface(dllcall(g_.p.DDFrmSrfc, uint, p), "X8RGB",, sys=False, m=False)	
+		dllcall("peixoto.dll\SetWineD3DUsexBRz", uint)
+		DDBlt(xbrz.Surface, 0, src.Surface, 0, 1, g_HD.DDBLTFX[])  ; use color key to force it to use OpenGl
+		src  := xbrz
 	}	
 	else if (g_.cfg.SCLR)
 	{	

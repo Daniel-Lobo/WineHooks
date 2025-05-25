@@ -94,6 +94,7 @@ tuple<string, GLuint>WineHooks_CreatexBRzProgram(const char * vertex_shader, con
 }
 
 void glDrawArraysHook(GLenum mode, GLint first,	GLsizei count){
+    if (WineHooks.UsexBRz == 0) return WineHooks.glDrawArrays(mode, first, count); // No xBRZ
     auto context = wglGetCurrentContext();
     if (WineHooks.Contexts.find(context) == WineHooks.Contexts.end())
     {
@@ -104,10 +105,34 @@ void glDrawArraysHook(GLenum mode, GLint first,	GLsizei count){
         auto program = WineHooks.Contexts[context];
         if (program != 0)
         {
-            auto glUseProgram = (PFNGLUSEPROGRAMPROC)wglGetProcAddress("glUseProgram");
+            auto g_gl                 =  GetModuleHandleA("opengl32.dll");
+            auto glGetUniformLocation = (PFNGLGETUNIFORMLOCATIONPROC)wglGetProcAddress("glGetUniformLocation");
+            auto glUniform2f          = (PFNGLUNIFORM2FPROC)wglGetProcAddress("glUniform2f");
+            auto glGetIntegerv        = (PFNGLGETINTEGERVPROC)GetProcAddress(g_gl,"glGetIntegerv");
+            auto glUseProgram         = (PFNGLUSEPROGRAMPROC)wglGetProcAddress("glUseProgram");
+            if (glGetUniformLocation == nullptr || glUniform2f == nullptr /*|| glGetIntegerv == nullptr*/ || glUseProgram == nullptr)
+            {
+                DBUG_WARN("wglGetProcAddress() FAILED");                
+                WineHooks.UsexBRz = 0;                
+                return WineHooks.glDrawArrays(mode, first, count);
+            }
+            auto OutputSize  = glGetUniformLocation(program, "OutputSize"); 
+            auto InputSize   = glGetUniformLocation(program, "InputSize");
+            auto TextureSize = glGetUniformLocation(program, "TextureSize");
+            if (OutputSize == -1 || InputSize == -1 || TextureSize == -1)
+            {
+                DBUG_WARN("glGetUniformLocation() FAILED");
+                WineHooks.UsexBRz = 0;
+                glUseProgram(program);
+                return WineHooks.glDrawArrays(mode, first, count);
+            }
+            glUniform2f(OutputSize, g_d3d.HD_W-g_d3d.HD_X->Get()*2.f, g_d3d.HD_H);
+            glUniform2f(InputSize, g_d3d.m_WW->Get(), g_d3d.m_HH->Get());
+            glUniform2f(TextureSize, g_d3d.m_WW->Get(), g_d3d.m_HH->Get());
             glUseProgram(program);
         }
     }  
+    WineHooks.UsexBRz = 0;
     return WineHooks.glDrawArrays(mode, first, count); 
 }
 
@@ -184,7 +209,7 @@ extern "C"  __declspec(dllexport) wchar_t * __stdcall InitDDrawWineHoooks(wchar_
         err += to_string(hook);
         return (wchar_t *)err.c_str();
     } 
-    return  (wchar_t *) err.c_str();  
+    //return  (wchar_t *) err.c_str();  
 
     auto h_gl              = GetModuleHandleA("opengl32.dll");
     WineHooks.glDrawArrays = (decltype(WineHooks.glDrawArrays))GetProcAddress(h_gl, "glDrawArrays");

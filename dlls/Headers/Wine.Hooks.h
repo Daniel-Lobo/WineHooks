@@ -69,6 +69,9 @@ public:
         return err;
     }       
     const char * frag_src   = "#version 130\n \
+    uniform vec2 OutputSize;             \
+uniform vec2 TextureSize;            \
+uniform vec2 InputSize;              \
 in vec2 crds;                                 \
 uniform sampler2D tex;                        \
 void main()                                   \
@@ -76,6 +79,9 @@ void main()                                   \
     gl_FragColor = texture(tex, vec2(1.,1.)-crds);      \
 }";
     const char * vertex_src = "#version 130\n \
+uniform vec2 OutputSize;             \
+uniform vec2 TextureSize;            \
+uniform vec2 InputSize;              \
 in vec2 position;                    \
 in vec3 texCoord;                    \
 out vec2 crds;                              \
