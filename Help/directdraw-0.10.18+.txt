@@ -207,7 +207,18 @@ artifacts if supersampling is not enough to fix, or introduces them. This option
 has no effect if supersampling is not enabled  
 
 ::parent::HD_details::
-::BOOL::xBR::a|_xBR ^ xBRz scaling|a:: Pixel art scaler for 2D games::This options had no effect since version 0.10.13, but should be restored on version 0.10.17
+::BOOL::xBR::a|_xBR ^ xBRz scaling|a:: Pixel art scaler for 2D games::
+::parent::xBR_details::
+::0.10.19+::{b
+    <b>If this is slow, try</b>
+    <ul>
+    <li>Enabling [gototab_...graphics_sys Lockable proxies on system memory]
+    <li>Disabling [gototab_...graphics_Safe Single core DirectDraw] of [gototab_cpu_singlecore Single core affinity]
+    <li>Disabling [gototab_cpu_compatlayer Win9x] compatibility
+    <li>If you have a potato 🥔 pc, get one with 6 CPU cores
+    <li>Wait until I get this working in hardware again... but do it sitting
+    </ul>
+}
 
 ::parent::HD_details::
 ::BOOL::DSR::Dynamic super resolution::
