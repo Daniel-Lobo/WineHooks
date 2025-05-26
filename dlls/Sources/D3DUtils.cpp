@@ -614,7 +614,7 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDxBRzScale(IDirectDrawSurf
 	UINT src_lines_remainder    = 0;
 	UINT dst_lines_per_thread   = 0;
 	UINT dst_lines_remainder    = 0;
-	UINT extra_lines            = 3;
+	UINT extra_lines            = 6;
 
 	HANDLE Threads[6]     = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 	XBRZ_SDCALEDATA data0 = {{0}};
@@ -625,7 +625,7 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDxBRzScale(IDirectDrawSurf
 	XBRZ_SDCALEDATA data5 = {{0}};
 	void * temp_lines0 = nullptr;
 	void * temp_lines2 = nullptr;
-	void * temp_lines5 = nullptr;	
+	void * temp_lines4 = nullptr;	
 
 	DirectDrawSurface * src =  GetDirectDrawSurface((COMPtr*)iSrc);
 	DirectDrawSurface * dst =  GetDirectDrawSurface((COMPtr*)iDst);
@@ -683,33 +683,74 @@ extern "C" __declspec(dllexport) wchar_t * __stdcall DDxBRzScale(IDirectDrawSurf
 		);
 	*/	
 		
-	src_lines_per_thread = src_desc.dwHeight / 2;
-	src_lines_remainder  = src_desc.dwHeight % 2; 
+	src_lines_per_thread = src_desc.dwHeight / 6;
+	src_lines_remainder  = src_desc.dwHeight % 6; 
 	dst_lines_per_thread = src_lines_per_thread * scl;
 	dst_lines_remainder  = src_lines_remainder  * scl;
 
 	temp_lines0 = malloc(dst_desc.lPitch * (dst_lines_per_thread + extra_lines*scl));
+	temp_lines2 = malloc(dst_desc.lPitch * (dst_lines_per_thread + extra_lines*2*scl));
+	temp_lines4 = malloc(dst_desc.lPitch * (dst_lines_per_thread + extra_lines*2*scl));
 
 	data0.scl = scl;
 	data0.src = src_desc.lpSurface;
 	data0.dst = temp_lines0;
 	data0.w   = src_desc.dwWidth;
-	data0.h   = src_lines_per_thread + src_lines_remainder + extra_lines;
+	data0.h   = src_lines_per_thread + extra_lines;
+
+	data1.scl = scl;
+	data1.src = OffsetLine(src_desc.lpSurface, src_lines_per_thread-extra_lines, src_desc.lPitch);
+	data1.dst = OffsetLine(dst_desc.lpSurface, dst_lines_per_thread-extra_lines*scl, dst_desc.lPitch);
+	data1.w   = src_desc.dwWidth;
+	data1.h   = src_lines_per_thread+extra_lines*2;
+
+	data2.scl = scl;
+	data2.src = OffsetLine(src_desc.lpSurface, src_lines_per_thread*2-extra_lines, src_desc.lPitch);
+	data2.dst = temp_lines2;
+	data2.w   = src_desc.dwWidth;
+	data2.h   = src_lines_per_thread+extra_lines*2;
+
+	data3.scl = scl;
+	data3.src = OffsetLine(src_desc.lpSurface, src_lines_per_thread*3-extra_lines, src_desc.lPitch);
+	data3.dst = OffsetLine(dst_desc.lpSurface, dst_lines_per_thread*3-extra_lines*scl, dst_desc.lPitch);
+	data3.w   = src_desc.dwWidth;
+	data3.h   = src_lines_per_thread+extra_lines*2;
+
+	data4.scl = scl;
+	data4.src = OffsetLine(src_desc.lpSurface, src_lines_per_thread*4-extra_lines, src_desc.lPitch);
+	data4.dst = temp_lines4;
+	data4.w   = src_desc.dwWidth;
+	data4.h   = src_lines_per_thread+extra_lines*2;
 	
 	data5.scl = scl;
-	data5.src = OffsetLine(src_desc.lpSurface, src_lines_per_thread-extra_lines,     src_desc.lPitch);
-	data5.dst = OffsetLine(dst_desc.lpSurface, dst_lines_per_thread-extra_lines*scl, dst_desc.lPitch);
+	data5.src = OffsetLine(src_desc.lpSurface, src_lines_per_thread*5-extra_lines,     src_desc.lPitch);
+	data5.dst = OffsetLine(dst_desc.lpSurface, dst_lines_per_thread*5-extra_lines*scl, dst_desc.lPitch);
 	data5.w   = src_desc.dwWidth;
 	data5.h   = src_lines_per_thread+src_lines_remainder+extra_lines;
 	
 	//xbrz::scale(scl, (uint32_t*)src_desc.lpSurface, (uint32_t*)dst_desc.lpSurface, (int)src_desc.dwWidth, (int)src_desc.dwHeight, xbrz::ColorFormat::ARGB);
 	Threads[0] = CreateThread(nullptr, 0, xBRzThread, &data0, 0, nullptr);
+	Threads[1] = CreateThread(nullptr, 0, xBRzThread, &data1, 0, nullptr);
+	Threads[2] = CreateThread(nullptr, 0, xBRzThread, &data2, 0, nullptr);
+	Threads[3] = CreateThread(nullptr, 0, xBRzThread, &data3, 0, nullptr);
+	Threads[4] = CreateThread(nullptr, 0, xBRzThread, &data4, 0, nullptr);
 	Threads[5] = CreateThread(nullptr, 0, xBRzThread, &data5, 0, nullptr);
-	WaitForSingleObject(Threads[5], INFINITE);
-	WaitForSingleObject(Threads[0], INFINITE);
+	WaitForMultipleObjects(6, Threads, TRUE, INFINITE);
+	for (int i = 0; i < 6; i++) {
+		if (Threads[i] != nullptr) {
+			CloseHandle(Threads[i]);
+			Threads[i] = nullptr;
+		}
+	}
 
 	memcpy(dst_desc.lpSurface, temp_lines0, dst_desc.lPitch * dst_lines_per_thread);
+	memcpy(OffsetLine(dst_desc.lpSurface, dst_lines_per_thread*2, dst_desc.lPitch), OffsetLine(temp_lines2, extra_lines*scl, dst_desc.lPitch),
+	dst_desc.lPitch * dst_lines_per_thread);
+	memcpy(OffsetLine(dst_desc.lpSurface, dst_lines_per_thread*4, dst_desc.lPitch), OffsetLine(temp_lines4, extra_lines*scl, dst_desc.lPitch),
+	dst_desc.lPitch * dst_lines_per_thread);
 	free(temp_lines0);
+	free(temp_lines2);
+	free(temp_lines4);
 
 	sys_src->Unlock(src_desc.lpSurface);
 	sys_dst->Unlock(dst_desc.lpSurface);
