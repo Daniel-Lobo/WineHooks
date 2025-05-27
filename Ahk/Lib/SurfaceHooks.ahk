@@ -640,11 +640,10 @@ Surface1UpDatePrim(p, pRECT)
 		dllcall(IDirectDrawSurface.blt, uint, p, uint, _RECT[], uint, x8.surface, uint, g_.proxies.fmvr[], uint, 0, uint, 0, uint)		
 		return
 	} else if (g_.cfg.xBR)
-	{	
-		
+	{			
 		system := new Surface(dllcall(g_.p.DDFrmSrfc, uint, p),"X8RGB",, sys=True, m=False)
 		DDBlt(system.Surface, 0, src.Surface, 0, 0, g_HD.DDBLTFX[])
-		DDWait(p)			
+		(g_.cfg._NEFS) ?: DDWait(p)			
 		dllcall("peixoto.dll\DDxBRzScale", ptr, system.surface, ptr, p, ptr, _RECT[], str)			
 		return
 		
@@ -656,11 +655,11 @@ Surface1UpDatePrim(p, pRECT)
 	else if (g_.cfg.SCLR)
 	{	
 		;TODO: implement partial updates with xBRz	
-		DDWait(p)				
+		(g_.cfg._NEFS) ?: DDWait(p)				
 		dllcall(IDirectDrawSurface.blt, uint, p, uint, g_HD._Sclr.dst, uint, src, uint, g_HD._Sclr.src, uint, 0, uint, 0, uint)
 		return
 	}
-	DDWait(p)	
+	(g_.cfg._NEFS) ?: DDWait(p)	
 	dllcall(IDirectDrawSurface.blt, uint, p, uint, _RECT[], uint, src.surface, uint, 0
 	, uint, 0, uint, 0, uint)	
 	return 	

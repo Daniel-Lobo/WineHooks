@@ -170,21 +170,19 @@ l| Fixes glitches on display mode changes which also become instant</li></ul>
 ::BOOL::GDI::GDI hooks::Fixes 2D graphics (most of the time FMVs) not being scaled correctly in some games
 
 ::parent::HD_details::
-::BOOL::NEFS::Non exclusive fullscreen::With the the adoption of [wine wine] - <span style="color:var(--bs-danger)">ver 0.10.16+</span>, this options has no effect anymore, except on the few games that need [gototab_Graphics..._wineoff wine disabled]
+::BOOL::NEFS::Non exclusive fullscreen <span style="color:var(--bs-danger)">ver 0.10.20+</span>::This can fix bad performance, specially on 2D games
 ::parent::NEFS_details::
 ::HIDDEN::NEFSDetailed::Details::
-My implementation of maximized 
-windowed mode, with different results form Microsoft's
-<ul> 
-l| Fixes poor performance</li>
-l| Fixes rendering bugs</li>
-l| Alt-tabing is faster and becomes possible in games on which it normally isn't.|n 
-The  game window remains always visible, but you can put another windows on top 
-of it</ul> 
-DrawBacks:<ul> 
-l| FMVs might not play</li>
-l| You can get a black screen on games the put another window - for FMV playback
-or to display common windows|n controls - on top of the DirectDraw window</li></ul> 
+{b
+  This will allow updates to the primary surface - except when page fliping - to be made Without VSync. Some games need this because this was DirectDraw's
+  original behavior.
+  <br> <b>On Windows</b>, with the
+  <span id="gototab_Graphics..._wineoff" style="color:blue;text-decoration:underline;cursor:pointer" onclick="PostActionB(this)">wine disabled</span> option enabled, this has two drawbacks:
+  <ul>
+  l| FMVs might not play</li>
+  l| You can get a black screen on games the put another window - for FMV playback
+  or to display common windows|n controls - on top of the DirectDraw window</li></ul>
+}
 :: 
    
 ::parent::HD_details::
@@ -213,7 +211,7 @@ has no effect if supersampling is not enabled
     <b>If this is slow, try</b>
     <ul>
     <li>Enabling [gototab_...graphics_sys Lockable proxies on system memory]
-    <li>Disabling [gototab_...graphics_Safe Single core DirectDraw] of [gototab_cpu_singlecore Single core affinity]
+    <li>Disabling [gototab_...graphics_Safe Single core DirectDraw] or [gototab_cpu_singlecore Single core affinity]
     <li>Disabling [gototab_cpu_compatlayer Win9x] compatibility
     <li>If you have a potato 🥔 pc, get one with 6 CPU cores
     <li>Wait until I get this working in hardware again... but do it sitting

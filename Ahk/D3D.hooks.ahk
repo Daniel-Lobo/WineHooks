@@ -260,6 +260,7 @@ InitD3DHook()
 		g_.p.DirectDrawCreate := pDirectDrawCreate
 	}		
 		
+	g_.cfg._NEFS   := g_.cfg.NEFS ? true : false
 	g_.cfg.IsLinux := FileExist(GetSystemDir() "\wined3d.dll")
 	if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 	{
@@ -1122,8 +1123,7 @@ IDirectDrawSurface_flip(p1, p2, p3)
 	{		
 		flip()
 		g_.Device3 ? dllcall(IDirect3DDevice3.SetRenderTarget, uint, g_.Device3, uint, g_.proxies.dev.surface4)
-		: g_.Device2 ? dllcall(IDirect3DDevice2.SetRenderTarget, uint, g_.Device2, uint, g_.proxies.dev.surface)
-		DDWait(p1, p2&DDFLIP_WAIT)		
+		: g_.Device2 ? dllcall(IDirect3DDevice2.SetRenderTarget, uint, g_.Device2, uint, g_.proxies.dev.surface)			
 		Surface1UpDatePrim(p1, g_.proxies.skp := 0)
 		return 0 ; TODO: Some error checking here
 	}
@@ -1150,11 +1150,10 @@ IDirectDrawSurface_flip(p1, p2, p3)
 	{
 		DDWait(p1, p2&DDFLIP_WAIT)
 		r := dllcall(IDirectdrawSurface.blt, uint, p1, uint, 0, uint, g_.rtrgt, uint, 0, uint, 0, uint, DDBLTFX[], uint)
-		dllcall(IDirectDrawSurface.flip, uint, g_.rtrgt, uint, 0, uint, 0)			
+		;dllcall(IDirectDrawSurface.flip, uint, g_.rtrgt, uint, 0, uint, 0)			
 		return r
-	} 
-	DDWait(p1, p2&DDFLIP_WAIT)    
-	r := dllcall(IDirectDrawSurface.flip, uint, p1, uint, p2, uint, p3)	
+	} 	  
+	r := dllcall(IDirectDrawSurface.flip, uint, p1, uint, g_.cfg.SXTY ? DDFLIP_WAIT|DDFLIP_INTERVAL2:DDFLIP_WAIT, uint, p3)	
 	return r								  
 }
 
@@ -1518,11 +1517,10 @@ IDirectDrawSurface7_flip(p1, p2, p3)
 	{
 		DDWait(p1, p2&DDFLIP_WAIT)		
 		r := dllcall(IDirectdrawSurface7.blt, uint, p1, uint, 0, uint, g_.rtrgt, uint, 0, uint, 0, uint, g_HD.DDBLTFX[], uint)
-		dllcall(IDirectdrawSurface7.flip, uint, g_.rtrgt, uint, p2, uint, p3)		
+		;dllcall(IDirectdrawSurface7.flip, uint, g_.rtrgt, uint, p2, uint, p3)		
 		return r
-	}	
-	DDWait(p1, p2&DDFLIP_WAIT)		
-	r := dllcall(IDirectdrawSurface7.flip, uint, p1, uint, p2, uint, p3)	
+	}			
+	r := dllcall(IDirectdrawSurface7.flip, uint, p1, uint, g_.cfg.SXTY ? DDFLIP_WAIT|DDFLIP_INTERVAL2:DDFLIP_WAIT, uint, p3)	
 	return							  
 }
 

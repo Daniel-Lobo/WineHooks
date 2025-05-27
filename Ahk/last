@@ -1,5 +1,6 @@
-global g_MainThreadID := 21252 ;<Tag> 
-global g_cmdstring := "-Target^D:\Games\Drakan\Drakan.exe^-wiki^https://www.pcgamingwiki.com/wiki/Drakan:_Order_of_the_Flame^-D3D^3^-Path^Drakan^/Gamma^/32bit^/HD^/WHKS^/4K^/BLT3D^-SSAA^4^/wineoff^-<Gpad>^^-Textswap^samples=4;thumbnail=256;path=Textures\VOKSI;next=[;prev=];dump=Home;Switch=End;color_switch=Del;Quick=Ins;a=False;dly=False;e=false;l=False;A8Fix=False;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-WNMM^MCI=false;^-DSnd^e=False;    {f} ==[Crashes when you start a new game or load a save]==;    {f} ==[Crashes when you start a new game or load a save]==;^-script_hwnd^0x2801aa^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Drakan^-target_name^Drakan.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 1704 ;<Tag> 
+#warn all, OutputDebug
+global g_cmdstring := "-Target^D:\Games\Silver\silver.exe^-wiki^https://www.pcgamingwiki.com/wiki/Silver^-D3D^1^-Path^Silver^/32bit^/HD^/xBR^-script^scripts\Silver.ahk^/singlecore^/4K^/rnm^/SXTY^-SYNC^1^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-Textswap^e=false;dly=False;a=False;l=False;A8Fix=False;^-WNMM^MCI=false;^-DSnd^e=false;^-script_hwnd^0x5019a^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^/console^-iso^Silver.iso^-target_dir^D:\Games\Silver^-target_name^silver.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -5866,7 +5867,7 @@ return
 {
 system := new Surface(dllcall(g_.p.DDFrmSrfc, uint, p),"X8RGB",, sys=True, m=False)
 DDBlt(system.Surface, 0, src.Surface, 0, 0, g_HD.DDBLTFX[])
-DDWait(p)
+(g_.cfg._NEFS) ?: DDWait(p)
 dllcall("peixoto.dll\DDxBRzScale", ptr, system.surface, ptr, p, ptr, _RECT[], str)
 return
 xbrz := new Surface(dllcall(g_.p.DDFrmSrfc, uint, p), "X8RGB",, sys=False, m=False)
@@ -5876,11 +5877,11 @@ src  := xbrz
 }
 else if (g_.cfg.SCLR)
 {
-DDWait(p)
+(g_.cfg._NEFS) ?: DDWait(p)
 dllcall(IDirectDrawSurface.blt, uint, p, uint, g_HD._Sclr.dst, uint, src, uint, g_HD._Sclr.src, uint, 0, uint, 0, uint)
 return
 }
-DDWait(p)
+(g_.cfg._NEFS) ?: DDWait(p)
 dllcall(IDirectDrawSurface.blt, uint, p, uint, _RECT[], uint, src.surface, uint, 0
 , uint, 0, uint, 0, uint)
 return
@@ -7334,6 +7335,7 @@ g_.p.DirectDrawCreate := pDirectDrawCreate
 logerr("DirectDrawCreate Hook: " InstallHook(isfunc("AltDDrawCreate") ? "AltDDrawCreate" : "DirectDrawCreate_hook", pDirectDrawCreate, "ddraw.dll", "DirectDrawCreate"))
 g_.p.DirectDrawCreate := pDirectDrawCreate
 }
+g_.cfg._NEFS   := g_.cfg.NEFS ? true : false
 g_.cfg.IsLinux := FileExist(GetSystemDir() "\wined3d.dll")
 if ((!g_.cfg.wineoff) or (FileExist(GetSystemDir() "\wined3d.dll")))
 {
@@ -8075,7 +8077,6 @@ if ! (g_.rtrgt)
 flip()
 g_.Device3 ? dllcall(IDirect3DDevice3.SetRenderTarget, uint, g_.Device3, uint, g_.proxies.dev.surface4)
 : g_.Device2 ? dllcall(IDirect3DDevice2.SetRenderTarget, uint, g_.Device2, uint, g_.proxies.dev.surface)
-DDWait(p1, p2&DDFLIP_WAIT)
 Surface1UpDatePrim(p1, g_.proxies.skp := 0)
 return 0
 }
@@ -8101,11 +8102,9 @@ else if (g_.cfg.NEFS)
 {
 DDWait(p1, p2&DDFLIP_WAIT)
 r := dllcall(IDirectdrawSurface.blt, uint, p1, uint, 0, uint, g_.rtrgt, uint, 0, uint, 0, uint, DDBLTFX[], uint)
-dllcall(IDirectDrawSurface.flip, uint, g_.rtrgt, uint, 0, uint, 0)
 return r
 }
-DDWait(p1, p2&DDFLIP_WAIT)
-r := dllcall(IDirectDrawSurface.flip, uint, p1, uint, p2, uint, p3)
+r := dllcall(IDirectDrawSurface.flip, uint, p1, uint, g_.cfg.SXTY ? DDFLIP_WAIT|DDFLIP_INTERVAL2:DDFLIP_WAIT, uint, p3)
 return r
 }
 IDirectDrawSurface_GetPalette(p1, p2)
@@ -8413,11 +8412,9 @@ else if g_.cfg.NEFS
 {
 DDWait(p1, p2&DDFLIP_WAIT)
 r := dllcall(IDirectdrawSurface7.blt, uint, p1, uint, 0, uint, g_.rtrgt, uint, 0, uint, 0, uint, g_HD.DDBLTFX[], uint)
-dllcall(IDirectdrawSurface7.flip, uint, g_.rtrgt, uint, p2, uint, p3)
 return r
 }
-DDWait(p1, p2&DDFLIP_WAIT)
-r := dllcall(IDirectdrawSurface7.flip, uint, p1, uint, p2, uint, p3)
+r := dllcall(IDirectdrawSurface7.flip, uint, p1, uint, g_.cfg.SXTY ? DDFLIP_WAIT|DDFLIP_INTERVAL2:DDFLIP_WAIT, uint, p3)
 return
 }
 IDirect3DDevice7_BeginScene(p1)
@@ -8578,7 +8575,159 @@ p6 := d.h
 return dllcall(g_.WnAPI.SetPos, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7)
 }
 
-printl()
+
+logerr(IDirectDrawSurface.unHook("GetPalette"))
+;logerr(IDirectDrawSurface.unHook("SetPalette"))			
+;logerr(IDirectDrawPalette.unHook("SetEntries"))
+logerr(IDirectDrawPalette.unHook("GetEntries"))
+
+D3DHOOKS_DATA.BltfastPrimary := RegisterCallback("AltBltFast", "f")
+D3DHOOKS_DATA.LockPrimary    := RegisterCallback("AltLock", "f")
+D3DHOOKS_DATA.UnLockPrimary  := RegisterCallback("AltUnLock", "f")
+logerr(IDirectDraw.Hook("WaitforVerticalBlank"))
+
+_AltIDirectDraw_SetDisplayMode(p1, p2, p3, p4)
+{
+	logerr("set")
+	IDirectDraw_SetDisplayMode(p1, p2, p3, p4)
+	return  dllcall(IDirectDraw.SetDisplayMode, uint, p1, uint, D3DHOOKS_DATA.HD_W, uint, D3DHOOKS_DATA.HD_H, uint, 32)
+}
+
+AltIDirectDraw_WaitforVerticalBlank(p1, p2, p3)
+{
+	g_.s.skip := true
+	return 0
+}
+
+AltIDirectDrawPalette_SetEntries(p1, p2, p3, p4, p5)
+{
+	cps:=0
+	dllcall("RtlMoveMemory", ptr, g_.palette+(p3)*4, ptr, p5, int, (p4)*4)
+	dllcall(IDirectDrawPalette.GetCaps, uint, p1, "uint*", cps)
+	if ! (cps & DDPCAPS_ALLOW256)
+	{
+		numput(0, g_.palette+0, "uint")
+		numput(0xffffffff, g_.palette+1020, "uint")
+	}
+	;Surface1UpDatePrim(0)
+	;return dllcall(IDirectDrawPalette.SetEntries, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5)	
+}
+
+AltIDirectDrawSurface_SetPalette(p1, p2)
+{
+	if ( (caps := GetSurfaceCaps(p1)) & DDSCAPS_PRIMARYSURFACE  )
+    {
+		p1 := g_.proxies.prim
+		g_.proxies.pltt := p2				
+	} return dllcall(IDirectDrawSurface.SetPalette, uint p1, uint, p2)
+	return 0
+}
+
+AltIDirectDraw_CreateSurface(p1, p2, p3, p4)
+{
+	D    := struct(DDSURFACEDESC)
+	D[]  := p2
+	caps := D.ddsCaps.dwCaps 
+	r := IDirectDraw_CreateSurface(p1, p2, p3, p4)
+	if caps & DDSCAPS_PRIMARYSURFACE
+	{
+		g_.proxies.32bit  := "" 
+		g_.proxies.s32bit := ""
+		g_.proxies.prim   := "" 
+		g_.proxies.dev    := "" 
+		;g_.proxies.D3D    := ""	
+		
+		g_.s.prim    := new Surface(dllcall(g_.p.DDFrmSrfc, uint, g_.primary),"PAL8",,1)
+		g_.s.dev     := new Surface(dllcall(g_.p.DDFrmSrfc, uint, g_.primary),"PAL8",,1)
+		g_.s.32bit   := new Surface(dllcall(g_.p.DDFrmSrfc, uint, g_.primary),"X8RGB")	
+		g_.s.s32bit  := new Surface(dllcall(g_.p.DDFrmSrfc, uint, g_.primary),"X8RGB",,1)				
+		;g_.s.D3D     := new D3DDevice()
+		;g_.s.dv      := new DvcFrmSrfc(g_.s.32bit.surface)
+	}  
+	return r
+}
+
+AltLock(p1, p2, p3, p4, p5)
+{
+	if (GetSurfaceCaps(p1) & DDSCAPS_PRIMARYSURFACE)
+		return dllcall(IDirectDrawSurface.lock, uint, g_.s.32bit.surface, uint, p2, uint, p3, uint, p4, uint, P5, uint)
+	if (GetSurfaceCaps(p1) & DDSCAPS_FLIP)
+	{
+		;g_.proxies.prim := new Surface("PAL8",,1)
+		return dllcall(IDirectDrawSurface.lock, uint, g_.s.dev.surface, uint, p2, uint, p3, uint, p4, uint, P5, uint)
+	}
+	return dllcall(IDirectDrawSurface.lock, uint, p1, uint, p2, uint, p3, uint, p4, uint, P5, uint)
+}
+
+AltUnlock(p1, p2)
+{
+	if (GetSurfaceCaps(p1) & DDSCAPS_PRIMARYSURFACE)
+	{
+		dllcall(IDirectDrawSurface.Unlock, uint, g_.s.32bit.surface, uint, p2)
+		return dllcall(IDirectDrawSurface.blt, uint, p1, uint, _RECT[], uint, g_.s.32bit.surface, uint, 0, uint, 0, uint, 0)	
+	}
+	if (GetSurfaceCaps(p1) & DDSCAPS_FLIP) 
+	{
+		r := dllcall(IDirectDrawSurface.Unlock, uint, g_.s.dev.surface, uint, p2)
+		;AltUpDatePrim(0, p1)		
+		return r
+	}
+	return dllcall(IDirectDrawSurface.Unlock, uint, p1, uint, p2)
+}
+
+Alt_flip(p1, p2, p3)
+{
+	D         := g_.s.dev
+	g_.s.dev  := g_.s.prim
+	g_.s.prim := D
+	;dllcall(IDirectDrawSurface.flip, uint, g_.s.prim.surface, uint, 0, uint, 0)
+    DDWait(p1, p2&DDFLIP_WAIT)
+	if ! g_.s.skip
+		AltUpDatePrim(0, g_.primary)
+	g_.s.skip := 0
+	return 0
+	;return dllcall(IDirectDrawSurf
+}
+
+AltBltFast(p1, p2, p3, p4, p5, p6)
+{
+	dllcall(IDirectDrawSurface.BltFast, uint, g_.s.dev.surface, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6)
+	;AltUpDatePrim(0, g_.primary)
+	;return dllcall(IDirectDrawSurface.BltFast, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6)
+}
+
+AltUpDatePrim(pRECT, dest)
+{
+	(g_.cfg.xBRh) ? keyevent(g_.cfg.xBRh) ?	g_.cfg.xBR := (g_.cfg.xBR) ? 0 : 1
+	dllcall(g_.p.Scale, uint, pRECT, uint, g_HD._Sclr[])
+	AltPal2RGB(g_.s.prim.surface,  pRECT)
+	
+	if (g_.cfg.xBR)
+	{		
+		;(g_.cfg._NEFS) ?: DDWait(p)			
+		;dllcall("peixoto.dll\DDxBRzScale", ptr, g_.s.s32bit.surface, ptr, dest, ptr, _RECT[], str)			
+		;return
+	}
+	return dllcall(IDirectDrawSurface.blt, uint, dest, uint, _RECT[], uint, g_.s.32bit.surface, uint, 0
+	, uint, DDBLT_WAIT, uint, 0, uint)
+}
+
+AltPal2RGB(src, rect_=0)
+{
+	f := g_.cfg.injector_dir "\error.log"
+	(D := struct(DDSURFACEDESC2)).dwSize  :=  DDSURFACEDESC.size()
+	(D2:= struct(DDSURFACEDESC2)).dwSize  :=  DDSURFACEDESC.size()
+	l1 := dllcall(IDirectDrawSurface.lock, uint, src, uint, rect_, uint, D[], uint, 0, uint, 0, uint)
+	l2 := dllcall(IDirectDrawSurface.lock, uint, g_.s.s32bit.surface, uint, rect_, uint, D2[], uint, DDLOCK_WRITEONLY, uint, 0, uint)	
+	dllcall(g_.p.Pal2RGB, uint, D.lpSurface, uint, D.lPitch, uint, g_.palette, uint, D2.lpSurface, uint, D2.lPitch, uint, D.dwWidth, uint, D.dwHeight, uint, rect_)		
+	dllcall(IDirectDrawSurface.Unlock, uint, src, uint, 0)
+	dllcall(IDirectDrawSurface.Unlock, uint, g_.s.s32bit.surface, uint, 0)
+	dllcall(IDirectDrawSurface.blt, uint, g_.s.32bit.surface, uint, rect_, uint, g_.s.s32bit.surface, uint, rect_, uint, 0, uint, 0) 	
+}
+
+
+
+
 ReleaseDirectDraw()
 
 resume()
