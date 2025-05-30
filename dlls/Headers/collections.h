@@ -8,6 +8,8 @@ class POINTER_DICTIONARY {
     DWORD     count;
     LPVOID *  keys;
     LPVOID *  values;
+    //std::map<LPVOID, LPVOID> m_map;
+    LPVOID m_map;
 
     POINTER_DICTIONARY(void);
     virtual DWORD STDMETHODCALLTYPE insert(LPVOID key, LPVOID value);

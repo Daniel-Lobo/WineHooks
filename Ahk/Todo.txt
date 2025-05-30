@@ -1,5 +1,6 @@
 DX9
 - 64 bit (Conscript)
+- Add Direct39EX hooks (Lords of shadow)
 - Restore wait vblank as alternative to vsync (Portal jerky movement)
 - Implement frame limitation
 - wfog fix ?? (pop sot ??)
@@ -15,11 +16,10 @@ DX8:
 - Max Payne 2: intro movie knows the resolution and D3D8_HOOKS_DATA.scale is 0 
 
 DX7-:
-- xBRz not implemented, after migration to wine
+- xBRz only COU implementation, after migration to wine
 - Star Trek Deep Space Nine - The Fallen. Implement fov correction without 
   zooming the UI. Use the current widescreen fix to find the FOV value and 
   search it with CE
-- New frame limit\vsync
 - Fix slow bliting on managed surfaces. Slow 
   transparency on MGS
 - Die by the sword: replacement textures not loaded              
@@ -33,18 +33,16 @@ DX7-:
 - Speterra core: broken
 - Shogo: slow with wine
 - Zanzahah: bad shadows with wine
-- Dark vengeance, Forsaken: execute buffer bug wit wine. Call setexecutedata with right data after unlock
+- Dark vengeance, Forsaken: execute buffer bug with wine. FIX with Call setexecutedata with right data after unlock
 - Outwars: fonts missing with wine (on windows)
 - POP 3D: FMV scaling broken with wine
-- AVP 2:  crash with wine on IDirect3DDevice7::SetTexture 
-- Soulbringer:  crash with wine on IDirectDrawSurface4::Unlock 
 - Messiah, crash one Linux, but works on windows wine wine's dlls
 LAYER       
- * Dark vengeance: leaking textures 
+* Dark vengeance: leaking textures 
+* AVP 2:  crash with wine on IDirect3DDevice7::SetTexture 
+* Soulbringer:  crash with wine on IDirectDrawSurface4::Unlock 
   
 GL:
-- SSAA broken with Wine
-- Add Forced VSync
 - Alice: Add SSAA (game has custom settings)
 - Clean xBRz scaling
 - Protect swap buffer functions: fix crashes on Alone in the dark 4
@@ -52,7 +50,6 @@ GL:
 - Enclave, error msg 
 - Rune: portals don't render correctly: plain black 
 - The swapper: HD broken (knows the real res ??)
-- Spynix: broken 
 
 Other:
 - EAX: missing gunshots in HALO
@@ -97,5 +94,11 @@ Cheats tables:
     - Another world, no clip (clip code writes to coordinates(X)) and invulnerability     
     - onScapee: ez kills        
     - AVP 1 e 2: inf predator energy
-	- Brothers: improve brother detection
+    - Brothers: improve brother detection
+
+
+Lattest changes  (unpublished changes):
+- Moved IDirect3DDevice9::GetDisplayMode to c++: thread safe, needed by Lords of Shadow 2
+- Fixed bad CreateDirect3D9Ex hook (crashes Lords of Shadow), still need to Implement Direct3D9Ex hooks
+- Implemented pointer collections as c++ maps, hashed, so faster
   

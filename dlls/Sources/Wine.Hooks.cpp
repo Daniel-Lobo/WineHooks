@@ -128,26 +128,36 @@ void glDrawArraysHook(GLenum mode, GLint first,	GLsizei count){
         auto program = WineHooks.Contexts[context];
         if (program != 0)
         {
-            auto g_gl                 =  GetModuleHandleA("opengl32.dll");
+            auto h_gl                 = GetModuleHandleA("Opengl32.dll");
             auto glGetUniformLocation = (PFNGLGETUNIFORMLOCATIONPROC)wglGetProcAddress("glGetUniformLocation");
             auto glUniform2f          = (PFNGLUNIFORM2FPROC)wglGetProcAddress("glUniform2f");
-            auto glGetIntegerv        = (PFNGLGETINTEGERVPROC)GetProcAddress(g_gl,"glGetIntegerv");
-            auto glUseProgram         = (PFNGLUSEPROGRAMPROC)wglGetProcAddress("glUseProgram");
-            if (glGetUniformLocation == nullptr || glUniform2f == nullptr /*|| glGetIntegerv == nullptr*/ || glUseProgram == nullptr)
+            auto glGetIntegerv        = (PFNGLGETINTEGERVPROC)GetProcAddress(h_gl,"glGetIntegerv");
+            auto glGetFloatv          = (PFNGLGETFLOATVPROC)GetProcAddress(h_gl, "glGetFloatv");
+            auto glGetTexLvlParameiv  = (PFNGLGETTEXLEVELPARAMETERIVPROC)GetProcAddress(h_gl, "glGetTexLevelParameteriv");
+            auto glUseProgram         = (PFNGLUSEPROGRAMPROC)wglGetProcAddress("glUseProgram");            
+            if (glGetUniformLocation   == nullptr || glUniform2f == nullptr || glGetIntegerv == nullptr || glUseProgram == nullptr 
+                || glGetTexLvlParameiv == nullptr)
             {
                 DBUG_WARN("wglGetProcAddress() FAILED");                
                 WineHooks.UsexBRz = 0;                
                 return WineHooks.glDrawArrays(mode, first, count);
             }
+            GLfloat viewport[4] = {0.f, 0.f, 0.f, 0.f};
+            glGetFloatv(GL_VIEWPORT, viewport);
+            GLuint curr_text = 0, text_width = 0, texture_height = 0;
+            glGetIntegerv(GL_TEXTURE_BINDING_2D, (GLint *)&curr_text);
+            glGetTexLvlParameiv( GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, (GLint *)&text_width);
+            glGetTexLvlParameiv( GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, (GLint *)&texture_height);
+            DBUG_WARN((string("glDrawArraysHook: curr_text: ") + to_string(curr_text) + " text_width: " + to_string(text_width) + " texture_height: " + to_string(texture_height)).c_str());
+
             auto OutputSize  = glGetUniformLocation(program, "OutputSize"); 
             auto InputSize   = glGetUniformLocation(program, "InputSize");
             auto TextureSize = glGetUniformLocation(program, "TextureSize");            
             glUseProgram(program);           
-            float hd_w = (float)g_d3d.HD_W;
-            float hd_h = (float)g_d3d.HD_H; 
-            float w    = (float)g_d3d.m_WW->Get();
-            float h    = (float)g_d3d.m_HH->Get();
-            hd_w      -= (float)g_d3d.HD_X->Get()*2.f;
+            float hd_w = (float)viewport[2];;
+            float hd_h = (float)viewport[3]; 
+            float w    = (float)text_width;
+            float h    = (float)texture_height;           
 
             if (OutputSize  != -1) WINE_HOOKS_GL_CALL(glUniform2f(OutputSize, hd_w, hd_h));            
             if (TextureSize != -1) WINE_HOOKS_GL_CALL(glUniform2f(TextureSize,w, h));            

@@ -1534,6 +1534,7 @@ DWORD BLNK;
 DWORD DblTxlSz;
 DWORD W, H, HD_W, HD_H, HD_X, rx, ry, rw, rh;
 float scale;
+LPVOID GetDisplayMode;
 LPVOID GtMntrNfoA; GtSysMtrcs;
 LPVOID xBR;
 LPVOID StFVF, STVxShdr, STVxDcl, StStream, EndBlck, ApplyBlck, RlsBlck;
@@ -1880,6 +1881,9 @@ return 4
 D3DX9.DrawText(g_.D3D9Font, "shader " i "/" g_pswap9.shaders.Count() " " current
 , 0xFFFF0000,"0|0|255|255")
 }
+test := new Collection()
+test._add(1, 1)
+test._add(2, 2)
 global VW9 := struct(D3DVIEWPORT9)
 D3D9_HOOKS.vrtx := dllcall("VirtualAlloc", uint, 0, uint, 2097152, Int, 0x00001000, uint, 0x04)
 D3D9CreateHook(p1){
@@ -1896,7 +1900,7 @@ D3DPRESENT_PARAMETERS.hDeviceWindow := ""
 g_.Proxies     := {}
 g_.pDevice9    := ""
 D3D9_HOOKS.sdk := p1
-return dllcall(g_.pD3D9CreateEx, uint, p1, ptr p2)
+return dllcall(g_.pD3D9CreateEx, uint, p1, ptr, p2)
 }
 HookD3D9Create(){
 VarSetCapacity(SysDir, 261)
@@ -2016,7 +2020,8 @@ logerr(IDirect3DDevice9.dllHook("GetScissorRect", "GetScissorRect9Hook"))
 D3D9_HOOKS.GtScsr  := IDirect3DDevice9.SetScissorRect
 logerr(IDirect3D9.hook("EnumAdapterModes"))
 logerr(IDirect3D9.hook("GetAdapterDisplaymode"))
-logerr(IDirect3DDevice9.PatchVtable("GetDisplaymode"))
+logerr(IDirect3DDevice9.dllHook("GetDisplaymode", "D3D9_GetDisplayModeHook"))
+D3D9_HOOKS.GetDisplayMode  := IDirect3DDevice9.GetDisplayMode
 logerr(IDirect3DDevice9.dllHook("Clear", "Clear9Hook"))
 D3D9_HOOKS.Clr    := IDirect3DDevice9.Clear
 logerr(IDirect3DDevice9.dllHook("ColorFill", "ColorFill9Hook"))
@@ -2176,7 +2181,6 @@ IDirect3D9_GetAdapterDisplaymode(p1, p2, p3)
 r := dllcall(IDirect3D9.GetAdapterDisplaymode, uint, p1, uint, p2, uint, p3)
 if (r)
 return r
-logerr("==================================================================")
 DMD   := struct("UINT w, h, r, f;")
 DMD[] := p3
 DMD.w := D3D9_HOOKS.w
@@ -2248,6 +2252,8 @@ return hr
 }
 IDirect3DDevice9_GetDisplaymode(p1, p2, p3)
 {
+if (p3=0)
+return 	D3DERR_INVALIDCALL
 D       := struct(D3DDISPLAYMODE)
 D[]     := p3
 D.Width  := D3D9_HOOKS.W

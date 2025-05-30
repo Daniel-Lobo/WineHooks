@@ -109,6 +109,7 @@ typedef struct _D3D9_HOOKS {
     DWORD W, H, HD_W, HD_H, HD_X;
     RECT HDRect;
     float scale;
+    HRESULT (__stdcall * GetDisplayMode)(IDirect3DDevice9*, UINT iSwapChain, D3DDISPLAYMODE *pMode);
     BOOL (__stdcall * GetMonitorInfoA) (HMONITOR, LPMONITORINFO);
     int  (__stdcall * GetSystemMetrics)(int);
     IDirect3DPixelShader9 * XBR;

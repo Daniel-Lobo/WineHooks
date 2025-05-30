@@ -71,6 +71,16 @@ extern "C" __declspec(dllexport) void D3D9HDSetUP(DWORD w, DWORD h)
     g_d3d.Setup(w, h, "D3D9");
 }
 
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE D3D9_GetDisplayModeHook(IDirect3DDevice9 * dvc, UINT iSwapChain, D3DDISPLAYMODE *pMode)
+{
+    HRESULT err = D3D9_Hooks->GetDisplayMode(dvc, iSwapChain, pMode);
+    if (FAILED(err)) return err;
+    pMode->Format = D3DFMT_X8R8G8B8;
+    pMode->Width  = D3D9_Hooks->W;
+    pMode->Height = D3D9_Hooks->H;
+    return err;
+}
+
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE D3D9_EndSceneHook(IDirect3DDevice9 * dev)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
@@ -1280,13 +1290,15 @@ CreatePixelShader9Hook(LPDIRECT3DDEVICE9 dev, const DWORD* func, LPDIRECT3DPIXEL
     UINT size                      = 0;
     LPVOID ShaderData              = nullptr;
 
-    HRESULT err = D3D9_Hooks->CreatePixelShader(dev, func, ppShader);
-    if (err) return err;
+    if (ppShader == nullptr) D3DERR_INVALIDCALL;
 
-    D3D9Globals.lock->lock();
+    HRESULT err = D3D9_Hooks->CreatePixelShader(dev, func, ppShader);
+    if (FAILED(err)) return err;
+
+    D3D9Globals.lock->lock();    
     D3D9_Hooks->Shaders->insert_disposable((LPVOID)*ppShader, (LPVOID)*ppShader);
     D3D9Globals.lock->unlock();
-
+    
     if (D3D9_Hooks->ShaderDumps)
     {
         PixelShader9 * px = new PixelShader9(*ppShader);
@@ -1337,7 +1349,8 @@ CreatePixelShader9Hook(LPDIRECT3DDEVICE9 dev, const DWORD* func, LPDIRECT3DPIXEL
             }
         }
         delete px;
-    }
+    }    
+    
     return err;
 }
 
@@ -1345,21 +1358,21 @@ extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 ReleasePixelShader9Hook(LPDIRECT3DPIXELSHADER9 shader)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
-     HRESULT err = D3D9_Hooks->Release(shader);
-     if (err) return err;
+    HRESULT err = D3D9_Hooks->Release(shader);
+    if (err) return err;    
 
-     D3D9Globals.lock->lock();
-     LPDIRECT3DPIXELSHADER9 override =
-             (LPDIRECT3DPIXELSHADER9) D3D9_Hooks->Overrides->Value(shader);
-     D3D9Globals.lock->unlock();
-     if (override == 0) return err;
+    D3D9Globals.lock->lock();
+    LPDIRECT3DPIXELSHADER9 override =
+            (LPDIRECT3DPIXELSHADER9) D3D9_Hooks->Overrides->Value(shader);
+    D3D9Globals.lock->unlock();
+    if (override == 0) return err;
 
-     D3D9_Hooks->Release(override);
-     D3D9Globals.lock->lock();
-     D3D9_Hooks->Shaders->discard((LPVOID)shader);
-     D3D9_Hooks->Overrides->discard((LPVOID)shader);
-     D3D9Globals.lock->unlock();
-     return err;
+    D3D9_Hooks->Release(override);
+    D3D9Globals.lock->lock();
+    D3D9_Hooks->Shaders->discard((LPVOID)shader);
+    D3D9_Hooks->Overrides->discard((LPVOID)shader);
+    D3D9Globals.lock->unlock();
+    return err;
 }
 
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE

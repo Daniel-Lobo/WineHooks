@@ -1,6 +1,9 @@
 #include <windows.h>
 //#include "console.h"
 #include "collections.h"
+#include <map>
+#include <string>
+using std::map;
 
 /*
 struct POINTER_DICTIONARY {
@@ -12,7 +15,8 @@ struct POINTER_DICTIONARY {
     LPVOID *  keys;
     LPVOID *  values;
 */
-
+#define POINTER_DICTIONARY_USE_CPP_MAP
+#ifndef POINTER_DICTIONARY_USE_CPP_MAP
 POINTER_DICTIONARY::POINTER_DICTIONARY(void)
 {
     this->keys   = 0;
@@ -223,6 +227,119 @@ POINTER_DICTIONARY::~POINTER_DICTIONARY() {
     free(this->keys);
     free(this->values);;
 }
+#else //POINTER_DICTIONARY_USE_CPP_MAP
+
+POINTER_DICTIONARY::POINTER_DICTIONARY(void)
+{
+    count = 0;
+    m_map = (LPVOID) new std::map<LPVOID, LPVOID>();    
+}
+
+DWORD POINTER_DICTIONARY::insert(LPVOID key, LPVOID value)
+{
+    auto map = (std::map<LPVOID, LPVOID> *)m_map;
+    if (Value(key)) {
+        remove(key);
+    }
+    map->insert( std::pair<LPVOID,LPVOID>(key, value) );    
+    count    = map->size();
+    return count;
+}
+
+DWORD POINTER_DICTIONARY::insert_disposable(LPVOID key, LPVOID value)
+{
+    auto map = (std::map<LPVOID, LPVOID> *)m_map;
+    if (Value(key)) {
+        map->operator[](key) = value; // Update existing value
+        return map->size();
+    }
+    map->insert( std::pair<LPVOID,LPVOID>(key,value) );    ;    
+    count    = map->size();
+    return count;
+}
+
+
+DWORD POINTER_DICTIONARY::remove(LPVOID key)
+{
+    auto map = (std::map<LPVOID, LPVOID> *)m_map;
+    auto it  = map->find(key);
+    if (it != map->end()) {
+        VirtualFree(it->second, 0, MEM_RELEASE);
+        map->erase(it);
+    }   
+    count    = map->size();
+    return count;
+}
+
+DWORD POINTER_DICTIONARY::discard(LPVOID key)
+{
+    auto map = (std::map<LPVOID, LPVOID> *)m_map;
+    auto it  = map->find(key);
+    if (it != map->end()) {
+        map->erase(it);
+    }   
+    count    = map->size();
+    return count;
+}
+
+LPVOID POINTER_DICTIONARY::Value(LPVOID key)
+{
+    auto map = (std::map<LPVOID, LPVOID> *)m_map;
+    auto it  = map->find(key);
+    return it != map->end() ? map->operator[](key) : nullptr;
+}
+
+LPVOID POINTER_DICTIONARY::Key(LPVOID value)
+{
+    auto map = (std::map<LPVOID, LPVOID> *)m_map;
+    for (const auto& pair : *(std::map<LPVOID, LPVOID> *)m_map) {
+        if (pair.second == value) {
+            return pair.first;
+        }
+    }
+    return nullptr;
+}
+
+LPVOID POINTER_DICTIONARY::ValueAt(size_t index)
+{
+    auto map = (std::map<LPVOID, LPVOID> *)m_map;
+    if (index >= map->size()) return (LPVOID) map->size();
+    auto it = std::next(map->begin(), index);
+    return it->second;
+}
+
+LPVOID POINTER_DICTIONARY::KeyAt(size_t index)
+{
+    auto map = (std::map<LPVOID, LPVOID> *)m_map;
+    if (index >= map->size()) return (LPVOID)index;
+    auto it = std::next(map->begin(), index);
+    return it->first;
+}
+
+DWORD POINTER_DICTIONARY::Count()
+{    
+    auto map = (std::map<LPVOID, LPVOID> *)m_map;
+    return map->size();
+}
+
+LPVOID POINTER_DICTIONARY::Data(LPVOID key, DWORD size)
+{
+    auto map   = (std::map<LPVOID, LPVOID> *)m_map;
+    LPVOID val = Value(key);
+    if (val) {
+        LPVOID mem = malloc(size);
+        memcpy(mem, val, size);
+        return mem;
+    }
+    return nullptr;
+}
+
+POINTER_DICTIONARY::~POINTER_DICTIONARY()
+{
+    return;
+}
+
+#endif
 
 extern "C" __declspec(dllexport)
 POINTER_DICTIONARY * PointerCollectionCreate() {

@@ -78,7 +78,7 @@ private:
 #else
 class AtomicLock {
 public:
-     AtomicLock() {m_mutex=new std::mutex();}
+    AtomicLock()  {m_mutex=new std::mutex();}
     ~AtomicLock() {delete m_mutex;          }
     void   lock() {m_mutex->lock();         }
     void unlock() {m_mutex->unlock();       }

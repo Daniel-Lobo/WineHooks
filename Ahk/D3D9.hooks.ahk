@@ -8,6 +8,7 @@ DWORD BLNK;
 DWORD DblTxlSz;
 DWORD W, H, HD_W, HD_H, HD_X, rx, ry, rw, rh;
 float scale;
+LPVOID GetDisplayMode;
 LPVOID GtMntrNfoA; GtSysMtrcs;
 LPVOID xBR;
 LPVOID StFVF, STVxShdr, STVxDcl, StStream, EndBlck, ApplyBlck, RlsBlck;
@@ -83,6 +84,12 @@ g_.p.DrawRect9    := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "D3D
 #include lib\TexSwapLib9.ahk
 #include lib\ShaderOverride9.ahk
 
+;setformat, Integer, H
+test := new Collection()
+test._add(1, 1)
+test._add(2, 2)
+;msgbox % test.Value(1) " " test.Value(2) " " test.KeyAt(0) " " test.KeyAt(1) 
+
 global VW9 := struct(D3DVIEWPORT9)
 D3D9_HOOKS.vrtx := dllcall("VirtualAlloc", uint, 0, uint, 2097152, Int, 0x00001000, uint, 0x04) ; 2MB
 
@@ -100,8 +107,8 @@ D3D9CreateExHook(p1, p2){
 	D3DPRESENT_PARAMETERS.hDeviceWindow := ""
 	g_.Proxies     := {}	
 	g_.pDevice9    := ""
-	D3D9_HOOKS.sdk := p1
-	return dllcall(g_.pD3D9CreateEx, uint, p1, ptr p2)
+	D3D9_HOOKS.sdk := p1	
+	return dllcall(g_.pD3D9CreateEx, uint, p1, ptr, p2)	
 }
 
 HookD3D9Create(){		
@@ -153,7 +160,7 @@ D3D9IniHooks()
 D3D9IniHooks()
 {	
 	dllcall(g_.p.Critical, uint, 1)	
-	HookD3D9Create()
+	HookD3D9Create()	
 	D3D9LoadWine()
 	logerr(GetDirect3D9())
 	logerr(IDirect3D9.Hook("CreateDevice"))
@@ -245,7 +252,9 @@ D3D9IniHooks()
 		
 		logerr(IDirect3D9.hook("EnumAdapterModes"))
 		logerr(IDirect3D9.hook("GetAdapterDisplaymode"))
-		logerr(IDirect3DDevice9.PatchVtable("GetDisplaymode"))
+		;logerr(IDirect3DDevice9.PatchVtable("GetDisplaymode"))
+		logerr(IDirect3DDevice9.dllHook("GetDisplaymode", "D3D9_GetDisplayModeHook"))
+		D3D9_HOOKS.GetDisplayMode  := IDirect3DDevice9.GetDisplayMode 
 		
 		logerr(IDirect3DDevice9.dllHook("Clear", "Clear9Hook"))
 		D3D9_HOOKS.Clr    := IDirect3DDevice9.Clear 
@@ -454,7 +463,7 @@ IDirect3D9_GetAdapterDisplaymode(p1, p2, p3)
 	r := dllcall(IDirect3D9.GetAdapterDisplaymode, uint, p1, uint, p2, uint, p3) 
 	if (r)
 	return r
-	logerr("==================================================================")
+	;logerr("==================================================================")
 	DMD   := struct("UINT w, h, r, f;")
 	DMD[] := p3
 	DMD.w := D3D9_HOOKS.w
@@ -533,7 +542,9 @@ IDirect3DDevice9_BeginStateBlock(p1)
 
 IDirect3DDevice9_GetDisplaymode(p1, p2, p3)
 {
-	;r := dllcall(IDirect3DDevice9.GetDisplaymode, uint, p1, uint, p2, uint, p3)
+	if (p3=0)
+	return 	D3DERR_INVALIDCALL
+	;dllcall(IDirect3DDevice9.GetDisplaymode, uint, p1, uint, p2, uint, p3)
 	D       := struct(D3DDISPLAYMODE)
 	D[]     := p3
 	D.Width  := D3D9_HOOKS.W 

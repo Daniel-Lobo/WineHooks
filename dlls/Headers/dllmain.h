@@ -17,7 +17,7 @@ extern "C" {
 #include "DDSurface.h"
 }
 #define MAX_LOGS 1000
-//#define MAX_LOGS 10000000
+//#define MAX_LOGS 100000
 //#define DEVBUILD
 
 using std::wstring;
