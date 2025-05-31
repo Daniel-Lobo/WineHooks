@@ -30,7 +30,7 @@ PS9LdDmps(d)
 			g_pswap9.dumps[n] := {"p" : p, "mode" : "Asm", "code" : code} 
 			r := D3DX9.Asm2DXBC(code, blob)
 			if (r)
-				logerr("Compilation failed")
+				logerr(r)
 			else 
 			{
 				logerr("Asm shader OK =)")

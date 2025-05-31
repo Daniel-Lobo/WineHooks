@@ -1,5 +1,5 @@
-global g_MainThreadID := 688 ;<Tag> 
-global g_cmdstring := "-Target^D:\Games\Castlevania - Lords of Shadow 2\bin\CLOS2.exe^-D3D^9^-path^Dev^/hd^-ssaa^2^-Textswap^e=true;sw=Ins;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=TexturesVOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-PxSwap^e=true;sw=End;n=>;p=<;q=Q;d=Home;^-script_hwnd^0xb01f4^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Castlevania - Lords of Shadow 2\bin^-target_name^CLOS2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 1252 ;<Tag> 
+global g_cmdstring := "-Target^E:\Games\Castlevania - Lords of Shadow 2\bin\CLOS2.exe^-D3D^9^-path^Dev^/hd^/vpos^/dxvk^-ssaa^2^/pow2^-Textswap^e=true;sw=Del;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=TexturesVOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-PxSwap^e=true;sw=End;n=<;p=>;q=Q;d=Home;^-script_hwnd^0x306aa^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1600x1200 1680x1050 1920x1080 1920x1200 1920x1440 2048x1536 2560x1440 2560x1600 2560x1080 3840x2160 ^-max_4x3_res^2048x1536^-dsk^2560x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Castlevania - Lords of Shadow 2\bin^-target_name^CLOS2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -3878,7 +3878,7 @@ fileread, code, %file%
 g_pswap9.dumps[n] := {"p" : p, "mode" : "Asm", "code" : code}
 r := D3DX9.Asm2DXBC(code, blob)
 if (r)
-logerr("Compilation failed")
+logerr(r)
 else
 {
 logerr("Asm shader OK =)")
