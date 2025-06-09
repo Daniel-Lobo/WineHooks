@@ -16,7 +16,7 @@ DX8:
 - Max Payne 2: intro movie knows the resolution and D3D8_HOOKS_DATA.scale is 0 
 
 DX7-:
-- xBRz only COU implementation, after migration to wine
+- xBRz only CPU implementation, after migration to wine
 - Star Trek Deep Space Nine - The Fallen. Implement fov correction without 
   zooming the UI. Use the current widescreen fix to find the FOV value and 
   search it with CE
