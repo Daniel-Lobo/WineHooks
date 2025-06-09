@@ -699,3 +699,104 @@ void D3D9LoadManagedTexture(const char* file, LPVOID Original)
     CloseHandle(hFile);
     return;
 }
+
+
+extern "C" __declspec(dllexport) LPVOID CreateD3D9Interfaces(HWND h_win, ID3DBlob * pBlob) {    
+    static struct {
+        const char             *    err;
+        IDirect3D9             *   d3d9;
+        IDirect3D9Ex           * d3d9ex;
+        IDirect3DDevice9       *   dvc9;
+        IDirect3DDevice9Ex     * dvcex9;
+        IDirect3DSwapChain9    *    sc9;
+        IDirect3DSurface9      *  surf9;
+        IDirect3DTexture9      *   tex9;
+        IDirect3DSurface9      * csurf9;
+        IDirect3DCubeTexture9  *  ctex9;
+        IDirect3DVertexBuffer9 *    vb9;
+        IDirect3DPixelShader9  *    ps9;
+        IDirect3DStateBlock9   *    sb9;
+    } d3d9   = {0};
+    d3d9.err = "S_OK";
+
+    auto h_d3d9         = LoadLibraryA("d3d9.dll");   
+    auto p_D3D9ExCreate = (HRESULT(__stdcall *)(UINT, IDirect3D9Ex**))GetProcAddress(h_d3d9, "Direct3DCreate9Ex");
+
+    if (FAILED(p_D3D9ExCreate(D3D_SDK_VERSION, &d3d9.d3d9ex))) {
+        d3d9.err = "Direct3DCreate9Ex FAILED";
+        return &d3d9;
+    }
+
+    if (FAILED(d3d9.d3d9ex->QueryInterface(IID_IDirect3D9, (void**)&d3d9.d3d9))) {
+        d3d9.err = "QueryInterface IID_IDirect3D9 FAILED";
+        return &d3d9;
+    }
+
+    D3DPRESENT_PARAMETERS pp;
+    pp.BackBufferWidth            = 630;
+    pp.BackBufferHeight           = 480;
+    pp.BackBufferFormat           = D3DFMT_UNKNOWN;
+    pp.BackBufferCount            = 1;
+    pp.MultiSampleType            = D3DMULTISAMPLE_NONE;
+    pp.MultiSampleQuality         = 0;
+    pp.SwapEffect                 = D3DSWAPEFFECT_COPY;;
+    pp.hDeviceWindow              = h_win;
+    pp.Windowed                   = TRUE;
+    pp.EnableAutoDepthStencil     = FALSE;
+    pp.AutoDepthStencilFormat     = D3DFMT_D16;
+    pp.Flags                      = 0;
+    pp.FullScreen_RefreshRateInHz = 0;
+    pp.PresentationInterval       = 0;
+    if (FAILED(d3d9.d3d9ex->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, h_win,
+        D3DCREATE_HARDWARE_VERTEXPROCESSING, &pp, nullptr, &d3d9.dvcex9))) {
+        d3d9.err = "CreateDeviceEx FAILED";
+        return &d3d9;
+    }           
+
+    if (FAILED(d3d9.dvcex9->QueryInterface(IID_IDirect3DDevice9, (void**)&d3d9.dvc9))) {
+        d3d9.err = "QueryInterface IID_IDirect3DDevice9 FAILED";
+        return &d3d9;
+    }
+
+    if (FAILED(d3d9.dvc9->CreateVertexBuffer(1024, 0, 0, D3DPOOL_DEFAULT, &d3d9.vb9, nullptr))) {
+        d3d9.err = "CreateVertexBuffer FAILED";
+        return &d3d9;
+    }
+
+    if (FAILED(d3d9.dvc9->CreatePixelShader(static_cast<const DWORD*>(pBlob->GetBufferPointer()), &d3d9.ps9))) {
+        d3d9.err = "CreatePixelShader FAILED";
+        return &d3d9;
+    }
+
+    if (FAILED(d3d9.dvc9->CreateStateBlock(D3DSBT_ALL, &d3d9.sb9))) {
+        d3d9.err = "CreateStateBlock FAILED";
+        return &d3d9;
+    }
+
+    if (FAILED(d3d9.dvc9->CreateTexture(256, 256, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &d3d9.tex9, nullptr))) {
+        d3d9.err = "CreateTexture FAILED";
+        return &d3d9;
+    }
+
+    if (FAILED(d3d9.tex9->GetSurfaceLevel(0, &d3d9.surf9))) {
+        d3d9.err = "GetSurfaceLevel FAILED";
+        return &d3d9;
+    }
+
+    if (FAILED(d3d9.dvc9->CreateCubeTexture(256, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &d3d9.ctex9, nullptr))) {
+        d3d9.err = "CreateCubeTexture FAILED";
+        return &d3d9;
+    }
+
+    if (FAILED(d3d9.ctex9->GetCubeMapSurface(D3DCUBEMAP_FACE_POSITIVE_X, 0, &d3d9.csurf9))) {
+        d3d9.err = "GetCubeMapSurface FAILED";
+        return &d3d9;
+    }
+    
+    if (FAILED(d3d9.dvc9->GetSwapChain(0, &d3d9.sc9))) {
+        d3d9.err = "CreateSwapChain FAILED";
+        return &d3d9;
+    }
+  
+    return &d3d9;
+}
