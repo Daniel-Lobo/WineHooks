@@ -23,9 +23,21 @@ D3D9GetPixelFormat(fmt)
 	return f[fmt . ""]
 }
 
+GetDirect3D9Ex(h_win){
+	dll    := A_PtrSize == 8 ? "peixoto64.dll" : "peixoto.dll"
+	r      := dllcall(dll "\CreateD3D9Interfaces", ptr, A_ScriptHwnd, ptr)
+	p_char := NumGet(r+0, Type = "ptr")
+	str    := StrGet(p_char, ,"CP0") 
+	msgbox % str " " r " " errorlevel " " NumGet(r, 0, "ptr")
+	exitapp 
+}
+
+
 GetDirect3D9(h_win = "", windowed = True, refresh = 60, ww = 640, hh = 480
 			,pixelformat = "A8RGB", dll = "d3dx9_43.dll")
 {
+	return GetDirect3D9Ex(h_win)
+
 	VarSetCapacity(SysDir, 261)
 	DllCall("GetSystemDirectoryW", Str, SysDir, UInt, 261)
 	
@@ -296,4 +308,3 @@ ReleaseDirect3D9()
 	logerr("D3D9 Release " IDirect3D9.__release())
 	;logerr("D3D9 Release " IDirect3D9Ex.__release())
 }
-	
