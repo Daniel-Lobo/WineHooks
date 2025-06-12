@@ -667,7 +667,7 @@ void D3D9LoadManagedTexture(const char* file, LPVOID Original)
                 CloseHandle(hFile);
                 return DBUG_WARN("Failed to lock texture");
             }
-            LoadData2Surface(rct.pBits, (DWORD)hFile, rct.Pitch, w, h, bytes_per_pixel);
+            LoadData2Surface(rct.pBits, hFile, rct.Pitch, w, h, bytes_per_pixel);
             D3D9_Hooks->pIDirect3DTexture9_UnlockRect(pTex, i);
             w /= 2;
             h /= 2;
@@ -683,7 +683,7 @@ void D3D9LoadManagedTexture(const char* file, LPVOID Original)
                 CloseHandle(hFile);
                 return DBUG_WARN("Failed to lock texture");
             }
-            LoadData2Surface(rct.pBits, (DWORD)hFile, rct.Pitch, w, h, bytes_per_pixel);
+            LoadData2Surface(rct.pBits, hFile, rct.Pitch, w, h, bytes_per_pixel);
             D3D9_Hooks->pIDirect3DTexture9_UnlockRect(pSys, i);
             w /= 2;
             h /= 2;
@@ -701,7 +701,8 @@ void D3D9LoadManagedTexture(const char* file, LPVOID Original)
 }
 
 
-extern "C" __declspec(dllexport) LPVOID CreateD3D9Interfaces(HWND h_win, ID3DBlob * pBlob) {    
+extern "C" __declspec(dllexport) LPVOID CreateD3D9Interfaces(HWND h_win) {    
+    const char* shader_code = "float4 main(float4 color: COLOR0) : COLOR0\n{\nreturn float4(0,0,0,0);\n};";
     static struct {
         const char             *    err;
         IDirect3D9             *   d3d9;
@@ -719,8 +720,41 @@ extern "C" __declspec(dllexport) LPVOID CreateD3D9Interfaces(HWND h_win, ID3DBlo
     } d3d9   = {0};
     d3d9.err = "S_OK";
 
+    HRESULT (__stdcall * CompileShader)(LPCSTR, UINT, const LPVOID, LPVOID, LPCSTR, LPCSTR, DWORD, LPVOID, LPVOID, LPVOID) = nullptr;
+
+#ifdef _WIN64      
+        #define d3dx9_43       "D3DCompilers\\x64\\D3DX9_43.dll"
+#else           
+        #define d3dx9_43       "D3DCompilers\\x86\\D3DX9_43.dll"
+#endif           
+        string _d3dx9_43       = string(g_.Path()) + "\\" + d3dx9_43;
+
+_Pragma("GCC diagnostic push")
+_Pragma("GCC diagnostic ignored \"-Wwrite-strings\"")
+        if (LoadLibraryA("wined3d.dll") == nullptr) {
+            GETPROCADDRESS(CompileShader, "D3DXCompileShader", "d3dx9_43.dll");
+        } else {     
+            _GETPROCADDRESS(CompileShader, "D3DXCompileShader", (char*)_d3dx9_43.c_str());      
+        }
+_Pragma("GCC diagnostic pop")
+
+    if (CompileShader == nullptr) {
+        d3d9.err = "D3DXCompileShader not found";
+        return &d3d9;
+    }   
+
     auto h_d3d9         = LoadLibraryA("d3d9.dll");   
     auto p_D3D9ExCreate = (HRESULT(__stdcall *)(UINT, IDirect3D9Ex**))GetProcAddress(h_d3d9, "Direct3DCreate9Ex");
+
+    if (h_d3d9 == nullptr) {
+        d3d9.err = "Direct3DCreate9Ex not found";
+        return &d3d9;
+    }
+
+    if (p_D3D9ExCreate == nullptr) {
+        d3d9.err = "Direct3DCreate9Ex not found";
+        return &d3d9;
+    }
 
     if (FAILED(p_D3D9ExCreate(D3D_SDK_VERSION, &d3d9.d3d9ex))) {
         d3d9.err = "Direct3DCreate9Ex FAILED";
@@ -752,6 +786,7 @@ extern "C" __declspec(dllexport) LPVOID CreateD3D9Interfaces(HWND h_win, ID3DBlo
         d3d9.err = "CreateDeviceEx FAILED";
         return &d3d9;
     }           
+    
 
     if (FAILED(d3d9.dvcex9->QueryInterface(IID_IDirect3DDevice9, (void**)&d3d9.dvc9))) {
         d3d9.err = "QueryInterface IID_IDirect3DDevice9 FAILED";
@@ -763,15 +798,23 @@ extern "C" __declspec(dllexport) LPVOID CreateD3D9Interfaces(HWND h_win, ID3DBlo
         return &d3d9;
     }
 
-    if (FAILED(d3d9.dvc9->CreatePixelShader(static_cast<const DWORD*>(pBlob->GetBufferPointer()), &d3d9.ps9))) {
+    ID3DBlob * pByteCode = nullptr;
+    ID3DBlob * pErr      = nullptr;
+    if (FAILED(CompileShader(shader_code, strlen(shader_code), nullptr, nullptr, "main", "ps_3_0", 0, &pByteCode, &pErr, nullptr))) {
+        d3d9.err = "D3DCompile FAILED";
+        return &d3d9;
+    }
+
+    if (FAILED(d3d9.dvc9->CreatePixelShader(static_cast<const DWORD*>(pByteCode->GetBufferPointer()), &d3d9.ps9))) {
         d3d9.err = "CreatePixelShader FAILED";
         return &d3d9;
     }
+    pByteCode->Release();
 
     if (FAILED(d3d9.dvc9->CreateStateBlock(D3DSBT_ALL, &d3d9.sb9))) {
         d3d9.err = "CreateStateBlock FAILED";
         return &d3d9;
-    }
+    }    
 
     if (FAILED(d3d9.dvc9->CreateTexture(256, 256, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &d3d9.tex9, nullptr))) {
         d3d9.err = "CreateTexture FAILED";

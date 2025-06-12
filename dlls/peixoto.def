@@ -82,6 +82,7 @@ D3D9GetMonitorInfoAHook=D3D9GetMonitorInfoAHook@8
 D3D9GetSystemMetricsHook=D3D9GetSystemMetricsHook@4
 D3D9_EndSceneHook=D3D9_EndSceneHook@4
 D3D9_GetDisplayModeHook=D3D9_GetDisplayModeHook@12
+CreateD3D9Interfaces=CreateD3D9Interfaces@4
 DD3D1DeviceLayerTest=DD3D1DeviceLayerTest@0
 DDCPUDeinterlace=DDCPUDeinterlace@4
 DDFromSurface=DDFromSurface@4
