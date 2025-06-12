@@ -64,8 +64,7 @@ Cheats tables:
     - Celeste             
     - MGS     
 	- Bioshock 2
-	- Crysis 2 		
-	- GOW 2
+	- Crysis 2 
 	- Talos 2
 	- TLOUS 2
 	- Planet of Lana

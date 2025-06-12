@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(enemy_hit, GoWR.exe, 41 F6 45 22 04 74 1E)
+aobscanmodule(player_hit, GoWR.exe, 84 C0 75 0E E8 * * * * 84 C0 75 05 48 83 C4 28)
+aobscanmodule(write_float, GoWR.exe, F3 0F 11 7E 28)
+registersymbol(enemy_hit)
+registersymbol(player_hit)
+registersymbol(write_float)
+alloc(write_float_new, 1024, write_float)
+label(write_float_ret)
+label(do_write_float)
+label(inf_hp_flag)
+label(ez_kills_flag)
+label(write_float_new_code)
+label(is_enemy)
+label(is_player)
+label(player_hp)
+registersymbol(player_hp)
+registersymbol(inf_hp_flag)
+registersymbol(ez_kills_flag)
+
+write_float_new:
+player_hp:
+  db 00 00 00
+inf_hp_flag:
+  db 00 00 00 00
+ez_kills_flag:
+  db 00 00 00 00
+write_float_new_code:
+  cmp [rsp+98],player_hit
+  je is_player
+  cmp [rsp+A8] enemy_hit
+  je is_enemy
+  movss [rsi+28],xmm7
+jmp write_float_ret
+
+is_enemy:
+  cmp rax, 04
+  je is_player
+  cmp [ez_kills_flag], 00
+  je do_write_float
+  mov [rsi+28],(float)0.0
+jmp write_float_ret
+
+is_player:
+  mov [player_hp], rsi
+  add [player_hp], 28
+  cmp [inf_hp_flag], 00
+  je do_write_float
+  cmp rax, 4
+  jne do_write_float
+  mov [rsi+28],(float)500
+jmp write_float_ret
+
+do_write_float:
+  movss [rsi+28],xmm7
+jmp write_float_ret
+
+write_float:
+  jmp write_float_new_code
+write_float_ret:
+
+[disable]
+write_float:
+  db F3 0F 11 7E 28
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"H - inf HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+inf_hp_flag:
+  db 00 00 00 01
+
+[disable]
+inf_hp_flag:
+  db 00 00 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"K - easy Kills"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+ez_kills_flag:
+  db 00 00 00 01
+
+[disable]
+ez_kills_flag:
+  db 00 00 00 00
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
