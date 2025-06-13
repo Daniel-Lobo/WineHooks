@@ -24,12 +24,34 @@ D3D9GetPixelFormat(fmt)
 }
 
 GetDirect3D9Ex(h_win){
-	dll    := A_PtrSize == 8 ? "peixoto64.dll" : "peixoto.dll"
-	r      := dllcall(dll "\CreateD3D9Interfaces", ptr, A_ScriptHwnd, ptr)
-	p_char := NumGet(r+0, Type = "ptr")
-	str    := StrGet(p_char, ,"CP0") 
-	msgbox % str " " r " " errorlevel " " NumGet(r, 0, "ptr")
-	exitapp 
+	dll                    := A_PtrSize == 8 ? "peixoto64.dll" : "peixoto.dll"
+	r                      := dllcall(dll "\CreateD3D9Interfaces", ptr, A_ScriptHwnd, ptr)
+	err                    := NumGet(r+0, Type = "ptr")
+	err_str                := StrGet(err, ,"CP0") 
+	IDirect3D9             := new ComInterfaceWrapper(D3D9.IDirect3D9,             NumGet(r+A_PtrSize,    Type = "ptr"), True)
+	IDirect3D9Ex           := new ComInterfaceWrapper(D3D9.IDirect3D9Ex,           NumGet(r+A_PtrSize*2,  Type = "ptr"), True)  
+	IDirect3DDevice9       := new ComInterfaceWrapper(D3D9.IDirect3DDevice9,       NumGet(r+A_PtrSize*3,  Type = "ptr"), True)   
+	IDirect3DDevice9Ex     := new ComInterfaceWrapper(D3D9.IDirect3DDevice9Ex,     NumGet(r+A_PtrSize*4,  Type = "ptr"), True)     
+	IDirect3DSwapChain9    := new ComInterfaceWrapper(D3D9.IDirect3DSwapChain9,    NumGet(r+A_PtrSize*5,  Type = "ptr"), True)
+	IDirect3DSurface9      := new ComInterfaceWrapper(D3D9.IDirect3DSurface9,      NumGet(r+A_PtrSize*6,  Type = "ptr"), True)
+	IDirect3DTexture9      := new ComInterfaceWrapper(D3D9.IDirect3DTexture9,      NumGet(r+A_PtrSize*7,  Type = "ptr"), True)
+	IDirect3DCubeFace9     := new ComInterfaceWrapper(D3D9.IDirect3DSurface9,      NumGet(r+A_PtrSize*8,  Type = "ptr"), True)
+	IDirect3DCubeTexture9  := new ComInterfaceWrapper(D3D9.IDirect3DCubeTexture9,  NumGet(r+A_PtrSize*9,  Type = "ptr"), True)
+	IDirect3DVertexBuffer9 := new ComInterfaceWrapper(D3D9.IDirect3DVertexBuffer9, NumGet(r+A_PtrSize*10, Type = "ptr"), True)
+	IDirect3DPixelShader9  := new ComInterfaceWrapper(D3D9.IDirect3DPixelShader9 , NumGet(r+A_PtrSize*11, Type = "ptr"), True)
+	IDirect3DStateBlock9   := new ComInterfaceWrapper(D3D9.IDirect3DStateBlock9,   NumGet(r+A_PtrSize*12, Type = "ptr"), True)
+	for k, n in [IDirect3D9, IDirect3D9Ex, IDirect3DDevice9, IDirect3DDevice9Ex
+	            , IDirect3DSwapChain9, IDirect3DSurface9, IDirect3DTexture9
+	            , IDirect3DCubeFace9, IDirect3DCubeTexture9, IDirect3DVertexBuffer9
+	            , IDirect3DPixelShader9, IDirect3DStateBlock9]
+	{
+		if not IsObject(n) {
+			msgbox, % "Failed to create " k " interface: " err_str
+		}
+	}
+	;msgbox % err_str " " IDirect3D9.p
+	return err_str " " IDirect3D9.p
+	;exitapp 
 }
 
 
