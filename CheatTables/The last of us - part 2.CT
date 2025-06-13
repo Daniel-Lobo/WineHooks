@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(write_int_og, tlou-ii.exe, 8B 59 40 FF 90 C8 00 00 00)  // only writes to HP
+registersymbol(write_int_og)
+alloc(write_int_new, 512, tlou-ii.exe)
+label(write_int_new_code)
+label(hit)
+label(enemy)
+label(inf_hp_flag)
+label(ez_kill_flag)
+label(og_code)
+label(write_int_retpoint)
+label(player_and_alies)
+registersymbol(inf_hp_flag)
+registersymbol(ez_kill_flag)
+
+write_int_new:
+inf_hp_flag:
+  db 00 00 00 00
+ez_kill_flag:
+  db 00 00 00 00
+write_int_new_code:
+  cmp dword ptr [rcx+60],FFFFFFFF
+  jne hit
+  jmp player_and_alies
+  jmp og_code
+hit:
+  // enemies...
+  cmp dword ptr [rcx+60],23
+  je enemy
+player_and_alies:
+  // non-enemies...
+  cmp [inf_hp_flag],00
+  je og_code
+  push [rcx+4C]              // max health ally...
+  pop [rcx+40]
+  jmp og_code
+enemy:
+  cmp [ez_kill_flag],00
+  je og_code
+  cmp [rcx+40], 0
+  je og_code
+  push 1
+  pop [rcx+40]
+og_code:
+  mov ebx,[rcx+40]
+  call qword ptr [rax+000000C8]
+jmp write_int_retpoint
+
+write_int_og:
+  jmp write_int_new_code
+  nop, 4
+write_int_retpoint:
+
+[disable]
+write_int_og:
+  db 8B 59 40 FF 90 C8 00 00 00
+
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"H - inf HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+inf_hp_flag:
+  db 00 00 00 01
+
+[disable]
+inf_hp_flag:
+  db 00 00 00 00
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"K - easy Kills"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+ez_kill_flag:
+  db 00 00 00 01
+
+[disable]
+ez_kill_flag:
+  db 00 00 00 00
+
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(ammo, tlou-ii.exe, 83 E8 01 48 89 AC 24 C8 00 00 00)
+
+ammo:
+ db 90 90 90
+
+[disable]
+ammo:
+ db 83 E8 01
+
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>

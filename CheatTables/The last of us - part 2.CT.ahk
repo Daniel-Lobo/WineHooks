@@ -7,10 +7,9 @@ CETrainer.help :=
 (
 "545x130
 =================================================================
-INFINITE ITEMS
-When enabled, this will freeze the amount of most ammunitions, items, and upgrade items at 1000 
-and that of most craft items at 250. When disabled, the items will return their original amount plus 
-any amount you collected
+EASY KILLS
+This makes enemies spawn with 1 HP. So even if you disable it after the enemy has spawned, it will 
+still die in one hit. If you enable this after the enemy has spawned, it will die with two hits.
 =================================================================
 "
 )
@@ -18,13 +17,14 @@ any amount you collected
 global __auto   := new CEEntry("Auto")
 global HP       := new CEEntry("H - inf HP")
 global EZKills  := new CEEntry("K - easy kills")
-global items    := new CEEntry("I - Inf ammo and items")
+global items    := new CEEntry("B - inf Bullets")
 class TLOUSTrainer extends CETrainer
 {    
 	OnLoop()
 	{        
 		if (!__auto.IsFrozen())
         {
+			this.AltOpen()		
             __auto.SetFrozen(1, 0)	           
         }           
 		if CETrainer.keyevent("h") > 0	
@@ -35,14 +35,14 @@ class TLOUSTrainer extends CETrainer
 		{	
 			this.Speak(EZKills.Toogle("One hit kills"))	
 		}	
-        else if CETrainer.keyevent("ì") > 0				
+        else if CETrainer.keyevent("b") > 0				
         {	
-            this.Speak(items.Toogle("Infinite items"))	
+            this.Speak(items.Toogle("Infinite ammo"))	
         }	
 	}
 }
 
-TLOUSTrainer.TrainerLoop("tlou.exe", 100)
+TLOUSTrainer.TrainerLoop("tlou-ii.exe", 100)
 return
 
 

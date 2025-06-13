@@ -224,6 +224,20 @@ class CETrainer
         * Then it is possible to call aobscan from autohotkey
         */
     }
+    AltOpen()
+    {
+        s:=
+        (LTRIM
+        "[ENABLE]
+        {$lua}
+        openProcess(""?"")          
+        [DISABLE]        
+        "
+        )
+        dllcall(CEFuncs.f.AutoAssemble, astr, StrReplace(s, "?", this.proc_name)) 
+        Activate.SetFrozen(0, 1)	 
+        Activate.SetFrozen(1, 0)	
+    }
     Open(name)
     {
         this.Lua("openProcess", 0, [name])
