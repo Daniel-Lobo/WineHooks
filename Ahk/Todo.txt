@@ -65,13 +65,15 @@ Cheats tables:
     - MGS     
 	- Bioshock 2
 	- Crysis 2 
-	- Talos 2
-	- TLOUS 2
+	- Talos 2	
 	- Planet of Lana
 	- Cocoon
 	- Jusant
     
 ->FIX         
+	- GoW and GoW Ragnarok, add gain XP
+	- TLOU 2: add gain supplements and spare parts, TLOU 1 and 2: add table info
+	- Shadow of the tomb raider, add inf HP\ez kills
     - Silver: add inf mana, inf arrows and quick cooldown for specials     
     - Control: improve inf HP\easy kills. Check the player\enemy objects instead 
       of using the code the access the player HP to tag it.  Add inf power, 
@@ -94,9 +96,10 @@ Cheats tables:
     - onScapee: ez kills        
     - AVP 1 e 2: inf predator energy
     - Brothers: improve brother detection
+	- Star trek elite force 2: ez kills probably kills allies that have a HP bar
 
 
-Lattest changes  (unpublished changes):
+Latest changes  (unpublished changes):
 - Moved IDirect3DDevice9::GetDisplayMode to c++: thread safe, needed by Lords of Shadow 2
 - Fixed bad CreateDirect3D9Ex hook (crashes Lords of Shadow), still need to Implement Direct3D9Ex hooks
 - Implemented pointer collections as c++ maps, hashed, so faster

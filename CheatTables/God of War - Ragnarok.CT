@@ -109,4 +109,7 @@ ez_kills_flag:
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
+  <Comments>Version: Steam\Fitgirl with patch 4
+HP:      Float, exact value shown in the inventory. Code shared with enemies
+</Comments>
 </CheatTable>
