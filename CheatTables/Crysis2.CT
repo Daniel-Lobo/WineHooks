@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"H - inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(player_og, Crysis2.exe, D9 43 54 8B 4B 48)
+aobscanmodule(player_2, Crysis2.exe, D9 86 2C 03 00 00 8B C3)
+registersymbol(player_og)
+registersymbol(player_2)
+alloc(player_hp_new, 1024, player_og)
+label(player_hp_ret)
+label(player_2_new)
+label(player_2_ret)
+
+player_hp_new:
+  mov dword ptr [ebx+54],(float)0
+  fld dword ptr [ebx+54]
+  mov ecx,[ebx+48]
+jmp player_hp_ret
+
+player_2_new:
+  mov dword ptr [esi+0000032C],(float)500000
+  mov dword ptr [esi+00000330],(float)500000
+  fld dword ptr [esi+0000032C]
+jmp player_2_ret
+
+player_og:
+  jmp player_hp_new
+  nop
+player_hp_ret:
+
+player_2:
+  jmp player_2_new
+  nop
+player_2_ret:
+
+[disable]
+player_og:
+  db D9 43 54 8B 4B 48
+
+player_2:
+  db D9 86 2C 03 00 00
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(hit_og, Crysis2.exe, D9 86 2C 03 00 00 53)
+registersymbol(hit_og)
+alloc(hit_new, 512, hit_og) //2kb should be enough
+label(hit_ret)
+label(dont_kill)
+
+hit_new:
+  cmp byte ptr [esi+32],(int)102
+  je dont_kill
+  mov dword ptr [esi+0000032C],(float)1
+dont_kill:
+  fld dword ptr [esi+0000032C]
+jmp hit_ret
+
+hit_og:
+  jmp hit_new
+  nop
+hit_ret:
+
+[DISABLE]
+hit_og:
+  db D9 86 2C 03 00 00
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"P - inf suit Power"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(energy, Crysis2.exe, D9 86 C0 00 00 00 8B D8)
+alloc(energy_new, 2048, energy) //2kb should be enough
+label(energy_ret)
+
+energy_new:
+  mov dword ptr [esi+000000C0],(float)10000
+  fld dword ptr [esi+000000C0]
+jmp energy_ret
+
+energy:
+  jmp energy_new
+  nop
+energy_ret:
+
+[DISABLE]
+energy:
+  db D9 86 C0 00 00 00
+dealloc(*)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(bullets, Crysis2.exe, 8B 40 14 59 C2 04 00 33 C0 59 C2 04 00 CC CC CC CC 51 56)
+alloc(bullets_new, 512, bullets)
+
+bullets_new:
+  mov [eax+14], 3e7
+  mov eax,[eax+14]
+  pop ecx
+  ret 0004
+
+
+bullets:
+  jmp bullets_new
+  nop
+  nop
+
+[DISABLE]
+bullets:
+  db 8B 40 14 59 C2 04 00
+dealloc(*)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"G - Gain nano catalyst"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(nano_c, Crysis2.exe, 8B 80 A0 04 00 00 3B C7)
+alloc(nano_c_new, 512, nano_c)
+label(nano_c_ret)
+
+nano_c_new:
+  add, [eax+000004A0], 3e8
+  mov eax,[eax+000004A0]
+jmp nano_c_ret
+
+nano_c:
+  jmp nano_c_new
+  nop
+nano_c_ret:
+
+
+[DISABLE]
+nano_c:
+  db 8B 80 A0 04 00 00
+dealloc(*)
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: retail, Maximum edition 1.9.0
+</Comments>
+</CheatTable>
