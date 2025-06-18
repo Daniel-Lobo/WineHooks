@@ -1,33 +1,35 @@
 Peixotos's patch remote settings:
-Command Line: "Z:\home\gotardo\Code\WineHooks\Ahk\GUI\GUIMain.exe" 
+Command Line: "D:\Games\Star Trek Elite Force II\EF2.exe" 
 common_path: 1
-D3D: 9
+D3D: Gl
 D3D_Driver: 
 dsk: 2560x1080
+Dsnd: CRSR=false;S3D=false;STTR=false;
 dxvkv: 2_6
 error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
-hd: 1
+HD: 1
 injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
-J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
-k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
+J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;
+k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;
 max_4x3_res: 1152x864
 Mydocs: C:\users\gotardo\Documents
 os_version: 10.000000
-path: C:\users\gotardo\Documents\WineHooks\Games\Dev\
-PxSwap: e=true;sw=End;n=>;p=<;q=Q;d=Home;
+path: C:\users\gotardo\Documents\WineHooks\Games\Star Trek\Elite Force 2\
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 
-script_hwnd: 0xd02a4
-ssaa: 2
-Target: Z:\home\gotardo\Code\WineHooks\Ahk\GUI\GUIMain.exe
-target_dir: Z:\home\gotardo\Code\WineHooks\Ahk\GUI
-target_name: GUIMain.exe
-Textswap: e=true;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;
+script_hwnd: 0x300c8
+SSAA: 4
+Target: D:\Games\Star Trek Elite Force II\EF2.exe
+target_dir: D:\Games\Star Trek Elite Force II
+target_name: EF2.exe
+Textswap: e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;k=False;
+wiki: https://www.pcgamingwiki.com/wiki/Space_Elite_Force_II
 wine: 10_0
+WNMM: MCI=false;
 
-Working directory: Z:\home\gotardo\Code\WineHooks\Ahk\GUI
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+Working directory: D:\Games\Star Trek Elite Force II
+C:\users\gotardo\Documents\WineHooks\Games\Star Trek\Elite Force 2\cfgFiles: 
 HasFiles 0
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+C:\users\gotardo\Documents\WineHooks\Games\Star Trek\Elite Force 2\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -40,63 +42,6 @@ CreateProcessA Hook: 0
 CreateProcessW Hook: 0
 ShellExecuteA Hook  :0
 ShellExecuteExW Hook  :0
-D3D9Create Hook: 0
-D3D9Create Hook: 0
-Linux: dxvk SysDir: C:\windows\system32 Exists: A
-CreateD3D9Interfaces: SUCCEEDED TO GET THE D3DXCompileShader ENTRYPOINT
-==================================================================
-S_OK 30597184
-Succeeded to hook IDirect3D9::CreateDevice
-Succeeded to hook IDirect3DDevice9::Reset
-Succeeded to hook IDirect3DDevice9::BeginStateBlock
-Succeeded to hook IDirect3DDevice9::EndScene
-AppendDump: Loading dump: C:\users\gotardo\Documents\WineHooks\Games\Textures\Dumps\dump0.dds
-AppendDump: PIXEL FORMAT: X8RGB
-AppendDump: CREATING SUBCOLLECTION FOR FORMAT: X8RGB
-AppendDump: CREATING SUBCOLLECION FOR SIZE: 41943520 640x640 on format: X8RGB
-ProcessPath: Replacement: C:\users\gotardo\Documents\WineHooks\Games\Textures\Replacements\dump0.dds
-AppendDump: 4162632 X8RGB 640x640 size: 1
-Succeeded to hook IDirect3DDevice9::CreateTexture
-Succeeded to hook IDirect3DDevice9::SetTexture
-Succeeded to hook IDirect3DTexture9::Release
-Succeeded to hook IDirect3DSurface9::Release
-Succeeded to hook IDirect3DDevice9::UpdateSurface
-Shader dumps Path: Z:\home\gotardo\Code\WineHooks\Ahk\patches\guimain C:\users\gotardo\Documents\WineHooks\Games\Dev\pixelshaders
-Succeeded to hook IDirect3DDevice9::CreatePixelShader
-Succeeded to hook IDirect3DDevice9::SetPixelShader
-Succeeded to hook IDirect3DPixelShader9::Release
-0 Shaders 1 1
-HLSL shader OK =) 1  1
-1 Shaders 1 1
-Succeeded to hook IDirect3DDevice9::Present
-Succeeded to hook IDirect3DDevice9::StretchRect
-Succeeded to hook IDirect3DDevice9::GetBackBuffer
-Succeeded to hook IDirect3DSurface9::GetDesc
-Succeeded to hook IDirect3DDevice9::GetDepthStencilSurface
-Succeeded to hook IDirect3DDevice9::SetDepthStencilSurface
-Succeeded to hook IDirect3DDevice9::SetRenderTarget
-Succeeded to hook IDirect3DDevice9::GetRenderTarget
-Succeeded to hook IDirect3DDevice9::GetViewPort
-Succeeded to hook IDirect3DDevice9::SetViewPort
-Succeeded to hook IDirect3DDevice9::SetScissorRect
-Succeeded to hook IDirect3DDevice9::GetScissorRect
-Succeeded to hook IDirect3D9::EnumAdapterModes
-Succeeded to hook IDirect3D9::GetAdapterDisplaymode
-Succeeded to hook IDirect3DDevice9::GetDisplaymode
-Succeeded to hook IDirect3DDevice9::Clear
-Succeeded to hook IDirect3DDevice9::ColorFill
-Succeeded to hook IDirect3DDevice9::GetRenderTargetData
-CreateTexture Hook: 0
-UpdateSurface Hook: 0
-Succeeded to hook IDirect3DDevice9::CreateCubeTexture
-Succeeded to hook IDirect3DDevice9::CreateRenderTarget
-Succeeded to hook IDirect3DDevice9::CreateDepthStencilSurface
-Succeeded to hook IDirect3DDevice9::DrawPrimitiveUp
-Succeeded to hook IDirect3DDevice9::DrawPrimitive
-Succeeded to hook IDirect3DDevice9::DrawIndexedPrimitive
-Succeeded to hook IDirect3DDevice9::DrawIndexedPrimitiveUp
-Succeeded to hook IDirect3DCubeTexture9::Release
-ChangeDisplaySettingsA Hook: 0
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -130,10 +75,9 @@ CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBlt
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-InitHDHooks9: SUCCEEDED TO HOOK IDirect3DDevice9::ProcessVertices
-Setup: D3D9 Requested mode    : 2560x1080
-Setup: D3D9 Scale             : 1.000000
-Setup: D3D9 Viewport XOffset  : 0
+Setup: InitGlHooks() Requested mode    : 2560x1080
+Setup: InitGlHooks() Scale             : 1.000000
+Setup: InitGlHooks() Viewport XOffset  : 0
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
@@ -144,3 +88,109 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
+SetReslimit: ENUMERATING
+SetReslimit: MODE 24: 2560x1080
+Setup: InitGLHooks() Requested mode    : 2560x1080
+Setup: InitGLHooks() Scale             : 1.000000
+Setup: InitGLHooks() Viewport XOffset  : 0
+
+Resolution\Viewport - from: InitGLHooks
+Requested                 : 2560 x 1080
+Real                      : 2560 x 1080
+Correction                : 1.000000
+Viewport width correction : 0
+Creating proxies SetupGl()
+No context
+Setup: InitGLHooks Requested mode    : 2560x1080
+Setup: InitGLHooks Scale             : 1.000000
+Setup: InitGLHooks Viewport XOffset  : 0
+Succeeded to hook wglCreateContext
+Succeeded to hook wglMakeCurrent
+Succeeded to hook wglGetProcAddress
+Succeeded to hook wglSwapBuffers
+Succeeded to hook SwapBuffers
+Succeeded to hook wglSwapLayerBuffers
+Succeeded to hook glDeleteTextures
+glBindTexture Hook: 0
+glTexImage2D  Hook: 0
+glTexSubImage2D  Hook: 0
+ChangeDisplaySettingsW Hook  :0
+ChangeDisplaySettingsExW Hook:0
+ChangeDisplaySettingsA Hook  :0
+GetDC Hook                   :0
+Succeeded to hook glViewport
+Succeeded to hook glScissor
+Succeeded to hook glGetTexLevelParameteriv
+Succeeded to hook glGetTexImage
+Succeeded to hook glCopyTexImage2D
+Succeeded to hook glCopyTexSubImage2D
+Succeeded to hook glDrawBuffer
+Succeeded to hook glReadBuffer
+Succeeded to hook glReadPixels
+Succeeded to hook glDrawPixels
+Succeeded to hook glBitmap
+glGetIntegerv Hook: 0
+wglSwapIntervalEXT 1997024880
+Creating proxies wglMakeCurrent()
+Depth\Stencil:24\8:35863 Z24X8  2560 1080 69632 0
+FB 1
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+FB 2
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+program 3 A12
+FB 3
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+FB 4
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+
+Resolution\Viewport - from: ChangeDisplaySettingsA
+Requested                 : 1280 x 540
+Real                      : 2560 x 1080
+Correction                : 2.000000
+Viewport width correction : 0
+Creating proxies SetupGl()
+No context
+Setup: ChangeDisplaySettingsA Requested mode    : 1280x540
+Setup: ChangeDisplaySettingsA Scale             : 2.000000
+Setup: ChangeDisplaySettingsA Viewport XOffset  : 0
+wglSwapIntervalEXT 1997024880
+Creating proxies wglMakeCurrent()
+Depth\Stencil:24\8:35863 Z24X8  1280 540 135168 0
+FB 1
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+FB 2
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+program 3 A12
+FB 3
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+FB 4
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+wglSwapIntervalEXT 1997024880
+Creating proxies wglMakeCurrent()
+Depth\Stencil:24\8:35863 Z24X8  1280 540 69633 0
+FB 1
+FB Status: 36053
+z Z24X8
+FB Status: 36053
+FB 2
+FB Status: 36053
+z Z24X8
+GlPitch: NO PITCH
+GlPitch: NO PITCH
+GlPitch: NO PITCH
