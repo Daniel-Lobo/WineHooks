@@ -1,12 +1,3 @@
-﻿/*
-    start: 1000000000
-    stop:  1500000000
-    or
-    start: 9000000000
-    stop:  9500000000    
-*/
-
-
 CEFuncs.Init()
 
 class CELib_Process
