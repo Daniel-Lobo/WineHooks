@@ -272,7 +272,8 @@ class CETrainer
                 this.ShowHelp()
                 sleep, %interval%   
             }
-            
+            if (A_PtrSize = 8)
+            this.AltOpen()
             this.reset()
             Loop
             {

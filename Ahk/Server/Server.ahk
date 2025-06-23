@@ -912,18 +912,24 @@ DownloadFile(url, dest){
 
 	success := False
 	while (!success) {
+		/*
 		whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
 		whr.Open("GET", url, false)
 		whr.Send()
 		; Using 'true' above and the call below allows the script to remain responsive.
 		whr.WaitForResponse()
 		file := whr.ResponseText
+		print
 		if (file = "")
 			success := False
 		else {
 			FileOpen(dest, "w").Write(file)
 			success := FileOpen(dest, "r").read() = "" ? False : True
 		}
+		*/
+		success := False
+		UrlDownloadToFile, %url%, %dest%
+		success := FileOpen(dest, "r").read() = "" ? False : True
 	}	
 	return
 
