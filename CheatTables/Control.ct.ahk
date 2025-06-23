@@ -5,12 +5,16 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 CETrainer.help := 
 (
-"680x120
-=================================================================================
+"440x180
+===================================================
 INFINITE HP\EASY KILLS
-When those cheats are enabled. Jesse can still receive damage before engaging in combat and if that happens, a bug 
-that freezes enemies may be triggered . That can be fixed by going to the main menu and reloading the game
-=================================================================================
+Easy kills might sometimes kill you, inf HP is fine  
+===================================================
+
+===================================================
+GAIN SKILL POINTS
+With this active, everytime you acess the skills menu you gain one point
+===================================================
 "
 )
 
@@ -20,6 +24,9 @@ global Player   := new CEEntry("Auto - Player")
 global Damage   := new CEEntry("Auto - Damage")
 global HP       := new CEEntry("H - inf HP")
 global EZKills  := new CEEntry("K - easy kills")
+global energy   := new CEEntry("P - inf Powers")     
+global bullets  := new CEEntry("B - inf Bullets")  
+global skill    := new CEEntry("G - Gain skill points")
 global Activate 
 
 class Control_Trainer extends CETrainer
@@ -47,6 +54,15 @@ class Control_Trainer extends CETrainer
 
 		else if CETrainer.keyevent("h") > 0				
 		this.Speak(HP.Toogle("Infinite HP"))	
+
+		else if CETrainer.keyevent("p") > 0
+		this.Speak(energy.Toogle("Infinite Powers"))
+
+		else if CETrainer.keyevent("b") > 0
+		this.Speak(bullets.Toogle("Infinite ammo"))		
+
+		else if CETrainer.keyevent("g") > 0
+		this.Speak(skill.Toogle("gain skill points"))	 
 	}
 }
 

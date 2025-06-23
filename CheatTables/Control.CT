@@ -16,11 +16,15 @@ registersymbol(health_read)
 registersymbol(real_damage)
 registersymbol(player_hit)
 registersymbol(shoot)
+registersymbol(energy)
+registersymbol(s_points)
 aobScanModule(loose_source, Control_DX11.exe, 48 2B D0 48 8B 41 18 48 C1 E8 3E 48 89 51 40) //death
 aobScanModule(health_read, Control_DX11.exe, F3 0F 10 78 40 41 BC 03 00 00 00)
 aobScanModule(real_damage, Control_DX11.exe, F3 0F 10 41 64 40 32 FF)
 aobScanModule(player_hit, Control_DX11.exe, 74 33 0F 57 C9)
-aobScanModule(shoot, Control_DX12.exe, F3 0F 10 81 08 01 00 00 0F 2F 05 FB 21 90 00)
+aobScanModule(shoot, Control_DX11.exe, F3 0F 10 81 08 01 00 00 0F 2F 05 FB 21 90 00)
+aobScanModule(energy, Control_DX11.exe, F3 0F 11 41 40 48 8B 08)
+aobScanModule(s_points, Control_DX11.exe, 8B 45 48 48 8B 8A 38 01 00 00 89 01 48 8B CE)
 
 
 [disable]
@@ -29,6 +33,8 @@ unregistersymbol(health_read)
 unregistersymbol(real_damage)
 unregistersymbol(player_hit)
 unregistersymbol(shoot)
+unregistersymbol(energy)
+unregistersymbol(s_points)
 
 
 </AssemblerScript>
@@ -54,11 +60,15 @@ registersymbol(health_read)
 registersymbol(real_damage)
 registersymbol(player_hit)
 registersymbol(shoot)
+registersymbol(energy)
+registersymbol(s_points)
 aobScanModule(loose_source, Control_DX12.exe, 48 2B D0 48 8B 41 18 48 C1 E8 3E 48 89 51 40) //death
 aobScanModule(health_read, Control_DX12.exe, F3 0F 10 78 40 41 BC 03 00 00 00)
 aobScanModule(real_damage, Control_DX12.exe, F3 0F 10 41 64 40 32 FF)
 aobScanModule(player_hit, Control_DX12.exe, 74 33 0F 57 C9)
 aobScanModule(shoot, Control_DX12.exe, F3 0F 10 81 08 01 00 00 0F 2F 05 FB 21 90 00)
+aobScanModule(energy, Control_DX12.exe, F3 0F 11 41 40 48 8B 08)
+aobScanModule(s_points, Control_DX12.exe, 8B 45 48 48 8B 8A 38 01 00 00 89 01 48 8B CE)
 
 [disable]
 unregistersymbol(loose_source)
@@ -66,6 +76,8 @@ unregistersymbol(health_read)
 unregistersymbol(real_damage)
 unregistersymbol(player_hit)
 unregistersymbol(shoot)
+unregistersymbol(energy)
+unregistersymbol(s_points)
 
 </AssemblerScript>
       <Hotkeys>
@@ -160,6 +172,8 @@ damage_newcode:
   je do_damage
   cmp [rcx+68] 1
   je do_damage
+  cmp [rcx+A8] 1
+  je do_damage
   mov [rcx+64], (float)0.0
 do_damage:
   movss xmm0,[rcx+64]
@@ -233,9 +247,57 @@ shoot:
 shoot_ret:
 
 [disable]
+shoot:
   db F3 0F 10 81 08 01 00 00
 dealloc(*)
 
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"P - inf Powers"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(energy_new, 512, energy)
+label(energy_ret)
+
+energy_new:
+  mov [rcx+40],(float)1.0
+jmp energy_ret
+
+energy:
+  jmp energy_new
+energy_ret:
+
+[disable]
+energy:
+  db F3 0F 11 41 40
+dealloc(*)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"G - Gain skill points"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(s_points_new, 512, energy)
+label(s_points_ret)
+
+s_points_new:
+  add [rbp+48], 1
+  mov eax,[rbp+48]
+  mov rcx,[rdx+00000138]
+jmp s_points_ret
+
+s_points:
+  jmp s_points_new
+  nop, 5
+s_points_ret:
+
+[disable]
+s_points:
+  db 8B 45 48 48 8B 8A 38 01 00 00
+dealloc(*)
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
