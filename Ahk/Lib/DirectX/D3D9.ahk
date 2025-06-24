@@ -28,7 +28,7 @@ GetDirect3D9Ex(h_win){
 	r                      := dllcall(dll "\CreateD3D9Interfaces", ptr, A_ScriptHwnd, ptr)
 	err                    := NumGet(r+0, Type = "ptr")
 	err_str                := StrGet(err, ,"CP0") 
-	IDirect3D9             := new ComInterfaceWrapper(D3D9.IDirect3D9,             NumGet(r+A_PtrSize,    Type = "ptr"), True)
+	IDirect3D9             := new ComInterfaceWrapper(D3D9.IDirect3D9,             NumGet(r+A_PtrSize*2,    Type = "ptr"), True)
 	IDirect3D9Ex           := new ComInterfaceWrapper(D3D9.IDirect3D9Ex,           NumGet(r+A_PtrSize*2,  Type = "ptr"), True)  
 	IDirect3DDevice9       := new ComInterfaceWrapper(D3D9.IDirect3DDevice9,       NumGet(r+A_PtrSize*3,  Type = "ptr"), True)   
 	IDirect3DDevice9Ex     := new ComInterfaceWrapper(D3D9.IDirect3DDevice9Ex,     NumGet(r+A_PtrSize*4,  Type = "ptr"), True)     

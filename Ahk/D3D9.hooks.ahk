@@ -164,7 +164,9 @@ D3D9IniHooks()
 	D3D9LoadWine()
 	logerr(GetDirect3D9())
 	logerr(IDirect3D9.Hook("CreateDevice"))
+	logerr(IDirect3D9Ex.hook("CreateDeviceEx"))
 	logerr(IDirect3DDevice9.Hook("Reset"))
+	logerr(IDirect3DDevice9Ex.Hook("ResetEx"))
 	logerr(IDirect3DDevice9.Hook("BeginStateBlock"))
 	logerr(IDirect3DDevice9.dllHook("EndScene", "D3D9_EndSceneHook"))
 	D3D9_HOOKS.End        := IDirect3DDevice9.EndScene
@@ -722,6 +724,7 @@ IDirect3D9_CreateDevice(p1, p2, p3, p4, p5, p6, p7)
 	if (g_.cfg.SYNC)	
 	D3DPRESENT_PARAMETERS.BackBufferCount := 2	
 	
+	logerr(IDirect3D9Ex.Unhook("CreateDeviceEx"))
 	if ! (r := dllcall(IDirect3D9.CreateDevice, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, D3DPRESENT_PARAMETERS[], uint, p7, uint))
 	{
 		D3D9_HOOKS.safe := (p5 & D3DCREATE_MULTITHREADED) ? 1: 0
@@ -745,7 +748,80 @@ IDirect3D9_CreateDevice(p1, p2, p3, p4, p5, p6, p7)
 			}
 		}
 	} else Logerr("CREATE DEVICE FAILED")	
+	logerr(IDirect3D9Ex.hook("CreateDeviceEx"))
 	dllcall(g_.p.Critical, uint, 0)
+	return r	
+}
+
+IDirect3D9Ex_CreateDeviceEx(p1, p2, p3, p4, p5, p6, p7, p8)
+{		
+	Logerr("CREATE DEVICEEX")
+	if (p6)	
+		dllcall("RtlMoveMemory", ptr, D3DPRESENT_PARAMETERS[], ptr, p6, int, D3DPRESENT_PARAMETERS.size())	
+	if (p7)
+		dllcall("RtlMoveMemory", ptr, D3DDISPLAYMODEEX[], ptr, p7, int, D3DDISPLAYMODEEX.size())	
+	D3D9CleanUp(p6)
+	if (g_.cfg.hd)
+	{
+		if (!D3DPRESENT_PARAMETERS.hDeviceWindow)
+			 D3DPRESENT_PARAMETERS.hDeviceWindow             := p4
+		p5 &= ~ 0x00000010 ;D3DCREATE_PUREDEVICE Halo: Fixexs shadows when foced resolution is enabled	
+		if (g_.cfg.WNWM = 2) 
+			D3DPRESENT_PARAMETERS.Windowed := 0	
+		else if (g_.cfg.WNWM = 1) 
+		{
+			D3DPRESENT_PARAMETERS.Windowed                   := 1
+			D3DPRESENT_PARAMETERS.BackBufferCount            := 1
+			D3DPRESENT_PARAMETERS.SwapEffect                 := 2			
+			D3DPRESENT_PARAMETERS.FullScreen_RefreshRateInHz := 0			
+		}		
+		D3DDISPLAYMODEEX.Width            := D3D9_HOOKS.HD_W	
+		D3DDISPLAYMODEEX.Height           := D3D9_HOOKS.HD_H	
+		D3DDISPLAYMODEEX.Format           := D3D9SetPixelFormat("X8RGB")
+		D3DDISPLAYMODEEX.RefreshRate      := 0
+		D3DDISPLAYMODEEX.ScanLineOrdering := 1 ;D3DSCANLINEORDERING_PROGRESSIVE
+	}
+	
+	(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.AddRef, uint, g_.pDevice9))
+	                          logerr("About to create device:"), g_.proxies := {}
+	(g_tswap9.Replacements) ? logerr(g_tswap9.Replacements.count() " Replacements")
+	(g_.RTrgts)             ? logerr(g_.RTrgts.count() " Render surfaces")
+	(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.release, uint, g_.pDevice9))
+	
+	for k, v in D3DPRESENT_PARAMETERS
+	logerr(k "->" v)
+	logerr("Focus " p4)	
+	D3DPRESENT_PARAMETERS.PresentationInterval := 1
+	if (g_.cfg.SYNC)	
+	D3DPRESENT_PARAMETERS.BackBufferCount := 2	
+	
+	diplay_mode := p7=0 ? D3DDISPLAYMODEEX[] : p7
+	r := dllcall(IDirect3D9Ex.CreateDeviceEX, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, D3DPRESENT_PARAMETERS[], uint, diplay_mode, uint, p8)
+	if (r=0)
+	{		
+		GUID_FromString(dvc_guid, D3D9.IID_IDirect3DDevice9)
+		if (dllcall(IDirect3DDevice9.QueryInterface, ptr, numget(p8+0, "ptr"), ptr, &dvc_guid, "ptr*", pDvc9:=0) != 0){
+			logerr("Failed to query the IDirect3DDevice9")
+		}
+		g_.pDevice9     := pDvc9	
+		D3D9_HOOKS.safe := (p5 & D3DCREATE_MULTITHREADED) ? 1: 0			
+				
+		logerr("multithread " D3D9_HOOKS.safe)	
+		D3D9Setup()		
+		if (g_.cfg.WHKSEX && g_.cfg.HD) ; Wolfenstein 2009
+		{		
+			logerr("MoveWindow " dllcall("MoveWindow", ptr, D3DPRESENT_PARAMETERS.hDeviceWindow, uint, 0, uint, 0, uint, D3D9_HOOKS.HD_W, uint, D3D9_HOOKS.HD_H, uint, 0))	;crashes never alone
+			dllcall("SendMessage", ptr, D3DPRESENT_PARAMETERS.hDeviceWindow, uint, 0x5, ptr, 0, ptr, D3D9_HOOKS.W|(D3D9_HOOKS.H<<16)) 
+			dllcall("peixoto.dll\D3D12Config", astr, "HWND", ptr,  D3DPRESENT_PARAMETERS.hDeviceWindow)	
+		}
+		if (g_.cfg.FLTR){
+			loop, 4 {
+				IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 5, 1)
+				IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 6, 3)
+				IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 10, 16)
+			}
+		}
+	} else Logerr("CREATE DEVICE FAILED")		
 	return r	
 }
 
@@ -767,6 +843,28 @@ IDirect3DDevice9_Reset(p1, p2)
 		D3D9Setup()
 		dllcall("peixoto.dll\vPosReset9", uint, p1)
 	} else	r := dllcall(IDirect3DDevice9.Reset, uint, p1, uint, p2)
+	dllcall(g_.p.Critical, uint, 0)
+	return r
+}
+
+IDirect3DDevice9Ex_ResetEx(p1, p2, p3)
+{	
+	dllcall(g_.p.Critical, uint, 1)
+	g_.pDevice9  := p1
+	Logerr("RESETEx " p2)
+	if g_.cfg.HD
+	{
+		hwin := D3DPRESENT_PARAMETERS.hDeviceWindow
+		if (p2)	
+		{
+			dllcall("RtlMoveMemory", ptr, D3DPRESENT_PARAMETERS[], ptr, p2, int, D3DPRESENT_PARAMETERS.size())
+			if (!D3DPRESENT_PARAMETERS.hDeviceWindow)
+				 D3DPRESENT_PARAMETERS.hDeviceWindow := hwin
+		}
+		D3D9CleanUp(p2)
+		D3D9Setup()
+		dllcall("peixoto.dll\vPosReset9", uint, p1)
+	} else	r := dllcall(IDirect3DDevice9Ex.ResetEx, uint, p1, uint, p2)
 	dllcall(g_.p.Critical, uint, 0)
 	return r
 }

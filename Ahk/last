@@ -1,5 +1,5 @@
-global g_MainThreadID := 1632 ;<Tag> 
-global g_cmdstring := "-Target^D:\Games\Castlevania - Lords of Shadow 2\bin\CLOS2.exe^-D3D^9^-path^Dev^/hd^-ssaa^2^-Textswap^e=true;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-PxSwap^e=true;sw=End;n=>;p=<;q=Q;d=Home;^-script_hwnd^0xe0214^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Castlevania - Lords of Shadow 2\bin^-target_name^CLOS2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 1244 ;<Tag> 
+global g_cmdstring := "-Target^D:\Games\Castlevania - Lords of Shadow UE\bin\CastlevaniaLoSUE.exe^-D3D^9^-path^Dev^/hd^/vpos^/pow2^-ssaa^2^-Textswap^e=false;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-PxSwap^e=false;sw=End;n=>;p=<;q=Q;d=Home;^-script_hwnd^0x5d0138^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Castlevania - Lords of Shadow UE\bin^-target_name^CastlevaniaLoSUE.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -3348,6 +3348,33 @@ Global D3DSCANLINEORDERING_INTERLACED := 2
 Global D3DDISPLAYROTATION_IDENTITY := 1
 d3D9types.err := {}
 d3D9.result[0 . ""] := "D3DERR_OK"
+D3D9.IDirect3D9Ex.def :=
+( 
+"
+    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
+    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
+    STDMETHOD_(ULONG,Release)(THIS) PURE;
+    STDMETHOD(RegisterSoftwareDevice)(THIS_ void* pInitializeFunction) PURE;
+    STDMETHOD_(UINT, GetAdapterCount)(THIS) PURE;
+    STDMETHOD(GetAdapterIdentifier)(THIS_ UINT Adapter,DWORD Flags,D3DADAPTER_IDENTIFIER9* pIdentifier) PURE;
+    STDMETHOD_(UINT, GetAdapterModeCount)(THIS_ UINT Adapter,D3DFORMAT Format) PURE;
+    STDMETHOD(EnumAdapterModes)(THIS_ UINT Adapter,D3DFORMAT Format,UINT Mode,D3DDISPLAYMODE* pMode) PURE;
+    STDMETHOD(GetAdapterDisplayMode)(THIS_ UINT Adapter,D3DDISPLAYMODE* pMode) PURE;
+    STDMETHOD(CheckDeviceType)(THIS_ UINT Adapter,D3DDEVTYPE DevType,D3DFORMAT AdapterFormat,D3DFORMAT BackBufferFormat,BOOL bWindowed) PURE;
+    STDMETHOD(CheckDeviceFormat)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT AdapterFormat,DWORD Usage,D3DRESOURCETYPE RType,D3DFORMAT CheckFormat) PURE;
+    STDMETHOD(CheckDeviceMultiSampleType)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT SurfaceFormat,BOOL Windowed,D3DMULTISAMPLE_TYPE MultiSampleType,DWORD* pQualityLevels) PURE;
+    STDMETHOD(CheckDepthStencilMatch)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT AdapterFormat,D3DFORMAT RenderTargetFormat,D3DFORMAT DepthStencilFormat) PURE;
+    STDMETHOD(CheckDeviceFormatConversion)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT SourceFormat,D3DFORMAT TargetFormat) PURE;
+    STDMETHOD(GetDeviceCaps)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DCAPS9* pCaps) PURE;
+    STDMETHOD_(HMONITOR, GetAdapterMonitor)(THIS_ UINT Adapter) PURE;
+    STDMETHOD(CreateDevice)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,HWND hFocusWindow,DWORD BehaviorFlags,D3DPRESENT_PARAMETERS* pPresentationParameters,IDirect3DDevice9** ppReturnedDeviceInterface) PURE;
+    STDMETHOD_(UINT, GetAdapterModeCountEx)(THIS_ UINT Adapter,CONST D3DDISPLAYMODEFILTER* pFilter ) PURE;
+    STDMETHOD(EnumAdapterModesEx)(THIS_ UINT Adapter,CONST D3DDISPLAYMODEFILTER* pFilter,UINT Mode,D3DDISPLAYMODEEX* pMode) PURE;
+    STDMETHOD(GetAdapterDisplayModeEx)(THIS_ UINT Adapter,D3DDISPLAYMODEEX* pMode,D3DDISPLAYROTATION* pRotation) PURE;
+    STDMETHOD(CreateDeviceEx)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,HWND hFocusWindow,DWORD BehaviorFlags,D3DPRESENT_PARAMETERS* pPresentationParameters,D3DDISPLAYMODEEX* pFullscreenDisplayMode,IDirect3DDevice9Ex** ppReturnedDeviceInterface) PURE;
+    STDMETHOD(GetAdapterLUID)(THIS_ UINT Adapter,LUID * pLUID) PURE;
+"
+)
 D3DPRESENT_PARAMETERS :=
 (
 "
@@ -3420,7 +3447,7 @@ dll                    := A_PtrSize == 8 ? "peixoto64.dll" : "peixoto.dll"
 r                      := dllcall(dll "\CreateD3D9Interfaces", ptr, A_ScriptHwnd, ptr)
 err                    := NumGet(r+0, Type = "ptr")
 err_str                := StrGet(err, ,"CP0")
-IDirect3D9             := new ComInterfaceWrapper(D3D9.IDirect3D9,             NumGet(r+A_PtrSize,    Type = "ptr"), True)
+IDirect3D9             := new ComInterfaceWrapper(D3D9.IDirect3D9,             NumGet(r+A_PtrSize*2,    Type = "ptr"), True)
 IDirect3D9Ex           := new ComInterfaceWrapper(D3D9.IDirect3D9Ex,           NumGet(r+A_PtrSize*2,  Type = "ptr"), True)
 IDirect3DDevice9       := new ComInterfaceWrapper(D3D9.IDirect3DDevice9,       NumGet(r+A_PtrSize*3,  Type = "ptr"), True)
 IDirect3DDevice9Ex     := new ComInterfaceWrapper(D3D9.IDirect3DDevice9Ex,     NumGet(r+A_PtrSize*4,  Type = "ptr"), True)
@@ -4099,7 +4126,9 @@ HookD3D9Create()
 D3D9LoadWine()
 logerr(GetDirect3D9())
 logerr(IDirect3D9.Hook("CreateDevice"))
+logerr(IDirect3D9Ex.hook("CreateDeviceEx"))
 logerr(IDirect3DDevice9.Hook("Reset"))
+logerr(IDirect3DDevice9Ex.Hook("ResetEx"))
 logerr(IDirect3DDevice9.Hook("BeginStateBlock"))
 logerr(IDirect3DDevice9.dllHook("EndScene", "D3D9_EndSceneHook"))
 D3D9_HOOKS.End        := IDirect3DDevice9.EndScene
@@ -4558,6 +4587,7 @@ logerr("Focus " p4)
 D3DPRESENT_PARAMETERS.PresentationInterval := 1
 if (g_.cfg.SYNC)
 D3DPRESENT_PARAMETERS.BackBufferCount := 2
+logerr(IDirect3D9Ex.Unhook("CreateDeviceEx"))
 if ! (r := dllcall(IDirect3D9.CreateDevice, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, D3DPRESENT_PARAMETERS[], uint, p7, uint))
 {
 D3D9_HOOKS.safe := (p5 & D3DCREATE_MULTITHREADED) ? 1: 0
@@ -4580,7 +4610,75 @@ IDirect3DDevice9_SetSamplerState(numget(p7+0, "ptr"), A_index-1, 10, 16)
 }
 }
 } else Logerr("CREATE DEVICE FAILED")
+logerr(IDirect3D9Ex.hook("CreateDeviceEx"))
 dllcall(g_.p.Critical, uint, 0)
+return r
+}
+IDirect3D9Ex_CreateDeviceEx(p1, p2, p3, p4, p5, p6, p7, p8)
+{
+Logerr("CREATE DEVICEEX")
+if (p6)
+dllcall("RtlMoveMemory", ptr, D3DPRESENT_PARAMETERS[], ptr, p6, int, D3DPRESENT_PARAMETERS.size())
+if (p7)
+dllcall("RtlMoveMemory", ptr, D3DDISPLAYMODEEX[], ptr, p7, int, D3DDISPLAYMODEEX.size())
+D3D9CleanUp(p6)
+if (g_.cfg.hd)
+{
+if (!D3DPRESENT_PARAMETERS.hDeviceWindow)
+D3DPRESENT_PARAMETERS.hDeviceWindow             := p4
+p5 &= ~ 0x00000010
+if (g_.cfg.WNWM = 2)
+D3DPRESENT_PARAMETERS.Windowed := 0
+else if (g_.cfg.WNWM = 1)
+{
+D3DPRESENT_PARAMETERS.Windowed                   := 1
+D3DPRESENT_PARAMETERS.BackBufferCount            := 1
+D3DPRESENT_PARAMETERS.SwapEffect                 := 2
+D3DPRESENT_PARAMETERS.FullScreen_RefreshRateInHz := 0
+}
+D3DDISPLAYMODEEX.Width            := D3D9_HOOKS.HD_W
+D3DDISPLAYMODEEX.Height           := D3D9_HOOKS.HD_H
+D3DDISPLAYMODEEX.Format           := D3D9SetPixelFormat("X8RGB")
+D3DDISPLAYMODEEX.RefreshRate      := 0
+D3DDISPLAYMODEEX.ScanLineOrdering := 1
+}
+(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.AddRef, uint, g_.pDevice9))
+logerr("About to create device:"), g_.proxies := {}
+(g_tswap9.Replacements) ? logerr(g_tswap9.Replacements.count() " Replacements")
+(g_.RTrgts)             ? logerr(g_.RTrgts.count() " Render surfaces")
+(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.release, uint, g_.pDevice9))
+for k, v in D3DPRESENT_PARAMETERS
+logerr(k "->" v)
+logerr("Focus " p4)
+D3DPRESENT_PARAMETERS.PresentationInterval := 1
+if (g_.cfg.SYNC)
+D3DPRESENT_PARAMETERS.BackBufferCount := 2
+diplay_mode := p7=0 ? D3DDISPLAYMODEEX[] : p7
+r := dllcall(IDirect3D9Ex.CreateDeviceEX, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, D3DPRESENT_PARAMETERS[], uint, diplay_mode, uint, p8)
+if (r=0)
+{
+GUID_FromString(dvc_guid, D3D9.IID_IDirect3DDevice9)
+if (dllcall(IDirect3DDevice9.QueryInterface, ptr, numget(p8+0, "ptr"), ptr, &dvc_guid, "ptr*", pDvc9:=0) != 0){
+logerr("Failed to query the IDirect3DDevice9")
+}
+g_.pDevice9     := pDvc9
+D3D9_HOOKS.safe := (p5 & D3DCREATE_MULTITHREADED) ? 1: 0
+logerr("multithread " D3D9_HOOKS.safe)
+D3D9Setup()
+if (g_.cfg.WHKSEX && g_.cfg.HD)
+{
+logerr("MoveWindow " dllcall("MoveWindow", ptr, D3DPRESENT_PARAMETERS.hDeviceWindow, uint, 0, uint, 0, uint, D3D9_HOOKS.HD_W, uint, D3D9_HOOKS.HD_H, uint, 0))
+dllcall("SendMessage", ptr, D3DPRESENT_PARAMETERS.hDeviceWindow, uint, 0x5, ptr, 0, ptr, D3D9_HOOKS.W|(D3D9_HOOKS.H<<16))
+dllcall("peixoto.dll\D3D12Config", astr, "HWND", ptr,  D3DPRESENT_PARAMETERS.hDeviceWindow)
+}
+if (g_.cfg.FLTR){
+loop, 4 {
+IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 5, 1)
+IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 6, 3)
+IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 10, 16)
+}
+}
+} else Logerr("CREATE DEVICE FAILED")
 return r
 }
 IDirect3DDevice9_Reset(p1, p2)
@@ -4601,6 +4699,27 @@ D3D9CleanUp(p2)
 D3D9Setup()
 dllcall("peixoto.dll\vPosReset9", uint, p1)
 } else	r := dllcall(IDirect3DDevice9.Reset, uint, p1, uint, p2)
+dllcall(g_.p.Critical, uint, 0)
+return r
+}
+IDirect3DDevice9Ex_ResetEx(p1, p2, p3)
+{
+dllcall(g_.p.Critical, uint, 1)
+g_.pDevice9  := p1
+Logerr("RESETEx " p2)
+if g_.cfg.HD
+{
+hwin := D3DPRESENT_PARAMETERS.hDeviceWindow
+if (p2)
+{
+dllcall("RtlMoveMemory", ptr, D3DPRESENT_PARAMETERS[], ptr, p2, int, D3DPRESENT_PARAMETERS.size())
+if (!D3DPRESENT_PARAMETERS.hDeviceWindow)
+D3DPRESENT_PARAMETERS.hDeviceWindow := hwin
+}
+D3D9CleanUp(p2)
+D3D9Setup()
+dllcall("peixoto.dll\vPosReset9", uint, p1)
+} else	r := dllcall(IDirect3DDevice9Ex.ResetEx, uint, p1, uint, p2)
 dllcall(g_.p.Critical, uint, 0)
 return r
 }
