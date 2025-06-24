@@ -14,7 +14,7 @@ LPVOID xBR;
 LPVOID StFVF, STVxShdr, STVxDcl, StStream, EndBlck, ApplyBlck, RlsBlck;
 LPVOID CrtVtxB, CrtIdxB;
 LPVOID CreateTxHD, CreateCube, CreateRT, CreateZS;
-LPVOID Draw, DrawIdx, DrawUp, DrawIdxUp, CFill, Clr, StrtchRct, Prsnt, StVW, GtVW, StScsr, GtScsr;
+LPVOID Draw, DrawIdx, DrawUp, DrawIdxUp, CFill, Clr, StrtchRct, Prsnt, PrsntEx, StVW, GtVW, StScsr, GtScsr;
 LPVOID GtRTDt, GtSrfcDsc, GtRTDsc, GtBck, GtDpth, StDpth, GtTrgt, StTrgt, RTLOck, RTUnlock;
 LPVOID UPdateHDSrfc, UPdateHDTxtr;
 LPVOID HDSrfc, HDZSrfc, SDSrfc, SDZSrfc, HlfSrfc;
@@ -216,7 +216,10 @@ D3D9IniHooks()
 		if (!g_.cfg.dxvk and !(D3D9IsLinux()="dxvk") )
 			logerr(IDirect3DSwapChain9.Hook("Present")) 
 		logerr(IDirect3DDevice9.dllHook("Present", (g_.cfg.xBR) ? "xBRPresent9Hook":"Present9Hook"))
-		D3D9_HOOKS.Prsnt     := IDirect3DDevice9.Present		
+		D3D9_HOOKS.Prsnt     := IDirect3DDevice9.Present	
+		
+		logerr(IDirect3DDevice9Ex.dllHook("PresentEx", "Present9ExHook"))
+		D3D9_HOOKS.PrsntEx   := IDirect3DDevice9Ex.PresentEx	
 		
 		logerr(IDirect3DDevice9.dllHook("StretchRect", "StretchRect9Hook"))
 		D3D9_HOOKS.StrtchRct := IDirect3DDevice9.StretchRect

@@ -21,7 +21,7 @@ PS9LdDmps(d)
 				logerr("Compilation failed " r)
 			else 
 			{
-				logerr("HLSL shader OK =) " n " " blob " " g_pswap9.Blobs._add(n, blob) )				
+				logerr("HLSL shader OK =) " n ", blob:" blob ", count: " g_pswap9.Blobs._add(n, blob) )				
 			}
 		}
 		else if fileexist( (file := strsplit(A_loopfilefullpath, ".bin")[1] ".txt") )  

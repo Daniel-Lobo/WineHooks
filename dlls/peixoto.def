@@ -182,6 +182,7 @@ ManagerUnLock4=ManagerUnLock4@8
 OMSetRenderTargetsAndUnorderedAccessViewsHook=OMSetRenderTargetsAndUnorderedAccessViewsHook@32
 OldReleaseSurface8Hook=OldReleaseSurface8Hook@4
 Present9Hook=Present9Hook@20
+Present9ExHook=Present9ExHook@24
 ProcessVertices9Hook=ProcessVertices9Hook@28
 ProxyResume=ProxyResume@0
 ReleaseCubeSurface9Hook=ReleaseCubeSurface9Hook@4

@@ -158,6 +158,47 @@ Present9Hook(IDirect3DDevice9 * dev, const RECT *, const RECT *, HWND hWin, cons
 }
 
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
+Present9ExHook(IDirect3DDevice9Ex * dev, const RECT  *pSourceRect, const RECT *pDestRect,
+   HWND  hDestWindowOverride, const RGNDATA *pDirtyRegion, DWORD dwFlags)
+{
+	IDirect3DSurface9 * BackBuff = 0;
+	D3D9_Hooks->GetBackBuffer(dev, 0, 0, D3DBACKBUFFER_TYPE_MONO, &BackBuff);
+	if (D3D9_Hooks->HlfSurface)
+	{
+		D3D9_Hooks->StretchRect(dev, D3D9_Hooks->HDSurface, 0, D3D9_Hooks->HlfSurface, 0, D3DTEXF_LINEAR);
+		D3D9_Hooks->StretchRect(dev, D3D9_Hooks->HlfSurface, 0, BackBuff, &D3D9_Hooks->HDRect, D3DTEXF_LINEAR);
+	} else {
+		D3D9_Hooks->StretchRect(dev, D3D9_Hooks->HDSurface, 0, BackBuff, &D3D9_Hooks->HDRect, D3DTEXF_LINEAR);
+	}
+	if (BackBuff != 0) D3D9_Hooks->pIDirect3DSurface9_Release(BackBuff);
+
+	if (D3D9_Hooks->BLNK)
+	{
+		D3DRASTER_STATUS s;
+		s.InVBlank = FALSE;
+		while (!s.InVBlank) dev->GetRasterStatus(0, &s);
+	}
+	RECT src   = {0, 0, 0, 0};
+	RECT dst   = {0, 0, 0, 0};	
+	if (nullptr != pSourceRect)
+	{
+		src.left   = pSourceRect->left   * D3D9_Hooks->scale;
+		src.top    = pSourceRect->top    * D3D9_Hooks->scale;
+		src.right  = pSourceRect->right  * D3D9_Hooks->scale;
+		src.bottom = pSourceRect->bottom * D3D9_Hooks->scale;
+	}
+	if (nullptr != pDestRect)
+	{
+		dst.left   = pDestRect->left   * D3D9_Hooks->scale + D3D9_Hooks->HD_X;
+		dst.top    = pDestRect->top    * D3D9_Hooks->scale;
+		dst.right  = pDestRect->right  * D3D9_Hooks->scale;
+		dst.bottom = pDestRect->bottom * D3D9_Hooks->scale;
+	} 	
+	return D3D9_Hooks->PresentEx(dev, pSourceRect == nullptr ? &src : pSourceRect, 
+		pDestRect   == nullptr  ? &dst  : pDestRect, hDestWindowOverride,  pDirtyRegion, dwFlags);
+}
+
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 xBRPresent9Hook(IDirect3DDevice9 * dev, const RECT *, const RECT *, HWND hWin, const RGNDATA *)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)

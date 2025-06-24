@@ -144,8 +144,8 @@ typedef struct _D3D9_HOOKS {
                                 DWORD, D3DCOLOR, float, DWORD);    
     HRESULT (__stdcall * StretchRect)(IDirect3DDevice9*, IDirect3DSurface9*, const RECT*,
         IDirect3DSurface9*, const RECT*, D3DTEXTUREFILTERTYPE);
-    HRESULT (__stdcall * Present)(IDirect3DDevice9*, const RECT*, const RECT*, HWND,
-                                  const RGNDATA*);
+    HRESULT (__stdcall * Present)( IDirect3DDevice9*, const RECT*, const RECT*, HWND, const RGNDATA*);
+    HRESULT (__stdcall * PresentEx)(IDirect3DDevice9Ex*, const RECT *,const RECT*, HWND, const RGNDATA *,DWORD dwFlags);
     HRESULT (__stdcall * SetView)(IDirect3DDevice9*, D3DVIEWPORT9 *);
     HRESULT (__stdcall * GetView)(IDirect3DDevice9*, D3DVIEWPORT9 *);
     HRESULT (__stdcall * SetScissorRect)(IDirect3DDevice9*, RECT *);

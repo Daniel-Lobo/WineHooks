@@ -1278,7 +1278,7 @@ global D3D9_RECT        := struct("UINT X, Y, W, H;")
 global IDirect3D9:=0, IDirect3DDevice9:=0, IDirect3DPixelShader9:=0, IDirect3DVertexBuffer9:=0
 global IDirect3DTexture9:=0, IDirect3DMTexture9:=0, IDirect3DSurface9:=0, IDirect3DMSurface9:=0
 global IDirect3DSwapChain9:=0, ISrfc9:=0, IZbuff9:=0, IDirect3DCubeTexture9:=0, IDirect3DCubeFace9:=0
-globaL IDirect3DStateBlock9:=0
+globaL IDirect3DStateBlock9:=0, IDirect3DDevice9Ex:=0, IDirect3D9Ex:=0
 D3D9SetPixelFormat(s)
 {
 if instr(s, "DX")
@@ -1322,7 +1322,8 @@ if not IsObject(n) {
 msgbox, % "Failed to create " k " interface: " err_str
 }
 }
-return err_str " " IDirect3D9.p
+D3DX9.__new(dll)
+return "Create D3D9 Interfaces: " err_str
 }
 GetDirect3D9(h_win = "", windowed = True, refresh = 60, ww = 640, hh = 480
 ,pixelformat = "A8RGB", dll = "d3dx9_43.dll")
@@ -1569,7 +1570,7 @@ LPVOID xBR;
 LPVOID StFVF, STVxShdr, STVxDcl, StStream, EndBlck, ApplyBlck, RlsBlck;
 LPVOID CrtVtxB, CrtIdxB;
 LPVOID CreateTxHD, CreateCube, CreateRT, CreateZS;
-LPVOID Draw, DrawIdx, DrawUp, DrawIdxUp, CFill, Clr, StrtchRct, Prsnt, StVW, GtVW, StScsr, GtScsr;
+LPVOID Draw, DrawIdx, DrawUp, DrawIdxUp, CFill, Clr, StrtchRct, Prsnt, PrsntEx, StVW, GtVW, StScsr, GtScsr;
 LPVOID GtRTDt, GtSrfcDsc, GtRTDsc, GtBck, GtDpth, StDpth, GtTrgt, StTrgt, RTLOck, RTUnlock;
 LPVOID UPdateHDSrfc, UPdateHDTxtr;
 LPVOID HDSrfc, HDZSrfc, SDSrfc, SDZSrfc, HlfSrfc;
@@ -1779,7 +1780,7 @@ if (r)
 logerr("Compilation failed " r)
 else
 {
-logerr("HLSL shader OK =) " n " " blob " " g_pswap9.Blobs._add(n, blob) )
+logerr("HLSL shader OK =) " n ", blob:" blob ", count: " g_pswap9.Blobs._add(n, blob) )
 }
 }
 else if fileexist( (file := strsplit(A_loopfilefullpath, ".bin")[1] ".txt") )
@@ -2025,6 +2026,8 @@ if (!g_.cfg.dxvk and !(D3D9IsLinux()="dxvk") )
 logerr(IDirect3DSwapChain9.Hook("Present"))
 logerr(IDirect3DDevice9.dllHook("Present", (g_.cfg.xBR) ? "xBRPresent9Hook":"Present9Hook"))
 D3D9_HOOKS.Prsnt     := IDirect3DDevice9.Present
+logerr(IDirect3DDevice9Ex.dllHook("PresentEx", "Present9ExHook"))
+D3D9_HOOKS.PrsntEx   := IDirect3DDevice9Ex.PresentEx
 logerr(IDirect3DDevice9.dllHook("StretchRect", "StretchRect9Hook"))
 D3D9_HOOKS.StrtchRct := IDirect3DDevice9.StretchRect
 logerr(IDirect3DDevice9.dllHook("GetBackBuffer", "GetBackBuffer9Hook"))

@@ -13,9 +13,9 @@ __new(dll = "d3dx9_43.dll")
 	}
 
 	logerr(dll . " loaded")	
-	this.h_dll := ""
+	this.h_dll                    := ""
 	this.pD3DXLoadSurfaceFromFile := ""
-	this.pD3DXCreateFont := ""
+	this.pD3DXCreateFont          := ""
 	
 	h_dll := dllcall("GetModuleHandle", str, dll)
 	h_dll ?: h_dll := dllcall("LoadLibraryW", str, dll)

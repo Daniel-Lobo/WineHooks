@@ -2,7 +2,7 @@
 global IDirect3D9:=0, IDirect3DDevice9:=0, IDirect3DPixelShader9:=0, IDirect3DVertexBuffer9:=0
 global IDirect3DTexture9:=0, IDirect3DMTexture9:=0, IDirect3DSurface9:=0, IDirect3DMSurface9:=0 
 global IDirect3DSwapChain9:=0, ISrfc9:=0, IZbuff9:=0, IDirect3DCubeTexture9:=0, IDirect3DCubeFace9:=0
-globaL IDirect3DStateBlock9:=0
+globaL IDirect3DStateBlock9:=0, IDirect3DDevice9Ex:=0, IDirect3D9Ex:=0
 
 D3D9SetPixelFormat(s)
 {
@@ -50,8 +50,8 @@ GetDirect3D9Ex(h_win){
 		}
 	}
 	;msgbox % err_str " " IDirect3D9.p
-	return err_str " " IDirect3D9.p
-	;exitapp 
+	D3DX9.__new(dll)
+	return "Create D3D9 Interfaces: " err_str
 }
 
 
