@@ -65,7 +65,7 @@ extern "C" __declspec(dllexport) void DDrawDisplayModeChanged(UINT w, UINT h)
 
 extern "C" __declspec(dllexport) HRESULT InitD3DHooksData(D3DHOOKS_DATA *dat)
 {
-#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	g_d3d.Init();
 	g_d3d.ApplyCommonHooks(0);
 
@@ -81,7 +81,7 @@ extern "C" __declspec(dllexport) HRESULT InitD3DHooksData(D3DHOOKS_DATA *dat)
 
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE FlipHook(LPVOID p1, LPVOID p2, LPVOID p3)
 {
-#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+	#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	DDLOCK();
 	return D3DHooksData->Flip(p1, p2, p3);
 }
@@ -299,7 +299,7 @@ SrfcQueryHook(LPVOID s, REFIID id, LPVOID *t)
 
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DDFromSurface(IDirectDrawSurface *s1)
 {
-#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	IDirectDraw *dd;
 	IUnknown *Unknown;
 	IDirectDrawSurface2 *s2;
@@ -325,10 +325,37 @@ extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DDFromSurface(IDirect
 	return (HRESULT)dd;
 }
 
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DDFromSurface_s(IDirectDrawSurface *s1)
+{
+    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+	IDirectDraw *dd;
+	IUnknown *Unknown;
+	IDirectDrawSurface2 *s2;
+
+	if (S_OK != D3DHooksData->QuerySurface(s1, IID_IDirectDrawSurface2, (void **)&s2))
+		return 0;
+
+	s2->Release();
+	if (S_OK != s2->GetDDInterface((void **)&Unknown))
+	{
+		DBUG_WARN("IDirectDrawSurface2::GetDDInterface FAILED")
+		return 0;
+	}
+
+	Unknown->Release();
+	if (S_OK != Unknown->QueryInterface(IID_IDirectDraw, (void **)&dd))
+	{
+		DBUG_WARN("Unknown->QueryInterface(IID_IDirectDraw) FAILED")
+		return 0;
+	}
+	
+	return (HRESULT)dd;
+}
+
 /* D3DUtils::WriteOnSurface depende on this using the pointers on the objects vtables, no hooks */
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE DDFromTexture(IUnknown *t1)
 {
-#pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
 	IDirectDraw *dd;
 	IUnknown *Unknown;
 	IDirectDrawSurface2 *s2;

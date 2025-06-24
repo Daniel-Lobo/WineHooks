@@ -86,6 +86,7 @@ CreateD3D9Interfaces=CreateD3D9Interfaces@4
 DD3D1DeviceLayerTest=DD3D1DeviceLayerTest@0
 DDCPUDeinterlace=DDCPUDeinterlace@4
 DDFromSurface=DDFromSurface@4
+DDFromSurface_s=DDFromSurface_s@4
 DDFromTexture=DDFromTexture@4
 DDMaskSurface=DDMaskSurface@8
 DDSToBGRA=DDSToBGRA@20

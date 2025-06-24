@@ -790,13 +790,17 @@ IDirectDraw4_CreateSurface(pIDirectDraw4, pSurfaceDesc, ppSurface, pIUnknown)
 		g_.device3 := ""
 		g_.pIDirectDraw4 := pIDirectDraw4
 		g_.primary4      := numget(ppSurface+0, "uint")
-		(g_.cfg.HD or  g_.cfg.NEFS) ? UpdateGameWin(dllcall(g_.p.DDFrmSrfc, uint, g_.primary4))
+		dd               := dllcall("peixoto.dll\DDFromSurface_s", uint, g_.primary4)
+		(g_.cfg.HD or  g_.cfg.NEFS) ? UpdateGameWin(dd)
 		(g_.cfg.NEFS)               ? SetClipper(g_.primary4, 2)		
 		printl("IDirectDraw4_CreateSurface" r  ":" ddraw.err[r . ""])		
 		if (g_.cfg.HD or g_.cfg.32bit)
 		{
-			SetupPrxs4(dllcall(g_.p.DDFrmSrfc, uint, g_.primary4))					
+			SetupPrxs4(dd)					
 		} 
+		; whithout the check, we crash tr 4 on linux
+		if (dd && !g_.cfg.HD)
+			dllcall(IDirectDraw.Release, uint, dd)
 	} else dllcall(g_.p.DDSSrfcAttchDat, ptr, numget(ppSurface+0, "ptr"))	
 	return r
 } 
@@ -1153,7 +1157,7 @@ IDirectDrawSurface_flip(p1, p2, p3)
 		;dllcall(IDirectDrawSurface.flip, uint, g_.rtrgt, uint, 0, uint, 0)			
 		return r
 	} 	  
-	r := dllcall(IDirectDrawSurface.flip, uint, p1, uint, g_.cfg.SXTY ? DDFLIP_WAIT|DDFLIP_INTERVAL2:DDFLIP_WAIT, uint, p3)	
+	r := dllcall(IDirectDrawSurface.flip, uint, p1, uint, g_.cfg.SXTY ? DDFLIP_INTERVAL2:0, uint, p3)	
 	return r								  
 }
 
@@ -1520,7 +1524,7 @@ IDirectDrawSurface7_flip(p1, p2, p3)
 		;dllcall(IDirectdrawSurface7.flip, uint, g_.rtrgt, uint, p2, uint, p3)		
 		return r
 	}			
-	r := dllcall(IDirectdrawSurface7.flip, uint, p1, uint, g_.cfg.SXTY ? DDFLIP_WAIT|DDFLIP_INTERVAL2:DDFLIP_WAIT, uint, p3)	
+	r := dllcall(IDirectdrawSurface7.flip, uint, p1, uint, g_.cfg.SXTY ? DDFLIP_INTERVAL2:0, uint, p3)	
 	return							  
 }
 
