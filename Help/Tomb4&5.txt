@@ -54,7 +54,7 @@ fullscreen]. If you encounter problems with the FMVs even with
 ::0.10.16+::
 <div class="alert-danger alert">
 	==[Version warning]==
-	As o version [old_version_redirect 0.10.17] Tomb Raider 4 and 5 work fully on windows and Linux, but after that, not more testing will be done with these games, and future versions of WineHooks may not be compatible.
+	As o version [old_version_redirect 0.10.21] Tomb Raider 4 and 5 work fully on windows and Linux, but after that, not more testing will be done with these games, and future versions of WineHooks may not be compatible.
 	With the excellent remasters, the effort of maintaining compatibility with this titles is a bit of a waste 
 </div>::
 

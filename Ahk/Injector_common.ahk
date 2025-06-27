@@ -170,6 +170,9 @@ ParseCommandLine(file="")
 			stringreplace, devflags, devflags, ^^, ^, All
 		cmd .= "^" devflags			
 	}
+	; give the cosole window focus and wait a bit or getkeystate fails on linux
+	print("....")
+	sleep, 100
 	if getkeystate("ctrl", "p") 
 	{
 		stringreplace, cmd, cmd, -!, -

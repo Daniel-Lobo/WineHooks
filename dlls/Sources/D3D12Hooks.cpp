@@ -103,9 +103,13 @@ void D3D12_HOOKS::SetReslimit(DWORD w, DWORD h)
     mHighestDisplayModeIndex = 0;
     while (m_EnumDisplaySettingsA(nullptr, mHighestDisplayModeIndex, &d))
     {
-        if (d.dmPelsWidth == 640 && h == 360)
+        if (d.dmPelsWidth == 640)
         {
-            d.dmPelsHeight = 360;
+            if      (h == 360)  d.dmPelsHeight = 360;
+            else if (h == 270)  {
+                d.dmPelsWidth  = 480;
+                d.dmPelsHeight = 270;
+            }
         }
         
         if (d.dmPelsWidth == 720)
@@ -127,7 +131,11 @@ void D3D12_HOOKS::SetReslimit(DWORD w, DWORD h)
             {
                 if (d.dmPelsWidth == 640 && h == 360)
                 {
-                    d.dmPelsHeight = 360;
+                    if      (h == 360)  d.dmPelsHeight = 360;
+                    else if (h == 270)  {
+                        d.dmPelsWidth  = 480;
+                        d.dmPelsHeight = 270;
+                    }
                 }
                 if ((d.dmPelsWidth != w) || (d.dmPelsHeight != h))
                 {
@@ -137,8 +145,7 @@ void D3D12_HOOKS::SetReslimit(DWORD w, DWORD h)
                     MaxH = h;
                     m_WW->Set(MaxW);
                     m_HH->Set(MaxH);
-                    return D3D12LOG( (std::string("MODE ") + std::to_string(mHighestDisplayModeIndex) +
-                                      ": " + std::to_string(MaxW) + "x" + std::to_string(MaxH)).c_str());
+                    return D3D12LOG( (std::string("MODE ") + std::to_string(mHighestDisplayModeIndex) + ": " + std::to_string(MaxW) + "x" + std::to_string(MaxH)).c_str());
                 }
                 mHighestDisplayModeIndex += 1;
             }

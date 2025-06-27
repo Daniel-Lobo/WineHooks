@@ -4268,9 +4268,9 @@ D3D11_HOOKS.W      := d.w
 D3D11_HOOKS.H      := d.h
 if (g_.cfg.RLMT)
 {
-d := strsplit(["640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160", "640x360"][g_.cfg.RLMT], "x" )
-D3D11_HOOKS.W    := d[1]
-D3D11_HOOKS.H    := d[2]
+d := strsplit(["640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160", "480x270" ,"640x360"][g_.cfg.RLMT], "x" )
+D3D11_HOOKS.W := d[1]
+D3D11_HOOKS.H := d[2]
 }
 if (g_.cfg.D3D = 10)
 return InitD3D10Hooks()
@@ -4287,7 +4287,7 @@ dllcall(dll "\D3D12Config", astr, v, uint, 2)
 (g_.cfg.VSNC)    ? dllcall(dll "\D3D12Config", astr, "VSYNC", ptr, 1)
 (g_.cfg.MCLP)    ? dllcall(dll "\D3D12Config", astr, "MOUSECLIP" , str, g_.cfg.MCLP)
 (g_.cfg.DBLBFF)  ? dllcall(dll "\D3D12Config", astr, "DOUBLEBUFF", uint, 1)
-arch      := A_PtrSize == 8 ? "System32" : "SysWOW64"
+arch      := A_PtrSize = 8 ? "System32" : "SysWOW64"
 wine_path := g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\" arch
 dxvk_path := g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch
 flags     := g_.cfg.dxvk ? 0xd : 0
