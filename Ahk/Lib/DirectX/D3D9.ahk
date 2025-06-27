@@ -50,7 +50,7 @@ GetDirect3D9Ex(h_win){
 		}
 	}
 	;msgbox % err_str " " IDirect3D9.p
-	D3DX9.__new(dll)
+	D3DX9.__new("d3dx9_43.dll")
 	return "Create D3D9 Interfaces: " err_str
 }
 

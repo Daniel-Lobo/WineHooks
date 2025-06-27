@@ -1349,7 +1349,7 @@ if not IsObject(n) {
 msgbox, % "Failed to create " k " interface: " err_str
 }
 }
-D3DX9.__new(dll)
+D3DX9.__new("d3dx9_43.dll")
 return "Create D3D9 Interfaces: " err_str
 }
 GetDirect3D9(h_win = "", windowed = True, refresh = 60, ww = 640, hh = 480
