@@ -132,6 +132,8 @@ typedef struct _D3D9_HOOKS {
                          D3DMULTISAMPLE_TYPE, DWORD, BOOL, IDirect3DSurface9 **, HANDLE *);
     HRESULT (__stdcall * CreateDepthStencilSurface)(IDirect3DDevice9*, UINT, UINT, D3DFORMAT,
                          D3DMULTISAMPLE_TYPE, DWORD, BOOL, IDirect3DSurface9 **, HANDLE *);
+    HRESULT (__stdcall * CreateDepthStencilSurfaceEx)(IDirect3DDevice9*, UINT, UINT, D3DFORMAT,
+                        D3DMULTISAMPLE_TYPE, DWORD, BOOL, IDirect3DSurface9 **, HANDLE *,DWORD);                     
     HRESULT (__stdcall * DrawPrimitive)(IDirect3DDevice9*, D3DPRIMITIVETYPE, UINT, UINT);
     HRESULT (__stdcall * DrawIndexedPrimitive)(IDirect3DDevice9*, D3DPRIMITIVETYPE,
       INT, UINT, UINT, UINT, UINT);

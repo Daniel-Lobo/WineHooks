@@ -342,6 +342,28 @@ CreateDepthStencilSurface9Hook(IDirect3DDevice9* D, UINT w, UINT h, D3DFORMAT f,
 }
 
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
+CreateDepthStencilSurface9ExHook(IDirect3DDevice9* D, UINT w, UINT h, D3DFORMAT f,
+                               D3DMULTISAMPLE_TYPE m, DWORD q, BOOL d,
+                               IDirect3DSurface9 **ppS, HANDLE *pS, DWORD U)
+{
+    #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    HRESULT hr = D3D9_Hooks->CreateDepthStencilSurfaceEx(D,w,h,f,m,q,d,ppS,pS,U);
+    if (hr) return hr;
+    if (!ProxyCheck9(w, h, f, 5)) return hr;
+
+    IDirect3DSurface9 * HD;
+    HRESULT r = D3D9_Hooks->CreateDepthStencilSurfaceEx(D,w*D3D9_Hooks->scale,h*D3D9_Hooks->scale,
+                                                    f,m,q,d,&HD,nullptr,U);
+    if (r)
+    {
+        DBUG_WARN("FAILED TO CREATE A HD Z BUFFER");
+    } else {
+        D3D9SetRenderSurfaceProxy(*ppS, HD);
+    }
+    return hr;
+}
+
+extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 CreateTx9HD(IDirect3DDevice9* d, UINT w, UINT h, UINT l, DWORD u, D3DFORMAT f,
             D3DPOOL p, IDirect3DTexture9** ppt,  HANDLE * sh)
 {

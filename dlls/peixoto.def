@@ -7,6 +7,7 @@ Clear9Hook=Clear9Hook@28
 ColorFill9Hook=ColorFill9Hook@16
 CreateCubeTexture9Hook=CreateCubeTexture9Hook@32
 CreateDepthStencilSurface9Hook=CreateDepthStencilSurface9Hook@36
+CreateDepthStencilSurface9ExHook=CreateDepthStencilSurface9ExHook@40
 CreateFileA_Hook=CreateFileA_Hook@28
 CreateFileW_Hook=CreateFileW_Hook@28
 CreateIndexBuffer9Hook=CreateIndexBuffer9Hook@28

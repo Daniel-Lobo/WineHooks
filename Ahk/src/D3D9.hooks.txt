@@ -1560,7 +1560,7 @@ this.zs := s
 Set()
 {
 logerr("set target " dllcall(IDirect3DDevice9.SetRenderTarget, uint, g_.pDevice9, uint, 0, uint, this.s) " " this.s)
-logerr("set Z " dllcall(IDirect3DDevice9.SetDepthStencilSurface, uint, g_.pDevice9, uint, this.zs))
+logerr("set Z " dllcall(IDirect3DDevice9.SetDepthStencilSurface, uint, g_.pDevice9, uint, this.zs) " " this.zs)
 }
 __delete()
 {
@@ -1596,7 +1596,7 @@ LPVOID GtMntrNfoA; GtSysMtrcs;
 LPVOID xBR;
 LPVOID StFVF, STVxShdr, STVxDcl, StStream, EndBlck, ApplyBlck, RlsBlck;
 LPVOID CrtVtxB, CrtIdxB;
-LPVOID CreateTxHD, CreateCube, CreateRT, CreateZS;
+LPVOID CreateTxHD, CreateCube, CreateRT, CreateZS, CreateZSEx;
 LPVOID Draw, DrawIdx, DrawUp, DrawIdxUp, CFill, Clr, StrtchRct, Prsnt, PrsntEx, StVW, GtVW, StScsr, GtScsr;
 LPVOID GtRTDt, GtSrfcDsc, GtRTDsc, GtBck, GtDpth, StDpth, GtTrgt, StTrgt, RTLOck, RTUnlock;
 LPVOID UPdateHDSrfc, UPdateHDTxtr;
@@ -1846,9 +1846,10 @@ D3D9_HOOKS.Blobs       := g_pswap9.Blobs.pc
 }
 PS9Init(byref cfg)
 {
-g_pswap9 := parsecfg(cfg)
-g_pswap9.code := "sampler s0 : register(s0);`nfloat4 main(float2 tex: TEXCOORD0) : COLOR0`n{`nreturn tex2D(s0, tex);`n};"
-D3D9_HOOKS.enabled	   := 1
+g_pswap9           := parsecfg(cfg)
+g_pswap9.code      := "sampler s0 : register(s0);`nfloat4 main(float2 tex: TEXCOORD0) : COLOR0`n{`nreturn tex2D(s0, tex);`n};"
+g_pswap9.code      := "sampler s0 : register(s0);`nfloat4 main(float2 tex: TEXCOORD0) : COLOR0`n{`nreturn 0;`n};"
+D3D9_HOOKS.enabled := 1
 g_pswap9.user_path := g_.cfg.path "pixelshaders"
 if ! fileexist(g_pswap9.user_path)
 {
@@ -2114,6 +2115,8 @@ logerr(IDirect3DDevice9.dllHook("CreateRenderTarget", "CreateRenderTarget9Hook")
 D3D9_HOOKS.CreateRT   := IDirect3DDevice9.CreateRenderTarget
 logerr(IDirect3DDevice9.dllHook("CreateDepthStencilSurface", "CreateDepthStencilSurface9Hook"))
 D3D9_HOOKS.CreateZS   := IDirect3DDevice9.CreateDepthStencilSurface
+logerr(IDirect3DDevice9Ex.dllHook("CreateDepthStencilSurfaceEx", "CreateDepthStencilSurface9ExHook"))
+D3D9_HOOKS.CreateZSEx := IDirect3DDevice9Ex.CreateDepthStencilSurfaceEX
 logerr(IDirect3DDevice9.dllHook("DrawPrimitiveUp", "DrawPrimitiveUp9Hook"))
 D3D9_HOOKS.DrawUp    := IDirect3DDevice9.DrawPrimitiveUp
 logerr(IDirect3DDevice9.dllHook("DrawPrimitive", "DrawPrimitive9Hook"))
@@ -2367,11 +2370,10 @@ dllcall(IDirect3DDevice9.SetSamplerState, uint, g_.pDevice9, uint, A_index-1, ui
 }
 }
 fileread, xBR, % g_.cfg.injector_dir "\Shaders\xBRz.fx"
-if (parsecfg(g_.cfg.pswap).e)
+if (parsecfg(g_.cfg.PxSwap).e)
 {
 logerr(g_pswap9.code)
 logerr("Compiling shader " D3DX9.CompileShader(g_.pDevice9, g_pswap9.code, "main", pShader))
-logerr("Compiling shader " D3DX9.CompileShader(g_.pDevice9, g_pswap9.code, "main", tShader))
 }
 logerr("Compiling shader " D3DX9.CompileShader(g_.pDevice9, xBR, "main_fragment", hxBR) )
 D3D9_HOOKS.xBR      := hxBR
@@ -2407,7 +2409,7 @@ if (g_.cfg.xBR)
 g_.Proxies.rt    := new Proxie9(w, h, p.BackBufferFormat, p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "")
 else
 g_.Proxies.rt    := new SProxie9(w, h, p.BackBufferFormat, p.MultiSampleType, p.MultiSampleQuality
-,p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "", p.Flags & 0x2)
+, p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "", p.Flags & 0x2)
 g_.Proxies.rt.Set()
 D3D9_HOOKS.HlfSrfc   := g_.Proxies.hlf.s
 D3D9_HOOKS.HDSrfc	 := g_.Proxies.rt.s
@@ -2424,6 +2426,8 @@ isobject(g_.Proxies.z   := new Proxie9(1, 1, p.BackBufferFormat, ,1))
 D3D9_HOOKS.SDSrfc  := g_.Proxies.clr.s
 D3D9_HOOKS.SDZSrfc := g_.Proxies.z.s
 }
+logerr("SDSrfc  " D3D9_HOOKS.SDSrfc)
+logerr("SDZSrfc " D3D9_HOOKS.SDZSrfc)
 dllcall("Peixoto.dll\SetRenderTarget9Hook", uint, g_.pDevice9, UINT, 0, UINT, g_.Proxies.clr.s)
 logerr("Requested  " D3D9_HOOKS.W " x "	D3D9_HOOKS.H)
 logerr("Real       " D3D9_HOOKS.HD_W " x "	D3D9_HOOKS.HD_H)

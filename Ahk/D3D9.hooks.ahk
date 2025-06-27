@@ -13,7 +13,7 @@ LPVOID GtMntrNfoA; GtSysMtrcs;
 LPVOID xBR;
 LPVOID StFVF, STVxShdr, STVxDcl, StStream, EndBlck, ApplyBlck, RlsBlck;
 LPVOID CrtVtxB, CrtIdxB;
-LPVOID CreateTxHD, CreateCube, CreateRT, CreateZS;
+LPVOID CreateTxHD, CreateCube, CreateRT, CreateZS, CreateZSEx;
 LPVOID Draw, DrawIdx, DrawUp, DrawIdxUp, CFill, Clr, StrtchRct, Prsnt, PrsntEx, StVW, GtVW, StScsr, GtScsr;
 LPVOID GtRTDt, GtSrfcDsc, GtRTDsc, GtBck, GtDpth, StDpth, GtTrgt, StTrgt, RTLOck, RTUnlock;
 LPVOID UPdateHDSrfc, UPdateHDTxtr;
@@ -301,6 +301,8 @@ D3D9IniHooks()
 			D3D9_HOOKS.CreateRT   := IDirect3DDevice9.CreateRenderTarget 
 			logerr(IDirect3DDevice9.dllHook("CreateDepthStencilSurface", "CreateDepthStencilSurface9Hook"))
 			D3D9_HOOKS.CreateZS   := IDirect3DDevice9.CreateDepthStencilSurface
+			logerr(IDirect3DDevice9Ex.dllHook("CreateDepthStencilSurfaceEx", "CreateDepthStencilSurface9ExHook"))
+			D3D9_HOOKS.CreateZSEx := IDirect3DDevice9Ex.CreateDepthStencilSurfaceEX
 			
 			logerr(IDirect3DDevice9.dllHook("DrawPrimitiveUp", "DrawPrimitiveUp9Hook"))
 			D3D9_HOOKS.DrawUp    := IDirect3DDevice9.DrawPrimitiveUp
@@ -610,12 +612,12 @@ D3D9Setup()
 	
 	;g_.D3D9Font := D3DX9.CreateFontW(g_.pDevice9)
 	;(parsecfg(g_.cfg.TextSwap).e) ? g_tswap9.TextureRect := new FlatRect9(g_.pDevice9, "0|0|" g_tswap9.bltsz "|" g_tswap9.bltsz)	
-	fileread, xBR, % g_.cfg.injector_dir "\Shaders\xBRz.fx"
-	if (parsecfg(g_.cfg.pswap).e)
+	fileread, xBR, % g_.cfg.injector_dir "\Shaders\xBRz.fx"	
+	if (parsecfg(g_.cfg.PxSwap).e)
 	{
 		logerr(g_pswap9.code)
 		logerr("Compiling shader " D3DX9.CompileShader(g_.pDevice9, g_pswap9.code, "main", pShader))
-		logerr("Compiling shader " D3DX9.CompileShader(g_.pDevice9, g_pswap9.code, "main", tShader))
+		;logerr("Compiling shader " D3DX9.CompileShader(g_.pDevice9, g_pswap9.code, "main", tShader))  // this shaders makes texts disapear
 	}
 	logerr("Compiling shader " D3DX9.CompileShader(g_.pDevice9, xBR, "main_fragment", hxBR) )
 	D3D9_HOOKS.xBR      := hxBR
@@ -655,7 +657,7 @@ D3D9Setup()
 		g_.Proxies.rt    := new Proxie9(w, h, p.BackBufferFormat, p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "")
 		else
 		g_.Proxies.rt    := new SProxie9(w, h, p.BackBufferFormat, p.MultiSampleType, p.MultiSampleQuality
-										,p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "", p.Flags & 0x2)
+										, p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "", p.Flags & 0x2)
 		
 		g_.Proxies.rt.Set()
 		D3D9_HOOKS.HlfSrfc   := g_.Proxies.hlf.s
@@ -675,6 +677,8 @@ D3D9Setup()
 			D3D9_HOOKS.SDSrfc  := g_.Proxies.clr.s
 			D3D9_HOOKS.SDZSrfc := g_.Proxies.z.s
 		}
+		logerr("SDSrfc  " D3D9_HOOKS.SDSrfc)
+		logerr("SDZSrfc " D3D9_HOOKS.SDZSrfc)
 		dllcall("Peixoto.dll\SetRenderTarget9Hook", uint, g_.pDevice9, UINT, 0, UINT, g_.Proxies.clr.s)	
 		logerr("Requested  " D3D9_HOOKS.W " x "	D3D9_HOOKS.H)
 		logerr("Real       " D3D9_HOOKS.HD_W " x "	D3D9_HOOKS.HD_H)

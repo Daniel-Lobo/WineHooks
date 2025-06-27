@@ -16,7 +16,7 @@ DX8:
 - Max Payne 2: intro movie knows the resolution and D3D8_HOOKS_DATA.scale is 0 
 
 DX7-:
-- xBRz only CPU implementation, after migration to wine
+- xBRz has only CPU implementation, after migration to wine
 - Star Trek Deep Space Nine - The Fallen. Implement fov correction without 
   zooming the UI. Use the current widescreen fix to find the FOV value and 
   search it with CE
@@ -36,7 +36,8 @@ DX7-:
 - Dark vengeance, Forsaken: execute buffer bug with wine. FIX with Call setexecutedata with right data after unlock
 - Outwars: fonts missing with wine (on windows)
 - POP 3D: FMV scaling broken with wine
-- Messiah, crash one Linux, but works on windows wine wine's dlls
+- Messiah, crash on Linux, but works on windows wine wine's dlls
+- GDI hooks freeze any game
 LAYER       
 * Dark vengeance: leaking textures 
 * AVP 2:  crash with wine on IDirect3DDevice7::SetTexture 
@@ -64,20 +65,16 @@ Cheats tables:
     - Celeste             
     - MGS     
 	- Bioshock 2
-	- Crysis 2 
 	- Talos 2	
 	- Planet of Lana
 	- Cocoon
 	- Jusant
     
-->FIX         
+-> FIX
 	- GoW and GoW Ragnarok, add gain XP
 	- TLOU 2: add gain supplements and spare parts, TLOU 1 and 2: add table info
 	- Shadow of the tomb raider, add inf HP\ez kills
-    - Silver: add inf mana, inf arrows and quick cooldown for specials     
-    - Control: improve inf HP\easy kills. Check the player\enemy objects instead 
-      of using the code the access the player HP to tag it.  Add inf power, 
-      gain currencies             
+    - Silver: add inf mana, inf arrows and quick cooldown for specials
     - Fix trouble to attach on RTCW (partial fix, needs manual attach)
     - Horace: gain shield on early game
     - Soul reaver: inf glyph magic, add fire damage to projectile cheat, that would 
@@ -89,18 +86,19 @@ Cheats tables:
     - Slave zero, Add ez kills       
     - Anachronx: add instantly fill action meter                
     - Half life 2: ez kills kill companions
-    - The entropy centre: inf HP, If a lock is unlocked by a laser or pressure platform,
+    - The entropy centre: add inf HP and if a lock is unlocked by a laser or pressure platform,
       keep it unlocked when the laser or weight is removed
     - Contrast: get luminaries, code already in code list  
     - Another world, no clip (clip code writes to coordinates(X)) and invulnerability     
     - onScapee: ez kills        
     - AVP 1 e 2: inf predator energy
     - Brothers: improve brother detection
-	- Star trek elite force 2: ez kills probably kills allies that have a HP bar
 
 
 Latest changes  (unpublished changes):
 - Moved IDirect3DDevice9::GetDisplayMode to c++: thread safe, needed by Lords of Shadow 2
-- Fixed bad CreateDirect3D9Ex hook (crashes Lords of Shadow), still need to Implement Direct3D9Ex hooks
+- Fixed bad CreateDirect3D9Ex hook (crashes Lords of Shadow)
 - Implemented pointer collections as c++ maps, hashed, so faster
-  
+- Imlpemented basic Direct3D9Ex hooks: create device and reset
+- Fixed bug in IDirectDrawSurface::Flip the caused a black screen on all Direct3D games except if SSAA was enabled
+- Fixed a bug on IDirectDraw::CreateSurface that crashed Tomb Raider 4 if forced resolution was enabled: this was an ugly patch that adds an extra              reference to the DiretDraw object when the primary is created

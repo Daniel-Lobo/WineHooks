@@ -64,9 +64,10 @@ _PS9Init()
 
 PS9Init(byref cfg)
 {
-	g_pswap9 := parsecfg(cfg)
-	g_pswap9.code := "sampler s0 : register(s0);`nfloat4 main(float2 tex: TEXCOORD0) : COLOR0`n{`nreturn tex2D(s0, tex);`n};"
-	D3D9_HOOKS.enabled	   := 1
+	g_pswap9           := parsecfg(cfg)
+	g_pswap9.code      := "sampler s0 : register(s0);`nfloat4 main(float2 tex: TEXCOORD0) : COLOR0`n{`nreturn tex2D(s0, tex);`n};"
+	g_pswap9.code      := "sampler s0 : register(s0);`nfloat4 main(float2 tex: TEXCOORD0) : COLOR0`n{`nreturn 0;`n};"
+	D3D9_HOOKS.enabled := 1
 	
 	g_pswap9.user_path := g_.cfg.path "pixelshaders"
 	if ! fileexist(g_pswap9.user_path) 

@@ -306,7 +306,7 @@ __new(w, h, f, aa, q, zf="", d=0, m=0)
 Set()
 {
 	logerr("set target " dllcall(IDirect3DDevice9.SetRenderTarget, uint, g_.pDevice9, uint, 0, uint, this.s) " " this.s)
-	logerr("set Z " dllcall(IDirect3DDevice9.SetDepthStencilSurface, uint, g_.pDevice9, uint, this.zs))	 
+	logerr("set Z " dllcall(IDirect3DDevice9.SetDepthStencilSurface, uint, g_.pDevice9, uint, this.zs) " " this.zs)	 
 }
 __delete()
 {
