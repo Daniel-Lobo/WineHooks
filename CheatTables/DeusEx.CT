@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="45">
+<CheatTable CheatEngineTableVersion="46">
   <CheatEntries>
     <CheatEntry>
       <ID>37</ID>
@@ -44,6 +44,7 @@ unregistersymbol(easy_kills_enabled)
           <Description>"Auto - 101345DF"</Description>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[enable]
+// remind to self: already tried to improve heuristics with rsp return adresses without success
 alloc(inf_bullets, 2048)
 label(player)
 label(inf_hp)

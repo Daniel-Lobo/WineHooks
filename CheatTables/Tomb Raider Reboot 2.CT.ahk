@@ -5,7 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 CETrainer.help := 
 (
-"620x380
+"620x330
 ==========================================================================
 AUTO ATTATCH
 Start cheat engine after you start the game, when the 'launcher' show up, or it may not automatically 
@@ -14,8 +14,8 @@ attatch to the game
 
 ==========================================================================
 EASY KILLS\INFINTE BULLETS (AMMO)
-Both can cause bugs, easy kills on story sequences, to the prevent bugs the easy way, I made it so the cheats will 
-only work if the right mouse button is held down, therefore you can't use these with gamepads 
+Both can cause bugs, even on story sequences (ez kills), to the prevent bugs the easy way, I made it so
+the cheats will only work if the right mouse button is held down, therefore you can't use these with gamepads
 ==========================================================================
 
 ==========================================================================
