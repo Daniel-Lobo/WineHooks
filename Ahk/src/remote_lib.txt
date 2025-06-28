@@ -931,6 +931,8 @@ g_.s := {}
 InitGlobals()
 InitGlobals()
 {
+g_.cfg.res_lmt_lts := ["640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900", "1920x1080"
+, "2560x1440", "3840x2160", "480x270" ,"640x360"]
 if ! g_.cfg.path
 {
 path := g_.cfg.target

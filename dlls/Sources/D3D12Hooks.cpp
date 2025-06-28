@@ -103,13 +103,10 @@ void D3D12_HOOKS::SetReslimit(DWORD w, DWORD h)
     mHighestDisplayModeIndex = 0;
     while (m_EnumDisplaySettingsA(nullptr, mHighestDisplayModeIndex, &d))
     {
-        if (d.dmPelsWidth == 640)
-        {
-            if      (h == 360)  d.dmPelsHeight = 360;
-            else if (h == 270)  {
-                d.dmPelsWidth  = 480;
-                d.dmPelsHeight = 270;
-            }
+        if (d.dmPelsWidth <= 640 && w <= 640)
+        {            
+            d.dmPelsWidth  = w;
+            d.dmPelsHeight = h;            
         }
         
         if (d.dmPelsWidth == 720)
@@ -129,13 +126,10 @@ void D3D12_HOOKS::SetReslimit(DWORD w, DWORD h)
             mHighestDisplayModeIndex += 1;
             while (m_EnumDisplaySettingsA(nullptr, mHighestDisplayModeIndex, &d))
             {
-                if (d.dmPelsWidth == 640 && h == 360)
-                {
-                    if      (h == 360)  d.dmPelsHeight = 360;
-                    else if (h == 270)  {
-                        d.dmPelsWidth  = 480;
-                        d.dmPelsHeight = 270;
-                    }
+                if (d.dmPelsWidth <= 640 && w <= 640)
+                {            
+                    d.dmPelsWidth  = w;
+                    d.dmPelsHeight = h;            
                 }
                 if ((d.dmPelsWidth != w) || (d.dmPelsHeight != h))
                 {

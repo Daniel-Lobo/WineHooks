@@ -4268,7 +4268,7 @@ D3D11_HOOKS.W      := d.w
 D3D11_HOOKS.H      := d.h
 if (g_.cfg.RLMT)
 {
-d := strsplit(["640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160", "480x270" ,"640x360"][g_.cfg.RLMT], "x" )
+d := strsplit(g_.cfg.res_lmt_lts[g_.cfg.RLMT], "x" )
 D3D11_HOOKS.W := d[1]
 D3D11_HOOKS.H := d[2]
 }
