@@ -781,9 +781,9 @@ IDirect3D9Ex_CreateDeviceEx(p1, p2, p3, p4, p5, p6, p7, p8)
 		}		
 		D3DDISPLAYMODEEX.Width            := D3D9_HOOKS.HD_W	
 		D3DDISPLAYMODEEX.Height           := D3D9_HOOKS.HD_H	
-		D3DDISPLAYMODEEX.Format           := D3D9SetPixelFormat("X8RGB")
-		D3DDISPLAYMODEEX.RefreshRate      := 0
-		D3DDISPLAYMODEEX.ScanLineOrdering := 1 ;D3DSCANLINEORDERING_PROGRESSIVE
+		;D3DDISPLAYMODEEX.Format           := D3D9SetPixelFormat("X8RGB")
+		;D3DDISPLAYMODEEX.RefreshRate      := 0
+		;D3DDISPLAYMODEEX.ScanLineOrdering := 1 ;D3DSCANLINEORDERING_PROGRESSIVE
 	}
 	
 	(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.AddRef, uint, g_.pDevice9))
@@ -791,16 +791,19 @@ IDirect3D9Ex_CreateDeviceEx(p1, p2, p3, p4, p5, p6, p7, p8)
 	(g_tswap9.Replacements) ? logerr(g_tswap9.Replacements.count() " Replacements")
 	(g_.RTrgts)             ? logerr(g_.RTrgts.count() " Render surfaces")
 	(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.release, uint, g_.pDevice9))
+
+	for k, v in D3DDISPLAYMODEEX
+	logerr("D3DDISPLAYMODEEX" k "->" v)	
 	
 	for k, v in D3DPRESENT_PARAMETERS
-	logerr(k "->" v)
+	logerr("D3DPRESENT_PARAMETERS" k "->" v)
 	logerr("Focus " p4)	
 	D3DPRESENT_PARAMETERS.PresentationInterval := 1
 	if (g_.cfg.SYNC)	
-	D3DPRESENT_PARAMETERS.BackBufferCount := 2	
+	D3DPRESENT_PARAMETERS.BackBufferCount := 2		
 	
-	diplay_mode := p7=0 ? D3DDISPLAYMODEEX[] : p7
-	r := dllcall(IDirect3D9Ex.CreateDeviceEX, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, D3DPRESENT_PARAMETERS[], uint, diplay_mode, uint, p8)
+	r := dllcall(IDirect3D9Ex.CreateDeviceEX, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5
+	, uint, D3DPRESENT_PARAMETERS[], uint, p7? D3DDISPLAYMODEEX[]:p7, uint, p8, uint)
 	if (r=0)
 	{		
 		GUID_FromString(dvc_guid, D3D9.IID_IDirect3DDevice9)
@@ -825,7 +828,7 @@ IDirect3D9Ex_CreateDeviceEx(p1, p2, p3, p4, p5, p6, p7, p8)
 				IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 10, 16)
 			}
 		}
-	} else Logerr("CREATE DEVICE FAILED")		
+	} else Logerr("CREATE DEVICEEX FAILED " r  " " d3d9.err[r . ""])		
 	return r	
 }
 

@@ -94,11 +94,3 @@ Cheats tables:
     - AVP 1 e 2: inf predator energy
     - Brothers: improve brother detection
 
-
-Latest changes  (unpublished changes):
-- Moved IDirect3DDevice9::GetDisplayMode to c++: thread safe, needed by Lords of Shadow 2
-- Fixed bad CreateDirect3D9Ex hook (crashes Lords of Shadow)
-- Implemented pointer collections as c++ maps, hashed, so faster
-- Imlpemented basic Direct3D9Ex hooks: create device and reset
-- Fixed bug in IDirectDrawSurface::Flip the caused a black screen on all Direct3D games except if SSAA was enabled
-- Fixed a bug on IDirectDraw::CreateSurface that crashed Tomb Raider 4 if forced resolution was enabled: this was an ugly patch that adds an extra              reference to the DiretDraw object when the primary is created

@@ -194,8 +194,8 @@ Present9ExHook(IDirect3DDevice9Ex * dev, const RECT  *pSourceRect, const RECT *p
 		dst.right  = pDestRect->right  * D3D9_Hooks->scale;
 		dst.bottom = pDestRect->bottom * D3D9_Hooks->scale;
 	} 	
-	return D3D9_Hooks->PresentEx(dev, pSourceRect == nullptr ? &src : pSourceRect, 
-		pDestRect   == nullptr  ? &dst  : pDestRect, hDestWindowOverride,  pDirtyRegion, dwFlags);
+	return D3D9_Hooks->PresentEx(dev, pSourceRect != nullptr ? &src : pSourceRect, 
+		pDestRect != nullptr  ? &dst  : pDestRect, hDestWindowOverride,  pDirtyRegion, dwFlags);
 }
 
 extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
@@ -626,6 +626,8 @@ DWORD ScreenSpaceDraw9(IDirect3DDevice9* d)
     current vertex shader is non null, maybe because the hooks are not
     handling stateblocks ?? ***/
 
+    if (FALSE == HDSet9(d)) return 0; 
+
     //if (AreVerticesTransFormed() == FALSE) return 0;
     DWORD FVF = 0;
     if (d->GetFVF(&FVF) != S_OK) return 0;
@@ -647,6 +649,7 @@ DWORD ScreenSpaceDraw9(IDirect3DDevice9* d)
 DWORD ScreenSpaceDraw9VB(IDirect3DDevice9* d)
 {
     {
+        if (FALSE == HDSet9(d)) return 0; 
         //return ScreenSpaceDraw9(d);
         //if (AreVerticesTransFormed() == FALSE) return 0;
 
@@ -950,6 +953,8 @@ ResetViewPortPort9(){
     D3D9Globals.SDViewPort9.Y      = 0;
     D3D9Globals.SDViewPort9.Width  = D3D9_Hooks->W;
     D3D9Globals.SDViewPort9.Height = D3D9_Hooks->H;
+    D3D9Globals.SDViewPort9.MinZ    = 0.0f;
+    D3D9Globals.SDViewPort9.MaxZ    = 1.0f;
     return 0;
 }
 
@@ -1480,6 +1485,13 @@ extern "C" __declspec(dllexport) HRESULT STDMETHODCALLTYPE
 SetSamplerState9Hook(LPDIRECT3DDEVICE9 d, DWORD sampler, D3DSAMPLERSTATETYPE Type, DWORD Value)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    /*
+    if ((Type == D3DSAMP_ADDRESSU || Type == D3DSAMP_ADDRESSV)) 
+    {
+        Value = D3DTADDRESS_CLAMP;
+    }
+    */
+
     if( (Type == D3DSAMP_MAXANISOTROPY)  && (D3D9_Hooks->textfilter&0xf0) )
     Value = 16;
     else if( (Type == D3DSAMP_MINFILTER) && (D3D9_Hooks->textfilter&0xf0) )
