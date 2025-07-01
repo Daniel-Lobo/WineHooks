@@ -1,0 +1,29 @@
+Title::Legacy of Kain: Soul Reaver::
+
+{b {f} ==[Supported versions]== 
+	Use with [wrace wrace's] patch
+} 
+
+
+{h1 Fixes and improvements} 
+
+{f <strike>Fixes a crash when the game starts</strike> fixed with [wrace wrace's] patch }
+{f <strike>Forces the game to run - pillarboxed - at your desktop resolution. Ultra-wide 
+and 4K supported</strike> [wrace wrace's] supports any resolution and widescreen, but winehooks still allows [gototab_...Graphics_SSAA SSAA]} 
+{f <strike>Fixes gamma calibration not working</strike> fixed with [wrace wrace's] patch}
+{f <strike>Fixes a bug that causes the game to skip FMVs and Raziel to run in circles if
+a gamepad is connected</strike> fixed with [wrace wrace's] patch} 
+{f <strike>Deinterlaced FMVs</strike> fixed with [wrace wrace's] patch}
+{i %Xinput% }
+{i %Textures% }
+
+::%ddraw%:: 
+ 
+
+
+::link::patch->https://1drv.ms/f/s!ApHOE-Ru-xkGgXT6B_BGsO5v0MTu
+::link::fly->https://flyinghead.github.io/flycast-builds/::
+::link::wrace->https://steamcommunity.com/app/224920/discussions/0/4297070044557950764/::
+
+        
+

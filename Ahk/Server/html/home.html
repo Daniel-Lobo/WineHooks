@@ -224,7 +224,13 @@
 				document.getElementById("git-games-list-container").className = ""
 				return
 			}
-		}		
+		}	
+		console.log(JSON.stringify(jsn, null, 4));
+		jsn.Profiles.push(...jsn.DeprecatedProfiles);
+		jsn.Help.push(...jsn.DeprecatedHelp);
+		jsn.CheatTables.push(...jsn.DeprecatedCheatTables);
+		jsn.Scripts.push(...jsn.DeprecatedScripts);
+		
 		ParseGITHubReply(jsn.Profiles, jsn.Help, jsn.CheatTables, jsn.Scripts);
 	}
 				

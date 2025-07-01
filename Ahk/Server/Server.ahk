@@ -549,16 +549,21 @@ GitRequest(folder){
     whr.SetRequestHeader("Accept", "application/vnd.github.v3.raw")		
     whr.Send()
     whr.WaitForResponse()
-	return whr.ResponseTex
+	return whr.ResponseText
 }
 
-GetGitProfilesList(){   
-    profiles  := GitRequest("GameProfiles/Profiles") . ""	  
+GetGitProfilesList(){	
+	profiles  := GitRequest("GameProfiles/Profiles") . ""	  
     help      := GitRequest("GameProfiles/Help") . ""
     tables    := GitRequest("GameProfiles/CheatTables") . ""   
     scripts   := GitRequest("GameProfiles/Scripts") . ""
+	d_profiles  := GitRequest("Deprecated/Profiles") . ""	  
+    d_help      := GitRequest("Deprecated/Help") . ""
+    d_tables    := GitRequest("Deprecated/CheatTables") . ""   
+    d_scripts   := GitRequest("Deprecated/Scripts") . ""
     ;print(profiles " " help " " tables " " scripts)
-    return JSONReply("{""Profiles"" : " . profiles . ", ""Help"" : " . help . ", ""CheatTables"" : " . tables . ", ""Scripts"" : " . scripts . "}")    	
+    return JSONReply("{""Profiles"" : " . profiles . ", ""Help"" : " . help . ", ""CheatTables"" : " . tables . ", ""Scripts"" : " . scripts 
+	. ", ""DeprecatedProfiles"" : " . d_profiles . ", ""DeprecatedHelp"" : " . d_help . ", ""DeprecatedCheatTables"" : " . d_tables . ", ""DeprecatedScripts"" : " . d_scripts . "}")   
 }
 
 SaveFile(file_name, contents){	
