@@ -542,26 +542,21 @@ GetScriptFileName(cfg){
 	return trim(script)
 }
 
-GetGitProfilesList(){
-    url := "https://api.github.com/repos/Daniel-Lobo/WineHooks/contents/"		
+GitRequest(folder){
+	url := "https://api.github.com/repos/Daniel-Lobo/WineHooks/contents/"		
     whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-    whr.Open("GET", url . "Profiles", true)			
+    whr.Open("GET", url . folder, true)			
     whr.SetRequestHeader("Accept", "application/vnd.github.v3.raw")		
     whr.Send()
     whr.WaitForResponse()
-    profiles := whr.ResponseText . ""		
-    whr.Open("GET", url . "Help", true)		
-    whr.Send()
-    whr.WaitForResponse()
-    help     := whr.ResponseText . ""	
-    whr.Open("GET", url . "CheatTables", true)		
-    whr.Send()
-    whr.WaitForResponse()
-    tables   := whr.ResponseText . ""
-    whr.Open("GET", url . "Scripts", true)		
-    whr.Send()
-    whr.WaitForResponse()
-    scripts   := whr.ResponseText . ""
+	return whr.ResponseTex
+}
+
+GetGitProfilesList(){   
+    profiles  := GitRequest("GameProfiles/Profiles") . ""	  
+    help      := GitRequest("GameProfiles/Help") . ""
+    tables    := GitRequest("GameProfiles/CheatTables") . ""   
+    scripts   := GitRequest("GameProfiles/Scripts") . ""
     ;print(profiles " " help " " tables " " scripts)
     return JSONReply("{""Profiles"" : " . profiles . ", ""Help"" : " . help . ", ""CheatTables"" : " . tables . ", ""Scripts"" : " . scripts . "}")    	
 }

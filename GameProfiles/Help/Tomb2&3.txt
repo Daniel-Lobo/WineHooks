@@ -1,0 +1,137 @@
+::Title::Tomb Raider 2 and 3
+::{h1 Fixes and improvements}
+{f Gets the Tomb Raider II Installer working - details bellow  }
+{f Fixes a glitch in the title and i<loading>i screens - Tomb Raider 3  }
+{f Hides the window border on windows 10 - Tomb Raider 2 }     
+{f Working CD audio for TR2 Gold} 
+{i Lossless audio, instead of mp3, for TR2  }
+{i Real widescreen with the right aspect ratio and field of view}
+{i 
+[gototab_...graphics_HD Forced resolution] allows high resolution without 
+shrinking the HUD\menus and [gototab_...graphics_SSAA super sampling anti aliasing]
+}
+{i Deinterlaced FMVs   }
+{i  Transparent inventory background } 
+{i %Xinput%   }
+{i %Textures% }
+{i %ModsLink% }
+
+{b {f} ==[Installing Tomb Raider 2 on a 64 bit system]==
+If you have the CD version of tomb raider II and a 64 bit 
+system, click a| InstallShield5 ^ here|a to install it}
+
+{b {nfo} ==[Supported versions]==
+{nfo Tomb Raider II and III with the [multipatch Tomb Raider Series XP/Vista Multi Patch]}
+{nfo [2_0 Tomb Raider II 2.0]. This version needs 
+[gototab_sound_WNMM.MCI MCI emulation] to get the CD music volume controls 
+working }
+{nfo a|downloadGold ^ This|a version of Tomb Raider II Gold. Also requires 
+[gototab_sound_WNMM.MCI MCI emulation] to get cd music working }
+{nfo i<Vanila>i Tomb Raider III Gold}
+}
+
+{b {f} ==[Failed to setup DirectX error]==
+If you encounter this problem, hold shift when you start any of the games with 
+this program to run their respective setups
+}          
+  
+{b {f} ==[Low frame rate on TR2]==
+If you encounter a bug that turns TR2 into a slide show after a while, 
+a|SCRIPT1 ^ disable joysticks|a on the game, then use 
+a|gototab_input_j2k.u ^ Xinput to keyboard emulation|a}
+ 
+{b {f} ==[TR3 doesn't respond to input]==
+Delete the config.txt file on the game folder. Next time the game starts, it will 
+create that file again}
+
+{b {f} ==[TR3 Gold crashes on the title screen]==
+This happens on rysen CPUs. To fix it, copy the config.txt file from your TR3 
+folder to the TR3 Gold folder and unplug your gamepad before you start the 
+game||n
+To play with a gamepad, you can use 
+a|gototab_input_j2k.u ^ Xinput to keyboard emulation|a and
+replug your controller after the game starts
+} 
+
+{b {i} ==[Widescreen]== The widescreen fix is calculated and applied automatically 
+when you start the game. However, if you change the resolution while playing 
+(F1-F2 on TR2), you will need to reset the widecreen fix. To do it, press tab 
+and wait until you hear a|ON ^ this sound|a, then enter and leave the inventory}
+
+{b {i} ==[Texture packs]==
+a|_iOS ^ TR2 iOS version textures|a ||n
+a| newdwight ^ TR3 2K upscale|a ||n
+a|milepanic ^ TR3 4K AI upscale|a ||n
+a|remaster ^ TR3 HD remaster|a - wip||n
+a|jungle ^ TR3 jungle level textures|a ||n
+ 
+Note that the default location for texture packs maybe changed since some of 
+those packs have been released, so check the 
+[gototab_graphics..._textswap.e texture swap options] to make sure
+where to install them||n 
+ 
+If you install the iOS textures, run TR2 setup, choose the
+advanced tab and select: texel adjustment &#8594 always adjust 
+}  
+   
+{b {i} ==[HQ FMVs]== 
+
+Higher quality replacement FMVs can be created for both games. To replace a FMV,
+paste a .mp4 or .bik file in the FMV 
+folder alongside the original .rpl file it is meant to replace, but don't delete
+the .rpl file. e.g.: to replace Ancient.rpl, paste a Ancient.mp4 or 
+Ancient.bik file on the FMV folder||n
+
+HQ FMVs have already been created for Tomb Raider II by others and 
+can be downloaded from a|FMV_Remaster ^ here|a or a|mp4 ^ here|a ||n 
+
+HQ FMVs require an 
+additional download of [vlc these vlc binaries]. After downloading them, extract 
+the -[vlc]- folder to -[peixoto\program]- >>n
+
+HQ FMVs also work better with [gototab_...graphics_NEFS non-exclusive 
+fullscreen]. Without it, the tasks bar shows for moment during transition to the FMVs.
+If you encounter problems with the FMVs even with 
+[gototab_...graphics_NEFS non-exclusive fullscreen] enabled,
+[patreon let me know] so i can fix it       
+}
+
+::0.10.16+::
+<div class="alert-danger alert">
+	==[Version warning]==
+	Version [old_version_redirect 0.10.21] is the last one on which Tomb Raider 2 and 3 will be tested. Currently, they work fully in this version on both
+	Windows and Linux, but future versions may break compatibility with these titles.
+	With the excellent remasters, the effort of maintaining compatibility with this titles is a bit of a waste 
+</div>::
+::{h1 Fixes a
+
+%ddraw%
+
+::link::patreon->https://www.buymeacoffee.com/Peixoto
+::link:: newdwight->https://www.tombraiderforums.com/showthread.php?t=221860
+::link::milepanic->https://www.moddb.com/mods/tomb-raider-iii-ai-upscaled-textures
+::link::remaster->https://www.tombraiderforums.com/showthread.php?t=221658
+::link::fmv_trouble->https://www.vogons.org/viewtopic.php?f=24&t=53121&start=380#p683958
+::link::jungle->http://www.tombraiderforums.com/showthread.php?t=220654
+::link::AODFan->http://www.tombraiderforums.com/member.php?u=40330
+::link::inspector->http://www.guru3d.com/files-details/nvidia-profile-inspector-download.html
+::link::Klite->https://www.codecguide.com/download_kl.htm
+::link::forum->http://www.tombraiderforums.com/index.php
+::link::multipatch->http://www.tombraiderchronicles.com/tr2/fixes.html
+::link::downloadGold->http://www.tombraiderchronicles.com/cgi-bin/dl03/dl.pl?dm_vista_tr2goldsetup
+::link::FMV_Remaster->http://www.core-design.com/community_remasteredtr2fmvs.html
+::link::_iOS->http://www.core-design.com/community_tr2iostexturesmod.html
+::link::mp4->http://www.tombraiderforums.com/showthread.php?t=219157
+::link::arsuntlk->http://www.tombraiderforums.com/showthread.php?t=218509
+::link::2_0->http://www.tombraiderchronicles.com/cgi-bin/downloads2/dl.pl?ut_tr2_tr2 
+::link::vlc->https://1drv.ms/u/s!ApHOE-Ru-xkGgZkfKZM0FSoYX1gsQg?e=WCVaff
+::link::SCRIPT1->#persistent
+msgbox, 33, , This will disable Joysticks on Tomb Raider II, is that OK?
+IfMsgBox, Cancel
+  exitapp
+RegWrite, REG_DWORD, HKCU, SOFTWARE\Core Design\Tomb Raider II\System, JoystickEnabled, 0 
+if not errorlevel
+  msgbox, 64, , Done!
+else 
+  msgbox, 16, , Failed to modify the registry! 
+exitapp
