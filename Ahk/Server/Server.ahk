@@ -557,10 +557,10 @@ GetGitProfilesList(){
     help      := GitRequest("GameProfiles/Help") . ""
     tables    := GitRequest("GameProfiles/CheatTables") . ""   
     scripts   := GitRequest("GameProfiles/Scripts") . ""
-	d_profiles  := GitRequest("Deprecated/Profiles") . ""	  
-    d_help      := GitRequest("Deprecated/Help") . ""
-    d_tables    := GitRequest("Deprecated/CheatTables") . ""   
-    d_scripts   := GitRequest("Deprecated/Scripts") . ""
+	d_profiles  := GitRequest("DeprecatedProfiles/Profiles") . ""	  
+    d_help      := GitRequest("DeprecatedProfiles/Help") . ""
+    d_tables    := GitRequest("DeprecatedProfiles/CheatTables") . ""   
+    d_scripts   := GitRequest("DeprecatedProfiles/Scripts") . ""
     ;print(profiles " " help " " tables " " scripts)
     return JSONReply("{""Profiles"" : " . profiles . ", ""Help"" : " . help . ", ""CheatTables"" : " . tables . ", ""Scripts"" : " . scripts 
 	. ", ""DeprecatedProfiles"" : " . d_profiles . ", ""DeprecatedHelp"" : " . d_help . ", ""DeprecatedCheatTables"" : " . d_tables . ", ""DeprecatedScripts"" : " . d_scripts . "}")   
@@ -960,7 +960,7 @@ LaunchGame(game){
 	cfgfile  := g_.Profiles . game . ".ini"
 	cfg      := new IniFile(cfgfile)
 	path     := cfg.Get("Target")
-	if (InStr("A-Dx11 A-Dx10 A-Dx9 A-Dx8 A-Dx7 A-GL", game)){
+	if (InStr("A-Dx11 A-Dx10 A-Dx9 A-Dx8 A-Dx7 A-DX A-GL", game)){
 		path := ""
 	}
 	if (!FileExist(path) or !IsExecutable(path)){

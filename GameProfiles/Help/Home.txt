@@ -1,0 +1,227 @@
+Title::How to use:
+::
+<ul>
+l|Find your game in the list on the left||n  
+l|Select it to view additional info and to configure optional features||n    
+l|Click the i|start|i button to play or create a shortcut with the 
+Create Shortcut button||n  
+l|You will be asked to indicate where the game is located the 1st time you play 
+it with the patch||n  
+l|Patches are only effective if you start the game with this program, or
+from a shortcut created with this program||n  
+l| No patch will ever modify any of the corresponding game's files ||n
+</ul>
+   
+Donations encourage improvements, new features and new patches||n     
+
+<input id="Donate" type="image" 
+src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif"/>  
+<br><br>
+
+If you want a patch for a steam game or ported to the steam version, send the 
+game as a gift to a|steam ^ this account|a
+
+::Section:: Credits ::
+
+Written by <a id="Peixoto" href="javascript:dummy()">Peixoto</a>||n 
+
+Uses a|minhook ^ Minhook|a and Shajul's a|GUID ^ GUID.ahk|a ||n
+
+<s>8 bit mode color fix (Legacy of Kain FMVs) adapted from Aqrit's 
+a|ddraww ^ DirectDraw wrapper|a</s> 8 bit color modes are now emulated ||n
+
+4K resolution fix for DirectX 6 and earlier adapted from a|_4K_ ^ UCyborg's solution|a
+
+::Section::Licence::
+
+NO WARRANTIES of any kind, use at your own risk||n
+
+Free for personal use only||n
+
+Do not modify or redistribute||n
+
+Can only be distributed at a|downlink ^ this topic|a    
+
+::Section::Texture swapping::
+Textures swapping is a feature that allows the replacement of the textures in 
+a game with new textures that have no restrictions in size other then the
+maximum size supported by the video card - at least 4096x4096 in Direc3D9
+shader model 3.0 and newer cards. In all supported games, even those whose 
+engines only support 16 bit 256x256 textures - as it happens is most early 
+Direct3D games - it is possible to swap the original textures with high
+resolution textures||n
+
+This feature is refered to as i|texture swapping|i because the original textures 
+within the game's files are never modified. The patches just tell Direct3D - or
+OpenGl- to use a replacement texture, instead or the original, for rendering.
+On the next few paragraphs you will find a tutorial on how to use this feature 
+that applies to all games supported||n
+
+Swapping a texture requires you to dump that texture to disk while the game is
+running and then paste the image you want to use as the replacement in the right
+location. Before following this tutorial, you should click the game you want to 
+modify in the list on the left and inspect how the texture swapping options are 
+configured. This configuration is individual for each game. The 
+i|texture swapping|i options are the following:||n
+
+<pre>
+Show\Hide Thumbnail - A hotkey that show or hides a thumbnail in the top left 
+                      corner of the screen with one of the textures currently 
+                      loaded, you will use this to search for the texture you
+                      want to dump. Hold this when you start the game to have
+                      search activated at start
+Change text color   - A hotkey that changes the color of the text shown bellow 
+                      the thumbnail, which informs how many textures are loaded, 
+                      which is being showed in the thumbnail and which API the
+                      games uses
+Next                - A hotkey to select the next texture
+Previous            - A hotkey to select the previous texture
+Fast Browsing       - A hotkey to hold together with the Next or Previous 
+                      hotkeys to browse textures  more quickly 
+Dump Texture        - A hotkey to dump the current texture to disk 
+Path                - A directory there will contain two folders. The i|dumps|i 
+                      folder, which is where the patch will dump textures to,
+                      and the i|replacements|i folder, where the replacements
+                      should be placed
+</pre>
+
+b|Dumping textures|b ||n
+
+l|Start the game then press the b|Show\Hide Thumbnail|b hotkey
+during gameplay. Now you will see a thumbnail (whose size can be customized in 
+the i|texture swapping|i options) in the top left corner of the screen with one 
+of the textures currently loaded. The texture in the thumbnail is also disabled 
+in the game, except on DirectX 3 and earlier||n
+
+l|Use the b| Next|b and b|Previous|b hotkeys to browse all currently loaded 
+textures (hold the b|Fast Browsing|b hotkey to browse them more quickly). 
+When you find a texture you want to modify, press the b|Dump Texture |b hotkey
+to dump that texture to disk||n
+
+l|Textures will be dumped to a folder called b|Dumps|b in the path specified in
+b|Path|b option. e.g.: if the path is|n i|"c:\some folder\some game"|i, the textures 
+will be dumped to i|"c:\some folder\some game\dumps"|i. That folder is always 
+automatically created by the program ||n
+
+l|Textures will be dumped in the .dds format and named dump0.dds, dump1.dds and 
+so on. You should not modify texture dumps, but you can rename them if you like ||n
+
+b| Installing the replacement texture|b ||n
+
+To finally replace a texture, all you have to do is to place a replacement 
+image with the right format and name in the right location||n
+
+In the example above, the b|path|b option was configured as 
+i|"c:\some folder\some game"|i, so the replacements should be installed in
+i|"c:\some folder\some game\replacements"|i||n 
+
+A replacement file replaces a dump with the same name as it, so if you dumped a 
+texture and renamed it to i|somename.dds|i, the replacement should also be called 
+i|somename.dds|i, but it should be installed in the replacements folder, while the 
+dump must remain in the dumps folder||n
+
+b|Format of the replacement texture|b ||n
+Replacement textures must also be in the .dds file format. The recommended 
+pixel format for all games is DXT5, but remember that textures in compressed DXTn 
+formats must have sizes that are integer multiples of 4. Even if some programs
+can create DXTn files with different sizes, those won't be loaded||n 
+
+To get arround this limitation or if you want the best possible quality,
+use the A8R8G8B8 format for Direct3D games and A8B8G8R8 for OpenGl||n 
+
+If you want small files, use the DXT1 format, but note that this format doesn't 
+support partial transparency||n
+
+On Direct3D 7 and earlier, you will frequently find textures with transparency, 
+but no alpha channel. These textures use a|ckey ^ chroma keying|a. For these
+textures, create replacements preferably in the X8R8G8B8 format - R5G6B5 and
+X1R5G5B5 will also work. The replacement texture will inherit the color key of 
+the original texture||n
+
+Mipmaps are supported in all formats but note that mipmapped textures on DirectX 7
+and earlier must have power of two dimensions||n
+
+b|Distributing textures|b||n
+
+If you want to distribute textures you have created, you can use use the 
+b|texture compiler|b program - which can be found on the top of the games list
+to the left - to merge all texture dumps into a single file, dump._dds. 
+You can distribute only dump._dds without need to distribute the original dumps.
+The replacements, obviously, must be distributed||n
+
+::Section::Pixel shader swapping::
+Pixel shader swapping is a feature that allows pixel shaders to be modified. 
+So far, Direct3D 8 and 9 are supported and new shaders can be written either in 
+Direct3D's shader assembly or high level shading (shader model 3.0) languages||n
+
+Modifying a pixel shader requires you to dump the pixel shader compiled bytecode
+to disk while the game is running and then paste the new shader code you want to
+use as the replacement for the shader in the right location. Before following 
+this tutorial, you should click the game you want to 
+modify in the list on the left and to get to know and configure the pixel shader
+swapping options. This configuration is individual for each game and its options  
+are as follows:||n
+
+<pre>
+Enable\Disable search - Hotkey to start\stop browsing shaders 
+Change text color   - A hotkey that changes the color of the text shown on
+                      on screen when shader searching is enabled with 
+                      information about the current selected shader
+Next                - A hotkey to select the next shader
+Previous            - A hotkey to select the previous shader
+Fast Browsing       - A hotkey to hold together with the Next or Previous 
+                      hotkeys to browse shaders more quickly 
+Change Shader       - A hotkey the changes the mode how the current selected 
+                      shader is temporally modified for easy identification
+Dump Shader         - A hotkey to dump the current shader to disk 
+
+</pre>
+
+b|Dumping shaders|b ||n
+
+l|Start the game then press the b|Enable\Disable search|b hotkey
+during gameplay. Now you will see the assembly code of a shader on the 
+screen or the text: "No pixel shaders" (most Direct3D8 games actually don't use 
+shaders)||n
+
+l|Use the b| Next|b and b|Previous|b hotkeys to browse all currently loaded 
+shaders (hold the b|Fast Browsing|b hotkey to browse them more quickly). The
+shader whose code is currently being shown is replaced by a simple shader that
+either shows only the texture or vertex color. The b|Change Shader|b hotkey 
+toggles between these two modes. When you find a shader you want to modify, 
+press the b|Dump shader |b hotkey to dump that texture to disk||n
+
+l|Shaders will be dumped to a folder called b|pixelshaders|b in the path you 
+specified when added the game to the games list. If the game was already 
+included, you can view the path in the error.log file. Two files will
+be dumped: a binary file (.bin) and a text file (.txt). These files will be named
+dump0.bin\dump0.txt, dump1.bin\dump1.txt and so on||n
+
+b|Replacing shaders|b ||n
+
+l|The next time you start the game, any dump.bin file with a corresponding 
+dump.txt gets replaced with the shader on the dump.txt file. Initially, that file
+contains the original code from the shader, but can be modified at will using 
+shader asm ||n
+
+l|Another method for modifying a shader contained in a dump.bin file is to create
+a dump.hlsl file with hlsl - SM 3.0 code||n
+
+
+::link::AHK->http://www.autohotkey.com/
+::link::CE->http://www.cheatengine.org/
+::link::AHKdll->http://www.autohotkey.com/board/topic/39588-autohotkeydll/
+::link::ddraww->http://bitpatch.com/ddwrapper.html
+::link::GUID->https://github.com/shajul/Autohotkey/blob/master/Library/GUID.ahk
+::link::detours->http://research.microsoft.com/en-us/projects/detours/
+::link::slink->https://msdn.microsoft.com/en-us/library/windows/desktop/aa365680%28v=vs.85%29.aspx
+::link::ckey->https://en.wikipedia.org/wiki/Chroma_key  
+::link::minhook->https://www.nuget.org/packages/minhook
+::link::_bsd->http://opensource.org/licenses/bsd-license.php
+::link::downlink->http://www.vogons.org/viewtopic.php?f=24&t=53121
+::link::_4K_->https://github.com/UCyborg/LegacyD3DResolutionHack 
+::link::steam->http://steamcommunity.com/profiles/76561198167521866/ 
+::link::gammatool->Tools\Gamma.exe 128\1  
+
+[Settings]
+ImportIcons=1

@@ -1,0 +1,132 @@
+::Title::user::
+
+::Text::{b
+<i class="fa-brands fa-linux"></i> <strike><b>Notice:</b></br> On Linux, winehooks is not yet compatible with [dxvk dxvk]
+on Direct3D 8 or 9</strike><br>
+Fixed on version 0.10.15
+}::
+
+
+::Tab::Graphics|Sound|Input|CPU::
+
+::GraphicsTab::
+
+::parent::Graphics_div::
+::BOOL::dxvk::Use [__dxvk dxvx] instead of [wine wine's] Direct3D implementation. No effect on Linux use [winecfg winecfg] instead|n::
+
+
+::_BOOL_::SYNC::Force VSYnc::Highly recommended on windows 10, where vsync is
+always off - although with no tearing - on all DirectX8 games and cannot be 
+forced on the driver
+
+::BOOL::SXTY::Force 60 Hertz::On monitors with higher refresh rates, this will 
+be useful to limit a game's frame rate to 60 fps. VSync is also forced for all 
+Direct3D 8 games running fullscreen|n  
+
+::BOOL::Safe::Thread safe Direct3D 8::Requests Direct3D 8 to be thread safe
+
+::parent::Graphics_div::
+::_BOOL_::FLTR::Texture Filter Override::Force nearest neighbor magnification and 16x 
+anisotropic minification. This offers the best sharpness\smoothness with the least
+aliasing\blurring::
+
+::parent::Graphics_div::
+::BOOL::HD::Forced resolution::b|Uses:|b<ul> 
+l| Force games to run at higher resolutions they don't support</li>
+l| Fix games that support higher resolutions, but shrink their Menus\HUDs at 
+higher resolutions</li>
+l| Improve the quality of effects drawn at fixed resolution
+</li> 
+<ul>     
+::parent::HD_details::
+::HIDDEN::HD_Detailed::Details::
+Games are forced to run at your desktop 
+resolution, but the aspect ratio is kept accordingly to the one of the 
+resolution |n that the game requests:: 
+
+::BOOL::SNGL::Single core Direct3D 8::Sets the affinity of the threads making
+Direct3D8 calls to a single core. This is an alternative to the
+a<gototab_cpu_singlecore -- Single core affinity>a option witch frequently
+causes sound artifacts::
+
+::parent::HD_details::
+::BOOL::DSR::Dynamic super resolution::
+Chooses the maximum resolution enumerated by the display instead of the 
+desktop's
+::  
+
+::RADIOHEAD::SSAA::Super Sampling::
+::parent::SSAA_details::
+::RADIO::SSAA=0::SSAA::Disabled::::
+::RADIO::SSAA=2::SSAA::Ceilx2::
+::RADIO::SSAA=4::SSAA::Ceilx4:: 
+
+::parent::SSAA_details:: 
+::TEXT::Super sampling adjusts the size of the backbuffer and other render targets 
+to integer multiples of the resolution the game requests, resulting in a 
+high quality anti-aliasing. The appearance of texts and menus is also 
+improved in many games|n 
+
+b| IMPORTANT:|B note that the resolution you 
+configure the game at must be half of, or the same as your desktop. Anything in 
+between will increased the workload on the
+GPU without an increase in anti-aliasing quality::
+
+::parent::HD_details::
+::BOOL::WHKS::Fix window size::If the game window is not correctly resized
+
+::parent::HD_details::
+::BOOL::MHKS::Mouse hooks::
+Enable this if the game registers the mouse position incorrectly
+
+::RADIOHEAD::MCLP::Mouse clip fix::
+::parent::MCLP_details::
+::RADIO::MCLP=0::MCLP::Disabled::::
+::RADIO::MCLP=2::MCLP::Untrap mouse::Check this if the mouse
+gets trapped in the top left corner of the screen::
+::RADIO::MCLP=1::MCLP::Constrain clip area::Check this if the mouse gets lost
+out of the screen when you move it to far down or to the sides:: 
+    
+::parent::Graphics_div::
+::BOOL::Textswap.e::Texture swapping::
+Click a|tswaptuto ^ here |a for the details |n::    
+
+::parent::Textswap.e_details::
+::%_Textswap_%:: 
+
+::parent::Textswap.e_details::
+::RADIOHEAD::Textswap.path::Path::
+::parent::Textswap.path_details::
+::RADIO::Textswap.path=Textures/VOKSI::Textswap.path::a|tswap_link=VOKSI ^ %__path__%Textures\VOKSI |a::::
+::RADIO::Textswap.path=Textures/CPY::Textswap.path::a|tswap_link=CPY ^ %__path__%Textures\CPY |a::
+::RADIO::Textswap.path=Textures/CODEX::Textswap.path::a|tswap_link=CODEX ^ %__path__%Textures\CODEX |a:: 
+::RADIO::Textswap.path=Textures/SKIDROW::Textswap.path::a|tswap_link=SKIDROW ^ %__path__%Textures\SKIDROW |a::::
+::RADIO::Textswap.path=Textures/RELOADED::Textswap.path::a|tswap_link=RELOADED ^ %__path__%Textures\RELOADED |a::
+::RADIO::Textswap.path=Textures/EMPRESS::Textswap.path::a|tswap_link=EMPRESS ^ %__path__%Textures\EMPRESS |a:: 
+::parent::Textswap.e_details::
+::BOOL::Textswap.a::Auto dump textures - WIP::Dumps textures while you play.
+The auto dump option is automatically disabled every time you load the game page
+||n ::
+::parent::Textswap.e_details::
+::TEXT::|n::
+::%_Textswap_Compiler%::
+    
+::parent::Graphics_div::
+::BOOL::PxSwap.e::Pixel shader override|n::
+Click a|pxswaptuto ^ here |a for the details |n::    
+
+::parent::PxSwap.e_details::
+::%_PixelSwap_%::
+
+
+%Sound%
+%Input%
+%CPU%        
+
+::link::__dxvk->https://github.com/doitsujin/dxvk/releases   
+::link::dinput->https://en.wikipedia.org/wiki/DirectInput
+::link::wfog->https://github.com/narzoul/DDrawCompat/commit/4dc1c70f4113721c523b29f05cd8537fa41e3564
+::link::DDcompat->https://github.com/narzoul/DDrawCompat
+::link::ucyborg->https://github.com/UCyborg/LegacyD3DResolutionHack 
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+::link::libreto_xbrz->https://github.com/libretro/common-shaders/blob/master/xbrz/shaders/xbrz-freescale.cg

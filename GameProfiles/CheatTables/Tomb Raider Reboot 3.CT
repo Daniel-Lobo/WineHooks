@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"P - gain skill Points"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(points_og, SOTTR.exe, 8B 70 4C 49 8B 04 24)
+registersymbol(points_og)
+alloc(points_new, 512, points_og)
+label(points_ret)
+
+points_new:
+  add [rax+4C], 1
+  mov esi,[rax+4C]
+  mov rax,[r12]
+jmp points_ret
+
+
+points_og:
+  jmp points_new
+  nop
+  nop
+points_ret:
+
+[disable]
+points_og:
+  db 8B 70 4C 49 8B 04 24
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"G - Gain coins"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(gold_og, SOTTR.exe, 0F B7 43 0C 99 F7 79 08 0F B7 F8)
+registersymbol(gold_og)
+alloc(gold_new, 512, gold_og)
+label(gold_ret)
+
+gold_new:
+  add [rbx+0C], 3e8
+  movzx eax,word ptr [rbx+0C]
+  cdq
+jmp gold_ret
+
+gold_og:
+  jmp gold_new
+gold_ret:
+
+
+[disable]
+gold_og:
+  db 0F B7 43 0C 99
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(bullets_og, SOTTR.exe, 66 89 18 48 8B 8E A8 03 00 00)
+aobscanmodule(bullets_on_clip_og, SOTTR.exe, 29 18 49 8B 86 70 03 00 00)
+
+bullets_og:
+  nop
+  nop
+  nop
+
+bullets_on_clip_og:
+  nop
+  nop
+
+[disable]
+bullets_og:
+  db 66 89 18
+
+bullets_on_clip_og:
+  db 29 18
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>Change of sub [rax],ebx</Description>
+      <AddressString>SOTTR.exe+6D9ADD</AddressString>
+      <Before>
+        <Byte>86</Byte>
+        <Byte>70</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>29</Byte>
+        <Byte>18</Byte>
+      </Actual>
+      <After>
+        <Byte>49</Byte>
+        <Byte>8B</Byte>
+        <Byte>86</Byte>
+        <Byte>70</Byte>
+        <Byte>03</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov [rax],bx</Description>
+      <AddressString>SOTTR.exe+6AD315</AddressString>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>AB</Byte>
+        <Byte>6B</Byte>
+        <Byte>FB</Byte>
+        <Byte>FF</Byte>
+      </Before>
+      <Actual>
+        <Byte>66</Byte>
+        <Byte>89</Byte>
+        <Byte>18</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>8E</Byte>
+        <Byte>A8</Byte>
+        <Byte>03</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <Comments>Version: Epic, v1.0 buid 492.0_64
+HP:           Float.    Full HP starts at 300, code shared with enemies
+Ammo:         2 bytes.  Same as the value seen on the HUD 
+Skill Points: 4 bytes.  Same as the value seen on the campfire menu
+Coins:        4 bytes.  Same as the value seen on shops
+</Comments>
+</CheatTable>

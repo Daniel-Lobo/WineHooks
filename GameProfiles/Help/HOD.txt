@@ -1,0 +1,19 @@
+Title::Heart of Darkness::
+{h1 Fixes and improvements} 
+{f Removes the black frame arround the game screen}
+{f Fixes some occasional color glitches that happen when the game updates the palette }
+{i Unfiltered or [gototab_...graphics_xBR xBR] scaling }
+
+
+::Section::Settings::
+
+::BOOL::frame::Remove black frame::Removes the black bars on the top and
+bottom of the game screen||n::
+ 
+%ddraw%
+
+::link::patch->https://web.archive.org/web/20150930223800/http://home.comcast.net/~heavyweights/games/kain/index.htm
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+
+        
+

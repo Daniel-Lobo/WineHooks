@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(hit, 512)
+label(hit_retadd)
+label(hit0)
+label(hit0_orig_code)
+label(hit0_retadd)
+label(enemy0)
+label(player_retadd)
+label(enemy)
+label(player)
+label(player_code)
+label(inf_hp_flag)
+label(ez_kills_flag)
+registersymbol(inf_hp_flag)
+registersymbol(ez_kills_flag)
+
+hit:
+  cmp esi, [player]
+  jne enemy
+  cmp [inf_hp_flag], 0
+  jne hit_retadd
+  movss [esi+00000540],xmm1
+jmp hit_retadd
+
+enemy:
+  movss [esi+00000540],xmm1
+  cmp [ez_kills_flag], 0
+  je hit_retadd
+  mov [esi+00000540],(float)0
+jmp hit_retadd
+
+hit0:
+  cmp [rsp+30], 0
+  jne enemy0
+  cmp [inf_hp_flag], 0
+  je hit0_orig_code
+  push [esi+00000540]
+  fstp dword ptr [esi+00000540]
+  pop [esi+00000540]
+jmp hit0_retadd
+
+hit0_orig_code:
+  fstp dword ptr [esi+00000540]
+jmp hit0_retadd
+
+enemy0:
+  fstp dword ptr [esi+00000540]
+  cmp [ez_kills_flag], 0
+  je hit0_retadd
+  mov [esi+00000540],(float)0
+jmp hit0_retadd
+
+player:
+  db 00 00 00 00
+inf_hp_flag:
+  db 00 00 00 00
+ez_kills_flag:
+  db 00 00 00 00
+player_code:
+  movss xmm0,[ebp+00000540]
+  push ebp
+  pop [player]
+jmp player_retadd
+
+Bioshock.exe+34E2FF:
+  jmp player_code
+  nop
+  nop
+  nop
+player_retadd:
+
+Bioshock.exe+350151:
+  jmp hit0
+  nop
+hit0_retadd:
+
+Bioshock.exe+350175:
+  jmp hit
+  nop
+  nop
+  nop
+hit_retadd:
+
+[disable]
+Bioshock.exe+34E2FF:
+  movss xmm0,[ebp+00000540]
+
+Bioshock.exe+350151:
+  fstp dword ptr [esi+00000540]
+
+Bioshock.exe+350175:
+  movss [esi+00000540],xmm1
+
+
+
+
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"H - inf HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+inf_hp_flag:
+  db 00 00 00 01
+
+[disable]
+inf_hp_flag:
+  db 00 00 00 00
+
+
+
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"K - easy KIlls"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+ez_kills_flag:
+  db 00 00 00 01
+
+[disable]
+ez_kills_flag:
+  db 00 00 00 00
+
+
+
+
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"B - inf Bullets, eve hypos and 1st aid kits"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+Bioshock.exe+3DCB0C:
+  nop
+  nop
+
+Bioshock.exe+378996:
+  nop
+  nop
+  nop
+
+[disable]
+Bioshock.exe+3DCB0C:
+  sub [edi],eax
+
+Bioshock.exe+378996:
+  sub [eax+4C],ecx
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"G - Gain adam"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(adam, 128)
+label(adam_retadd)
+
+adam:
+  add, [ecx+00000AB0],64
+  mov eax,[ecx+00000AB0]
+jmp adam_retadd
+
+Bioshock.exe+309298:
+  jmp adam
+  nop
+adam_retadd:
+
+[disable]
+Bioshock.exe+309298:
+  mov eax,[ecx+00000AB0]
+dealloc(*)
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>10</ID>
+      <Description>"M - gain Money"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+alloc(money, 128)
+label(money_retadd)
+
+money:
+  add, [ecx+00000AA8],64
+  mov eax,[ecx+00000AA8]
+jmp money_retadd
+
+Bioshock.exe+309258:
+  jmp money
+  nop
+money_retadd:
+
+[disable]
+Bioshock.exe+309258:
+  mov eax,[ecx+00000AA8]
+dealloc(*)
+
+
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: Retail, 1.1</Comments>
+</CheatTable>

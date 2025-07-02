@@ -1,0 +1,124 @@
+::Title::user::
+
+::Tab::Graphics::
+
+::GraphicsTab::
+
+::parent::Graphics_div::  
+::BOOL::dxvk::Use [__dxvk dxvx] instead of [wine wine's] Direct3D implementation. No effect on Linux use [winecfg winecfg] instead|n::
+::BOOL::VSNC::Force Vsync:: 
+::BOOL::DBLBFF::Force Triple Buffering::
+       
+::parent::Graphics_div::
+::RADIOHEAD::HD::Forced resolution::
+::parent::HD_details::
+::RADIO::HD=0::HD::Disabled::::   
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES::HD::Enabled::::
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAA::HD::Enabled +  
+Super sampling anti aliasing::::    
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAAHQ::HD::Enabled + 
+High quality super sampling anti aliasing:::: 
+::RADIO::HD=UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAA|TXAAFIX::HD::Temporal anti aliasing fix:::: 
+::TEXT::{b
+	<b>WIP</b><br>
+	Some simpler unity games work.<br> 
+	This feature will be the major focus after adoption of wine dlls for Direct3D 7 and earlier is finished<br><br>
+	<i class="fa-brands fa-unity"></i> <b>Some unity games...</b><br>
+	...may start on a small window on the top left corner of the screen. Use alt+enter to go to windowed and back to fullscreen and that should fix those games
+}
+::
+    
+::parent::HD_details::
+::_RLMT_::RLMT::Limit resolutions::0-10-1::
+::parent::RLMT_details::
+::TEXT::<div style="height:6px"></div>{nfo Needed in most Direct3D 11 games. Without this, if you configure the game at a resolution lower then your desktop's, it will 
+keep the desktop resolution, but render intenally at the lower one and forced resolution won't have effect}
+
+::BOOL::WHKS::Fix window size::Check this if the game window is not correctly
+resized 
+
+::BOOL::MHKS::Mouse hooks::
+Enable this if the game registers the mouse position incorrectly 
+
+::RADIOHEAD::MCLP::Mouse clip fix::
+::parent::MCLP_details::
+::RADIO::MCLP=0::MCLP::Disabled::::
+::RADIO::MCLP=FREE::MCLP::Untrap mouse::Check this if the mouse
+gets trapped in the top left corner of the screen::
+::RADIO::MCLP=CLIP::MCLP::Constrain clip area::Check this if the mouse gets lost
+out of the screen when you move it to far down or to the sides:::: 
+              
+::parent::Graphics_div::
+::BOOL::Textswap.e::Texture swapping::
+Click a|tswaptuto ^ here |a for the details |n::    
+
+::parent::Textswap.e_details::
+::%_Textswap_%:: 
+
+::parent::Textswap.e_details::
+::RADIOHEAD::Textswap.path::Path::
+::parent::Textswap.path_details::
+::RADIO::Textswap.path=Textures/VOKSI::Textswap.path::a|tswap_link=VOKSI ^ %__path__%Textures\VOKSI |a::::
+::RADIO::Textswap.path=Textures/CPY::Textswap.path::a|tswap_link=CPY ^ %__path__%Textures\CPY |a::
+::RADIO::Textswap.path=Textures/CODEX::Textswap.path::a|tswap_link=CODEX ^ %__path__%Textures\CODEX |a:: 
+::RADIO::Textswap.path=Textures/SKIDROW::Textswap.path::a|tswap_link=SKIDROW ^ %__path__%Textures\SKIDROW |a::::
+::RADIO::Textswap.path=Textures/RELOADED::Textswap.path::a|tswap_link=RELOADED ^ %__path__%Textures\RELOADED |a::
+::RADIO::Textswap.path=Textures/EMPRESS::Textswap.path::a|tswap_link=EMPRESS ^ %__path__%Textures\EMPRESS |a:: 
+
+::parent::Textswap.e_details::     
+::parent::Textswap.e_details::  
+::%_Textswap_Compiler%::
+
+::parent::Graphics_div::
+::BOOL::PxSwap.e::Pixel shader override|n::
+Click a|pxswaptuto ^ here |a for the details |n::    
+
+::parent::PxSwap.e_details::
+::%_PixelSwap_%::
+
+::File SystemTab:: 
+
+::RADIOHEAD::svs::File redirection::::
+::parent::svs_buttons::
+::TEXT::<div style='margin-left:15px;'>When this is enabled, the folder:
+i|b<%__path__%Saves>b|i
+is created, and any b| NEW|b files the game creates, are sent to or created 
+there. With this, you can backup and restore saves for several games at once by
+copying a singe folder: b<%FOLDERID_Documents%\Games>b|n</div>  ::
+::RADIO::svs=false::svs::Disabled::
+::RADIO::svs=links::svs::System linkswip< - legacy>wip::For older games that 
+keep their saves on their own directories wip<Although marked as legacy, this>wip
+wip<is still the way to go for most games in this category|n>wip:: 
+wip<::RADIO::svs=links_cpp::svs::System links::This will handle some games, like unreal>wip
+wip<engine 1 and 2 games, on which the main executable and the saves are kept in>wip 
+wip<different sub folders. e.g: on ureal games you'll have|n>wip
+Game Folder:|n
+--System (sub folder): Game.exe, other files.. |n
+--Save (sub folder): save files|n
+This option is intended to replace theb one above eventually, but right now 
+compatibility is far lower::
+::RADIO::svs=fldrs::svs::Special folders::For newer games that keep their saves
+on the folders:<br>
+i|%FOLDERID_LocalAppData%i|<br>
+i|%FOLDERID_RoamingAppData%i|<br>
+i|%FOLDERID_Documents%i|<br>
+i|%FOLDERID_ProgramData%i|<br>
+::RADIO::svs=env::svs::Special folders - alt method:: 
+Try this if the option above doesn't work, but the game saves on one of those folders::
+::RADIO::svs=xlive::svs::XLive:: For [xlive Games for Windows - Live] games:: 
+::parent::svs=env_details::
+::hidden::svs_env_details::test::This handles games that retrieve the special 
+folders path from enviroment variables:: 
+  
+ 
+::parent::File System_div:: 
+::__mods__::
+
+   
+::link::dinput->https://en.wikipedia.org/wiki/DirectInput
+::link::wfog->https://github.com/narzoul/DDrawCompat/commit/4dc1c70f4113721c523b29f05cd8537fa41e3564
+::link::DDcompat->https://github.com/narzoul/DDrawCompat
+::link::ucyborg->https://github.com/UCyborg/LegacyD3DResolutionHack 
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+::link::libreto_xbrz->https://github.com/libretro/common-shaders/blob/master/xbrz/shaders/xbrz-freescale.cg
+::link::AMD_FSR->https://www.amd.com/en/technologies/radeon-software-fidelityfx-super-resolution

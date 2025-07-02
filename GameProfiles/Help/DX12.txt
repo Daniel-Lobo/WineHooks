@@ -1,0 +1,11 @@
+::Title::user::
+
+::TEXT::<div class="cntrl_group" style="display:flex;flex-direction:column">
+	<button style="width:80px;height:50px;padding: 4 4 4 4">
+	<img src="png/dx12.png" style="cursor:pointer;width:56px;height:42px;margin:0 0 0 0"></button>
+	<div style="height:10px"></div>
+	This is merelly placeholder. There are no DirectX 12 features... yet
+</div>::
+
+
+   

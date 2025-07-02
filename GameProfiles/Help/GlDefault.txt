@@ -1,0 +1,53 @@
+::Tab::Graphics|Sound|Input|CPU::
+::GraphicsTab::   
+      
+::parent::Graphics_div::
+::RADIOHEAD::HD::Forced resolution::
+::parent::HD_details::
+::RADIO::HD=0::HD::Disabled::
+::RADIO::HD=1::HD::Enabled::
+::RADIO::HD=Up::HD::xBR upscale::
+::parent::HD_details::
+::HIDDEN::HD_Detailed::Details::
+Games are forced to run at your desktop 
+resolution, but the aspect ratio is kept accordingly to the one of the 
+resolution the game requests. If you select xBR upscale, make sure to 
+force a|goto_FLTR=0 ^ nearest neighbor texture magnification|a and don't force 
+texture filtering with the dirver controls::::  
+
+::parent::HD_details::
+::BOOL::DSR::Dynamic super resolution::
+Chooses the maximum resolution enumerated by the display instead of the 
+desktop's. On 3D games this results on the best anti-aliasing effect one can get 
+::
+
+::parent::Graphics_div::
+::RADIOHEAD::FLTR::Force texture magnification mode::
+::parent::FLTR_details::
+::RADIO::FLTR=0::FLTR::Disabled::::
+::RADIO::FLTR=0x2600::FLTR::Force nearest neighbor::
+::RADIO::FLTR=0x2601::FLTR::Force Bilinear - anisotropic minification is forced if 
+a|goto_textureswap ^ texture swap|a is enabled::   
+ 
+ 
+::parent::Graphics_div::
+::BOOL::Textswap.e::Texture swapping::
+Click a|tswaptuto ^ here |a for the details |n::    
+
+::parent::Textswap.e_details::
+::%_Textswap_%:: 
+
+::parent::Textswap.e_details::
+::RADIOHEAD::Textswap.path::Path::
+::parent::Textswap.path_details::
+::RADIO::Textswap.path=Textures/VOKSI::Textswap.path::a|tswap_link=VOKSI ^ %__path__%Textures\VOKSI |a::::
+::RADIO::Textswap.path=Textures/CPY::Textswap.path::a|tswap_link=CPY ^ %__path__%Textures\CPY |a::
+::RADIO::Textswap.path=Textures/CODEX::Textswap.path::a|tswap_link=CODEX ^ %__path__%Textures\CODEX |a:: 
+::RADIO::Textswap.path=Textures/SKIDROW::Textswap.path::a|tswap_link=SKIDROW ^ %__path__%Textures\SKIDROW |a::::
+::RADIO::Textswap.path=Textures/RELOADED::Textswap.path::a|tswap_link=RELOADED ^ %__path__%Textures\RELOADED |a::
+::RADIO::Textswap.path=Textures/EMPRESS::Textswap.path::a|tswap_link=EMPRESS ^ %__path__%Textures\EMPRESS |a:: 
+::parent::Textswap.e_details:: 
+::%_Textswap_Compiler%::    
+ 
+::link::_xBR->https://en.wikipedia.org/wiki/Pixel-art_scaling_algorithms#xBR_family
+::link::libreto_xbrz->https://github.com/libretro/common-shaders/blob/master/xbrz/shaders/xbrz-freescale.cg

@@ -473,8 +473,9 @@ DWORD __stdcall D3D12GetModes(IDXGIOutput1 * out, DXGI_FORMAT fmt, UINT f,
         w = (*pmodes)[i].Width;
         h = (*pmodes)[i].Height;
 
-        if (w == 640 && g_d3d.MaxH == 360)  {
-            h = 360;
+        if (w <= 640 && g_d3d.MaxH <= 640)  {
+            h = g_d3d.MaxH;
+            w = g_d3d.MaxW;
         } else if (w == 720) {
             if (h == 480) {
                 h = 540;
@@ -492,8 +493,9 @@ DWORD __stdcall D3D12GetModes(IDXGIOutput1 * out, DXGI_FORMAT fmt, UINT f,
             {
                 w = (*pmodes)[ii].Width;
                 h = (*pmodes)[ii].Height;
-                if (w == 640 && g_d3d.MaxH == 360) {
-                    h = 360;
+                if (w <= 640 && g_d3d.MaxW <= 640) {
+                    h = g_d3d.MaxH;
+                    w = g_d3d.MaxW;
                 }
                 else if (w == 720) {
                     if (h == 480) {
@@ -564,9 +566,10 @@ D3D12GetDisplayModeListHook(IDXGIOutput1 * out, DXGI_FORMAT fmt, UINT flags, UIN
         DXGI_MODE_DESC* curr_mode = pDesc;
         for (int i = 0; i < count; i++)
         {
-            if (curr_mode->Width == 640 && g_d3d.MaxH == 360)
+            if (curr_mode->Width <= 640 && g_d3d.MaxH <= 640)
             {
                 curr_mode->Height = g_d3d.MaxH;
+                curr_mode->Width  = g_d3d.MaxW;
             }
             if (curr_mode->Width == 720)
             {

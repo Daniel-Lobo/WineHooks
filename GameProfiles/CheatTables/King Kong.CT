@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>17</ID>
+      <Description>"H - inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(hit1,KingKong8.exe,C7 84 81 B41B0000 0000803F8B 55 E0 8B 82 840C0000 83 E0 04 0F84)
+registerSymbol(hit1)
+
+hit1:
+  mov [ecx+eax*4+00001BB4],(float)0
+
+[DISABLE]
+hit1:
+  mov [ecx+eax*4+00001BB4],3F800000
+unregisterSymbol(*)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(hit2,KingKong8.exe,C7 84 81 B41B0000 0000803F8B 55 E0 8B 82 840C0000 83 E0 40 0F84)
+aobscanmodule(hit3,KingKong8.exe,C7 84 90 B41B0000 00004040 EB ** 8B 4D E0 8B 91 840C0000 81 E2 00010000 74)
+aobscanmodule(hit4,KingKong8.exe,C7 84 81 B41B0000 00004040 EB ** 8D 95 84FEFFFF 52 8D 85 70FFFFFF 50 8D 4D FC)
+registerSymbol(hit2)
+registerSymbol(hit3)
+registerSymbol(hit4)
+
+hit2:
+  mov [ecx+eax*4+00001BB4],(float)0
+hit3:
+  mov [eax+edx*4+00001BB4],(float)0
+hit4:
+  mov [ecx+eax*4+00001BB4],(float)0
+
+
+[DISABLE]
+hit2:
+  mov [ecx+eax*4+00001BB4],3F800000
+hit3:
+  mov [eax+edx*4+00001BB4],40400000
+hit4:
+  mov [ecx+eax*4+00001BB4],40400000
+unregisterSymbol(hit2)
+unregisterSymbol(hit3)
+unregisterSymbol(hit4)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(ammo1,KingKong8.exe,89 8C 82 74340000 8B 85 24FEFFFF 8B 48 18 8B 51 04 8B 42 40 8B 8D 98FBFFFF) // should be unique
+aobscanmodule(ammo2,KingKong8.exe,89 8C 82 04350000 8B 85 24FEFFFF 8B 48 18 8B 51 04 8B 42 40 8B 8D 98FBFFFF) // should be unique
+aobscanmodule(ammo3,KingKong8.exe,89 8C 82 4C350000 8B 85 24FEFFFF 8B 48 18 8B 51 04 8B 42 40 8B 8D 98FBFFFF) // should be unique
+aobscanmodule(ammo4,KingKong8.exe,89 94 88 BC340000 8B 8D 98FBFFFF 8B 51 04) // should be unique
+registerSymbol(ammo1)
+registerSymbol(ammo2)
+registerSymbol(ammo3)
+registerSymbol(ammo4)
+
+ammo1:
+  db 90 90 90 90 90 90 90
+ammo2:
+  db 90 90 90 90 90 90 90
+ammo3:
+  db 90 90 90 90 90 90 90
+ammo4:
+  db 90 90 90 90 90 90 90
+
+[DISABLE]
+ammo1:
+  mov [edx+eax*4+00003474],ecx
+ammo2:
+  mov [edx+eax*4+00003504],ecx
+ammo3:
+  mov [edx+eax*4+0000354C],ecx
+ammo4:
+  mov [eax+ecx*4+000034BC],edx
+unregisterSymbol(ammo1)
+unregisterSymbol(ammo2)
+unregisterSymbol(ammo3)
+unregisterSymbol(ammo4)
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: Gamer's edition, RG Mechanicx\THETA
+Table adapted from: https://fearlessrevolution.com/viewtopic.php?t=11423
+</Comments>
+</CheatTable>

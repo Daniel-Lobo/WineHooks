@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(clip, Talos.exe, 39 1D *  *  *  * 41 0F 45 DD 44 39 25)
+alloc(clip_offset, 16, clip)
+registersymbol(clip)
+registersymbol(clip_offset)
+
+clip_offset:
+  Readmem(clip+2, 4)
+
+[disable]
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Auto - cheats"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>[clip_offset]+clip-2</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"N - No clip"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[clip_offset]+clip+6</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Left Overs"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>0</ID>
+          <Description>"cheats"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>Talos.exe+1DB82C0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"ghost"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>Talos.exe+1DB82C8</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>cht_bEnableCheats = 3
+cht_bGhost = 1 
+</Comments>
+</CheatTable>

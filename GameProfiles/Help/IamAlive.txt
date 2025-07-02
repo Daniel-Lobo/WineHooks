@@ -1,0 +1,22 @@
+::Title::I am alive::
+{h1 Fixes and improvements} 
+{f Fixes missing textures in some older cards}
+{f %Texturesb%}
+
+{i Allows disabling the blur, noise or black'n white shaders independently. Unlike 
+other mods, disabling the black'n white\noise shaders won't make the game 
+darker}
+::Section::Settings::   
+
+::TEXT:: 
+{nfo} These fixes will only work if a|gototab_Graphics_PxSwap.e ^ Pixel shader
+override is enabled|a  ||n
+   
+::BOOL::blur::Disable blur::
+::BOOL::dessat::Disable black'n white::
+::BOOL::noise::Disable noise::
+::BOOL::textfix::Fix missing textures::
+  
+
+
+%dx9%

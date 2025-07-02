@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"C - inf Clones"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanregion(clones, FacepalmGames.TheSwapper.GameControllerSingleplayer::OnCloneCreate,  FacepalmGames.TheSwapper.GameControllerSingleplayer::OnCloneCreate+6d, 89 86 A0 00 00 00 EB)
+registersymbol(clones)
+
+clones:
+ db 90 90 90 90 90 90
+
+
+[disable]
+clones:
+  mov [esi+000000A0],eax
+unregistersymbol(clones)
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
