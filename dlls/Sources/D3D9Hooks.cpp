@@ -280,6 +280,7 @@ CreateCubeTexture9Hook(IDirect3DDevice9* d, UINT EdgeLength, UINT Levels, DWORD 
     HRESULT hr = D3D9_Hooks->CreateCubeTexture(d, EdgeLength, Levels, Usage, Format,
                                                Pool, ppCubeTexture, pSharedHandle);
     if (hr) return hr;
+    if (!ProxyCheck9(EdgeLength, EdgeLength, Format, Usage)) return hr;
 
     if ( (Usage & D3DUSAGE_RENDERTARGET) || (Usage & D3DUSAGE_DEPTHSTENCIL) )
     {
