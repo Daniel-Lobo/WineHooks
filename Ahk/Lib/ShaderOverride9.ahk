@@ -66,7 +66,30 @@ PS9Init(byref cfg)
 {
 	g_pswap9           := parsecfg(cfg)
 	g_pswap9.code      := "sampler s0 : register(s0);`nfloat4 main(float2 tex: TEXCOORD0) : COLOR0`n{`nreturn tex2D(s0, tex);`n};"
-	g_pswap9.code      := "sampler s0 : register(s0);`nfloat4 main(float2 tex: TEXCOORD0) : COLOR0`n{`nreturn 0;`n};"
+/*	
+	g_pswap9.code      := 
+(LTRIM
+	"struct PS_OUTPUT
+	{
+		float4 color0 : COLOR0; // First render target
+		float4 color1 : COLOR1; // Second render target
+		float4 color2 : COLOR2; // Second render target
+		float4 color3 : COLOR3; // Second render target
+	};
+
+	// Pixel shader function
+	PS_OUTPUT main(float2 texCoord : TEXCOORD0)
+	{
+		PS_OUTPUT output;   
+		output.color0 = 0;
+		output.color1 = 0;
+		output.color2 = 0;
+		output.color3 = 0;
+
+		return output;
+	}"
+)
+*/
 	D3D9_HOOKS.enabled := 1
 	
 	g_pswap9.user_path := g_.cfg.path "pixelshaders"
