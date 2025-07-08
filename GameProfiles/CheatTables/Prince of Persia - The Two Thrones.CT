@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Cheats can be activated once you're in-game"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(player_hp, POP3.exe, 8B 85 B0 02 00 00)
+alloc(player_hp_new, 512)
+label(player_hp_new_code)
+label(player_hp_ret)
+label(player)
+registersymbol(player)
+
+player_hp_new:
+player:
+  db 00 00 00 00
+player_hp_new_code:
+  push ebp
+  pop [player]
+  mov eax,[ebp+000002B0]
+jmp player_hp_ret
+
+
+player_hp:
+  jmp player_hp_new_code
+  nop
+player_hp_ret:
+
+
+[disable]
+player_hp:
+  db 8B 85 B0 02 00 00
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"H - freeze HP"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>player</Address>
+          <Offsets>
+            <Offset>2b0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"T - freeze sand Tanks"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>player</Address>
+          <Offsets>
+            <Offset>d08</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Version: GOG, 1.2
+Individual code for damaging enemies
+</Comments>
+</CheatTable>
