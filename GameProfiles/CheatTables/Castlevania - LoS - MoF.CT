@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscan(read_hp, D9 41 74 D8 71 70 D9 5D FC D9 45 FC)
+aobscan(hit, D9 59 74 D9 41 74)
+aobscan(init_player_caller, 8B 46 6C 85 C0 74 2d)
+alloc(hp_new_mem, 512)
+label(read_hp_new_code)
+label(read_hp_ret)
+label(player)
+registersymbol(player)
+label(hit_new_code)
+label(hit_ret)
+label(inf_hp_flag)
+label(easy_kills_flag)
+registersymbol(easy_kills_flag)
+label(player_hit)
+label(hit_og)
+label(kill)
+
+hp_new_mem:
+player:
+  db 00 00 00 00
+inf_hp_flag:
+  db 00 00 00 00
+easy_kills_flag:
+  db 00 00 00 00
+read_hp_new_code:
+  push ecx
+  pop [player]
+  fld dword ptr [ecx+74]
+  fdiv dword ptr [ecx+70]
+  cmp [inf_hp_flag], 00
+  jmp read_hp_ret  // causes trouble, so lets just freeze the value
+  mov [ecx+74], (float)200
+  fld dword ptr [ecx+74]
+  fdiv dword ptr [ecx+70]
+jmp read_hp_ret
+
+hit_new_code:
+  cmp [ebp+4], init_player_caller
+  je player_hit
+  cmp [player], ecx
+  je player_hit
+  cmp [easy_kills_flag], 00
+  je hit_og
+  cmp [ecx+74], (float)1.0
+je kill
+  mov [ecx+74], (float)1.0
+  fstp st(0)
+  fld dword ptr [ecx+74]
+kill:
+  mov [ecx+74], (float)0.0
+  fstp st(0)
+  fld dword ptr [ecx+74]
+jmp hit_ret
+
+player_hit:
+hit_og:
+  fstp dword ptr [ecx+74]
+  fld dword ptr [ecx+74]
+jmp hit_ret
+
+read_hp:
+  jmp read_hp_new_code
+  nop
+read_hp_ret:
+
+hit:
+  jmp hit_new_code
+  nop
+hit_ret:
+
+[disable]
+read_hp:
+  db D9 41 74 D8 71 70 D9 5D FC D9 45 FC
+
+hit:
+  db D9 59 74 D9 41 74
+
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"H - freeze HP"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>player</Address>
+          <Offsets>
+            <Offset>74</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"K - easy Kills"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+easy_kills_flag:
+  db 00 00 00 01
+
+
+[disable]
+easy_kills_flag:
+  db 00 00 00 00
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Auto - Magic"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscan(read_magic, D9 41 54 D8 71 40 D9 5D FC D9 45 FC)
+alloc(magic_new, 512)
+label(magic_new_code)
+label(magic)
+registersymbol(magic)
+
+
+magic_new:
+magic:
+  db 00 00 00 00
+magic_new_code:
+  push ecx
+  pop [magic]
+  fld dword ptr [ecx+54]
+  fdiv dword ptr [ecx+40]
+jmp magic_ret
+
+read_magic:
+  jmp magic_new_code
+  nop
+magic_ret:
+
+
+[disable]
+read_magic:
+  db D9 41 54 D8 71 40
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"M - freeze Magic"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>magic</Address>
+          <Offsets>
+            <Offset>54</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
