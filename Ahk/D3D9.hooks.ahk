@@ -405,6 +405,7 @@ D3D9IniHooks()
 
 vPosFix(asm)
 {
+	logerr("vPos shader found")
 	static n := 0
 	s := strget(asm+0, "cp0")
 	if instr(s, " vPos", 2)

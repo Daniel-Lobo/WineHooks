@@ -8,6 +8,7 @@ sampler2D s0;
 // Pixel shader
 float4 main(float2 texCoord : TEXCOORD) : COLOR
 {
+    //discard;
     float4 result = 0;
 
     // Perform weighted sampling using offsets and weights
@@ -18,5 +19,5 @@ float4 main(float2 texCoord : TEXCOORD) : COLOR
         result += sample * g_avSampleWeights[i];
     }
 
-    return 0;
+    return float4(0.0, 0.0, 0.0, 1.0);
 }

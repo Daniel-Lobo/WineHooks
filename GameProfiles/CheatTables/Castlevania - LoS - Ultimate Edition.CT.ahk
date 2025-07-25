@@ -13,7 +13,7 @@ You gain 100 XP every time you press X during normal gameplay
 You wont see the value updated imediately on the HUD, you'll have to access and leave 
 the game's menu to see it
 
-You also have to acces the travle book once, or the cheat might not worl at all
+You also have to acces the travel book once, or the cheat might not worl at all
 ===========================================================
 "
 )

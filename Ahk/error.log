@@ -1,12 +1,11 @@
 Peixotos's patch remote settings:
-Command Line: "D:\Games\Castlevania - LoS - Mirror of Fate HD\CMOF.exe" 
+Command Line: "D:\Games\Castlevania - Lords of Shadow 2\bin\CLOS2.exe" 
 common_path: 1
 D3D: 9
 D3D_Driver: 
 dsk: 1920x1080
 dxvkv: 2_6
 error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
-hd: 1
 injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
 J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
 k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
@@ -17,17 +16,14 @@ path: C:\users\gotardo\Documents\WineHooks\Games\Dev\
 PxSwap: e=true;sw=End;n=>;p=<;q=Q;d=Home;
 res_lmt_lts: 
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 
-script_hwnd: 0x60134
-ssaa: 2
-Target: D:\Games\Castlevania - LoS - Mirror of Fate HD\CMOF.exe
-target_dir: D:\Games\Castlevania - LoS - Mirror of Fate HD
-target_name: CMOF.exe
+script_hwnd: 0x400a8
+Target: D:\Games\Castlevania - Lords of Shadow 2\bin\CLOS2.exe
+target_dir: D:\Games\Castlevania - Lords of Shadow 2\bin
+target_name: CLOS2.exe
 Textswap: e=false;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;
-vpos: 1
-whksex: 1
 wine: 10_0
 
-Working directory: D:\Games\Castlevania - LoS - Mirror of Fate HD
+Working directory: D:\Games\Castlevania - Lords of Shadow 2\bin
 C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
 HasFiles 0
 C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
@@ -56,51 +52,13 @@ Succeeded to hook IDirect3DDevice9::Reset
 Succeeded to hook IDirect3DDevice9Ex::ResetEx
 Succeeded to hook IDirect3DDevice9::BeginStateBlock
 Succeeded to hook IDirect3DDevice9::EndScene
-Shader dumps Path: Z:\home\gotardo\Code\WineHooks\Ahk\patches\cmof C:\users\gotardo\Documents\WineHooks\Games\Dev\pixelshaders
+Shader dumps Path: Z:\home\gotardo\Code\WineHooks\Ahk\patches\clos2 C:\users\gotardo\Documents\WineHooks\Games\Dev\pixelshaders
 Succeeded to hook IDirect3DDevice9::CreatePixelShader
 Succeeded to hook IDirect3DDevice9::SetPixelShader
 Succeeded to hook IDirect3DPixelShader9::Release
 HLSL shader OK =) 1, blob:4158032, count: 1
-HLSL shader OK =) 2, blob:4158096, count: 2
-2 Shaders 1 1
-HLSL shader OK =) 3, blob:4158160, count: 3
-3 Shaders 1 1
-Succeeded to hook IDirect3DDevice9::Present
-Succeeded to hook IDirect3DDevice9Ex::PresentEx
-Succeeded to hook IDirect3DDevice9::StretchRect
-Succeeded to hook IDirect3DDevice9::GetBackBuffer
-Succeeded to hook IDirect3DSurface9::GetDesc
-Succeeded to hook IDirect3DDevice9::GetDepthStencilSurface
-Succeeded to hook IDirect3DDevice9::SetDepthStencilSurface
-Succeeded to hook IDirect3DDevice9::SetRenderTarget
-Succeeded to hook IDirect3DDevice9::GetRenderTarget
-Succeeded to hook IDirect3DDevice9::GetViewPort
-Succeeded to hook IDirect3DDevice9::SetViewPort
-Succeeded to hook IDirect3DDevice9::SetScissorRect
-Succeeded to hook IDirect3DDevice9::GetScissorRect
-Succeeded to hook IDirect3D9::EnumAdapterModes
-Succeeded to hook IDirect3D9::GetAdapterDisplaymode
-Succeeded to hook IDirect3DDevice9::GetDisplaymode
-Succeeded to hook IDirect3DDevice9::Clear
-Succeeded to hook IDirect3DDevice9::ColorFill
-Succeeded to hook IDirect3DDevice9::GetRenderTargetData
-Succeeded to hook IDirect3DDevice9::CreateTexture
-Succeeded to hook IDirect3DDevice9::SetTexture
-Succeeded to hook IDirect3DTexture9::Release
-Succeeded to hook IDirect3DSurface9::Release
-Succeeded to hook IDirect3DDevice9::UpdateSurface
-CreateTexture Hook: 0
-UpdateSurface Hook: 0
-Succeeded to hook IDirect3DDevice9::CreateCubeTexture
-Succeeded to hook IDirect3DDevice9::CreateRenderTarget
-Succeeded to hook IDirect3DDevice9::CreateDepthStencilSurface
-Succeeded to hook IDirect3DDevice9Ex::CreateDepthStencilSurfaceEx
-Succeeded to hook IDirect3DDevice9::DrawPrimitiveUp
-Succeeded to hook IDirect3DDevice9::DrawPrimitive
-Succeeded to hook IDirect3DDevice9::DrawIndexedPrimitive
-Succeeded to hook IDirect3DDevice9::DrawIndexedPrimitiveUp
-Succeeded to hook IDirect3DCubeTexture9::Release
-ChangeDisplaySettingsA Hook: 0
+1 Shaders 1 1
+1 Shaders 1 1
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -134,27 +92,9 @@ CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBlt
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
 CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-InitHDHooks9: SUCCEEDED TO HOOK IDirect3DDevice9::ProcessVertices
-Setup: D3D9 Requested mode    : 1920x1080
-Setup: D3D9 Scale             : 1.000000
-Setup: D3D9 Viewport XOffset  : 0
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsAHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
 ==================================================================
 CREATE DEVICE
-Setup: D3D9 Requested mode    : 1920x1080
-Setup: D3D9 Scale             : 1.000000
-Setup: D3D9 Viewport XOffset  : 0
 About to create device:
-0 Replacements
 0 Render surfaces
 BackBufferWidth->1920
 BackBufferHeight->1080
@@ -163,15 +103,15 @@ BackBufferCount->1
 MultiSampleType->0
 MultiSampleQuality->0
 SwapEffect->1
-hDeviceWindow->393614
+hDeviceWindow->459020
 Windowed->0
 EnableAutoDepthStencil->1
 AutoDepthStencilFormat->75
 Flags->0
-FullScreen_RefreshRateInHz->0
+FullScreen_RefreshRateInHz->60
 PresentationInterval->0
-Focus 393614
-unhook 2008462800
+Focus 459020
+unhook 2008462768
 Succeeded to unhook IDirect3D9Ex::CreateDeviceEx
 multithread 1
 sampler s0 : register(s0);
@@ -181,29 +121,4 @@ return tex2D(s0, tex);
 };
 Compiling shader 0
 Compiling shader 0
-Proxie: z buffer:             0 3840.000000 x 2160.000000 D24S8 
-set target 0 238289720
-set Z 0 238289816
-1920x1080x0:2.000000 22
-Proxie: color buffer:         0  1x1 X8RGB
-Proxie: color buffer level 0: 0
-Proxie: color buffer:         0  1x1 X8RGB
-D3D9SetRenderSurfaceProxy: INSERTED 238291064 to 238290968
-D3D9SetRenderSurfaceProxy: INSERTED 238291448 to 238291352
-D3D9SetRenderSurfaceProxy: INSERTED 239487944 to 239487848
-D3D9SetRenderSurfaceProxy: INSERTED 239488424 to 239488328
-D3D9SetRenderSurfaceProxy: INSERTED 239488808 to 239488712
-D3D9SetRenderSurfaceProxy: INSERTED 322141256 to 322141160
-D3D9SetRenderSurfaceProxy: INSERTED 322141640 to 322141544
-D3D9SetRenderSurfaceProxy: INSERTED 322142024 to 322141928
-D3D9SetRenderSurfaceProxy: INSERTED 322142408 to 322142312
-D3D9SetRenderSurfaceProxy: INSERTED 323023664 to 323023568
-D3D9SetRenderSurfaceProxy: INSERTED 323024048 to 323023952
-D3D9SetRenderSurfaceProxy: INSERTED 323024432 to 323024336
-D3D9SetRenderSurfaceProxy: INSERTED 323024816 to 323024720
-D3D9SetRenderSurfaceProxy: INSERTED 323025200 to 323025104
-D3D9SetRenderSurfaceProxy: INSERTED 323025584 to 323025488
-D3D9SetRenderSurfaceProxy: INSERTED 323025968 to 323025872
-D3D9SetRenderSurfaceProxy: INSERTED 323026352 to 323026256
-D3D9SetRenderSurfaceProxy: INSERTED 323088432 to 323088336
-D3D9SetRenderSurfaceProxy: INSERTED 368943480 to 368943384
+Succeeded to hook IDirect3D9Ex::CreateDeviceEx

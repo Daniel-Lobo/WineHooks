@@ -1,5 +1,5 @@
-global g_MainThreadID := 948 ;<Tag> 
-global g_cmdstring := "-Target^D:\Games\Castlevania - LoS - Mirror of Fate HD\CMOF.exe^-D3D^9^-path^Dev^/whksex^/hd^/vpos^-ssaa^2^-Textswap^e=false;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-PxSwap^e=true;sw=End;n=>;p=<;q=Q;d=Home;^-script_hwnd^0x60134^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 ^-max_4x3_res^1152x864^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Castlevania - LoS - Mirror of Fate HD^-target_name^CMOF.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 1228 ;<Tag> 
+global g_cmdstring := "-Target^D:\Games\Castlevania - Lords of Shadow 2\bin\CLOS2.exe^-D3D^9^-path^Dev^-Textswap^e=false;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-PxSwap^e=true;sw=End;n=>;p=<;q=Q;d=Home;^-script_hwnd^0x400a8^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 ^-max_4x3_res^1152x864^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^D:\Games\Castlevania - Lords of Shadow 2\bin^-target_name^CLOS2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -4311,6 +4311,7 @@ dllcall(g_.p.Critical, uint, 0)
 }
 vPosFix(asm)
 {
+logerr("vPos shader found")
 static n := 0
 s := strget(asm+0, "cp0")
 if instr(s, " vPos", 2)

@@ -1067,7 +1067,7 @@ SetRenderTarget9Hook(IDirect3DDevice9 * d, DWORD index, IDirect3DSurface9* RT)
     return D3D9_Hooks->SetRenderTarget(d, index, RT);
     HRESULT hr;
     IDirect3DSurface9 * HDRenderTarget = NULL;
-    D3D9Globals.HDSet->Set(0);
+    //D3D9Globals.HDSet->Set(0);
     if (index == 0)
     {
         if (RT == 0) return D3DERR_INVALIDCALL;
@@ -1089,7 +1089,7 @@ SetRenderTarget9Hook(IDirect3DDevice9 * d, DWORD index, IDirect3DSurface9* RT)
         }
     } else {
         HDRenderTarget = FindHDSurface9(d, RT, (char*)__FUNCTION__);
-        hr = D3D9_Hooks->SetRenderTarget(d, index, HDRenderTarget);
+        hr             = D3D9_Hooks->SetRenderTarget(d, index, HDRenderTarget);
     }
     if (hr) DBUG_WARN("FAILED");
     return hr;
