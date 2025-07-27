@@ -5,8 +5,14 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 CETrainer.help := 
 (
-"620x180
+"620x220
 Cheats will start torespond after you're in game
+
+==========================================================================
+AUTO ATTATCH
+Start cheat engine after you start the game, when the 'launcher' show up, or it may not automatically attatch 
+to the game
+==========================================================================
 
 ==========================================================================
 GAIN COINS
@@ -20,7 +26,7 @@ With this cheat active, on a campfilre, each time you access the skills updgrade
 "
 )
 
-global _auto       := new CEEntry("Auto")
+global __auto       := new CEEntry("Auto")
 global HP          := new CEEntry("H - inf HP")
 global Kills       := new CEEntry("K - easy kills")
 global Skills      := new CEEntry("P - gain skill Points")
@@ -28,16 +34,11 @@ global coins       := new CEEntry("G - Gain coins")
 global Ammo        := new CEEntry("B - inf Bullets")
 
 class SOTTRTrainer extends CETrainer
-{
-    ;this.__opened := false
+{    
 	OnLoop() 
-	{       
-        if (!this.__opened){
-            this.__opened := true
-            this.AltOpen()
-        }
-        if (!_auto.IsFrozen()){
-            _auto.SetFrozen(1, 0)
+	{   
+		if (!__auto.IsFrozen()){
+            __auto.SetFrozen(1, 0)			
         }
 
         if CETrainer.keyevent("h") > 0
@@ -52,8 +53,9 @@ class SOTTRTrainer extends CETrainer
 		else if CETrainer.keyevent("B") > 0				
 		this.Speak(Ammo.Toogle("infinite Ammo"))
 
-        else if CETrainer.keyevent("G") > 0				
+        else if CETrainer.keyevent("G") > 0			
         this.Speak(coins.Toogle("gain gold coins"))
+		
 	}
 }
 SOTTRTrainer.TrainerLoop("SOTTR.exe", 100)
