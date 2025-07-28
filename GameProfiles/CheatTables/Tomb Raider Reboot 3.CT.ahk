@@ -5,9 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 CETrainer.help := 
 (
-"620x220
-Cheats will start torespond after you're in game
-
+"620x230
 ==========================================================================
 AUTO ATTATCH
 Start cheat engine after you start the game, when the 'launcher' show up, or it may not automatically attatch 

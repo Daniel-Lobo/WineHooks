@@ -5,21 +5,24 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 CETrainer.help := 
 (
-"620x250
+"620x260
 ==========================================================================
 TURRETS BUG
 The table will crash the game whenever a turret recives damage. To get arroound that, alt-tab and manualy 
 disable the 'Auto - Damage' entry. That will cause the 'easy kills' cheat to stop working and the inf HP cheat
 will work somewhat differently: gordon can get hurt but never killed
+==========================================================================
 
 ==========================================================================
 EASY KILLS
 This will kill companions as well, so is not usable on some parts on the main game and on most parts of the
 episodes
+==========================================================================
 
 ==========================================================================
 INF BULLETS
 On the episodes, this doesn't work with the pistol and rifles
+==========================================================================
 "
 )
 

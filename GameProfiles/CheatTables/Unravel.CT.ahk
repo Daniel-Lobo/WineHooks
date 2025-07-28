@@ -6,14 +6,14 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 CETrainer.help :=
 (
 "400x210
-===============================================
+==============================================
 FLOAT
 With float mode active use the arrows to move up or down, left or right
 
 Float is disabled by holding ""s"" which is the default key to make the
 yarny hold it's tail, so it won't die from the fall - any height will kill
 it otherwise
-===============================================
+==============================================
 "
 )
 
