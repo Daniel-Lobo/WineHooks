@@ -13,9 +13,9 @@ attatch to the game
 ==========================================================================
 
 ==========================================================================
-EASY KILLS\INFINTE BULLETS (AMMO)
-Both can cause bugs, even on story sequences (ez kills), to the prevent bugs the easy way, I made it so
-the cheats will only work if the right mouse button is held down, therefore you can't use these with gamepads
+INFINTE BULLETS (AMMO)
+can cause bugs dutong loads, to prevent this the easy way, I made it so the cheat
+will only work if the right mouse button is held down, therefore you can't use this with a gamepads
 ==========================================================================
 
 ==========================================================================
@@ -46,6 +46,7 @@ class ROTTRTrainer extends CETrainer
 {
 	OnLoop() 
 	{
+       ; return
         _auto.SetFrozen(1, True)    
 
 		if CETrainer.keyevent("h") > 0				
