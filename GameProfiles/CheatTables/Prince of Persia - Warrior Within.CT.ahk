@@ -6,6 +6,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 global __auto     := new CEEntry("Auto")
 global hp         := new CEEntry("H - freeze HP")
 global power      := new CEEntry("T - freeze sand Tanks")
+global ez_kills   := new CEEntry("K - easy Kills")
 class POPSOTTrainer extends CETrainer
 {
     Reset()
@@ -32,6 +33,10 @@ class POPSOTTrainer extends CETrainer
                 hp.SetFrozen(0, 0)
                 this.Speak("hp unfroozen")
             }
+        }
+        else if CETrainer.keyevent("k") > 0
+        {
+            this.speak(ez_kills.toogle("easy kills"))
         }
         else if CETrainer.keyevent("T") > 0				
         {	
