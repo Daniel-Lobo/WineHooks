@@ -5,6 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 global HP         := new CEEntry("H - inf HP")
 global Ammo       := new CEEntry("B - inf Bullets")
+global ezkill     := new CEEntry("K - easy Kills")
 
 class TombAnniversaryTrainer extends CETrainer
 {
@@ -12,6 +13,9 @@ class TombAnniversaryTrainer extends CETrainer
 	{
 		if CETrainer.keyevent("h") > 0				
 		this.Speak(HP.Toogle("infinite HP"))			
+
+		else if CETrainer.keyevent("k") > 0
+		this.Speak(ezkill.Toogle("easy kills"))
 
 		else if CETrainer.keyevent("B") > 0				
 		this.Speak(Ammo.Toogle("infinite Ammo"))	       

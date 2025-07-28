@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="42">
+<CheatTable CheatEngineTableVersion="46">
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
@@ -24,6 +24,42 @@ trl.exe+EB148:
   mov edx,[ecx+000005A0]
 dealloc(*)
 
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(enemy_hit, trl.exe, D9 80 B0 13 00 00 D8 57)
+registersymbol(enemy_hit)
+alloc(enemy_hit_new, 256, trl.exe)
+label(enemy_hp_threshold)
+label(enemy_hit_new_code)
+label(enemy_hit_ret)
+
+enemy_hit_new:
+enemy_hp_threshold:
+  db (float) 10.0
+enemy_hit_new_code:
+  fld dword ptr [eax+000013B0]
+  fcom [enemy_hp_threshold]
+  jl enemy_hit_ret
+  push enemy_hp_threshold
+  pop dword ptr [eax+000013B0]
+jmp enemy_hit_ret
+
+enemy_hit:
+  jmp enemy_hit_new_code
+  nop
+enemy_hit_ret:
+
+
+[DISABLE]
+enemy_hit:
+  db D9 80 B0 13 00 00
+unregistersymbol(*)
+dealloc(*)
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
@@ -63,5 +99,6 @@ trl.exe+12D1CE:
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
-  <Comments>Version: Retail, 1.2</Comments>
+  <Comments>Version: Retail, 1.2
+</Comments>
 </CheatTable>
