@@ -31,17 +31,18 @@ dealloc(*)
       <Description>"K - easy Kills"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
-aobscanmodule(enemy_hit, trl.exe, D9 80 B0 13 00 00 D8 57)
+aobscan(enemy_hit, D9 80 B0 13 00 00 D8 57)
 registersymbol(enemy_hit)
-alloc(enemy_hit_new, 256, trl.exe)
+alloc(enemy_hit_new, 256)
 label(enemy_hp_threshold)
 label(enemy_hit_new_code)
 label(enemy_hit_ret)
 
 enemy_hit_new:
 enemy_hp_threshold:
-  db (float) 10.0
+  db 00 00 00 00
 enemy_hit_new_code:
+  mov [enemy_hp_threshold],(float)10.0
   fld dword ptr [eax+000013B0]
   fcom [enemy_hp_threshold]
   jl enemy_hit_ret

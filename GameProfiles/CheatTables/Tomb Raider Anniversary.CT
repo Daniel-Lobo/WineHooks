@@ -32,7 +32,7 @@ dealloc(*)
       <Description>"K - easy Kills"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
-aobscanmodule(enemy_hit, tra.exe, 40 D9 86 A0 14 00 00)
+aobscan(enemy_hit, 40 D9 86 A0 14 00 00)
 alloc(enemy_hit_new, 256)
 label(enemy_hit_ret)
 registersymbol(enemy_hit)
@@ -40,7 +40,7 @@ registersymbol(enemy_hit)
 enemy_hit_new:
   mov [esi+14A0],(float)0
   fld dword ptr [esi+14A0]
-  jmp return
+  jmp enemy_hit_ret
 
 enemy_hit+01:
   jmp enemy_hit_new
