@@ -55,22 +55,120 @@ player_hp:
             <Offset>d08</Offset>
           </Offsets>
         </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"Freezing will only work after you're in-game"</Description>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
       <ID>3</ID>
-      <Description>"K - easy kills (stub)"</Description>
+      <Description>"K - easy kills "</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
-aobscanmodule(weapon_wear, pop3.exe, 8B 45 2C 89 01)
-registersymbol(weapon_wear)
+aobscanmodule(hit1, POP3.exe, 89 82 78 03 00 00)
+aobscanmodule(hit2 ,POP3.exe, 89 82 F4 05 00 00)
+aobscanmodule(hit3, POP3.exe, 8B 87 E8 00 00 00 85 C0 0F 84 83)
+aobscanmodule(hit4, POP3.exe, 39 B0 E8 00 00 00 0F 8E 1A)
+aobscanmodule(hit5, POP3.exe, 8B BD E8 00 00 00)
+aobscanmodule(hit6, POP3.exe, 8B 83 E8 00 00 00 85 C0 75)
 
-[disable]
+registersymbol(hit1)
+registersymbol(hit2)
+registersymbol(hit3)
+registersymbol(hit4)
+registersymbol(hit5)
+registersymbol(hit6)
+
+alloc(hit_new_code1, 1024)
+label(hit_new_code2)
+label(hit_new_code3)
+label(hit_new_code4)
+label(hit_new_code5)
+label(hit_new_code6)
+
+label(hit_ret1)
+label(hit_ret2)
+label(hit_ret3)
+label(hit_ret4)
+label(hit_ret5)
+label(hit_ret6)
+
+hit_new_code1:
+  mov [edx+00000378],0
+jmp hit_ret1
+
+hit_new_code2:
+  mov [edx+000005F4],5
+jmp hit_ret2
+
+hit_new_code3:
+  mov [edi+000000E8],5
+jmp hit_ret3
+
+hit_new_code4:
+  mov [eax+000000E8],5
+jmp hit_ret4
+
+hit_new_code5:
+  mov [ebp+000000E8],eax
+jmp hit_ret5
+
+hit_new_code6:
+  mov eax,[ebx+000000E8]
+jmp hit_ret6
+
+hit1:
+  jmp hit_new_code1
+  nop
+hit_ret1:
+
+hit2:
+  jmp hit_new_code2
+  nop
+hit_ret2:
+
+hit3:
+  jmp hit_new_code3
+  nop
+hit_ret3:
+
+hit4:
+  jmp hit_new_code4
+  nop
+hit_ret4:
+
+hit5:
+  jmp hit_new_code5
+  nop
+hit_ret5:
+
+hit6:
+  jmp hit_new_code6
+  nop
+hit_ret6:
+
+[DISABLE]
+hit1:
+  db 89 82 78 03 00 00
+hit2:
+  db 89 82 F4 05 00 00
+hit3:
+  db 8B 87 E8 00 00 00
+hit4:
+  db 39 B0 E8 00 00 00
+hit5:
+  db 8B BD E8 00 00 00
+hit6:
+  db 8B 83 E8 00 00 00
+
+unregistersymbol(*)
+dealloc(hit_new_code1)
 </AssemblerScript>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
   <Comments>Version: GOG, 1.2
-
 </Comments>
 </CheatTable>

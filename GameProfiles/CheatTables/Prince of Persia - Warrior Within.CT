@@ -57,6 +57,11 @@ unregistersymbol(*)
             <Offset>094</Offset>
           </Offsets>
         </CheatEntry>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"Freezing will only work after you're in-game"</Description>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
@@ -320,5 +325,6 @@ dealloc(newmem7)
     </SymbolEntry>
   </UserdefinedSymbols>
   <Comments>Version: GOG, 1.1
-EZ Kills adapted from: https://fearlessrevolution.com/viewtopic.php?t=24007</Comments>
+EZ Kills adapted from: https://fearlessrevolution.com/viewtopic.php?t=24007
+</Comments>
 </CheatTable>
