@@ -57,8 +57,20 @@ player_hp:
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"K - easy kills (stub)"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(weapon_wear, pop3.exe, 8B 45 2C 89 01)
+registersymbol(weapon_wear)
+
+[disable]
+</AssemblerScript>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
   <Comments>Version: GOG, 1.2
+
 </Comments>
 </CheatTable>

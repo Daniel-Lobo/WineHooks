@@ -59,30 +59,266 @@ unregistersymbol(*)
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(SandWarrior,pop2.exe,8B B2 08 02 00 00)
+registersymbol(SandWarrior)
+alloc(newmem,$100,pop2.exe)
+
+aobscanmodule(Ghost,pop2.exe,8B B2 8C 01 00 00)
+registersymbol(Ghost)
+alloc(newmem2,$100,pop2.exe)
+
+aobscanmodule(Ninja,pop2.exe,50 8B 54 24 18 89 02)
+registersymbol(Ninja)
+alloc(newmem3,$100,pop2.exe)
+
+aobscanmodule(Wolf,pop2.exe,8B B7 FC 01 00 00)
+registersymbol(Wolf)
+alloc(newmem4,$100,pop2.exe)
+
+aobscanmodule(Empress,pop2.exe,8B BB 98 01 00 00)
+registersymbol(Empress)
+alloc(newmem5,$100,pop2.exe)
+
+aobscanmodule(Griffin,pop2.exe,18 8B 49 04 8B 51 48 83 EC 08)
+registersymbol(Griffin)
+alloc(newmem6,$100,pop2.exe)
+
+aobscanmodule(Dahaka,pop2.exe,8B B7 5C 05 00 00)
+registersymbol(Dahaka)
+alloc(newmem7,$100,pop2.exe)
+
+
+globalalloc(nHealthMax,4,pop2.exe)
+globalalloc(b1HitKill,1,pop2.exe)
+globalalloc(pEmpress,4,pop2.exe)
+globalalloc(pGriffin,4,pop2.exe)
+globalalloc(pDahaka,4,pop2.exe)
+
+nHealthMax:
+dd (int)1
+
+b1HitKill:
+db 1
+
+
+// SandWarrior...
+label(code)
+label(return)
+
+newmem:
+  push ebx
+  cmp byte ptr [b1HitKill],1
+  jne code
+  mov ebx,[nHealthMax]
+  cmp [edx+00000208],ebx
+  jbe code
+  mov [edx+00000208],ebx
+code:
+  pop ebx
+@@:
+  mov esi,[edx+00000208]
+  jmp return
+
+SandWarrior:
+  jmp newmem
+  nop
+return:
+
+// Ghost...
+label(code2)
+label(return2)
+
+newmem2:
+  push ebx
+  cmp byte ptr [b1HitKill],1
+  jne code2
+  mov ebx,[nHealthMax]
+  cmp [edx+0000018C],ebx
+  jbe code2
+  mov [edx+0000018C],ebx
+code2:
+  pop ebx
+@@:
+  mov esi,[edx+0000018C]
+  jmp return2
+
+Ghost:
+  jmp newmem2
+  nop
+return2:
+
+// ninja...
+label(code3)
+label(return3)
+
+newmem3:
+  push ebx
+  cmp byte ptr [b1HitKill],1
+  jne code3
+  mov ebx,[nHealthMax]
+  cmp [edx+08],ebx
+  jbe code3
+  mov [edx+08],ebx
+code3:
+  pop ebx
+@@:
+  mov edx,[esp+18]
+  mov [edx],eax
+  jmp return3
+
+Ninja+01:
+  jmp newmem3
+  nop
+return3:
+
+// wolf...
+label(code4)
+label(return4)
+
+newmem4:
+  push ebx
+  cmp byte ptr [b1HitKill],1
+  jne code4
+  mov ebx,[nHealthMax]
+  cmp [edi+000001FC],ebx
+  jbe code4
+  mov [edi+000001FC],ebx
+code4:
+  pop ebx
+@@:
+  mov esi,[edi+000001FC]
+  jmp return4
+
+Wolf:
+  jmp newmem4
+  nop
+return4:
+
+// empress...
+label(code5)
+label(return5)
+
+newmem5:
+  mov [pEmpress],ebx
+code5:
+  mov edi,[ebx+00000198]
+  jmp return5
+
+Empress:
+  jmp newmem5
+  nop
+return5:
+
+// griffin...
+label(code6)
+label(return6)
+
+newmem6:
+  mov edx,[ecx+48]
+  sub esp,08
+code6:
+  mov [pGriffin],edx
+  jmp return6
+
+Griffin+04:
+  jmp newmem6
+  nop
+return6:
+
+// Dahaka...
+label(code7)
+label(return7)
+
+newmem7:
+  mov [pDahaka],edi
+code7:
+  mov esi,[edi+0000055C]
+  jmp return7
+
+Dahaka:
+  jmp newmem7
+  nop
+return7:
+
+
+[DISABLE]
+
+b1HitKill:
+db 0
+
+SandWarrior:
+  db 8B B2 08 02 00 00
+
+unregistersymbol(SandWarrior)
+dealloc(newmem)
+
+Ghost:
+  db 8B B2 8C 01 00 00
+
+unregistersymbol(Ghost)
+dealloc(newmem2)
+
+Ninja+01:
+  db 8B 54 24 18 89 02
+
+unregistersymbol(Ninja)
+dealloc(newmem)
+
+Wolf:
+  db 8B B7 FC 01 00 00
+
+unregistersymbol(Wolf)
+dealloc(newmem4)
+
+Empress:
+  db 8B BB 98 01 00 00
+
+unregistersymbol(Empress)
+dealloc(newmem5)
+
+Griffin+04:
+  db 8B 51 48 83 EC 08
+
+unregistersymbol(Griffin)
+dealloc(newmem6)
+
+Dahaka:
+  db 8B B7 5C 05 00 00
+
+unregistersymbol(Dahaka)
+dealloc(newmem7)
+
+</AssemblerScript>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols>
     <SymbolEntry>
       <Name>nHealthMax</Name>
-      <Address>02EE0000</Address>
+      <Address>0E170000</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>b1HitKill</Name>
-      <Address>02EE0010</Address>
+      <Address>0E170010</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>pEmpress</Name>
-      <Address>02EE0020</Address>
+      <Address>0E170020</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>pGriffin</Name>
-      <Address>02EE0030</Address>
+      <Address>0E170030</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>pDahaka</Name>
-      <Address>02EE0040</Address>
+      <Address>0E170040</Address>
     </SymbolEntry>
   </UserdefinedSymbols>
   <Comments>Version: GOG, 1.1
-
-</Comments>
+EZ Kills adapted from: https://fearlessrevolution.com/viewtopic.php?t=24007</Comments>
 </CheatTable>
