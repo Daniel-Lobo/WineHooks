@@ -1,5 +1,5 @@
 Peixotos's patch remote settings:
-Command Line: "D:\Games\Prince of Persia - Warrior Within\PrinceOfPersia.exe" 
+Command Line: "D:\Games\King Kong\\KingKong8.exe" /B /lang:01  /spg:50 /GDBShaders KKMaps.bf
 common_path: 1
 D3D: 9
 D3D_Driver: 
@@ -17,15 +17,16 @@ path: C:\users\gotardo\Documents\WineHooks\Games\Dev\
 PxSwap: e=true;sw=End;n=>;p=<;q=Q;d=Home;
 res_lmt_lts: 
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 
-script_hwnd: 0x90234
-Target: D:\Games\Prince of Persia - Warrior Within\PrinceOfPersia.exe
-target_dir: D:\Games\Prince of Persia - Warrior Within
-target_name: PrinceOfPersia.exe
+script_hwnd: 0x110194
+ssaa: 2
+Target: G:\Games\King Kong\SettingsApplication.exe
+target_dir: G:\Games\King Kong
+target_name: SettingsApplication.exe
 Textswap: e=false;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;
+vpos: 1
 wine: 10_0
-wnwm: 1
 
-Working directory: D:\Games\Prince of Persia - Warrior Within
+Working directory: D:\Games\King Kong
 C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
 HasFiles 0
 C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
@@ -54,13 +55,12 @@ Succeeded to hook IDirect3DDevice9::Reset
 Succeeded to hook IDirect3DDevice9Ex::ResetEx
 Succeeded to hook IDirect3DDevice9::BeginStateBlock
 Succeeded to hook IDirect3DDevice9::EndScene
-Shader dumps Path: Z:\home\gotardo\Code\WineHooks\Ahk\patches\princeofpersia C:\users\gotardo\Documents\WineHooks\Games\Dev\pixelshaders
+Shader dumps Path: Z:\home\gotardo\Code\WineHooks\Ahk\patches\settingsapplication C:\users\gotardo\Documents\WineHooks\Games\Dev\pixelshaders
 Succeeded to hook IDirect3DDevice9::CreatePixelShader
 Succeeded to hook IDirect3DDevice9::SetPixelShader
 Succeeded to hook IDirect3DPixelShader9::Release
-HLSL shader OK =) 1, blob:4158032, count: 1
-1 Shaders 1 1
-1 Shaders 1 1
+0 Shaders 1 1
+0 Shaders 1 1
 Succeeded to hook IDirect3DDevice9::Present
 Succeeded to hook IDirect3DDevice9Ex::PresentEx
 Succeeded to hook IDirect3DDevice9::StretchRect
@@ -145,5 +145,54 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
 ==================================================================
-==================================================================
-==================================================================
+CREATE DEVICE
+Setup: D3D9 Requested mode    : 1024x768
+Setup: D3D9 Scale             : 1.406250
+Setup: D3D9 Viewport XOffset  : 560
+About to create device:
+0 Replacements
+0 Render surfaces
+BackBufferWidth->2560
+BackBufferHeight->1080
+BackBufferFormat->21
+BackBufferCount->2
+MultiSampleType->0
+MultiSampleQuality->0
+SwapEffect->2
+hDeviceWindow->393696
+Windowed->0
+EnableAutoDepthStencil->1
+AutoDepthStencilFormat->75
+Flags->0
+FullScreen_RefreshRateInHz->60
+PresentationInterval->2147483648
+Focus 393696
+unhook 2008404928
+Succeeded to unhook IDirect3D9Ex::CreateDeviceEx
+multithread 0
+sampler s0 : register(s0);
+float4 main(float2 tex: TEXCOORD0) : COLOR0
+{
+return tex2D(s0, tex);
+};
+Compiling shader 0
+Compiling shader 0
+Proxie: z buffer:             0 4096.000000 x 3072.000000 D24S8 
+set target 0 86109880
+set Z 0 86109976
+2000x1080x560:4.000000 21
+Proxie: color buffer:         0  1x1 A8RGB
+Proxie: color buffer level 0: 0
+Proxie: color buffer:         0  1x1 A8RGB
+Proxie: color buffer level 0: 0
+SDSrfc  86110072
+SDZSrfc 86110168
+D3D9SetRenderSurfaceProxy: INSERTED 86112280 to 86112184
+Setup: D3D9 Requested mode    : 1024x768
+Setup: D3D9 Scale             : 1.406250
+Setup: D3D9 Viewport XOffset  : 560
+D3D9SetRenderSurfaceProxy: INSERTED 87145584 to 87145488
+Setup: D3D9 Requested mode    : 1024x768
+Setup: D3D9 Scale             : 1.406250
+Setup: D3D9 Viewport XOffset  : 560
+D3D9SetRenderSurfaceProxy: INSERTED 321429200 to 321429104

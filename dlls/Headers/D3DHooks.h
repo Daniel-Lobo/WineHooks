@@ -149,6 +149,8 @@ typedef struct _D3DHOOKS_DATA {
     };
     HRESULT (WINAPI *GetView)(void *, VIEWPORT3*);
     HRESULT (WINAPI *SetView)(void *, VIEWPORT3*);
+    HRESULT (__stdcall *CreateSurface) (IDirectDraw7*, LPDDSURFACEDESC2, LPDIRECTDRAWSURFACE7*, IUnknown *);
+    HRESULT (__stdcall *GetSurfaceDesc)(IDirectDrawSurface7*, LPDDSURFACEDESC2);
     HRESULT (__stdcall *QueryPrimary)(LPVOID, REFIID, LPVOID*);
     HRESULT (__stdcall *QuerySurface)(LPVOID, REFIID, LPVOID*);
     HRESULT (__stdcall *QueryTexture)(LPVOID, REFIID, LPVOID*);
@@ -196,10 +198,10 @@ typedef struct _D3DHOOKS_DATA {
     HRESULT (__stdcall *IDDSrfc4GetAttachedSrfc)(LPVOID, DWORD, DWORD);
     HRESULT (__stdcall *AHK_IDDSrfc4GetAttachedSrfc)(LPVOID, DWORD, DWORD);
     // Texture swap
-    HRESULT (__stdcall *pIDirect3DDevice2_SetRenderState)(LPVOID, DWORD, DWORD);
-    DWORD   (__stdcall *ID3DDevice2_SetRenderState_Callback)(LPVOID, DWORD);
-    HRESULT (__stdcall *pIDirect3DDevice3_SetTexture)(LPVOID, DWORD, DWORD);
-    DWORD   (__stdcall *ID3DDevice3_SetTexture_Callback)(DWORD);    
+    HRESULT (__stdcall * pIDirect3DDevice2_SetRenderState)(LPVOID, DWORD, DWORD);
+    DWORD   (__stdcall * ID3DDevice2_SetRenderState_Callback)(LPVOID, DWORD);
+    HRESULT (__stdcall * pIDirect3DDevice3_SetTexture)(LPVOID, DWORD, DWORD);
+    DWORD   (__stdcall * ID3DDevice3_SetTexture_Callback)(DWORD);    
     HRESULT (__stdcall * Direct3DDevice7_SetTexture)(LPVOID, DWORD, DWORD);
     DWORD   (__stdcall * ID3DDevice7_SetTexture_Callback)(DWORD);
     HRESULT (__stdcall * IDirectDrawSurace_Lock)(LPVOID, LPRECT, LPVOID, DWORD, HANDLE);

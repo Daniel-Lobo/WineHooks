@@ -4,5 +4,3 @@ auxOutSetVolume hook 0
 auxOutGetVolume hook 0
 auxGetNumDevs hook 0
 auxGetDevCaps hook 0
-MCISndComdA: MCI_STOP
-MCISndComdA: MCI_CLOSE

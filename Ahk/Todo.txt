@@ -1,6 +1,7 @@
 DX9
+- Lorrds of shadow 1 and 2: glitches with DXVK, not working with wine
+- Tomb Raider Legend, Aniversary, Underworld: not working with DXVK
 - 64 bit (Conscript)
-- Add Direct39EX hooks (Lords of shadow)
 - Restore wait vblank as alternative to vsync (Portal jerky movement)
 - Implement frame limitation
 - wfog fix ?? (pop sot ??)
@@ -31,12 +32,10 @@ DX7-:
 - Silver: glitches on fast travel and telescope  
 - Outlaws: crashes from time to time accessing the menu
 - Speterra core: broken
-- Shogo: slow with wine
 - Zanzahah: bad shadows with wine
 - Dark vengeance, Forsaken: execute buffer bug with wine. FIX with Call setexecutedata with right data after unlock
 - Outwars: fonts missing with wine (on windows)
 - POP 3D: FMV scaling broken with wine
-- Messiah, crash on Linux, but works on windows wine wine's dlls
 - GDI hooks freeze any game
 LAYER       
 * Dark vengeance: leaking textures 
@@ -62,8 +61,7 @@ Other:
       
 Cheats tables:
 -> NO TABLES         
-    - Celeste             
-    - MGS     
+    - Celeste   
     - Bioshock 2
     - Talos 2	
     - Planet of Lana
@@ -72,8 +70,7 @@ Cheats tables:
     
 -> FIX
     - GoW and GoW Ragnarok, add gain XP
-    - TLOU 2: add gain supplements and spare parts, TLOU 1 and 2: add table info
-    - Shadow of the tomb raider: add inf HP\ez kills, Rise of the tomb raider: fix HP\ez kills heuristics
+    - TLOU 2: add gain supplements and spare parts (supplements, string ??), TLOU 1 and 2: add table info    
     - Silver: add inf mana, inf arrows and quick cooldown for specials
     - Fix trouble to attach on RTCW (partial fix, needs manual attach)
     - Horace: gain shield on early game

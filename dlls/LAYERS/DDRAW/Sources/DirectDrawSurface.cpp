@@ -203,7 +203,7 @@ STDMETHODIMP DirectDrawSurface_QueryInterface(COMPtr* ptr, REFIID riid, void** p
 
 HRESULT WINAPI BuildSurfacesList(LPDIRECTDRAWSURFACE4 lpDDSurface, LPDDSURFACEDESC2 lpDDSurfaceDesc, LPVOID lpContext) 
 {
-    DirectDrawSurface* s = FindSurfaceWrapper(lpDDSurface, nullptr, __FUNCTION__);
+    DirectDrawSurface* s = FindSurfaceWrapper(lpDDSurface, nullptr, (char*)__FUNCTION__);
     if (nullptr == s)
     {
         if (nullptr != lpDDSurface)

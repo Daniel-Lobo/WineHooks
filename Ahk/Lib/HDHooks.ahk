@@ -455,7 +455,10 @@ InitHDHooks7()
 	logErr(IDirectDraw7.hook("SetDisplayMode"))
 	logerr(IDirect3DDevice7.Hook("SetViewPort"))
 	logerr(IDirect3DDevice7.Hook("Clear"))
-	logErr(IDirectDraw7.hook("EnumDisplayModes"))
+	;logErr(IDirectDraw7.hook("EnumDisplayModes"))
+	logErr(IDirectDraw7.dllHook("EnumDisplayModes", "IDirectDraw7_EnumDisplayModes_Hook"))
+	D3DHOOKS_DATA.CreateSurface  := IDirectDraw7.CreateSurface
+	D3DHOOKS_DATA.GetSurfaceDesc := IDirectDrawSurface7.GetSurfaceDesc
     if (g_.cfg.layer) 
         logErr(IDirect3DDevice7.dllHook("DrawPrimitive", "DrawPrimitive7Hook"))	
 	else 

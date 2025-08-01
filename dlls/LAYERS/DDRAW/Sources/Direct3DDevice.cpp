@@ -786,7 +786,7 @@ HRESULT __stdcall Direct3DDevice7::DrawIndexedPrimitiveVB(D3DPRIMITIVETYPE Prmtv
 HRESULT __stdcall Direct3DDevice7::GetTexture(DWORD dwStage, LPDIRECTDRAWSURFACE7* lplpTexture) {
 	LAYER_LOG_CALL
 	HRESULT hr = m_Imp->GetTexture(dwStage, lplpTexture);
-	if (S_OK    == hr)           return hr;
+	if (S_OK    != hr)           return hr;
 	if (nullptr == *lplpTexture) return hr;
 	auto tex = FindSurfaceWrapper(*lplpTexture, nullptr, __FUNCTION__);
 	if (tex == nullptr)	{

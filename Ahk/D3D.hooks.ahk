@@ -21,6 +21,8 @@ DWORD p_UnLockVertexBuffer;
 DWORD p_TransformVertices;
 DWORD p_GetView;
 DWORD p_SetView;
+LPVOID CreateSurface;
+LPVOID GetSurfaceDesc;
 LPVOID QueryPrimary;
 LPVOID QuerySurface;
 LPVOID QueryTexture;
