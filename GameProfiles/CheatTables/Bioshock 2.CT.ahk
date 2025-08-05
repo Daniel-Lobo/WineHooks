@@ -5,27 +5,24 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 CETrainer.help := 
 (
-"270x200
-==============================
-EASY KILLS
-With this active, cigarretes will kill you
-==============================
-
-==============================
+"330x130
+======================================
 GAIN MONEY\ADAM
-With those active, you gain $100 or 100
-adam each time you access pause the menu
-==============================
+Press to gain $100 or 100 adam 
+Enter and leave the main menu to see the values updated
+======================================
 "
 )
 
 global __auto       := new CEEntry("Auto")
 global HPoints      := new CEEntry("H - inf HP")
 global EKills       := new CEEntry("K - easy KIlls")
-global Bullets      := new CEEntry("B - inf Bullets, eve hypos and 1st aid kits")
+global Bullets      := new CEEntry("B - inf Bullets, eve hypos and fuel")
 global Money        := new CEEntry("M - gain Money")
 global Adam         := new CEEntry("G - Gain adam")
-class BioShockTrainer extends CETrainer
+global MoneyValue   := new CEEntry("Money")
+global AdamValue    := new CEEntry("Adam")
+class BioShock2Trainer extends CETrainer
 {
 	OnLoop() 
 	{		
@@ -46,13 +43,19 @@ class BioShockTrainer extends CETrainer
 		this.Speak(Bullets.Toogle("Infinite Ammo"))
 
 		if CETrainer.keyevent("M") > 0	
-		this.Speak(Money.Toogle("Gain Money"))
+		{
+			MoneyValue.SetValue(MoneyValue.GetValue(512)+100)
+			this.PlaySound(1)
+		}
 
-		if CETrainer.keyevent("G") > 0 
-		this.Speak(Adam.Toogle("Gain Adam"))
+		if CETrainer.keyevent("G")
+		{
+			AdamValue.SetValue(AdamValue.GetValue(512)+100)
+			this.PlaySound(1)
+		}
 	}
 }
-BioShockTrainer.TrainerLoop("Bioshock.exe", 100)
+BioShock2Trainer.TrainerLoop("Bioshock2.exe", 100)
 return
 
 

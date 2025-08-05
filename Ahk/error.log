@@ -1,35 +1,32 @@
 Peixotos's patch remote settings:
-Command Line: "D:\Games\King Kong\\KingKong8.exe" /B /lang:01  /spg:50 /GDBShaders KKMaps.bf
+Command Line: "G:\Games\MGS1\METAL GEAR SOLID.exe" 
 common_path: 1
-D3D: 9
-D3D_Driver: 
+d3d: 11
+D3D_Driver: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll
 dsk: 2560x1080
+dxvk: 1
 dxvkv: 2_6
-error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
-hd: 1
-injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
-J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
-k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
-max_4x3_res: 1152x864
-Mydocs: C:\users\gotardo\Documents
+error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
+hd: upscale|useinterop|hdproxies|useproxies|ssaahq
+injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
+max_4x3_res: 2048x1536
+Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
-path: C:\users\gotardo\Documents\WineHooks\Games\Dev\
-PxSwap: e=true;sw=End;n=>;p=<;q=Q;d=Home;
+path: C:\Users\Peixoto\Documents\WineHooks\Games\steamclient_loader\
+PxSwap: e=true;sw=Del;n=>;p=<;q=Q;d=Ins;
 res_lmt_lts: 
-rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 
-script_hwnd: 0x110194
-ssaa: 2
-Target: G:\Games\King Kong\SettingsApplication.exe
-target_dir: G:\Games\King Kong
-target_name: SettingsApplication.exe
-Textswap: e=false;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;
-vpos: 1
+rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1600x1200 1680x1050 1920x1080 1920x1200 1920x1440 2048x1536 2560x1440 2560x1600 1440x900 2560x1080 3840x2160 
+script_hwnd: 0x5073c
+Target: G:\Games\MGS1\steamclient_loader.exe
+target_dir: G:\Games\MGS1
+target_name: steamclient_loader.exe
+textswap: e=false;
 wine: 10_0
 
-Working directory: D:\Games\King Kong
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+Working directory: G:\Games\MGS1
+C:\Users\Peixoto\Documents\WineHooks\Games\steamclient_loader\cfgFiles: 
 HasFiles 0
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+C:\Users\Peixoto\Documents\WineHooks\Games\steamclient_loader\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -42,61 +39,6 @@ CreateProcessA Hook: 0
 CreateProcessW Hook: 0
 ShellExecuteA Hook  :0
 ShellExecuteExW Hook  :0
-D3D9Create Hook: 0
-D3D9Create Hook: 0
-Linux: dxvk SysDir: C:\windows\system32 Exists: A
-CreateD3D9Interfaces: SUCCEEDED TO GET THE D3DXCompileShader ENTRYPOINT
-==================================================================
-Z:\home\gotardo\Code\WineHooks\Ahk\D3DCompilers\x86\d3dx9_43.dll loaded
-Create D3D9 Interfaces: S_OK
-Succeeded to hook IDirect3D9::CreateDevice
-Succeeded to hook IDirect3D9Ex::CreateDeviceEx
-Succeeded to hook IDirect3DDevice9::Reset
-Succeeded to hook IDirect3DDevice9Ex::ResetEx
-Succeeded to hook IDirect3DDevice9::BeginStateBlock
-Succeeded to hook IDirect3DDevice9::EndScene
-Shader dumps Path: Z:\home\gotardo\Code\WineHooks\Ahk\patches\settingsapplication C:\users\gotardo\Documents\WineHooks\Games\Dev\pixelshaders
-Succeeded to hook IDirect3DDevice9::CreatePixelShader
-Succeeded to hook IDirect3DDevice9::SetPixelShader
-Succeeded to hook IDirect3DPixelShader9::Release
-0 Shaders 1 1
-0 Shaders 1 1
-Succeeded to hook IDirect3DDevice9::Present
-Succeeded to hook IDirect3DDevice9Ex::PresentEx
-Succeeded to hook IDirect3DDevice9::StretchRect
-Succeeded to hook IDirect3DDevice9::GetBackBuffer
-Succeeded to hook IDirect3DSurface9::GetDesc
-Succeeded to hook IDirect3DDevice9::GetDepthStencilSurface
-Succeeded to hook IDirect3DDevice9::SetDepthStencilSurface
-Succeeded to hook IDirect3DDevice9::SetRenderTarget
-Succeeded to hook IDirect3DDevice9::GetRenderTarget
-Succeeded to hook IDirect3DDevice9::GetViewPort
-Succeeded to hook IDirect3DDevice9::SetViewPort
-Succeeded to hook IDirect3DDevice9::SetScissorRect
-Succeeded to hook IDirect3DDevice9::GetScissorRect
-Succeeded to hook IDirect3D9::EnumAdapterModes
-Succeeded to hook IDirect3D9::GetAdapterDisplaymode
-Succeeded to hook IDirect3DDevice9::GetDisplaymode
-Succeeded to hook IDirect3DDevice9::Clear
-Succeeded to hook IDirect3DDevice9::ColorFill
-Succeeded to hook IDirect3DDevice9::GetRenderTargetData
-Succeeded to hook IDirect3DDevice9::CreateTexture
-Succeeded to hook IDirect3DDevice9::SetTexture
-Succeeded to hook IDirect3DTexture9::Release
-Succeeded to hook IDirect3DSurface9::Release
-Succeeded to hook IDirect3DDevice9::UpdateSurface
-CreateTexture Hook: 0
-UpdateSurface Hook: 0
-Succeeded to hook IDirect3DDevice9::CreateCubeTexture
-Succeeded to hook IDirect3DDevice9::CreateRenderTarget
-Succeeded to hook IDirect3DDevice9::CreateDepthStencilSurface
-Succeeded to hook IDirect3DDevice9Ex::CreateDepthStencilSurfaceEx
-Succeeded to hook IDirect3DDevice9::DrawPrimitiveUp
-Succeeded to hook IDirect3DDevice9::DrawPrimitive
-Succeeded to hook IDirect3DDevice9::DrawIndexedPrimitive
-Succeeded to hook IDirect3DDevice9::DrawIndexedPrimitiveUp
-Succeeded to hook IDirect3DCubeTexture9::Release
-ChangeDisplaySettingsA Hook: 0
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -109,31 +51,36 @@ Init: SUCCEEDED TO GET THE D3D11CreateDeviceAndSwapChain ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D11On12CreateDevice ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D12CreateDevice ENTRYPOINT ON d3d12.dll
 Init: SUCCEEDED TO GET THE D3D12GetDebugInterface ENTRYPOINT ON d3d12.dll
-Init: Using MS Compilers
-Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT
+Init: Using System Compilers
+Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT ON d3dx9_43.dll
 Init: 2560x1080
 Init: 144
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-InitHDHooks9: SUCCEEDED TO HOOK IDirect3DDevice9::ProcessVertices
-Setup: D3D9 Requested mode    : 2560x1080
-Setup: D3D9 Scale             : 1.000000
-Setup: D3D9 Viewport XOffset  : 0
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
+Init: SUCCEEDED TO GET THE D3D11CreateDevice ENTRYPOINT ON d3d11.dll
+Init: SUCCEEDED TO GET THE D3D10CreateDevice ENTRYPOINT ON d3d10.dll
+Init: SUCCEEDED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
+D3D11LoadWine: S_OK
+SetReslimit: ENUMERATING
+SetReslimit: MODE 89: 2560x1080
+InitD3D11Hooks: Highest mode: 2560x1080
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsExWHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
@@ -144,55 +91,41 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-==================================================================
-CREATE DEVICE
-Setup: D3D9 Requested mode    : 1024x768
-Setup: D3D9 Scale             : 1.406250
-Setup: D3D9 Viewport XOffset  : 560
-About to create device:
-0 Replacements
-0 Render surfaces
-BackBufferWidth->2560
-BackBufferHeight->1080
-BackBufferFormat->21
-BackBufferCount->2
-MultiSampleType->0
-MultiSampleQuality->0
-SwapEffect->2
-hDeviceWindow->393696
-Windowed->0
-EnableAutoDepthStencil->1
-AutoDepthStencilFormat->75
-Flags->0
-FullScreen_RefreshRateInHz->60
-PresentationInterval->2147483648
-Focus 393696
-unhook 2008404928
-Succeeded to unhook IDirect3D9Ex::CreateDeviceEx
-multithread 0
-sampler s0 : register(s0);
-float4 main(float2 tex: TEXCOORD0) : COLOR0
-{
-return tex2D(s0, tex);
-};
-Compiling shader 0
-Compiling shader 0
-Proxie: z buffer:             0 4096.000000 x 3072.000000 D24S8 
-set target 0 86109880
-set Z 0 86109976
-2000x1080x560:4.000000 21
-Proxie: color buffer:         0  1x1 A8RGB
-Proxie: color buffer level 0: 0
-Proxie: color buffer:         0  1x1 A8RGB
-Proxie: color buffer level 0: 0
-SDSrfc  86110072
-SDZSrfc 86110168
-D3D9SetRenderSurfaceProxy: INSERTED 86112280 to 86112184
-Setup: D3D9 Requested mode    : 1024x768
-Setup: D3D9 Scale             : 1.406250
-Setup: D3D9 Viewport XOffset  : 560
-D3D9SetRenderSurfaceProxy: INSERTED 87145584 to 87145488
-Setup: D3D9 Requested mode    : 1024x768
-Setup: D3D9 Scale             : 1.406250
-Setup: D3D9 Viewport XOffset  : 560
-D3D9SetRenderSurfaceProxy: INSERTED 321429200 to 321429104
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexed
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::Draw
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawAuto
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstanced
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstancedIndirect
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstanced
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstancedIndirect
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::PSGetShaderResources
+GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext1::ClearView
+Texture 376400032 377940480
+Releasing Texture 0
+Releasing ResView 0
+Succeded to create the Direct3D11 device with feature level 
+Succeeded to hook IDXGIFactory2::CreateSwapChainForHwnd
+Succeeded to hook IDXGIFactory::CreateSwapChain
+Succeeded to hook IDXGISwapChain::Present
+Succeeded to hook ID3D11Texture2D::Release
+Succeeded to hook ID3D11DeviceContext::PSSetShaderResources
+Succeeded to hook ID3D11DeviceContext::Map
+Succeeded to hook ID3D11DeviceContext::Unmap
+Succeeded to hook ID3D11DeviceContext::CopySubresourceRegion
+Succeeded to hook ID3D11DeviceContext::UpdateSubresource
+Succeeded to hook ID3D11DeviceContext::PsSetShader
+Succeeded to hook ID3D11Device::CreatePixelShader
+Succeeded to hook ID3D11DeviceContext::ResolveSubresource
+Succeeded to hook ID3D11DeviceContext::CopyResource
+Succeeded to hook ID3D11DeviceContext::OMSetRenderTargets
+Succeeded to hook ID3D11DeviceContext::OMGetRenderTargets
+Succeeded to hook ID3D11DeviceContext::ClearDepthStencilView
+Succeeded to hook ID3D11DeviceContext::ClearRenderTargetView
+Succeeded to hook IDXGISwapChain::ResizeTarget
+Succeeded to hook IDXGISwapChain::ResizeBuffers
+Succeeded to hook IDXGISwapChain::GetBuffer
+ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain::GetDesc
+ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain1::GetDesc1
+ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::GetDisplayModeList
+ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::FindClosestMatchingMode

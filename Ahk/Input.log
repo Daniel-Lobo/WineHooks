@@ -1,0 +1,17 @@
+DirectInputCreateA_Hook: Return adress=[268972556]
+EnumDevices: this=[9642308] Return adress=[268972556]
+CreateDevice: Return adress=[268972556]
+QueryInterface: Return adress=[268972556]
+Succeeded to create the DirectInput Interfaces
+DirectInputCreateW_Hook: Return adress=[268972556]
+CreateDevice: Return adress=[268972556]
+QueryInterface: Return adress=[268972556]
+Succeeded to create the DirectInput Interfaces
+DirectInputCreateEx_Hook: Return adress=[268972556]
+DirectInputCreateEx_Hook: CREATED PROXY
+CreateDevice: Return adress=[268972556]
+Succeeded to create the DirectInput7 Interfaces
+DirectInputCreateEx_Hook: Return adress=[268972556]
+DirectInputCreateEx_Hook: CREATED PROXY
+CreateDevice: Return adress=[268972556]
+Succeeded to create the DirectInput7 Interfaces
