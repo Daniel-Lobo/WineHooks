@@ -180,7 +180,12 @@ extern "C" __declspec(dllexport) void __stdcall D3D12Config(char * option, void*
     else if (Option == "TEXT-SWAP.MANAGE")         g_d3d.TEXTURE_SWAP_MANAGE        = (DWORD)value;  
     else if (Option == "TEXT-SWAP.A8FIX")          g_d3d.TEXTURE_SWAP_A8FIX         = (DWORD)value;
     else if (Option == "TEXT-SWAP.AUTO")           g_d3d.TEXTURE_SWAP_AUTODUMP      = (DWORD)value; 
-    else if (Option == "TEXTURE.FILTER")           g_d3d.TEXTURE_FILTER             = (DWORD)value == 2 ? *(DWORD*)"WINE" : *(DWORD*)"TRUE";  
+    else if (Option == "PXSWAP")                   g_d3d.PIXEL_SHADER_SWAP_ENABLED  = (DWORD)value;
+    else if (Option == "PIXEL-SWAP.TOGGLE")        g_d3d.PIXEL_SHADER_SWAP_TOGGLE   = (DWORD)value; 
+    else if (Option == "PIXEL-SWAP.NEXT")          g_d3d.PIXEL_SHADER_SWAP_NEXT     = (DWORD)value;
+    else if (Option == "PIXEL-SWAP.PREV")          g_d3d.PIXEL_SHADER_SWAP_PREV     = (DWORD)value;
+    else if (Option == "PIXEL-SWAP.QUICK")         g_d3d.PIXEL_SHADER_SWAP_QUICK    = (DWORD)value;
+    else if (Option == "PIXEL-SWAP.DUMP")          g_d3d.PIXEL_SHADER_SWAP_DUMP     = (DWORD)value;
     else if (Option == "D3D.VERSION")              g_d3d.D3DVERSION                 = (DWORD)value;
 }
 

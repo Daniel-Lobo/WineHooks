@@ -509,6 +509,8 @@ void D3D10Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
         } else DBUG_WARN("NO PROXY BACKBUFFER")
     }  else DBUG_WARN("NO PROXY BACKBUFFER")
 
+    return ;
+
     D3D11Bytecode  * c;
     D3D11Globals.lock->lock();
     DWORD p = D3D11_Hooks->IDXGISwapChain_Present_Callback(Iface, sync, flags);

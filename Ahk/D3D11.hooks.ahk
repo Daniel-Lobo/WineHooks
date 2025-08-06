@@ -120,6 +120,12 @@ PxOvrr11dInit()
 			}			
 		}
 	}
+
+	dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.TOGGLE", uint, GetKeyVK(g_PxOvrrd.sw)) 
+	dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.NEXT",  uint, GetKeyVK(g_PxOvrrd.n)) 
+	dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.PREV",  uint, GetKeyVK(g_PxOvrrd.p)) 
+	dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.QUICK", uint, GetKeyVK(g_PxOvrrd.q)) 
+	dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.DUMP",  uint, GetKeyVK(g_PxOvrrd.d)) 
 }
 
 TSwapInit(dll)
@@ -152,6 +158,13 @@ TSwapInit(dll)
 	D3D11_HOOKS.img_rct_y :=
 	D3D11_HOOKS.img_rct_w := g_TSwap.thumb
 	D3D11_HOOKS.img_rct_h := g_TSwap.thumb
+
+	dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.TOGGLE-SEARCH", uint, GetKeyVK(g_TSwap.sw)) 
+	dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.NEXT",  uint, GetKeyVK(g_TSwap.n)) 
+	dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.PREV",  uint, GetKeyVK(g_TSwap.p)) 
+	dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.QUICK", uint, GetKeyVK(g_TSwap.q)) 
+	dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.DUMP",  uint, GetKeyVK(g_TSwap.d)) 	
+	dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.AUTO",  uint, GetKeyVK(g_TSwap.a)) 
 	
 	dllcall(dll "\SetSampleCount", uint, g_TSwap.s)
 	dllcall(dll "\SetTexturePaths", str, g_TSwap.path "/dumps/", astr, g_.cfg.MyDocs "\Games\checkerboard.dds")

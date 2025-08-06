@@ -234,6 +234,9 @@ public:
     SYNC::AtomicPtr  * PixelShader;
     SYNC::AtomicPtr        *TextID;
     SYNC::AtomicLock         *lock;
+    DWORD m_Search    = (DWORD)*(DWORD*)"NONE";
+    DWORD m_TextIndex = 0;
+    DWORD m_PxIndex   = 0;
     union {
         ID3D10VertexShader * m_D3D10VxBlt = nullptr;
         ID3D11VertexShader * m_VxBlt;
@@ -477,9 +480,9 @@ typedef struct _D3D11_HOOKS {
     DWORD pad6;
 #endif
     union{ID3D11Texture2D * current_view; ID3D10Texture2D * current_view10;};
-    POINTER_DICTIONARY * textures;
-    POINTER_DICTIONARY * replacements;
-    POINTER_DICTIONARY * paths;
+    POINTER_DICTIONARY    * textures;
+    POINTER_DICTIONARY    * replacements;
+    POINTER_DICTIONARY    * paths;
     DWORD autodmp;
 } D3D11_HOOKS;
 

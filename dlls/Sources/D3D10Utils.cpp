@@ -16,6 +16,7 @@
 extern "C"{
 #include "DDSurface.h"
 }
+#include "Input.h"
 
 extern "C" __declspec(dllexport) 
 ID3D10Device * D3D10DvcFromSChain(IDXGISwapChain * s)
@@ -903,4 +904,46 @@ unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10SetUPSwapChain(DXGI_SWAP_CHAIN_DESC * desc
 	   desc->BufferDesc.Height = D3D11_Hooks->HD_H;	
     }
     return d;
+}
+
+string D3D10BrowseResource(IDXGISwapChain * sc, UINT vsync, UINT flags)
+{    
+    if (g_d3d.TEXTURE_SWAP_ENABLED)
+    {
+        if (GetEvent(g_d3d.TEXTURE_SWAP_TOGGLE_SEARCH)) D3D11Globals.m_Search = D3D11Globals.m_Search == *(DWORD*) "TEXTURES"  ? *(DWORD*) "NONE" : *(DWORD*) "TEXTURES";
+        if (GetEvent(g_d3d.PIXEL_SHADER_SWAP_TOGGLE))   D3D11Globals.m_Search = D3D11Globals.m_Search == *(DWORD*) "PXSHADERS" ? *(DWORD*) "NONE" : *(DWORD*) "PXSHADERS";
+    }
+
+    D3D11_Hooks->current_view    = nullptr; 
+    D3D11_Hooks->CurrentPxShader = nullptr;
+
+    if (D3D11Globals.m_Search == *(DWORD*) "TEXTURES") 
+    {
+        if (GetKeyState(g_d3d.TEXTURE_SWAP_QUICK) & 0x8000)
+        {
+            if      (GetKeyState(g_d3d.TEXTURE_SWAP_NEXT) & 0x8000) D3D11Globals.m_TextIndex += 1;            
+            else if (GetKeyState(g_d3d.TEXTURE_SWAP_PREV) & 0x8000) D3D11Globals.m_TextIndex -= 1;            
+        } else {
+            if      (GetEvent(g_d3d.TEXTURE_SWAP_NEXT)) D3D11Globals.m_TextIndex += 1;           
+            else if (GetEvent(g_d3d.TEXTURE_SWAP_PREV)) D3D11Globals.m_TextIndex -= 1;           
+        }
+
+        if      (D3D11Globals.m_TextIndex < 0)                               D3D11Globals.m_TextIndex = 0;
+        else if (D3D11Globals.m_TextIndex >= D3D11_Hooks->textures->Count()) D3D11Globals.m_TextIndex = D3D11_Hooks->textures->Count() - 1;
+
+        D3D11_Hooks->current_view10 = (ID3D10Texture2D*) D3D11_Hooks->textures->KeyAt(D3D11Globals.m_TextIndex);  
+        DWORD index  = 0;
+        wstring file = g_.m_BaseTexturePath + L"\\dump0.dds";
+        if (GetEvent(g_d3d.TEXTURE_SWAP_DUMP))
+        {
+            while (INVALID_FILE_ATTRIBUTES == GetFileAttributesW(file.c_str()) && GetLastError() == ERROR_FILE_NOT_FOUND)
+            {
+                index += 1;
+                file  = g_.m_BaseTexturePath + L"dump" + std::to_wstring(index) + L".dds";
+            }              
+            D3D10DumpTexture(D3D10DvcFromSChain(sc), (IUnknown *)D3D11_Hooks->current_view10, file.c_str(), 0);         
+        }          
+        return string("TEXTURES");    
+    }
+    return string("NONE");
 }

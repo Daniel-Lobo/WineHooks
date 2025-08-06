@@ -170,6 +170,12 @@ public:
     DWORD                 TEXTURE_SWAP_A8FIX         = 0;
     DWORD                 TEXTURE_SWAP_AUTODUMP      = 0;
     DWORD                 TEXTURE_FILTER             = 0;
+    DWORD                 PIXEL_SHADER_SWAP_ENABLED  = 0;
+    DWORD                 PIXEL_SHADER_SWAP_TOGGLE   = 0;
+    DWORD                 PIXEL_SHADER_SWAP_NEXT     = 0;
+    DWORD                 PIXEL_SHADER_SWAP_PREV     = 0;
+    DWORD                 PIXEL_SHADER_SWAP_QUICK    = 0;
+    DWORD                 PIXEL_SHADER_SWAP_DUMP     = 0;      
     HWND                  D3DWINDOW                  = 0;
     DWORD                 D3DVERSION                 = 0;  
     /* GUID    */
