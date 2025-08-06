@@ -23,6 +23,7 @@ CreateTexture9Hook=CreateTexture9Hook@36
 CreateTx9HD=CreateTx9HD@36
 CreateVertexBuffer8Hook=CreateVertexBuffer8Hook@24
 CreateVertexBuffer9Hook=CreateVertexBuffer9Hook@28
+D3D10CreateSwapChain=D3D10CreateSwapChain@16
 D3D10ClearDepthStencilViewHook=D3D10ClearDepthStencilViewHook@20
 D3D10ClearRenderTargetViewHook=D3D10ClearRenderTargetViewHook@12
 D3D10CopyResourceHook=D3D10CopyResourceHook@12

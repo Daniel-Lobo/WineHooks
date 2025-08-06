@@ -570,6 +570,9 @@ void __stdcall D3D10DrawHook(ID3D10Device*, UINT , UINT);
 void __stdcall D3D10DrawInstancedHook(ID3D10Device*, UINT, UINT, UINT, UINT);
 void __stdcall D3D10DrawIndexedInstancedHook(ID3D10Device*, UINT, UINT, UINT, INT, UINT);
 void __stdcall D3D11PSGetShaderResourcesHook(ID3D11DeviceContext*, UINT, UINT, ID3D11ShaderResourceView **);
+unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10GetSwapChainDsc(IDXGISwapChain*);
+unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10SetUPSwapChain(DXGI_SWAP_CHAIN_DESC*, const char *);
+extern "C" __declspec(dllexport) void D3D10CreateShaders(IDXGISwapChain * sc);
 
 //========================VARIABLES=========================================//
 

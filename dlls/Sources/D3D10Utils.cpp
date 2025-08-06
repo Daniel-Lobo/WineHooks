@@ -878,3 +878,29 @@ D3D10Bliter::~D3D10Bliter()
     }
     if (m_sc)  m_sc->Release();
 }
+
+unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10GetSwapChainDsc(IDXGISwapChain * s)
+{
+    auto d = unique_ptr<DXGI_SWAP_CHAIN_DESC>(new DXGI_SWAP_CHAIN_DESC());
+    D3D11_Hooks->IDXGISChainGetDesc(s, d.get());
+    DBUG_LOG((to_string(d.get()->BufferDesc.Width) + "x" + to_string(d.get()->BufferDesc.Height)).c_str());
+    return d;
+}
+
+
+unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10SetUPSwapChain(DXGI_SWAP_CHAIN_DESC * desc, const char * c) {
+    auto d = unique_ptr<DXGI_SWAP_CHAIN_DESC>(new DXGI_SWAP_CHAIN_DESC());
+    if (nullptr == desc) memcpy(d.get(), desc, sizeof(DXGI_SWAP_CHAIN_DESC));
+
+    if (g_d3d.UPSCALE && nullptr != desc)
+    {
+       BOOL pos_set = SetWindowPos((HWND)desc->OutputWindow, 0, 0, 0, D3D11_Hooks->HD_W, D3D11_Hooks->HD_H, 0x0454);
+       DBUG_LOG((string(c) + " SetWindowPos: " + to_string(pos_set) + " HWIN: " + to_string((UINT64)desc->OutputWindow)).c_str());
+
+       D3D12Config("HWND", (void*)desc->OutputWindow);      
+       desc                    = d.get();
+       desc->BufferDesc.Width  = D3D11_Hooks->HD_W;
+	   desc->BufferDesc.Height = D3D11_Hooks->HD_H;	
+    }
+    return d;
+}

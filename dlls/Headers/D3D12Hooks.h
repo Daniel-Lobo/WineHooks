@@ -270,6 +270,7 @@ extern D3D12_HOOKS g_d3d;
 extern UINT D3D12GetBufferCount(IDXGISwapChain*);
 extern void * D3D12WaitSwap(IDXGISwapChain*);
 extern BOOL WINAPI D3D12ClipCursorHook(const RECT *);
+extern "C" __declspec(dllexport) void __stdcall D3D12Config(char *, void*);
 
 class LogWinSize{
 public:

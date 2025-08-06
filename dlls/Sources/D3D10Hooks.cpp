@@ -125,6 +125,22 @@ extern "C" __declspec(dllexport) DWORD GetDirect3D10_1(HWND hWnd, ID3D10_1 * _D3
     return 0;
 }
 
+extern "C" __declspec(dllexport) HRESULT __stdcall 
+D3D10CreateSwapChain(IDXGIFactory *pFactory,  IUnknown *pDevice, DXGI_SWAP_CHAIN_DESC *pDesc, IDXGISwapChain **ppSwapChain)
+{
+    auto new_desc = D3D10SetUPSwapChain(pDesc, "D3D10CreateSwapChain10");
+    HRESULT hr    = D3D11_Hooks->CreateSwapChain(pFactory, pDevice, new_desc.get(), ppSwapChain);
+    if (hr)
+    {
+        DBUG_WARN("CreateSwapChain FAILED");
+        return hr;
+    }
+    auto dsc = D3D10GetSwapChainDsc(*ppSwapChain);
+    if (dsc.get()->OutputWindow && g_d3d.UPSCALE)
+        SendMessage(dsc->OutputWindow, 0x5, 0, D3D11_Hooks->W | (D3D11_Hooks->H << 16));
+    D3D10CreateShaders(*ppSwapChain);    
+    return hr;
+}
 
 extern "C" __declspec(dllexport) void __stdcall D3D10PSSetSamplersHook(ID3D10Device * d, UINT Start,
                                       UINT n, ID3D10SamplerState *const *smplrs)
