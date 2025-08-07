@@ -1,4 +1,4 @@
-﻿#NoEnv  
+#NoEnv  
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #include CEpluginLib.ahk
 #persistent
@@ -57,5 +57,4 @@ class BioShock2Trainer extends CETrainer
 }
 BioShock2Trainer.TrainerLoop("Bioshock2.exe", 100)
 return
-
 
