@@ -4062,7 +4062,8 @@ dxvk_path := g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch
 flags     := g_.cfg.dxvk ? 0xd : 0
 dllcall(dll "\InitD3D11Hooks", ptr, D3D11_HOOKS[], astr, wine_path, astr, dxvk_path, astr, g_.cfg.target_dir, uint, flags)
 logerr(GetDirect3D10())
-logerr(IDXGIFactory.Hook("CreateSwapChain", "CreateSwapChain10"))
+logerr(IDXGIFactory.dllHook("CreateSwapChain", "D3D10CreateSwapChain", dll))
+D3D11_HOOKS.CreateChain := IDXGIFactory.CreateSwapChain
 logerr(IDXGISwapChain.dllHook("Present", "IDXGISwapChainPresentHook", dll))
 D3D11_HOOKS.present  := IDXGISwapChain.Present
 D3D11_HOOKS._present := RegisterCallback("IDXGISwapChain_Present", "F")
@@ -4202,6 +4203,11 @@ logerr("Inserted Dump " dllcall(dll "\D3D11InsetPxDump", ptr, &dat, ptr, bin.Len
 }
 }
 }
+dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.TOGGLE", uint, GetKeyVK(g_PxOvrrd.sw))
+dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.NEXT",  uint, GetKeyVK(g_PxOvrrd.n))
+dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.PREV",  uint, GetKeyVK(g_PxOvrrd.p))
+dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.QUICK", uint, GetKeyVK(g_PxOvrrd.q))
+dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.DUMP",  uint, GetKeyVK(g_PxOvrrd.d))
 }
 TSwapInit(dll)
 {
@@ -4231,6 +4237,12 @@ D3D11_HOOKS.img_rct_x :=
 D3D11_HOOKS.img_rct_y :=
 D3D11_HOOKS.img_rct_w := g_TSwap.thumb
 D3D11_HOOKS.img_rct_h := g_TSwap.thumb
+dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.TOGGLE-SEARCH", uint, GetKeyVK(g_TSwap.sw))
+dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.NEXT",  uint, GetKeyVK(g_TSwap.n))
+dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.PREV",  uint, GetKeyVK(g_TSwap.p))
+dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.QUICK", uint, GetKeyVK(g_TSwap.q))
+dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.DUMP",  uint, GetKeyVK(g_TSwap.d))
+dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.AUTO",  uint, GetKeyVK(g_TSwap.a))
 dllcall(dll "\SetSampleCount", uint, g_TSwap.s)
 dllcall(dll "\SetTexturePaths", str, g_TSwap.path "/dumps/", astr, g_.cfg.MyDocs "\Games\checkerboard.dds")
 if fileexist((comp := g_TSwap.path "\Dumps\dump._dds"))
