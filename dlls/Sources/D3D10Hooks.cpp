@@ -132,7 +132,7 @@ D3D10CreateSwapChain(IDXGIFactory *pFactory,  IUnknown *pDevice, DXGI_SWAP_CHAIN
     HRESULT hr    = D3D11_Hooks->CreateSwapChain(pFactory, pDevice, new_desc.get(), ppSwapChain);
     if (hr)
     {
-        DBUG_WARN((string("CreateSwapChain FAILED ") + to_string(new_desc.get()->BufferDesc.Width) + "x" + to_string(new_desc.get()->BufferDesc.Height)).c_str());
+        DBUG_WARN("CreateSwapChain FAILED");
         return hr;
     }
     auto dsc = D3D10GetSwapChainDsc(*ppSwapChain);

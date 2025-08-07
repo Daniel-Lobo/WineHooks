@@ -16,9 +16,7 @@
 	dllcall(dll "\InitD3D11Hooks", ptr, D3D11_HOOKS[], astr, wine_path, astr, dxvk_path, astr, g_.cfg.target_dir, uint, flags)
 	
 	logerr(GetDirect3D10())	
-	;logerr(IDXGIFactory.Hook("CreateSwapChain", "CreateSwapChain10"))
-	logerr(IDXGIFactory.dllHook("CreateSwapChain", "D3D10CreateSwapChain", dll))
-	D3D11_HOOKS.CreateChain := IDXGIFactory.CreateSwapChain
+	logerr(IDXGIFactory.Hook("CreateSwapChain", "CreateSwapChain10"))
 	logerr(IDXGISwapChain.dllHook("Present", "IDXGISwapChainPresentHook", dll))
 	D3D11_HOOKS.present  := IDXGISwapChain.Present	
 	D3D11_HOOKS._present := RegisterCallback("IDXGISwapChain_Present", "F")

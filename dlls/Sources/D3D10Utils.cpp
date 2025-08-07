@@ -891,7 +891,7 @@ unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10GetSwapChainDsc(IDXGISwapChain * s)
 
 unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10SetUPSwapChain(DXGI_SWAP_CHAIN_DESC * desc, const char * c) {
     auto d = unique_ptr<DXGI_SWAP_CHAIN_DESC>(new DXGI_SWAP_CHAIN_DESC());
-    if (nullptr != desc) memcpy(d.get(), desc, sizeof(DXGI_SWAP_CHAIN_DESC));
+    if (nullptr == desc) memcpy(d.get(), desc, sizeof(DXGI_SWAP_CHAIN_DESC));
 
     if (g_d3d.UPSCALE && nullptr != desc)
     {
