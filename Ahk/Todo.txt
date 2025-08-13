@@ -67,6 +67,7 @@ Cheats tables:
     - Planet of Lana
     - Cocoon
     - Jusant
+	- Indika
     
 -> FIX
     - GoW and GoW Ragnarok, add gain XP
