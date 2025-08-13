@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Auto - damage (taken) multipliers"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscan(damage, 00 00 A0 3F 00 00 80 3F 00 00 40 3F 00 00 C0 3F 00 00 80 3F 00 00 80 3F 00 00 A0 3F 00 00 E0 3F B0 19 6D FE)
+registersymbol(damage)
+define(ai_ez, damage)
+define(ai_normal, damage+4)
+define(ai_hard, damage+8)
+define(ai_real, ai_hard+4)
+define(player_ez, ai_real+4)
+define(player_normal, player_ez+4)
+define(player_hard, player_normal+4)
+define(player_real, player_hard+4)
+registersymbol(ai_ez)
+registersymbol(ai_normal)
+registersymbol(ai_hard)
+registersymbol(ai_real)
+registersymbol(player_ez)
+registersymbol(player_normal)
+registersymbol(player_hard)
+registersymbol(player_real)
+
+
+[disable]
+unregistersymbol(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"H - inf HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+player_ez:
+  db 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+[disable]
+player_ez:
+  db 00 00 80 3F 00 00 80 3F 00 00 A0 3F 00 00 E0 3F
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"K - easy Kills"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+aobscan(damage, 00 00 A0 3F 00 00 80 3F 00 00 40 3F 00 00 C0 3F 00 00 80 3F 00 00 80 3F 00 00 A0 3F 00 00 E0 3F B0 19 6D FE)
+registersymbol(damage)
+define(ai_ez, damage)
+define(ai_normal, damage+4)
+define(ai_hard, damage+8)
+define(ai_real, ai_hard+4)
+define(player_ez, ai_real+4)
+define(player_normal, player_ez+4)
+define(player_hard, player_normal+4)
+define(player_real, player_hard+4)
+registersymbol(ai_ez)
+registersymbol(ai_normal)
+registersymbol(ai_hard)
+registersymbol(ai_real)
+registersymbol(player_ez)
+registersymbol(player_normal)
+registersymbol(player_hard)
+registersymbol(player_real)
+
+player_ez:
+  db 00 00 48 42 00 00 48 42 00 00 48 42 00 00 48 42
+
+[disable]
+damage:
+  db 00 00 A0 3F 00 00 80 3F 00 00 40 3F 00 00 C0 3F
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"AI - Eazy"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>ai_ez</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"AI - Normal"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>ai_normal</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"AI - Hard"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>ai_hard</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"AI - Realistic"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>ai_real</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"Player - easy"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>player_ez</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"Player - normal"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>player_normal</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"Player - hard"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>player_hard</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"Player - realistic"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>player_real</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>DX2Main.EXE+10EC93 
+DX2Main.EXE+187F77 
+DX2Main.EXE+18812F 
+</Comments>
+</CheatTable>

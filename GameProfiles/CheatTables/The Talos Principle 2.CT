@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"C - enable Cheats"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(dbug, Talos2-Win64-Shipping.exe, 48 C7 44 24 20 00 00 00 00 48 C7 44 24 28 00 00 00 00 e8 * * * * 48 8B C8 4C 8D 44 24 20 41 B1 01)
+registersymbol(dbug)
+define(jmp0, dbug-2)
+define(jmp1, jmp0+32)
+define(jmp2, jmp1+22)
+define(jmp3, jmp2+22)
+registersymbol(jmp0)
+registersymbol(jmp1)
+registersymbol(jmp2)
+registersymbol(jmp3)
+
+jmp0:
+  db 74
+jmp1:
+  db 75
+jmp2:
+  db 74
+jmp3:
+  db 75
+
+
+[disable]
+jmp0:
+  db 75
+jmp1:
+  db 74
+jmp2:
+  db 75
+jmp3:
+  db 74
+unregistersymbol(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"Enables the game's buit-in cheats"</Description>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Must be activated before loading a profile and can't be deactivated afterwards"</Description>
+          <GroupHeader>1</GroupHeader>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Hotkeys"</Description>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>4</ID>
+              <Description>"N - open cheats menu"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"L - Fly"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>7</ID>
+              <Description>"J - Turbo"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>8</ID>
+              <Description>"Y - God"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>80 3D 52 F5 30 06 00 75 7B
+48 C7 44 24 20 00 00 00 00 48 C7 44 24 28 00 00 00 00 e8 * * * * 48 8B C8 4C 8D 44 24 20 41 B1 01
+</Comments>
+</CheatTable>
