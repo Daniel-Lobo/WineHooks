@@ -2,11 +2,16 @@
 <CheatTable CheatEngineTableVersion="45">
   <CheatEntries>
     <CheatEntry>
+      <ID>15</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
       <ID>1</ID>
       <Description>"Auto - damage (taken) multipliers"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[enable]
-aobscan(damage, 00 00 A0 3F 00 00 80 3F 00 00 40 3F 00 00 C0 3F 00 00 80 3F 00 00 80 3F 00 00 A0 3F 00 00 E0 3F B0 19 6D FE)
+aobscan(damage, 00 00 A0 3F 00 00 80 3F 00 00 40 3F 00 00 C0 3F 00 00 80 3F 00 00 80 3F 00 00 A0 3F 00 00 E0 3F)
 registersymbol(damage)
 define(ai_ez, damage)
 define(ai_normal, damage+4)
@@ -48,26 +53,7 @@ player_ez:
           <Description>"K - easy Kills"</Description>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[enable]
-aobscan(damage, 00 00 A0 3F 00 00 80 3F 00 00 40 3F 00 00 C0 3F 00 00 80 3F 00 00 80 3F 00 00 A0 3F 00 00 E0 3F B0 19 6D FE)
-registersymbol(damage)
-define(ai_ez, damage)
-define(ai_normal, damage+4)
-define(ai_hard, damage+8)
-define(ai_real, ai_hard+4)
-define(player_ez, ai_real+4)
-define(player_normal, player_ez+4)
-define(player_hard, player_normal+4)
-define(player_real, player_hard+4)
-registersymbol(ai_ez)
-registersymbol(ai_normal)
-registersymbol(ai_hard)
-registersymbol(ai_real)
-registersymbol(player_ez)
-registersymbol(player_normal)
-registersymbol(player_hard)
-registersymbol(player_real)
-
-player_ez:
+ai_ez:
   db 00 00 48 42 00 00 48 42 00 00 48 42 00 00 48 42
 
 [disable]
@@ -133,12 +119,23 @@ damage:
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"B - inf Bullets"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+DX2Main.EXE+10EC93:
+  db 90 90 90 90 90 90
+
+[disable]
+DX2Main.EXE+10EC93:
+  mov [esi+0000024C],eax
+
+</AssemblerScript>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
   <Comments>Version: GOG, 1.2
 
-DX2Main.EXE+10EC93 
-DX2Main.EXE+187F77 
-DX2Main.EXE+18812F 
 </Comments>
 </CheatTable>

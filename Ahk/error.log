@@ -1,32 +1,31 @@
 Peixotos's patch remote settings:
-Command Line: "G:\Games\Deus Ex - Human Revolution\CE\dxhr.exe" 
+Command Line: "E:\Games\Deus Ex - Invisible War\System\DX2Main.exe" -NoIMeanItReally
 common_path: 1
-d3d: 11
+D3D: 8
 D3D_Driver: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll
 dsk: 2560x1080
-dxvk: 1
 dxvkv: 2_6
 error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
-hd: upscale|useinterop|hdproxies|useproxies|ssaa
 injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
+j2k: u=false;ff=false;rs_alt=false;m=0;rs=0;spd=0.2;mds=3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,,,,;y=,,,,,,,,,,,,,,,,,,,;dz=0.15;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;a=,,,,Gamepad 1,Gamepad 2,Gamepad 3,Gamepad 4,Gamepad 5,Gamepad 6,Gamepad 7,Gamepad 8,Gamepad 9,Gamepad 10,Gamepad 11,Gamepad 12,,,,;
 max_4x3_res: 2048x1536
 Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
-path: C:\Users\Peixoto\Documents\WineHooks\Games\dxhr\
-PxSwap: e=true;sw=Del;n=>;p=<;q=Q;d=Ins;
+path: C:\Users\Peixoto\Documents\WineHooks\Games\Dev\
+PxSwap: e=true;sw=End;n=<;p=>;q=Q;d=Home;
 res_lmt_lts: 
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1600x1200 1680x1050 1920x1080 1920x1200 1920x1440 2048x1536 2560x1440 2560x1600 1440x900 2560x1080 3840x2160 
-script_hwnd: 0x150604
-Target: G:\Games\Deus Ex - Human Revolution\CE\dxhr.exe
-target_dir: G:\Games\Deus Ex - Human Revolution\CE
-target_name: dxhr.exe
-textswap: e=false;
+script_hwnd: 0x2f0620
+Target: E:\Games\Deus Ex - Invisible War\System\dx2.exe
+target_dir: E:\Games\Deus Ex - Invisible War\System
+target_name: dx2.exe
+Textswap: e=true;sw=Del;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=TexturesVOKSI;A8Fix=false;dly=true;
 wine: 10_0
 
-Working directory: G:\Games\Deus Ex - Human Revolution\CE
-C:\Users\Peixoto\Documents\WineHooks\Games\dxhr\cfgFiles: 
+Working directory: E:\Games\Deus Ex - Invisible War\System
+C:\Users\Peixoto\Documents\WineHooks\Games\Dev\cfgFiles: 
 HasFiles 0
-C:\Users\Peixoto\Documents\WineHooks\Games\dxhr\cfgFiles: 
+C:\Users\Peixoto\Documents\WineHooks\Games\Dev\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -72,269 +71,28 @@ CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
 CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-Init: SUCCEEDED TO GET THE D3D11CreateDevice ENTRYPOINT ON d3d11.dll
-Init: SUCCEEDED TO GET THE D3D10CreateDevice ENTRYPOINT ON d3d10.dll
-Init: SUCCEEDED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
-D3D11LoadWine: S_OK
-SetReslimit: ENUMERATING
-SetReslimit: MODE 89: 2560x1080
-InitD3D11Hooks: Highest mode: 2560x1080
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsExWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsAHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoWHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexed
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::Draw
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawAuto
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstanced
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawInstancedIndirect
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstanced
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstancedIndirect
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::PSGetShaderResources
-GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext1::ClearView
-Texture 225406256 126855920
-Releasing Texture 0
-Releasing ResView 0
-Succeded to create the Direct3D11 device with feature level 
-Succeeded to hook IDXGIFactory2::CreateSwapChainForHwnd
-Succeeded to hook IDXGIFactory::CreateSwapChain
-Succeeded to hook IDXGISwapChain::Present
-Succeeded to hook ID3D11Texture2D::Release
-Succeeded to hook ID3D11DeviceContext::PSSetShaderResources
-Succeeded to hook ID3D11DeviceContext::Map
-Succeeded to hook ID3D11DeviceContext::Unmap
-Succeeded to hook ID3D11DeviceContext::CopySubresourceRegion
-Succeeded to hook ID3D11DeviceContext::UpdateSubresource
-Succeeded to hook ID3D11DeviceContext::PsSetShader
-Succeeded to hook ID3D11Device::CreatePixelShader
-Succeeded to hook ID3D11DeviceContext::ResolveSubresource
-Succeeded to hook ID3D11DeviceContext::CopyResource
-Succeeded to hook ID3D11DeviceContext::OMSetRenderTargets
-Succeeded to hook ID3D11DeviceContext::OMGetRenderTargets
-Succeeded to hook ID3D11DeviceContext::ClearDepthStencilView
-Succeeded to hook ID3D11DeviceContext::ClearRenderTargetView
-Succeeded to hook IDXGISwapChain::ResizeTarget
-Succeeded to hook IDXGISwapChain::ResizeBuffers
-Succeeded to hook IDXGISwapChain::GetBuffer
-ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain::GetDesc
-ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain1::GetDesc1
-ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::GetDisplayModeList
-ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::FindClosestMatchingMode
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 960x540
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 800x600
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1024x768
-D3D12GetModes: MODE 10: 1152x864
-D3D12GetModes: MODE 11: 1176x664
-D3D12GetModes: MODE 12: 1176x664
-D3D12GetModes: MODE 13: 1176x664
-D3D12GetModes: MODE 14: 1176x664
-D3D12GetModes: MODE 15: 1176x664
-D3D12GetModes: MODE 16: 1176x664
-D3D12GetModes: MODE 17: 1176x664
-D3D12GetModes: MODE 18: 1176x664
-D3D12GetModes: MODE 19: 1176x664
-D3D12GetModes: MODE 20: 1280x720
-D3D12GetModes: MODE 21: 1280x720
-D3D12GetModes: MODE 22: 1280x720
-D3D12GetModes: MODE 23: 1280x768
-D3D12GetModes: MODE 24: 1280x768
-D3D12GetModes: MODE 25: 1280x768
-D3D12GetModes: MODE 26: 1280x800
-D3D12GetModes: MODE 27: 1280x960
-D3D12GetModes: MODE 28: 1280x960
-D3D12GetModes: MODE 29: 1280x960
-D3D12GetModes: MODE 30: 1280x960
-D3D12GetModes: MODE 31: 1280x960
-D3D12GetModes: MODE 32: 1280x960
-D3D12GetModes: MODE 33: 1280x1024
-D3D12GetModes: MODE 34: 1280x1024
-D3D12GetModes: MODE 35: 1360x768
-D3D12GetModes: MODE 36: 1360x768
-D3D12GetModes: MODE 37: 1360x768
-D3D12GetModes: MODE 38: 1366x768
-D3D12GetModes: MODE 39: 1366x768
-D3D12GetModes: MODE 40: 1366x768
-D3D12GetModes: MODE 41: 1440x900
-D3D12GetModes: MODE 42: 1440x900
-D3D12GetModes: MODE 43: 1440x900
-D3D12GetModes: MODE 44: 1440x1080
-D3D12GetModes: MODE 45: 1440x1080
-D3D12GetModes: MODE 46: 1440x1080
-D3D12GetModes: MODE 47: 1440x1080
-D3D12GetModes: MODE 48: 1440x1080
-D3D12GetModes: MODE 49: 1440x1080
-D3D12GetModes: MODE 50: 1440x1080
-D3D12GetModes: MODE 51: 1440x1080
-D3D12GetModes: MODE 52: 1440x1080
-D3D12GetModes: MODE 53: 1440x1080
-D3D12GetModes: MODE 54: 1440x1080
-D3D12GetModes: MODE 55: 1440x1080
-D3D12GetModes: MODE 56: 1600x900
-D3D12GetModes: MODE 57: 1600x1024
-D3D12GetModes: MODE 58: 1600x1024
-D3D12GetModes: MODE 59: 1600x1024
-D3D12GetModes: MODE 60: 1600x1024
-D3D12GetModes: MODE 61: 1600x1024
-D3D12GetModes: MODE 62: 1600x1024
-D3D12GetModes: MODE 63: 1600x1200
-D3D12GetModes: MODE 64: 1600x1200
-D3D12GetModes: MODE 65: 1680x1050
-D3D12GetModes: MODE 66: 1680x1050
-D3D12GetModes: MODE 67: 1920x1080
-D3D12GetModes: MODE 68: 1920x1080
-D3D12GetModes: MODE 69: 1920x1080
-D3D12GetModes: MODE 70: 1920x1080
-D3D12GetModes: MODE 71: 1920x1200
-D3D12GetModes: MODE 72: 1920x1200
-D3D12GetModes: MODE 73: 1920x1440
-D3D12GetModes: MODE 74: 1920x1440
-D3D12GetModes: MODE 75: 2048x1536
-D3D12GetModes: MODE 76: 2048x1536
-D3D12GetModes: MODE 77: 2048x1536
-D3D12GetModes: MODE 78: 2048x1536
-D3D12GetModes: MODE 79: 2048x1536
-D3D12GetModes: MODE 80: 2560x1080
-D3D12GetModes: FOUND MODE 83: 2560x1440
-D3D12GetDisplayModeListHook: RETURNING COUNT=83
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 960x540
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 800x600
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1024x768
-D3D12GetModes: MODE 10: 1152x864
-D3D12GetModes: MODE 11: 1176x664
-D3D12GetModes: MODE 12: 1176x664
-D3D12GetModes: MODE 13: 1176x664
-D3D12GetModes: MODE 14: 1176x664
-D3D12GetModes: MODE 15: 1176x664
-D3D12GetModes: MODE 16: 1176x664
-D3D12GetModes: MODE 17: 1176x664
-D3D12GetModes: MODE 18: 1176x664
-D3D12GetModes: MODE 19: 1176x664
-D3D12GetModes: MODE 20: 1280x720
-D3D12GetModes: MODE 21: 1280x720
-D3D12GetModes: MODE 22: 1280x720
-D3D12GetModes: MODE 23: 1280x768
-D3D12GetModes: MODE 24: 1280x768
-D3D12GetModes: MODE 25: 1280x768
-D3D12GetModes: MODE 26: 1280x800
-D3D12GetModes: MODE 27: 1280x960
-D3D12GetModes: MODE 28: 1280x960
-D3D12GetModes: MODE 29: 1280x960
-D3D12GetModes: MODE 30: 1280x960
-D3D12GetModes: MODE 31: 1280x960
-D3D12GetModes: MODE 32: 1280x960
-D3D12GetModes: MODE 33: 1280x1024
-D3D12GetModes: MODE 34: 1280x1024
-D3D12GetModes: MODE 35: 1360x768
-D3D12GetModes: MODE 36: 1360x768
-D3D12GetModes: MODE 37: 1360x768
-D3D12GetModes: MODE 38: 1366x768
-D3D12GetModes: MODE 39: 1366x768
-D3D12GetModes: MODE 40: 1366x768
-D3D12GetModes: MODE 41: 1440x900
-D3D12GetModes: MODE 42: 1440x900
-D3D12GetModes: MODE 43: 1440x900
-D3D12GetModes: MODE 44: 1440x1080
-D3D12GetModes: MODE 45: 1440x1080
-D3D12GetModes: MODE 46: 1440x1080
-D3D12GetModes: MODE 47: 1440x1080
-D3D12GetModes: MODE 48: 1440x1080
-D3D12GetModes: MODE 49: 1440x1080
-D3D12GetModes: MODE 50: 1440x1080
-D3D12GetModes: MODE 51: 1440x1080
-D3D12GetModes: MODE 52: 1440x1080
-D3D12GetModes: MODE 53: 1440x1080
-D3D12GetModes: MODE 54: 1440x1080
-D3D12GetModes: MODE 55: 1440x1080
-D3D12GetModes: MODE 56: 1600x900
-D3D12GetModes: MODE 57: 1600x1024
-D3D12GetModes: MODE 58: 1600x1024
-D3D12GetModes: MODE 59: 1600x1024
-D3D12GetModes: MODE 60: 1600x1024
-D3D12GetModes: MODE 61: 1600x1024
-D3D12GetModes: MODE 62: 1600x1024
-D3D12GetModes: MODE 63: 1600x1200
-D3D12GetModes: MODE 64: 1600x1200
-D3D12GetModes: MODE 65: 1680x1050
-D3D12GetModes: MODE 66: 1680x1050
-D3D12GetModes: MODE 67: 1920x1080
-D3D12GetModes: MODE 68: 1920x1080
-D3D12GetModes: MODE 69: 1920x1080
-D3D12GetModes: MODE 70: 1920x1080
-D3D12GetModes: MODE 71: 1920x1200
-D3D12GetModes: MODE 72: 1920x1200
-D3D12GetModes: MODE 73: 1920x1440
-D3D12GetModes: MODE 74: 1920x1440
-D3D12GetModes: MODE 75: 2048x1536
-D3D12GetModes: MODE 76: 2048x1536
-D3D12GetModes: MODE 77: 2048x1536
-D3D12GetModes: MODE 78: 2048x1536
-D3D12GetModes: MODE 79: 2048x1536
-D3D12GetModes: MODE 80: 2560x1080
-D3D12GetModes: FOUND MODE 83: 2560x1440
-D3D12GetDisplayModeListHook: RETURNING 83 Modes
-Setup: D3D11CreateSwapChain Requested mode    : 1280x720
-Setup: D3D11CreateSwapChain Scale             : 1.500000
-Setup: D3D11CreateSwapChain Viewport XOffset  : 320
-D3D11CreateShaders: OK =)
-~LogWinSize: D3D11CreateSwapChain: 2560x1080 -> 2560x1080
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 3840x2160
-D3D11GetProxy: Setting data to swap chain
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 3840x2160
-Setup: D3D11CreateSwapChain Requested mode    : 2560x1080
-Setup: D3D11CreateSwapChain Scale             : 1.000000
-Setup: D3D11CreateSwapChain Viewport XOffset  : 0
-D3D11CreateShaders: OK =)
-~LogWinSize: D3D11CreateSwapChain: 2560x1080 -> 2560x1080
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-D3D11ResizeBuffersHook: 2560x1080
-D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
-Setup: D3D11ResizeBuffersHook Requested mode    : 2560x1080
-Setup: D3D11ResizeBuffersHook Scale             : 1.000000
-Setup: D3D11ResizeBuffersHook Viewport XOffset  : 0
-~LogWinSize: D3D11ResizeBuffersHook: 2560x1080 -> 2560x1080
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2560x1080 5120x2160
-D3D11GetProxy: Setting data to swap chain
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2560x1080 5120x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2560x1080 5120x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x540 2560x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x540 2560x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x540 2560x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x270 1280x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x270 1280x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x270 1280x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2560x1080 5120x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 4096x3072 8192x6144
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2560x1080 5120x2160
+Direct3DCreate8 Hook: 0
+Linux:  SysDir: C:\WINDOWS\system32 Exists: 
+Succeeded to create Direct3D8
+Succeeded to hook IDirect3D8::CreateDevice
+Succeeded to hook IDirect3DDevice8::EndScene
+AppendDump: Loading dump: C:\Users\Peixoto\Documents\WineHooks\Games\Textures\Dumps\dump0.dds
+AppendDump: PIXEL FORMAT: X8RGB
+AppendDump: CREATING SUBCOLLECTION FOR FORMAT: X8RGB
+AppendDump: CREATING SUBCOLLECION FOR SIZE: 167773240 2560x2560 on format: X8RGB
+ProcessPath: Replacement: C:\Users\Peixoto\Documents\WineHooks\Games\Textures\Replacements\dump0.dds
+AppendDump: 17618408 X8RGB 2560x2560 size: 1
+Succeeded to hook IDirect3DTexture8::LockRect
+Succeeded to hook IDirect3DTexture8::UnLockRect
+Succeeded to hook IDirect3DDevice8::UpdateTexture
+Succeeded to hook IDirect3DDevice8::CreateTexture
+Succeeded to hook IDirect3DDevice8::SetTexture
+Succeeded to hook IDirect3DTexture8::Release
+Succeeded to hook IDirect3DTexture8::GetSurfaceLevel
+Succeeded to hook IDirect3DSurface8::Release
+Data ptr 71237632 1040
+Succeeded to hook IDirect3DDevice8::CreatePixelShader
+Succeeded to hook IDirect3DDevice8::DeletePixelShader
+Succeeded to hook IDirect3DDevice8::SetPixelShader
+C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\D3DCompilers\x86\d3dx9_43.dll loaded
+IDirect3D8_CreateDevice D3DCREATE_MULTITHREADED 0
