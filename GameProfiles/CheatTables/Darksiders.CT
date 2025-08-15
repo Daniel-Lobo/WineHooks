@@ -2,6 +2,11 @@
 <CheatTable CheatEngineTableVersion="45">
   <CheatEntries>
     <CheatEntry>
+      <ID>15</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
       <ID>0</ID>
       <Description>"H - inf HP"</Description>
       <VariableType>Auto Assembler Script</VariableType>
@@ -40,6 +45,11 @@ hit:
 dealloc(*)
 unregistersymbol(*)
 </AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"G - Gain souls"</Description>
+      <GroupHeader>1</GroupHeader>
     </CheatEntry>
     <CheatEntry>
       <ID>12</ID>
@@ -90,5 +100,6 @@ unregistersymbol(*)
       <Address>27220080</Address>
     </SymbolEntry>
   </UserdefinedSymbols>
-  <Comments>HIT ENEMY: F3 0F 11 83 00 01 00 00 8B 75 08</Comments>
+  <Comments>HIT ENEMY: F3 0F 11 83 00 01 00 00 8B 75 08
+</Comments>
 </CheatTable>
