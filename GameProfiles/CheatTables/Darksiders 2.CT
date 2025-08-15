@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"H - inf HP"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(hp, Darksiders2.exe, D9 18 8B 86 30 03 00 00 D9 00 D9 EE DA E9 DF E0 F6 C4 44)
+hp:
+  fstp, st(0)
+ 
+[disable]
+hp:
+  db D9 18 8B 86 30 03 00 00
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>103</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(hit, Darksiders2.exe, D9 18 56 8B CF)
+registersymbol(hit)
+alloc(hit_new, 512)
+label(hit_ret)
+
+hit_new:
+  fstp dword ptr [eax]
+  mov [eax], (float)0.0
+  push esi
+  mov ecx,edi
+jmp hit_ret
+
+hit:
+  jmp hit_new
+hit_ret:
+
+[disable]
+hit:
+  db D9 18 56 8B CF
+dealloc(*)
+unregistersymbol(*)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>105</ID>
+      <Description>"G - Gain money"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>38</ID>
+      <Description>"Auto - Money"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(money, Darksiders2.exe, 8B 4D F8 8B 30 85 C9 74 * e8 * * * * 85 f6 74 * 8B 46 28)
+alloc(money_new, 512)
+registersymbol(money_new)
+label(money_new_code)
+label(money_ret)
+
+money_new:
+  db 00 00 00 00
+money_new_code:
+  mov ecx,[ebp-08]
+  mov esi,[eax]
+  push esi
+  pop [money_new]
+  test ecx,ecx
+jmp money_ret
+
+money:
+  jmp money_new_code
+  db 90 90
+money_ret:
+
+[disable]
+money:
+  db 8B 4D F8 8B 30 85 C9
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>104</ID>
+          <Description>"Money"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>money_new</Address>
+          <Offsets>
+            <Offset>28</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>health +- Code :fstp dword ptr [eax]</Description>
+      <AddressString>Darksiders2.exe+32240C</AddressString>
+      <Before>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>D9</Byte>
+        <Byte>EE</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>18</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>86</Byte>
+        <Byte>30</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>currency + Code :add [edi+28],esi</Description>
+      <AddressString>Darksiders2.exe+323665</AddressString>
+      <Before>
+        <Byte>EB</Byte>
+        <Byte>03</Byte>
+        <Byte>8B</Byte>
+        <Byte>75</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>01</Byte>
+        <Byte>77</Byte>
+        <Byte>28</Byte>
+      </Actual>
+      <After>
+        <Byte>56</Byte>
+        <Byte>E8</Byte>
+        <Byte>24</Byte>
+        <Byte>CF</Byte>
+        <Byte>DA</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>currency - Code :mov [esi+28],eax</Description>
+      <AddressString>Darksiders2.exe+3236EE</AddressString>
+      <Before>
+        <Byte>02</Byte>
+        <Byte>8B</Byte>
+        <Byte>F8</Byte>
+        <Byte>2B</Byte>
+        <Byte>C7</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>46</Byte>
+        <Byte>28</Byte>
+      </Actual>
+      <After>
+        <Byte>8D</Byte>
+        <Byte>45</Byte>
+        <Byte>08</Byte>
+        <Byte>50</Byte>
+        <Byte>8B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>skill pts +- Code :mov [esi+3C],eax</Description>
+      <AddressString>Darksiders2.exe+321106</AddressString>
+      <Before>
+        <Byte>74</Byte>
+        <Byte>06</Byte>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>46</Byte>
+        <Byte>3C</Byte>
+      </Actual>
+      <After>
+        <Byte>5E</Byte>
+        <Byte>C9</Byte>
+        <Byte>C2</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>wrath - 1 Code :fstp dword ptr [eax+04]</Description>
+      <AddressString>Darksiders2.exe+37F312</AddressString>
+      <Before>
+        <Byte>45</Byte>
+        <Byte>08</Byte>
+        <Byte>D8</Byte>
+        <Byte>40</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>58</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>EB</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>06</Byte>
+        <Byte>57</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>wrath - 2 Code :fstp dword ptr [ecx+04]</Description>
+      <AddressString>Darksiders2.exe+37F38E</AddressString>
+      <Before>
+        <Byte>8D</Byte>
+        <Byte>45</Byte>
+        <Byte>0C</Byte>
+        <Byte>D9</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>59</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>5D</Byte>
+        <Byte>C2</Byte>
+        <Byte>08</Byte>
+        <Byte>00</Byte>
+        <Byte>55</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>wrath - 3 Code :fstp dword ptr [ecx+04]</Description>
+      <AddressString>Darksiders2.exe+27F80B</AddressString>
+      <Before>
+        <Byte>45</Byte>
+        <Byte>EC</Byte>
+        <Byte>DA</Byte>
+        <Byte>65</Byte>
+        <Byte>EC</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>59</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>EB</Byte>
+        <Byte>B4</Byte>
+        <Byte>8B</Byte>
+        <Byte>46</Byte>
+        <Byte>18</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>gallop - Code :mov [ecx+00000C64],edx</Description>
+      <AddressString>Darksiders2.exe+40C509</AddressString>
+      <Before>
+        <Byte>85</Byte>
+        <Byte>D2</Byte>
+        <Byte>7E</Byte>
+        <Byte>0C</Byte>
+        <Byte>4A</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>91</Byte>
+        <Byte>64</Byte>
+        <Byte>0C</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>E9</Byte>
+        <Byte>FC</Byte>
+        <Byte>F9</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>gallop + Code :inc [esi+00000C64]</Description>
+      <AddressString>Darksiders2.exe+40C65A</AddressString>
+      <Before>
+        <Byte>49</Byte>
+        <Byte>BF</Byte>
+        <Byte>FF</Byte>
+        <Byte>EB</Byte>
+        <Byte>4C</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>86</Byte>
+        <Byte>64</Byte>
+        <Byte>0C</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>E8</Byte>
+        <Byte>E4</Byte>
+        <Byte>F6</Byte>
+        <Byte>FF</Byte>
+        <Byte>FF</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>ammo - Code :dec [esi+00000340]</Description>
+      <AddressString>Darksiders2.exe+35E2CB</AddressString>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>74</Byte>
+        <Byte>06</Byte>
+      </Before>
+      <Actual>
+        <Byte>FF</Byte>
+        <Byte>8E</Byte>
+        <Byte>40</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>E8</Byte>
+        <Byte>FC</Byte>
+        <Byte>F9</Byte>
+        <Byte>64</Byte>
+        <Byte>00</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>ammo + Code :mov [ecx+00000340],eax</Description>
+      <AddressString>Darksiders2.exe+2838FD</AddressString>
+      <Before>
+        <Byte>8B</Byte>
+        <Byte>EC</Byte>
+        <Byte>8B</Byte>
+        <Byte>45</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>89</Byte>
+        <Byte>81</Byte>
+        <Byte>40</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>5D</Byte>
+        <Byte>C2</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>6A</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>health read Code :fld dword ptr [eax]</Description>
+      <AddressString>Darksiders2.exe+45ADAE</AddressString>
+      <Before>
+        <Byte>81</Byte>
+        <Byte>30</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>D9</Byte>
+        <Byte>5D</Byte>
+        <Byte>EC</Byte>
+        <Byte>D9</Byte>
+        <Byte>45</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>reaper +- Code :fstp dword ptr [eax+08]</Description>
+      <AddressString>Darksiders2.exe+390476</AddressString>
+      <Before>
+        <Byte>4D</Byte>
+        <Byte>08</Byte>
+        <Byte>D8</Byte>
+        <Byte>40</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>58</Byte>
+        <Byte>08</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>06</Byte>
+        <Byte>FF</Byte>
+        <Byte>90</Byte>
+        <Byte>38</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>boatman - Code :sub [eax+20],ecx</Description>
+      <AddressString>Darksiders2.exe+4A9943</AddressString>
+      <Before>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>4D</Byte>
+        <Byte>08</Byte>
+      </Before>
+      <Actual>
+        <Byte>29</Byte>
+        <Byte>48</Byte>
+        <Byte>20</Byte>
+      </Actual>
+      <After>
+        <Byte>5D</Byte>
+        <Byte>C2</Byte>
+        <Byte>04</Byte>
+        <Byte>00</Byte>
+        <Byte>55</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>quest items read Code :mov eax,[eax]</Description>
+      <AddressString>Darksiders2.exe+1DD6F5</AddressString>
+      <Before>
+        <Byte>80</Byte>
+        <Byte>3C</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>8B</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>83</Byte>
+        <Byte>65</Byte>
+        <Byte>B0</Byte>
+        <Byte>00</Byte>
+        <Byte>C7</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>wrath read Code :fld dword ptr [eax+04]</Description>
+      <AddressString>Darksiders2.exe+45AE21</AddressString>
+      <Before>
+        <Byte>81</Byte>
+        <Byte>30</Byte>
+        <Byte>03</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>40</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>01</Byte>
+        <Byte>D9</Byte>
+        <Byte>5D</Byte>
+        <Byte>EC</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>update4 wrath - 1 Code :fstp dword ptr [ecx+04]</Description>
+      <AddressString>Darksiders2.exe+2808A0</AddressString>
+      <Before>
+        <Byte>45</Byte>
+        <Byte>EC</Byte>
+        <Byte>DA</Byte>
+        <Byte>65</Byte>
+        <Byte>EC</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>59</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>EB</Byte>
+        <Byte>B4</Byte>
+        <Byte>8B</Byte>
+        <Byte>46</Byte>
+        <Byte>18</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>update4 wrath - 2 Code :fstp dword ptr [eax+04]</Description>
+      <AddressString>Darksiders2.exe+383484</AddressString>
+      <Before>
+        <Byte>45</Byte>
+        <Byte>08</Byte>
+        <Byte>D8</Byte>
+        <Byte>40</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>58</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>EB</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>06</Byte>
+        <Byte>57</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>update4 wrath - 3 Code :fstp dword ptr [ecx+04]</Description>
+      <AddressString>Darksiders2.exe+383500</AddressString>
+      <Before>
+        <Byte>8D</Byte>
+        <Byte>45</Byte>
+        <Byte>0C</Byte>
+        <Byte>D9</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>D9</Byte>
+        <Byte>59</Byte>
+        <Byte>04</Byte>
+      </Actual>
+      <After>
+        <Byte>5D</Byte>
+        <Byte>C2</Byte>
+        <Byte>08</Byte>
+        <Byte>00</Byte>
+        <Byte>55</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>tWrath</Name>
+      <Address>02860000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>heyho</Name>
+      <Address>08190000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pHealth</Name>
+      <Address>0A670000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>tHealth</Name>
+      <Address>0A680000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pCurrency</Name>
+      <Address>0A740000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pSkillPts</Name>
+      <Address>060C0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pWrath</Name>
+      <Address>0A6A0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>slowmoSpeed</Name>
+      <Address>081A0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>tReaper</Name>
+      <Address>0A6D0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pDeath</Name>
+      <Address>0A6C0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pBoatman</Name>
+      <Address>0A760000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>questItemSlot</Name>
+      <Address>080F0000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pQuestItemAmmount</Name>
+      <Address>08100000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>tOverheat</Name>
+      <Address>0A700000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pQuestItems</Name>
+      <Address>0A780000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB1_jmp</Name>
+      <Address>007248D2</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB3_jmp</Name>
+      <Address>0078347E</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB8_jmp</Name>
+      <Address>00794741</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB7_jmp</Name>
+      <Address>00860E04</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB6_jmp</Name>
+      <Address>00761711</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB11_jmp</Name>
+      <Address>007615DC</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB5_jmp</Name>
+      <Address>00811E9C</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB4_jmp</Name>
+      <Address>00723165</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB2_jmp</Name>
+      <Address>00726238</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB9_jmp</Name>
+      <Address>008B01E1</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>AOB10_jmp</Name>
+      <Address>005DE31A</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+  <Comments>Version: SKIDROW, mainline538065
+</Comments>
+</CheatTable>
