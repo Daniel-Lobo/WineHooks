@@ -64,5 +64,5 @@ VxOut BltVx(uint VertexID: SV_VertexID)
 
 float4 PxDummy(float2 coords0 : TEXCOORD0) : SV_TARGET	
 {
-	return t0.Sample(s0, coords0);
+	return t.Sample(s, coords0);
 }
