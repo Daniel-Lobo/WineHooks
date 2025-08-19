@@ -13,6 +13,8 @@
 #include "dllmain.h"
 #include <vector>
 #include <string>
+#include <tuple>
+using std::tuple;
 
 #define D3D11FILTER_MIP_LINEAR 0x01
 #define D3D11FILTER_MAG_LINEAR 0x05
@@ -547,6 +549,7 @@ void D3D10Blit(IDXGISwapChain *, ID3D10Resource *, ID3D10PixelShader *, ID3D10Re
 void D3D10Blit(IDXGISwapChain *, ID3D10ShaderResourceView *, ID3D10RenderTargetView *, RECT *, RECT*);
 void D3D10VMirrorBlit(IDXGISwapChain *, ID3D10ShaderResourceView *, ID3D10RenderTargetView *, RECT *, RECT*);
 void D3D10RenderText(IDXGISwapChain *, const wchar_t *, RECT *);
+tuple<string, wstring> D3D10BrowseResource(IDXGISwapChain *, UINT, UINT);
 char * __stdcall D3D11LoadWine(char *, char *, char*, UINT);
 ID3D11PixelShader * D3D11FixAndCompileDXBCShader(BYTE *, UINT, string *, float, ID3D11Device *);
 ID3D10PixelShader * D3D10FixAndCompileDXBCShader(BYTE * , UINT, string *, float, ID3D10Device *);
@@ -576,6 +579,9 @@ void __stdcall D3D11PSGetShaderResourcesHook(ID3D11DeviceContext*, UINT, UINT, I
 unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10GetSwapChainDsc(IDXGISwapChain*);
 unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10SetUPSwapChain(DXGI_SWAP_CHAIN_DESC*, const char *);
 extern "C" __declspec(dllexport) void D3D10CreateShaders(IDXGISwapChain * sc);
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D11ResizeTargetHook(IDXGISwapChain*, DXGI_MODE_DESC *);
+extern "C" __declspec(dllexport) HRESULT __stdcall D3D11ResizeBuffersHook(IDXGISwapChain*, UINT, UINT, UINT, DXGI_FORMAT, UINT);
+extern "C" __declspec(dllexport) HRESULT __stdcall DXGIGetBufferHook(IDXGISwapChain *, UINT, REFIID, void **);
 
 //========================VARIABLES=========================================//
 

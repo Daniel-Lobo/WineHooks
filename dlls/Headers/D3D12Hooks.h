@@ -129,6 +129,7 @@ public:
         this->CompileDXBC("HLSL_4.0.hlsl", nullptr, "BltVx", "vs_4_0", &m_VSBlt);
         this->CompileDXBC("HLSL_4.0.hlsl", nullptr, "SSAAx2", "ps_4_0", &m_PS_SSAA);
         this->CompileDXBC("HLSL_4.0.hlsl", nullptr, "SSAAx9", "ps_4_0", &m_PS_SSAAHQ);
+        this->CompileDXBC("HLSL_4.0.hlsl", nullptr, "PxDummy", "ps_4_0", &m_PS_Dummy);
     }
     void CompileDXBC(const char*, D3D_SHADER_MACRO*, const char*, const char*, ID3DBlob **);
     void SetReslimit(DWORD w, DWORD h);
@@ -206,6 +207,7 @@ public:
     ID3DBlob           * m_PS_SSAAHQ       = nullptr;
     ID3DBlob           * m_DwnScl          = nullptr;
     ID3DBlob           * m_TXAAFix         = nullptr;
+    ID3DBlob           * m_PS_Dummy        = nullptr;
     /* Imports*/
     HRESULT (WINAPI *m_DirectDrawCreate)(GUID*, LPDIRECTDRAW*,IUnknown*);
     UINT    (WINAPI *m_D3DXGetFVFVertexSize)(DWORD);    

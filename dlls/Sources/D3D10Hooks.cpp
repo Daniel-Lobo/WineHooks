@@ -15,6 +15,7 @@ extern "C"{
 #include "DDSurface.h"
 }
 #include "sethooks.h"
+#include "MouseHooks.h"
 
 using std::string;
 using std::to_string;
@@ -509,6 +510,15 @@ void D3D10Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
         } else DBUG_WARN("NO PROXY BACKBUFFER")
     }  else DBUG_WARN("NO PROXY BACKBUFFER")
 
+    auto [what, desc] = D3D10BrowseResource(Iface, sync, flags);
+    if (what == "TEXTURES")
+    {
+        D3D10RenderText(Iface, desc.c_str(), &D3D11_Hooks->text_rect);
+        D3D10Texture2DView view(D3D11_Hooks->current_view10);
+        if (view.m_VW)
+        D3D10Blit(Iface, view.m_VW, nullptr, &D3D11_Hooks->image_rect, nullptr);
+    }
+
     return ;
 
     D3D11Bytecode  * c;
@@ -952,4 +962,23 @@ void __stdcall D3D10DrawIndexedInstancedHook(ID3D10Device* c, UINT p1, UINT p2, 
 {
     auto scaler = D3D10ViewPortScaler(c);
     return D3D11Globals.m_D3D10DrawIndexedInstanced(c, p1, p2, p3, p4, p5);
+}
+
+
+extern "C" __declspec(dllexport) 
+void __stdcall D3D10Hook(IDXGISwapChain * sc, IDXGISwapChain1* sc1, IDXGIOutput* out, ID3D10Device * dvc, ID3D10Device1 * dvc1, 
+    ID3D10Texture2D *txt2d, ID3D10ShaderResourceView* srv, ID3D10PixelShader* px, DWORD flags)
+{
+    BOOL mouse_hooks = flags & 0x1;
+    BOOL hd          = flags & 0x2;
+    BOOL textswap    = flags & 0x4;
+    BOOL pxswap      = flags & 0x8;
+    BOOL filter      = flags & 0x10;
+
+    if (mouse_hooks) InitMouseHooks();
+
+    LOGHOOK(IDXGISwapChain, ResizeTarget, sc, &D3D11_Hooks->ResizeTarget, D3D11ResizeTargetHook); 
+    LOGHOOK(IDXGISwapChain, ResizeBuffers, sc, &D3D11_Hooks->ResizeBuffers, D3D11ResizeBuffersHook); 
+    LOGHOOK(IDXGISwapChain, GetBuffer, sc, &D3D11_Hooks->GetBuffer, DXGIGetBufferHook); 
+    return;
 }

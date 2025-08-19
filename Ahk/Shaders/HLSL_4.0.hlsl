@@ -61,3 +61,8 @@ VxOut BltVx(uint VertexID: SV_VertexID)
 	OutPut.crds = float2(c[VertexID].x, c[VertexID].y);
 	return OutPut;
 }   
+
+float4 PxDummy(float2 coords0 : TEXCOORD0) : SV_TARGET	
+{
+	return t0.Sample(s0, coords0);
+}

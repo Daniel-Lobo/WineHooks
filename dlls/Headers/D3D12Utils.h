@@ -15,6 +15,7 @@ extern "C" __declspec(dllexport) HWND GetSwapChainWindowHandle(IDXGISwapChain *)
 extern DWORD GetDXGISurfacePxFormat(DWORD);
 extern DWORD SetDXGISurfacePxFormat(DXGI_FORMAT *, DWORD);
 extern double D3D12GetMemoryUsage(IUnknown*, UINT);
+extern std::wstring GetDXGISurfacePxFormatString(DXGI_FORMAT);
 
 struct D3D11HelperDvc {
     D3D11HelperDvc(){}
