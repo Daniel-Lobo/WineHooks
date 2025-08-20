@@ -91,7 +91,25 @@
 	D3D11_HOOKS.GtScsr     := ID3D10Device.RSGetScissorRects
 	D3D11_HOOKS.Resolve	   := ID3D10Device.ResolveSubresource
 	D3D11_HOOKS.Copy       := ID3D10Device.CopyResource
-	D3D11InitHDHooks(dll)
+
+
+	;D3D11InitHDHooks(dll)
+	if (g_.cfg.HD)
+	{			
+		g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)		
+	}
+	flags := 0
+	if (g_.cfg.MHKS)                      flags |= 0x1
+	if (g_.cfg.HD)                        flags |= 0x2	
+	if (parsecfg(g_.cfg.TextSwap).e)      flags |= 0x4	
+	if (parsecfg(g_.cfg.PxSwap).e)        flags |= 0x8	
+	if (g_.cfg.fltr || g_.cfg.TextSwap.a) flags |= 0x10	
+	dllcall(dll "\D3D10Hook", ptr, IDXGISwapChain.p, ptr, IDXGISwapChain1.p, ptr, IDXGIOutput.p, ptr, ID3D10Device.p, ptr, ID3D10Device1.p
+		, ptr, ID3D10Texture2D.p, ptr, ID3D10ShaderResourceView.p, ptr, ID3D10PixelShader.p, uint, flags)	
+	
+	D3D11_HOOKS.GetDesc  := IDXGISwapChain.GetDesc
+	D3D11_HOOKS.GetDesc1 := IDXGISwapChain1.GetDesc1	
+	D3D11_HOOKS.GetModes := IDXGIOutput.GetDisplayModeList
 	
 	if (g_.cfg.fltr || g_.cfg.TextSwap.a)
 	logerr(ID3D10Device.dllHook("PSSetSamplers", "D3D10PSSetSamplersHook", dll)) 

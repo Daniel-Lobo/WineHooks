@@ -1,5 +1,5 @@
-global g_MainThreadID := 320 ;<Tag> 
-global g_cmdstring := "-Target^L:\Games\BioShock 2\Builds\Binaries\Bioshock2.exe^-D3D^10^-path^Bioshock\Bioshock 2^-HD^upscale|useinterop|hdproxies|useproxies^-wiki^https://www.pcgamingwiki.com/wiki/BioShock_2^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;{b {f} ==[Game crashes]==;^-PxSwap^e=false;^-script_hwnd^0x1006e^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^L:\Games\BioShock 2\Builds\Binaries^-target_name^Bioshock2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 1100 ;<Tag> 
+global g_cmdstring := "-Target^L:\Games\BioShock 2\Builds\Binaries\Bioshock2.exe^-D3D^10^-path^Bioshock\Bioshock 2^-HD^upscale|useinterop|hdproxies|useproxies^-wiki^https://www.pcgamingwiki.com/wiki/BioShock_2^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;{b {f} ==[Game crashes]==;^-PxSwap^e=false;^-script_hwnd^0x9016e^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^L:\Games\BioShock 2\Builds\Binaries^-target_name^Bioshock2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -5870,7 +5870,21 @@ D3D11_HOOKS.GtVW       := ID3D10Device.RSGetViewports
 D3D11_HOOKS.GtScsr     := ID3D10Device.RSGetScissorRects
 D3D11_HOOKS.Resolve	   := ID3D10Device.ResolveSubresource
 D3D11_HOOKS.Copy       := ID3D10Device.CopyResource
-D3D11InitHDHooks(dll)
+if (g_.cfg.HD)
+{
+g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)
+}
+flags := 0
+if (g_.cfg.MHKS)                      flags |= 0x1
+if (g_.cfg.HD)                        flags |= 0x2
+if (parsecfg(g_.cfg.TextSwap).e)      flags |= 0x4
+if (parsecfg(g_.cfg.PxSwap).e)        flags |= 0x8
+if (g_.cfg.fltr || g_.cfg.TextSwap.a) flags |= 0x10
+dllcall(dll "\D3D10Hook", ptr, IDXGISwapChain.p, ptr, IDXGISwapChain1.p, ptr, IDXGIOutput.p, ptr, ID3D10Device.p, ptr, ID3D10Device1.p
+, ptr, ID3D10Texture2D.p, ptr, ID3D10ShaderResourceView.p, ptr, ID3D10PixelShader.p, uint, flags)
+D3D11_HOOKS.GetDesc  := IDXGISwapChain.GetDesc
+D3D11_HOOKS.GetDesc1 := IDXGISwapChain1.GetDesc1
+D3D11_HOOKS.GetModes := IDXGIOutput.GetDisplayModeList
 if (g_.cfg.fltr || g_.cfg.TextSwap.a)
 logerr(ID3D10Device.dllHook("PSSetSamplers", "D3D10PSSetSamplersHook", dll))
 D3D11_HOOKS.StSmplr := ID3D10Device.PSSetSamplers
