@@ -92,7 +92,6 @@
 	D3D11_HOOKS.Resolve	   := ID3D10Device.ResolveSubresource
 	D3D11_HOOKS.Copy       := ID3D10Device.CopyResource
 
-
 	;D3D11InitHDHooks(dll)
 	if (g_.cfg.HD)
 	{			

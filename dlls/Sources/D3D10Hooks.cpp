@@ -981,4 +981,23 @@ void __stdcall D3D10Hook(IDXGISwapChain * sc, IDXGISwapChain1* sc1, IDXGIOutput*
     LOGHOOK(IDXGISwapChain, ResizeBuffers, sc, &D3D11_Hooks->ResizeBuffers, D3D11ResizeBuffersHook); 
     LOGHOOK(IDXGISwapChain, GetBuffer, sc, &D3D11_Hooks->GetBuffer, DXGIGetBufferHook); 
     return;
+
+    if (hd || textswap)
+    {
+        LOGHOOK(ID3D10Device, CopySubresourceRegion, dvc, &D3D11_Hooks->D3D10CopySubresourceRegion, D3D10CopySubresourceRegionHook);
+        LOGHOOK(ID3D10Device, CreateShaderResourceView, dvc, &D3D11_Hooks->D3D10CreateShaderResourceView, D3D10CreateShaderResourceViewHook);
+        LOGHOOK(ID3D10Device, UpdateSubresource, dvc, &D3D11_Hooks->D3D10UpdateSubresource, D3D10UpdateSubresourceHook);
+        LOGHOOK(ID3D10Device, PSSetShaderResources, dvc, &D3D11_Hooks->D3D10PSSetShaderResources, D3D10PSSetShaderResourcesHook);
+        LOGHOOK(ID3D10ShaderResourceView, Release, srv, &D3D11_Hooks->D3D10ReleaseShaderResourceView, D3D10ResourceViewReleaseHook);
+        LOGHOOK(ID3D10Device, CreateTexture2D, dvc, &D3D11_Hooks->D3D10CreateTexture2D, D3D10CreateTexture2DHook);
+        LOGHOOK(ID3D10Texture2D, Release, txt2d, &D3D11_Hooks->D3D10ReleaseTexture2D, D3D10Texture2DReleaseHook);
+        LOGHOOK(ID3D10Texture2D, Map, txt2d, &D3D11_Hooks->D3D10Map, D3D10MapHook);
+        LOGHOOK(ID3D10Texture2D, Unmap, txt2d, &D3D11_Hooks->D3D10Unmap, D3D10UnmapHook);
+    }
+    if (hd || pxswap)
+    {
+        LOGHOOK(ID3D10Device, CreatePixelShader, dvc, &D3D11_Hooks->D3D10CreatePixelShader, CreatePixelShader10Hook);
+        LOGHOOK(ID3D10PixelShader, Release, px, &D3D11_Hooks->D3D10PxShaderRelease, ReleasePixelShader10Hook);
+        LOGHOOK(ID3D10Device, PSSetShader, dvc, &D3D11_Hooks->D3D10PSSetShader, D3D10PsSetShaderHook);
+    }   
 }
