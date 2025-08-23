@@ -57,11 +57,11 @@ hit_new_code:
   cmp [player], esi
   jne enemy
   cmp [inf_hp_flag], 00
-  jne hit_og
+  je hit_og
   fstp, st(0)
   jmp hit_ret
 hit_og:
-  mov [esi+000005C0], (float)200
+  db D9 9E C0 05 00 00
 jmp hit_ret
 
 enemy:
@@ -80,6 +80,9 @@ hit_new_code2:
 jmp hit2_ret
 
 enemy2:
+  movss [esi+000005C0],xmm1
+  cmp [ez_kills_flag], 00
+  je hit2_ret
   mov [esi+000005C0], (float)0
 jmp hit2_ret
 
