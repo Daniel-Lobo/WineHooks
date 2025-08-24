@@ -9,6 +9,7 @@
 #include <d3d12.h>
 #include <dxgi1_3.h>
 #include <d3d9.h>
+#include <stdio.h>
 
 __declspec(dllexport) void DisableHook(LPVOID func)
 {
@@ -46,7 +47,7 @@ int Hook_##Interface##_##Member(void*v, void**pTrampoline, void*Hook)      \
 {                                                                          \
     Interface * i = (Interface *) v;                                       \
     * pTrampoline = i->lpVtbl->Member;                                     \
-    sethook(pTrampoline, Hook);                                            \
+    return sethook(pTrampoline, Hook);                                     \
 }
 HOOKMEMBER(IDirect3DDevice9, ProcessVertices)
 HOOKMEMBER(ID3D11Device, CreateSamplerState)
@@ -92,11 +93,15 @@ HOOKMEMBER(ID3D10Texture2D, Unmap)
 HOOKMEMBER(ID3D10ShaderResourceView, Release)
 HOOKMEMBER(ID3D10PixelShader, Release)
 
-#define GETMEMBERADD(Interface, method, pInterface)     \
-void * Interface##_##method##_Add(void*pInterface)      \
-{                                                       \
-   Interface * i = (Interface *) pInterface;            \
-   return (LPVOID) i->lpVtbl->method;                   \
+#define GETMEMBERADD(Interface, method, pInterface)        \
+void * Interface##_##method##_Add(void * pInterface)       \
+{                                                          \
+    char log[260]; \
+    sprintf(log, "Interface::%s Add called %d\n", "",  ((Interface *)pInterface)->lpVtbl);                  \    
+    OutputDebugStringA(log);                                                        \
+    Interface * i      = (Interface *) pInterface;                                  \  
+    void * pTrampoline =  ((Interface *)pInterface)->lpVtbl->method;                                         \
+    return pTrampoline;                                                             \
 }
 
 GETMEMBERADD(IDXGIFactory2, CreateSwapChain, pInterface)
@@ -128,3 +133,19 @@ GETMEMBERADD(ID3D10Texture2D, Map, pInterface)
 GETMEMBERADD(ID3D10Texture2D, Unmap, pInterface)
 GETMEMBERADD(ID3D10ShaderResourceView, Release, pInterface)
 GETMEMBERADD(ID3D10PixelShader, Release, pInterface)
+GETMEMBERADD(ID3D10Device, RSSetViewports, pInterface)
+GETMEMBERADD(ID3D10Device, RSSetScissorRects, pInterface)
+GETMEMBERADD(ID3D10Device, RSGetViewports, pInterface)
+GETMEMBERADD(ID3D10Device, RSGetScissorRects, pInterface)
+
+void * __ID3D10Device_RSSetViewports_Add(void * pInterface) 
+{   
+    char log[260];
+    sprintf(log, "Interface::%s Add called %d\n", "RSSetViewports", pInterface);
+    MessageBoxA(NULL, log, "D3D10Hook", MB_OK);
+    OutputDebugStringA("=======================================================\n");
+    OutputDebugStringA(log);
+    ID3D10Device * i = (ID3D10Device *) pInterface;                                       \
+    void * pTrampoline = i->lpVtbl->RSSetViewports;                                     \
+    return pTrampoline;                                     \
+}

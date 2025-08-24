@@ -1,5 +1,5 @@
-global g_MainThreadID := 11096 ;<Tag> 
-global g_cmdstring := "-Target^C:\Games\BioShock 2\Builds\Binaries\Bioshock2.exe^-D3D^10^-path^Bioshock\Bioshock 2^-HD^upscale|useinterop|hdproxies|useproxies^/dxvk^-wiki^https://www.pcgamingwiki.com/wiki/BioShock_2^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;{b {f} ==[Game crashes]==;^-PxSwap^e=true;^-script_hwnd^0x4f0546^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1600x1200 1680x1050 1920x1080 1920x1200 1920x1440 2048x1536 2560x1440 2560x1600 1440x900 2560x1080 3840x2160 5120x2160 ^-max_4x3_res^2048x1536^-dsk^2560x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^C:\Games\BioShock 2\Builds\Binaries^-target_name^Bioshock2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 2328 ;<Tag> 
+global g_cmdstring := "-Target^C:\Games\BioShock 2\Builds\Binaries\Bioshock2.exe^-D3D^10^-path^Bioshock\Bioshock 2^-HD^upscale|useinterop|hdproxies|useproxies|ssaa^/dxvk^-wiki^https://www.pcgamingwiki.com/wiki/BioShock_2^-Textswap^e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;{b {f} ==[Game crashes]==;^-PxSwap^e=false;^-script_hwnd^0x5f039a^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1600x1200 1680x1050 1920x1080 1920x1200 1920x1440 2048x1536 2560x1440 2560x1600 1440x900 2560x1080 3840x2160 5120x2160 ^-max_4x3_res^2048x1536^-dsk^2560x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^C:\Games\BioShock 2\Builds\Binaries^-target_name^Bioshock2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -5830,16 +5830,6 @@ D3D11_HOOKS.PxShdrs   := g_PxOvrrd.PxShdrs.pc
 if (g_.cfg.HD)
 {
 }
-D3D11_HOOKS.StTrgt     := ID3D10Device.OMSetRenderTargets
-D3D11_HOOKS.GtTrgt     := ID3D10Device.OMGetRenderTargets
-D3D11_HOOKS.Clear      := ID3D10Device.ClearDepthStencilView
-D3D11_HOOKS.ClearRT    := ID3D10Device.ClearRenderTargetView
-D3D11_HOOKS.StVW       := ID3D10Device.RSSetViewports
-D3D11_HOOKS.StScsr     := ID3D10Device.RSSetScissorRects
-D3D11_HOOKS.GtVW       := ID3D10Device.RSGetViewports
-D3D11_HOOKS.GtScsr     := ID3D10Device.RSGetScissorRects
-D3D11_HOOKS.Resolve	   := ID3D10Device.ResolveSubresource
-D3D11_HOOKS.Copy       := ID3D10Device.CopyResource
 if (g_.cfg.HD)
 {
 g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)

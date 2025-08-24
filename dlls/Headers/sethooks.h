@@ -93,6 +93,11 @@ EXTERNGETMEMBERADD(ID3D10Texture2D, Map, pInterface)
 EXTERNGETMEMBERADD(ID3D10Texture2D, Unmap, pInterface)
 EXTERNGETMEMBERADD(ID3D10ShaderResourceView, Release, pInterface)
 EXTERNGETMEMBERADD(ID3D10PixelShader, Release, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, RSSetViewports, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, RSSetScissorRects, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, RSGetViewports, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, RSGetScissorRects, pInterface)
+extern "C" void * __ID3D10Device_RSSetViewports_Add(void* pInterface);
 #endif
 
 

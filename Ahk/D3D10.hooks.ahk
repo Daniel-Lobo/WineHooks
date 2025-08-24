@@ -84,7 +84,7 @@
 		;logerr(ID3D10Device.dllHook("ClearDepthStencilView", "D3D10ClearDepthStencilViewHook", dll)) 
 		;logerr(ID3D10Device.dllHook("ClearRenderTargetView", "D3D10ClearRenderTargetViewHook", dll)) 				
 	}	
-	
+	/*
 	D3D11_HOOKS.StTrgt     := ID3D10Device.OMSetRenderTargets
 	D3D11_HOOKS.GtTrgt     := ID3D10Device.OMGetRenderTargets
 	D3D11_HOOKS.Clear      := ID3D10Device.ClearDepthStencilView 
@@ -95,6 +95,12 @@
 	D3D11_HOOKS.GtScsr     := ID3D10Device.RSGetScissorRects
 	D3D11_HOOKS.Resolve	   := ID3D10Device.ResolveSubresource
 	D3D11_HOOKS.Copy       := ID3D10Device.CopyResource
+	*/
+
+	;D3D11_HOOKS.StVW       := ID3D10Device.RSSetViewports
+	;D3D11_HOOKS.StScsr     := ID3D10Device.RSSetScissorRects
+	;D3D11_HOOKS.GtVW       := ID3D10Device.RSGetViewports
+	;D3D11_HOOKS.GtScsr     := ID3D10Device.RSGetScissorRects
 	
 
 	;D3D11InitHDHooks(dll)

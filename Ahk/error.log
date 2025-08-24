@@ -7,7 +7,7 @@ dsk: 2560x1080
 dxvk: 1
 dxvkv: 2_6
 error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
-HD: upscale|useinterop|hdproxies|useproxies
+HD: upscale|useinterop|hdproxies|useproxies|ssaa
 injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
 J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
 k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;{b {f} ==[Game crashes]==;
@@ -15,14 +15,14 @@ max_4x3_res: 2048x1536
 Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
 path: C:\Users\Peixoto\Documents\WineHooks\Games\Bioshock\Bioshock 2\
-PxSwap: e=true;
+PxSwap: e=false;
 res_lmt_lts: 
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1600x1200 1680x1050 1920x1080 1920x1200 1920x1440 2048x1536 2560x1440 2560x1600 1440x900 2560x1080 3840x2160 5120x2160 
-script_hwnd: 0x4f0546
+script_hwnd: 0x5f039a
 Target: C:\Games\BioShock 2\Builds\Binaries\Bioshock2.exe
 target_dir: C:\Games\BioShock 2\Builds\Binaries
 target_name: Bioshock2.exe
-Textswap: e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;
+Textswap: e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;
 wiki: https://www.pcgamingwiki.com/wiki/BioShock_2
 wine: 10_0
 
@@ -101,16 +101,16 @@ GetDirect3D10: SUCCEEDED TO HOOK ID3D10Device::DrawAuto
 GetDirect3D10: SUCCEEDED TO HOOK ID3D10Device::DrawInstanced
 GetDirect3D10: SUCCEEDED TO HOOK ID3D10Device::DrawIndexedInstanced
 GetDirect3D10 0 A12
-Texture 224648052 8439376
-&&&&&& 1888145392 1888145392
+Texture 227821084 15236720
+&&&&&& 1885720560 1885720560
 D3D 10 Compile shader 0
 D3D 10 Create shader 0 0
 Releasing Texture 0
 Releasing ResView 0
-Succeded to create the Direct3D10.1 device 13009416 13010448
+Succeded to create the Direct3D10.1 device 14729104 14722264
 Succeeded to hook IDXGIFactory::CreateSwapChain
 Succeeded to hook IDXGISwapChain::Present
-D3D10Hook flags 14
+D3D10Hook flags 2
 D3D10Hook: SUCCEEDED TO HOOK IDXGISwapChain::ResizeTarget
 D3D10Hook: SUCCEEDED TO HOOK IDXGISwapChain::ResizeBuffers
 D3D10Hook: SUCCEEDED TO HOOK IDXGISwapChain::GetBuffer
@@ -136,7 +136,7 @@ ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain::GetDesc
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain1::GetDesc1
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::GetDisplayModeList
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::FindClosestMatchingMode
-D3D10SetUPSwapChain: D3D10CreateSwapChain10 SetWindowPos: 1 HWIN: 3278088
+D3D10SetUPSwapChain: D3D10CreateSwapChain10 SetWindowPos: 1 HWIN: 3605592
 D3D10GetSwapChainDsc: 2560x1080
 D3D10CreateShaders: OK =)
 DXGIGetBufferHook: 0
@@ -485,18 +485,12 @@ D3D12GetModes: MODE 79: 2048x1536
 D3D12GetModes: MODE 80: 2560x1080
 D3D12GetModes: FOUND MODE 83: 2560x1440
 D3D12GetDisplayModeListHook: RETURNING 83 Modes
-D3D11ResizeBuffersHook: 2048x1536
+D3D11ResizeBuffersHook: 2560x1080
 D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
-Setup: D3D11ResizeBuffersHook Requested mode    : 2048x1536
-Setup: D3D11ResizeBuffersHook Scale             : 0.703125
-Setup: D3D11ResizeBuffersHook Viewport XOffset  : 560
-~LogWinSize: D3D11ResizeBuffersHook: 2048x1071 -> 2048x1071
-D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
-D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
-D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
-D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
-D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
-D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+Setup: D3D11ResizeBuffersHook Requested mode    : 2560x1080
+Setup: D3D11ResizeBuffersHook Scale             : 1.000000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 0
+~LogWinSize: D3D11ResizeBuffersHook: 2560x1071 -> 2560x1071
 DXGIGetBufferHook: 0
 InitResources: SUCCESS
 Reset: SUCCESS
@@ -507,85 +501,4 @@ D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
 D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
 D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
 D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
 D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
-D3D10BrowseResource: TEXTURE SWAP EVENT
