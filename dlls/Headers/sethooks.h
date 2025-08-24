@@ -63,7 +63,7 @@ EXTERNHOOKMEMBER(ID3D10ShaderResourceView, Release)
 EXTERNHOOKMEMBER(ID3D10PixelShader, Release)
 
 
-#define EXTERNGETMEMBERADD(Interface, method, pInterface) extern "C" void* Interface_method_Add(void* pInterface);
+#define EXTERNGETMEMBERADD(Interface, method, pInterface) extern "C" void * Interface##_##method##_Add(void* pInterface);
 EXTERNGETMEMBERADD(IDXGIFactory2, CreateSwapChain, pInterface)
 EXTERNGETMEMBERADD(IDXGIFactory2, CreateSwapChainForHwnd, pInterface)
 EXTERNGETMEMBERADD(IDXGISwapChain, GetBuffer, pInterface)
@@ -75,6 +75,24 @@ EXTERNGETMEMBERADD(IDXGISwapChain2, GetFrameLatencyWaitableObject, pInterface)
 EXTERNGETMEMBERADD(IDXGISwapChain2, SetMaximumFrameLatency, pInterface)
 EXTERNGETMEMBERADD(IDXGISwapChain, GetDesc, pInterface)
 EXTERNGETMEMBERADD(ID3D12Device, CreateSampler, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, CopySubresourceRegion, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, CreateShaderResourceView, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, UpdateSubresource, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, PSSetShaderResources, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, CreateTexture2D, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, PSSetShader, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, CopyResource, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, ResolveSubresource, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, OMSetRenderTargets, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, OMGetRenderTargets, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, ClearDepthStencilView, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, ClearRenderTargetView, pInterface)
+EXTERNGETMEMBERADD(ID3D10Device, CreatePixelShader, pInterface)
+EXTERNGETMEMBERADD(ID3D10Texture2D, Release, pInterface)
+EXTERNGETMEMBERADD(ID3D10Texture2D, Map, pInterface)
+EXTERNGETMEMBERADD(ID3D10Texture2D, Unmap, pInterface)
+EXTERNGETMEMBERADD(ID3D10ShaderResourceView, Release, pInterface)
+EXTERNGETMEMBERADD(ID3D10PixelShader, Release, pInterface)
 #endif
 
 

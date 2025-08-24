@@ -4078,25 +4078,7 @@ g_TSwap.replace     := new Collection()
 D3D11_HOOKS.replace := g_TSwap.replace.pc
 }
 else TSwapInit(dll)
-logerr(ID3D10Device.dllHook("CopySubresourceRegion", "D3D10CopySubresourceRegionHook", dll))
-logerr(ID3D10Device.dllHook("CreateShaderResourceView", "D3D10CreateShaderResourceViewHook", dll))
-logerr(ID3D10Device.dllHook("UpdateSubresource", "D3D10UpdateSubresourceHook", dll))
-logerr(ID3D10Device.dllHook("PSSetShaderResources", "D3D10PSSetShaderResourcesHook", dll))
-logerr(ID3D10ShaderResourceView.dllHook("Release", "D3D10ResourceViewReleaseHook", dll))
-logerr(ID3D10Device.dllHook("CreateTexture2D", "D3D10CreateTexture2DHook", dll))
-logerr(ID3D10Texture2D.dllHook("Release", "D3D10Texture2DReleaseHook", dll))
-logerr(ID3D10Texture2D.dllHook("Map", "D3D10MapHook", dll))
-logerr(ID3D10Texture2D.dllHook("Unmap", "D3D10UnmapHook", dll))
 }
-D3D11_HOOKS.CreateResView  := ID3D10Device.CreateShaderResourceView
-D3D11_HOOKS.ReleaseResView := ID3D10ShaderResourceView.Release
-D3D11_HOOKS.CreateTex2D    := ID3D10Device.CreateTexture2D
-D3D11_HOOKS.ReleaseTex2D   := ID3D10Texture2D.Release
-D3D11_HOOKS.map            := ID3D10Texture2D.Map
-D3D11_HOOKS.Unmap          := ID3D10Texture2D.Unmap
-D3D11_HOOKS.UpdateSubrsrc  := ID3D10Device.UpdateSubresource
-D3D11_HOOKS.ImSetResources := ID3D10Device.PSSetShaderResources
-D3D11_HOOKS.CopyRegion     := ID3D10Device.CopySubresourceRegion
 if (parsecfg(g_.cfg.PxSwap).e or g_.cfg.HD)
 {
 if (! parsecfg(g_.cfg.PxSwap).e )
@@ -4105,22 +4087,10 @@ g_PxOvrrd           := {}
 g_PxOvrrd.PxShdrs   := new Collection()
 D3D11_HOOKS.PxShdrs := g_PxOvrrd.PxShdrs.pc
 } else PxOvrr11dInit()
-logerr(ID3D10Device.dllHook("CreatePixelShader", "CreatePixelShader10Hook", dll))
-logerr(ID3D10PixelShader.dllHook("Release", "ReleasePixelShader10Hook", dll))
-logerr(ID3D10Device.dllHook("PsSetShader", "D3D10PsSetShaderHook", dll))
 }
 D3D11_HOOKS.PxShdrs   := g_PxOvrrd.PxShdrs.pc
-D3D11_HOOKS.PxCreate  := ID3D10Device.CreatePixelShader
-D3D11_HOOKS.PxRelease := ID3D10PixelShader.Release
-D3D11_HOOKS.PxSet     := ID3D10Device.PsSetShader
 if (g_.cfg.HD)
 {
-logerr(ID3D10Device.dllHook("CopyResource", "D3D10CopyResourceHook", dll))
-logerr(ID3D10Device.dllHook("ResolveSubresource", "D3D10ResolveSubresourceHook", dll))
-logerr(ID3D10Device.dllHook("OMSetRenderTargets", "D3D10OMSetRenderTargetsHook", dll))
-logerr(ID3D10Device.dllHook("OMGetRenderTargets", "D3D10OMGetRenderTargetsHook", dll))
-logerr(ID3D10Device.dllHook("ClearDepthStencilView", "D3D10ClearDepthStencilViewHook", dll))
-logerr(ID3D10Device.dllHook("ClearRenderTargetView", "D3D10ClearRenderTargetViewHook", dll))
 }
 D3D11_HOOKS.StTrgt     := ID3D10Device.OMSetRenderTargets
 D3D11_HOOKS.GtTrgt     := ID3D10Device.OMGetRenderTargets
@@ -4137,11 +4107,17 @@ if (g_.cfg.HD)
 g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)
 }
 flags := 0
-if (g_.cfg.MHKS)                      flags |= 0x1
-if (g_.cfg.HD)                        flags |= 0x2
-if (parsecfg(g_.cfg.TextSwap).e)      flags |= 0x4
-if (parsecfg(g_.cfg.PxSwap).e)        flags |= 0x8
-if (g_.cfg.fltr || g_.cfg.TextSwap.a) flags |= 0x10
+if (g_.cfg.MHKS)
+flags |= 0x1
+if (g_.cfg.HD)
+flags |= 0x2
+if (parsecfg(g_.cfg.TextSwap).e)
+flags |= 0x4
+if (parsecfg(g_.cfg.PxSwap).e)
+flags |= 0x8
+if (g_.cfg.fltr || g_.cfg.TextSwap.a)
+flags |= 0x10
+logerr("D3D10Hook flags " flags)
 dllcall(dll "\D3D10Hook", ptr, IDXGISwapChain.p, ptr, IDXGISwapChain1.p, ptr, IDXGIOutput.p, ptr, ID3D10Device.p, ptr, ID3D10Device1.p
 , ptr, ID3D10Texture2D.p, ptr, ID3D10ShaderResourceView.p, ptr, ID3D10PixelShader.p, uint, flags)
 D3D11_HOOKS.GetDesc  := IDXGISwapChain.GetDesc

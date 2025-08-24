@@ -1,5 +1,5 @@
-global g_MainThreadID := 2032 ;<Tag> 
-global g_cmdstring := "-Target^G:\Games\Unravel Two\UnravelTwo.exe^-D3D^11^-path^Unravel\Unravel Two^/WHKS^/dxvk^-Textswap^e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;^-PxSwap^e=true;sw=Del;n=];p=[;q=Shift;d=Home;^-script_hwnd^0x40190^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^G:\Games\Unravel Two^-target_name^UnravelTwo.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 11096 ;<Tag> 
+global g_cmdstring := "-Target^C:\Games\BioShock 2\Builds\Binaries\Bioshock2.exe^-D3D^10^-path^Bioshock\Bioshock 2^-HD^upscale|useinterop|hdproxies|useproxies^/dxvk^-wiki^https://www.pcgamingwiki.com/wiki/BioShock_2^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;{b {f} ==[Game crashes]==;^-PxSwap^e=true;^-script_hwnd^0x4f0546^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1600x1200 1680x1050 1920x1080 1920x1200 1920x1440 2048x1536 2560x1440 2560x1600 1440x900 2560x1080 3840x2160 5120x2160 ^-max_4x3_res^2048x1536^-dsk^2560x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^C:\Games\BioShock 2\Builds\Binaries^-target_name^Bioshock2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -1734,6 +1734,7 @@ r := dllcall("GetBinaryType", astr, trgt, "uint*", btype)
 if (btype = 6)
 return true
 }
+
 
 ; <COMPILER: v1.1.15.03>
 global D3D11_QUERY_EVENT              := 0
@@ -5815,25 +5816,7 @@ g_TSwap.replace     := new Collection()
 D3D11_HOOKS.replace := g_TSwap.replace.pc
 }
 else TSwapInit(dll)
-logerr(ID3D10Device.dllHook("CopySubresourceRegion", "D3D10CopySubresourceRegionHook", dll))
-logerr(ID3D10Device.dllHook("CreateShaderResourceView", "D3D10CreateShaderResourceViewHook", dll))
-logerr(ID3D10Device.dllHook("UpdateSubresource", "D3D10UpdateSubresourceHook", dll))
-logerr(ID3D10Device.dllHook("PSSetShaderResources", "D3D10PSSetShaderResourcesHook", dll))
-logerr(ID3D10ShaderResourceView.dllHook("Release", "D3D10ResourceViewReleaseHook", dll))
-logerr(ID3D10Device.dllHook("CreateTexture2D", "D3D10CreateTexture2DHook", dll))
-logerr(ID3D10Texture2D.dllHook("Release", "D3D10Texture2DReleaseHook", dll))
-logerr(ID3D10Texture2D.dllHook("Map", "D3D10MapHook", dll))
-logerr(ID3D10Texture2D.dllHook("Unmap", "D3D10UnmapHook", dll))
 }
-D3D11_HOOKS.CreateResView  := ID3D10Device.CreateShaderResourceView
-D3D11_HOOKS.ReleaseResView := ID3D10ShaderResourceView.Release
-D3D11_HOOKS.CreateTex2D    := ID3D10Device.CreateTexture2D
-D3D11_HOOKS.ReleaseTex2D   := ID3D10Texture2D.Release
-D3D11_HOOKS.map            := ID3D10Texture2D.Map
-D3D11_HOOKS.Unmap          := ID3D10Texture2D.Unmap
-D3D11_HOOKS.UpdateSubrsrc  := ID3D10Device.UpdateSubresource
-D3D11_HOOKS.ImSetResources := ID3D10Device.PSSetShaderResources
-D3D11_HOOKS.CopyRegion     := ID3D10Device.CopySubresourceRegion
 if (parsecfg(g_.cfg.PxSwap).e or g_.cfg.HD)
 {
 if (! parsecfg(g_.cfg.PxSwap).e )
@@ -5842,22 +5825,10 @@ g_PxOvrrd           := {}
 g_PxOvrrd.PxShdrs   := new Collection()
 D3D11_HOOKS.PxShdrs := g_PxOvrrd.PxShdrs.pc
 } else PxOvrr11dInit()
-logerr(ID3D10Device.dllHook("CreatePixelShader", "CreatePixelShader10Hook", dll))
-logerr(ID3D10PixelShader.dllHook("Release", "ReleasePixelShader10Hook", dll))
-logerr(ID3D10Device.dllHook("PsSetShader", "D3D10PsSetShaderHook", dll))
 }
 D3D11_HOOKS.PxShdrs   := g_PxOvrrd.PxShdrs.pc
-D3D11_HOOKS.PxCreate  := ID3D10Device.CreatePixelShader
-D3D11_HOOKS.PxRelease := ID3D10PixelShader.Release
-D3D11_HOOKS.PxSet     := ID3D10Device.PsSetShader
 if (g_.cfg.HD)
 {
-logerr(ID3D10Device.dllHook("CopyResource", "D3D10CopyResourceHook", dll))
-logerr(ID3D10Device.dllHook("ResolveSubresource", "D3D10ResolveSubresourceHook", dll))
-logerr(ID3D10Device.dllHook("OMSetRenderTargets", "D3D10OMSetRenderTargetsHook", dll))
-logerr(ID3D10Device.dllHook("OMGetRenderTargets", "D3D10OMGetRenderTargetsHook", dll))
-logerr(ID3D10Device.dllHook("ClearDepthStencilView", "D3D10ClearDepthStencilViewHook", dll))
-logerr(ID3D10Device.dllHook("ClearRenderTargetView", "D3D10ClearRenderTargetViewHook", dll))
 }
 D3D11_HOOKS.StTrgt     := ID3D10Device.OMSetRenderTargets
 D3D11_HOOKS.GtTrgt     := ID3D10Device.OMGetRenderTargets
@@ -5874,11 +5845,17 @@ if (g_.cfg.HD)
 g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)
 }
 flags := 0
-if (g_.cfg.MHKS)                      flags |= 0x1
-if (g_.cfg.HD)                        flags |= 0x2
-if (parsecfg(g_.cfg.TextSwap).e)      flags |= 0x4
-if (parsecfg(g_.cfg.PxSwap).e)        flags |= 0x8
-if (g_.cfg.fltr || g_.cfg.TextSwap.a) flags |= 0x10
+if (g_.cfg.MHKS)
+flags |= 0x1
+if (g_.cfg.HD)
+flags |= 0x2
+if (parsecfg(g_.cfg.TextSwap).e)
+flags |= 0x4
+if (parsecfg(g_.cfg.PxSwap).e)
+flags |= 0x8
+if (g_.cfg.fltr || g_.cfg.TextSwap.a)
+flags |= 0x10
+logerr("D3D10Hook flags " flags)
 dllcall(dll "\D3D10Hook", ptr, IDXGISwapChain.p, ptr, IDXGISwapChain1.p, ptr, IDXGIOutput.p, ptr, ID3D10Device.p, ptr, ID3D10Device1.p
 , ptr, ID3D10Texture2D.p, ptr, ID3D10ShaderResourceView.p, ptr, ID3D10PixelShader.p, uint, flags)
 D3D11_HOOKS.GetDesc  := IDXGISwapChain.GetDesc
@@ -6268,4 +6245,5 @@ return 0
 }
 
 
+printl()
 resume()

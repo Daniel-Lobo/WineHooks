@@ -980,7 +980,7 @@ void __stdcall D3D10Hook(IDXGISwapChain * sc, IDXGISwapChain1* sc1, IDXGIOutput*
     LOGHOOK(IDXGISwapChain, ResizeTarget, sc, &D3D11_Hooks->ResizeTarget, D3D11ResizeTargetHook); 
     LOGHOOK(IDXGISwapChain, ResizeBuffers, sc, &D3D11_Hooks->ResizeBuffers, D3D11ResizeBuffersHook); 
     LOGHOOK(IDXGISwapChain, GetBuffer, sc, &D3D11_Hooks->GetBuffer, DXGIGetBufferHook); 
-    return;
+    //return;
 
     if (hd || textswap)
     {
@@ -993,11 +993,41 @@ void __stdcall D3D10Hook(IDXGISwapChain * sc, IDXGISwapChain1* sc1, IDXGIOutput*
         LOGHOOK(ID3D10Texture2D, Release, txt2d, &D3D11_Hooks->D3D10ReleaseTexture2D, D3D10Texture2DReleaseHook);
         LOGHOOK(ID3D10Texture2D, Map, txt2d, &D3D11_Hooks->D3D10Map, D3D10MapHook);
         LOGHOOK(ID3D10Texture2D, Unmap, txt2d, &D3D11_Hooks->D3D10Unmap, D3D10UnmapHook);
+    } else {
+        D3D11_Hooks->D3D10CopySubresourceRegion     = (decltype(D3D11_Hooks->D3D10CopySubresourceRegion))     ID3D10Device_CopySubresourceRegion_Add(dvc);
+        D3D11_Hooks->D3D10CreateShaderResourceView  = (decltype(D3D11_Hooks->D3D10CreateShaderResourceView))  ID3D10Device_CreateShaderResourceView_Add(dvc);
+        D3D11_Hooks->D3D10UpdateSubresource         = (decltype(D3D11_Hooks->D3D10UpdateSubresource))         ID3D10Device_UpdateSubresource_Add(dvc);
+        D3D11_Hooks->D3D10PSSetShaderResources      = (decltype(D3D11_Hooks->D3D10PSSetShaderResources))      ID3D10Device_PSSetShaderResources_Add(dvc);
+        D3D11_Hooks->D3D10ReleaseShaderResourceView = (decltype(D3D11_Hooks->D3D10ReleaseShaderResourceView)) ID3D10ShaderResourceView_Release_Add(srv);
+        D3D11_Hooks->D3D10CreateTexture2D           = (decltype(D3D11_Hooks->D3D10CreateTexture2D))           ID3D10Device_CreateTexture2D_Add(dvc);
+        D3D11_Hooks->D3D10ReleaseTexture2D          = (decltype(D3D11_Hooks->D3D10ReleaseTexture2D))          ID3D10Texture2D_Release_Add(txt2d);
+        D3D11_Hooks->D3D10Map                       = (decltype(D3D11_Hooks->D3D10Map))                       ID3D10Texture2D_Map_Add(txt2d);
+        D3D11_Hooks->D3D10Unmap                     = (decltype(D3D11_Hooks->D3D10Unmap))                     ID3D10Texture2D_Unmap_Add(txt2d);
     }
     if (hd || pxswap)
     {
         LOGHOOK(ID3D10Device, CreatePixelShader, dvc, &D3D11_Hooks->D3D10CreatePixelShader, CreatePixelShader10Hook);
         LOGHOOK(ID3D10PixelShader, Release, px, &D3D11_Hooks->D3D10PxShaderRelease, ReleasePixelShader10Hook);
         LOGHOOK(ID3D10Device, PSSetShader, dvc, &D3D11_Hooks->D3D10PSSetShader, D3D10PsSetShaderHook);
-    }   
+    } else {
+        D3D11_Hooks->D3D10CreatePixelShader = (decltype(D3D11_Hooks->D3D10CreatePixelShader)) ID3D10Device_CreatePixelShader_Add(dvc);
+        D3D11_Hooks->D3D10PxShaderRelease   = (decltype(D3D11_Hooks->D3D10PxShaderRelease))   ID3D10PixelShader_Release_Add(px);
+        D3D11_Hooks->D3D10PSSetShader       = (decltype(D3D11_Hooks->D3D10PSSetShader))       ID3D10Device_PSSetShader_Add(dvc);
+    }  
+    if (hd)
+    {
+        LOGHOOK(ID3D10Device, CopyResource, dvc, &D3D11_Hooks->D3D10CopyResource, D3D10CopyResourceHook);
+        LOGHOOK(ID3D10Device, ResolveSubresource, dvc, &D3D11_Hooks->D3D10ResolveSubresource, D3D10ResolveSubresourceHook);
+        LOGHOOK(ID3D10Device, OMSetRenderTargets, dvc, &D3D11_Hooks->D3D10OMSetRenderTargets, D3D10OMSetRenderTargetsHook);
+        LOGHOOK(ID3D10Device, OMGetRenderTargets, dvc, &D3D11_Hooks->D3D10OMGetRenderTargets, D3D10OMGetRenderTargetsHook);
+        LOGHOOK(ID3D10Device, ClearDepthStencilView, dvc, &D3D11_Hooks->D3D10ClearDepthStencilView, D3D10ClearDepthStencilViewHook);
+        LOGHOOK(ID3D10Device, ClearRenderTargetView, dvc, &D3D11_Hooks->D3D10ClearRenderTargetView, D3D10ClearRenderTargetViewHook);  
+    } else {
+        D3D11_Hooks->D3D10CopyResource          = (decltype(D3D11_Hooks->D3D10CopyResource))          ID3D10Device_CopyResource_Add(dvc);
+        D3D11_Hooks->D3D10ResolveSubresource    = (decltype(D3D11_Hooks->D3D10ResolveSubresource))    ID3D10Device_ResolveSubresource_Add(dvc);
+        D3D11_Hooks->D3D10OMSetRenderTargets    = (decltype(D3D11_Hooks->D3D10OMSetRenderTargets))    ID3D10Device_OMSetRenderTargets_Add(dvc);
+        D3D11_Hooks->D3D10OMGetRenderTargets    = (decltype(D3D11_Hooks->D3D10OMGetRenderTargets))    ID3D10Device_OMGetRenderTargets_Add(dvc);
+        D3D11_Hooks->D3D10ClearDepthStencilView = (decltype(D3D11_Hooks->D3D10ClearDepthStencilView)) ID3D10Device_ClearDepthStencilView_Add(dvc);
+        D3D11_Hooks->D3D10ClearRenderTargetView = (decltype(D3D11_Hooks->D3D10ClearRenderTargetView)) ID3D10Device_ClearRenderTargetView_Add(dvc);
+    }
 }
