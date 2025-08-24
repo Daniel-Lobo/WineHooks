@@ -1,5 +1,5 @@
-global g_MainThreadID := 1100 ;<Tag> 
-global g_cmdstring := "-Target^L:\Games\BioShock 2\Builds\Binaries\Bioshock2.exe^-D3D^10^-path^Bioshock\Bioshock 2^-HD^upscale|useinterop|hdproxies|useproxies^-wiki^https://www.pcgamingwiki.com/wiki/BioShock_2^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=256;s=4;path=Textures\VOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;{b {f} ==[Game crashes]==;^-PxSwap^e=false;^-script_hwnd^0x9016e^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^L:\Games\BioShock 2\Builds\Binaries^-target_name^Bioshock2.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 2032 ;<Tag> 
+global g_cmdstring := "-Target^G:\Games\Unravel Two\UnravelTwo.exe^-D3D^11^-path^Unravel\Unravel Two^/WHKS^/dxvk^-Textswap^e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;^-PxSwap^e=true;sw=Del;n=];p=[;q=Shift;d=Home;^-script_hwnd^0x40190^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^G:\Games\Unravel Two^-target_name^UnravelTwo.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -1734,7 +1734,6 @@ r := dllcall("GetBinaryType", astr, trgt, "uint*", btype)
 if (btype = 6)
 return true
 }
-
 
 ; <COMPILER: v1.1.15.03>
 global D3D11_QUERY_EVENT              := 0
@@ -6269,5 +6268,4 @@ return 0
 }
 
 
-printl()
 resume()
