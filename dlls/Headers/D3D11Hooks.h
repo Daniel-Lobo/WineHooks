@@ -237,8 +237,8 @@ public:
     SYNC::AtomicPtr        *TextID;
     SYNC::AtomicLock         *lock;
     DWORD m_Search    = (DWORD)*(DWORD*)"NONE";
-    DWORD m_TextIndex = 0;
-    DWORD m_PxIndex   = 0;
+    int   m_TextIndex = 0;
+    int   m_PxIndex   = 0;
     union {
         ID3D10VertexShader * m_D3D10VxBlt = nullptr;
         ID3D11VertexShader * m_VxBlt;

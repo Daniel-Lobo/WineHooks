@@ -120,7 +120,15 @@ PxOvrr11dInit()
 			}			
 		}
 	}
+	if (! parsecfg(g_.cfg.TextSwap).e)
+	{
+		D3D11_HOOKS.txt_rct_x := 0
+		D3D11_HOOKS.txt_rct_y := 0
+		D3D11_HOOKS.txt_rct_w := 512
+		D3D11_HOOKS.txt_rct_h := 512
+	}
 
+	dllcall(dll "\D3D12Config", astr, "PXSWAP", uint, true)
 	dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.TOGGLE", uint, GetKeyVK(g_PxOvrrd.sw)) 
 	dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.NEXT",  uint, GetKeyVK(g_PxOvrrd.n)) 
 	dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.PREV",  uint, GetKeyVK(g_PxOvrrd.p)) 
@@ -158,7 +166,6 @@ TSwapInit(dll)
 	D3D11_HOOKS.img_rct_y :=
 	D3D11_HOOKS.img_rct_w := g_TSwap.thumb
 	D3D11_HOOKS.img_rct_h := g_TSwap.thumb
-
 
 	dllcall(dll "\D3D12Config", astr, "TEXTSWAP", uint, true) 
 	dllcall(dll "\D3D12Config", astr, "TEXT-SWAP.TOGGLE-SEARCH", uint, GetKeyVK(g_TSwap.sw)) 

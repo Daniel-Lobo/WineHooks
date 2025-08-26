@@ -122,7 +122,7 @@
 	logerr("D3D10Hook flags " flags)
 	dllcall(dll "\D3D10Hook", ptr, IDXGISwapChain.p, ptr, IDXGISwapChain1.p, ptr, IDXGIOutput.p, ptr, ID3D10Device.p, ptr, ID3D10Device1.p
 		, ptr, ID3D10Texture2D.p, ptr, ID3D10ShaderResourceView.p, ptr, ID3D10PixelShader.p, uint, flags)	
-	
+	logerr("passed " flags)
 	D3D11_HOOKS.GetDesc  := IDXGISwapChain.GetDesc
 	D3D11_HOOKS.GetDesc1 := IDXGISwapChain1.GetDesc1	
 	D3D11_HOOKS.GetModes := IDXGIOutput.GetDisplayModeList

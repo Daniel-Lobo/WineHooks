@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(hit, Darksiders3-Win64-Shipping.exe, F3 0F 11 B3 14 08 00 00)
+alloc(hit_new, 1024, hit)
+label(hit_new_code)
+label(hit_ret)
+label(player)
+label(hit_og)
+label(inf_hp_flag)
+label(ez_kill_flag)
+label(enemy)
+label(zero)
+registersymbol(player)
+
+hit_new:
+zero:
+  db 00 00 00 00
+inf_hp_flag:
+  db 01
+ez_kill_flag:
+  db 01
+player:
+  db 00 00 00 00 00 00 00 00
+hit_new_code:
+  cmp [rbx+830],00
+  jne enemy
+  push rbx
+  pop [player]
+  cmp byte ptr [inf_hp_flag], 00
+  je hit_og
+  push (float)999
+  pop [rbx+00000814]
+jmp hit_ret
+
+enemy:
+  cmp byte ptr [ez_kill_flag], 00
+  je hit_og
+  cmp rbx+00000814], (float)10.0
+  je hit_og
+  mov [rbx+00000814], (float)10.0
+jmp hit_ret
+
+hit_og:
+  movss [rbx+00000814], xmm6
+jmp hit_ret
+
+hit:
+  jmp hit_new_code
+  db 90 90 90
+hit_ret:
+
+[disable]
+hit:
+  db F3 0F 11 B3 14 08 00 00
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Player HP"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>player</Address>
+          <Offsets>
+            <Offset>814</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Auto - Souls"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+aobscanmodule(read_souls, Darksiders3-Win64-Shipping.exe, 48 8B 4B 18 03 71 2C)
+alloc(read_souls_new, 512, read_souls)
+label(read_souls_code)
+label(read_souls_ret)
+label(souls)
+registersymbol(souls)
+
+read_souls_new:
+souls:
+  db 00 00 00 00 00 00 00 00
+read_souls_code:
+  db 48 8B 4B 18 03 71 2C
+  push rcx
+  pop [souls]
+jmp read_souls_ret
+
+read_souls:
+  jmp read_souls_code
+  db 90 90
+read_souls_ret:
+
+[disable]
+read_souls:
+  db 48 8B 4B 18 03 71 2C
+unregistersymbol(*)
+dealloc(*)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Souls"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>souls</Address>
+          <Offsets>
+            <Offset>2c</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>
+</Comments>
+</CheatTable>

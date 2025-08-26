@@ -517,6 +517,9 @@ void D3D10Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
         D3D10Texture2DView view(D3D11_Hooks->current_view10);
         if (view.m_VW)
         D3D10Blit(Iface, view.m_VW, nullptr, &D3D11_Hooks->image_rect, nullptr);
+    } else if (what == "PXSHADERS")
+    {
+        D3D10RenderText(Iface, desc.c_str(), &D3D11_Hooks->text_rect);
     }
 
     return ;
@@ -1011,7 +1014,7 @@ void __stdcall D3D10Hook(IDXGISwapChain * sc, IDXGISwapChain1* sc1, IDXGIOutput*
     {
         LOGHOOK(ID3D10Device, CreatePixelShader, dvc, &D3D11_Hooks->D3D10CreatePixelShader, CreatePixelShader10Hook);
         LOGHOOK(ID3D10PixelShader, Release, px, &D3D11_Hooks->D3D10PxShaderRelease, ReleasePixelShader10Hook);
-        LOGHOOK(ID3D10Device, PSSetShader, dvc, &D3D11_Hooks->D3D10PSSetShader, D3D10PsSetShaderHook);
+        LOGHOOK(ID3D10Device, PSSetShader, dvc, &D3D11_Hooks->D3D10PSSetShader, D3D10PsSetShaderHook);        
     } else {
         D3D11_Hooks->D3D10CreatePixelShader = (decltype(D3D11_Hooks->D3D10CreatePixelShader)) ID3D10Device_CreatePixelShader_Add(dvc);
         D3D11_Hooks->D3D10PxShaderRelease   = (decltype(D3D11_Hooks->D3D10PxShaderRelease))   ID3D10PixelShader_Release_Add(px);

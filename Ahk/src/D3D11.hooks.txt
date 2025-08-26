@@ -4110,6 +4110,7 @@ flags |= 0x10
 logerr("D3D10Hook flags " flags)
 dllcall(dll "\D3D10Hook", ptr, IDXGISwapChain.p, ptr, IDXGISwapChain1.p, ptr, IDXGIOutput.p, ptr, ID3D10Device.p, ptr, ID3D10Device1.p
 , ptr, ID3D10Texture2D.p, ptr, ID3D10ShaderResourceView.p, ptr, ID3D10PixelShader.p, uint, flags)
+logerr("passed " flags)
 D3D11_HOOKS.GetDesc  := IDXGISwapChain.GetDesc
 D3D11_HOOKS.GetDesc1 := IDXGISwapChain1.GetDesc1
 D3D11_HOOKS.GetModes := IDXGIOutput.GetDisplayModeList
@@ -4183,6 +4184,14 @@ logerr("Inserted Dump " dllcall(dll "\D3D11InsetPxDump", ptr, &dat, ptr, bin.Len
 }
 }
 }
+if (! parsecfg(g_.cfg.TextSwap).e)
+{
+D3D11_HOOKS.txt_rct_x := 0
+D3D11_HOOKS.txt_rct_y := 0
+D3D11_HOOKS.txt_rct_w := 512
+D3D11_HOOKS.txt_rct_h := 512
+}
+dllcall(dll "\D3D12Config", astr, "PXSWAP", uint, true)
 dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.TOGGLE", uint, GetKeyVK(g_PxOvrrd.sw))
 dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.NEXT",  uint, GetKeyVK(g_PxOvrrd.n))
 dllcall(dll "\D3D12Config", astr, "PIXEL-SWAP.PREV",  uint, GetKeyVK(g_PxOvrrd.p))

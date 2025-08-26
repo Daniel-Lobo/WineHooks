@@ -407,6 +407,12 @@ void D3D10RenderText(IDXGISwapChain * sc, const wchar_t * text, RECT * r)
     }
     GDIText gdi(r, p_data, text, __FUNCTION__);
     ID3D10ShaderResourceView * vw = D3D10CreateTexture2D(dvc, Width, gdi.m_height, (DXGI_FORMAT)0);
+    if (vw == nullptr)
+    {
+        DBUG_WARN("D3D10CreateTexture2D FAILED");
+        delete [] p_data;
+        return;
+    }
     ID3D10Resource * rs           = D3D10GetResource(vw);
     if (rs == nullptr)
     {
@@ -915,9 +921,11 @@ unique_ptr<DXGI_SWAP_CHAIN_DESC> D3D10SetUPSwapChain(DXGI_SWAP_CHAIN_DESC * desc
 tuple<string, wstring> D3D10BrowseResource(IDXGISwapChain * sc, UINT vsync, UINT flags)
 {    
     if (g_d3d.TEXTURE_SWAP_ENABLED)
+    {        
+        if (GetEvent(g_d3d.TEXTURE_SWAP_TOGGLE_SEARCH) == 1)  D3D11Globals.m_Search = D3D11Globals.m_Search == *(DWORD*) "TEXTURES"  ? *(DWORD*) "NONE" : *(DWORD*) "TEXTURES";  
+    }    
+    if (g_d3d.PIXEL_SHADER_SWAP_ENABLED)
     {
-        DBUG_WARN("TEXTURE SWAP EVENT");
-        if (GetEvent(g_d3d.TEXTURE_SWAP_TOGGLE_SEARCH) == 1)  D3D11Globals.m_Search = D3D11Globals.m_Search == *(DWORD*) "TEXTURES"  ? *(DWORD*) "NONE" : *(DWORD*) "TEXTURES";       
         if (GetEvent(g_d3d.PIXEL_SHADER_SWAP_TOGGLE)   == 1)  D3D11Globals.m_Search = D3D11Globals.m_Search == *(DWORD*) "PXSHADERS" ? *(DWORD*) "NONE" : *(DWORD*) "PXSHADERS";
     }
 
@@ -936,7 +944,7 @@ tuple<string, wstring> D3D10BrowseResource(IDXGISwapChain * sc, UINT vsync, UINT
             else if (GetEvent(g_d3d.TEXTURE_SWAP_PREV) == 1) D3D11Globals.m_TextIndex -= 1;           
         }
 
-        if      (D3D11Globals.m_TextIndex <= 0)                              D3D11Globals.m_TextIndex = D3D11_Hooks->textures->Count() - 1;
+        if      (D3D11Globals.m_TextIndex < 0)                               D3D11Globals.m_TextIndex = D3D11_Hooks->textures->Count() - 1;
         else if (D3D11Globals.m_TextIndex >= D3D11_Hooks->textures->Count()) D3D11Globals.m_TextIndex = 0;
 
         D3D11_Hooks->current_view10 = (ID3D10Texture2D*) D3D11_Hooks->textures->KeyAt(D3D11Globals.m_TextIndex);  
@@ -951,7 +959,7 @@ tuple<string, wstring> D3D10BrowseResource(IDXGISwapChain * sc, UINT vsync, UINT
             }              
             D3D10DumpTexture(D3D10DvcFromSChain(sc), (IUnknown *)D3D11_Hooks->current_view10, file.c_str(), 0);         
         }  
-        wstring usage                = L"UNKNOWN";
+        wstring usage               = L"UNKNOWN";
         D3D11_TEXTURE2D_DESC * desc = (D3D11_TEXTURE2D_DESC *)D3D11_Hooks->textures->ValueAt(D3D11Globals.m_TextIndex);
         if (nullptr != desc)
         {
@@ -974,7 +982,7 @@ tuple<string, wstring> D3D10BrowseResource(IDXGISwapChain * sc, UINT vsync, UINT
             if      (GetEvent(g_d3d.PIXEL_SHADER_SWAP_NEXT) == 1) D3D11Globals.m_PxIndex += 1;           
             else if (GetEvent(g_d3d.PIXEL_SHADER_SWAP_PREV) == 1) D3D11Globals.m_PxIndex -= 1;           
         }
-        if      (D3D11Globals.m_PxIndex <= 0)                             D3D11Globals.m_PxIndex = D3D11_Hooks->Shaders->Count() - 1;
+        if      (D3D11Globals.m_PxIndex < 0)                              D3D11Globals.m_PxIndex = D3D11_Hooks->Shaders->Count() - 1;
         else if (D3D11Globals.m_PxIndex >= D3D11_Hooks->Shaders->Count()) D3D11Globals.m_PxIndex = 0;
 
         DWORD index  = 0;
