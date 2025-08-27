@@ -2,6 +2,11 @@
 <CheatTable CheatEngineTableVersion="46">
   <CheatEntries>
     <CheatEntry>
+      <ID>4</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
       <ID>0</ID>
       <Description>"Auto"</Description>
       <VariableType>Auto Assembler Script</VariableType>
@@ -17,14 +22,17 @@ label(ez_kill_flag)
 label(enemy)
 label(zero)
 registersymbol(player)
+registersymbol(inf_hp_flag)
+registersymbol(ez_kill_flag)
+
 
 hit_new:
 zero:
   db 00 00 00 00
 inf_hp_flag:
-  db 01
+  db 00
 ez_kill_flag:
-  db 01
+  db 00
 player:
   db 00 00 00 00 00 00 00 00
 hit_new_code:
@@ -72,7 +80,38 @@ dealloc(*)
             <Offset>814</Offset>
           </Offsets>
         </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"H - inf HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+inf_hp_flag:
+  db 01
+
+[disable]
+inf_hp_flag:
+  db 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"K - easy Kills"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+ez_kill_flag:
+  db 01
+
+[disable]
+ez_kill_flag:
+  db 00
+</AssemblerScript>
+        </CheatEntry>
       </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"G - Gain solus"</Description>
+      <GroupHeader>1</GroupHeader>
     </CheatEntry>
     <CheatEntry>
       <ID>2</ID>
@@ -121,6 +160,4 @@ dealloc(*)
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
-  <Comments>
-</Comments>
 </CheatTable>
