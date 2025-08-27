@@ -96,12 +96,10 @@ HOOKMEMBER(ID3D10PixelShader, Release)
 #define GETMEMBERADD(Interface, method, pInterface)        \
 void * Interface##_##method##_Add(void * pInterface)       \
 {                                                          \
-    char log[260]; \
-    sprintf(log, "Interface::%s Add called %d\n", "",  ((Interface *)pInterface)->lpVtbl);                  \    
-    OutputDebugStringA(log);                                                        \
-    Interface * i      = (Interface *) pInterface;                                  \  
-    void * pTrampoline =  ((Interface *)pInterface)->lpVtbl->method;                                         \
-    return pTrampoline;                                                             \
+    char log[260];                                                                          \
+    sprintf(log, "Interface::%s Add called %d\n", "",  ((Interface *)pInterface)->lpVtbl);  \    
+    OutputDebugStringA(log);                                                                \   
+    return ((Interface *)pInterface)->lpVtbl->method;                                       \   
 }
 
 GETMEMBERADD(IDXGIFactory2, CreateSwapChain, pInterface)
