@@ -1,33 +1,37 @@
 Peixotos's patch remote settings:
-Command Line: "L:\Games\Crysis\Bin32\Crysis.exe" 
+Command Line: "C:\Games\Bioshock\Bioshock\Builds\Release\Bioshock.exe" -nointro
+args: -nointro
 common_path: 1
-D3D: 10
-D3D_Driver: 
+d3d: 10
+D3D_Driver: C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll
 dsk: 1920x1080
 dxvkv: 2_6
-error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
-HD: upscale|useinterop|hdproxies|useproxies|ssaa
-injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
-max_4x3_res: 1152x864
-MCLP: FREE
-MHKS: ftrue
-Mydocs: C:\users\gotardo\Documents
+error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
+HD: upscale|useinterop|hdproxies|useproxies
+injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
+J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
+k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
+max_4x3_res: 1440x1080
+Mydocs: C:\Users\Peixoto\Documents
+nointro: -wiki
 os_version: 10.000000
-path: C:\users\gotardo\Documents\WineHooks\Games\Crysis\Crysis\
-PxSwap: e=true;
+path: C:\Users\Peixoto\Documents\WineHooks\Games\Bioshock\
+PxSwap: e=true;sw=Ins;n=<;p=>;q=Q;d=Home;
 res_lmt_lts: 
-rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 
-script_hwnd: 0xc0132
-Target: L:\Games\Crysis\Bin32\Crysis.exe
-target_dir: L:\Games\Crysis\Bin32
-target_name: Crysis.exe
-Textswap: e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;a=false;
+rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
+script_hwnd: 0x50664
+Target: C:\Games\Bioshock\Bioshock\Builds\Release\Bioshock.exe
+target_dir: C:\Games\Bioshock\Bioshock\Builds\Release
+target_name: Bioshock.exe
+Textswap: e=true;sw=End;n=.;p=,;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;
+WHKS: 1
+wiki: https://www.pcgamingwiki.com/wiki/BioShock
 wine: 10_0
 
-Working directory: L:\Games\Crysis\Bin32
-C:\users\gotardo\Documents\WineHooks\Games\Crysis\Crysis\cfgFiles: 
+Working directory: C:\Games\Bioshock\Bioshock\Builds\Release
+C:\Users\Peixoto\Documents\WineHooks\Games\Bioshock\cfgFiles: 
 HasFiles 0
-C:\users\gotardo\Documents\WineHooks\Games\Crysis\Crysis\cfgFiles: 
+C:\Users\Peixoto\Documents\WineHooks\Games\Bioshock\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -52,34 +56,53 @@ Init: SUCCEEDED TO GET THE D3D11CreateDeviceAndSwapChain ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D11On12CreateDevice ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D12CreateDevice ENTRYPOINT ON d3d12.dll
 Init: SUCCEEDED TO GET THE D3D12GetDebugInterface ENTRYPOINT ON d3d12.dll
-Init: Using MS Compilers
-Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT
+Init: Using System Compilers
+Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT ON d3dx9_43.dll
 Init: 1920x1080
 Init: 144
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\PxDummy OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
+CompileDXBC: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\PxDummy OK
 Init: SUCCEEDED TO GET THE D3D11CreateDevice ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D10CreateDevice ENTRYPOINT ON d3d10.dll
-Init: FAILED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
+Init: SUCCEEDED TO GET THE DXGID3D10CreateDevice ENTRYPOINT ON dxgi.dll
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
+D3D11LoadWine: S_OK
 D3D11LoadWine: S_OK
 SetReslimit: ENUMERATING
-SetReslimit: MODE 18: 1920x1080
+SetReslimit: MODE 61: 1920x1080
 InitD3D11Hooks: Highest mode: 1920x1080
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsExWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ChangeDisplaySettingsWHook
@@ -93,20 +116,26 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12ClipCursorHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SetWindowPosHook
+~LogWinSize: D3D12SetWindowPosHook: 120x0 -> 120x0
+~LogWinSize: D3D12SetWindowPosHook: 1434x760 -> 1434x760
+~LogWinSize: D3D12SetWindowPosHook: 1434x760 -> 1434x760
+~LogWinSize: D3D12SetWindowPosHook: 130x10 -> 130x10
+~LogWinSize: D3D12SetWindowPosHook: 1434x760 -> 1434x760
+~LogWinSize: D3D12SetWindowPosHook: 120x0 -> 120x0
 GetDirect3D10: SUCCEEDED TO HOOK ID3D10Device::DrawIndexed
 GetDirect3D10: SUCCEEDED TO HOOK ID3D10Device::Draw
 GetDirect3D10: SUCCEEDED TO HOOK ID3D10Device::DrawAuto
 GetDirect3D10: SUCCEEDED TO HOOK ID3D10Device::DrawInstanced
 GetDirect3D10: SUCCEEDED TO HOOK ID3D10Device::DrawIndexedInstanced
 GetDirect3D10 0 A12
-Texture 24176108 24421152
-&&&&&& 1944309744 1944309744
+Texture 206165036 116627700
+&&&&&& 1902449168 1902449168
 D3D 10 Compile shader 0
 D3D 10 Create shader 0 0
 Releasing Texture 0
 Releasing ResView 0
-Succeded to create the Direct3D10.1 device 23958056 23958280
+Succeded to create the Direct3D10.1 device 12325220 116466648
 Succeeded to hook IDXGIFactory::CreateSwapChain
 Succeeded to hook IDXGISwapChain::Present
 Succeeded to hook ID3D10Device::CopySubresourceRegion
@@ -130,373 +159,234 @@ Succeeded to hook ID3D10Device::ClearRenderTargetView
 Succeeded to hook IDXGISwapChain::ResizeTarget
 Succeeded to hook IDXGISwapChain::ResizeBuffers
 Succeeded to hook IDXGISwapChain::GetBuffer
-InitMouseHooks: SUCCEEDED TO HOOK GetMousePos_Hook
-InitMouseHooks: SUCCEEDED TO HOOK SetMousePos_Hook
-InitMouseHooks: SUCCEEDED TO HOOK GetMessageW_Hook
-InitMouseHooks: SUCCEEDED TO HOOK GetMessageA_Hook
-InitMouseHooks: SUCCEEDED TO HOOK PeekMessageW_Hook
-InitMouseHooks: SUCCEEDED TO HOOK PeekMessageA_Hook
-InitMouseHooks: SUCCEEDED TO HOOK GetMessagePos_Hook
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain::GetDesc
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain1::GetDesc1
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::GetDisplayModeList
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::FindClosestMatchingMode
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING COUNT=19
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING 19 Modes
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING COUNT=19
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING 19 Modes
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING COUNT=19
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING 19 Modes
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING COUNT=19
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 960x540
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 800x600
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 1024x768
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1152x864
-D3D12GetModes: MODE 9: 1280x720
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x800
-D3D12GetModes: MODE 13: 1280x1024
-D3D12GetModes: MODE 14: 1440x900
-D3D12GetModes: MODE 15: 1680x1050
-D3D12GetModes: MODE 16: 1920x1080
-D3D12GetModes: MODE 17: 1920x1080
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetDisplayModeListHook: RETURNING 19 Modes
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1152x864
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x720
-D3D12GetModes: MODE 13: 1280x800
-D3D12GetModes: MODE 14: 1280x1024
-D3D12GetModes: MODE 15: 1280x1024
-D3D12GetModes: MODE 16: 1600x900
-D3D12GetModes: MODE 17: 1680x1050
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetModes: FOUND MODE 22: 2560x1080
-D3D12GetDisplayModeListHook: RETURNING COUNT=22
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1152x864
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x720
-D3D12GetModes: MODE 13: 1280x800
-D3D12GetModes: MODE 14: 1280x1024
-D3D12GetModes: MODE 15: 1280x1024
-D3D12GetModes: MODE 16: 1600x900
-D3D12GetModes: MODE 17: 1680x1050
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetModes: FOUND MODE 22: 2560x1080
-D3D12GetDisplayModeListHook: RETURNING 22 Modes
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1152x864
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x720
-D3D12GetModes: MODE 13: 1280x800
-D3D12GetModes: MODE 14: 1280x1024
-D3D12GetModes: MODE 15: 1280x1024
-D3D12GetModes: MODE 16: 1600x900
-D3D12GetModes: MODE 17: 1680x1050
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetModes: FOUND MODE 22: 2560x1080
-D3D12GetDisplayModeListHook: RETURNING COUNT=22
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1152x864
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x720
-D3D12GetModes: MODE 13: 1280x800
-D3D12GetModes: MODE 14: 1280x1024
-D3D12GetModes: MODE 15: 1280x1024
-D3D12GetModes: MODE 16: 1600x900
-D3D12GetModes: MODE 17: 1680x1050
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetModes: FOUND MODE 22: 2560x1080
-D3D12GetDisplayModeListHook: RETURNING 22 Modes
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1152x864
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x720
-D3D12GetModes: MODE 13: 1280x800
-D3D12GetModes: MODE 14: 1280x1024
-D3D12GetModes: MODE 15: 1280x1024
-D3D12GetModes: MODE 16: 1600x900
-D3D12GetModes: MODE 17: 1680x1050
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetModes: FOUND MODE 22: 2560x1080
-D3D12GetDisplayModeListHook: RETURNING COUNT=22
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1152x864
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x720
-D3D12GetModes: MODE 13: 1280x800
-D3D12GetModes: MODE 14: 1280x1024
-D3D12GetModes: MODE 15: 1280x1024
-D3D12GetModes: MODE 16: 1600x900
-D3D12GetModes: MODE 17: 1680x1050
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetModes: FOUND MODE 22: 2560x1080
-D3D12GetDisplayModeListHook: RETURNING 22 Modes
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1152x864
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x720
-D3D12GetModes: MODE 13: 1280x800
-D3D12GetModes: MODE 14: 1280x1024
-D3D12GetModes: MODE 15: 1280x1024
-D3D12GetModes: MODE 16: 1600x900
-D3D12GetModes: MODE 17: 1680x1050
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetModes: FOUND MODE 22: 2560x1080
-D3D12GetDisplayModeListHook: RETURNING COUNT=22
-D3D12GetDisplayModeListHook: =====
-D3D12GetModes: MODE 0: 640x480
-D3D12GetModes: MODE 1: 640x480
-D3D12GetModes: MODE 2: 640x480
-D3D12GetModes: MODE 3: 960x540
-D3D12GetModes: MODE 4: 960x540
-D3D12GetModes: MODE 5: 800x600
-D3D12GetModes: MODE 6: 800x600
-D3D12GetModes: MODE 7: 1024x768
-D3D12GetModes: MODE 8: 1024x768
-D3D12GetModes: MODE 9: 1152x864
-D3D12GetModes: MODE 10: 1280x720
-D3D12GetModes: MODE 11: 1280x720
-D3D12GetModes: MODE 12: 1280x720
-D3D12GetModes: MODE 13: 1280x800
-D3D12GetModes: MODE 14: 1280x1024
-D3D12GetModes: MODE 15: 1280x1024
-D3D12GetModes: MODE 16: 1600x900
-D3D12GetModes: MODE 17: 1680x1050
-D3D12GetModes: MODE 18: 1920x1080
-D3D12GetModes: FOUND MODE 22: 2560x1080
-D3D12GetDisplayModeListHook: RETURNING 22 Modes
-D3D10SetUPSwapChain: D3D10CreateSwapChain10 SetWindowPos: 1 HWIN: 1180004
+~LogWinSize: D3D12SetWindowPosHook: 120x0 -> 120x0
+~LogWinSize: D3D12SetWindowPosHook: 1434x760 -> 1434x760
+~LogWinSize: D3D12SetWindowPosHook: 130x10 -> 130x10
+~LogWinSize: D3D12SetWindowPosHook: 1434x760 -> 1434x760
+~LogWinSize: D3D12SetWindowPosHook: 120x0 -> 120x0
+~LogWinSize: D3D12SetWindowPosHook: 287x106 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 0x0 -> 0x0
+~LogWinSize: D3D12SetWindowPosHook: 511x257 -> 511x257
+~LogWinSize: D3D12SetWindowPosHook: 0x0 -> 0x0
+~LogWinSize: D3D12SetWindowPosHook: 626x255 -> 626x255
+~LogWinSize: D3D12SetWindowPosHook: 120x0 -> 120x0
+~LogWinSize: D3D12SetWindowPosHook: 1024x768 -> 1024x768
+D3D12FindClosestMatchingModeHook: 1280 x 720
+~LogWinSize: D3D12SetWindowPosHook: 130x10 -> 130x10
+~LogWinSize: D3D12SetWindowPosHook: 1434x760 -> 1434x760
+~LogWinSize: D3D12SetWindowPosHook: 1024x768 -> 1914x1051
+D3D10SetUPSwapChain: D3D10CreateSwapChain10 SetWindowPos: 1 HWIN: 67284
+~LogWinSize: D3D12SetWindowPosHook: 1914x1051 -> 1920x1080
 D3D10GetSwapChainDsc: 1920x1080
 D3D10CreateShaders: OK =)
-Setup: D3D10CreateSwapChain Requested mode    : 1920x1080
-Setup: D3D10CreateSwapChain Scale             : 1.000000
+Setup: D3D10CreateSwapChain Requested mode    : 1280x720
+Setup: D3D10CreateSwapChain Scale             : 1.500000
 Setup: D3D10CreateSwapChain Viewport XOffset  : 0
+D3D12GetDisplayModeListHook: =====
+D3D12GetModes: MODE 0: 640x480
+D3D12GetModes: MODE 1: 640x480
+D3D12GetModes: MODE 2: 960x540
+D3D12GetModes: MODE 3: 960x540
+D3D12GetModes: MODE 4: 960x540
+D3D12GetModes: MODE 5: 800x600
+D3D12GetModes: MODE 6: 800x600
+D3D12GetModes: MODE 7: 1024x768
+D3D12GetModes: MODE 8: 1024x768
+D3D12GetModes: MODE 9: 1152x864
+D3D12GetModes: MODE 10: 1176x664
+D3D12GetModes: MODE 11: 1176x664
+D3D12GetModes: MODE 12: 1176x664
+D3D12GetModes: MODE 13: 1176x664
+D3D12GetModes: MODE 14: 1176x664
+D3D12GetModes: MODE 15: 1176x664
+D3D12GetModes: MODE 16: 1176x664
+D3D12GetModes: MODE 17: 1176x664
+D3D12GetModes: MODE 18: 1176x664
+D3D12GetModes: MODE 19: 1280x720
+D3D12GetModes: MODE 20: 1280x720
+D3D12GetModes: MODE 21: 1280x720
+D3D12GetModes: MODE 22: 1280x768
+D3D12GetModes: MODE 23: 1280x768
+D3D12GetModes: MODE 24: 1280x768
+D3D12GetModes: MODE 25: 1280x800
+D3D12GetModes: MODE 26: 1280x960
+D3D12GetModes: MODE 27: 1280x960
+D3D12GetModes: MODE 28: 1280x960
+D3D12GetModes: MODE 29: 1280x1024
+D3D12GetModes: MODE 30: 1360x768
+D3D12GetModes: MODE 31: 1360x768
+D3D12GetModes: MODE 32: 1360x768
+D3D12GetModes: MODE 33: 1366x768
+D3D12GetModes: MODE 34: 1366x768
+D3D12GetModes: MODE 35: 1366x768
+D3D12GetModes: MODE 36: 1440x900
+D3D12GetModes: MODE 37: 1440x1080
+D3D12GetModes: MODE 38: 1440x1080
+D3D12GetModes: MODE 39: 1440x1080
+D3D12GetModes: MODE 40: 1440x1080
+D3D12GetModes: MODE 41: 1440x1080
+D3D12GetModes: MODE 42: 1440x1080
+D3D12GetModes: MODE 43: 1440x1080
+D3D12GetModes: MODE 44: 1440x1080
+D3D12GetModes: MODE 45: 1440x1080
+D3D12GetModes: MODE 46: 1600x900
+D3D12GetModes: MODE 47: 1600x900
+D3D12GetModes: MODE 48: 1600x900
+D3D12GetModes: MODE 49: 1600x900
+D3D12GetModes: MODE 50: 1600x900
+D3D12GetModes: MODE 51: 1600x900
+D3D12GetModes: MODE 52: 1600x1024
+D3D12GetModes: MODE 53: 1600x1024
+D3D12GetModes: MODE 54: 1600x1024
+D3D12GetModes: MODE 55: 1600x1024
+D3D12GetModes: MODE 56: 1600x1024
+D3D12GetModes: MODE 57: 1600x1024
+D3D12GetModes: MODE 58: 1680x1050
+D3D12GetModes: MODE 59: 1680x1050
+D3D12GetModes: MODE 60: 1920x1080
+D3D12GetModes: MODE 61: 1920x1080
+D3D12GetModes: MODE 62: 1920x1080
+D3D12GetDisplayModeListHook: RETURNING COUNT=63
+D3D12GetDisplayModeListHook: =====
+D3D12GetModes: MODE 0: 640x480
+D3D12GetModes: MODE 1: 640x480
+D3D12GetModes: MODE 2: 960x540
+D3D12GetModes: MODE 3: 960x540
+D3D12GetModes: MODE 4: 960x540
+D3D12GetModes: MODE 5: 800x600
+D3D12GetModes: MODE 6: 800x600
+D3D12GetModes: MODE 7: 1024x768
+D3D12GetModes: MODE 8: 1024x768
+D3D12GetModes: MODE 9: 1152x864
+D3D12GetModes: MODE 10: 1176x664
+D3D12GetModes: MODE 11: 1176x664
+D3D12GetModes: MODE 12: 1176x664
+D3D12GetModes: MODE 13: 1176x664
+D3D12GetModes: MODE 14: 1176x664
+D3D12GetModes: MODE 15: 1176x664
+D3D12GetModes: MODE 16: 1176x664
+D3D12GetModes: MODE 17: 1176x664
+D3D12GetModes: MODE 18: 1176x664
+D3D12GetModes: MODE 19: 1280x720
+D3D12GetModes: MODE 20: 1280x720
+D3D12GetModes: MODE 21: 1280x720
+D3D12GetModes: MODE 22: 1280x768
+D3D12GetModes: MODE 23: 1280x768
+D3D12GetModes: MODE 24: 1280x768
+D3D12GetModes: MODE 25: 1280x800
+D3D12GetModes: MODE 26: 1280x960
+D3D12GetModes: MODE 27: 1280x960
+D3D12GetModes: MODE 28: 1280x960
+D3D12GetModes: MODE 29: 1280x1024
+D3D12GetModes: MODE 30: 1360x768
+D3D12GetModes: MODE 31: 1360x768
+D3D12GetModes: MODE 32: 1360x768
+D3D12GetModes: MODE 33: 1366x768
+D3D12GetModes: MODE 34: 1366x768
+D3D12GetModes: MODE 35: 1366x768
+D3D12GetModes: MODE 36: 1440x900
+D3D12GetModes: MODE 37: 1440x1080
+D3D12GetModes: MODE 38: 1440x1080
+D3D12GetModes: MODE 39: 1440x1080
+D3D12GetModes: MODE 40: 1440x1080
+D3D12GetModes: MODE 41: 1440x1080
+D3D12GetModes: MODE 42: 1440x1080
+D3D12GetModes: MODE 43: 1440x1080
+D3D12GetModes: MODE 44: 1440x1080
+D3D12GetModes: MODE 45: 1440x1080
+D3D12GetModes: MODE 46: 1600x900
+D3D12GetModes: MODE 47: 1600x900
+D3D12GetModes: MODE 48: 1600x900
+D3D12GetModes: MODE 49: 1600x900
+D3D12GetModes: MODE 50: 1600x900
+D3D12GetModes: MODE 51: 1600x900
+D3D12GetModes: MODE 52: 1600x1024
+D3D12GetModes: MODE 53: 1600x1024
+D3D12GetModes: MODE 54: 1600x1024
+D3D12GetModes: MODE 55: 1600x1024
+D3D12GetModes: MODE 56: 1600x1024
+D3D12GetModes: MODE 57: 1600x1024
+D3D12GetModes: MODE 58: 1680x1050
+D3D12GetModes: MODE 59: 1680x1050
+D3D12GetModes: MODE 60: 1920x1080
+D3D12GetModes: MODE 61: 1920x1080
+D3D12GetModes: MODE 62: 1920x1080
+D3D12GetDisplayModeListHook: RETURNING 63 Modes
 DXGIGetBufferHook: 0
-InitResources: SUCCESS
-Reset: SUCCESS
-DXGIGetBufferHook: 0
-InitResources: SUCCESS
+InitResources: ID3D11Device::CreateComputeShader(Scaler) FAILED
 Reset: SUCCESS
 D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
 D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
-CreateProcess  lpApplicationName: lpCommandLine:Tools\sc_share.exe "c:\users\gotardo\documents\my games\crysis\shaders\cache\shaderlist.txt" trgt: L:\Games\Crysis\Tools\sc_share.exe args: Tools\sc_share.exe "c:\users\gotardo\documents\my games\crysis\shaders\cache\shaderlist.txt"
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10CopyResourceHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D12FindClosestMatchingModeHook: 1024 x 768
+D3D11ResizeBuffersHook: 1024x768
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1024x768
+Setup: D3D11ResizeBuffersHook Scale             : 1.406250
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 240
+~LogWinSize: D3D11ResizeBuffersHook: 1920x1080 -> 1920x1080
+DXGIGetBufferHook: 0
+InitResources: ID3D11Device::CreateComputeShader(Scaler) FAILED
+Reset: SUCCESS
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1024x768 -> 1024x768
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10CopyResourceHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D12FindClosestMatchingModeHook: 1280 x 720
+D3D11ResizeTargetHook: FREE PRIVATE DATA: 0
+D3D11ResizeTargetHook: 1280x720
+Setup: D3D11ResizeTargetHook Requested mode    : 1280x720
+Setup: D3D11ResizeTargetHook Scale             : 1.500000
+Setup: D3D11ResizeTargetHook Viewport XOffset  : 0
+~LogWinSize: D3D11ResizeTargetHook: 1024x768 -> 1904x1041
+D3D11ResizeBuffersHook: 1280x720
+D3D11ResizeBuffersHook: FREE PRIVATE DATA: 0
+Setup: D3D11ResizeBuffersHook Requested mode    : 1280x720
+Setup: D3D11ResizeBuffersHook Scale             : 1.500000
+Setup: D3D11ResizeBuffersHook Viewport XOffset  : 0
+~LogWinSize: D3D11ResizeBuffersHook: 1904x1041 -> 1904x1041
+DXGIGetBufferHook: 0
+InitResources: ID3D11Device::CreateComputeShader(Scaler) FAILED
+Reset: SUCCESS
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+D3D10GetProxy: D3D10ClearRenderTargetViewHook CREATED PROXY
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+D3D10GetProxy: D3D10OMSetRenderTargetsHook CREATED PROXY
+~LogWinSize: D3D12SetWindowPosHook: 120x0 -> 120x0
+~LogWinSize: D3D12SetWindowPosHook: 0x0 -> 0x0

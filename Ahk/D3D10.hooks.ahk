@@ -161,9 +161,7 @@
 		g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)		
 		if (g_.cfg.MHKS) {
 			dllcall(dll "\InitMouseHooks")	
-			dllcall(dll "\D3D12Config", astr, "MOUSEHOOKS", ptr, 1)		
 		}		
-					
 	}	
 	
 	D3D11_HOOKS.StTrgt     := ID3D10Device.OMSetRenderTargets
