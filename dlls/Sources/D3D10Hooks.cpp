@@ -139,7 +139,9 @@ D3D10CreateSwapChain(IDXGIFactory *pFactory,  IUnknown *pDevice, DXGI_SWAP_CHAIN
     auto dsc = D3D10GetSwapChainDsc(*ppSwapChain);
     if (dsc.get()->OutputWindow && g_d3d.UPSCALE)
         SendMessage(dsc->OutputWindow, 0x5, 0, D3D11_Hooks->W | (D3D11_Hooks->H << 16));
+    SetFocus(dsc.get()->OutputWindow);    
     D3D10CreateShaders(*ppSwapChain);    
+    g_d3d.Setup(pDesc->BufferDesc.Width, pDesc->BufferDesc.Height, (char*)__FUNCTION__);   
     return hr;
 }
 

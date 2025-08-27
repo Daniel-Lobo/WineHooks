@@ -159,8 +159,10 @@
 		logerr(IDXGISwapChain.dllHook("GetBuffer", "DXGIGetBufferHook", dll))	
 
 		g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)		
-		if g_.cfg.MHKS
-			dllcall(dll "\InitMouseHooks")				
+		if (g_.cfg.MHKS) {
+			dllcall(dll "\InitMouseHooks")	
+			dllcall(dll "\D3D12Config", astr, "MOUSEHOOKS", ptr, 1)		
+		}		
 					
 	}	
 	
@@ -181,55 +183,20 @@
 	D3D11_HOOKS.Rsz      := IDXGISwapChain.ResizeBuffers
 	D3D11_HOOKS.RszTrgt  := IDXGISwapChain.ResizeTarget
 	D3D11_HOOKS.GetModes := IDXGIOutput.GetDisplayModeList
-
-	;D3D11InitHDHooks(dll)
-	/*
-	if (g_.cfg.HD)
-	{			
-		g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)	
-		if g_.cfg.MHKS
-			dllcall(dll "\InitMouseHooks")	
-			
-		logerr(IDXGISwapChain.dllHook("ResizeTarget", "D3D11ResizeTargetHook", dll))
-		logerr(IDXGISwapChain.dllHook("ResizeBuffers", "D3D11ResizeBuffersHook", dll))
-		logerr(IDXGISwapChain.dllHook("GetBuffer", "DXGIGetBufferHook", dll))			
-	}
-			
-	D3D11_HOOKS.Rsz      := IDXGISwapChain.ResizeBuffers
-	D3D11_HOOKS.RszTrgt  := IDXGISwapChain.ResizeTarget
-	D3D11_HOOKS.GetModes := IDXGIOutput.GetDisplayModeList
-
-	flags := 0
-	if (g_.cfg.MHKS)                     
-	flags |= 0x1
-	if (g_.cfg.HD)                       
-	flags |= 0x2	
-	if (parsecfg(g_.cfg.TextSwap).e)      
-	flags |= 0x4	
-	if (parsecfg(g_.cfg.PxSwap).e)       
-	flags |= 0x8	
-	if (g_.cfg.fltr || g_.cfg.TextSwap.a) 
-	flags |= 0x10	
-	;logerr("D3D10Hook flags " flags)
-	;dllcall(dll "\D3D10Hook", ptr, IDXGISwapChain.p, ptr, IDXGISwapChain1.p, ptr, IDXGIOutput.p, ptr, ID3D10Device.p, ptr, ID3D10Device1.p
-		;, ptr, ID3D10Texture2D.p, ptr, ID3D10ShaderResourceView.p, ptr, ID3D10PixelShader.p, uint, flags)	
-	;logerr("passed " flags)
-	D3D11_HOOKS.GetDesc  := IDXGISwapChain.GetDesc
-	D3D11_HOOKS.GetDesc1 := IDXGISwapChain1.GetDesc1	
-	D3D11_HOOKS.GetModes := IDXGIOutput.GetDisplayModeList
-	*/
-	
+		
 	if (g_.cfg.fltr || g_.cfg.TextSwap.a)
 	logerr(ID3D10Device.dllHook("PSSetSamplers", "D3D10PSSetSamplersHook", dll)) 
 	D3D11_HOOKS.StSmplr := ID3D10Device.PSSetSamplers
 	D3D11_HOOKS.MxOvrrd := g_.cfg.FLTR
 	D3D11_HOOKS.MnOvrrd := g_.cfg.FLTR		
 	dllcall(dll "\D3D11SetupFinished", ptr, IDXGISwapChain.p)	
-	IDXGISwapChain.GetDesc         := D3D11_HOOKS.GetDesc
-	IDXGISwapChain1.GetDesc1       := D3D11_HOOKS.GetDesc1
-	IDXGIOutput.GetDisplayModeList := D3D11_HOOKS.GetModes ; not initialized
+
+	;IDXGISwapChain.GetDesc         := D3D11_HOOKS.GetDesc
+	;IDXGISwapChain1.GetDesc1       := D3D11_HOOKS.GetDesc1
+	;IDXGIOutput.GetDisplayModeList := D3D11_HOOKS.GetModes ; not initialized
 }
 
+/*
 D3D10UpdateHook(Intrfc, Mthd, Trmpln)
 {
 	dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
@@ -258,3 +225,4 @@ CreateSwapChain10(p1, p2, p3, p4)
 	dllcall(dll "\D3D10CreateShaders", ptr, numget(p4+0, "ptr"))	
 	return r
 }
+	*/

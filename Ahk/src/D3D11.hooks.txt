@@ -4128,8 +4128,10 @@ logerr(IDXGISwapChain.dllHook("ResizeTarget", "D3D11ResizeTargetHook", dll))
 logerr(IDXGISwapChain.dllHook("ResizeBuffers", "D3D11ResizeBuffersHook", dll))
 logerr(IDXGISwapChain.dllHook("GetBuffer", "DXGIGetBufferHook", dll))
 g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)
-if g_.cfg.MHKS
+if (g_.cfg.MHKS) {
 dllcall(dll "\InitMouseHooks")
+dllcall(dll "\D3D12Config", astr, "MOUSEHOOKS", ptr, 1)
+}
 }
 D3D11_HOOKS.StTrgt     := ID3D10Device.OMSetRenderTargets
 D3D11_HOOKS.GtTrgt     := ID3D10Device.OMGetRenderTargets
@@ -4153,34 +4155,6 @@ D3D11_HOOKS.StSmplr := ID3D10Device.PSSetSamplers
 D3D11_HOOKS.MxOvrrd := g_.cfg.FLTR
 D3D11_HOOKS.MnOvrrd := g_.cfg.FLTR
 dllcall(dll "\D3D11SetupFinished", ptr, IDXGISwapChain.p)
-IDXGISwapChain.GetDesc         := D3D11_HOOKS.GetDesc
-IDXGISwapChain1.GetDesc1       := D3D11_HOOKS.GetDesc1
-IDXGIOutput.GetDisplayModeList := D3D11_HOOKS.GetModes
-}
-D3D10UpdateHook(Intrfc, Mthd, Trmpln)
-{
-dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
-if !instr(Intrfc.dllHook(Mthd, "D3D10" Mthd "Hook", dll), "FAILED")
-D3D11_HOOKS[Trmpln] := Intrfc[Mthd]
-}
-D3D10ResetPreentCallback(Callback)
-{
-if (D3D11_HOOKS._present)
-dllcall("GlobalFree", ptr, D3D11_HOOKS._present)
-D3D11_HOOKS._present := RegisterCallback(Callback, "F")
-}
-CreateSwapChain10(p1, p2, p3, p4)
-{
-p3 := D3D11SetUPSwapChain(p3, "IDXGIFactory::CreateSwapChain")
-r  := dllcall(IDXGIFactory.CreateSwapChain, ptr, p1, ptr, p2, ptr, p3, ptr, p4)
-if (r)
-return r
-D3D11GetSwapChainDsc(numget(p4+0, "ptr"))
-if (DXGI_SWAP_CHAIN_DESC.OutputWindow && g_.cfg.HD)
-dllcall("SendMessage", ptr, DXGI_SWAP_CHAIN_DESC.OutputWindow, uint, 0x5, ptr, 0, ptr, D3D11_HOOKS.W|(D3D11_HOOKS.H<<16))
-dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
-dllcall(dll "\D3D10CreateShaders", ptr, numget(p4+0, "ptr"))
-return r
 }
 PxOvrr11dInit()
 {

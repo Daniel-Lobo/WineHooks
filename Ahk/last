@@ -1,5 +1,5 @@
-global g_MainThreadID := 2824 ;<Tag> 
-global g_cmdstring := "-Target^C:\Games\Crysis\Bin32\Crysis.exe^-D3D^10^-path^Crysis\Crysis^-HD^upscale|useinterop|hdproxies|useproxies^-MCLP^FREE^/dxvk^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;a=false;^-PxSwap^e=false;^-script_hwnd^0xb0720^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^C:\Games\Crysis\Bin32^-target_name^Crysis.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 1904 ;<Tag> 
+global g_cmdstring := "-Target^L:\Games\Crysis\Bin32\Crysis.exe^-D3D^10^-path^Crysis\Crysis^-HD^upscale|useinterop|hdproxies|useproxies|ssaa^-MHKS^ftrue^-MCLP^FREE^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;a=false;^-PxSwap^e=true;^-script_hwnd^0xc0132^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1440x900 1680x1050 1920x1080 ^-max_4x3_res^1152x864^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^L:\Games\Crysis\Bin32^-target_name^Crysis.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -5866,8 +5866,10 @@ logerr(IDXGISwapChain.dllHook("ResizeTarget", "D3D11ResizeTargetHook", dll))
 logerr(IDXGISwapChain.dllHook("ResizeBuffers", "D3D11ResizeBuffersHook", dll))
 logerr(IDXGISwapChain.dllHook("GetBuffer", "DXGIGetBufferHook", dll))
 g_.WnAPI.SetWindowPos := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", astr, "User32.dll", ptr), astr, "SetWindowPos", ptr)
-if g_.cfg.MHKS
+if (g_.cfg.MHKS) {
 dllcall(dll "\InitMouseHooks")
+dllcall(dll "\D3D12Config", astr, "MOUSEHOOKS", ptr, 1)
+}
 }
 D3D11_HOOKS.StTrgt     := ID3D10Device.OMSetRenderTargets
 D3D11_HOOKS.GtTrgt     := ID3D10Device.OMGetRenderTargets
@@ -5891,34 +5893,6 @@ D3D11_HOOKS.StSmplr := ID3D10Device.PSSetSamplers
 D3D11_HOOKS.MxOvrrd := g_.cfg.FLTR
 D3D11_HOOKS.MnOvrrd := g_.cfg.FLTR
 dllcall(dll "\D3D11SetupFinished", ptr, IDXGISwapChain.p)
-IDXGISwapChain.GetDesc         := D3D11_HOOKS.GetDesc
-IDXGISwapChain1.GetDesc1       := D3D11_HOOKS.GetDesc1
-IDXGIOutput.GetDisplayModeList := D3D11_HOOKS.GetModes
-}
-D3D10UpdateHook(Intrfc, Mthd, Trmpln)
-{
-dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
-if !instr(Intrfc.dllHook(Mthd, "D3D10" Mthd "Hook", dll), "FAILED")
-D3D11_HOOKS[Trmpln] := Intrfc[Mthd]
-}
-D3D10ResetPreentCallback(Callback)
-{
-if (D3D11_HOOKS._present)
-dllcall("GlobalFree", ptr, D3D11_HOOKS._present)
-D3D11_HOOKS._present := RegisterCallback(Callback, "F")
-}
-CreateSwapChain10(p1, p2, p3, p4)
-{
-p3 := D3D11SetUPSwapChain(p3, "IDXGIFactory::CreateSwapChain")
-r  := dllcall(IDXGIFactory.CreateSwapChain, ptr, p1, ptr, p2, ptr, p3, ptr, p4)
-if (r)
-return r
-D3D11GetSwapChainDsc(numget(p4+0, "ptr"))
-if (DXGI_SWAP_CHAIN_DESC.OutputWindow && g_.cfg.HD)
-dllcall("SendMessage", ptr, DXGI_SWAP_CHAIN_DESC.OutputWindow, uint, 0x5, ptr, 0, ptr, D3D11_HOOKS.W|(D3D11_HOOKS.H<<16))
-dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
-dllcall(dll "\D3D10CreateShaders", ptr, numget(p4+0, "ptr"))
-return r
 }
 PxOvrr11dInit()
 {
