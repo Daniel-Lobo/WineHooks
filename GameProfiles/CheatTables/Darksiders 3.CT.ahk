@@ -16,7 +16,7 @@ This will only work after the money has been shonw in the HUD at least once
 
 global __auto   := new CEEntry("Auto")
 global HP       := new CEEntry("H - inf HP")
-global EZKills  := new CEEntry("K - easy kills")
+global EZKills  := new CEEntry("K - easy Kills")
 global souls    := new CEEntry("G - Gain souls") 
 global m_auto   := new CEEntry("Auto - Souls")
 global m_souls  := new CEEntry("Souls")
