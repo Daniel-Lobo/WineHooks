@@ -523,61 +523,7 @@ void D3D10Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
     {
         D3D10RenderText(Iface, desc.c_str(), &D3D11_Hooks->text_rect);
     }
-
-    return ;
-
-    D3D11Bytecode  * c;
-    D3D11Globals.lock->lock();
-    DWORD p = D3D11_Hooks->IDXGISwapChain_Present_Callback(Iface, sync, flags);
-    D3D11Globals.PixelShader->Set(D3D11_Hooks->CurrentPxShader);
-    D3D11Globals.TextID->Set(D3D11_Hooks->current_view10);
-    D3D11Globals.lock->unlock();
-
-    ID3D10Device * Dvc = D3D10DvcFromSChain(Iface);
-    if      (p == 1) D3D10DumpTexture(Dvc, (IUnknown *)D3D11_Hooks->current_view10,
-                                      D3D11_Hooks->dump, 0);
-    else if (p == 2) D3D11DumpShader();
-
-    if (D3D11_Hooks->PxBlob)
-    {
-        ID3D10PixelShader * px = nullptr;
-        if (D3D11_Hooks->D3D10CreatePixelShader(Dvc, D3D11_Hooks->PxBlob->GetBufferPointer(),
-                                                D3D11_Hooks->PxBlob->GetBufferSize(), &px) == 0)
-        {
-            DBUG_WARN("CREATED PIXEL SHADER");
-            D3D11Globals.lock->lock();
-            c = (D3D11Bytecode *)D3D11_Hooks->Shaders->Value(D3D11_Hooks->CurrentPxShader);
-            D3D11Globals.lock->unlock();
-            if (c) c->set(px);
-            else D3D11_Hooks->D3D10PxShaderRelease(px);
-        }
-        D3D11_Hooks->PxBlob->Release();
-        D3D11_Hooks->PxBlob = 0;
-    }
-
-    if ( D3D11_Hooks->Searching )
-    {
-        std::wstring text(D3D11_Hooks->Text);
-        if (D3D11_Hooks->Searching == 2)
-        {
-            c = (D3D11Bytecode *)D3D11_Hooks->Shaders->Value(D3D11_Hooks->CurrentPxShader);
-            if ( c )
-            {
-                text.append(L"\nDumped: ");
-                text.append(c->m_name.c_str());
-            } else text.append(L"\nNOT DUMPED");
-        }        
-        D3D10RenderText(Iface, text.c_str(), &D3D11_Hooks->text_rect);
-        if (D3D11_Hooks->Searching == 1)
-        {
-            if (D3D11_Hooks->current_view10)
-            {
-                D3D10Texture2DView view(D3D11_Hooks->current_view10);
-                if (view.m_VW)
-                D3D10Blit(Iface, view.m_VW, nullptr, &D3D11_Hooks->image_rect, nullptr);
-            }
-        }
-    }
+    return ;    
 }
 
 extern "C" __declspec(dllexport) 
@@ -974,6 +920,8 @@ extern "C" __declspec(dllexport)
 void __stdcall D3D10Hook(IDXGISwapChain * sc, IDXGISwapChain1* sc1, IDXGIOutput* out, ID3D10Device * dvc, ID3D10Device1 * dvc1, 
     ID3D10Texture2D *txt2d, ID3D10ShaderResourceView* srv, ID3D10PixelShader* px, DWORD flags)
 {
+    // Not used, causes crashes or instability
+
     OutputDebugString(L"D3D10Hook called");
     BOOL mouse_hooks = flags & 0x1;
     BOOL hd          = flags & 0x2;
