@@ -28,7 +28,7 @@ class Darksiders3Tainer extends CETrainer
 		if (!m_auto.IsFrozen())
 			m_auto.SetFrozen(1, 0)
 
-		f (!__auto.IsFrozen())
+		if (!__auto.IsFrozen())
 			__auto.SetFrozen(1, 0)
 
 		if CETrainer.keyevent("h") > 0				

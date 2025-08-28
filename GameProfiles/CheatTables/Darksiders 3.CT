@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="46">
+<CheatTable CheatEngineTableVersion="45">
   <CheatEntries>
-    <CheatEntry>
-      <ID>4</ID>
-      <Description>"Table Help"</Description>
-      <GroupHeader>1</GroupHeader>
-    </CheatEntry>
     <CheatEntry>
       <ID>0</ID>
       <Description>"Auto"</Description>
@@ -71,7 +66,7 @@ dealloc(*)
 </AssemblerScript>
       <CheatEntries>
         <CheatEntry>
-          <ID>1</ID>
+          <ID>4</ID>
           <Description>"Player HP"</Description>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>Float</VariableType>
@@ -81,8 +76,8 @@ dealloc(*)
           </Offsets>
         </CheatEntry>
         <CheatEntry>
-          <ID>7</ID>
-          <Description>"H - inf HP"</Description>
+          <ID>2</ID>
+          <Description>"H - Inf HP"</Description>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[enable]
 inf_hp_flag:
@@ -94,7 +89,7 @@ inf_hp_flag:
 </AssemblerScript>
         </CheatEntry>
         <CheatEntry>
-          <ID>6</ID>
+          <ID>3</ID>
           <Description>"K - easy Kills"</Description>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[enable]
@@ -109,12 +104,12 @@ ez_kill_flag:
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
-      <ID>5</ID>
-      <Description>"G - Gain solus"</Description>
+      <ID>6</ID>
+      <Description>"G - Gain souls"</Description>
       <GroupHeader>1</GroupHeader>
     </CheatEntry>
     <CheatEntry>
-      <ID>2</ID>
+      <ID>1</ID>
       <Description>"Auto - Souls"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[enable]
@@ -147,7 +142,7 @@ dealloc(*)
 </AssemblerScript>
       <CheatEntries>
         <CheatEntry>
-          <ID>3</ID>
+          <ID>5</ID>
           <Description>"Souls"</Description>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>
