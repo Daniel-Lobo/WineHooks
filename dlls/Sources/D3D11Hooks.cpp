@@ -753,7 +753,7 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
                 g_d3d.D3D11DvcNT.Copy2Screen(g_d3d.D3D11DvcNT.m_Pass1Output, RealBackBuffer);
             } else DBUG_WARN("NULL BACKBUFFER")
             RealBackBuffer->Release();
-            return;
+           // return;
         }
         else D3D11Blit(Iface, proxy_tx, nullptr, &D3D11Globals.BackBufferRect, nullptr);   
         auto ctx1 = dynamic_cast<ID3D11DeviceContext1*>(D3D11Cntxt(D3D11DvcFromSChain(Iface)));
@@ -762,140 +762,18 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
        // return;
     }
 
-    /*
-    IUnknown * bb = (IUnknown *)D3D11Globals.BackBuffrerID->Get();
-    if (bb)
-    {        
-        D3D11TexUnWrapp Backbuff(bb, TRUE);
-        if (Backbuff.m_tx2d)
-        {
-            if (g_d3d.USEINTEROP)
-            {
-                ID3D11ProxyTexture * proxybb = D3D11GetProxy(Backbuff.m_tx2d);  
-                if (proxybb == nullptr)  // will be null if g_d3d.USEPROXIES == FALSE 
-                {                   
-                    ID3D11Texture2D * BB             = nullptr;
-                    ID3D11Texture2D * RealBackBuffer = nullptr;
-                    Backbuff.m_tx2d->QueryInterface(__uuidof(ID3D11Texture2D), (void**)&BB);
-                    D3D11_Hooks->GetBuffer(Iface, 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&RealBackBuffer );
-                    if (RealBackBuffer && BB)
-                    {
-                        if (g_d3d.AMDFSR) g_d3d.D3D11DvcNT.FSR(BB, RealBackBuffer);
-                        else              g_d3d.D3D11DvcNT.CSBlit(BB, RealBackBuffer);
-
-                        if (g_d3d.GAMMAFIX) D3D11Blit(Iface, g_d3d.D3D11DvcNT.m_Pass1Output, nullptr, &D3D11Globals.BackBufferRect, nullptr);
-                        else                g_d3d.D3D11DvcNT.Copy2Screen(g_d3d.D3D11DvcNT.m_Pass1Output, RealBackBuffer);
-                        
-                        RealBackBuffer->Release();
-                        BB->Release();
-                    } else DBUG_WARN("NO BACKBUFFER");
-                } else {
-                    ID3D11Texture2D * RealBackBuffer = nullptr;
-                    D3D11_Hooks->GetBuffer(Iface, 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&RealBackBuffer );
-                    if (RealBackBuffer && proxybb->m_proxy)
-                    {
-                        if (g_d3d.HDPROXIES) {
-                            if (g_d3d.SSAA > 1)
-                            {
-                                g_d3d.D3D11DvcNT.SSAABlit((ID3D11Texture2D*)proxybb->m_proxy, g_d3d.D3D11DvcNT.m_Pass1Output);
-                                g_d3d.D3D11DvcNT.Copy2Screen(g_d3d.D3D11DvcNT.m_Pass1Output, RealBackBuffer);
-                            }
-                            else {
-                                if (g_d3d.GAMMAFIX) D3D11Blit(Iface, (ID3D11Texture2D*)proxybb->m_proxy, nullptr, &D3D11Globals.BackBufferRect, nullptr);
-                                else                g_d3d.D3D11DvcNT.Copy2Screen((ID3D11Texture2D*)proxybb->m_proxy, RealBackBuffer);
-                            }
-                        } else {
-                            if (g_d3d.AMDFSR) g_d3d.D3D11DvcNT.FSR((ID3D11Texture2D*)proxybb->m_proxy, RealBackBuffer);
-                            else              g_d3d.D3D11DvcNT.CSBlit((ID3D11Texture2D*)proxybb->m_proxy, RealBackBuffer);
-                            g_d3d.D3D11DvcNT.Copy2Screen(g_d3d.D3D11DvcNT.m_Pass1Output, RealBackBuffer);
-                        }                        
-                        RealBackBuffer->Release();
-                    } else DBUG_WARN("---NO BACKBUFFER---");
-                }
-            } else {
-                ID3D11ProxyTexture * proxybb = D3D11GetProxy(Backbuff.m_tx2d);
-                // will be null if g_d3d.USEPROXIES == FALSE
-                if (proxybb == nullptr)  D3D11Blit(Iface, Backbuff.m_tx2d, nullptr, &D3D11Globals.BackBufferRect, nullptr);                
-                else                     D3D11Blit(Iface, proxybb->m_proxy, nullptr, &D3D11Globals.BackBufferRect, nullptr);                
-            }
-        }
-    }
-    */
-    
-    ID3D11Device * pDvc = D3D11DvcFromSChain(Iface);
-    if (pDvc == nullptr)
+    auto [what, desc] = D3D11BrowseResource(Iface, sync, flags);
+    if (what == "TEXTURES")
     {
-        DBUG_WARN("D3D11DvcFromSChain FAILED");
-        return;
-    }
-    ID3D11DeviceContext * ctx = D3D11Cntxt(pDvc);
-    if (ctx == nullptr)
+        D3D11RenderText(Iface, desc.c_str(), &D3D11_Hooks->text_rect);
+        D3D11Texture2DView view(D3D11_Hooks->current_view);
+        if (view.m_VW)
+            D3D11Blit(Iface, view.m_VW, nullptr, &D3D11_Hooks->image_rect, nullptr);
+    } else if (what == "PXSHADERS")
     {
-        DBUG_WARN("D3D11Cntxt FAILED");
-        return;
+        D3D11RenderText(Iface, desc.c_str(), &D3D11_Hooks->text_rect);
     }
-
-    D3D11Bytecode  * c;
-    D3D11Globals.lock->lock();
-    DWORD p = D3D11_Hooks->IDXGISwapChain_Present_Callback(Iface, sync, flags);
-    D3D11Globals.PixelShader->Set(D3D11_Hooks->CurrentPxShader);
-    D3D11Globals.TextID->Set(D3D11_Hooks->current_view);
-    D3D11Globals.lock->unlock();
-
-    if (D3D11_Hooks->PxBlob)
-    {
-        ID3D11PixelShader * px = nullptr;
-        if (D3D11_Hooks->CreatePixelShader(pDvc, D3D11_Hooks->PxBlob->GetBufferPointer(), D3D11_Hooks->PxBlob->GetBufferSize(), nullptr, &px) == 0)
-        {
-            D3D11Globals.lock->lock();
-            c = (D3D11Bytecode *)D3D11_Hooks->Shaders->Value(D3D11_Hooks->CurrentPxShader);
-            D3D11Globals.lock->unlock();
-            if (c) c->set(px);
-            else D3D11_Hooks->PxShaderRelease(px);
-        }
-        D3D11_Hooks->PxBlob->Release();
-        D3D11_Hooks->PxBlob = nullptr;
-    }
-
-    if      (p == 1) D3D11DumpTexture((IUnknown*)D3D11_Hooks->current_view,  D3D11_Hooks->dump, 0);
-    else if (p == 2) D3D11DumpShader();
-
-    if ( D3D11_Hooks->Searching )
-    {
-        std::wstring text(D3D11_Hooks->Text);
-        if (D3D11_Hooks->Searching == 2)
-        {
-            c = (D3D11Bytecode *)D3D11_Hooks->Shaders->Value(D3D11_Hooks->CurrentPxShader);
-            if ( c )
-            {
-                text.append(L"\nDumped: ");
-                text.append(c->m_name.c_str());
-#ifdef _WIN64                
-                text.append((std::wstring(L"\n") + std::to_wstring((UINT64)c->m_replace)));
-#else  
-                text.append((std::wstring(L"\n") + std::to_wstring((UINT)c->m_replace)));
-#endif                                 
-                if (c->IsVPostShader()) text.append(L"\nSV_POSITION");
-                if (c->m_IsLoadShader)  text.append(L"\nTEXTURE::LOAD");
-                if (c->m_ResInfo)       text.append(L"\nTEXTURE::GETDIMENSIONS");
-            } else text.append(L"\nNOT DUMPED");
-        }
-        text += L"\nproxys: " + to_wstring(D3D11Globals.ProxyCount->Get());
-        text += L"\nVideo memory used: " + to_wstring((double)D3D12GetMemoryUsage(D3D11DvcFromSChain(Iface), 0)) + L" MB";
-        text += L"\nShared used: " + to_wstring((double)D3D12GetMemoryUsage(D3D11DvcFromSChain(Iface), 1)) + L" MB";
-        text += L"\nSystem memory used: " + to_wstring(GetMemoryUsage()) + L"%";
-        D3D11RenderText(Iface, text.c_str(), &D3D11_Hooks->text_rect);
-
-        if (D3D11_Hooks->Searching == 1)
-        {
-            if (D3D11_Hooks->current_view)
-            {
-                D3D11Texture2DView view(D3D11_Hooks->current_view);
-                if (view.m_VW)
-                    D3D11Blit(Iface, view.m_VW, nullptr, &D3D11_Hooks->image_rect, nullptr);
-            }
-        }
-    }
+    return ;        
 }
 
 extern "C" __declspec(dllexport) HRESULT __stdcall IDXGISwapChainPresentHook(IDXGISwapChain * Iface, UINT sync, UINT flags)
@@ -1674,8 +1552,7 @@ D3D11CreateSwapChainForHwnd(LPVOID Factory2/* IDXGIFactory2* */, IUnknown * Dvc,
     if (h == 0)
     {
         if (g_d3d.m_SetWindowPos(hWin, HWND_TOPMOST, 0, 0, NewDesc.Width, NewDesc.Height, SWP_NOZORDER) == 0)
-        DBUG_WARN("SetWindowPos FAILED");
-        D3D11_Hooks->AHKSetup((ID3D11Device *) Dvc, NewDesc.Width, NewDesc.Height);
+        DBUG_WARN("SetWindowPos FAILED");        
         D3D11CreateShaders(*pChain);        
         SendMessage(hWin, WM_SIZE, 0,  Desc->Width|(Desc->Height<<16));        
     } else  
@@ -1720,8 +1597,7 @@ D3D11CreateSwapChain(IDXGIFactory * Factory, IUnknown*Dvc, DXGI_SWAP_CHAIN_DESC*
         if (g_d3d.m_SetWindowPos(NewDesc.OutputWindow, HWND_TOPMOST, 0, 0,
                                  NewDesc.BufferDesc.Width, NewDesc.BufferDesc.Height, SWP_NOZORDER) == 0)
         DBUG_WARN("SetWindowPos FAILED");
-        */
-        D3D11_Hooks->AHKSetup((ID3D11Device*)Dvc, NewDesc.BufferDesc.Width, NewDesc.BufferDesc.Height);
+        */       
         D3D11CreateShaders(*pChain);
         //SendMessage(NewDesc.OutputWindow, WM_SIZE, 0, pDesc->BufferDesc.Width | (pDesc->BufferDesc.Height << 16)); // Freezes blade of darkness
         //D3D11Globals.SendVMSize(NewDesc.OutputWindow, pDesc->BufferDesc.Width, pDesc->BufferDesc.Height);

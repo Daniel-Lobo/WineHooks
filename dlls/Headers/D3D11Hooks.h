@@ -555,6 +555,7 @@ ID3D11PixelShader * D3D11FixAndCompileDXBCShader(BYTE *, UINT, string *, float, 
 ID3D10PixelShader * D3D10FixAndCompileDXBCShader(BYTE * , UINT, string *, float, ID3D10Device *);
 ID3D10Resource * D3D10ShrinkTexture2D(ID3D10Resource *);
 unique_ptr<string> D3D11CPUShrinkTexture2D(ID3D11DeviceContext *, ID3D11Resource *, ID3D11Resource *);
+tuple<string, wstring> D3D11BrowseResource(IDXGISwapChain * sc, UINT vsync, UINT flags);
 
 //============================HOOKS=========================================//
 

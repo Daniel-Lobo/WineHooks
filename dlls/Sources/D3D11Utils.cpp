@@ -1376,43 +1376,108 @@ unique_ptr<string> D3D11CPUShrinkTexture2D(ID3D11DeviceContext * c, ID3D11Resour
     return unique_ptr<string>(new string("S_OK"));
 }
 
-string D3D11BrowseResource(IDXGISwapChain * sc, UINT vsync, UINT flags)
+tuple<string, wstring> D3D11BrowseResource(IDXGISwapChain * sc, UINT vsync, UINT flags)
 {    
     if (g_d3d.TEXTURE_SWAP_ENABLED)
+    {        
+        if (GetEvent(g_d3d.TEXTURE_SWAP_TOGGLE_SEARCH) == 1)  D3D11Globals.m_Search = D3D11Globals.m_Search == *(DWORD*) "TEXTURES"  ? *(DWORD*) "NONE" : *(DWORD*) "TEXTURES";  
+    }    
+    if (g_d3d.PIXEL_SHADER_SWAP_ENABLED)
     {
-        if (GetEvent(g_d3d.TEXTURE_SWAP_TOGGLE_SEARCH)) D3D11Globals.m_Search = D3D11Globals.m_Search == *(DWORD*) "TEXTURES"  ? *(DWORD*) "NONE" : *(DWORD*) "TEXTURES";
-        if (GetEvent(g_d3d.PIXEL_SHADER_SWAP_TOGGLE))   D3D11Globals.m_Search = D3D11Globals.m_Search == *(DWORD*) "PXSHADERS" ? *(DWORD*) "NONE" : *(DWORD*) "PXSHADERS";
+        if (GetEvent(g_d3d.PIXEL_SHADER_SWAP_TOGGLE)   == 1)  D3D11Globals.m_Search = D3D11Globals.m_Search == *(DWORD*) "PXSHADERS" ? *(DWORD*) "NONE" : *(DWORD*) "PXSHADERS";
     }
 
     D3D11_Hooks->current_view    = nullptr; 
-    D3D11_Hooks->CurrentPxShader = nullptr;
+    D3D11_Hooks->CurrentPxShader = nullptr;    
+    D3D11Globals.PixelShader->Set(nullptr);
 
     if (D3D11Globals.m_Search == *(DWORD*) "TEXTURES") 
-    {
+    {   
         if (GetKeyState(g_d3d.TEXTURE_SWAP_QUICK) & 0x8000)
         {
             if      (GetKeyState(g_d3d.TEXTURE_SWAP_NEXT) & 0x8000) D3D11Globals.m_TextIndex += 1;            
             else if (GetKeyState(g_d3d.TEXTURE_SWAP_PREV) & 0x8000) D3D11Globals.m_TextIndex -= 1;            
         } else {
-            if      (GetEvent(g_d3d.TEXTURE_SWAP_NEXT)) D3D11Globals.m_TextIndex += 1;           
-            else if (GetEvent(g_d3d.TEXTURE_SWAP_PREV)) D3D11Globals.m_TextIndex -= 1;           
+            if      (GetEvent(g_d3d.TEXTURE_SWAP_NEXT) == 1) D3D11Globals.m_TextIndex += 1;           
+            else if (GetEvent(g_d3d.TEXTURE_SWAP_PREV) == 1) D3D11Globals.m_TextIndex -= 1;           
         }
 
-        if      (D3D11Globals.m_TextIndex < 0)                               D3D11Globals.m_TextIndex = 0;
-        else if (D3D11Globals.m_TextIndex >= D3D11_Hooks->textures->Count()) D3D11Globals.m_TextIndex = D3D11_Hooks->textures->Count() - 1;
+        if      (D3D11Globals.m_TextIndex < 0)                               D3D11Globals.m_TextIndex = D3D11_Hooks->textures->Count() - 1;
+        else if (D3D11Globals.m_TextIndex >= D3D11_Hooks->textures->Count()) D3D11Globals.m_TextIndex = 0;
 
         D3D11_Hooks->current_view = (ID3D11Texture2D*) D3D11_Hooks->textures->KeyAt(D3D11Globals.m_TextIndex);  
         DWORD index  = 0;
         wstring file = g_.m_BaseTexturePath + L"\\dump0.dds";
-        if (GetEvent(g_d3d.TEXTURE_SWAP_DUMP))
+        if (GetEvent(g_d3d.TEXTURE_SWAP_DUMP) == 1)
         {
-            while (INVALID_FILE_ATTRIBUTES == GetFileAttributesW(file.c_str()) && GetLastError()==ERROR_FILE_NOT_FOUND)
+            while (! (INVALID_FILE_ATTRIBUTES == GetFileAttributesW(file.c_str()) && GetLastError() == ERROR_FILE_NOT_FOUND))
             {
                 index += 1;
-                file  = g_.m_BaseTexturePath + L"\\dump" + std::to_wstring(index) + L".dds";
-            }            
-        }          
-        return string("TEXTURES");    
+                file  = g_.m_BaseTexturePath + L"dump" + std::to_wstring(index) + L".dds";
+            }              
+            D3D11DumpTexture((IUnknown*)D3D11_Hooks->current_view, file.c_str(), 0);
+        }
+        wstring usage               = L"UNKNOWN";
+        D3D11_TEXTURE2D_DESC * desc = (D3D11_TEXTURE2D_DESC *)D3D11_Hooks->textures->ValueAt(D3D11Globals.m_TextIndex);
+        if (nullptr != desc)
+        {
+            usage = desc->Usage == D3D11_USAGE_STAGING ? L"System" : desc->Usage == D3D11_USAGE_DYNAMIC ? L"Dynamic" : desc->Usage == D3D11_USAGE_IMMUTABLE ? L"Immutable" : L"Default";
+        }
+               
+        wstring info  = L"Texture "  + to_wstring(D3D11Globals.m_TextIndex+1) + L" of " + to_wstring(D3D11_Hooks->textures->Count());    
+        info        += L"\nUsage: "  + usage;     
+        info        += L"\nSize: "   + to_wstring(desc->Width) + L"x" + to_wstring(desc->Height);
+        info        += L"\nFormat: " + GetDXGISurfacePxFormatString(desc->Format);
+        return tuple<string, wstring>(string("TEXTURES"), info);    
     }
-    return string("NONE");
+    else if (D3D11Globals.m_Search == *(DWORD*) "PXSHADERS") 
+    {
+        if (GetKeyState(g_d3d.PIXEL_SHADER_SWAP_QUICK) & 0x8000)
+        {
+            if      (GetKeyState(g_d3d.PIXEL_SHADER_SWAP_NEXT) & 0x8000) D3D11Globals.m_PxIndex += 1;            
+            else if (GetKeyState(g_d3d.PIXEL_SHADER_SWAP_PREV) & 0x8000) D3D11Globals.m_PxIndex -= 1;            
+        } else {
+            if      (GetEvent(g_d3d.PIXEL_SHADER_SWAP_NEXT) == 1) D3D11Globals.m_PxIndex += 1;           
+            else if (GetEvent(g_d3d.PIXEL_SHADER_SWAP_PREV) == 1) D3D11Globals.m_PxIndex -= 1;           
+        }
+        if      (D3D11Globals.m_PxIndex < 0)                              D3D11Globals.m_PxIndex = D3D11_Hooks->Shaders->Count() - 1;
+        else if (D3D11Globals.m_PxIndex >= D3D11_Hooks->Shaders->Count()) D3D11Globals.m_PxIndex = 0;
+
+        DWORD index  = 0;
+        wstring file = g_.m_BaseTexturePath + L"\\dump0.bin";
+        if (GetEvent(g_d3d.PIXEL_SHADER_SWAP_DUMP) == 1)
+        {
+            while (! (INVALID_FILE_ATTRIBUTES == GetFileAttributesW(file.c_str()) && GetLastError() == ERROR_FILE_NOT_FOUND))
+            {
+                index += 1;
+                file  = g_.m_BaseTexturePath + L"dump" + std::to_wstring(index) + L".bin";
+            }      
+            file              = g_.m_BaseTexturePath + L"dump" + std::to_wstring(index);
+            D3D11_Hooks->dump = file.c_str();       
+            D3D11DumpShader();  
+            D3D11_Hooks->dump = nullptr;       
+        }  
+        ID3D11PixelShader * px = (ID3D11PixelShader*) D3D11_Hooks->Shaders->KeyAt(D3D11Globals.m_PxIndex);
+        wstring info          = L"Pixel Shader " + to_wstring(D3D11Globals.m_PxIndex+1) + L" of " + to_wstring(D3D11_Hooks->Shaders->Count());
+        if (px != nullptr)
+        {
+            D3D11Globals.PixelShader->Set(px);
+            auto c = (D3D11Bytecode *)D3D11_Hooks->Shaders->Value(px);
+            if ( c )
+            {
+                info.append(L"\nDumped: ");
+                info.append(c->m_name.c_str());
+#ifdef _WIN64                
+                info.append((std::wstring(L"\n") + std::to_wstring((UINT64)c->m_replace)));
+#else  
+                info.append((std::wstring(L"\n") + std::to_wstring((UINT)c->m_replace)));
+#endif                                 
+                if (c->IsVPostShader()) info.append(L"\nSV_POSITION");
+                if (c->m_IsLoadShader)  info.append(L"\nTEXTURE::LOAD");
+                if (c->m_ResInfo)       info.append(L"\nTEXTURE::GETDIMENSIONS");
+            } else info.append(L"\nNOT DUMPED");
+        }        
+        return tuple<string, wstring>(string("PXSHADERS"), info);        
+    }
+    return tuple<string, wstring>(string("NONE"), wstring(L""));
 }

@@ -1,5 +1,5 @@
-global g_MainThreadID := 2484 ;<Tag> 
-global g_cmdstring := "-Target^C:\Games\Crysis\Bin32\Crysis.exe^-D3D^10^-path^Crysis\Crysis^-HD^upscale|useinterop|hdproxies|useproxies^/MHKS^-MCLP^free^/dxvk^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;a=false;^-PxSwap^e=true;^-script_hwnd^0x100358^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^C:\Games\Crysis\Bin32^-target_name^Crysis.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 76 ;<Tag> 
+global g_cmdstring := "-Target^G:\Games\Inside\INSIDE.exe^-D3D^11^-path^Inside^/dxvk^-HD^UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAA|TXAAFIX^-RLMT^8^-Textswap^e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;^-PxSwap^e=true;sw=Insert;n=.;p=,;d=F12;q=Shift;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-script_hwnd^0x8702c0^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1920x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^G:\Games\Inside^-target_name^INSIDE.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -1734,7 +1734,6 @@ r := dllcall("GetBinaryType", astr, trgt, "uint*", btype)
 if (btype = 6)
 return true
 }
-
 
 ; <COMPILER: v1.1.15.03>
 global D3D11_QUERY_EVENT              := 0
@@ -6005,7 +6004,6 @@ D3D11_HOOKS.GetModes := IDXGIOutput.GetDisplayModeList
 InitD3D11Hooks()
 InitD3D11Hooks()
 {
-g_.p.D3D11HDSetUP  := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "D3D11HDSetUP", ptr)
 d                  := Desk()
 D3D11_HOOKS.HD_W   := d.w
 D3D11_HOOKS.HD_H   := d.h
@@ -6042,10 +6040,8 @@ logerr(IDXGIFactory2.dllHook("CreateSwapChainForHwnd", "D3D11CreateSwapChainForH
 logerr(IDXGIFactory.dllHook("CreateSwapChain", "D3D11CreateSwapChain", dll))
 D3D11_HOOKS.CreateChainForHwnd := IDXGIFactory2.CreateSwapChainForHwnd
 D3D11_HOOKS.CreateChain        := IDXGIFactory.CreateSwapChain
-D3D11_HOOKS.AHKSetup           := RegisterCallback("D3D11Setup", "F")
 logerr(IDXGISwapChain.dllHook("Present", "IDXGISwapChainPresentHook", dll))
 D3D11_HOOKS.present         := IDXGISwapChain.Present
-D3D11_HOOKS._present        := RegisterCallback("IDXGISwapChain_Present", "F")
 D3D11_HOOKS.ImSetResources  := ID3D11ImDeviceContext.PSSetShaderResources
 D3D11_HOOKS.CreateTex2D     := ID3D11Device.CreateTexture2D
 D3D11_HOOKS.CreateResView   := ID3D11Device.CreateShaderResourceView
@@ -6131,123 +6127,6 @@ IDXGISwapChain.GetDesc         := D3D11_HOOKS.GetDesc
 IDXGISwapChain1.GetDesc1       := D3D11_HOOKS.GetDesc1
 IDXGIOutput.GetDisplayModeList := D3D11_HOOKS.GetModes
 }
-D3D11Setup(d, w, h)
-{
-return
-}
-D3D11HDSetUP(w, h, c) {
-dllcall(g_.p.D3D11HDSetUP, uint, w, uint, h, astr, c)
-}
-D3D11SetUPSwapChain(desc, c)
-{
-if (g_.cfg.HD)
-{
-if (desc)
-{
-d   := struct(DXGI_SWAP_CHAIN_DESC)
-d[] := desc
-sps := 	dllcall("SetWindowpos", ptr, d.OutputWindow, int, 0, uint, 0, uint, 0, uint, D3D11_HOOKS.HD_W, uint, D3D11_HOOKS.HD_H, uint, 0x0454)
-logerr(c " SetWindowpos: " sps " HWIN: " d.OutputWindow)
-dll := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
-dllcall(dll "\D3D12Config", astr, "HWND", ptr, d.OutputWindow)
-dllcall("RtlMoveMemory", ptr, DXGI_SWAP_CHAIN_DESC[], ptr, desc, ptr, DXGI_SWAP_CHAIN_DESC.size())
-if (d.BufferDesc.Width && d.BufferDesc.Height && desc != DXGI_SWAP_CHAIN_DESC[])
-D3D11HDSetUP(d.BufferDesc.Width, d.BufferDesc.Height, c)
-DXGI_SWAP_CHAIN_DESC.BufferDesc.Width  := D3D11_HOOKS.HD_W
-DXGI_SWAP_CHAIN_DESC.BufferDesc.Height := D3D11_HOOKS.HD_H
-return DXGI_SWAP_CHAIN_DESC[]
-}
-logerr("NO DESC`n")
-} return desc
-}
-D3D11GetSwapChainDsc(p)
-{
-logerr("GetDesc " dllcall(IDXGISwapChain.GetDesc, ptr, p, ptr, DXGI_SWAP_CHAIN_DESC[]) " " p)
-logerr("GetDesc " DXGI_SWAP_CHAIN_DESC.BufferDesc.Width " x " DXGI_SWAP_CHAIN_DESC.BufferDesc.Height)
-}
-IDXGISwapChain_Present(p1, p2, p3)
-{
-keyevent(g_TSwap.c)    ? D3D11_HOOKS.clr    := cicleColor(D3D11_HOOKS.clr)
-keyevent(g_TSwap.sw)   ? D3D11_HOOKS.search := (D3D11_HOOKS.search) & True ? False : True
-keyevent(g_PxOvrrd.sw) ? D3D11_HOOKS.search := (D3D11_HOOKS.search) ? False : 2
-D3D11_HOOKS.current := 0
-D3D11_HOOKS.CrrntPx := 0
-return (D3D11_HOOKS.search = 2) ? D3D11PxBrowse() : (D3D11_HOOKS.search) ? D3D11Browse() : ""
-}
-D3D11PxBrowse()
-{
-static indx     := -1
-static prev     := -1
-static unrecg   := ""
-D3D11_HOOKS.tex := "Shader " indx " of " g_PxOvrrd.PxShdrs.count()
-_func := getkeystate(g_PxOvrrd.q) ? "getkeystate" : "keyevent"
-%_func%(g_PxOvrrd.n) ? indx += 1 : %_func%(g_PxOvrrd.p) ? indx -= 1 :
-if keyevent(g_PxOvrrd.d)
-{
-D3D11_HOOKS.CrrntPx :=  g_PxOvrrd.PxShdrs.KeyAt(indx)
-dump := 1
-n    := 0
-file := "dump" n
-while fileexist(g_PxOvrrd.user_path "\" file ".bin") || fileexist(g_PxOvrrd.user_path "\" file ".txt")
-{
-n += 1
-file := "dump" n
-}
-D3D11_HOOKS.dump := g_PxOvrrd.user_path "\" file
-return 2
-}
-if (prev != indx)
-{
-BC := g_PxOvrrd.PxShdrs.ValueAt(indx)
-if (BC)
-{
-if (!D3D11Compile(px, D3D11Shader(), "PS_4_0", "Px") )
-D3D11_HOOKS.PxBlob := px
-}
-}
-prev := indx
-(indx >= g_PxOvrrd.PxShdrs.count()) ? indx := 0
-: (indx < 0 ) ? indx := g_PxOvrrd.PxShdrs.count()-1
-D3D11_HOOKS.CrrntPx  := g_PxOvrrd.PxShdrs.KeyAt(indx)
-}
-D3D11Browse()
-{
-static index := 0
-_func := getkeystate(g_TSwap.q) ? "getkeystate" : "keyevent"
-%_func%(g_TSwap.n) ? index += 1 : %_func%(g_TSwap.p) ? index -= 1 :
-if keyevent(g_TSwap.d)
-{
-dump := 1
-n    := 0
-file := "dump" n ".dds"
-while fileexist(g_TSwap.path "\dumps\" file)
-{
-n += 1
-file := "dump" n ".dds"
-}
-D3D11_HOOKS.dump    := g_TSwap.path "\dumps\" file
-D3D11_HOOKS.current := g_TSwap.texts.KeyAt(index)
-return 1
-}
-(index >= g_TSwap.texts.count()) ? index := 0
-: (index < 0 ) ? index := g_TSwap.texts.count()-1
-D3D11_HOOKS.tex := "Texture " index "/" g_TSwap.texts.count() "`n"
-D3D11_HOOKS.tex := "Bite my shiny metal ass"
-if (tex := g_TSwap.texts.KeyAt(index))
-{
-D3D11_HOOKS.current := tex
-if (D3D11_TEXTURE2D_DESC[] := g_TSwap.texts.Value(tex))
-{
-u := ["Default", "Imutable", "Dynamic", "System"][D3D11_TEXTURE2D_DESC.Usage+1]
-D3D11_HOOKS.tex := "`nTexture2D[" D3D11_TEXTURE2D_DESC.ArraySize "] " index "/" g_TSwap.texts.count() " " u "`n"
-D3D11_HOOKS.tex .= D3D11_TEXTURE2D_DESC.Width "x" D3D11_TEXTURE2D_DESC.Height " => " DXGI.frmts[D3D11_TEXTURE2D_DESC.Format]
-D3D11_TEXTURE2D_DESC.Usage = 3 ? D3D11_HOOKS.current := 0
-D3D11_HOOKS.tex .=  "`n" g_TSwap.replace.count() " replacements"
-}
-}
-return 0
-}
 
 
-printl()
 resume()
