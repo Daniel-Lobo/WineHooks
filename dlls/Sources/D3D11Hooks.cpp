@@ -756,12 +756,17 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
            // return;
         }
         else D3D11Blit(Iface, proxy_tx, nullptr, &D3D11Globals.BackBufferRect, nullptr);   
-        auto ctx1 = dynamic_cast<ID3D11DeviceContext1*>(D3D11Cntxt(D3D11DvcFromSChain(Iface)));
-        ctx1->DiscardResource((ID3D11Resource*)proxy_tx);
+        auto ctxt                   = D3D11Cntxt(D3D11DvcFromSChain(Iface));
+        ID3D11DeviceContext1 * ctx1 = nullptr;
+        if (ctxt->QueryInterface(__uuidof(ID3D11DeviceContext1), (void**)&ctx1) == 0)        
+        {
+            ctx1->DiscardResource((ID3D11Resource*)proxy_tx);  // should be safe even if SSAA == 1, but chrasnes 32 bit games
+            ctx1->Release();
+        }
         proxy_tx->Release();       
        // return;
     }
-
+    
     auto [what, desc] = D3D11BrowseResource(Iface, sync, flags);
     if (what == "TEXTURES")
     {
@@ -1568,6 +1573,7 @@ extern "C" __declspec(dllexport) HRESULT __stdcall
 D3D11CreateSwapChain(IDXGIFactory * Factory, IUnknown*Dvc, DXGI_SWAP_CHAIN_DESC*pDesc, IDXGISwapChain**pChain)
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+    DBUG_WARN("CALLED");
     D3D11Globals.lock->lock(); D3D11Globals.lock->unlock();
     if (pDesc != nullptr && pDesc->BufferDesc.Width == pDesc->BufferDesc.Height == 1)
     {
@@ -1607,6 +1613,7 @@ D3D11CreateSwapChain(IDXGIFactory * Factory, IUnknown*Dvc, DXGI_SWAP_CHAIN_DESC*
         h = D3D11_Hooks->CreateSwapChain(Factory, Dvc, pDesc, pChain);
         if (h)  DBUG_WARN("D3D11CreateSwapChain FAILED"); 
     }
+    DBUG_WARN("FINISHED");
     return h;
 }
 
