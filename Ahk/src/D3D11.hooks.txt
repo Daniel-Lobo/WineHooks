@@ -4312,9 +4312,11 @@ D3D11_HOOKS.ReadSubresource := ID3D11Device3.ReadFromSubresource
 D3D11_HOOKS.Map             := ID3D11ImDeviceContext.Map
 D3D11_HOOKS.Unmap           := ID3D11ImDeviceContext.Unmap
 D3D11_HOOKS.CopyRegion      := ID3D11ImDeviceContext.CopySubresourceRegion
-if (parsecfg(g_.cfg.TextSwap).e or instr(g_.cfg.HD, "USEPROXIES"))
+if (parsecfg(g_.cfg.TextSwap).e)
 {
-if ! parsecfg(g_.cfg.TextSwap).e
+TSwapInit(dll)
+logerr(ID3D11Device.dllHook("CreateTexture2D", "D3D11CreateTexture2DHook", dll))
+} else if instr(g_.cfg.HD, "USEPROXIES")
 {
 g_TSwap             := {}
 g_TSwap.texts       := new Collection()
@@ -4322,11 +4324,8 @@ D3D11_HOOKS.texts   := g_TSwap.texts.pc
 g_TSwap.replace     := new Collection()
 D3D11_HOOKS.replace := g_TSwap.replace.pc
 }
-else
+if (parsecfg(g_.cfg.TextSwap).e or instr(g_.cfg.HD, "USEPROXIES"))
 {
-TSwapInit(dll)
-logerr(ID3D11Device.dllHook("CreateTexture2D", "D3D11CreateTexture2DHook", dll))
-}
 logerr(ID3D11Texture2D.dllHook("Release", "D3D11Texture2DReleaseHook", dll))
 logerr(ID3D11ImDeviceContext.dllHook("PSSetShaderResources", "D3D11PSSetShaderResourcesHook", dll))
 logerr(ID3D11ImDeviceContext.dllHook("Map", "D3D11MapHook", dll))
@@ -4343,14 +4342,17 @@ D3D11_HOOKS.map            := ID3D11ImDeviceContext.Map
 D3D11_HOOKS.Unmap          := ID3D11ImDeviceContext.Unmap
 D3D11_HOOKS.CopyRegion     := ID3D11ImDeviceContext.CopySubresourceRegion
 D3D11_HOOKS.UpdateSubrsrc  := ID3D11ImDeviceContext.UpdateSubresource
-if (parsecfg(g_.cfg.PxSwap).e or g_.cfg.HD)
+if (parsecfg(g_.cfg.PxSwap).e)
 {
-if (! parsecfg(g_.cfg.PxSwap).e )
+PxOvrr11dInit()
+} else if (g_.cfg.HD)
 {
 g_PxOvrrd           := {}
 g_PxOvrrd.PxShdrs   := new Collection()
 D3D11_HOOKS.PxShdrs := g_PxOvrrd.PxShdrs.pc
-} else PxOvrr11dInit()
+}
+if (parsecfg(g_.cfg.PxSwap).e or g_.cfg.HD)
+{
 logerr(ID3D11ImDeviceContext.dllHook("PsSetShader", "D3D11PsSetShaderHook", dll))
 logerr(ID3D11Device.dllHook("CreatePixelShader", "CreatePixelShader11Hook", dll))
 if ( !parsecfg(g_.cfg.TextSwap).e && !g_.cfg.HD )

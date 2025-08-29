@@ -1,5 +1,5 @@
 Peixotos's patch remote settings:
-Command Line: "G:\Games\Inside\INSIDE.exe" 
+Command Line: "G:\Games\The Talos Principle\Bin\x64\Talos.exe" 
 common_path: 1
 D3D: 11
 D3D_Driver: 
@@ -7,29 +7,32 @@ dsk: 1920x1080
 dxvk: 1
 dxvkv: 2_6
 error_log: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log
-HD: UPSCALE|USEINTEROP|HDPROXIES|USEPROXIES|SSAA|TXAAFIX
+HD: upscale|useinterop|hdproxies|useproxies|ssaa
 injector_dir: C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk
-J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
-k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
+J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;
+k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;
 max_4x3_res: 1440x1080
+MHKS: 1
 Mydocs: C:\Users\Peixoto\Documents
 os_version: 10.000000
-path: C:\Users\Peixoto\Documents\WineHooks\Games\Inside\
-PxSwap: e=true;sw=Insert;n=.;p=,;d=F12;q=Shift;
+path: C:\Users\Peixoto\Documents\WineHooks\Games\The Talos Principle\
+PxSwap: sw=Ins;n=.;p=,;q=\;d=Home;e=true;
 res_lmt_lts: 
-RLMT: 8
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
-script_hwnd: 0x8702c0
-Target: G:\Games\Inside\INSIDE.exe
-target_dir: G:\Games\Inside
-target_name: INSIDE.exe
-Textswap: e=true;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;
+script_hwnd: 0x110580
+Target: G:\Games\The Talos Principle\Bin\x64\Talos.exe
+target_dir: G:\Games\The Talos Principle\Bin\x64
+target_name: Talos.exe
+Textswap: e=true;sw=Del;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;c=Alt;k=false;
+WHKS: 1
+wiki: https://www.pcgamingwiki.com/wiki/The_Talos_Principle
 wine: 10_0
+WNMM: MCI=false;
 
-Working directory: G:\Games\Inside
-C:\Users\Peixoto\Documents\WineHooks\Games\Inside\cfgFiles: 
+Working directory: G:\Games\The Talos Principle\Bin\x64
+C:\Users\Peixoto\Documents\WineHooks\Games\The Talos Principle\cfgFiles: 
 HasFiles 0
-C:\Users\Peixoto\Documents\WineHooks\Games\Inside\cfgFiles: 
+C:\Users\Peixoto\Documents\WineHooks\Games\The Talos Principle\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -93,6 +96,7 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
+ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SetWindowPosHook
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexed
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::Draw
@@ -103,7 +107,7 @@ GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstanced
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::DrawIndexedInstancedIndirect
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext::PSGetShaderResources
 GetDirect3D11: SUCCEEDED TO HOOK ID3D11DeviceContext1::ClearView
-Texture 185930736 81358432
+Texture 185421088 6524480
 Releasing Texture 0
 Releasing ResView 0
 Succeded to create the Direct3D11 device with feature level 
@@ -125,6 +129,13 @@ Succeeded to hook ID3D11DeviceContext::OMSetRenderTargets
 Succeeded to hook ID3D11DeviceContext::OMGetRenderTargets
 Succeeded to hook ID3D11DeviceContext::ClearDepthStencilView
 Succeeded to hook ID3D11DeviceContext::ClearRenderTargetView
+InitMouseHooks: SUCCEEDED TO HOOK GetMousePos_Hook
+InitMouseHooks: SUCCEEDED TO HOOK SetMousePos_Hook
+InitMouseHooks: SUCCEEDED TO HOOK GetMessageW_Hook
+InitMouseHooks: SUCCEEDED TO HOOK GetMessageA_Hook
+InitMouseHooks: SUCCEEDED TO HOOK PeekMessageW_Hook
+InitMouseHooks: SUCCEEDED TO HOOK PeekMessageA_Hook
+InitMouseHooks: SUCCEEDED TO HOOK GetMessagePos_Hook
 Succeeded to hook IDXGISwapChain::ResizeTarget
 Succeeded to hook IDXGISwapChain::ResizeBuffers
 Succeeded to hook IDXGISwapChain::GetBuffer
@@ -132,6 +143,8 @@ ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain::GetDesc
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGISwapChain1::GetDesc1
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::GetDisplayModeList
 ApplyCommonDXGIHooks: SUCCEEDED TO HOOK IDXGIOutput::FindClosestMatchingMode
+~LogWinSize: D3D12SetWindowPosHook: 32x32 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
 D3D12GetDisplayModeListHook: =====
 D3D12GetModes: MODE 0: 640x480
 D3D12GetModes: MODE 1: 640x480
@@ -262,56 +275,103 @@ D3D12GetModes: MODE 60: 1920x1080
 D3D12GetModes: MODE 61: 1920x1080
 D3D12GetModes: MODE 62: 1920x1080
 D3D12GetDisplayModeListHook: RETURNING 63 Modes
-Setup: D3D11CreateSwapChainForHwnd Requested mode    : 1920x1080
-Setup: D3D11CreateSwapChainForHwnd Scale             : 1.000000
-Setup: D3D11CreateSwapChainForHwnd Viewport XOffset  : 0
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
+Setup: D3D11CreateSwapChain Requested mode    : 1280x720
+Setup: D3D11CreateSwapChain Scale             : 1.500000
+Setup: D3D11CreateSwapChain Viewport XOffset  : 0
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
 D3D11CreateShaders: OK =)
-~LogWinSize: D3D11CreateSwapChainForHwnd: 1920x1080 -> 1920x1080
+~LogWinSize: D3D11CreateSwapChain: 1920x1080 -> 1920x1080
+~LogWinSize: D3D12SetWindowPosHook: 1424x750 -> 1424x750
 DXGIGetBufferHook: 0
 InitResources: SUCCESS
 Reset: SUCCESS
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 768x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 3840x2160
 D3D11GetProxy: Setting data to swap chain
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11CopyResourceHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 480x270
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 240x134
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 60x33 120x66
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 120x67 240x134
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 240x135 480x270
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 480x270 960x540
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 16x9 32x18
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1920x1080 3840x2160
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 512x512
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 320x135 640x270
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 320x135 640x270
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 512x512
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2048x2048 4096x4096
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 64x64 128x128
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x1024 2048x2048
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x1024 2048x2048
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x128 256x256
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 960x540 1920x1080
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 512x512 1024x1024
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1024x1024 2048x2048
-D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2048x2048 4096x4096
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 3x3
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 3x3
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 3x3
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 3x3
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 3x3
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 3x3
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 3x3
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 3x3
+CreateProcess  lpApplicationName: lpCommandLine:G:\Games\The Talos Principle\Bin\x64\RemoteSam.exe trgt: G:\Games\The args: G:\Games\The Talos Principle\Bin\x64\RemoteSam.exe
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 3840x2160
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 3840x2160
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 3840x2160
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 3840x2160
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 3840x2160
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1280x720 3840x2160
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 1280x720 3840x2160
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 320x180 960x540
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 160x90 480x270
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 80x45 240x135
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 40x23 120x69
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 20x12 60x36
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 10x6 30x18
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 640x360 1920x1080
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2048x2048 6144x6144
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x4 768x12
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 155x74 465x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 155x74 465x222
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 156x102 468x306
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 156x102 468x306
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 298x102 894x306
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 298x74 894x222
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 422x102 1266x306
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 422x102 1266x306
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 195x74 585x222
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2048x2048 6144x6144
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 256x256 768x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 64x64 192x192
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 16x16 48x48
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 4x4 12x12
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 1x1 3x3
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 2048x2048 6144x6144
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 128x256 384x768
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 16x16 48x48
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 16x16 48x48
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 16x16 48x48
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 16x16 48x48
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 330x74 990x222
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 234x102 702x306
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 234x102 702x306
+D3D11GetProxy: D3D11OMSetRenderTargetsHook CREATED PROXY 398x102 1194x306
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+D3D11GetProxy: D3D11CopySubresourceRegionHook CREATED PROXY 398x74 1194x222
+~LogWinSize: D3D12SetWindowPosHook: 1920x1080 -> 1920x1080
