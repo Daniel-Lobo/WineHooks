@@ -92,10 +92,5 @@ Cheats tables:
     - AVP 1 e 2: inf predator energy
     - Brothers: improve brother detection
 
-Latest (unreleased) chages:
-D3D10:
-  Moved all hooks to C++
-  fixed browsing shaders only working if texture swap was also enabled
-D3D10 and 11:
-  UI: fixed opetions to handle the Mouse and Window missing on the UI
+
 
