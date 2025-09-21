@@ -3,13 +3,14 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
-      <Description>"Autto"</Description>
+      <Description>"Auto"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[enable]
 {$lua}
 injectDLL("../../../halo1/halo1.dll")
 injectDLL("../../../halo2/halo2.dll")
 injectDLL("../../../halo3/halo3.dll")
+injectDLL("../../../halo3odst/halo3odst.dll")
 {$asm}
 alloc(hit_common, 64)
 aobscanmodule(hit1, halo1.dll, F3 0F 11 83 9C 00 00 00 EB)
@@ -20,6 +21,9 @@ aobscanmodule(hit_shield2b, halo2.dll, F3 0F 11 8B F0 00 00 00 0F 28 C1)
 aobscanmodule(hit3, halo3.dll, F3 0F 11 8F F4 00 00 00)
 aobscanmodule(read_shield3, halo3.dll, 8B 85 F8 00 00 00 89 87 34 04 00 00)
 aobscanmodule(hit_shield3b, halo3.dll, F3 0F 11 83 F8 00 00 00 80 78 10 02)
+aobscanmodule(read_shield_osdt, halo3odst.dll, 41 8B 86 EC 00 00 00 89 87 40 04 00 00)
+aobscanmodule(hit_shield_osdt, halo3odst.dll, F3 0F 11 86 EC 00 00 00 7A)
+aobscanmodule(hit_osdt, halo3odst.dll, f3 0F 11 8F E8 00 00 00)
 alloc(hit1_new_code, 1024, hit1)
 label(player)
 label(ez_kill_flag)
@@ -48,6 +52,14 @@ label(read_shield3_ret)
 label(hit_shield3b_new)
 label(hit_shield3b_ret)
 label(hit_shield3b_enemy)
+alloc(read_shield_osdt_new_code, 1024, read_shield_osdt)
+label(read_shield_osdt_ret)
+label(hit_shield_osdt_new)
+label(hit_shield_osdt_ret)
+label(hit_shield_osdt_enemy)
+label(hit_osdt_new)
+label(hit_osdt_ret)
+label(hit_osdt_enemy)
 
 hit_common:
 player:
@@ -205,6 +217,67 @@ hit_shield3b:
   db 90 90 90
 hit_shield3b_ret:
 
+//====================== HALO OSDT ======================
+
+read_shield_osdt_new_code:
+  mov eax,[r14+000000EC]
+  push r14
+  pop [player]
+  add [player], 000000EC
+  cmp byte ptr [inf_hp_flag], 00
+  je read_shield_osdt_ret
+  mov [r14+000000EC], (float)1.0
+jmp read_shield_osdt_ret
+
+hit_shield_osdt_new:
+  movss [rsi+000000EC],xmm0
+  push rsi
+  add rsi, 000000EC
+  cmp rsi, [player]
+  pop rsi
+  jne hit_shield_osdt_enemy
+  cmp byte ptr [inf_hp_flag], 00
+  je hit_shield_osdt_ret
+  mov [rsi+000000EC], (float)1.0
+  movss xmm0, [rsi+000000EC]
+jmp hit_shield_osdt_ret
+
+hit_shield_osdt_enemy:
+  cmp byte ptr [ez_kill_flag], 00
+  je hit_shield3b_ret
+  mov [rsi+000000EC], (float)-1.0
+  movss xmm0, [rbx+000000EC]
+jmp hit_shield_osdt_ret
+
+hit_osdt_new:
+  movss [rdi+000000E8],xmm1
+  cmp [rdi+16C],1
+  jne hit_osdt_enemy
+jmp hit_osdt_ret
+
+hit_osdt_enemy:
+  cmp byte ptr [ez_kill_flag], 00
+  je hit_osdt_ret
+  mov [rdi+000000E8], (float)-1.0
+  movss xmm0, [rdi+000000E8]
+jmp hit_osdt_ret
+
+read_shield_osdt:
+  jmp read_shield_osdt_new_code
+  nop
+  nop
+read_shield_osdt_ret:
+
+hit_shield_osdt:
+  jmp hit_shield_osdt_new
+  db 90 90 90
+hit_shield_osdt_ret:
+
+hit_osdt:
+  jmp hit_osdt_new
+  db 90 90 90
+hit_osdt_ret:
+
 [disable]
 hit1:
   db F3 0F 11 83 9C 00 00 00 EB
@@ -222,6 +295,12 @@ read_shield3:
   db 8B 85 F8 00 00 00 89 87 34 04 00 00
 hit_shield3b:
   db F3 0F 11 83 F8 00 00 00 80 78 10 02
+read_shield_osdt:
+  db 41 8B 86 EC 00 00 00 89 87 40 04 00 00
+hit_shield_osdt:
+  db F3 0F 11 86 EC 00 00 00 7A
+hit_osdt:
+  db f3 0F 11 8F E8 00 00 00
 unregistersymbol(*)
 dealloc(*)
 </AssemblerScript>
@@ -247,6 +326,7 @@ dealloc(*)
 injectDLL("../../../halo1/halo1.dll")
 injectDLL("../../../halo2/halo2.dll")
 injectDLL("../../../halo3/halo3.dll")
+injectDLL("../../../halo3odst/halo3odst.dll")
 {$asm}
 aobscanmodule(ammo1, halo1.dll, 66 45 2B C7 66 47 89 84 8E 78 02 00 00)
 aobscanmodule(grenades1, halo1.dll, FE 8C 19 FE 02 00 00)
@@ -254,6 +334,8 @@ aobscanmodule(ammo2, halo2.dll, 66 29 B4 3B 2C 02 00 00)
 aobscanmodule(grenades2, halo2.dll, 88 81 52 02 00 00 41 8B CE)
 aobscanmodule(ammo3, halo3.dll, 66 41 2B EF 66 42 89 AC EB 3A 02 00 00)
 aobscanmodule(grenades3, halo3.dll, 2A C3 BA 00 00 00 04 41 8B CC)
+aobscanmodule(ammo_osdt, halo3odst.dll, 66 41 2B EE 66 42 89 AC EB 32 02 00 00)
+aobscanmodule(grenades_osdt, halo3odst.dll, 2A C3 41 8B CD 88 84 2F A8 02 00 00)
 
 ammo1:
   nop 4
@@ -266,6 +348,10 @@ grenades2:
 ammo3:
   db 90 90 90 90
 grenades3:
+  db 90 90
+ammo_osdt:
+  db 90 90 90 90
+grenades_osdt:
   db 90 90
 
 [DISABLE]
@@ -280,6 +366,10 @@ grenades2:
 ammo3:
   db 66 41 2B EF
 grenades3:
+  db 2a c3
+ammo_osdt:
+  db 66 41 2B EE
+grenades_osdt:
   db 2a c3
 unregistersymbol(*)
 
@@ -540,6 +630,11 @@ unregistersymbol(*)
       </Elements>
     </Structure>
   </Structures>
-  <Comments>Info about this table:
+  <Comments>Shield_Reducer:
+  db F3 0F 11 86 EC 00 00 00
+Health_Reducer:
+  db F3 0F 11 8F E8 00 00 00
+read stamina:
+  41 8B 86 EC 00 00 00 89 87 40 04 00 00
 </Comments>
 </CheatTable>

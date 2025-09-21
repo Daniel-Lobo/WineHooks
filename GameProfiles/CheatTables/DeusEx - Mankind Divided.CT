@@ -294,11 +294,6 @@ dealloc(*)
     </CodeEntry>
   </CheatCodes>
   <UserdefinedSymbols/>
-  <Comments>ammo:
-89 7B 40 48 8B 5C 24 30 48 83 C4 20 5F C3 CC CC CC CC 40 53
-energy:
-dxmd.exe+7d5ad8
-dxmd.exe+7d5ae6
-rdb==0
+  <Comments>Version: Fitgirl, 1.9 build 801.0
 </Comments>
 </CheatTable>
