@@ -11,6 +11,7 @@ injectDLL("../../../halo1/halo1.dll")
 injectDLL("../../../halo2/halo2.dll")
 injectDLL("../../../halo3/halo3.dll")
 injectDLL("../../../halo3odst/halo3odst.dll")
+injectDLL("../../../haloreach/haloreach.dll")
 {$asm}
 alloc(hit_common, 64)
 aobscanmodule(hit1, halo1.dll, F3 0F 11 83 9C 00 00 00 EB)
@@ -26,11 +27,13 @@ aobscanmodule(hit_shield_osdt, halo3odst.dll, F3 0F 11 86 EC 00 00 00 7A)
 aobscanmodule(hit_osdt, halo3odst.dll, f3 0F 11 8F E8 00 00 00)
 alloc(hit1_new_code, 1024, hit1)
 label(player)
+label(reach_shield)
 label(ez_kill_flag)
 label(inf_hp_flag)
 label(enemy1)
 label(hit1_ret)
 registersymbol(player)
+registersymbol(reach_shield)
 registersymbol(ez_kill_flag)
 registersymbol(inf_hp_flag)
 alloc(hit2_new_code, 1024, hit2)
@@ -63,6 +66,8 @@ label(hit_osdt_enemy)
 
 hit_common:
 player:
+  db 00 00 00 00 00 00 00 00
+reach_shield:
   db 00 00 00 00 00 00 00 00
 ez_kill_flag:
   db 01
@@ -278,6 +283,46 @@ hit_osdt:
   db 90 90 90
 hit_osdt_ret:
 
+//====================== HALO REACH ======================
+aobscanmodule(reach_hit, haloreach.dll, F3 41 0F 11 45 10)
+alloc(reach_hit_new, 512, reach_hit)
+label(reach_hit_ret)
+label(reach_hit_shield)
+label(reach_hit_player)
+
+reach_hit_new:
+  movss [r13+10],xmm0
+  cmp r10, 05
+  je reach_hit_shield
+  push r13
+  add r13, 10
+  cmp r13, [player]
+  pop r13
+  je reach_hit_player
+  // enemy
+  cmp [ez_kill_flag], 00
+  je reach_hit_ret
+  mov [r13+10],(float)-1.0
+  movss xmm0, [r13+10]
+jmp reach_hit_ret
+
+reach_hit_shield:
+  push r13
+  pop [player]
+  add [player], 10
+  sub [player], 30
+reach_hit_player:
+  cmp [inf_hp_flag], 00
+  je reach_hit_ret
+  mov [r13+10],(float)1.0
+  movss xmm0, [r13+10]
+jmp reach_hit_ret
+
+reach_hit:
+  jmp reach_hit_new
+  nop
+reach_hit_ret:
+
 [disable]
 hit1:
   db F3 0F 11 83 9C 00 00 00 EB
@@ -301,6 +346,9 @@ hit_shield_osdt:
   db F3 0F 11 86 EC 00 00 00 7A
 hit_osdt:
   db f3 0F 11 8F E8 00 00 00
+reach_hit:
+  db F3 41 0F 11 45 10
+
 unregistersymbol(*)
 dealloc(*)
 </AssemblerScript>
@@ -327,6 +375,7 @@ injectDLL("../../../halo1/halo1.dll")
 injectDLL("../../../halo2/halo2.dll")
 injectDLL("../../../halo3/halo3.dll")
 injectDLL("../../../halo3odst/halo3odst.dll")
+injectDLL("../../../haloreach/haloreach.dll")
 {$asm}
 aobscanmodule(ammo1, halo1.dll, 66 45 2B C7 66 47 89 84 8E 78 02 00 00)
 aobscanmodule(grenades1, halo1.dll, FE 8C 19 FE 02 00 00)
@@ -336,6 +385,8 @@ aobscanmodule(ammo3, halo3.dll, 66 41 2B EF 66 42 89 AC EB 3A 02 00 00)
 aobscanmodule(grenades3, halo3.dll, 2A C3 BA 00 00 00 04 41 8B CC)
 aobscanmodule(ammo_osdt, halo3odst.dll, 66 41 2B EE 66 42 89 AC EB 32 02 00 00)
 aobscanmodule(grenades_osdt, halo3odst.dll, 2A C3 41 8B CD 88 84 2F A8 02 00 00)
+aobscanmodule(ammo_reach, haloreach.dll, 66 43 29 B4 1A CA 02 00 00)
+aobscanmodule(grenades_reach, haloreach.dll, 2A C3 41 8B CF)
 
 ammo1:
   nop 4
@@ -352,6 +403,10 @@ grenades3:
 ammo_osdt:
   db 90 90 90 90
 grenades_osdt:
+  db 90 90
+ammo_reach:
+  db 90 90 90 90 90 90 90 90 90
+grenades_reach:
   db 90 90
 
 [DISABLE]
@@ -371,7 +426,41 @@ ammo_osdt:
   db 66 41 2B EE
 grenades_osdt:
   db 2a c3
+ammo_reach:
+  db 66 43 29 B4 1A CA 02 00 00
+grenades_reach:
+  db 2A C3 41 8B CF
 unregistersymbol(*)
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"P inf armor Power"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+injectDLL("../../../haloreach/haloreach.dll")
+{$asm}
+aobscanmodule(sprint_reach, haloreach.dll, F3 0F 10 81 EC 01 00 00)
+alloc(sprint_reach_new, 512, sprint_reach)
+label(sprint_reach_ret)
+
+sprint_reach_new:
+  mov [rcx+000001EC], (float)1.0
+  movss xmm0,[rcx+000001EC]
+jmp sprint_reach_ret
+
+sprint_reach:
+  jmp sprint_reach_new
+  db 90 90 90
+sprint_reach_ret:
+
+[DISABLE]
+sprint_reach:
+  db F3 0F 10 81 EC 01 00 00 c3
+unregistersymbol(*)
+dealloc(*)
 
 </AssemblerScript>
     </CheatEntry>
