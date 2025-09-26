@@ -61,16 +61,13 @@ Other:
       
 Cheats tables:
 -> NO TABLES         
-    - Celeste   
-    - Bioshock 2
-    - Talos 2	
-    - Planet of Lana
+    - Celeste         
     - Cocoon
     - Jusant
 	- Indika
     
 -> FIX
-    - GoW and GoW Ragnarok, add gain XP
+    - GoW and GoW Ragnarok, add gain XP, improve heuristics
     - TLOU 2: add gain supplements and spare parts (supplements, string ??), TLOU 1 and 2: add table info    
     - Silver: add inf mana, inf arrows and quick cooldown for specials
     - Fix trouble to attach on RTCW (partial fix, needs manual attach)
@@ -91,6 +88,8 @@ Cheats tables:
     - onScapee: ez kills        
     - AVP 1 e 2: inf predator energy
     - Brothers: improve brother detection
+	- Darksiders 2: gain xp, Darksiders 3 respwan on last death location
+	
 
 
 
