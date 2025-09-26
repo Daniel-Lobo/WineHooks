@@ -71,9 +71,9 @@ player:
 reach_shield:
   db 00 00 00 00 00 00 00 00
 ez_kill_flag:
-  db 01
+  db 00
 inf_hp_flag:
-  db 01
+  db 00
 
 //====================== HALO 1 ======================
 hit1_new_code:
@@ -421,6 +421,30 @@ dealloc(*)
           <Offsets>
             <Offset>0</Offset>
           </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"H - inf HP"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+inf_hp_flag:
+  db 01
+[disable]
+inf_hp_flag:
+  db 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"K - easy Kills"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+ez_kill_flag:
+  db 01
+[disable]
+ez_kill_flag:
+  db 00
+</AssemblerScript>
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
