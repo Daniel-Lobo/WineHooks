@@ -5,9 +5,16 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 CETrainer.help := 
 (
-"622x80
-The heuristics for distihguishing between player and enemy is not perfect. You might still be hit, but other hits will 
-heal and some enemies might be killed in one hit only by trowing the axe, or with arrows
+"430x180
+==================================================
+INFINITE HP
+Some hit might still land, but the next one will heal
+==================================================
+
+==================================================
+EZ KILLS
+Some enemies are only killed in one hit by trowing the axe or with an arrow
+==================================================
 "
 )
 
