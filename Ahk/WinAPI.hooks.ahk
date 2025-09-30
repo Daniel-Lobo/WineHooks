@@ -22,6 +22,7 @@ InitWWnAPIHooks()
 		if (g_.cfg.GDI)	
 		{
 			dll := 	FileExist(GetSystemDir() "\wined3d.dll") ? "gdi32.dll" : "Gdi32Full.dll"
+			;dllcall("LoadLibraryA", astr, dll, uint)
 
 			hook := isfunc(h:="AltStretchBltHook") ? h : "StretchBltHook"
 			logerr("StretchBlthook " InstallHook(hook, p, dll, "StretchBlt")) 
@@ -42,13 +43,17 @@ InitWWnAPIHooks()
 			hook := isfunc(h:="ExtTextOutA") ? h : "ExtTextOutAHook"
 			logerr("ExtTextOutAhook " InstallHook(hook, p, dll, "ExtTextOutA")) 
 			g_.WnAPI.ExtTextOutA := p
+
+			hook := isfunc(h:="AltStretchDIBits") ? h : "StretchDIBits"
+			logerr("StretchDIBits " InstallHook(hook, p, dll, "StretchDIBits") )
+			g_.WnAPI.StretchDIBits := p
 		}
 	}
 }
 
 ExtTextOutAHook(p1, p2, p3, p4, p5, p7, p8)
 {
-	if (dllcall("WindowFromDC", ptr, p1) = 0)
+	if (dllcall("WindowFromDC", ptr, p1) = 0 || IsObject(g_.proxies.prim) = 0)
 	return dllcall(g_.WnAPI.ExtTextOutA, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7, uint, p8)
 	dllcall(IDirectDrawSurface.GetDC, uint, g_.proxies.prim.Surface, "uint*", DC)
 	r := dllcall(g_.WnAPI.ExtTextOutA, uint, DC, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7, uint, p8)	
@@ -59,7 +64,7 @@ ExtTextOutAHook(p1, p2, p3, p4, p5, p7, p8)
 
 TextOutAHook(p1, p2, p3, p4, p5)
 {
-	if (dllcall("WindowFromDC", ptr, p1) = 0)
+	if (dllcall("WindowFromDC", ptr, p1) = 0 || IsObject(g_.proxies.prim) = 0)
 	return dllcall(g_.WnAPI.TextOutA, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5)
 	dllcall(IDirectDrawSurface.GetDC, uint, g_.proxies.prim.Surface, "uint*", DC)
 	r := dllcall(g_.WnAPI.TextOutA, uint, DC, uint, p2, uint, p3, uint, p4, uint, p5)	
@@ -70,7 +75,7 @@ TextOutAHook(p1, p2, p3, p4, p5)
 
 PatBltHook(p1, p2, p3, p4, p5, p6)
 {
-	if (dllcall("WindowFromDC", ptr, p1) = 0)
+	if (dllcall("WindowFromDC", ptr, p1) = 0 || IsObject(g_.proxies.prim) = 0)
 	return dllcall(g_.WnAPI.PatBlt, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6)
 	dllcall(IDirectDrawSurface.GetDC, uint, g_.proxies.prim.Surface, "uint*", DC)
 	r := dllcall(g_.WnAPI.PatBlt, uint, DC, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6)	
@@ -87,13 +92,27 @@ BitBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9)
 }
 
 StretchBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
-{	
+{		
+	if (IsObject(g_.proxies.prim) = 0)
+	return dllcall(g_.WnAPI.Sblt, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7, uint, p8, uint, p9, uint, p10, uint, p11)	
 	dllcall(IDirectDrawSurface.GetDC, uint, g_.proxies.prim.Surface, "uint*", DC:=0)		
 	r := dllcall(g_.WnAPI.Sblt, uint, DC, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7, uint, p8, uint, p9, uint, p10, uint, p11)	
 	dllcall(IDirectDrawSurface.ReleaseDC, uint, g_.proxies.prim.Surface, uint, DC)
-	Surface1UpDatePrim(g_.primary, 0)	
+	Surface1UpDatePrim(g_.primary, 0)		
 	return r
 }
+
+StretchDIBits(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
+{
+	if (IsObject(g_.proxies.prim) = 0)
+	return ;dllcall(g_.WnAPI.StretchDIBits, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7, uint, p8, uint, p9, uint, p10, uint, p11, uint, p12, uint, p13)	
+	dllcall(IDirectDrawSurface.GetDC, uint, g_.proxies.prim.Surface, "uint*", DC:=0)		
+	r := dllcall(g_.WnAPI.StretchDIBits, uint, DC, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7, uint, p8, uint, p9, uint, p10, uint, p11, uint, p12, uint, p13)	
+	dllcall(IDirectDrawSurface.ReleaseDC, uint, g_.proxies.prim.Surface, uint, DC)
+	Surface1UpDatePrim(g_.primary, 0)		
+	return r
+}
+
 
 ClipCursor(p1)
 {
