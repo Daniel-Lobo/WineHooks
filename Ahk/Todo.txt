@@ -34,12 +34,12 @@ DX7-:
 - Speterra core: broken
 - Zanzahah: bad shadows with wine
 - Dark vengeance, Forsaken: execute buffer bug with wine. FIX with Call setexecutedata with right data after unlock
-- Outwars: fonts missing with wine (on windows)
-- POP 3D: FMV scaling broken with wine
-- GDI hooks freeze any game
+- Outwars: On Linux FMVs are not scaled, (wine re-scaling to the size of the window the game overlays on the ddraw window to play FMVs ?). 
+On windows, the overlay window hides the FMSs
+- POP 3D: FMVs not showing on Linux and not scaled on windows. Seems to use ddraw locks with wine
 LAYER       
 * Dark vengeance: leaking textures 
-* AVP 2:  crash with wine on IDirect3DDevice7::SetTexture 
+* AVP 2:  crash loading levels
 * Soulbringer:  crash with wine on IDirectDrawSurface4::Unlock 
   
 GL:

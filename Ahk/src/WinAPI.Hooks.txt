@@ -90,7 +90,7 @@ return r
 StretchDIBits(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
 {
 if (IsObject(g_.proxies.prim) = 0)
-return
+return dllcall(g_.WnAPI.StretchDIBits, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7, uint, p8, uint, p9, uint, p10, uint, p11, uint, p12, uint, p13)
 dllcall(IDirectDrawSurface.GetDC, uint, g_.proxies.prim.Surface, "uint*", DC:=0)
 r := dllcall(g_.WnAPI.StretchDIBits, uint, DC, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7, uint, p8, uint, p9, uint, p10, uint, p11, uint, p12, uint, p13)
 dllcall(IDirectDrawSurface.ReleaseDC, uint, g_.proxies.prim.Surface, uint, DC)
