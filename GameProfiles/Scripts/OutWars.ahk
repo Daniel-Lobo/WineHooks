@@ -21,9 +21,27 @@ AltStretchBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
 		dllcall("GetWindowRect", uint, h, uint, &r)		
 		p2 += numget(&r+0, "uint")
 		p3 += numget(&r+4, "uint")		
+		WinSet, Transparent, , ahk_id %h%
 		dllcall("CloseHandle", uint, h)
-	}
+	}	
 	return StretchBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)	
+}
+
+AltStretchDIBits(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
+{	
+	;logerr("...")
+	if (h := dllcall("WindowFromDC", uint, p1, uint))
+	{
+		VarSetCapacity(r, 4)		
+		dllcall("GetWindowRect", uint, h, uint, &r)		
+		p2 += numget(&r+0, "uint")
+		p3 += numget(&r+4, "uint")		
+		WinSet, Transparent, , ahk_id %h%
+		dllcall("CloseHandle", uint, h)
+	}	
+	WinGet, hwin, ID, OutWars	
+	dllcall("SetForegroundWindow", uint, hwin)
+	return StretchDIBits(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)	
 }
 
 UnhookExtTextOutA(){
