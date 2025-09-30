@@ -5,7 +5,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 CETrainer.help := 
 (
-"620x100
+"460x70
+Wait until you start a game to activate cheats. After that, if you leave that game
+and try to start another one, it will crash or go back to the title screen 
 "
 )
 
@@ -16,24 +18,38 @@ global InfAmmo  := new CEEntry("B - inf Bullets")
 global power    :=  new CEEntry(  "P inf armor Power")
 class HaloMCCTainer extends CETrainer
 {
-	OnLoop()
+	HaloMCCSctivate()
 	{
 		if (!__auto.IsFrozen())
 		{
 			__auto.SetFrozen(1)	
 		}	
+	}
 
-		if CETrainer.keyevent("h") > 0					
-		this.Speak(HP.Toogle("Infinite HP"))		
+	OnLoop()
+	{		
 
-		else if CETrainer.keyevent("k") > 0				
-		this.Speak(EZKills.Toogle("One hit kills"))	
+		if CETrainer.keyevent("h") > 0
+		{		
+			this.HaloMCCSctivate()			
+			this.Speak(HP.Toogle("Infinite HP"))		
+		}
 
-		else if CETrainer.keyevent("b") > 0				
-		this.Speak(InfAmmo.Toogle("Infinite ammo"))	
+		else if CETrainer.keyevent("k") > 0		
+		{		
+			this.HaloMCCSctivate()					
+			this.Speak(EZKills.Toogle("One hit kills"))	
+		}
+
+		else if CETrainer.keyevent("b") > 0	
+		{									
+			this.Speak(InfAmmo.Toogle("Infinite ammo"))	
+		}
 		
-		else if CETrainer.keyevent("p") > 0				
-		this.Speak(power.Toogle("Infinite armor ability"))	
+		else if CETrainer.keyevent("p") > 0		
+		{									
+			this.Speak(power.Toogle("Infinite armor ability"))	
+		}
 	}
 }
 
