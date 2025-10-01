@@ -34,9 +34,8 @@ DX7-:
 - Speterra core: broken
 - Zanzahah: bad shadows with wine
 - Dark vengeance, Forsaken: execute buffer bug with wine. FIX with Call setexecutedata with right data after unlock
-- Outwars: On Linux FMVs are not scaled, (wine re-scaling to the size of the window the game overlays on the ddraw window to play FMVs ?). 
-On windows, the overlay window hides the FMSs
-- POP 3D: FMVs not showing on Linux and not scaled on windows. Seems to use ddraw locks with wine
+- Outwars: (Linux) FMVs not scaled and overlay FMV windows not positioned correctlly
+- POP 3D: FMVs not showing on Linux and not scaled on windows. Solve linux 1st as on widows it runs fine whithout wine
 LAYER       
 * Dark vengeance: leaking textures 
 * AVP 2:  crash loading levels

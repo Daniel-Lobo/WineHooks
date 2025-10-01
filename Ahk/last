@@ -1,5 +1,5 @@
-global g_MainThreadID := 7608 ;<Tag> 
-global g_cmdstring := "-Target^E:\Games\Outwars\outwars.exe^-wiki^https://www.pcgamingwiki.com/wiki/Outwars^-D3D^2^-Path^Outwars^/32bit^/HD^/MHKS^/DDRefcountfix^/WHKS^-MCLP^2^-script^scripts\Outwars.ahk^/DisableFontAA^/4K^/GDI^-ver^0.10.16^-Textswap^s=4;sz=256;path=Textures\VOKSI;n=PgUP;p=PgDn;d=home;sw=end;c=del;q=ins;e=false;dly=false;a=false;l=false;A8Fix=false;^-WNMM^MCI=false;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;rs_alt=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-DSnd^e=false;^-script_hwnd^0x304e0^-error_log^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk\error.log^-Mydocs^C:\Users\Peixoto\Documents^-injector_dir^C:\Users\Peixoto\Documents\CODE\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1600x1200 1680x1050 1920x1080 1920x1200 1920x1440 2048x1536 2560x1440 2560x1600 1440x900 2560x1080 3840x2160 5120x2160 ^-max_4x3_res^2048x1536^-dsk^2560x1080^-D3D_Driver^C:\WINDOWS\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_9d15b9aa9e1c885b\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Outwars^-target_name^outwars.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 388 ;<Tag> 
+global g_cmdstring := "-Target^G:\Games\Prince of Persia 3D\POP3D.exe^-D3D^3^-Path^Prince of Persia\Prince of Persia 3D^/32bit^/HD^-CompatLayer^winxpsp3^-script^scripts\pop3d.ahk^-SSAA^1^-SYNC^1^/4K^/GDI^-Textswap^s=4;sz=256;path=Textures\VOKSI;n=PgUP;p=PgDn;d=home;sw=end;c=del;q=ins;e=true;dly=false;a=false;l=false;A8Fix=false;^-J2K^rs=False;u=false;mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-WNMM^MCI=false;^-DSnd^e=false;{b {f} ==[Getting the game running on windows 10]==;::link::Patch->https://1drv.ms/u/s!ApHOE-Ru-xkGgZkJyCcGJgrJB2_ByQ?e=Ev2F13::;::link::NOCD->https://1drv.ms/u/s!ApHOE-Ru-xkGgZkIRfx6qkh4TuEtCQ?e=py8JiS::;^-script_hwnd^0x801f0^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^-iso^Prince of Persia 3D.iso^-args^-console^^-target_dir^G:\Games\Prince of Persia 3D^-target_name^POP3D.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -8599,63 +8599,20 @@ return dllcall(g_.WnAPI.SetPos, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5
 }
 
 
-AltMovewindow(p1, p2, p3, p4, p5, p6)
+
+PatBlt(p1, p2, p3, p4, p5, p6)
 {
-	;if (p1 = g_.hwin)
-		return Movewindow(p1, p2, p3, p4, p5, p6)
-	
-	p2 *= D3DHOOKS_DATA.scale
-	p3 *= D3DHOOKS_DATA.scale
-	p4 *= D3DHOOKS_DATA.scale
-	p5 *= D3DHOOKS_DATA.scale	
-	p2 += D3DHOOKS_DATA.HD_X 	
-	return dllcall(g_.WnAPI.Move, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6)
+	d := desk()      
+	return dllcall(g_.WnAPI.PatBlt, uint, p1, uint, 0, uint, 0, uint, d.w, uint, d.h, uint, p6)
 }
 
-AltStretchBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
-{	
-	;logerr("...")
-	if (h := dllcall("WindowFromDC", uint, p1, uint))
-	{
-		VarSetCapacity(r, 4)		
-		dllcall("GetWindowRect", uint, h, uint, &r)		
-		p2 += numget(&r+0, "uint")
-		p3 += numget(&r+4, "uint")		
-		WinSet, Transparent, , ahk_id %h%
-		dllcall("CloseHandle", uint, h)
-	}	
-	return StretchBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)	
+AltBitBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9)
+{
+	d        := desk()
+	x_offset := 1/2 * (d.w - 640)
+	y_offset := 1/2 * (d.h - 480)
+	return dllcall(g_.WnAPI.Bitblt, uint, p1, uint, p2+x_offset, uint, p3+y_offset, uint, p4, uint, p5, uint, p6, uint, p7, uint, p8, uint, p9)			
 }
-
-AltStretchDIBits(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
-{	
-	;logerr("...")
-	if (h := dllcall("WindowFromDC", uint, p1, uint))
-	{
-		VarSetCapacity(r, 4)		
-		dllcall("GetWindowRect", uint, h, uint, &r)		
-		p2 += numget(&r+0, "uint")
-		p3 += numget(&r+4, "uint")		
-		WinSet, Transparent, , ahk_id %h%
-		dllcall("CloseHandle", uint, h)
-	}	
-	WinGet, hwin, ID, OutWars	
-	dllcall("SetForegroundWindow", uint, hwin)
-	return StretchDIBits(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)	
-}
-
-UnhookExtTextOutA(){
-	hgdi                    := dllcall("GetModuleHandleA", "astr", g_.cfg.winedd ? "gdi32.dll" : "Gdi32Full.dll")
-	pTExtTextOutA           := dllcall("GetProcAddress", ptr, hgdi, "astr", "ExtTextOutA")
-	pTExtTextOutATrampoline := g_.WnAPI.ExtTextOutA
-	if !g_.cfg.winedd 
-	return
-	logerr("hdgi: " hgdi " pTExtTextOutA " pTExtTextOutA " pTExtTextOutATrampoline " pTExtTextOutATrampoline) 	
-	UnHook(pTExtTextOutA, pTExtTextOutATrampoline) 
-}
-
-UnhookExtTextOutA()
-
 
 printl()
 ReleaseDirectDraw()

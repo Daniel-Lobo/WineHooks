@@ -27,21 +27,19 @@ AltStretchBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
 	return StretchBltHook(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)	
 }
 
+; Linux
 AltStretchDIBits(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)
 {	
 	;logerr("...")
-	if (h := dllcall("WindowFromDC", uint, p1, uint))
+	if (h := dllcall("GetForeGroundWindow", ptr))
 	{
 		VarSetCapacity(r, 4)		
 		dllcall("GetWindowRect", uint, h, uint, &r)		
 		p2 += numget(&r+0, "uint")
-		p3 += numget(&r+4, "uint")		
-		WinSet, Transparent, , ahk_id %h%
+		p3 += numget(&r+4, "uint")				
 		dllcall("CloseHandle", uint, h)
 	}	
-	WinGet, hwin, ID, OutWars	
-	dllcall("SetForegroundWindow", uint, hwin)
-	return StretchDIBits(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13)	
+	return StretchDIBits(p1, p2, p3, p4*2, p5*2, p6, p7, p8, p9, p10, p11, p12, p13)	
 }
 
 UnhookExtTextOutA(){
