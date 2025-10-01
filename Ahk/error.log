@@ -25,8 +25,7 @@ Path: C:\users\gotardo\Documents\WineHooks\Games\Prince of Persia\Prince of Pers
 res_lmt_lts: 
 rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 
 script: scripts\pop3d.ahk
-script_hwnd: 0x801f0
-SSAA: 1
+script_hwnd: 0x1a01e0
 SYNC: 1
 Target: G:\Games\Prince of Persia 3D\POP3D.exe
 target_dir: G:\Games\Prince of Persia 3D
@@ -55,7 +54,7 @@ Desktop 2560x1080
 DDraw.dll : C:\windows\system32\DDRAW.dll
 DirectDrawCreate Hook: 0
 InitDDrawWineHoooks S_OK
-2008260240============================================
+1997512208============================================
 AppendDump: Loading dump: C:\users\gotardo\Documents\WineHooks\Games\Textures\Dumps\dump0.dds
 AppendDump: PIXEL FORMAT: X8RGB
 AppendDump: CREATING SUBCOLLECTION FOR FORMAT: X8RGB
@@ -106,7 +105,7 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-DDraw: 28481788
+DDraw: 28481908
 PrivateDataObjectParent: 1
 DirectDraw: Object created. m_refcount=[1]
 Wrapped: 4130880
@@ -185,20 +184,20 @@ Direct3DDevice_CreateExecuteBuffer: Return adress=[268972556]
 Direct3DDevice_CreateExecuteBuffer: _this=[4194192]
 Direct3DDevice_CreateExecuteBuffer: Created buffer=[4167960]
 Succeeded to create Direct3D
-IDirect3DDevice::BeginScene[2009486176] reimplement in IDirect3DDevice2[2009497504], 
-IDirect3DDevice::CreateExecuteBuffer[2009473712] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::CreateMatrix[2009480960] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::DeleteMatrix[2009484880] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::EndScene[2009487472] reimplement in IDirect3DDevice2[2009496432], 
-IDirect3DDevice::Execute[2009563456] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::GetCaps[2009470784] reimplement in IDirect3DDevice2[2009493504], 
-IDirect3DDevice::GetDirect3D[2009489056] reimplement in IDirect3DDevice2[2009498800], 
-IDirect3DDevice::GetMatrix[2009483568] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::GetPickRecords[2009478336] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::Initialize[2009445344] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::Pick[2009476832] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::SetMatrix[2009482256] reimplement in IDirect3DDevice2[], 
-IDirect3DDevice::SwapTextureHandles[2009472096] reimplement in IDirect3DDevice2[2009494816], 
+IDirect3DDevice::BeginScene[1998738432] reimplement in IDirect3DDevice2[1998749744], 
+IDirect3DDevice::CreateExecuteBuffer[1998725952] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::CreateMatrix[1998733216] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::DeleteMatrix[1998737136] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::EndScene[1998739728] reimplement in IDirect3DDevice2[1998748672], 
+IDirect3DDevice::Execute[1998815760] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::GetCaps[1998723024] reimplement in IDirect3DDevice2[1998745744], 
+IDirect3DDevice::GetDirect3D[1998741296] reimplement in IDirect3DDevice2[1998751040], 
+IDirect3DDevice::GetMatrix[1998735824] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::GetPickRecords[1998730592] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::Initialize[1998697472] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::Pick[1998729088] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::SetMatrix[1998734512] reimplement in IDirect3DDevice2[], 
+IDirect3DDevice::SwapTextureHandles[1998724336] reimplement in IDirect3DDevice2[1998747056], 
 Succeeded to hook IDirectDraw4::CreateSurface
 Succeeded to hook IDirectDraw2::CreateSurface
 Succeeded to hook IDirectDraw::CreateSurface
@@ -218,6 +217,9 @@ Succeeded to hook IDirect3DViewport3::Clear2
 Succeeded to hook IDirect3DViewport::SetViewPort
 Succeeded to hook IDirect3DViewport::GetViewPort
 SetupPrxs4(...)
+Succeeded to hook IDirectDrawSurface::flip
+Succeeded to hook IDirectDrawSurface4::EnumAttachedSurfaces
+Succeeded to hook IDirectDrawSurface::EnumAttachedSurfaces
 Succeeded to hook IDirectDrawSurface4::GetSurfaceDesc
 Succeeded to hook IDirectDraw::CreatePalette
 Succeeded to hook IDirectDraw::GetDisplayMode
@@ -249,11 +251,7 @@ Succeeded to hook IDirect3DDevice::Execute
 Succeeded to hook IDirectDraw::SetCooperativeLevel
 Succeeded to hook IDirectDraw2::SetCooperativeLevel
 Succeeded to hook IDirectDraw4::SetCooperativeLevel
-Succeeded to hook IDirectDrawSurface::flip
-Succeeded to hook IDirectDrawSurface4::EnumAttachedSurfaces
-Succeeded to hook IDirectDrawSurface::EnumAttachedSurfaces
-Succeeded to hook IDirectDrawSurface4::GetAttachedSurface
-Succeeded to hook IDirectDrawSurface::GetAttachedSurface
+IDirectDrawSurface::flip is already hooked
 StretchBlthook 0
 BitBlthook 0
 PatBlthook 0
@@ -281,7 +279,7 @@ DirectDrawSurface_Release: Return adress=[268972556]
 DirectDrawSurface_Release: _this=[32716040]
 DirectDrawSurface_Release: 6
 Releasing IDirect3DTexture2 32716172 6
-Release: this=[28739648] Return adress=[268972556]
+Release: this=[28735656] Return adress=[268972556]
 Release: 0
 Releasing IDirect3DExecuteBuffer 4167960 0
 Direct3DDevice2_Release: Return adress=[268972556]
@@ -323,7 +321,7 @@ DirectDrawPalette_Release: _this=[4167544]
 PublicRelease: IUnknown_ref=0, this_ref=0
 DirectDrawPalette_Release: 0
 Releasing IDirectDrawPalette 4167560 0
-Releasing IDirectDrawGammaControl 28352780 0
+Releasing IDirectDrawGammaControl 28352900 0
 DirectDrawSurface_Release: Return adress=[268972556]
 DirectDrawSurface_Release: _this=[32716040]
 DirectDrawSurface_Release: 3
@@ -341,6 +339,7 @@ DirectDrawSurface_Release: _this=[32716040]
 ~PrivateDataObject: 2
 ~PrivateDataObjectParent: 1
 DirectDrawSurface_Release: 0
+Releasing IDirectDrawSurface4 32716140 0
 DirectDraw_Release: Return adress=[268972556]
 DirectDraw_Release: _this=[4130848]
 PublicRelease: IUnknown_ref=1, this_ref=1
@@ -397,27 +396,27 @@ DirectDraw_AddRef: _this=[4179408]
 DirectDraw_AddRef: 2
 DirectDraw_SetCooperativeLevel: Return adress=[268972556]
 DirectDraw_SetCooperativeLevel: _this=[4179408]
-DirectDraw_CreateSurface: Return adress=[2008247473]
+DirectDraw_CreateSurface: Return adress=[1997499425]
 DirectDraw_CreateSurface: _this=[4179408]
 PrivateDataObject: 4
 DirectDraw_CreateSurface: Created Surface: 32734800
-DirectDrawSurface_QueryInterface: Return adress=[2008233365]
+DirectDrawSurface_QueryInterface: Return adress=[1997485365]
 DirectDrawSurface_QueryInterface: _this=[32734800]
 DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[2008233387]
+DirectDrawSurface_Release: Return adress=[1997485387]
 DirectDrawSurface_Release: _this=[32734800]
 DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[2008233411]
+DirectDrawSurface2_GetDDInterface: Return adress=[1997485411]
 DirectDrawSurface2_GetDDInterface: _this=[32734800]
 DirectDrawSurface2_GetDDInterface: GOT 4179408
-DirectDraw_Release: Return adress=[2008233433]
+DirectDraw_Release: Return adress=[1997485433]
 DirectDraw_Release: _this=[4179408]
 PublicRelease: IUnknown_ref=2, this_ref=3
 DirectDraw_Release: 2
-DirectDraw_QueryInterface: Return adress=[2008233461]
+DirectDraw_QueryInterface: Return adress=[1997485461]
 DirectDraw_QueryInterface: _this=[4179408]
 DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[2008233479]
+DirectDraw_Release: Return adress=[1997485479]
 DirectDraw_Release: _this=[4179408]
 PublicRelease: IUnknown_ref=2, this_ref=3
 DirectDraw_Release: 2
@@ -426,23 +425,23 @@ DirectDraw_GetDisplayMode: _this=[4179408]
 DirectDrawSurface_Blt: Return adress=[268972556]
 DirectDrawSurface_Blt: _this=[32734800]
 DirectDrawSurface_Blt: _that=[0]
-DirectDrawSurface_QueryInterface: Return adress=[2008233365]
+DirectDrawSurface_QueryInterface: Return adress=[1997485365]
 DirectDrawSurface_QueryInterface: _this=[32734800]
 DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[2008233387]
+DirectDrawSurface_Release: Return adress=[1997485387]
 DirectDrawSurface_Release: _this=[32734800]
 DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[2008233411]
+DirectDrawSurface2_GetDDInterface: Return adress=[1997485411]
 DirectDrawSurface2_GetDDInterface: _this=[32734800]
 DirectDrawSurface2_GetDDInterface: GOT 4179408
-DirectDraw_Release: Return adress=[2008233433]
+DirectDraw_Release: Return adress=[1997485433]
 DirectDraw_Release: _this=[4179408]
 PublicRelease: IUnknown_ref=2, this_ref=3
 DirectDraw_Release: 2
-DirectDraw_QueryInterface: Return adress=[2008233461]
+DirectDraw_QueryInterface: Return adress=[1997485461]
 DirectDraw_QueryInterface: _this=[4179408]
 DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[2008233479]
+DirectDraw_Release: Return adress=[1997485479]
 DirectDraw_Release: _this=[4179408]
 PublicRelease: IUnknown_ref=2, this_ref=3
 DirectDraw_Release: 2
@@ -473,38 +472,138 @@ DirectDrawSurface_GetCaps: Return adress=[268972556]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_GetSurfaceDesc: Return adress=[268972556]
 DirectDrawSurface_GetSurfaceDesc: _this=[32736320]
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
+DirectDrawSurface_GetCaps: Return adress=[1997483332]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_GetCaps: Return adress=[268972556]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_Lock: Return adress=[268972556]
 DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_GetCaps: Return adress=[2008231662]
+DirectDrawSurface_GetCaps: Return adress=[1997483662]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_GetCaps: Return adress=[268972556]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_Unlock: Return adress=[268972556]
 DirectDrawSurface_Unlock: _this=[32735136]
-DirectDrawSurface_QueryInterface: Return adress=[2008233365]
+DirectDrawSurface_QueryInterface: Return adress=[1997485365]
 DirectDrawSurface_QueryInterface: _this=[32734800]
 DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[2008233387]
+DirectDrawSurface_Release: Return adress=[1997485387]
 DirectDrawSurface_Release: _this=[32734800]
 DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[2008233411]
+DirectDrawSurface2_GetDDInterface: Return adress=[1997485411]
 DirectDrawSurface2_GetDDInterface: _this=[32734800]
 DirectDrawSurface2_GetDDInterface: GOT 4179408
-DirectDraw_Release: Return adress=[2008233433]
+DirectDraw_Release: Return adress=[1997485433]
 DirectDraw_Release: _this=[4179408]
 PublicRelease: IUnknown_ref=2, this_ref=6
 DirectDraw_Release: 2
-DirectDraw_QueryInterface: Return adress=[2008233461]
+DirectDraw_QueryInterface: Return adress=[1997485461]
 DirectDraw_QueryInterface: _this=[4179408]
 DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[2008233479]
+DirectDraw_Release: Return adress=[1997485479]
 DirectDraw_Release: _this=[4179408]
 PublicRelease: IUnknown_ref=2, this_ref=6
 DirectDraw_Release: 2
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
 DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
 DirectDraw_WaitForVerticalBlank: _this=[4179408]
 DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
@@ -522,26 +621,38 @@ DirectDrawSurface_GetDC: Return adress=[268972556]
 DirectDrawSurface_GetDC: _this=[32735136]
 DirectDrawSurface_ReleaseDC: Return adress=[268972556]
 DirectDrawSurface_ReleaseDC: _this=[32735136]
-DirectDrawSurface_QueryInterface: Return adress=[2008233365]
+DirectDrawSurface_QueryInterface: Return adress=[1997485365]
 DirectDrawSurface_QueryInterface: _this=[32734800]
 DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
-DirectDrawSurface_Release: Return adress=[2008233387]
+DirectDrawSurface_Release: Return adress=[1997485387]
 DirectDrawSurface_Release: _this=[32734800]
 DirectDrawSurface_Release: 1
-DirectDrawSurface2_GetDDInterface: Return adress=[2008233411]
+DirectDrawSurface2_GetDDInterface: Return adress=[1997485411]
 DirectDrawSurface2_GetDDInterface: _this=[32734800]
 DirectDrawSurface2_GetDDInterface: GOT 4179408
-DirectDraw_Release: Return adress=[2008233433]
+DirectDraw_Release: Return adress=[1997485433]
 DirectDraw_Release: _this=[4179408]
 PublicRelease: IUnknown_ref=2, this_ref=6
 DirectDraw_Release: 2
-DirectDraw_QueryInterface: Return adress=[2008233461]
+DirectDraw_QueryInterface: Return adress=[1997485461]
 DirectDraw_QueryInterface: _this=[4179408]
 DirectDraw_QueryInterface: DirectDraw1
-DirectDraw_Release: Return adress=[2008233479]
+DirectDraw_Release: Return adress=[1997485479]
 DirectDraw_Release: _this=[4179408]
 PublicRelease: IUnknown_ref=2, this_ref=6
 DirectDraw_Release: 2
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
 DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
 DirectDraw_WaitForVerticalBlank: _this=[4179408]
 DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
@@ -613,29 +724,29 @@ DirectDraw_GetFourCCCodes: Return adress=[120847563]
 DirectDraw_GetFourCCCodes: _this=[4179408]
 DirectDraw_GetFourCCCodes: Return adress=[120847614]
 DirectDraw_GetFourCCCodes: _this=[4179408]
-DirectDraw_CreateSurface: Return adress=[2008247473]
+DirectDraw_CreateSurface: Return adress=[1997499425]
 DirectDraw_CreateSurface: _this=[4179408]
 PrivateDataObject: 8
 DirectDraw_CreateSurface: Created Surface: 32736488
-DirectDrawSurface_QueryInterface: Return adress=[2008250285]
+DirectDrawSurface_QueryInterface: Return adress=[1997502237]
 DirectDrawSurface_QueryInterface: _this=[32736488]
 DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface4
-DirectDrawSurface4_SetPrivateData: Return adress=[2008250364]
+DirectDrawSurface4_SetPrivateData: Return adress=[1997502316]
 DirectDrawSurface4_SetPrivateData: _this=[32736488]
-DirectDrawSurface_Release: Return adress=[2008250386]
+DirectDrawSurface_Release: Return adress=[1997502338]
 DirectDrawSurface_Release: _this=[32736488]
 DirectDrawSurface_Release: 1
 DirectDrawSurface_GetSurfaceDesc: Return adress=[268972556]
 DirectDrawSurface_GetSurfaceDesc: _this=[32736488]
 DirectDrawSurface_GetCaps: Return adress=[268972556]
 DirectDrawSurface_GetCaps: _this=[32736488]
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
+DirectDrawSurface_GetCaps: Return adress=[1997483332]
 DirectDrawSurface_GetCaps: _this=[32736488]
-DirectDrawSurface_Lock: Return adress=[2008231498]
+DirectDrawSurface_Lock: Return adress=[1997483498]
 DirectDrawSurface_Lock: _this=[32736488]
-DirectDrawSurface_GetCaps: Return adress=[2008231662]
+DirectDrawSurface_GetCaps: Return adress=[1997483662]
 DirectDrawSurface_GetCaps: _this=[32736488]
-DirectDrawSurface_Unlock: Return adress=[2008231718]
+DirectDrawSurface_Unlock: Return adress=[1997483718]
 DirectDrawSurface_Unlock: _this=[32736488]
 DirectDrawSurface_Release: Return adress=[121010212]
 DirectDrawSurface_Release: _this=[32736488]
@@ -643,343 +754,216 @@ DirectDrawSurface_Release: _this=[32736488]
 DirectDrawSurface_Release: 0
 DirectDrawSurface_IsLost: Return adress=[121096682]
 DirectDrawSurface_IsLost: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
+DirectDrawSurface_GetCaps: Return adress=[1997483332]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_GetCaps: Return adress=[268972556]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_Lock: Return adress=[268972556]
 DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
+DirectDrawSurface_GetCaps: Return adress=[1997483662]
+DirectDrawSurface_GetCaps: _this=[32734800]
+DirectDrawSurface_GetCaps: Return adress=[268972556]
+DirectDrawSurface_GetCaps: _this=[32734800]
+DirectDrawSurface_Unlock: Return adress=[268972556]
+DirectDrawSurface_Unlock: _this=[32735136]
+DirectDrawSurface_QueryInterface: Return adress=[1997485365]
+DirectDrawSurface_QueryInterface: _this=[32734800]
+DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
+DirectDrawSurface_Release: Return adress=[1997485387]
+DirectDrawSurface_Release: _this=[32734800]
+DirectDrawSurface_Release: 1
+DirectDrawSurface2_GetDDInterface: Return adress=[1997485411]
+DirectDrawSurface2_GetDDInterface: _this=[32734800]
+DirectDrawSurface2_GetDDInterface: GOT 4179408
+DirectDraw_Release: Return adress=[1997485433]
+DirectDraw_Release: _this=[4179408]
+PublicRelease: IUnknown_ref=2, this_ref=6
+DirectDraw_Release: 2
+DirectDraw_QueryInterface: Return adress=[1997485461]
+DirectDraw_QueryInterface: _this=[4179408]
+DirectDraw_QueryInterface: DirectDraw1
+DirectDraw_Release: Return adress=[1997485479]
+DirectDraw_Release: _this=[4179408]
+PublicRelease: IUnknown_ref=2, this_ref=6
+DirectDraw_Release: 2
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDrawSurface_Blt: Return adress=[268972556]
+DirectDrawSurface_Blt: _this=[32734800]
+DirectDrawSurface_Blt: _that=[32735136]
+DirectDrawSurface_GetCaps: Return adress=[1997483332]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_GetCaps: Return adress=[268972556]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_Lock: Return adress=[268972556]
 DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
 DirectDrawSurface_IsLost: Return adress=[121096682]
 DirectDrawSurface_IsLost: _this=[32734800]
 DirectDrawSurface_IsLost: Return adress=[121096682]
 DirectDrawSurface_IsLost: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
+DirectDrawSurface_GetCaps: Return adress=[1997483662]
 DirectDrawSurface_GetCaps: _this=[32734800]
 DirectDrawSurface_GetCaps: Return adress=[268972556]
 DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_IsLost: Return adress=[121096682]
-DirectDrawSurface_IsLost: _this=[32734800]
-DirectDrawSurface_IsLost: Return adress=[121096682]
-DirectDrawSurface_IsLost: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_Lock: Return adress=[268972556]
-DirectDrawSurface_Lock: _this=[32735136]
-DirectDrawSurface_Lock: ::Lock Failed
-DirectDrawSurface_GetCaps: Return adress=[2008231332]
-DirectDrawSurface_GetCaps: _this=[32734800]
-DirectDrawSurface_GetCaps: Return adress=[268972556]
+DirectDrawSurface_Unlock: Return adress=[268972556]
+DirectDrawSurface_Unlock: _this=[32735136]
+DirectDrawSurface_QueryInterface: Return adress=[1997485365]
+DirectDrawSurface_QueryInterface: _this=[32734800]
+DirectDrawSurface_QueryInterface: IID_IDirectDrawSurface2
+DirectDrawSurface_Release: Return adress=[1997485387]
+DirectDrawSurface_Release: _this=[32734800]
+DirectDrawSurface_Release: 1
+DirectDrawSurface2_GetDDInterface: Return adress=[1997485411]
+DirectDrawSurface2_GetDDInterface: _this=[32734800]
+DirectDrawSurface2_GetDDInterface: GOT 4179408
+DirectDraw_Release: Return adress=[1997485433]
+DirectDraw_Release: _this=[4179408]
+PublicRelease: IUnknown_ref=2, this_ref=6
+DirectDraw_Release: 2
+DirectDraw_QueryInterface: Return adress=[1997485461]
+DirectDraw_QueryInterface: _this=[4179408]
+DirectDraw_QueryInterface: DirectDraw1
+DirectDraw_Release: Return adress=[1997485479]
+DirectDraw_Release: _this=[4179408]
+PublicRelease: IUnknown_ref=2, this_ref=6
+DirectDraw_Release: 2
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]
+DirectDraw_GetVerticalBlankStatus: Return adress=[268972556]
+DirectDraw_GetVerticalBlankStatus: _this=[4179408]
+DirectDraw_WaitForVerticalBlank: Return adress=[268972556]
+DirectDraw_WaitForVerticalBlank: _this=[4179408]

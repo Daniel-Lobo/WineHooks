@@ -94,6 +94,7 @@ void DLLMAIN_COMMON_GLOBALS::ListGameModules()
     std::wstring   dxvk_d3d9(L"d3d9.dll");
     std::wstring   dxvk_d3d8(L"d3d8.dll");
     std::wstring   winedxgi(L"dxgi.dll");
+    std::wstring   quicktime(L"quicktime.qts");
 #else
     std::wstring   pex(L"peixoto.dll");
     std::wstring   ahk(L"autohotkey.dll");
@@ -101,6 +102,7 @@ void DLLMAIN_COMMON_GLOBALS::ListGameModules()
     std::wstring   dxvk_d3d9(L"d3d9.dll");
     std::wstring   dxvk_d3d8(L"d3d8.dll");
     std::wstring   winedxgi(L"dxgi.dll");
+    std::wstring   quicktime(L"quicktime.qts");
 #endif
     std::wstring   net(L"clr.dll"); //untested
     for (DllEnum enm; enm.m_Continue; enm.Next())
@@ -116,7 +118,7 @@ void DLLMAIN_COMMON_GLOBALS::ListGameModules()
                                 std::to_wstring((ULONG)enm.m_dll.modBaseAddr + enm.m_dll.modBaseSize) + L"]").c_str());
             continue;
         }        
-        if (path.find(windir.m_dir) != std::string::npos || name == pex || name == ahk || name == wine || name == winedxgi ||
+        if ((path.find(windir.m_dir) != std::string::npos && name != quicktime) || name == pex || name == ahk || name == wine || name == winedxgi ||
         (name == dxvk_d3d8 && g_d3d.DXVK == 8) || (name == dxvk_d3d9 && g_d3d.DXVK == 8) || (name == dxvk_d3d9 && g_d3d.DXVK == 9))
         {
             this->m_lock->lock();

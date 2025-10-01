@@ -35,7 +35,7 @@ DX7-:
 - Zanzahah: bad shadows with wine
 - Dark vengeance, Forsaken: execute buffer bug with wine. FIX with Call setexecutedata with right data after unlock
 - Outwars: (Linux) FMVs not scaled and overlay FMV windows not positioned correctlly
-- POP 3D: FMVs not showing on Linux and not scaled on windows. Solve linux 1st as on widows it runs fine whithout wine
+- POP 3D: FMVs not scaled on windows with wine
 LAYER       
 * Dark vengeance: leaking textures 
 * AVP 2:  crash loading levels
