@@ -90,5 +90,7 @@ Cheats tables:
 	- Darksiders 2: gain xp, Darksiders 3 respwan on last death location
 	
 
+	Lastested (unpublished) changes:
+- Fixed hangs on GDI hooks
 
 
