@@ -1,5 +1,5 @@
 DX9
-- Lorrds of shadow 1 and 2: glitches with DXVK, not working with wine
+- Lords of shadow 1 and 2: glitches with DXVK, not working with wine
 - Tomb Raider Legend, Aniversary, Underworld: not working with DXVK
 - 64 bit (Conscript)
 - Restore wait vblank as alternative to vsync (Portal jerky movement)
@@ -34,8 +34,7 @@ DX7-:
 - Speterra core: broken
 - Zanzahah: bad shadows with wine
 - Dark vengeance, Forsaken: execute buffer bug with wine. FIX with Call setexecutedata with right data after unlock
-- Outwars: (Linux) FMVs not scaled and overlay FMV windows not positioned correctlly
-- POP 3D: FMVs not scaled on windows with wine
+- POP 3D: FMVs not scaled on windows with wine (work with native directdraw)
 LAYER       
 * Dark vengeance: leaking textures 
 * AVP 2:  crash loading levels
@@ -74,8 +73,7 @@ Cheats tables:
     - Soul reaver: inf glyph magic, add fire damage to projectile cheat, that would 
       make a better power UP. A function that references the string: hit by power...
       may be a place to start    
-    - Enclave: add inf arrows, inf magic and gold           
-    - I'm alive: add inf HP\EZ Kills    
+    - Enclave: add inf arrows, inf magic and gold
     - king kong: only works with jack, not kong      
     - Slave zero, Add ez kills       
     - Anachronx: add instantly fill action meter                
@@ -91,6 +89,6 @@ Cheats tables:
 	
 
 	Lastested (unpublished) changes:
-- Fixed hangs on GDI hooks
+- Fixed hangs with GDI hooks on Linux
 
 
