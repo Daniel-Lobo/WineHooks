@@ -190,7 +190,7 @@ unique_ptr<string>DDrawLoadSurface(DirectDrawSurface* srfc, IUnknown** newsrfc, 
 	}
 	if (*(BYTE*)fmt == *(BYTE*)"D") {
 		if (0 == ReadFile(hFile, dsc2.lpSurface, dsc2.dwLinearSize, &read, NULL)) {DBUG_WARN("ReadFile FAILED")};
-	} else LoadData2Surface(dsc2.lpSurface, (UINT)hFile, (UINT)dsc2.lPitch, w, h, bytes_per_pixel);
+	} else LoadData2Surface(dsc2.lpSurface, hFile, (UINT)dsc2.lPitch, w, h, bytes_per_pixel);
 	sys->Unlock(nullptr);
 
 	DDBLTFX fx = {};
@@ -213,7 +213,7 @@ unique_ptr<string>DDrawLoadSurface(DirectDrawSurface* srfc, IUnknown** newsrfc, 
 		}
 		if (*(BYTE*)fmt == *(BYTE*)"D") {
 			if (0 == ReadFile(hFile, dsc2.lpSurface, dsc2.dwLinearSize, &read, NULL)) {DBUG_WARN("ReadFile FAILED")};
-		} else LoadData2Surface(dsc2.lpSurface, (UINT)hFile, (UINT)dsc2.lPitch, w, h, bytes_per_pixel);
+		} else LoadData2Surface(dsc2.lpSurface, hFile, (UINT)dsc2.lPitch, w, h, bytes_per_pixel);
 
 		snextlvl->Unlock(nullptr);
 		nextlvl->Blt(nullptr, snextlvl, nullptr, DDBLT_WAIT, &fx);
@@ -585,7 +585,7 @@ struct XBRZ_SDCALEDATA {
 DWORD WINAPI xBRzThread(LPVOID params)
 {
 	XBRZ_SDCALEDATA * data = (XBRZ_SDCALEDATA*)params;
-	xbrz::scale(data->scl, (const uint32_t*)data->src, (const uint32_t*)data->dst, (int)data->w, (int)data->h, xbrz::ColorFormat::ARGB);
+	xbrz::scale(data->scl, (const uint32_t*)data->src, (uint32_t*)data->dst, (int)data->w, (int)data->h, xbrz::ColorFormat::ARGB);
 	return 0;
 }
 
