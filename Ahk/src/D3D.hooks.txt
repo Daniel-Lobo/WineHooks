@@ -6629,7 +6629,7 @@ D.dwHeight := D3DHOOKS_DATA.H
 }
 if (g_.cfg.32bit)
 SetPixelFormat(D)
-if (g_.cfg.NEFS || g_.cfg.SSAA)
+if (g_.cfg.NEFS or g_.cfg.SSAA)
 {
 g_.proxies.flp := new Surface7(dd7, fmt, sz, sys)
 g_.proxies.flp.Attach((f:=new Surface7(dd7, fmt, sz, sys)).surface)

@@ -1451,7 +1451,7 @@ IDirectDrawSurface7_GetAttachedSurface(p1, p2, p3)
 }
 
 IDirectDrawSurface7_EnumAttachedSurfaces(p1, p2, p3)
-{
+{	
 	if ( GetSurfaceCaps7(p1) & DDSCAPS_PRIMARYSURFACE )
 	{
 		NEFS7(p1, D, dd7, sz, fmt, sys)	
@@ -1465,15 +1465,15 @@ IDirectDrawSurface7_EnumAttachedSurfaces(p1, p2, p3)
 		if (g_.cfg.32bit)
 			SetPixelFormat(D)
 		
-		if (g_.cfg.NEFS || g_.cfg.SSAA)
-		{
+		if (g_.cfg.NEFS or g_.cfg.SSAA)
+		{			
 			g_.proxies.flp := new Surface7(dd7, fmt, sz, sys)
 			g_.proxies.flp.Attach((f:=new Surface7(dd7, fmt, sz, sys)).surface)	
 			dllcall(IDirectDrawSurface7.addref, uint, g_.proxies.flp.surface7) 
 			dllcall(p3, uint, g_.proxies.flp.surface7, uint, D[], uint, p2)
 		}		
 		else
-		{
+		{			
 			/*  || errorlevel is a pretty ugly workarround for 0xc0000005 (access violation) 
 			 *  when calling GetAttachedSurface, layer fault ?
 			 */
