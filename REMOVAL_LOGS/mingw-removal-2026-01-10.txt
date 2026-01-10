@@ -1,0 +1,14 @@
+Mingw-w64 removal log
+Date: 2026-01-10
+
+Actions performed (automated):
+- Detected installed packages matching mingw/mingw-w64 and cross-tool binaries.
+- Removed apt packages via: sudo apt-get remove --purge (multiple mingw-w64 packages).
+- Deleted cross-tool binaries from /usr/bin matching *mingw* and *-w64*.
+- Removed leftover sysroot directory: /usr/x86_64-w64-mingw32
+- Ran: sudo apt-get autoremove --purge -y
+- Ran: sudo apt-get clean
+
+Notes:
+- Removal performed interactively with sudo; refer to shell history for full output.
+- Verified no remaining mingw packages or binaries after cleanup.
