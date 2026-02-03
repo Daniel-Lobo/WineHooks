@@ -909,6 +909,9 @@ DownloadFile(url, dest){
 	dest := g_.BasePath dest
 	print("url : " url)
 	print("path: " dest)
+	SplitPath, dest, , dir
+	if !FileExist(dir)
+		FileCreateDir, %dir%
 
 	success := False
 	while (!success) {
@@ -929,6 +932,12 @@ DownloadFile(url, dest){
 		*/
 		success := False
 		UrlDownloadToFile, %url%, %dest%
+		if errorlevel 
+		{
+			print("UrlDownloadToFile failed : ")
+			return
+		}
+		else
 		success := FileOpen(dest, "r").read() = "" ? False : True
 	}	
 	return

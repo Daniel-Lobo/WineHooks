@@ -15,7 +15,7 @@ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 
 SET(arch "x64")
-#SET(arch "x86")
+SET(arch "x86")
 SET(MinGW "/usr/i686-w64-mingw32")
 SET(MinGW_MS "c:/MinGW/mingw32/i686-w64-mingw32")
 SET(MInHook "x32/libminhook.a")
