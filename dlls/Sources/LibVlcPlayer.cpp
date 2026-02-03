@@ -287,7 +287,7 @@ extern "C" __declspec(dllexport) const char * __stdcall VlcDDrawPlay(IDirectDraw
 
     w = g_d3d.m_WW->Get();
     h = g_d3d.m_HH->Get();
-    g_d3d.Setup(g_d3d.HD_W, g_d3d.HD_H, __FUNCTION__);
+    g_d3d.Setup(g_d3d.HD_W, g_d3d.HD_H, (char*)__FUNCTION__);
     libvlcPlayer = LibVlc.libvlc_media_player_from_media(libvlcMedia);
     if (libvlcPlayer == nullptr)
     {
@@ -312,12 +312,12 @@ extern "C" __declspec(dllexport) const char * __stdcall VlcDDrawPlay(IDirectDraw
         if ( new_state && new_state != prev_state)
         {
             LibVlc.libvlc_media_player_stop(libvlcPlayer);
-            g_d3d.Setup(w, h, __FUNCTION__);
+            g_d3d.Setup(w, h, (char*)__FUNCTION__);
             break;
         }
         prev_state = new_state;
     }
-    g_d3d.Setup(w, h, __FUNCTION__);
+    g_d3d.Setup(w, h, (char*)__FUNCTION__);
 
     err.append("Success ");
     err.append(file);

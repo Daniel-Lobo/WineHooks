@@ -9,7 +9,7 @@ __declspec(dllexport) void* sigscan(BYTE* mempage_add, UINT size, void* signatur
     {
         page_add = mempage_add + i;
         if (memcmp((void*) page_add, signature, sigsize)== 0)
-        return i;
+        return (void*)i;
     };
     return 0;
 }

@@ -6,6 +6,7 @@
 extern "C" {
 #include "DDSurface.h"
 }
+#include <cstdint>
 
 struct DDS_HEADER_AND_MAGIC
 {

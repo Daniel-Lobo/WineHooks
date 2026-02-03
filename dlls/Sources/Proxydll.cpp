@@ -111,7 +111,7 @@ __declspec(dllexport) __attribute__ ((naked)) void DirectDrawCreate()
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     ProxyInitImports();
-    LPTSTR env_var[100];
+    static char env_var[100];
     if (GetEnvironmentVariableA("Peixoto.HWND", (LPSTR)env_var, 100))
     {
         if (GetModuleHandleA("peixoto.dll") == nullptr)
@@ -128,7 +128,7 @@ __declspec(dllexport) __attribute__ ((naked)) void DirectInputCreateEx()
 {
     #pragma comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
     ProxyInitImports();
-    LPTSTR env_var[100];
+    static char env_var[100];
     if (GetEnvironmentVariableA("Peixoto.HWND", (LPSTR)env_var, 100))
     {
         if (GetModuleHandleA("peixoto.dll") == nullptr)

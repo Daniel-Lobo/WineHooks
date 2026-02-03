@@ -11,7 +11,7 @@ BOOL RectCoversEntireSurface(RECT* r, UINT w, UINT h) {
     return r->left == 0 && r->top == 0 && r->right == w && r->bottom == h ? TRUE : FALSE;
 }
 
-BOOL __inline CompareTextAndCompiledDumps(DWORD t_ww, DWORD t_hh, DWORD t_Pitch, LPVOID t_pData,
+static __inline BOOL CompareTextAndCompiledDumps(DWORD t_ww, DWORD t_hh, DWORD t_Pitch, LPVOID t_pData,
                                           DUMP * dump)
 {
     DWORD i, jump = t_hh/dump->samples;
@@ -31,7 +31,7 @@ BOOL __inline CompareTextAndCompiledDumps(DWORD t_ww, DWORD t_hh, DWORD t_Pitch,
     } return TRUE;
 }
 
-BOOL __inline CompareTextAndDump(DWORD t_ww, DWORD t_hh, DWORD t_Pitch, LPVOID t_pData,
+static __inline BOOL CompareTextAndDump(DWORD t_ww, DWORD t_hh, DWORD t_Pitch, LPVOID t_pData,
                                  DUMP * dump, DWORD samples)
 {
     DWORD i, jump = t_hh/samples;
@@ -85,7 +85,7 @@ int FindTextureInCollection(DWORD t_ww, DWORD t_hh, DWORD t_bpp, DWORD t_Pitch, 
     return 0;
 }
 
-BOOL __inline CompareDXTnTextAndCompiledDump(DWORD t_ww, DWORD t_hh, DWORD t_Pitch, LPVOID t_pData,
+static __inline BOOL CompareDXTnTextAndCompiledDump(DWORD t_ww, DWORD t_hh, DWORD t_Pitch, LPVOID t_pData,
                                              DUMP * dump, DWORD bytes_per_rowblock)
 {
     DWORD i, jump = t_hh/dump->samples;
@@ -105,7 +105,7 @@ BOOL __inline CompareDXTnTextAndCompiledDump(DWORD t_ww, DWORD t_hh, DWORD t_Pit
     } return TRUE;
 }
 
-BOOL __inline CompareDXTnTextAndDump(DWORD t_ww, DWORD t_hh, DWORD t_Pitch, LPVOID t_pData,
+static __inline BOOL CompareDXTnTextAndDump(DWORD t_ww, DWORD t_hh, DWORD t_Pitch, LPVOID t_pData,
                                      DUMP * dump, DWORD samples, DWORD bytes_per_rowblock)
 {
     DWORD i, jump = t_hh/samples;
@@ -525,9 +525,9 @@ DWORD DumpDDS(wchar_t * file, char * fmt, DWORD ww, DWORD hh, LPVOID pData, DWOR
         for (i=0; i<hlines; i++)
         {
             #ifdef _WIN64
-                WriteFile(hFile, (UINT64)pData+pitch*i, n_bytes, &writen, NULL);
+                WriteFile(hFile, (VOID*)pData+pitch*i, n_bytes, &writen, NULL);
             #else
-                WriteFile(hFile, (DWORD)pData+pitch*i, n_bytes, &writen, NULL);
+                WriteFile(hFile, (VOID*)(DWORD)pData+pitch*i, n_bytes, &writen, NULL);
             #endif
         }
     }
@@ -538,9 +538,9 @@ DWORD DumpDDS(wchar_t * file, char * fmt, DWORD ww, DWORD hh, LPVOID pData, DWOR
         for (i=0; i<hlines; i++)
         {
             #ifdef _WIN64
-                WriteFile(hFile, (DWORD)pData+pitch*i, n_bytes, &writen, NULL);
+                WriteFile(hFile, (VOID*)pData+pitch*i, n_bytes, &writen, NULL);
             #else
-                WriteFile(hFile, (DWORD)pData+pitch*i, n_bytes, &writen, NULL);
+                WriteFile(hFile, (VOID*)(DWORD)pData+pitch*i, n_bytes, &writen, NULL);
             #endif
         }
     }
@@ -551,9 +551,9 @@ DWORD DumpDDS(wchar_t * file, char * fmt, DWORD ww, DWORD hh, LPVOID pData, DWOR
         for (i=0; i<hlines; i++)
         {
             #ifdef _WIN64
-               WriteFile(hFile, (UINT64)pData+pitch*i, n_bytes, &writen, NULL);
+            	WriteFile(hFile, (VOID*)pData+pitch*i, n_bytes, &writen, NULL);
             #else
-                WriteFile(hFile, (DWORD)pData+pitch*i, n_bytes, &writen, NULL);
+            	WriteFile(hFile, (VOID*)(DWORD)pData+pitch*i, n_bytes, &writen, NULL);
             #endif
         }
     }

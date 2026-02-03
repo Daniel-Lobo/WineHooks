@@ -7,9 +7,9 @@
 #define  DIRECTDRAW_VERSION 0x0700
 #define  DIRECT3D_VERSION 0x0700
 #define  DIRECTDRAW_VERSION 0x0700
-#undef _D3DCOLORVALUE
-#undef D3DCOLORVALUE
 #include <ddraw.h>
+#include <dxgitype.h>
+#define _D3DCOLORVALUE
 #include <d3d.h>
 #include <dllmain.h>
 #include <string>

@@ -1,5 +1,6 @@
 #ifndef LIBVLCPLAYER_H
 #define LIBVLCPLAYER_H
+#include <cstdint>
 
 enum libvlc_track_type_t
 {
