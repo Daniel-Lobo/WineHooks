@@ -1,5 +1,5 @@
-global g_MainThreadID := 348 ;<Tag> 
-global g_cmdstring := "-Target^G:\Games\Castlevania - Lords of Shadow UE\bin\CastlevaniaLoSUE.exe^-D3D^9^-path^Dev^/hd^/vpos^/pow2^-ssaa^2^-Textswap^e=false;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;^-PxSwap^e=true;sw=End;n=>;p=<;q=Q;d=Home;^-e^dsnd=true;^-script_hwnd^0xa00c4^-error_log^Z:\home\gotardo\Code\WineHooks\Ahk\error.log^-Mydocs^C:\users\gotardo\Documents^-injector_dir^Z:\home\gotardo\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 ^-max_4x3_res^1152x864^-dsk^2560x1080^-D3D_Driver^^-os_version^10.000000^^-target_dir^G:\Games\Castlevania - Lords of Shadow UE\bin^-target_name^CastlevaniaLoSUE.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
+global g_MainThreadID := 7500 ;<Tag> 
+global g_cmdstring := "-Target^E:\Games\Enclave\Enclave.exe^-wiki^https://www.pcgamingwiki.com/wiki/Enclave^-D3D^8^-path^Enclave^/HD^/SXTY^/SYNC^-script^scripts\Enclave.ahk^-Textswap^e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;a=false;l=false;^-J2K^mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;^-Dsnd^CRSR=false;S3D=false;STTR=false;^-k2k^r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;^-PxSwap^e=false;sw=Del;n=>;p=<;d=Home;^-WNMM^MCI=false;^-script_hwnd^0x30710^-error_log^C:\Users\dllob\Documents\Code\WineHooks\Ahk\error.log^-Mydocs^C:\Users\dllob\Documents^-injector_dir^C:\Users\dllob\Documents\Code\WineHooks\Ahk^-rlst^640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 ^-max_4x3_res^1440x1080^-dsk^1366x768^-D3D_Driver^C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_0afec3f2050014a0\nvldumd.dll^-os_version^10.000000^^-target_dir^E:\Games\Enclave^-target_name^Enclave.exe^-wine^10_0^-dxvkv^2_6^-common_path^1"
 ; <COMPILER: v1.1.15.03>
 #NoEnv
 #persistent
@@ -2120,31 +2120,90 @@ return rr
 }
 
 ; <COMPILER: v1.1.15.03>
-Global d3D9 := {}
-d3D9.IID_IDirect3D9 := "{81bdcbca-64d4-426d-ae8d-ad0147f4275c}"
-d3D9.IID_IDirect3DDevice9 := "{d0223b96-bf7a-43fd-92bd-a43b0d82b9eb}"
-d3D9.IID_IDirect3DResource9 := "{5eec05d-8f7d-4362-b999-d1baf357c704}"
-d3D9.IID_IDirect3DBaseTexture9 := "{580ca87e-1d3c-4d54-991d-b7d3e3c298ce}"
-d3D9.IID_IDirect3DTexture9 := "{85c31227-3de5-4f00-9b3a-f11ac38c18b5}"
-d3D9.IID_IDirect3DCubeTexture9 := "{fff32f81-d953-473a-9223-93d652aba93f}"
-d3D9.IID_IDirect3DVolumeTexture9 := "{2518526c-e789-4111-a7b9-47ef328d13e6}"
-d3D9.IID_IDirect3DVertexBuffer9 := "{b64bb1b5-fd70-4df6-bf91-19d0a12455e3}"
-d3D9.IID_IDirect3DIndexBuffer9 := "{7c9dd65e-d3f7-4529-acee-785830acde35}"
-d3D9.IID_IDirect3DSurface9 := "{cfbaf3a-9ff6-429a-99b3-a2796af8b89b}"
-d3D9.IID_IDirect3DVolume9 := "{24f416e6-1f67-4aa7-b88e-d33f6f3128a1}"
-d3D9.IID_IDirect3DSwapChain9 := "{794950f2-adfc-458a-905e-10a10b0b503b}"
-d3D9.IID_IDirect3DVertexDeclaration9 := "{dd13c59c-36fa-4098-a8fb-c7ed39dc8546}"
-d3D9.IID_IDirect3DVertexShader9 := "{efc5557e-6265-4613-8a94-43857889eb36}"
-d3D9.IID_IDirect3DPixelShader9 := "{6d3bdbdc-5b02-4415-b852-ce5e8bccb289}"
-d3D9.IID_IDirect3DStateBlock9 := "{b07c4fe5-310d-4ba8-a23c-4f0f206f218b}"
-d3D9.IID_IDirect3DQuery9 := "{d9771460-a695-4f26-bbd3-27b840b541cc}"
-d3D9.IID_HelperName := "{e4a36723-fdfe-4b22-b146-3c04c07f4cc8}"
-d3D9.IID_IDirect3D9Ex := "{02177241-69FC-400C-8FF1-93A44DF6861D}"
-d3D9.IID_IDirect3DDevice9Ex := "{b18b10ce-2649-405a-870f-95f777d4313a}"
-d3D9.IID_IDirect3DSwapChain9Ex := "{91886caf-1c3d-4d2e-a0ab-3e4c7d8d3303}"
-d3D9.IDirect3D9 := {}
-d3D9.IDirect3D9.name := "IDirect3D9"
-d3D9.IDirect3D9.def :=
+global D3D8_HOOKS :=
+(
+"
+LPVOID p_DrawPrimitive;
+LPVOID p_DrawPrimitiveUP;
+LPVOID p_DrawIndexedPrimitive;
+LPVOID p_DrawIndexedPrimitiveUp;
+LPVOID CreateVertexBuffer;
+LPVOID SetStreamSource;
+LPVOID SetVertexShader;
+LPVOID VbLock;
+LPVOID VbUnlock;
+LPVOID MVbLock;
+LPVOID MVbUnlock;
+LPVOID VbGetDesc;
+LPVOID VbLocks;
+float  scale;
+DWORD  HD_X;
+BOOL   screenspace;
+LPVOID current_vbuff;
+DWORD  stride;
+LPVOID vertex_data;
+BOOL   HLFPX;
+DWORD  SglCore;
+LPVOID RTrgs;
+LPVOID End;
+LPVOID pIDirect3DDevice8_CreateTexture;
+LPVOID pIDirect3DDevice8_UpdateTexture;
+LPVOID pIDirect3DDevice8_CopyRects;
+LPVOID pIDirect3DDevice8_SetTexture;
+LPVOID pIDirect3DTexture8_GetSurfaceLevel;
+LPVOID pIDirect3DTexture8_LockRect;
+LPVOID pIDirect3DTexture8_UnlockRect;
+LPVOID pIDirect3DTexture8_QueryInterface;
+LPVOID pIDirect3DTexture8_Release;
+LPVOID pIDirect3DSurface8_LockRect;
+LPVOID pIDirect3DSurface8_UnlockRect;
+LPVOID pIDirect3DSurface8_Release;
+LPVOID Srfc8_Release;
+LPVOID pTextureFound;
+LPVOID pDumpTexture;
+BOOL   ignore_release;
+BOOL   searching;
+LPVOID Currentexture8;
+LPVOID Textures;
+LPVOID Surfaces;
+LPVOID Replacements;
+LPVOID CreatePixelShader;
+LPVOID SetPixelShader;
+LPVOID DeletePixelShader;
+LPVOID pShaderFound;
+DWORD  Override;
+BOOL   ignore_creation;
+BOOL   srchng;
+LPVOID Current;
+LPVOID shaders;
+LPVOID Overrides;
+LPVOID DDI_Overrides;
+DWORD  ShaderDumpsSize;
+LPVOID ShaderDumps;
+"
+)
+D3D8_HOOKS := struct(D3D8_HOOKS)
+if (g_.cfg.console)
+dllcall("peixoto.dll\D3D12Config", astr, "DBUG", uint, 1)
+if (g_.cfg.WHKS)
+dllcall("peixoto.dll\D3D12Config", astr, "FIXWINSIZE", uint, 1)
+dllcall("peixoto.dll\InitD3D8HooksData", uint, D3D8_HOOKS[], uint, (g_.cfg.HD) ? Desk().H | (Desk().W << 16) : 0)
+Global d3D8 := {}
+d3D8.IID_IDirect3D8 := "{1dd9e8da-1c77-4d40-b0cf-98fefdff9512}"
+d3D8.IID_IDirect3DDevice8 := "{7385e5df-8fe8-41d5-86b6-d7b48547b6cf}"
+d3D8.IID_IDirect3DResource8 := "{1b36bb7b-9b7-410a-b445-7d1430d7b33f}"
+d3D8.IID_IDirect3DBaseTexture8 := "{b4211cfa-51b9-4a9f-ab78-db99b2bb678e}"
+d3D8.IID_IDirect3DTexture8 := "{e4cdd575-2866-4f01-b12e-7eece1ec9358}"
+d3D8.IID_IDirect3DCubeTexture8 := "{3ee5b968-2aca-4c34-8bb5-7e0c3d19b750}"
+d3D8.IID_IDirect3DVolumeTexture8 := "{4b8aaafa-140f-42ba-9131-597eafaa2ead}"
+d3D8.IID_IDirect3DVertexBuffer8 := "{8aeeeac7-05f9-44d4-b591-000b0df1cb95}"
+d3D8.IID_IDirect3DIndexBuffer8 := "{0e689c9a-053d-44a0-9d92-db0e3d750f86}"
+d3D8.IID_IDirect3DSurface8 := "{b96eebca-b326-4ea5-882f-2ff5bae021dd}"
+d3D8.IID_IDirect3DVolume8 := "{bd7349f5-14f1-42e4-9c79-972380db40c0}"
+d3D8.IID_IDirect3DSwapChain8 := "{928c088b-76b9-4c6b-a536-a590853876cd}"
+d3D8.IDirect3D8 := {}
+d3D8.IDirect3D8.name := "IDirect3D8"
+d3D8.IDirect3D8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
@@ -2152,24 +2211,22 @@ d3D9.IDirect3D9.def :=
     STDMETHOD_(ULONG,Release)(THIS) PURE;
     STDMETHOD(RegisterSoftwareDevice)(THIS_ void* pInitializeFunction) PURE;
     STDMETHOD_(UINT, GetAdapterCount)(THIS) PURE;
-    STDMETHOD(GetAdapterIdentifier)(THIS_ UINT Adapter,DWORD Flags,D3DADAPTER_IDENTIFIER9* pIdentifier) PURE;
-    STDMETHOD_(UINT, GetAdapterModeCount)(THIS_ UINT Adapter,D3DFORMAT Format) PURE;
-    STDMETHOD(EnumAdapterModes)(THIS_ UINT Adapter,D3DFORMAT Format,UINT Mode,D3DDISPLAYMODE* pMode) PURE;
+    STDMETHOD(GetAdapterIdentifier)(THIS_ UINT Adapter,DWORD Flags,D3DADAPTER_IDENTIFIER8* pIdentifier) PURE;
+    STDMETHOD_(UINT, GetAdapterModeCount)(THIS_ UINT Adapter) PURE;
+    STDMETHOD(EnumAdapterModes)(THIS_ UINT Adapter,UINT Mode,D3DDISPLAYMODE* pMode) PURE;
     STDMETHOD(GetAdapterDisplayMode)(THIS_ UINT Adapter,D3DDISPLAYMODE* pMode) PURE;
-    STDMETHOD(CheckDeviceType)(THIS_ UINT Adapter,D3DDEVTYPE DevType,D3DFORMAT AdapterFormat,D3DFORMAT BackBufferFormat,BOOL bWindowed) PURE;
+    STDMETHOD(CheckDeviceType)(THIS_ UINT Adapter,D3DDEVTYPE CheckType,D3DFORMAT DisplayFormat,D3DFORMAT BackBufferFormat,BOOL Windowed) PURE;
     STDMETHOD(CheckDeviceFormat)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT AdapterFormat,DWORD Usage,D3DRESOURCETYPE RType,D3DFORMAT CheckFormat) PURE;
-    STDMETHOD(CheckDeviceMultiSampleType)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT SurfaceFormat,BOOL Windowed,D3DMULTISAMPLE_TYPE MultiSampleType,DWORD* pQualityLevels) PURE;
+    STDMETHOD(CheckDeviceMultiSampleType)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT SurfaceFormat,BOOL Windowed,D3DMULTISAMPLE_TYPE MultiSampleType) PURE;
     STDMETHOD(CheckDepthStencilMatch)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT AdapterFormat,D3DFORMAT RenderTargetFormat,D3DFORMAT DepthStencilFormat) PURE;
-    STDMETHOD(CheckDeviceFormatConversion)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT SourceFormat,D3DFORMAT TargetFormat) PURE;
-    STDMETHOD(GetDeviceCaps)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DCAPS9* pCaps) PURE;
+    STDMETHOD(GetDeviceCaps)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DCAPS8* pCaps) PURE;
     STDMETHOD_(HMONITOR, GetAdapterMonitor)(THIS_ UINT Adapter) PURE;
-    STDMETHOD(CreateDevice)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,HWND hFocusWindow,DWORD BehaviorFlags,D3DPRESENT_PARAMETERS* pPresentationParameters,IDirect3DDevice9** ppReturnedDeviceInterface) PURE;
-        LPCWSTR Version;
+    STDMETHOD(CreateDevice)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,HWND hFocusWindow,DWORD BehaviorFlags,D3DPRESENT_PARAMETERS* pPresentationParameters,IDirect3DDevice8** ppReturnedDeviceInterface) PURE;
 "
 )
-d3D9.IDirect3DDevice9 := {}
-d3D9.IDirect3DDevice9.name := "IDirect3DDevice9"
-d3D9.IDirect3DDevice9.def :=
+d3D8.IDirect3DDevice8 := {}
+d3D8.IDirect3DDevice8.name := "IDirect3DDevice8"
+d3D8.IDirect3DDevice8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
@@ -2177,192 +2234,121 @@ d3D9.IDirect3DDevice9.def :=
     STDMETHOD_(ULONG,Release)(THIS) PURE;
     STDMETHOD(TestCooperativeLevel)(THIS) PURE;
     STDMETHOD_(UINT, GetAvailableTextureMem)(THIS) PURE;
-    STDMETHOD(EvictManagedResources)(THIS) PURE;
-    STDMETHOD(GetDirect3D)(THIS_ IDirect3D9** ppD3D9) PURE;
-    STDMETHOD(GetDeviceCaps)(THIS_ D3DCAPS9* pCaps) PURE;
-    STDMETHOD(GetDisplayMode)(THIS_ UINT iSwapChain,D3DDISPLAYMODE* pMode) PURE;
+    STDMETHOD(ResourceManagerDiscardBytes)(THIS_ DWORD Bytes) PURE;
+    STDMETHOD(GetDirect3D)(THIS_ IDirect3D8** ppD3D8) PURE;
+    STDMETHOD(GetDeviceCaps)(THIS_ D3DCAPS8* pCaps) PURE;
+    STDMETHOD(GetDisplayMode)(THIS_ D3DDISPLAYMODE* pMode) PURE;
     STDMETHOD(GetCreationParameters)(THIS_ D3DDEVICE_CREATION_PARAMETERS *pParameters) PURE;
-    STDMETHOD(SetCursorProperties)(THIS_ UINT XHotSpot,UINT YHotSpot,IDirect3DSurface9* pCursorBitmap) PURE;
+    STDMETHOD(SetCursorProperties)(THIS_ UINT XHotSpot,UINT YHotSpot,IDirect3DSurface8* pCursorBitmap) PURE;
     STDMETHOD_(void, SetCursorPosition)(THIS_ int X,int Y,DWORD Flags) PURE;
     STDMETHOD_(BOOL, ShowCursor)(THIS_ BOOL bShow) PURE;
-    STDMETHOD(CreateAdditionalSwapChain)(THIS_ D3DPRESENT_PARAMETERS* pPresentationParameters,IDirect3DSwapChain9** pSwapChain) PURE;
-    STDMETHOD(GetSwapChain)(THIS_ UINT iSwapChain,IDirect3DSwapChain9** pSwapChain) PURE;
-    STDMETHOD_(UINT, GetNumberOfSwapChains)(THIS) PURE;
+    STDMETHOD(CreateAdditionalSwapChain)(THIS_ D3DPRESENT_PARAMETERS* pPresentationParameters,IDirect3DSwapChain8** pSwapChain) PURE;
     STDMETHOD(Reset)(THIS_ D3DPRESENT_PARAMETERS* pPresentationParameters) PURE;
     STDMETHOD(Present)(THIS_ CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion) PURE;
-    STDMETHOD(GetBackBuffer)(THIS_ UINT iSwapChain,UINT iBackBuffer,D3DBACKBUFFER_TYPE Type,IDirect3DSurface9** ppBackBuffer) PURE;
-    STDMETHOD(GetRasterStatus)(THIS_ UINT iSwapChain,D3DRASTER_STATUS* pRasterStatus) PURE;
-    STDMETHOD(SetDialogBoxMode)(THIS_ BOOL bEnableDialogs) PURE;
-    STDMETHOD_(void, SetGammaRamp)(THIS_ UINT iSwapChain,DWORD Flags,CONST D3DGAMMARAMP* pRamp) PURE;
-    STDMETHOD_(void, GetGammaRamp)(THIS_ UINT iSwapChain,D3DGAMMARAMP* pRamp) PURE;
-    STDMETHOD(CreateTexture)(THIS_ UINT Width,UINT Height,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DTexture9** ppTexture,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateVolumeTexture)(THIS_ UINT Width,UINT Height,UINT Depth,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DVolumeTexture9** ppVolumeTexture,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateCubeTexture)(THIS_ UINT EdgeLength,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DCubeTexture9** ppCubeTexture,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateVertexBuffer)(THIS_ UINT Length,DWORD Usage,DWORD FVF,D3DPOOL Pool,IDirect3DVertexBuffer9** ppVertexBuffer,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateIndexBuffer)(THIS_ UINT Length,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DIndexBuffer9** ppIndexBuffer,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateRenderTarget)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,DWORD MultisampleQuality,BOOL Lockable,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateDepthStencilSurface)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,DWORD MultisampleQuality,BOOL Discard,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(UpdateSurface)(THIS_ IDirect3DSurface9* pSourceSurface,CONST RECT* pSourceRect,IDirect3DSurface9* pDestinationSurface,CONST POINT* pDestPoint) PURE;
-    STDMETHOD(UpdateTexture)(THIS_ IDirect3DBaseTexture9* pSourceTexture,IDirect3DBaseTexture9* pDestinationTexture) PURE;
-    STDMETHOD(GetRenderTargetData)(THIS_ IDirect3DSurface9* pRenderTarget,IDirect3DSurface9* pDestSurface) PURE;
-    STDMETHOD(GetFrontBufferData)(THIS_ UINT iSwapChain,IDirect3DSurface9* pDestSurface) PURE;
-    STDMETHOD(StretchRect)(THIS_ IDirect3DSurface9* pSourceSurface,CONST RECT* pSourceRect,IDirect3DSurface9* pDestSurface,CONST RECT* pDestRect,D3DTEXTUREFILTERTYPE Filter) PURE;
-    STDMETHOD(ColorFill)(THIS_ IDirect3DSurface9* pSurface,CONST RECT* pRect,D3DCOLOR color) PURE;
-    STDMETHOD(CreateOffscreenPlainSurface)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DPOOL Pool,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(SetRenderTarget)(THIS_ DWORD RenderTargetIndex,IDirect3DSurface9* pRenderTarget) PURE;
-    STDMETHOD(GetRenderTarget)(THIS_ DWORD RenderTargetIndex,IDirect3DSurface9** ppRenderTarget) PURE;
-    STDMETHOD(SetDepthStencilSurface)(THIS_ IDirect3DSurface9* pNewZStencil) PURE;
-    STDMETHOD(GetDepthStencilSurface)(THIS_ IDirect3DSurface9** ppZStencilSurface) PURE;
+    STDMETHOD(GetBackBuffer)(THIS_ UINT BackBuffer,D3DBACKBUFFER_TYPE Type,IDirect3DSurface8** ppBackBuffer) PURE;
+    STDMETHOD(GetRasterStatus)(THIS_ D3DRASTER_STATUS* pRasterStatus) PURE;
+    STDMETHOD_(void, SetGammaRamp)(THIS_ DWORD Flags,CONST D3DGAMMARAMP* pRamp) PURE;
+    STDMETHOD_(void, GetGammaRamp)(THIS_ D3DGAMMARAMP* pRamp) PURE;
+    STDMETHOD(CreateTexture)(THIS_ UINT Width,UINT Height,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DTexture8** ppTexture) PURE;
+    STDMETHOD(CreateVolumeTexture)(THIS_ UINT Width,UINT Height,UINT Depth,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DVolumeTexture8** ppVolumeTexture) PURE;
+    STDMETHOD(CreateCubeTexture)(THIS_ UINT EdgeLength,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DCubeTexture8** ppCubeTexture) PURE;
+    STDMETHOD(CreateVertexBuffer)(THIS_ UINT Length,DWORD Usage,DWORD FVF,D3DPOOL Pool,IDirect3DVertexBuffer8** ppVertexBuffer) PURE;
+    STDMETHOD(CreateIndexBuffer)(THIS_ UINT Length,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DIndexBuffer8** ppIndexBuffer) PURE;
+    STDMETHOD(CreateRenderTarget)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,BOOL Lockable,IDirect3DSurface8** ppSurface) PURE;
+    STDMETHOD(CreateDepthStencilSurface)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,IDirect3DSurface8** ppSurface) PURE;
+    STDMETHOD(CreateImageSurface)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,IDirect3DSurface8** ppSurface) PURE;
+    STDMETHOD(CopyRects)(THIS_ IDirect3DSurface8* pSourceSurface,CONST RECT* pSourceRectsArray,UINT cRects,IDirect3DSurface8* pDestinationSurface,CONST POINT* pDestPointsArray) PURE;
+    STDMETHOD(UpdateTexture)(THIS_ IDirect3DBaseTexture8* pSourceTexture,IDirect3DBaseTexture8* pDestinationTexture) PURE;
+    STDMETHOD(GetFrontBuffer)(THIS_ IDirect3DSurface8* pDestSurface) PURE;
+    STDMETHOD(SetRenderTarget)(THIS_ IDirect3DSurface8* pRenderTarget,IDirect3DSurface8* pNewZStencil) PURE;
+    STDMETHOD(GetRenderTarget)(THIS_ IDirect3DSurface8** ppRenderTarget) PURE;
+    STDMETHOD(GetDepthStencilSurface)(THIS_ IDirect3DSurface8** ppZStencilSurface) PURE;
     STDMETHOD(BeginScene)(THIS) PURE;
     STDMETHOD(EndScene)(THIS) PURE;
     STDMETHOD(Clear)(THIS_ DWORD Count,CONST D3DRECT* pRects,DWORD Flags,D3DCOLOR Color,float Z,DWORD Stencil) PURE;
     STDMETHOD(SetTransform)(THIS_ D3DTRANSFORMSTATETYPE State,CONST D3DMATRIX* pMatrix) PURE;
     STDMETHOD(GetTransform)(THIS_ D3DTRANSFORMSTATETYPE State,D3DMATRIX* pMatrix) PURE;
     STDMETHOD(MultiplyTransform)(THIS_ D3DTRANSFORMSTATETYPE,CONST D3DMATRIX*) PURE;
-    STDMETHOD(SetViewport)(THIS_ CONST D3DVIEWPORT9* pViewport) PURE;
-    STDMETHOD(GetViewport)(THIS_ D3DVIEWPORT9* pViewport) PURE;
-    STDMETHOD(SetMaterial)(THIS_ CONST D3DMATERIAL9* pMaterial) PURE;
-    STDMETHOD(GetMaterial)(THIS_ D3DMATERIAL9* pMaterial) PURE;
-    STDMETHOD(SetLight)(THIS_ DWORD Index,CONST D3DLIGHT9*) PURE;
-    STDMETHOD(GetLight)(THIS_ DWORD Index,D3DLIGHT9*) PURE;
+    STDMETHOD(SetViewport)(THIS_ CONST D3DVIEWPORT8* pViewport) PURE;
+    STDMETHOD(GetViewport)(THIS_ D3DVIEWPORT8* pViewport) PURE;
+    STDMETHOD(SetMaterial)(THIS_ CONST D3DMATERIAL8* pMaterial) PURE;
+    STDMETHOD(GetMaterial)(THIS_ D3DMATERIAL8* pMaterial) PURE;
+    STDMETHOD(SetLight)(THIS_ DWORD Index,CONST D3DLIGHT8*) PURE;
+    STDMETHOD(GetLight)(THIS_ DWORD Index,D3DLIGHT8*) PURE;
     STDMETHOD(LightEnable)(THIS_ DWORD Index,BOOL Enable) PURE;
     STDMETHOD(GetLightEnable)(THIS_ DWORD Index,BOOL* pEnable) PURE;
     STDMETHOD(SetClipPlane)(THIS_ DWORD Index,CONST float* pPlane) PURE;
     STDMETHOD(GetClipPlane)(THIS_ DWORD Index,float* pPlane) PURE;
     STDMETHOD(SetRenderState)(THIS_ D3DRENDERSTATETYPE State,DWORD Value) PURE;
     STDMETHOD(GetRenderState)(THIS_ D3DRENDERSTATETYPE State,DWORD* pValue) PURE;
-    STDMETHOD(CreateStateBlock)(THIS_ D3DSTATEBLOCKTYPE Type,IDirect3DStateBlock9** ppSB) PURE;
     STDMETHOD(BeginStateBlock)(THIS) PURE;
-    STDMETHOD(EndStateBlock)(THIS_ IDirect3DStateBlock9** ppSB) PURE;
-    STDMETHOD(SetClipStatus)(THIS_ CONST D3DCLIPSTATUS9* pClipStatus) PURE;
-    STDMETHOD(GetClipStatus)(THIS_ D3DCLIPSTATUS9* pClipStatus) PURE;
-    STDMETHOD(GetTexture)(THIS_ DWORD Stage,IDirect3DBaseTexture9** ppTexture) PURE;
-    STDMETHOD(SetTexture)(THIS_ DWORD Stage,IDirect3DBaseTexture9* pTexture) PURE;
+    STDMETHOD(EndStateBlock)(THIS_ DWORD* pToken) PURE;
+    STDMETHOD(ApplyStateBlock)(THIS_ DWORD Token) PURE;
+    STDMETHOD(CaptureStateBlock)(THIS_ DWORD Token) PURE;
+    STDMETHOD(DeleteStateBlock)(THIS_ DWORD Token) PURE;
+    STDMETHOD(CreateStateBlock)(THIS_ D3DSTATEBLOCKTYPE Type,DWORD* pToken) PURE;
+    STDMETHOD(SetClipStatus)(THIS_ CONST D3DCLIPSTATUS8* pClipStatus) PURE;
+    STDMETHOD(GetClipStatus)(THIS_ D3DCLIPSTATUS8* pClipStatus) PURE;
+    STDMETHOD(GetTexture)(THIS_ DWORD Stage,IDirect3DBaseTexture8** ppTexture) PURE;
+    STDMETHOD(SetTexture)(THIS_ DWORD Stage,IDirect3DBaseTexture8* pTexture) PURE;
     STDMETHOD(GetTextureStageState)(THIS_ DWORD Stage,D3DTEXTURESTAGESTATETYPE Type,DWORD* pValue) PURE;
     STDMETHOD(SetTextureStageState)(THIS_ DWORD Stage,D3DTEXTURESTAGESTATETYPE Type,DWORD Value) PURE;
-    STDMETHOD(GetSamplerState)(THIS_ DWORD Sampler,D3DSAMPLERSTATETYPE Type,DWORD* pValue) PURE;
-    STDMETHOD(SetSamplerState)(THIS_ DWORD Sampler,D3DSAMPLERSTATETYPE Type,DWORD Value) PURE;
     STDMETHOD(ValidateDevice)(THIS_ DWORD* pNumPasses) PURE;
+    STDMETHOD(GetInfo)(THIS_ DWORD DevInfoID,void* pDevInfoStruct,DWORD DevInfoStructSize) PURE;
     STDMETHOD(SetPaletteEntries)(THIS_ UINT PaletteNumber,CONST PALETTEENTRY* pEntries) PURE;
     STDMETHOD(GetPaletteEntries)(THIS_ UINT PaletteNumber,PALETTEENTRY* pEntries) PURE;
     STDMETHOD(SetCurrentTexturePalette)(THIS_ UINT PaletteNumber) PURE;
     STDMETHOD(GetCurrentTexturePalette)(THIS_ UINT *PaletteNumber) PURE;
-    STDMETHOD(SetScissorRect)(THIS_ CONST RECT* pRect) PURE;
-    STDMETHOD(GetScissorRect)(THIS_ RECT* pRect) PURE;
-    STDMETHOD(SetSoftwareVertexProcessing)(THIS_ BOOL bSoftware) PURE;
-    STDMETHOD_(BOOL, GetSoftwareVertexProcessing)(THIS) PURE;
-    STDMETHOD(SetNPatchMode)(THIS_ float nSegments) PURE;
-    STDMETHOD_(float, GetNPatchMode)(THIS) PURE;
     STDMETHOD(DrawPrimitive)(THIS_ D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount) PURE;
-    STDMETHOD(DrawIndexedPrimitive)(THIS_ D3DPRIMITIVETYPE,INT BaseVertexIndex,UINT MinVertexIndex,UINT NumVertices,UINT startIndex,UINT primCount) PURE;
+    STDMETHOD(DrawIndexedPrimitive)(THIS_ D3DPRIMITIVETYPE,UINT minIndex,UINT NumVertices,UINT startIndex,UINT primCount) PURE;
     STDMETHOD(DrawPrimitiveUP)(THIS_ D3DPRIMITIVETYPE PrimitiveType,UINT PrimitiveCount,CONST void* pVertexStreamZeroData,UINT VertexStreamZeroStride) PURE;
-    STDMETHOD(DrawIndexedPrimitiveUP)(THIS_ D3DPRIMITIVETYPE PrimitiveType,UINT MinVertexIndex,UINT NumVertices,UINT PrimitiveCount,CONST void* pIndexData,D3DFORMAT IndexDataFormat,CONST void* pVertexStreamZeroData,UINT VertexStreamZeroStride) PURE;
-    STDMETHOD(ProcessVertices)(THIS_ UINT SrcStartIndex,UINT DestIndex,UINT VertexCount,IDirect3DVertexBuffer9* pDestBuffer,IDirect3DVertexDeclaration9* pVertexDecl,DWORD Flags) PURE;
-    STDMETHOD(CreateVertexDeclaration)(THIS_ CONST D3DVERTEXELEMENT9* pVertexElements,IDirect3DVertexDeclaration9** ppDecl) PURE;
-    STDMETHOD(SetVertexDeclaration)(THIS_ IDirect3DVertexDeclaration9* pDecl) PURE;
-    STDMETHOD(GetVertexDeclaration)(THIS_ IDirect3DVertexDeclaration9** ppDecl) PURE;
-    STDMETHOD(SetFVF)(THIS_ DWORD FVF) PURE;
-    STDMETHOD(GetFVF)(THIS_ DWORD* pFVF) PURE;
-    STDMETHOD(CreateVertexShader)(THIS_ CONST DWORD* pFunction,IDirect3DVertexShader9** ppShader) PURE;
-    STDMETHOD(SetVertexShader)(THIS_ IDirect3DVertexShader9* pShader) PURE;
-    STDMETHOD(GetVertexShader)(THIS_ IDirect3DVertexShader9** ppShader) PURE;
-    STDMETHOD(SetVertexShaderConstantF)(THIS_ UINT StartRegister,CONST float* pConstantData,UINT Vector4fCount) PURE;
-    STDMETHOD(GetVertexShaderConstantF)(THIS_ UINT StartRegister,float* pConstantData,UINT Vector4fCount) PURE;
-    STDMETHOD(SetVertexShaderConstantI)(THIS_ UINT StartRegister,CONST int* pConstantData,UINT Vector4iCount) PURE;
-    STDMETHOD(GetVertexShaderConstantI)(THIS_ UINT StartRegister,int* pConstantData,UINT Vector4iCount) PURE;
-    STDMETHOD(SetVertexShaderConstantB)(THIS_ UINT StartRegister,CONST BOOL* pConstantData,UINT  BoolCount) PURE;
-    STDMETHOD(GetVertexShaderConstantB)(THIS_ UINT StartRegister,BOOL* pConstantData,UINT BoolCount) PURE;
-    STDMETHOD(SetStreamSource)(THIS_ UINT StreamNumber,IDirect3DVertexBuffer9* pStreamData,UINT OffsetInBytes,UINT Stride) PURE;
-    STDMETHOD(GetStreamSource)(THIS_ UINT StreamNumber,IDirect3DVertexBuffer9** ppStreamData,UINT* pOffsetInBytes,UINT* pStride) PURE;
-    STDMETHOD(SetStreamSourceFreq)(THIS_ UINT StreamNumber,UINT Setting) PURE;
-    STDMETHOD(GetStreamSourceFreq)(THIS_ UINT StreamNumber,UINT* pSetting) PURE;
-    STDMETHOD(SetIndices)(THIS_ IDirect3DIndexBuffer9* pIndexData) PURE;
-    STDMETHOD(GetIndices)(THIS_ IDirect3DIndexBuffer9** ppIndexData) PURE;
-    STDMETHOD(CreatePixelShader)(THIS_ CONST DWORD* pFunction,IDirect3DPixelShader9** ppShader) PURE;
-    STDMETHOD(SetPixelShader)(THIS_ IDirect3DPixelShader9* pShader) PURE;
-    STDMETHOD(GetPixelShader)(THIS_ IDirect3DPixelShader9** ppShader) PURE;
-    STDMETHOD(SetPixelShaderConstantF)(THIS_ UINT StartRegister,CONST float* pConstantData,UINT Vector4fCount) PURE;
-    STDMETHOD(GetPixelShaderConstantF)(THIS_ UINT StartRegister,float* pConstantData,UINT Vector4fCount) PURE;
-    STDMETHOD(SetPixelShaderConstantI)(THIS_ UINT StartRegister,CONST int* pConstantData,UINT Vector4iCount) PURE;
-    STDMETHOD(GetPixelShaderConstantI)(THIS_ UINT StartRegister,int* pConstantData,UINT Vector4iCount) PURE;
-    STDMETHOD(SetPixelShaderConstantB)(THIS_ UINT StartRegister,CONST BOOL* pConstantData,UINT  BoolCount) PURE;
-    STDMETHOD(GetPixelShaderConstantB)(THIS_ UINT StartRegister,BOOL* pConstantData,UINT BoolCount) PURE;
+    STDMETHOD(DrawIndexedPrimitiveUP)(THIS_ D3DPRIMITIVETYPE PrimitiveType,UINT MinVertexIndex,UINT NumVertexIndices,UINT PrimitiveCount,CONST void* pIndexData,D3DFORMAT IndexDataFormat,CONST void* pVertexStreamZeroData,UINT VertexStreamZeroStride) PURE;
+    STDMETHOD(ProcessVertices)(THIS_ UINT SrcStartIndex,UINT DestIndex,UINT VertexCount,IDirect3DVertexBuffer8* pDestBuffer,DWORD Flags) PURE;
+    STDMETHOD(CreateVertexShader)(THIS_ CONST DWORD* pDeclaration,CONST DWORD* pFunction,DWORD* pHandle,DWORD Usage) PURE;
+    STDMETHOD(SetVertexShader)(THIS_ DWORD Handle) PURE;
+    STDMETHOD(GetVertexShader)(THIS_ DWORD* pHandle) PURE;
+    STDMETHOD(DeleteVertexShader)(THIS_ DWORD Handle) PURE;
+    STDMETHOD(SetVertexShaderConstant)(THIS_ DWORD Register,CONST void* pConstantData,DWORD ConstantCount) PURE;
+    STDMETHOD(GetVertexShaderConstant)(THIS_ DWORD Register,void* pConstantData,DWORD ConstantCount) PURE;
+    STDMETHOD(GetVertexShaderDeclaration)(THIS_ DWORD Handle,void* pData,DWORD* pSizeOfData) PURE;
+    STDMETHOD(GetVertexShaderFunction)(THIS_ DWORD Handle,void* pData,DWORD* pSizeOfData) PURE;
+    STDMETHOD(SetStreamSource)(THIS_ UINT StreamNumber,IDirect3DVertexBuffer8* pStreamData,UINT Stride) PURE;
+    STDMETHOD(GetStreamSource)(THIS_ UINT StreamNumber,IDirect3DVertexBuffer8** ppStreamData,UINT* pStride) PURE;
+    STDMETHOD(SetIndices)(THIS_ IDirect3DIndexBuffer8* pIndexData,UINT BaseVertexIndex) PURE;
+    STDMETHOD(GetIndices)(THIS_ IDirect3DIndexBuffer8** ppIndexData,UINT* pBaseVertexIndex) PURE;
+    STDMETHOD(CreatePixelShader)(THIS_ CONST DWORD* pFunction,DWORD* pHandle) PURE;
+    STDMETHOD(SetPixelShader)(THIS_ DWORD Handle) PURE;
+    STDMETHOD(GetPixelShader)(THIS_ DWORD* pHandle) PURE;
+    STDMETHOD(DeletePixelShader)(THIS_ DWORD Handle) PURE;
+    STDMETHOD(SetPixelShaderConstant)(THIS_ DWORD Register,CONST void* pConstantData,DWORD ConstantCount) PURE;
+    STDMETHOD(GetPixelShaderConstant)(THIS_ DWORD Register,void* pConstantData,DWORD ConstantCount) PURE;
+    STDMETHOD(GetPixelShaderFunction)(THIS_ DWORD Handle,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(DrawRectPatch)(THIS_ UINT Handle,CONST float* pNumSegs,CONST D3DRECTPATCH_INFO* pRectPatchInfo) PURE;
     STDMETHOD(DrawTriPatch)(THIS_ UINT Handle,CONST float* pNumSegs,CONST D3DTRIPATCH_INFO* pTriPatchInfo) PURE;
     STDMETHOD(DeletePatch)(THIS_ UINT Handle) PURE;
-    STDMETHOD(CreateQuery)(THIS_ D3DQUERYTYPE Type,IDirect3DQuery9** ppQuery) PURE;
-        D3DDEVICE_CREATION_PARAMETERS CreationParameters;
-    D3DPRESENT_PARAMETERS PresentParameters;
-    D3DDISPLAYMODE DisplayMode;
-    D3DCAPS9 Caps;
-        UINT AvailableTextureMem;
-    UINT SwapChains;
-    UINT Textures;
-    UINT VertexBuffers;
-    UINT IndexBuffers;
-    UINT VertexShaders;
-    UINT PixelShaders;
-        D3DVIEWPORT9 Viewport;
-    D3DMATRIX ProjectionMatrix;
-    D3DMATRIX ViewMatrix;
-    D3DMATRIX WorldMatrix;
-    D3DMATRIX TextureMatrices[8];
-        DWORD FVF;
-    UINT VertexSize;
-    DWORD VertexShaderVersion;
-    DWORD PixelShaderVersion;
-    BOOL SoftwareVertexProcessing;
-        D3DMATERIAL9 Material;
-    D3DLIGHT9 Lights[16];
-    BOOL LightsEnabled[16];
-        D3DGAMMARAMP GammaRamp;
-    RECT ScissorRect;
-    BOOL DialogBoxMode;
 "
 )
-d3D9.IDirect3DStateBlock9 := {}
-d3D9.IDirect3DStateBlock9.name := "IDirect3DStateBlock9"
-d3D9.IDirect3DStateBlock9.def :=
+d3D8.IDirect3DSwapChain8 := {}
+d3D8.IDirect3DSwapChain8.name := "IDirect3DSwapChain8"
+d3D8.IDirect3DSwapChain8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
-    STDMETHOD(Capture)(THIS) PURE;
-    STDMETHOD(Apply)(THIS) PURE;
-        LPCWSTR CreationCallStack;
+    STDMETHOD(Present)(THIS_ CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion) PURE;
+    STDMETHOD(GetBackBuffer)(THIS_ UINT BackBuffer,D3DBACKBUFFER_TYPE Type,IDirect3DSurface8** ppBackBuffer) PURE;
 "
 )
-d3D9.IDirect3DSwapChain9 := {}
-d3D9.IDirect3DSwapChain9.name := "IDirect3DSwapChain9"
-d3D9.IDirect3DSwapChain9.def :=
+d3D8.IDirect3DResource8 := {}
+d3D8.IDirect3DResource8.name := "IDirect3DResource8"
+d3D8.IDirect3DResource8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(Present)(THIS_ CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion,DWORD dwFlags) PURE;
-    STDMETHOD(GetFrontBufferData)(THIS_ IDirect3DSurface9* pDestSurface) PURE;
-    STDMETHOD(GetBackBuffer)(THIS_ UINT iBackBuffer,D3DBACKBUFFER_TYPE Type,IDirect3DSurface9** ppBackBuffer) PURE;
-    STDMETHOD(GetRasterStatus)(THIS_ D3DRASTER_STATUS* pRasterStatus) PURE;
-    STDMETHOD(GetDisplayMode)(THIS_ D3DDISPLAYMODE* pMode) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
-    STDMETHOD(GetPresentParameters)(THIS_ D3DPRESENT_PARAMETERS* pPresentationParameters) PURE;
-        D3DPRESENT_PARAMETERS PresentParameters;
-    D3DDISPLAYMODE DisplayMode;
-    LPCWSTR CreationCallStack;
-"
-)
-d3D9.IDirect3DResource9 := {}
-d3D9.IDirect3DResource9.name := "IDirect3DResource9"
-d3D9.IDirect3DResource9.def :=
-( 
-"
-    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
-    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
-    STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice8** ppDevice) PURE;
     STDMETHOD(SetPrivateData)(THIS_ REFGUID refguid,CONST void* pData,DWORD SizeOfData,DWORD Flags) PURE;
     STDMETHOD(GetPrivateData)(THIS_ REFGUID refguid,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(FreePrivateData)(THIS_ REFGUID refguid) PURE;
@@ -2372,56 +2358,15 @@ d3D9.IDirect3DResource9.def :=
     STDMETHOD_(D3DRESOURCETYPE, GetType)(THIS) PURE;
 "
 )
-d3D9.IDirect3DVertexDeclaration9 := {}
-d3D9.IDirect3DVertexDeclaration9.name := "IDirect3DVertexDeclaration9"
-d3D9.IDirect3DVertexDeclaration9.def :=
+d3D8.IDirect3DBaseTexture8 := {}
+d3D8.IDirect3DBaseTexture8.name := "IDirect3DBaseTexture8"
+d3D8.IDirect3DBaseTexture8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
-    STDMETHOD(GetDeclaration)(THIS_ D3DVERTEXELEMENT9* pElement,UINT* pNumElements) PURE;
-        LPCWSTR CreationCallStack;
-"
-)
-d3D9.IDirect3DVertexShader9 := {}
-d3D9.IDirect3DVertexShader9.name := "IDirect3DVertexShader9"
-d3D9.IDirect3DVertexShader9.def :=
-( 
-"
-    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
-    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
-    STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
-    STDMETHOD(GetFunction)(THIS_ void*,UINT* pSizeOfData) PURE;
-        DWORD Version;
-    LPCWSTR CreationCallStack;
-"
-)
-d3D9.IDirect3DPixelShader9 := {}
-d3D9.IDirect3DPixelShader9.name := "IDirect3DPixelShader9"
-d3D9.IDirect3DPixelShader9.def :=
-( 
-"
-    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
-    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
-    STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
-    STDMETHOD(GetFunction)(THIS_ void*,UINT* pSizeOfData) PURE;
-        DWORD Version;
-    LPCWSTR CreationCallStack;
-"
-)
-d3D9.IDirect3DBaseTexture9 := {}
-d3D9.IDirect3DBaseTexture9.name := "IDirect3DBaseTexture9"
-d3D9.IDirect3DBaseTexture9.def :=
-( 
-"
-    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
-    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
-    STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice8** ppDevice) PURE;
     STDMETHOD(SetPrivateData)(THIS_ REFGUID refguid,CONST void* pData,DWORD SizeOfData,DWORD Flags) PURE;
     STDMETHOD(GetPrivateData)(THIS_ REFGUID refguid,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(FreePrivateData)(THIS_ REFGUID refguid) PURE;
@@ -2432,20 +2377,17 @@ d3D9.IDirect3DBaseTexture9.def :=
     STDMETHOD_(DWORD, SetLOD)(THIS_ DWORD LODNew) PURE;
     STDMETHOD_(DWORD, GetLOD)(THIS) PURE;
     STDMETHOD_(DWORD, GetLevelCount)(THIS) PURE;
-    STDMETHOD(SetAutoGenFilterType)(THIS_ D3DTEXTUREFILTERTYPE FilterType) PURE;
-    STDMETHOD_(D3DTEXTUREFILTERTYPE, GetAutoGenFilterType)(THIS) PURE;
-    STDMETHOD_(void, GenerateMipSubLevels)(THIS) PURE;
 "
 )
-d3D9.IDirect3DTexture9 := {}
-d3D9.IDirect3DTexture9.name := "IDirect3DTexture9"
-d3D9.IDirect3DTexture9.def :=
+d3D8.IDirect3DTexture8 := {}
+d3D8.IDirect3DTexture8.name := "IDirect3DTexture8"
+d3D8.IDirect3DTexture8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice8** ppDevice) PURE;
     STDMETHOD(SetPrivateData)(THIS_ REFGUID refguid,CONST void* pData,DWORD SizeOfData,DWORD Flags) PURE;
     STDMETHOD(GetPrivateData)(THIS_ REFGUID refguid,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(FreePrivateData)(THIS_ REFGUID refguid) PURE;
@@ -2456,37 +2398,22 @@ d3D9.IDirect3DTexture9.def :=
     STDMETHOD_(DWORD, SetLOD)(THIS_ DWORD LODNew) PURE;
     STDMETHOD_(DWORD, GetLOD)(THIS) PURE;
     STDMETHOD_(DWORD, GetLevelCount)(THIS) PURE;
-    STDMETHOD(SetAutoGenFilterType)(THIS_ D3DTEXTUREFILTERTYPE FilterType) PURE;
-    STDMETHOD_(D3DTEXTUREFILTERTYPE, GetAutoGenFilterType)(THIS) PURE;
-    STDMETHOD_(void, GenerateMipSubLevels)(THIS) PURE;
     STDMETHOD(GetLevelDesc)(THIS_ UINT Level,D3DSURFACE_DESC *pDesc) PURE;
-    STDMETHOD(GetSurfaceLevel)(THIS_ UINT Level,IDirect3DSurface9** ppSurfaceLevel) PURE;
+    STDMETHOD(GetSurfaceLevel)(THIS_ UINT Level,IDirect3DSurface8** ppSurfaceLevel) PURE;
     STDMETHOD(LockRect)(THIS_ UINT Level,D3DLOCKED_RECT* pLockedRect,CONST RECT* pRect,DWORD Flags) PURE;
     STDMETHOD(UnlockRect)(THIS_ UINT Level) PURE;
     STDMETHOD(AddDirtyRect)(THIS_ CONST RECT* pDirtyRect) PURE;
-        LPCWSTR Name;
-    UINT Width;
-    UINT Height;
-    UINT Levels;
-    DWORD Usage;
-    D3DFORMAT Format;
-    D3DPOOL Pool;
-    DWORD Priority;
-    DWORD LOD;
-    D3DTEXTUREFILTERTYPE FilterType;
-    UINT LockCount;
-    LPCWSTR CreationCallStack;
 "
 )
-d3D9.IDirect3DVolumeTexture9 := {}
-d3D9.IDirect3DVolumeTexture9.name := "IDirect3DVolumeTexture9"
-d3D9.IDirect3DVolumeTexture9.def :=
+d3D8.IDirect3DVolumeTexture8 := {}
+d3D8.IDirect3DVolumeTexture8.name := "IDirect3DVolumeTexture8"
+d3D8.IDirect3DVolumeTexture8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice8** ppDevice) PURE;
     STDMETHOD(SetPrivateData)(THIS_ REFGUID refguid,CONST void* pData,DWORD SizeOfData,DWORD Flags) PURE;
     STDMETHOD(GetPrivateData)(THIS_ REFGUID refguid,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(FreePrivateData)(THIS_ REFGUID refguid) PURE;
@@ -2497,38 +2424,22 @@ d3D9.IDirect3DVolumeTexture9.def :=
     STDMETHOD_(DWORD, SetLOD)(THIS_ DWORD LODNew) PURE;
     STDMETHOD_(DWORD, GetLOD)(THIS) PURE;
     STDMETHOD_(DWORD, GetLevelCount)(THIS) PURE;
-    STDMETHOD(SetAutoGenFilterType)(THIS_ D3DTEXTUREFILTERTYPE FilterType) PURE;
-    STDMETHOD_(D3DTEXTUREFILTERTYPE, GetAutoGenFilterType)(THIS) PURE;
-    STDMETHOD_(void, GenerateMipSubLevels)(THIS) PURE;
     STDMETHOD(GetLevelDesc)(THIS_ UINT Level,D3DVOLUME_DESC *pDesc) PURE;
-    STDMETHOD(GetVolumeLevel)(THIS_ UINT Level,IDirect3DVolume9** ppVolumeLevel) PURE;
+    STDMETHOD(GetVolumeLevel)(THIS_ UINT Level,IDirect3DVolume8** ppVolumeLevel) PURE;
     STDMETHOD(LockBox)(THIS_ UINT Level,D3DLOCKED_BOX* pLockedVolume,CONST D3DBOX* pBox,DWORD Flags) PURE;
     STDMETHOD(UnlockBox)(THIS_ UINT Level) PURE;
     STDMETHOD(AddDirtyBox)(THIS_ CONST D3DBOX* pDirtyBox) PURE;
-        LPCWSTR Name;
-    UINT Width;
-    UINT Height;
-    UINT Depth;
-    UINT Levels;
-    DWORD Usage;
-    D3DFORMAT Format;
-    D3DPOOL Pool;
-    DWORD Priority;
-    DWORD LOD;
-    D3DTEXTUREFILTERTYPE FilterType;
-    UINT LockCount;
-    LPCWSTR CreationCallStack;
 "
 )
-d3D9.IDirect3DCubeTexture9 := {}
-d3D9.IDirect3DCubeTexture9.name := "IDirect3DCubeTexture9"
-d3D9.IDirect3DCubeTexture9.def :=
+d3D8.IDirect3DCubeTexture8 := {}
+d3D8.IDirect3DCubeTexture8.name := "IDirect3DCubeTexture8"
+d3D8.IDirect3DCubeTexture8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice8** ppDevice) PURE;
     STDMETHOD(SetPrivateData)(THIS_ REFGUID refguid,CONST void* pData,DWORD SizeOfData,DWORD Flags) PURE;
     STDMETHOD(GetPrivateData)(THIS_ REFGUID refguid,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(FreePrivateData)(THIS_ REFGUID refguid) PURE;
@@ -2539,37 +2450,22 @@ d3D9.IDirect3DCubeTexture9.def :=
     STDMETHOD_(DWORD, SetLOD)(THIS_ DWORD LODNew) PURE;
     STDMETHOD_(DWORD, GetLOD)(THIS) PURE;
     STDMETHOD_(DWORD, GetLevelCount)(THIS) PURE;
-    STDMETHOD(SetAutoGenFilterType)(THIS_ D3DTEXTUREFILTERTYPE FilterType) PURE;
-    STDMETHOD_(D3DTEXTUREFILTERTYPE, GetAutoGenFilterType)(THIS) PURE;
-    STDMETHOD_(void, GenerateMipSubLevels)(THIS) PURE;
     STDMETHOD(GetLevelDesc)(THIS_ UINT Level,D3DSURFACE_DESC *pDesc) PURE;
-    STDMETHOD(GetCubeMapSurface)(THIS_ D3DCUBEMAP_FACES FaceType,UINT Level,IDirect3DSurface9** ppCubeMapSurface) PURE;
+    STDMETHOD(GetCubeMapSurface)(THIS_ D3DCUBEMAP_FACES FaceType,UINT Level,IDirect3DSurface8** ppCubeMapSurface) PURE;
     STDMETHOD(LockRect)(THIS_ D3DCUBEMAP_FACES FaceType,UINT Level,D3DLOCKED_RECT* pLockedRect,CONST RECT* pRect,DWORD Flags) PURE;
     STDMETHOD(UnlockRect)(THIS_ D3DCUBEMAP_FACES FaceType,UINT Level) PURE;
     STDMETHOD(AddDirtyRect)(THIS_ D3DCUBEMAP_FACES FaceType,CONST RECT* pDirtyRect) PURE;
-        LPCWSTR Name;
-    UINT Width;
-    UINT Height;
-    UINT Levels;
-    DWORD Usage;
-    D3DFORMAT Format;
-    D3DPOOL Pool;
-    DWORD Priority;
-    DWORD LOD;
-    D3DTEXTUREFILTERTYPE FilterType;
-    UINT LockCount;
-    LPCWSTR CreationCallStack;
 "
 )
-d3D9.IDirect3DVertexBuffer9 := {}
-d3D9.IDirect3DVertexBuffer9.name := "IDirect3DVertexBuffer9"
-d3D9.IDirect3DVertexBuffer9.def :=
+d3D8.IDirect3DVertexBuffer8 := {}
+d3D8.IDirect3DVertexBuffer8.name := "IDirect3DVertexBuffer8"
+d3D8.IDirect3DVertexBuffer8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice8** ppDevice) PURE;
     STDMETHOD(SetPrivateData)(THIS_ REFGUID refguid,CONST void* pData,DWORD SizeOfData,DWORD Flags) PURE;
     STDMETHOD(GetPrivateData)(THIS_ REFGUID refguid,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(FreePrivateData)(THIS_ REFGUID refguid) PURE;
@@ -2577,28 +2473,20 @@ d3D9.IDirect3DVertexBuffer9.def :=
     STDMETHOD_(DWORD, GetPriority)(THIS) PURE;
     STDMETHOD_(void, PreLoad)(THIS) PURE;
     STDMETHOD_(D3DRESOURCETYPE, GetType)(THIS) PURE;
-    STDMETHOD(Lock)(THIS_ UINT OffsetToLock,UINT SizeToLock,void** ppbData,DWORD Flags) PURE;
+    STDMETHOD(Lock)(THIS_ UINT OffsetToLock,UINT SizeToLock,BYTE** ppbData,DWORD Flags) PURE;
     STDMETHOD(Unlock)(THIS) PURE;
     STDMETHOD(GetDesc)(THIS_ D3DVERTEXBUFFER_DESC *pDesc) PURE;
-        LPCWSTR Name;
-    UINT Length;
-    DWORD Usage;
-    DWORD FVF;
-    D3DPOOL Pool;
-    DWORD Priority;
-    UINT LockCount;
-    LPCWSTR CreationCallStack;
 "
 )
-d3D9.IDirect3DIndexBuffer9 := {}
-d3D9.IDirect3DIndexBuffer9.name := "IDirect3DIndexBuffer9"
-d3D9.IDirect3DIndexBuffer9.def :=
+d3D8.IDirect3DIndexBuffer8 := {}
+d3D8.IDirect3DIndexBuffer8.name := "IDirect3DIndexBuffer8"
+d3D8.IDirect3DIndexBuffer8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice8** ppDevice) PURE;
     STDMETHOD(SetPrivateData)(THIS_ REFGUID refguid,CONST void* pData,DWORD SizeOfData,DWORD Flags) PURE;
     STDMETHOD(GetPrivateData)(THIS_ REFGUID refguid,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(FreePrivateData)(THIS_ REFGUID refguid) PURE;
@@ -2606,64 +2494,38 @@ d3D9.IDirect3DIndexBuffer9.def :=
     STDMETHOD_(DWORD, GetPriority)(THIS) PURE;
     STDMETHOD_(void, PreLoad)(THIS) PURE;
     STDMETHOD_(D3DRESOURCETYPE, GetType)(THIS) PURE;
-    STDMETHOD(Lock)(THIS_ UINT OffsetToLock,UINT SizeToLock,void** ppbData,DWORD Flags) PURE;
+    STDMETHOD(Lock)(THIS_ UINT OffsetToLock,UINT SizeToLock,BYTE** ppbData,DWORD Flags) PURE;
     STDMETHOD(Unlock)(THIS) PURE;
     STDMETHOD(GetDesc)(THIS_ D3DINDEXBUFFER_DESC *pDesc) PURE;
-        LPCWSTR Name;
-    UINT Length;
-    DWORD Usage;
-    D3DFORMAT Format;
-    D3DPOOL Pool;
-    DWORD Priority;
-    UINT LockCount;
-    LPCWSTR CreationCallStack;
 "
 )
-d3D9.IDirect3DSurface9 := {}
-d3D9.IDirect3DSurface9.name := "IDirect3DSurface9"
-d3D9.IDirect3DSurface9.def :=
+d3D8.IDirect3DSurface8 := {}
+d3D8.IDirect3DSurface8.name := "IDirect3DSurface8"
+d3D8.IDirect3DSurface8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice8** ppDevice) PURE;
     STDMETHOD(SetPrivateData)(THIS_ REFGUID refguid,CONST void* pData,DWORD SizeOfData,DWORD Flags) PURE;
     STDMETHOD(GetPrivateData)(THIS_ REFGUID refguid,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(FreePrivateData)(THIS_ REFGUID refguid) PURE;
-    STDMETHOD_(DWORD, SetPriority)(THIS_ DWORD PriorityNew) PURE;
-    STDMETHOD_(DWORD, GetPriority)(THIS) PURE;
-    STDMETHOD_(void, PreLoad)(THIS) PURE;
-    STDMETHOD_(D3DRESOURCETYPE, GetType)(THIS) PURE;
     STDMETHOD(GetContainer)(THIS_ REFIID riid,void** ppContainer) PURE;
     STDMETHOD(GetDesc)(THIS_ D3DSURFACE_DESC *pDesc) PURE;
     STDMETHOD(LockRect)(THIS_ D3DLOCKED_RECT* pLockedRect,CONST RECT* pRect,DWORD Flags) PURE;
     STDMETHOD(UnlockRect)(THIS) PURE;
-    STDMETHOD(GetDC)(THIS_ HDC *phdc) PURE;
-    STDMETHOD(ReleaseDC)(THIS_ HDC hdc) PURE;
-        LPCWSTR Name;
-    UINT Width;
-    UINT Height;
-    DWORD Usage;
-    D3DFORMAT Format;
-    D3DPOOL Pool;
-    D3DMULTISAMPLE_TYPE MultiSampleType;
-    DWORD MultiSampleQuality;
-    DWORD Priority;
-    UINT LockCount;
-    UINT DCCount;
-    LPCWSTR CreationCallStack;
 "
 )
-d3D9.IDirect3DVolume9 := {}
-d3D9.IDirect3DVolume9.name := "IDirect3DVolume9"
-d3D9.IDirect3DVolume9.def :=
+d3D8.IDirect3DVolume8 := {}
+d3D8.IDirect3DVolume8.name := "IDirect3DVolume8"
+d3D8.IDirect3DVolume8.def :=
 ( 
 "
     STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
     STDMETHOD_(ULONG,AddRef)(THIS) PURE;
     STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
+    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice8** ppDevice) PURE;
     STDMETHOD(SetPrivateData)(THIS_ REFGUID refguid,CONST void* pData,DWORD SizeOfData,DWORD Flags) PURE;
     STDMETHOD(GetPrivateData)(THIS_ REFGUID refguid,void* pData,DWORD* pSizeOfData) PURE;
     STDMETHOD(FreePrivateData)(THIS_ REFGUID refguid) PURE;
@@ -2671,292 +2533,52 @@ d3D9.IDirect3DVolume9.def :=
     STDMETHOD(GetDesc)(THIS_ D3DVOLUME_DESC *pDesc) PURE;
     STDMETHOD(LockBox)(THIS_ D3DLOCKED_BOX * pLockedVolume,CONST D3DBOX* pBox,DWORD Flags) PURE;
     STDMETHOD(UnlockBox)(THIS) PURE;
-        LPCWSTR Name;
-    UINT Width;
-    UINT Height;
-    UINT Depth;
-    DWORD Usage;
-    D3DFORMAT Format;
-    D3DPOOL Pool;
-    UINT LockCount;
-    LPCWSTR CreationCallStack;
-"
-)
-d3D9.IDirect3DQuery9 := {}
-d3D9.IDirect3DQuery9.name := "IDirect3DQuery9"
-d3D9.IDirect3DQuery9.def :=
-( 
-"
-    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
-    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
-    STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
-    STDMETHOD_(D3DQUERYTYPE, GetType)(THIS) PURE;
-    STDMETHOD_(DWORD, GetDataSize)(THIS) PURE;
-    STDMETHOD(Issue)(THIS_ DWORD dwIssueFlags) PURE;
-    STDMETHOD(GetData)(THIS_ void* pData,DWORD dwSize,DWORD dwGetDataFlags) PURE;
-        D3DQUERYTYPE Type;
-    DWORD DataSize;
-    LPCWSTR CreationCallStack;
-"
-)
-d3D9.IDirect3D9Ex := {}
-d3D9.IDirect3D9Ex.name := "IDirect3D9Ex"
-d3D9.IDirect3D9Ex.def :=
-( 
-"
-    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
-    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
-    STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD_(UINT, GetAdapterCount)(THIS) PURE;
-    STDMETHOD(GetAdapterIdentifier)(THIS_ UINT Adapter,DWORD Flags,D3DADAPTER_IDENTIFIER9* pIdentifier) PURE;
-    STDMETHOD_(UINT, GetAdapterModeCount)(THIS_ UINT Adapter,D3DFORMAT Format) PURE;
-    STDMETHOD(EnumAdapterModes)(THIS_ UINT Adapter,D3DFORMAT Format,UINT Mode,D3DDISPLAYMODE* pMode) PURE;
-    STDMETHOD(GetAdapterDisplayMode)(THIS_ UINT Adapter,D3DDISPLAYMODE* pMode) PURE;
-    STDMETHOD(CheckDeviceType)(THIS_ UINT Adapter,D3DDEVTYPE DevType,D3DFORMAT AdapterFormat,D3DFORMAT BackBufferFormat,BOOL bWindowed) PURE;
-    STDMETHOD(CheckDeviceFormat)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT AdapterFormat,DWORD Usage,D3DRESOURCETYPE RType,D3DFORMAT CheckFormat) PURE;
-    STDMETHOD(CheckDeviceMultiSampleType)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT SurfaceFormat,BOOL Windowed,D3DMULTISAMPLE_TYPE MultiSampleType,DWORD* pQualityLevels) PURE;
-    STDMETHOD(CheckDepthStencilMatch)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT AdapterFormat,D3DFORMAT RenderTargetFormat,D3DFORMAT DepthStencilFormat) PURE;
-    STDMETHOD(CheckDeviceFormatConversion)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT SourceFormat,D3DFORMAT TargetFormat) PURE;
-    STDMETHOD(GetDeviceCaps)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DCAPS9* pCaps) PURE;
-    STDMETHOD_(HMONITOR, GetAdapterMonitor)(THIS_ UINT Adapter) PURE;
-    STDMETHOD(CreateDevice)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,HWND hFocusWindow,DWORD BehaviorFlags,D3DPRESENT_PARAMETERS* pPresentationParameters,IDirect3DDevice9** ppReturnedDeviceInterface) PURE;
-    STDMETHOD_(UINT, GetAdapterModeCountEx)(THIS_ UINT Adapter,CONST D3DDISPLAYMODEFILTER* pFilter ) PURE;
-    STDMETHOD(EnumAdapterModesEx)(THIS_ UINT Adapter,CONST D3DDISPLAYMODEFILTER* pFilter,UINT Mode,D3DDISPLAYMODEEX* pMode) PURE;
-    STDMETHOD(GetAdapterDisplayModeEx)(THIS_ UINT Adapter,D3DDISPLAYMODEEX* pMode,D3DDISPLAYROTATION* pRotation) PURE;
-    STDMETHOD(CreateDeviceEx)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,HWND hFocusWindow,DWORD BehaviorFlags,D3DPRESENT_PARAMETERS* pPresentationParameters,D3DDISPLAYMODEEX* pFullscreenDisplayMode,IDirect3DDevice9Ex** ppReturnedDeviceInterface) PURE;
-    STDMETHOD(GetAdapterLUID)(THIS_ UINT Adapter,LUID * pLUID) PURE;
-"
-)
-d3D9.IDirect3DDevice9Ex := {}
-d3D9.IDirect3DDevice9Ex.name := "IDirect3DDevice9Ex"
-d3D9.IDirect3DDevice9Ex.def :=
-( 
-"
-    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
-    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
-    STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(TestCooperativeLevel)(THIS) PURE;
-    STDMETHOD_(UINT, GetAvailableTextureMem)(THIS) PURE;
-    STDMETHOD(EvictManagedResources)(THIS) PURE;
-    STDMETHOD(GetDirect3D)(THIS_ IDirect3D9** ppD3D9) PURE;
-    STDMETHOD(GetDeviceCaps)(THIS_ D3DCAPS9* pCaps) PURE;
-    STDMETHOD(GetDisplayMode)(THIS_ UINT iSwapChain,D3DDISPLAYMODE* pMode) PURE;
-    STDMETHOD(GetCreationParameters)(THIS_ D3DDEVICE_CREATION_PARAMETERS *pParameters) PURE;
-    STDMETHOD(SetCursorProperties)(THIS_ UINT XHotSpot,UINT YHotSpot,IDirect3DSurface9* pCursorBitmap) PURE;
-    STDMETHOD_(void, SetCursorPosition)(THIS_ int X,int Y,DWORD Flags) PURE;
-    STDMETHOD_(BOOL, ShowCursor)(THIS_ BOOL bShow) PURE;
-    STDMETHOD(CreateAdditionalSwapChain)(THIS_ D3DPRESENT_PARAMETERS* pPresentationParameters,IDirect3DSwapChain9** pSwapChain) PURE;
-    STDMETHOD(GetSwapChain)(THIS_ UINT iSwapChain,IDirect3DSwapChain9** pSwapChain) PURE;
-    STDMETHOD_(UINT, GetNumberOfSwapChains)(THIS) PURE;
-    STDMETHOD(Reset)(THIS_ D3DPRESENT_PARAMETERS* pPresentationParameters) PURE;
-    STDMETHOD(Present)(THIS_ CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion) PURE;
-    STDMETHOD(GetBackBuffer)(THIS_ UINT iSwapChain,UINT iBackBuffer,D3DBACKBUFFER_TYPE Type,IDirect3DSurface9** ppBackBuffer) PURE;
-    STDMETHOD(GetRasterStatus)(THIS_ UINT iSwapChain,D3DRASTER_STATUS* pRasterStatus) PURE;
-    STDMETHOD(SetDialogBoxMode)(THIS_ BOOL bEnableDialogs) PURE;
-    STDMETHOD_(void, SetGammaRamp)(THIS_ UINT iSwapChain,DWORD Flags,CONST D3DGAMMARAMP* pRamp) PURE;
-    STDMETHOD_(void, GetGammaRamp)(THIS_ UINT iSwapChain,D3DGAMMARAMP* pRamp) PURE;
-    STDMETHOD(CreateTexture)(THIS_ UINT Width,UINT Height,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DTexture9** ppTexture,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateVolumeTexture)(THIS_ UINT Width,UINT Height,UINT Depth,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DVolumeTexture9** ppVolumeTexture,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateCubeTexture)(THIS_ UINT EdgeLength,UINT Levels,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DCubeTexture9** ppCubeTexture,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateVertexBuffer)(THIS_ UINT Length,DWORD Usage,DWORD FVF,D3DPOOL Pool,IDirect3DVertexBuffer9** ppVertexBuffer,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateIndexBuffer)(THIS_ UINT Length,DWORD Usage,D3DFORMAT Format,D3DPOOL Pool,IDirect3DIndexBuffer9** ppIndexBuffer,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateRenderTarget)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,DWORD MultisampleQuality,BOOL Lockable,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(CreateDepthStencilSurface)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,DWORD MultisampleQuality,BOOL Discard,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(UpdateSurface)(THIS_ IDirect3DSurface9* pSourceSurface,CONST RECT* pSourceRect,IDirect3DSurface9* pDestinationSurface,CONST POINT* pDestPoint) PURE;
-    STDMETHOD(UpdateTexture)(THIS_ IDirect3DBaseTexture9* pSourceTexture,IDirect3DBaseTexture9* pDestinationTexture) PURE;
-    STDMETHOD(GetRenderTargetData)(THIS_ IDirect3DSurface9* pRenderTarget,IDirect3DSurface9* pDestSurface) PURE;
-    STDMETHOD(GetFrontBufferData)(THIS_ UINT iSwapChain,IDirect3DSurface9* pDestSurface) PURE;
-    STDMETHOD(StretchRect)(THIS_ IDirect3DSurface9* pSourceSurface,CONST RECT* pSourceRect,IDirect3DSurface9* pDestSurface,CONST RECT* pDestRect,D3DTEXTUREFILTERTYPE Filter) PURE;
-    STDMETHOD(ColorFill)(THIS_ IDirect3DSurface9* pSurface,CONST RECT* pRect,D3DCOLOR color) PURE;
-    STDMETHOD(CreateOffscreenPlainSurface)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DPOOL Pool,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle) PURE;
-    STDMETHOD(SetRenderTarget)(THIS_ DWORD RenderTargetIndex,IDirect3DSurface9* pRenderTarget) PURE;
-    STDMETHOD(GetRenderTarget)(THIS_ DWORD RenderTargetIndex,IDirect3DSurface9** ppRenderTarget) PURE;
-    STDMETHOD(SetDepthStencilSurface)(THIS_ IDirect3DSurface9* pNewZStencil) PURE;
-    STDMETHOD(GetDepthStencilSurface)(THIS_ IDirect3DSurface9** ppZStencilSurface) PURE;
-    STDMETHOD(BeginScene)(THIS) PURE;
-    STDMETHOD(EndScene)(THIS) PURE;
-    STDMETHOD(Clear)(THIS_ DWORD Count,CONST D3DRECT* pRects,DWORD Flags,D3DCOLOR Color,float Z,DWORD Stencil) PURE;
-    STDMETHOD(SetTransform)(THIS_ D3DTRANSFORMSTATETYPE State,CONST D3DMATRIX* pMatrix) PURE;
-    STDMETHOD(GetTransform)(THIS_ D3DTRANSFORMSTATETYPE State,D3DMATRIX* pMatrix) PURE;
-    STDMETHOD(MultiplyTransform)(THIS_ D3DTRANSFORMSTATETYPE,CONST D3DMATRIX*) PURE;
-    STDMETHOD(SetViewport)(THIS_ CONST D3DVIEWPORT9* pViewport) PURE;
-    STDMETHOD(GetViewport)(THIS_ D3DVIEWPORT9* pViewport) PURE;
-    STDMETHOD(SetMaterial)(THIS_ CONST D3DMATERIAL9* pMaterial) PURE;
-    STDMETHOD(GetMaterial)(THIS_ D3DMATERIAL9* pMaterial) PURE;
-    STDMETHOD(SetLight)(THIS_ DWORD Index,CONST D3DLIGHT9*) PURE;
-    STDMETHOD(GetLight)(THIS_ DWORD Index,D3DLIGHT9*) PURE;
-    STDMETHOD(LightEnable)(THIS_ DWORD Index,BOOL Enable) PURE;
-    STDMETHOD(GetLightEnable)(THIS_ DWORD Index,BOOL* pEnable) PURE;
-    STDMETHOD(SetClipPlane)(THIS_ DWORD Index,CONST float* pPlane) PURE;
-    STDMETHOD(GetClipPlane)(THIS_ DWORD Index,float* pPlane) PURE;
-    STDMETHOD(SetRenderState)(THIS_ D3DRENDERSTATETYPE State,DWORD Value) PURE;
-    STDMETHOD(GetRenderState)(THIS_ D3DRENDERSTATETYPE State,DWORD* pValue) PURE;
-    STDMETHOD(CreateStateBlock)(THIS_ D3DSTATEBLOCKTYPE Type,IDirect3DStateBlock9** ppSB) PURE;
-    STDMETHOD(BeginStateBlock)(THIS) PURE;
-    STDMETHOD(EndStateBlock)(THIS_ IDirect3DStateBlock9** ppSB) PURE;
-    STDMETHOD(SetClipStatus)(THIS_ CONST D3DCLIPSTATUS9* pClipStatus) PURE;
-    STDMETHOD(GetClipStatus)(THIS_ D3DCLIPSTATUS9* pClipStatus) PURE;
-    STDMETHOD(GetTexture)(THIS_ DWORD Stage,IDirect3DBaseTexture9** ppTexture) PURE;
-    STDMETHOD(SetTexture)(THIS_ DWORD Stage,IDirect3DBaseTexture9* pTexture) PURE;
-    STDMETHOD(GetTextureStageState)(THIS_ DWORD Stage,D3DTEXTURESTAGESTATETYPE Type,DWORD* pValue) PURE;
-    STDMETHOD(SetTextureStageState)(THIS_ DWORD Stage,D3DTEXTURESTAGESTATETYPE Type,DWORD Value) PURE;
-    STDMETHOD(GetSamplerState)(THIS_ DWORD Sampler,D3DSAMPLERSTATETYPE Type,DWORD* pValue) PURE;
-    STDMETHOD(SetSamplerState)(THIS_ DWORD Sampler,D3DSAMPLERSTATETYPE Type,DWORD Value) PURE;
-    STDMETHOD(ValidateDevice)(THIS_ DWORD* pNumPasses) PURE;
-    STDMETHOD(SetPaletteEntries)(THIS_ UINT PaletteNumber,CONST PALETTEENTRY* pEntries) PURE;
-    STDMETHOD(GetPaletteEntries)(THIS_ UINT PaletteNumber,PALETTEENTRY* pEntries) PURE;
-    STDMETHOD(SetCurrentTexturePalette)(THIS_ UINT PaletteNumber) PURE;
-    STDMETHOD(GetCurrentTexturePalette)(THIS_ UINT *PaletteNumber) PURE;
-    STDMETHOD(SetScissorRect)(THIS_ CONST RECT* pRect) PURE;
-    STDMETHOD(GetScissorRect)(THIS_ RECT* pRect) PURE;
-    STDMETHOD(SetSoftwareVertexProcessing)(THIS_ BOOL bSoftware) PURE;
-    STDMETHOD_(BOOL, GetSoftwareVertexProcessing)(THIS) PURE;
-    STDMETHOD(SetNPatchMode)(THIS_ float nSegments) PURE;
-    STDMETHOD_(float, GetNPatchMode)(THIS) PURE;
-    STDMETHOD(DrawPrimitive)(THIS_ D3DPRIMITIVETYPE PrimitiveType,UINT StartVertex,UINT PrimitiveCount) PURE;
-    STDMETHOD(DrawIndexedPrimitive)(THIS_ D3DPRIMITIVETYPE,INT BaseVertexIndex,UINT MinVertexIndex,UINT NumVertices,UINT startIndex,UINT primCount) PURE;
-    STDMETHOD(DrawPrimitiveUP)(THIS_ D3DPRIMITIVETYPE PrimitiveType,UINT PrimitiveCount,CONST void* pVertexStreamZeroData,UINT VertexStreamZeroStride) PURE;
-    STDMETHOD(DrawIndexedPrimitiveUP)(THIS_ D3DPRIMITIVETYPE PrimitiveType,UINT MinVertexIndex,UINT NumVertices,UINT PrimitiveCount,CONST void* pIndexData,D3DFORMAT IndexDataFormat,CONST void* pVertexStreamZeroData,UINT VertexStreamZeroStride) PURE;
-    STDMETHOD(ProcessVertices)(THIS_ UINT SrcStartIndex,UINT DestIndex,UINT VertexCount,IDirect3DVertexBuffer9* pDestBuffer,IDirect3DVertexDeclaration9* pVertexDecl,DWORD Flags) PURE;
-    STDMETHOD(CreateVertexDeclaration)(THIS_ CONST D3DVERTEXELEMENT9* pVertexElements,IDirect3DVertexDeclaration9** ppDecl) PURE;
-    STDMETHOD(SetVertexDeclaration)(THIS_ IDirect3DVertexDeclaration9* pDecl) PURE;
-    STDMETHOD(GetVertexDeclaration)(THIS_ IDirect3DVertexDeclaration9** ppDecl) PURE;
-    STDMETHOD(SetFVF)(THIS_ DWORD FVF) PURE;
-    STDMETHOD(GetFVF)(THIS_ DWORD* pFVF) PURE;
-    STDMETHOD(CreateVertexShader)(THIS_ CONST DWORD* pFunction,IDirect3DVertexShader9** ppShader) PURE;
-    STDMETHOD(SetVertexShader)(THIS_ IDirect3DVertexShader9* pShader) PURE;
-    STDMETHOD(GetVertexShader)(THIS_ IDirect3DVertexShader9** ppShader) PURE;
-    STDMETHOD(SetVertexShaderConstantF)(THIS_ UINT StartRegister,CONST float* pConstantData,UINT Vector4fCount) PURE;
-    STDMETHOD(GetVertexShaderConstantF)(THIS_ UINT StartRegister,float* pConstantData,UINT Vector4fCount) PURE;
-    STDMETHOD(SetVertexShaderConstantI)(THIS_ UINT StartRegister,CONST int* pConstantData,UINT Vector4iCount) PURE;
-    STDMETHOD(GetVertexShaderConstantI)(THIS_ UINT StartRegister,int* pConstantData,UINT Vector4iCount) PURE;
-    STDMETHOD(SetVertexShaderConstantB)(THIS_ UINT StartRegister,CONST BOOL* pConstantData,UINT  BoolCount) PURE;
-    STDMETHOD(GetVertexShaderConstantB)(THIS_ UINT StartRegister,BOOL* pConstantData,UINT BoolCount) PURE;
-    STDMETHOD(SetStreamSource)(THIS_ UINT StreamNumber,IDirect3DVertexBuffer9* pStreamData,UINT OffsetInBytes,UINT Stride) PURE;
-    STDMETHOD(GetStreamSource)(THIS_ UINT StreamNumber,IDirect3DVertexBuffer9** ppStreamData,UINT* pOffsetInBytes,UINT* pStride) PURE;
-    STDMETHOD(SetStreamSourceFreq)(THIS_ UINT StreamNumber,UINT Setting) PURE;
-    STDMETHOD(GetStreamSourceFreq)(THIS_ UINT StreamNumber,UINT* pSetting) PURE;
-    STDMETHOD(SetIndices)(THIS_ IDirect3DIndexBuffer9* pIndexData) PURE;
-    STDMETHOD(GetIndices)(THIS_ IDirect3DIndexBuffer9** ppIndexData) PURE;
-    STDMETHOD(CreatePixelShader)(THIS_ CONST DWORD* pFunction,IDirect3DPixelShader9** ppShader) PURE;
-    STDMETHOD(SetPixelShader)(THIS_ IDirect3DPixelShader9* pShader) PURE;
-    STDMETHOD(GetPixelShader)(THIS_ IDirect3DPixelShader9** ppShader) PURE;
-    STDMETHOD(SetPixelShaderConstantF)(THIS_ UINT StartRegister,CONST float* pConstantData,UINT Vector4fCount) PURE;
-    STDMETHOD(GetPixelShaderConstantF)(THIS_ UINT StartRegister,float* pConstantData,UINT Vector4fCount) PURE;
-    STDMETHOD(SetPixelShaderConstantI)(THIS_ UINT StartRegister,CONST int* pConstantData,UINT Vector4iCount) PURE;
-    STDMETHOD(GetPixelShaderConstantI)(THIS_ UINT StartRegister,int* pConstantData,UINT Vector4iCount) PURE;
-    STDMETHOD(SetPixelShaderConstantB)(THIS_ UINT StartRegister,CONST BOOL* pConstantData,UINT  BoolCount) PURE;
-    STDMETHOD(GetPixelShaderConstantB)(THIS_ UINT StartRegister,BOOL* pConstantData,UINT BoolCount) PURE;
-    STDMETHOD(DrawRectPatch)(THIS_ UINT Handle,CONST float* pNumSegs,CONST D3DRECTPATCH_INFO* pRectPatchInfo) PURE;
-    STDMETHOD(DrawTriPatch)(THIS_ UINT Handle,CONST float* pNumSegs,CONST D3DTRIPATCH_INFO* pTriPatchInfo) PURE;
-    STDMETHOD(DeletePatch)(THIS_ UINT Handle) PURE;
-    STDMETHOD(CreateQuery)(THIS_ D3DQUERYTYPE Type,IDirect3DQuery9** ppQuery) PURE;
-    STDMETHOD(SetConvolutionMonoKernel)(THIS_ UINT width,UINT height,float* rows,float* columns) PURE;
-    STDMETHOD(ComposeRects)(THIS_ IDirect3DSurface9* pSrc,IDirect3DSurface9* pDst,IDirect3DVertexBuffer9* pSrcRectDescs,UINT NumRects,IDirect3DVertexBuffer9* pDstRectDescs,D3DCOMPOSERECTSOP Operation,int Xoffset,int Yoffset) PURE;
-    STDMETHOD(PresentEx)(THIS_ CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion,DWORD dwFlags) PURE;
-    STDMETHOD(GetGPUThreadPriority)(THIS_ INT* pPriority) PURE;
-    STDMETHOD(SetGPUThreadPriority)(THIS_ INT Priority) PURE;
-    STDMETHOD(WaitForVBlank)(THIS_ UINT iSwapChain) PURE;
-    STDMETHOD(CheckResourceResidency)(THIS_ IDirect3DResource9** pResourceArray,UINT32 NumResources) PURE;
-    STDMETHOD(SetMaximumFrameLatency)(THIS_ UINT MaxLatency) PURE;
-    STDMETHOD(GetMaximumFrameLatency)(THIS_ UINT* pMaxLatency) PURE;
-    STDMETHOD(CheckDeviceState)(THIS_ HWND hDestinationWindow) PURE;
-    STDMETHOD(CreateRenderTargetEx)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,DWORD MultisampleQuality,BOOL Lockable,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle,DWORD Usage) PURE;
-    STDMETHOD(CreateOffscreenPlainSurfaceEx)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DPOOL Pool,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle,DWORD Usage) PURE;
-    STDMETHOD(CreateDepthStencilSurfaceEx)(THIS_ UINT Width,UINT Height,D3DFORMAT Format,D3DMULTISAMPLE_TYPE MultiSample,DWORD MultisampleQuality,BOOL Discard,IDirect3DSurface9** ppSurface,HANDLE* pSharedHandle,DWORD Usage) PURE;
-    STDMETHOD(ResetEx)(THIS_ D3DPRESENT_PARAMETERS* pPresentationParameters,D3DDISPLAYMODEEX *pFullscreenDisplayMode) PURE;
-    STDMETHOD(GetDisplayModeEx)(THIS_ UINT iSwapChain,D3DDISPLAYMODEEX* pMode,D3DDISPLAYROTATION* pRotation) PURE;
-"
-)
-d3D9.IDirect3DSwapChain9Ex := {}
-d3D9.IDirect3DSwapChain9Ex.name := "IDirect3DSwapChain9Ex"
-d3D9.IDirect3DSwapChain9Ex.def :=
-( 
-"
-    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
-    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
-    STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(Present)(THIS_ CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion,DWORD dwFlags) PURE;
-    STDMETHOD(GetFrontBufferData)(THIS_ IDirect3DSurface9* pDestSurface) PURE;
-    STDMETHOD(GetBackBuffer)(THIS_ UINT iBackBuffer,D3DBACKBUFFER_TYPE Type,IDirect3DSurface9** ppBackBuffer) PURE;
-    STDMETHOD(GetRasterStatus)(THIS_ D3DRASTER_STATUS* pRasterStatus) PURE;
-    STDMETHOD(GetDisplayMode)(THIS_ D3DDISPLAYMODE* pMode) PURE;
-    STDMETHOD(GetDevice)(THIS_ IDirect3DDevice9** ppDevice) PURE;
-    STDMETHOD(GetPresentParameters)(THIS_ D3DPRESENT_PARAMETERS* pPresentationParameters) PURE;
-    STDMETHOD(GetLastPresentCount)(THIS_ UINT* pLastPresentCount) PURE;
-    STDMETHOD(GetPresentStats)(THIS_ D3DPRESENTSTATS* pPresentationStatistics) PURE;
-    STDMETHOD(GetDisplayModeEx)(THIS_ D3DDISPLAYMODEEX* pMode,D3DDISPLAYROTATION* pRotation) PURE;
 "
 )
 Global _FACD3D := 2166
-Global D3D9b_SDK_VERSION := 31
-Global D3D_SDK_VERSION := 32
-Global D3DCREATE_ADAPTERGROUP_DEVICE := 0x00000200
+Global D3D_SDK_VERSION := 220
 Global D3DCREATE_DISABLE_DRIVER_MANAGEMENT := 0x00000100
-Global D3DCREATE_DISABLE_DRIVER_MANAGEMENT_EX := 0x00000400
-Global D3DCREATE_DISABLE_PRINTSCREEN := 0x00008000
-Global D3DCREATE_DISABLE_PSGP_THREADING := 0x00002000
-Global D3DCREATE_ENABLE_PRESENTSTATS := 0x00004000
 Global D3DCREATE_FPU_PRESERVE := 0x00000002
 Global D3DCREATE_HARDWARE_VERTEXPROCESSING := 0x00000040
 Global D3DCREATE_MIXED_VERTEXPROCESSING := 0x00000080
 Global D3DCREATE_MULTITHREADED := 0x00000004
-Global D3DCREATE_NOWINDOWCHANGES := 0x00000800
 Global D3DCREATE_PUREDEVICE := 0x00000010
-Global D3DCREATE_SCREENSAVER := 0x10000000
 Global D3DCREATE_SOFTWARE_VERTEXPROCESSING := 0x00000020
+Global D3DCURRENT_DISPLAY_MODE := 0x00EFFFFF
 Global D3DCURSOR_IMMEDIATE_UPDATE := 0x00000001
-Global D3DENUM_NO_DRIVERVERSION := 0x00000004
-Global D3DENUM_WHQL_LEVEL := 0x00000002
+Global D3DENUM_NO_WHQL_LEVEL := 0x00000002
 Global D3DPRESENT_BACK_BUFFERS_MAX := 3
-Global D3DPRESENT_BACK_BUFFERS_MAX_EX := 30
-Global D3DPRESENT_DONOTFLIP := 0x00000004
-Global D3DPRESENT_DONOTWAIT := 0x00000001
-Global D3DPRESENT_FLIPRESTART := 0x00000008
-Global D3DPRESENT_LINEAR_CONTENT := 0x00000002
-Global D3DPRESENT_VIDEO_RESTRICT_TO_MONITOR := 0x00000010
 Global D3DSGR_CALIBRATE := 0x00000001
 Global D3DSGR_NO_CALIBRATION := 0x00000000
 Global D3DSPD_IUNKNOWN := 0x00000001
-Global DIRECT3D_VERSION := 2304
-d3D9.err := {}
-d3D9.err[2289436705 . ""] := "D3DERR_CONFLICTINGRENDERSTATE"
-d3D9.err[2289436702 . ""] := "D3DERR_CONFLICTINGTEXTUREFILTER"
-d3D9.err[2289436710 . ""] := "D3DERR_CONFLICTINGTEXTUREPALETTE"
-d3D9.err[2289436788 . ""] := "D3DERR_DEVICEHUNG"
-d3D9.err[2289436776 . ""] := "D3DERR_DEVICELOST"
-d3D9.err[2289436777 . ""] := "D3DERR_DEVICENOTRESET"
-d3D9.err[2289436784 . ""] := "D3DERR_DEVICEREMOVED"
-d3D9.err[2289436711 . ""] := "D3DERR_DRIVERINTERNALERROR"
-d3D9.err[2289436781 . ""] := "D3DERR_DRIVERINVALIDCALL"
-d3D9.err[2289436780 . ""] := "D3DERR_INVALIDCALL"
-d3D9.err[2289436779 . ""] := "D3DERR_INVALIDDEVICE"
-d3D9.err[2289436775 . ""] := "D3DERR_MOREDATA"
-d3D9.err[2289436778 . ""] := "D3DERR_NOTAVAILABLE"
-d3D9.err[2289436774 . ""] := "D3DERR_NOTFOUND"
-d3D9.err[2289435004 . ""] := "D3DERR_OUTOFVIDEOMEMORY"
-d3D9.err[2289436701 . ""] := "D3DERR_TOOMANYOPERATIONS"
-d3D9.err[2289436700 . ""] := "D3DERR_UNSUPPORTEDALPHAARG"
-d3D9.err[2289436699 . ""] := "D3DERR_UNSUPPORTEDALPHAOPERATION"
-d3D9.err[2289436698 . ""] := "D3DERR_UNSUPPORTEDCOLORARG"
-d3D9.err[2289436697 . ""] := "D3DERR_UNSUPPORTEDCOLOROPERATION"
-d3D9.err[2289436703 . ""] := "D3DERR_UNSUPPORTEDFACTORVALUE"
-d3D9.err[2289436706 . ""] := "D3DERR_UNSUPPORTEDTEXTUREFILTER"
-d3D9.err[2289435164 . ""] := "D3DERR_WASSTILLDRAWING"
-d3D9.err[2289436696 . ""] := "D3DERR_WRONGTEXTUREFORMAT"
-d3D9.err[141953135 . ""] := "D3DOK_NOAUTOGEN"
-d3D9.err[141953141 . ""] := "S_NOT_RESIDENT"
-d3D9.err[141953143 . ""] := "S_PRESENT_MODE_CHANGED"
-d3D9.err[141953144 . ""] := "S_PRESENT_OCCLUDED"
-d3D9.err[141953142 . ""] := "S_RESIDENT_IN_SHARED_MEMORY"
+Global DIRECT3D_VERSION := 2048
+d3D8.err := {}
+d3D8.err[2289436705 . ""] := "D3DERR_CONFLICTINGRENDERSTATE"
+d3D8.err[2289436702 . ""] := "D3DERR_CONFLICTINGTEXTUREFILTER"
+d3D8.err[2289436710 . ""] := "D3DERR_CONFLICTINGTEXTUREPALETTE"
+d3D8.err[2289436776 . ""] := "D3DERR_DEVICELOST"
+d3D8.err[2289436777 . ""] := "D3DERR_DEVICENOTRESET"
+d3D8.err[2289436711 . ""] := "D3DERR_DRIVERINTERNALERROR"
+d3D8.err[2289436781 . ""] := "D3DERR_DRIVERINVALIDCALL"
+d3D8.err[2289436780 . ""] := "D3DERR_INVALIDCALL"
+d3D8.err[2289436779 . ""] := "D3DERR_INVALIDDEVICE"
+d3D8.err[2289436775 . ""] := "D3DERR_MOREDATA"
+d3D8.err[2289436778 . ""] := "D3DERR_NOTAVAILABLE"
+d3D8.err[2289436774 . ""] := "D3DERR_NOTFOUND"
+d3D8.err[2289435004 . ""] := "D3DERR_OUTOFVIDEOMEMORY"
+d3D8.err[2289436701 . ""] := "D3DERR_TOOMANYOPERATIONS"
+d3D8.err[2289436700 . ""] := "D3DERR_UNSUPPORTEDALPHAARG"
+d3D8.err[2289436699 . ""] := "D3DERR_UNSUPPORTEDALPHAOPERATION"
+d3D8.err[2289436698 . ""] := "D3DERR_UNSUPPORTEDCOLORARG"
+d3D8.err[2289436697 . ""] := "D3DERR_UNSUPPORTEDCOLOROPERATION"
+d3D8.err[2289436703 . ""] := "D3DERR_UNSUPPORTEDFACTORVALUE"
+d3D8.err[2289436706 . ""] := "D3DERR_UNSUPPORTEDTEXTUREFILTER"
+d3D8.err[2289436696 . ""] := "D3DERR_WRONGTEXTUREFORMAT"
 Global D3DERR_CONFLICTINGRENDERSTATE := 2289436705
 Global D3DERR_CONFLICTINGTEXTUREFILTER := 2289436702
 Global D3DERR_CONFLICTINGTEXTUREPALETTE := 2289436710
-Global D3DERR_DEVICEHUNG := 2289436788
 Global D3DERR_DEVICELOST := 2289436776
 Global D3DERR_DEVICENOTRESET := 2289436777
-Global D3DERR_DEVICEREMOVED := 2289436784
 Global D3DERR_DRIVERINTERNALERROR := 2289436711
 Global D3DERR_DRIVERINVALIDCALL := 2289436781
 Global D3DERR_INVALIDCALL := 2289436780
@@ -2972,22 +2594,8 @@ Global D3DERR_UNSUPPORTEDCOLORARG := 2289436698
 Global D3DERR_UNSUPPORTEDCOLOROPERATION := 2289436697
 Global D3DERR_UNSUPPORTEDFACTORVALUE := 2289436703
 Global D3DERR_UNSUPPORTEDTEXTUREFILTER := 2289436706
-Global D3DERR_WASSTILLDRAWING := 2289435164
 Global D3DERR_WRONGTEXTUREFORMAT := 2289436696
-Global D3DOK_NOAUTOGEN := 141953135
-Global S_NOT_RESIDENT := 141953141
-Global S_PRESENT_MODE_CHANGED := 141953143
-Global S_PRESENT_OCCLUDED := 141953144
-Global S_RESIDENT_IN_SHARED_MEMORY := 141953142
-Global d3D9types := {}
-Global D3D9_RESOURCE_PRIORITY_HIGH := 2684354560
-Global D3D9_RESOURCE_PRIORITY_LOW := 1342177280
-Global D3D9_RESOURCE_PRIORITY_MAXIMUM := 3355443200
-Global D3D9_RESOURCE_PRIORITY_MINIMUM := 671088640
-Global D3D9_RESOURCE_PRIORITY_NORMAL := 2013265920
-Global D3D_MAX_SIMULTANEOUS_RENDERTARGETS := 4
-Global D3DCOMPOSERECTS_MAXNUMRECTS := 65535
-Global D3DCONVOLUTIONMONO_MAXWIDTH := 7
+Global d3D8types := {}
 Global D3DCS_BACK := 0x00000020
 Global D3DCS_BOTTOM := 0x00000008
 Global D3DCS_FRONT := 0x00000010
@@ -3000,18 +2608,14 @@ Global D3DCS_PLANE4 := 0x00000400
 Global D3DCS_PLANE5 := 0x00000800
 Global D3DCS_RIGHT := 0x00000002
 Global D3DCS_TOP := 0x00000004
-Global D3DDMAPSAMPLER := 256
 Global D3DDP_MAXTEXCOORD := 8
-Global D3DFMT_A1_SURFACE_MAXHEIGHT := 2048
-Global D3DFMT_A1_SURFACE_MAXWIDTH := 8192
 Global D3DFVF_DIFFUSE := 64
-Global D3DFVF_LASTBETA_D3DCOLOR := 32768
 Global D3DFVF_LASTBETA_UBYTE4 := 4096
 Global D3DFVF_NORMAL := 16
-Global D3DFVF_POSITION_MASK := 16398
+Global D3DFVF_POSITION_MASK := 14
 Global D3DFVF_PSIZE := 32
 Global D3DFVF_RESERVED0 := 1
-Global D3DFVF_RESERVED2 := 24576
+Global D3DFVF_RESERVED2 := 57344
 Global D3DFVF_SPECULAR := 128
 Global D3DFVF_TEX1 := 256
 Global D3DFVF_TEX2 := 512
@@ -3033,48 +2637,30 @@ Global D3DFVF_XYZB3 := 10
 Global D3DFVF_XYZB4 := 12
 Global D3DFVF_XYZB5 := 14
 Global D3DFVF_XYZRHW := 4
-Global D3DFVF_XYZW := 16386
 Global D3DLOCK_DISCARD := 0x00002000
-Global D3DLOCK_DONOTWAIT := 0x00004000
 Global D3DLOCK_NO_DIRTY_UPDATE := 0x00008000
 Global D3DLOCK_NOOVERWRITE := 0x00001000
 Global D3DLOCK_NOSYSLOCK := 0x00000800
 Global D3DLOCK_READONLY := 0x00000010
 Global D3DMAXUSERCLIPPLANES := 32
-Global D3DPRESENTFLAG_DEVICECLIP := 4
-Global D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL := 2
+Global D3DPRESENT_RATE_UNLIMITED := 2147483647
 Global D3DPRESENTFLAG_LOCKABLE_BACKBUFFER := 1
-Global D3DPRESENTFLAG_NOAUTOROTATE := 32
-Global D3DPRESENTFLAG_UNPRUNEDMODE := 64
-Global D3DPRESENTFLAG_VIDEO := 16
 Global D3DPS_END := 65535
-Global D3DSHADER_ADDRESSMODE_SHIFT := 13
 Global D3DSI_COISSUE := 1073741824
 Global D3DSI_COMMENTSIZE_MASK := 2147418112
 Global D3DSI_COMMENTSIZE_SHIFT := 16
-Global D3DSI_INSTLENGTH_MASK := 251658240
-Global D3DSI_INSTLENGTH_SHIFT := 24
 Global D3DSI_OPCODE_MASK := 65535
-Global D3DSP_DCL_USAGE_MASK := 15
-Global D3DSP_DCL_USAGEINDEX_MASK := 983040
-Global D3DSP_DCL_USAGEINDEX_SHIFT := 16
 Global D3DSP_DSTMOD_MASK := 15728640
 Global D3DSP_DSTMOD_SHIFT := 20
 Global D3DSP_DSTSHIFT_MASK := 251658240
 Global D3DSP_DSTSHIFT_SHIFT := 24
-Global D3DSP_OPCODESPECIFICCONTROL_MASK := 16711680
-Global D3DSP_OPCODESPECIFICCONTROL_SHIFT := 16
-Global D3DSP_REGNUM_MASK := 2047
+Global D3DSP_REGNUM_MASK := 8191
 Global D3DSP_REGTYPE_MASK := 1879048192
-Global D3DSP_REGTYPE_MASK2 := 6144
 Global D3DSP_REGTYPE_SHIFT := 28
-Global D3DSP_REGTYPE_SHIFT2 := 8
 Global D3DSP_SRCMOD_MASK := 251658240
 Global D3DSP_SRCMOD_SHIFT := 24
 Global D3DSP_SWIZZLE_MASK := 16711680
 Global D3DSP_SWIZZLE_SHIFT := 16
-Global D3DSP_TEXTURETYPE_MASK := 2013265920
-Global D3DSP_TEXTURETYPE_SHIFT := 27
 Global D3DSP_WRITEMASK_0 := 65536
 Global D3DSP_WRITEMASK_1 := 131072
 Global D3DSP_WRITEMASK_2 := 262144
@@ -3082,7 +2668,6 @@ Global D3DSP_WRITEMASK_3 := 524288
 Global D3DSP_WRITEMASK_ALL := 983040
 Global D3DTA_ALPHAREPLICATE := 32
 Global D3DTA_COMPLEMENT := 16
-Global D3DTA_CONSTANT := 6
 Global D3DTA_CURRENT := 1
 Global D3DTA_SELECTMASK := 15
 Global D3DTA_SPECULAR := 4
@@ -3092,11 +2677,43 @@ Global D3DTA_TFACTOR := 3
 Global D3DTSS_TCI_CAMERASPACENORMAL := 65536
 Global D3DTSS_TCI_CAMERASPACEPOSITION := 131072
 Global D3DTSS_TCI_CAMERASPACEREFLECTIONVECTOR := 196608
-Global D3DTSS_TCI_SPHEREMAP := 262144
 Global D3DVS_ADDRESSMODE_SHIFT := 13
 Global D3DVS_END := 65535
 Global D3DVS_SWIZZLE_MASK := 16711680
 Global D3DVS_SWIZZLE_SHIFT := 16
+Global D3DVSD_CONSTCOUNTSHIFT := 25
+Global D3DVSD_CONSTRSSHIFT := 16
+Global D3DVSD_DATALOADTYPESHIFT := 28
+Global D3DVSD_DATATYPESHIFT := 16
+Global D3DVSD_END := 4294967295
+Global D3DVSD_EXTCOUNTSHIFT := 24
+Global D3DVSD_SKIPCOUNTSHIFT := 16
+Global D3DVSD_STREAMTESSSHIFT := 28
+Global D3DVSD_TOKENTYPESHIFT := 29
+Global D3DVSD_VERTEXREGINSHIFT := 20
+Global D3DVSDE_BLENDINDICES := 2
+Global D3DVSDE_BLENDWEIGHT := 1
+Global D3DVSDE_DIFFUSE := 5
+Global D3DVSDE_NORMAL := 3
+Global D3DVSDE_NORMAL2 := 16
+Global D3DVSDE_POSITION2 := 15
+Global D3DVSDE_PSIZE := 4
+Global D3DVSDE_SPECULAR := 6
+Global D3DVSDE_TEXCOORD0 := 7
+Global D3DVSDE_TEXCOORD1 := 8
+Global D3DVSDE_TEXCOORD2 := 9
+Global D3DVSDE_TEXCOORD3 := 10
+Global D3DVSDE_TEXCOORD4 := 11
+Global D3DVSDE_TEXCOORD5 := 12
+Global D3DVSDE_TEXCOORD6 := 13
+Global D3DVSDE_TEXCOORD7 := 14
+Global D3DVSDT_D3DCOLOR := 4
+Global D3DVSDT_FLOAT2 := 1
+Global D3DVSDT_FLOAT3 := 2
+Global D3DVSDT_FLOAT4 := 3
+Global D3DVSDT_SHORT2 := 6
+Global D3DVSDT_SHORT4 := 7
+Global D3DVSDT_UBYTE4 := 5
 Global D3DWRAP_U := 0x00000001
 Global D3DWRAP_V := 0x00000002
 Global D3DWRAP_W := 0x00000004
@@ -3104,10 +2721,8 @@ Global D3DWRAPCOORD_0 := 0x00000001
 Global D3DWRAPCOORD_1 := 0x00000002
 Global D3DWRAPCOORD_2 := 0x00000004
 Global D3DWRAPCOORD_3 := 0x00000008
-Global DIRECT3D_VERSION := 2304
+Global DIRECT3D_VERSION := 2048
 Global MAX_DEVICE_IDENTIFIER_STRING := 512
-Global MAXD3DDECLLENGTH := 64
-Global MAXD3DDECLUSAGEINDEX := 15
 Global D3DLIGHT_POINT := 1
 Global D3DLIGHT_SPOT := 2
 Global D3DLIGHT_DIRECTIONAL := 3
@@ -3130,8 +2745,6 @@ Global D3DBLEND_INVDESTCOLOR := 10
 Global D3DBLEND_SRCALPHASAT := 11
 Global D3DBLEND_BOTHSRCALPHA := 12
 Global D3DBLEND_BOTHINVSRCALPHA := 13
-Global D3DBLEND_SRCCOLOR2 := 16
-Global D3DBLEND_INVSRCCOLOR2 := 17
 Global D3DBLENDOP_ADD := 1
 Global D3DBLENDOP_SUBTRACT := 2
 Global D3DBLENDOP_REVSUBTRACT := 3
@@ -3194,59 +2807,38 @@ Global D3DRS_AMBIENTMATERIALSOURCE := 147
 Global D3DRS_EMISSIVEMATERIALSOURCE := 148
 Global D3DRS_VERTEXBLEND := 151
 Global D3DRS_CLIPPLANEENABLE := 152
+Global D3DRS_SOFTWAREVERTEXPROCESSING := 153
 Global D3DRS_MULTISAMPLEANTIALIAS := 161
 Global D3DRS_COLORWRITEENABLE := 168
-Global D3DRS_SLOPESCALEDEPTHBIAS := 175
-Global D3DRS_ANTIALIASEDLINEENABLE := 176
-Global D3DRS_MINTESSELLATIONLEVEL := 178
-Global D3DRS_MAXTESSELLATIONLEVEL := 179
-Global D3DRS_ADAPTIVETESS_X := 180
-Global D3DRS_ADAPTIVETESS_Y := 181
-Global D3DRS_ADAPTIVETESS_Z := 182
-Global D3DRS_ADAPTIVETESS_W := 183
-Global D3DRS_ENABLEADAPTIVETESSELLATION := 184
-Global D3DRS_DEPTHBIAS := 195
-Global D3DRS_WRAP9 := 199
-Global D3DRS_WRAP10 := 200
-Global D3DRS_WRAP11 := 201
-Global D3DRS_WRAP12 := 202
-Global D3DRS_WRAP13 := 203
-Global D3DRS_WRAP14 := 204
-Global D3DRS_WRAP15 := 205
 Global D3DTOP_DISABLE := 1
 Global D3DTOP_MODULATE := 4
 Global D3DTOP_MULTIPLYADD := 25
-Global D3DSIO_TEXCOORD := 64
-Global D3DSIO_PHASE := 0xFFFD
 Global D3DSIO_COMMENT := 0xFFFE
 Global D3DSIO_END := 0xFFFF
 Global D3DSIO_FORCE_DWORD := 0x7fffffff
-Global D3DSPC_RESERVED1 := 7
-Global D3DSTT_UNKNOWN := 0<<D3DSP_TEXTURETYPE_SHIFT
+Global D3DSPDM_NONE := 0<<D3DSP_DSTMOD_SHIFT
+Global D3DSPDM_SATURATE := 1<<D3DSP_DSTMOD_SHIFT
+Global D3DSPR_TEMP := 0<<D3DSP_REGTYPE_SHIFT
+Global D3DSPR_TEXCRDOUT := 6<<D3DSP_REGTYPE_SHIFT
 Global D3DSRO_FORCE_DWORD := 0x7fffffff
 Global D3DVS_ADDRMODE_ABSOLUTE := (0 << D3DVS_ADDRESSMODE_SHIFT)
 Global D3DVS_ADDRMODE_RELATIVE := (1 << D3DVS_ADDRESSMODE_SHIFT)
-Global D3DVS_ADDRMODE_FORCE_DWORD := 0x7fffffff
-Global D3DSHADER_ADDRMODE_ABSOLUTE := (0 << D3DSHADER_ADDRESSMODE_SHIFT)
-Global D3DSHADER_ADDRMODE_RELATIVE := (1 << D3DSHADER_ADDRESSMODE_SHIFT)
-Global D3DSHADER_ADDRMODE_FORCE_DWORD := 0x7fffffff
 Global D3DSPSM_NONE := 0<<D3DSP_SRCMOD_SHIFT
 Global D3DBASIS_BSPLINE := 1
+Global D3DBASIS_INTERPOLATE := 2
 Global D3DBASIS_FORCE_DWORD := 0x7fffffff
-Global D3DDEGREE_LINEAR := 1
-Global D3DDEGREE_QUADRATIC := 2
-Global D3DDEGREE_CUBIC := 3
-Global D3DDEGREE_QUINTIC := 5
-Global D3DDEGREE_FORCE_DWORD := 0x7fffffff
+Global D3DORDER_LINEAR := 1
+Global D3DORDER_QUADRATIC := 2
+Global D3DORDER_CUBIC := 3
+Global D3DORDER_QUINTIC := 5
+Global D3DORDER_FORCE_DWORD := 0x7fffffff
 Global D3DPATCHEDGE_CONTINUOUS := 1
 Global D3DPATCHEDGE_FORCE_DWORD := 0x7fffffff
 Global D3DSBT_ALL := 1
 Global D3DDEVTYPE_HAL := 1
 Global D3DDEVTYPE_REF := 2
 Global D3DDEVTYPE_SW := 3
-Global D3DDEVTYPE_NULLREF := 4
 Global D3DDEVTYPE_FORCE_DWORD := 0x7fffffff
-Global D3DMULTISAMPLE_NONMASKABLE := 1
 Global D3DMULTISAMPLE_2_SAMPLES := 2
 Global D3DMULTISAMPLE_3_SAMPLES := 3
 Global D3DMULTISAMPLE_4_SAMPLES := 4
@@ -3275,11 +2867,7 @@ Global D3DFMT_A8 := 28
 Global D3DFMT_A8R3G3B2 := 29
 Global D3DFMT_X4R4G4B4 := 30
 Global D3DFMT_A2B10G10R10 := 31
-Global D3DFMT_A8B8G8R8 := 32
-Global D3DFMT_X8B8G8R8 := 33
 Global D3DFMT_G16R16 := 34
-Global D3DFMT_A2R10G10B10 := 35
-Global D3DFMT_A16B16G16R16 := 36
 Global D3DFMT_A8P8 := 40
 Global D3DFMT_P8 := 41
 Global D3DFMT_L8 := 50
@@ -3290,36 +2878,23 @@ Global D3DFMT_L6V5U5 := 61
 Global D3DFMT_X8L8V8U8 := 62
 Global D3DFMT_Q8W8V8U8 := 63
 Global D3DFMT_V16U16 := 64
+Global D3DFMT_W11V11U10 := 65
 Global D3DFMT_A2W10V10U10 := 67
 Global D3DFMT_D16_LOCKABLE := 70
 Global D3DFMT_D32 := 71
 Global D3DFMT_D15S1 := 73
 Global D3DFMT_D24S8 := 75
+Global D3DFMT_D16 := 80
 Global D3DFMT_D24X8 := 77
 Global D3DFMT_D24X4S4 := 79
-Global D3DFMT_D16 := 80
-Global D3DFMT_D32F_LOCKABLE := 82
-Global D3DFMT_D24FS8 := 83
-Global D3DFMT_D32_LOCKABLE := 84
-Global D3DFMT_S8_LOCKABLE := 85
-Global D3DFMT_L16 := 81
 Global D3DFMT_VERTEXDATA := 100
 Global D3DFMT_INDEX16 := 101
 Global D3DFMT_INDEX32 := 102
-Global D3DFMT_Q16W16V16U16 := 110
-Global D3DFMT_R16F := 111
-Global D3DFMT_G16R16F := 112
-Global D3DFMT_A16B16G16R16F := 113
-Global D3DFMT_R32F := 114
-Global D3DFMT_G32R32F := 115
-Global D3DFMT_A32B32G32R32F := 116
-Global D3DFMT_CxV8U8 := 117
-Global D3DFMT_A1 := 118
-Global D3DFMT_BINARYBUFFER := 199
 Global D3DFMT_FORCE_DWORD := 0x7fffffff
 Global D3DSWAPEFFECT_DISCARD := 1
 Global D3DSWAPEFFECT_FLIP := 2
 Global D3DSWAPEFFECT_COPY := 3
+Global D3DSWAPEFFECT_COPY_VSYNC := 4
 Global D3DSWAPEFFECT_FORCE_DWORD := 0x7fffffff
 Global D3DPOOL_MANAGED := 1
 Global D3DPOOL_SYSTEMMEM := 2
@@ -3335,99 +2910,104 @@ Global D3DRTYPE_VOLUMETEXTURE := 4
 Global D3DRTYPE_CUBETEXTURE := 5
 Global D3DRTYPE_VERTEXBUFFER := 6
 Global D3DRTYPE_INDEXBUFFER := 7
+Global D3DRTYPE_FORCE_DWORD := 0x7fffffff
 Global D3DCUBEMAP_FACE_NEGATIVE_X := 1
 Global D3DCUBEMAP_FACE_POSITIVE_Y := 2
 Global D3DCUBEMAP_FACE_NEGATIVE_Y := 3
 Global D3DCUBEMAP_FACE_POSITIVE_Z := 4
 Global D3DCUBEMAP_FACE_NEGATIVE_Z := 5
 Global D3DCUBEMAP_FACE_FORCE_DWORD := 0x7fffffff
-Global D3DCOMPOSERECTS_COPY := 1
-Global D3DCOMPOSERECTS_OR := 2
-Global D3DCOMPOSERECTS_AND := 3
-Global D3DCOMPOSERECTS_NEG := 4
-Global D3DSCANLINEORDERING_PROGRESSIVE := 1
-Global D3DSCANLINEORDERING_INTERLACED := 2
-Global D3DDISPLAYROTATION_IDENTITY := 1
-d3D9types.err := {}
-d3D9.result[0 . ""] := "D3DERR_OK"
-D3D9.IDirect3D9Ex.def :=
-( 
-"
-    STDMETHOD(QueryInterface)(THIS_ REFIID riid, void** ppvObj) PURE;
-    STDMETHOD_(ULONG,AddRef)(THIS) PURE;
-    STDMETHOD_(ULONG,Release)(THIS) PURE;
-    STDMETHOD(RegisterSoftwareDevice)(THIS_ void* pInitializeFunction) PURE;
-    STDMETHOD_(UINT, GetAdapterCount)(THIS) PURE;
-    STDMETHOD(GetAdapterIdentifier)(THIS_ UINT Adapter,DWORD Flags,D3DADAPTER_IDENTIFIER9* pIdentifier) PURE;
-    STDMETHOD_(UINT, GetAdapterModeCount)(THIS_ UINT Adapter,D3DFORMAT Format) PURE;
-    STDMETHOD(EnumAdapterModes)(THIS_ UINT Adapter,D3DFORMAT Format,UINT Mode,D3DDISPLAYMODE* pMode) PURE;
-    STDMETHOD(GetAdapterDisplayMode)(THIS_ UINT Adapter,D3DDISPLAYMODE* pMode) PURE;
-    STDMETHOD(CheckDeviceType)(THIS_ UINT Adapter,D3DDEVTYPE DevType,D3DFORMAT AdapterFormat,D3DFORMAT BackBufferFormat,BOOL bWindowed) PURE;
-    STDMETHOD(CheckDeviceFormat)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT AdapterFormat,DWORD Usage,D3DRESOURCETYPE RType,D3DFORMAT CheckFormat) PURE;
-    STDMETHOD(CheckDeviceMultiSampleType)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT SurfaceFormat,BOOL Windowed,D3DMULTISAMPLE_TYPE MultiSampleType,DWORD* pQualityLevels) PURE;
-    STDMETHOD(CheckDepthStencilMatch)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT AdapterFormat,D3DFORMAT RenderTargetFormat,D3DFORMAT DepthStencilFormat) PURE;
-    STDMETHOD(CheckDeviceFormatConversion)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DFORMAT SourceFormat,D3DFORMAT TargetFormat) PURE;
-    STDMETHOD(GetDeviceCaps)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,D3DCAPS9* pCaps) PURE;
-    STDMETHOD_(HMONITOR, GetAdapterMonitor)(THIS_ UINT Adapter) PURE;
-    STDMETHOD(CreateDevice)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,HWND hFocusWindow,DWORD BehaviorFlags,D3DPRESENT_PARAMETERS* pPresentationParameters,IDirect3DDevice9** ppReturnedDeviceInterface) PURE;
-    STDMETHOD_(UINT, GetAdapterModeCountEx)(THIS_ UINT Adapter,CONST D3DDISPLAYMODEFILTER* pFilter ) PURE;
-    STDMETHOD(EnumAdapterModesEx)(THIS_ UINT Adapter,CONST D3DDISPLAYMODEFILTER* pFilter,UINT Mode,D3DDISPLAYMODEEX* pMode) PURE;
-    STDMETHOD(GetAdapterDisplayModeEx)(THIS_ UINT Adapter,D3DDISPLAYMODEEX* pMode,D3DDISPLAYROTATION* pRotation) PURE;
-    STDMETHOD(CreateDeviceEx)(THIS_ UINT Adapter,D3DDEVTYPE DeviceType,HWND hFocusWindow,DWORD BehaviorFlags,D3DPRESENT_PARAMETERS* pPresentationParameters,D3DDISPLAYMODEEX* pFullscreenDisplayMode,IDirect3DDevice9Ex** ppReturnedDeviceInterface) PURE;
-    STDMETHOD(GetAdapterLUID)(THIS_ UINT Adapter,LUID * pLUID) PURE;
-"
-)
-D3DPRESENT_PARAMETERS :=
+d3D8types.err := {}
+d3D8.result[0 . ""] := "D3DERR_OK"
+global D3DPRESENT_PARAMETERS :=
 (
 "
-  UINT                BackBufferWidth;
-  UINT                BackBufferHeight;
-  int                 BackBufferFormat;
-  UINT                BackBufferCount;
-  int                 MultiSampleType;
-  DWORD               MultiSampleQuality;
-  int                 SwapEffect;
-  HWND                hDeviceWindow;
-  BOOL                Windowed;
-  BOOL                EnableAutoDepthStencil;
-  int                 AutoDepthStencilFormat;
-  DWORD               Flags;
-  UINT                FullScreen_RefreshRateInHz;
-  UINT                PresentationInterval;
-" 
-)
-global D3DPRESENT_PARAMETERS := Struct(D3DPRESENT_PARAMETERS)
-global D3DLOCKED_RECT := Struct("INT Pitch; uint pBits;")
-D3DDISPLAYMODE :=
-(
+    UINT                    BackBufferWidth;
+    UINT                    BackBufferHeight;
+    UINT                    BackBufferFormat;
+    UINT                    BackBufferCount;
+
+    UINT                    MultiSampleType;
+    UINT                    SwapEffect;
+    DWORD                   hDeviceWindow;
+    BOOL                    Windowed;
+    BOOL                    EnableAutoDepthStencil;
+    UINT                    AutoDepthStencilFormat;
+    DWORD                   Flags;
+
+    UINT                    FullScreen_RefreshRateInHz;
+    UINT                    FullScreen_PresentationInterval;
 "
-  UINT                Width;
-  UINT                Height;
-  UINT                RefreshRate;
-  UINT                Format;  
-" 
 )
-D3DDISPLAYMODEEX :=
-(
-"
-  UINT                Size;
-  UINT                Width;
-  UINT                Height;
-  UINT                RefreshRate;
-  UINT                Format;
-  UINT                ScanLineOrdering;
-" 
-)
-global D3DDISPLAYMODE   := struct(D3DDISPLAYMODE)
-global D3DDISPLAYMODEEX := struct(D3DDISPLAYMODEEX)
-global D3DSURFACE_DESC  := struct("DWORD Format; DWORD Type; DWORD Usage; DWORD Pool; DWORD MultiSampleType; DWORD MultiSampleQuality; DWORD Width; DWORD Height")
-global D3DVIEWPORT9     := struct("DWORD X; DWORD Y; DWORD Width; DWORD Height; float MinZ; float MaxZ;")
-global D3D9_RECT        := struct("UINT X, Y, W, H;")
-global IDirect3D9:=0, IDirect3DDevice9:=0, IDirect3DPixelShader9:=0, IDirect3DVertexBuffer9:=0
-global IDirect3DTexture9:=0, IDirect3DMTexture9:=0, IDirect3DSurface9:=0, IDirect3DMSurface9:=0
-global IDirect3DSwapChain9:=0, ISrfc9:=0, IZbuff9:=0, IDirect3DCubeTexture9:=0, IDirect3DCubeFace9:=0
-globaL IDirect3DStateBlock9:=0, IDirect3DDevice9Ex:=0, IDirect3D9Ex:=0
-D3D9SetPixelFormat(s)
+D3DPRESENT_PARAMETERS := struct(D3DPRESENT_PARAMETERS)
+global D3DDISPLAYMODE       := struct("UINT Width; UINT Height; UINT RefreshRate; uint Format;")
+global D3D8LOCKED_RECT      := struct("INT Pitch; uint pBits;")
+global D3D8_RECT            := struct("uint left; uint top; uint right; uint bottom;")
+global D3DVIEWPORT8         := struct("DWORD X; int Y; DWORD Width; DWORD Height; float MinZ; float MaxZ;")
+global D3DVERTEXBUFFER_DESC := struct("DWORD Format; DWORD Type; DWORD Usage; DWORD Pool; UINT Size; DWORD FVF;")
+global D3DSURFACE_DESC      := struct("DWORD Format; DWORD Type; DWORD Usage; DWORD Pool; UINT Size; DWORD MultiSampleType; DWORD Width; DWORD Height")
+global IDirect3D8:=0, IDirect3DDevice8:=0, IDirect3DPixelShader8:=0, IDirect3DVertexBuffer8:=0, IDirect3DMVertexBuffer8:=0
+global IDirect3DTexture8 :=0, IDirect3DMTexture8:=0, IDirect3DSurface8:=0, IDirect3DMSurface8:=0, IDirect3D_Surface8:=0
+global IDirect3DCubeTexture8:=0, IDirect3DCubeFace8:=0
+GetDirect3D8(hwin="", windowed = True, ww = 640, hh = 480)
+{
+pDevice:=0, pTexture:=0, pSurface:=0, pMTexture:=0, pMSurface:=0, pVB8:=0
+hwin ?: hwin := A_scripthwnd
+pD3D8Create := dllcall("GetProcAddress", uint, dllcall("LoadLibraryW", str, "D3D8.dll"), astr, "Direct3DCreate8")
+if not (pD3D8 := Direct3DCreate8_hook(0xdc))
+return "Failed to create Direct3D8"
+IDirect3D8 := new ComInterfaceWrapper(D3D8.IDirect3D8, pD3D8, True)
+if (r := dllcall(IDirect3D8.GetAdapterDisplayMode, uint, IDirect3D8.p, uint, 0, uint, D3DDISPLAYMODE[]))
+return "Failed to get the display mode " r D3D8.err[r . ""]
+D3DPRESENT_PARAMETERS.BackBufferWidth         := ww
+D3DPRESENT_PARAMETERS.BackBufferHeight        := hh
+D3DPRESENT_PARAMETERS.BackBufferFormat        := D3DDISPLAYMODE.Format
+D3DPRESENT_PARAMETERS.SwapEffect              := 1
+D3DPRESENT_PARAMETERS.hDeviceWindow           := hwin
+D3DPRESENT_PARAMETERS.Windowed                := windowed
+if (r := dllcall(IDirect3D8.CreateDevice, uint, IDirect3D8.p, uint, 0, uint, 1, uint, hwin
+, uint, D3DCREATE_HARDWARE_VERTEXPROCESSING
+, uint, D3DPRESENT_PARAMETERS[], "uint*", pDevice))
+return 	"Failed to create the Direct3D8 device " r D3D8.err[r . ""]
+IDirect3DDevice8 := new ComInterfaceWrapper(D3D8.IDirect3DDevice8, pDevice, True)
+if (r := dllcall(IDirect3DDevice8.GetBackBuffer, uint, IDirect3DDevice8.p, uint, 0, uint, 0, "uint*", s:=0))
+return 	"Failed to accquire the defalt framebuffer " r D3D8.err[r . ""]
+IDirect3DSurface8 := new ComInterfaceWrapper(D3D8.IDirect3DSurface8, s, True)
+if (r := dllcall(IDirect3DDevice8.CreateTexture, uint, IDirect3DDevice8.p, uint, 256, uint, 256, uint, 1
+, uint, 0, uint, D3DFMT_R5G6B5, uint, 0, "uint*", pTexture))
+return "Failed to create a Direct3DTexture8 interface" r D3D8.err[r . ""]
+IDirect3DTexture8 := new ComInterfaceWrapper(D3D8.IDirect3DTexture8, pTexture, True)
+if (r := dllcall(IDirect3DDevice8.CreateCubeTexture, uint, IDirect3DDevice8.p, uint, 256, uint, 1
+, uint, 1, uint, D3DFMT_R5G6B5, uint, 0, "uint*", pCTx))
+return "Failed to create a IDirect3DCubeTexture8 interface" r D3D8.err[r . ""]
+IDirect3DCubeTexture8 := new ComInterfaceWrapper(D3D8.IDirect3DCubeTexture8, pCTx, True)
+if (r := dllcall(IDirect3DCubeTexture8.GetCubeMapSurface, uint, IDirect3DCubeTexture8.p, uint, 0
+, uint, 0, "uint*", pCf))
+return "Failed to accquire a IDirect3DSurface8 interface" r D3D8.err[r . ""]
+IDirect3DCubeFace8 := new ComInterfaceWrapper(D3D8.IDirect3DSurface8, pCf, True)
+if (r := dllcall(IDirect3DDevice8.CreateVertexBuffer, uint, IDirect3DDevice8.p, uint, 96, uint, 0
+, uint, D3DFVF_XYZRHW|D3DFVF_TEX1, uint, 1, "uint*", pMVB8))
+return "Failed to create a managed IDirect3DVertexBuffer interface" r D3D8.err[r . ""]
+IDirect3DMVertexBuffer8 := new ComInterfaceWrapper(D3D8.IDirect3DVertexBuffer8, pMVB8, True)
+if (r := dllcall(IDirect3DDevice8.CreateVertexBuffer, uint, IDirect3DDevice8.p, uint, 96, uint, 0
+, uint, D3DFVF_XYZRHW|D3DFVF_TEX1, uint, 0, "uint*", pVB8))
+return "Failed to create a managed IDirect3DVertexBuffer interface" r D3D8.err[r . ""]
+IDirect3DVertexBuffer8 := new ComInterfaceWrapper(D3D8.IDirect3DVertexBuffer8, pVB8, True)
+return "Succeeded to create Direct3D8"
+}
+D3D8CreatePixelShader(codestring, dvc)
+{
+blob=""
+r := D3DX9.Asm2DXBC(codestring, blob)
+if (r)
+return logerr("D3D8CreatePixelShader: D3D9.Asm2DXBC Failed `n" r)
+r := dllcall(IDirect3DDevice8.CreatePixelShader, ptr, dvc, ptr, dllcall(numget(numget(blob+0, "ptr")+A_PtrSize*3, "ptr"), uint, blob), "ptr*", hShader)
+dllcall(numget(numget(blob+0, "ptr")+A_PtrSize*2, "ptr"), uint, blob)
+if (r)
+return logerr("D3D8CreatePixelShader: IDirect3DDevice8::CreatePixelShader " r)
+return hShader
+}
+D3D8SetPixelFormat(s)
 {
 if instr(s, "DX")
 return FourCC(s)
@@ -3435,956 +3015,731 @@ f := {"A8RGB" : D3DFMT_A8R8G8B8, "X8RGB" : D3DFMT_X8R8G8B8, "RG6B"  : D3DFMT_R5G
 ,"X1RGB" : D3DFMT_X1R5G5B5, "A1RGB" : D3DFMT_A1R5G5B5, "A4RGB" : D3DFMT_A4R4G4B4}
 return f[s]
 }
-D3D9GetPixelFormat(fmt)
+D3D8GetPixelFormat(fmt)
 {
 f := {D3DFMT_A8R8G8B8 "": "A8RGB", D3DFMT_X8R8G8B8 "": "X8RGB", D3DFMT_A4R4G4B4 "": "A4RGB"
-,D3DFMT_X1R5G5B5 "": "X1RGB", D3DFMT_A1R5G5B5 "": "A1RGB", D3DFMT_R5G6B5   "": "RG6B"
-,D3DFMT_D24X8 "": "D24X8", D3DFMT_D24S8 "": "D24S8", D3DFMT_D16 "": "D16X0"}
+,D3DFMT_X1R5G5B5 "": "X1RGB", D3DFMT_A1R5G5B5 "": "A1RGB", D3DFMT_R5G6B5   "": "RG6B"}
 loop, 5
 f[FourCC("DXT" A_index) ""] := "DXT" A_index
 return f[fmt . ""]
 }
-GetDirect3D9Ex(h_win){
-dll                    := A_PtrSize == 8 ? "peixoto64.dll" : "peixoto.dll"
-r                      := dllcall(dll "\CreateD3D9Interfaces", ptr, A_ScriptHwnd, ptr)
-err                    := NumGet(r+0, Type = "ptr")
-err_str                := StrGet(err, ,"CP0")
-IDirect3D9             := new ComInterfaceWrapper(D3D9.IDirect3D9,             NumGet(r+A_PtrSize*2,    Type = "ptr"), True)
-IDirect3D9Ex           := new ComInterfaceWrapper(D3D9.IDirect3D9Ex,           NumGet(r+A_PtrSize*2,  Type = "ptr"), True)
-IDirect3DDevice9       := new ComInterfaceWrapper(D3D9.IDirect3DDevice9,       NumGet(r+A_PtrSize*3,  Type = "ptr"), True)
-IDirect3DDevice9Ex     := new ComInterfaceWrapper(D3D9.IDirect3DDevice9Ex,     NumGet(r+A_PtrSize*4,  Type = "ptr"), True)
-IDirect3DSwapChain9    := new ComInterfaceWrapper(D3D9.IDirect3DSwapChain9,    NumGet(r+A_PtrSize*5,  Type = "ptr"), True)
-IDirect3DSurface9      := new ComInterfaceWrapper(D3D9.IDirect3DSurface9,      NumGet(r+A_PtrSize*6,  Type = "ptr"), True)
-IDirect3DTexture9      := new ComInterfaceWrapper(D3D9.IDirect3DTexture9,      NumGet(r+A_PtrSize*7,  Type = "ptr"), True)
-IDirect3DCubeFace9     := new ComInterfaceWrapper(D3D9.IDirect3DSurface9,      NumGet(r+A_PtrSize*8,  Type = "ptr"), True)
-IDirect3DCubeTexture9  := new ComInterfaceWrapper(D3D9.IDirect3DCubeTexture9,  NumGet(r+A_PtrSize*9,  Type = "ptr"), True)
-IDirect3DVertexBuffer9 := new ComInterfaceWrapper(D3D9.IDirect3DVertexBuffer9, NumGet(r+A_PtrSize*10, Type = "ptr"), True)
-IDirect3DPixelShader9  := new ComInterfaceWrapper(D3D9.IDirect3DPixelShader9 , NumGet(r+A_PtrSize*11, Type = "ptr"), True)
-IDirect3DStateBlock9   := new ComInterfaceWrapper(D3D9.IDirect3DStateBlock9,   NumGet(r+A_PtrSize*12, Type = "ptr"), True)
-for k, n in [IDirect3D9, IDirect3D9Ex, IDirect3DDevice9, IDirect3DDevice9Ex
-, IDirect3DSwapChain9, IDirect3DSurface9, IDirect3DTexture9
-, IDirect3DCubeFace9, IDirect3DCubeTexture9, IDirect3DVertexBuffer9
-, IDirect3DPixelShader9, IDirect3DStateBlock9]
+D3D8LoadManagedTexture(pDevice, file)
 {
-if not IsObject(n) {
-msgbox, % "Failed to create " k " interface: " err_str
-}
-}
-D3DX9.__new("d3dx9_43.dll")
-return "Create D3D9 Interfaces: " err_str
-}
-GetDirect3D9(h_win = "", windowed = True, refresh = 60, ww = 640, hh = 480
-,pixelformat = "A8RGB", dll = "d3dx9_43.dll")
+pT := 0
+pS := 0
+if ! fileexist(file)
+return
+if ! px := OpenDDS(file, hFile)
+return logerr("Unknown pixelformat")
+n := (DDS_HEADER.dwFlags & 0x20000) ? DDS_HEADER.dwMipMapCount : 1
+if (r := dllcall(IDirect3DDevice8.CreateTexture, uint, pDevice, uint, DDS_HEADER.dwWidth, uint, DDS_HEADER.dwHeight, uint, n
+, uint, 0, uint, D3D8SetPixelFormat(px), uint, 1, "uint*", pT) != 0)
+return logerr("Failed to create texture " r " " D3D8.err[r . ""])
+bypp := instr(px, "8") ? 4 : 2
+if instr(px, "D")
 {
-return GetDirect3D9Ex(h_win)
-VarSetCapacity(SysDir, 261)
-DllCall("GetSystemDirectoryW", Str, SysDir, UInt, 261)
-hModule           := dllcall("LoadLibraryW", str, SysDir "\D3D9.dll")
-hModule           := dllcall("LoadLibraryW", str, "d3d9.dll")
-Direct3DCreate9   := dllcall("GetProcAddress", uint, hModule, astr, "Direct3DCreate9")
-Direct3DCreate9Ex := dllcall("GetProcAddress", uint, hModule, astr, "Direct3DCreate9Ex")
-if ( (! hModule) or (! Direct3DCreate9) or (! Direct3DCreate9Ex))
-return "Failed to get the entry point of the Direct3DCreate9 procedure or get the handle to d3D9.dll " A_lasterror
-p_D3D9 := dllcall(g_.pD3D9Create, uint, D3D_SDK_VERSION)
-if not p_D3D9
-return "Failed to create the IDirect3D9 interface " r " - " D3D9.result[r . ""]
-IDirect3D9 := new ComInterfaceWrapper(D3D9.IDirect3D9, p_D3D9, True)
-if ! h_win
-h_win := A_scripthwnd
-VarSetCapacity(p_d3D9Dev, 4)
-ZeroMem(D3DPRESENT_PARAMETERS)
-D3DPRESENT_PARAMETERS.Windowed         := windowed
-D3DPRESENT_PARAMETERS.RefreshRateInHz  := refresh
-D3DPRESENT_PARAMETERS.BackBufferWidth  := ww
-D3DPRESENT_PARAMETERS.BackBufferHeight := hh
-D3DPRESENT_PARAMETERS.SwapEffect       := 1
-D3DPRESENT_PARAMETERS.hDeviceWindow    := h_win
-D3DPRESENT_PARAMETERS.Flags            := (D3DPRESENT_LOCKABLE_BACKBUFFER := 0x00000001)
-D3DPRESENT_PARAMETERS.BackBufferFormat := D3D9SetPixelFormat(pixelformat)
-D3DPRESENT_PARAMETERS.EnableAutoDepthStencil := 1
-D3DPRESENT_PARAMETERS.AutoDepthStencilFormat := 75
-D3D_DISPLAYMODEX                  := struct("UINT Size; UINT Width; UINT Height; UINT RefreshRate; UINT Format; UINT ScanLineOrdering;")
-D3D_DISPLAYMODEX.size             := D3D_DISPLAYMODEX.size()
-D3D_DISPLAYMODEX.Width            := 640
-D3D_DISPLAYMODEX.Width            := 480
-D3D_DISPLAYMODEX.RefreshRate      := 60
-D3D_DISPLAYMODEX.Format           := 21
-D3D_DISPLAYMODEX.ScanLineOrdering := 1
-logerr(D3D_DISPLAYMODEX.size " " IDirect3D9Ex.CreateDeviceEx)
-r := dllcall(IDirect3D9.CreateDevice, ptr, IDirect3D9.p
-, uint, 0
-, uint, 1
-, uint, h_win
-, uint, D3DCREATE_HARDWARE_VERTEXPROCESSING
-, ptr, D3DPRESENT_PARAMETERS[]
-, "ptr*", pD3D9Dev:=0, uint)
-if (r > 0)
-return "Failed to create the IDirect3DDevice9 interface " r " - " D3D9.result[r . ""]
-IDirect3DDevice9 := new ComInterfaceWrapper(D3D9.IDirect3DDevice9, pD3D9Dev, True)
-if (r := dllcall(IDirect3DDevice9.CreateStateBlock, ptr, IDirect3dDevice9.p, uint, 1, "ptr*", sb:=0))
-return "Failed to create the IDirect3DStateBlock9 interface " r " - " D3D9.result[r . ""]
-IDirect3DStateBlock9 := new ComInterfaceWrapper(D3D9.IDirect3DStateBlock9, SB, True)
-if (r := dllcall(IDirect3DDevice9.GetSwapChain, ptr, pD3D9Dev, uint, 0, "ptr*", pp:=0))
-return 	"Failed to accquire the defalt swapchain " r D3D9.err[r . ""]
-IDirect3DSwapChain9 := new ComInterfaceWrapper(D3D9.IDirect3DSwapChain9, pp, True)
-if (r := dllcall(IDirect3DDevice9.GetBackBuffer, ptr, pD3D9Dev, uint, 0, uint, 0, uint, 0, "ptr*", bb:=0))
-return 	"Failed to accquire the defalt framebuffer " r D3D9.err[r . ""]
-IDirect3DSurface9 := new ComInterfaceWrapper(D3D9.IDirect3DSurface9, bb, True)
-if (r := dllcall(IDirect3DDevice9.CreateCubeTexture, ptr, IDirect3DDevice9.p, uint, 16, uint, 1, uint, 1, uint
-, D3D9SetPixelFormat("A8RGB"), uint, 0, "ptr*", cb:=0, uint, 0))
-return "Failed to create cube texture " r D3D9.err[r . ""]
-IDirect3DCubeTexture9 := new ComInterfaceWrapper(D3D9.IDirect3DCubeTexture9, cb, True)
-if (r := dllcall(IDirect3DCubeTexture9.GetCubeMapSurface, ptr, cb, uint, 0, uint, 0, "ptr*", cbf:=0))
-return "Failed to get cube texture face " r D3D9.err[r . ""]
-IDirect3DCubeFace9 := new ComInterfaceWrapper(D3D9.IDirect3DSurface9, cbf, True)
-D3DX9.__new(dll)
-shader := "float4 PixelShaderFunction(float4 color: COLOR0) : COLOR0`n"
-. "{`nreturn float4(0,0,0,0);`n};"
-r := D3DX9.CompileShader(IDirect3DDevice9.p, shader, "PixelShaderFunction", pShader:=0)
-if (r != 0)
-return "Failed to create the IDirect3DPixelShader9 interface " r " - " D3D9.result[r . ""]
-IDirect3DPixelShader9 := new ComInterfaceWrapper(D3D9.IDirect3DPixelShader9, pShader, True)
-r := dllcall(IDirect3DDevice9.CreateVertexBuffer, ptr, IDirect3DDevice9.p, uint, 20, uint, 0
-, uint, D3DFVF_XYZRHW | D3DFVF_DIFFUSE
-, uint, 0, "ptr*", pVbuffer:=0, uint, 0)
-if (r != 0)
-return "Failed to create the IDirect3DVertexBuffer9 interface " r " - " D3D9.result[r . ""]
-IDirect3DVertexBuffer9 :=  new ComInterfaceWrapper(D3D9.IDirect3DVertexBuffer9, pVbuffer, True)
-r := dllcall(IDirect3DDevice9.CreateTexture, ptr, IDirect3Ddevice9.p, uint, 256, uint, 256, uint, 1
-, uint, 0x00000200
-, uint, D3D9SetPixelFormat(pixelformat), uint, 0
-, "ptr*", p_text9:=0, uint, 0, uint)
-if (r != 0)
-return "Failed to create the IDirect3DTexture9 interface " r " - " D3D9.result[r . ""]
-IDirect3DTexture9 := new ComInterfaceWrapper(D3D9.IDirect3DTexture9, p_text9, True)
-return "Succeeded to create the Direct3D9 interfaces"
+bypp                := (px="DXT1") ? 2 : 4
+DDS_HEADER.dwHeight := (DDS_HEADER.dwHeight + 3) / 4
 }
-D3D9LoadTexture(pDevice, file)
+w   := DDS_HEADER.dwWidth
+h   := DDS_HEADER.dwHeight
+msk := 0xFFFFFFFF
+loop
 {
-static pLoadData2Surface
-pLoadData2Surface ?: pLoadData2Surface := dllcall("GetProcAddress", uint, dllcall("GetModuleHandle", str, "peixoto.dll", uint)
-, astr, "LoadData2Surface", uint)
-if not (pixelformat := OpenDDS(file, hFile))
+if dllcall(IDirect3DTexture8.GetSurfaceLevel, uint, pT, uint, A_index-1, "uint*", pS)
+break
+pS := dllcall(IDirect3DSurface8.release, uint, pS)
+printl("Lock lvl " A_index-1 ": " dllcall(IDirect3DTexture8.LockRect, uint, pT, uint, A_index-1, "uint64*", r, uint, 0, uint, 0) errorlevel)
+dllcall(g_.p.LoadSurfData, uint, r >> 32, uint, hFile, uint, r & msk, uint, w, uint, h, uint, bypp)
+printl("UnLock lvl " A_index-1 ": " dllcall(IDirect3DTexture8.UnLockRect, uint, pT, uint, A_index-1))
+w /= 2
+h /= 2
+}
+return pT
+}
+FindOffSrfc8(s, u)
 {
-return print("Unknown pixelformat")
-}
-if (r := dllcall(IDirect3DDevice9.CreateTexture, uint, pDevice, uint, DDS_HEADER.dwWidth, uint, DDS_HEADER.dwHeight, uint, 1
-, uint, 0, uint, D3D9SetPixelFormat(pixelformat), uint, 0, "uint*", pTexture, uint, 0)!= 0)
-return printl("Failed to create video memory texture " r " " D3D9.err[r . ""])
-if (r := dllcall(IDirect3DTexture9.GetSurfaceLevel, uint, pTexture, uint, 0, "uint*", pSurface) != 0)
-return printl("Failed to create video memory surface " r " - " D3D9.result[r . ""])
-if (r := dllcall(IDirect3DDevice9.CreateTexture, uint,pDevice, uint, DDS_HEADER.dwWidth, uint,  DDS_HEADER.dwHeight, uint, 1
-, uint, 0, uint, D3D9SetPixelFormat(pixelformat), uint, 2, "uint*", pSTexture, uint, 0)!= 0)
-return printl("Failed to create system memory texture " r " " D3D9.err[r . ""])
-if (r := dllcall(IDirect3DTexture9.GetSurfaceLevel, uint, pSTexture, uint, 0, "uint*", pSSurface)!= 0)
-return printl("Failed to create system memory surface " r " - " D3D9.result[r . ""])
-if (r := dllcall(IDirect3DSurface9.LockRect, uint, pSSurface, uint, D3DLOCKED_RECT[], uint, 0, uint, 0)!= 0)
-return printl("Failed to lock system memory texture " r " " D3D9.err[r . ""])
-else
+if (rs := g_HD.trgts.value(s))
 {
-bytesperpixel := instr(pixelformat, "8") ? 4 : 2
-dllcall(pLoadData2Surface, uint, D3DLOCKED_RECT.pBits, uint, hFile, uint, D3DLOCKED_RECT.pitch, uint, DDS_HEADER.dwWidth
-, uint, DDS_HEADER.dwHeight, uint, bytesperpixel)
-dllcall(IDirect3DSurface9.UnLockRect, uint, pSSurface)
-}
-if (r := dllcall(IDirect3DDevice9.UpdateSurface, uint, pDevice, uint, pSSurface, uint, 0, uint, pSurface, uint, 0)!= 0)
-return printl("Failed to copy data from system to video texture " r " " D3D9.err[r . ""])
-dllcall(IDirect3DTexture9.release, uint, pSTexture)
-dllcall(IDirect3DSurface9.release, uint, pSSurface)
-return pTexture
-}
-D3D9LoadManagedTexture(pDevice, file)
+AddRef(rs)
+return rs
+} else {
+D := struct(D3DSURFACE_DESC)
+dllcall(numget(numget(s+0, "ptr")+A_PtrSize*8), uint, s, uint, D[])
+if (u & 1)
 {
-static pLoadData2Surface:=0
-pTexture                :=0
-pSurface                :=0
-pLoadData2Surface ?: pLoadData2Surface := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "LoadData2Surface", uint)
-if not (pixelformat := OpenDDS(file, hFile))
+r := dllcall(IDirect3DDevice8.CreateRenderTarget, uint, g_.pDevice8, uint, D.Width*D3D8_HOOKS.scale
+, uint, D.Height*D3D8_HOOKS.scale, uint, D.Format, uint, D.MultiSampleType, uint, 0, "uint*", rs)
+if (r)
+return logerr("Failed to create render target")
+AddRef(rs)
+g_HD.trgts._add(s, rs)
+return rs
+} else if (u & 2) {
+r := dllcall(IDirect3DDevice8.CreateDepthStencilSurface, uint, g_.pDevice8, uint, D.Width*D3D8_HOOKS.scale
+, uint, D.Height*D3D8_HOOKS.scale, uint, D.Format, uint, D.MultiSampleType, "uint*", rs)
+logerr("Create z" r " " rs " " D.Width "x" D.Height)
+if (r)
+return logerr("Failed to create z surface")
+AddRef(rs)
+g_HD.trgts._add(s, rs)
+return rs
+}
+}
+}
+FindCbSrfc8Face(t, s)
 {
-return print("Unknown pixelformat")
-}
-if (r := dllcall(IDirect3DDevice9.CreateTexture, uint, pDevice, uint, DDS_HEADER.dwWidth, uint, DDS_HEADER.dwHeight, uint, 1
-, uint, 0, uint, D3D9SetPixelFormat(pixelformat), uint, 1, "uint*", pTexture, uint, 0)!= 0)
-return printl("Failed to create managed texture " r " " D3D9.err[r . ""])
-if (r := dllcall(IDirect3DTexture9.LockRect, uint, pTexture, uint, 0, uint, D3DLOCKED_RECT[], uint, 0, uint, 0)!= 0)
-return printl("Failed to lock system memory texture " r " " D3D8.err[r . ""])
-else
+loop, 6
 {
-bytesperpixel := instr(pixelformat, "8") ? 4 : 2
-dllcall(pLoadData2Surface, uint, D3DLOCKED_RECT.pBits, uint, hFile, uint, D3DLOCKED_RECT.pitch, uint, DDS_HEADER.dwWidth
-, uint, DDS_HEADER.dwHeight, uint, bytesperpixel)
-dllcall(IDirect3DTexture9.UnLockRect, uint, pTexture, uint, 0)
+if dllcall(IDirect3DCubeTexture8.GetCubeMapSurface, uint, t, uint, A_index-1, uint, 0, "uint*", pCf)
+return -1
+else Release(pCf)
+if (pCf = s)
+return A_index-1
 }
-return pTexture
+return -1
 }
-class Proxie9 {
+FindCbSrfc8(t, s, u)
+{
+if (r := dllcall("peixoto.dll\D3D8GetReplacement", ptr, t))
+{
+f   := (x:=dllcall(g_.p.GtCbFc, uint, s)) & 0xf
+lvl := (x&0xf)>>4
+Release(t)
+dllcall(IDirect3DCubeTexture8.GetCubeMapSurface, uint, r, uint, f, uint, lvl, "uint*", rs)
+return rs
+} else {
+D := struct(D3DSURFACE_DESC)
+dllcall(IDirect3DSurface8.GetDesc, uint, s, uint, D[])
+if dllcall(IDirect3DDevice8.CreateCubeTexture, uint, g_.pDevice8, uint, D.Width*D3D8_HOOKS.scale, uint, 1
+, uint, u, uint, D.format, uint, 0, "uint*", r)
+{
+Release(t)
+return logerr("Can't create cube texture ")
+}
+dllcall("peixoto.dll\D3D8ReplaceRTTexture", ptr, t, ptr, r)
+Release(t)
+f   := (x:=dllcall(g_.p.GtCbFc, uint, s)) & 0xf
+lvl := (x&0xf)>>4
+dllcall(IDirect3DCubeTexture8.GetCubeMapSurface, uint, r, uint, f, uint, lvl, "uint*", rs)
+return rs
+}
+}
+FindSrfc8(s, u="")
+{
+if (s=g_.Proxies.clr.s) {
+dllcall(numget(numget(g_.proxies.rt.s+0, "ptr")+4, "ptr"), uint, g_.proxies.rt.s)
+return g_.proxies.rt.s
+} else if (s=g_.Proxies.z.s) {
+dllcall(numget(numget(g_.proxies.rt.zs+0, "ptr")+4, "ptr"), uint, g_.proxies.rt.zs)
+return g_.proxies.rt.zs
+}
+t := dllcall(g_.p.GtCntnr8, uint, s, astr, "TX2D")
+if (t=0)
+{
+t := dllcall(g_.p.GtCntnr8, uint, s, astr, "CUBE")
+return t ? FindCbSrfc8(t, s, u) : FindOffSrfc8(s, u)
+}
+if (r := dllcall("peixoto.dll\D3D8GetReplacement", ptr, t))
+{
+Release(t)
+dllcall(IDirect3DTexture8.GetSurfaceLevel, uint, r, uint, 0, "uint*", rs)
+return rs
+} else {
+D := struct(D3DSURFACE_DESC)
+dllcall(numget(numget(s+0, "ptr")+A_PtrSize*8), uint, s, uint, D[])
+hr := dllcall(IDirect3DDevice8.CreateTexture, uint, g_.pDevice8, uint, D.Width*D3D8_HOOKS.scale, uint, D.Height*D3D8_HOOKS.scale
+, uint, 1, uint, D.usage, uint, D.format, uint, 0, "uint*", r)
+if (hr)
+{
+Release(t)
+return logerr("Can't create texture "  D.Width "x" D.Height " " s " " D.usage " "  D.format " " g_.pDevice8 " " hr " for" t)
+}
+logerr("Created texture " D.Width "x" D.Height)
+dllcall(IDirect3DTexture8.GetSurfaceLevel, uint, r, uint, 0, "uint*", rs)
+dllcall("peixoto.dll\D3D8ReplaceRTTexture", ptr, t, ptr, r)
+Release(t)
+return rs
+}
+}
+FindSDSrfc(HD, u)
+{
+if (HD=g_.proxies.rt.s)
+{
+dllcall(numget(numget(g_.Proxies.clr.s+0, "ptr")+4, "ptr"), uint, g_.Proxies.clr.s)
+return g_.proxies.clr.s
+} else if (HD=g_.proxies.rt.zs)
+{
+dllcall(numget(numget(g_.Proxies.z.s+0, "ptr")+4, "ptr"), uint, g_.Proxies.z.s)
+return g_.Proxies.z.s
+} else if ( SD := g_HD.trgts.Key(HD) )
+{
+dllcall(numget(numget(SD+0, "ptr")+4, "ptr"), uint, SD)
+return SD
+} else if ( cntr := dllcall(g_.p.GtCntnr8, uint, s, astr, "TX2D") )
+{
+if (r := dllcall("peixoto.dll\D3D8GetSDTexture", ptr, cntr))
+{
+Release(cntr)
+dllcall(IDirect3DTexture8.GetSurfaceLevel, uint, r, uint, 0, "uint*", rs)
+return rs
+}
+}
+}
+class SProxie8 {
+__new(w, h, m, f, zf="")
+{
+r := dllcall(IDirect3DDevice8.CreateRenderTarget, uint, g_.pDevice8, uint, w, uint, h
+, uint, f, uint, m, uint, 0, "uint*", s:=0)
+Logerr("S Proxie: color buffer:        " r " " D3D8.err[r . ""])
+if (r)
+return r
+this.s := s
+if zf
+{
+r := dllcall(IDirect3DDevice8.CreateDepthStencilSurface, uint, g_.pDevice8, uint, w, uint, h
+, uint, zf, uint, m, "uint*", z:=0)
+Logerr("S Proxie: z buffer:            " r " " D3D8.err[r . ""])
+if (r)
+return r
+this.zs := z
+}
+this.t := new Proxie8(w, h, f, zf)
+}
+tx(){
+dllcall(IDirect3DDevice8.CopyRects, uint, g_.pDevice8, uint, this.s, uint, 0, uint, 0, uint, this.t.s, uint, 0)
+return this.t.t
+}
+__delete(){
+this.t := ""
+(this.s)  ? printl("Release clr surface " dllcall(numget(numget(this.s+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.s)	)
+(this.zs) ? printl("Release z surface   " dllcall(numget(numget(this.zs+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.zs))
+}
+}
+class Proxie8 {
 __new(w, h, f, zf="", m=0)
 {
 u := m ? 0:1
-r := dllcall(IDirect3DDevice9.CreateTexture, uint, g_.pDevice9, uint, w, uint, h, uint, 1
-, uint, u, uint, f, uint, m, "uint*", t:=0, uint, 0, uint)
-Logerr("Proxie: color buffer:         " r " " D3D9.err[r . ""] " " w "x" h " " D3D9GetPixelFormat(f))
+r := dllcall(IDirect3DDevice8.CreateTexture, uint, g_.pDevice8, uint, w, uint, h, uint, 1
+, uint, u, uint, f, uint, m, "uint*", t:=0)
+Logerr("Proxie: color buffer:         " r " " D3D8.err[r . ""])
 if (r)
 return r
-r := dllcall(IDirect3DTexture9.GetSurfaceLevel, uint, t, uint, 0, "uint*", s:=0)
-Logerr("Proxie: color buffer level 0: " r D3D9.err[r . ""])
+r := dllcall(IDirect3DTexture8.GetSurfaceLevel, uint, t, uint, 0, "uint*", s:=0)
+Logerr("Proxie: color buffer level 0: " r D3D8.err[r . ""])
 if (r)
 return r
-this.t  := t
-this.s  := s
-this.zs := 0
+this.t := t
+this.s := s
 if zf
 {
-r := dllcall(IDirect3DDevice9.CreateTexture, uint, g_.pDevice9, uint, w, uint, h, uint, 1
-, uint, 2, uint, zf, uint, 0, "uint*", t:=0, uint, 0)
-Logerr("Proxie: z buffer:             " r " " D3D9.err[r . ""])
+r := dllcall(IDirect3DDevice8.CreateTexture, uint, g_.pDevice8, uint, w, uint, h, uint, 1
+, uint, 2, uint, zf, uint, 0, "uint*", t:=0)
+Logerr("Proxie: z buffer:             " r " " D3D8.err[r . ""])
 if (r)
 return r
-r := dllcall(IDirect3DTexture9.GetSurfaceLevel, uint, t, uint, 0, "uint*", s:=0)
-Logerr("Proxie: z buffer level 0:     " r D3D9.err[r . ""])
+r := dllcall(IDirect3DTexture8.GetSurfaceLevel, uint, t, uint, 0, "uint*", s:=0)
+Logerr("Proxie: z buffer level 0:     " r D3D8.err[r . ""])
 if (r)
 return r
 this.zt := t
 this.zs := s
 }
 }
-Set()
+tx(){
+return this.t
+}
+__Delete(){
+(this.s)  ? PRINTL("Release clr surface " dllcall(numget(numget(this.s+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.s)	)
+(this.zs) ? PRINTL("Release z surface   " dllcall(numget(numget(this.zs+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.zs))
+(this.t)  ? PRINTL("Release clr texture " dllcall(numget(numget(this.t+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.t))
+(this.zt) ? PRINTL("Release z texture   " dllcall(numget(numget(this.zt+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.zt))
+}
+}
+GetTargets()
 {
-logerr("set target " dllcall(IDirect3DDevice9.SetRenderTarget, uint, g_.pDevice9, uint, 0, uint, this.s) " " this.s)
-dllcall(IDirect3DDevice9.SetDepthStencilSurface, uint, g_.pDevice9, uint, this.zs)
+dllcall(IDirect3DDevice8.GetRenderTarget, uint, g_.pDevice8, "uint*", rt:=0)
+dllcall(IDirect3DDevice8.GetDepthStencilSurface, uint, g_.pDevice8, "uint*", ds:=0)
+return {"s" : rt, "zs" : ds}
 }
-__delete()
+SetTargets(prx="")
 {
-(this.t)?logerr("Release " dllcall(numget(numget(this.t+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.t))
-(this.s)?logerr("Release " dllcall(numget(numget(this.s+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.s))
-(this.zt)?logerr("Release " dllcall(numget(numget(this.zt+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.zt))
-(this.zs)?logerr("Release " dllcall(numget(numget(this.zs+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.zs))
-}
-}
-class SProxie9 {
-__new(w, h, f, aa, q, zf="", d=0, m=0)
+if prx
 {
-r := dllcall(IDirect3DDevice9.CreateRenderTarget, uint, g_.pDevice9, uint, w, uint, h, uint, f, uint, aa
-, uint, q, uint, 0, "uint*", s:=0, uint, 0)
-this.s  := s
-this.zs := 0
-if zf
-{
-r := dllcall(IDirect3DDevice9.CreateDepthStencilSurface, uint, g_.pDevice9, uint, w, uint, h, uint, zf
-, uint, aa, uint, q, uint, d, "uint*", s:=0, uint, 0)
-Logerr("Proxie: z buffer:             " r " " w " x " h " " D3D9GetPixelFormat(zf) " " D3D9.err[r . ""])
-if (r)
-return r
-this.zs := s
-}
-}
-Set()
-{
-logerr("set target " dllcall(IDirect3DDevice9.SetRenderTarget, uint, g_.pDevice9, uint, 0, uint, this.s) " " this.s)
-logerr("set Z " dllcall(IDirect3DDevice9.SetDepthStencilSurface, uint, g_.pDevice9, uint, this.zs) " " this.zs)
-}
-__delete()
-{
-(this.zs)?logerr("Release " dllcall(numget(numget(this.zs+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.zs))
-(this.s)?logerr("Release " dllcall(numget(numget(this.s+0, "ptr")+A_PtrSize*2, "ptr"), uint, this.s))
-}
-}
-ReleaseDirect3D9()
-{
+r := dllcall(IDirect3DDevice8.SetRenderTarget, uint, g_.pDevice8, uint, prx.s, uint, prx.zs)
 return
-IDirect3DStateBlock9.__release()
-IDirect3DSwapChain9.__release()
-IDirect3DPixelShader9.__release()
-IDirect3DVertexBuffer9.__release()
-IDirect3DSurface9.__release()
-IDirect3DTexture9.__release()
-IDirect3DCubeTexture9.__release()
-IDirect3DCubeFace9.__release()
-logerr("D3D9Device Release " IDirect3DDevice9.__release())
-logerr("D3D9 Release " IDirect3D9.__release())
 }
-D3D9_HOOKS :=
-(
-"
-LPVOID AhkDvc;
-DWORD sdk;
-DWORD BLNK;
-DWORD DblTxlSz;
-DWORD W, H, HD_W, HD_H, HD_X, rx, ry, rw, rh;
-float scale;
-LPVOID GetDisplayMode;
-LPVOID GtMntrNfoA; GtSysMtrcs;
-LPVOID xBR;
-LPVOID StFVF, STVxShdr, STVxDcl, StStream, EndBlck, ApplyBlck, RlsBlck;
-LPVOID CrtVtxB, CrtIdxB;
-LPVOID CreateTxHD, CreateCube, CreateRT, CreateZS, CreateZSEx;
-LPVOID Draw, DrawIdx, DrawUp, DrawIdxUp, CFill, Clr, StrtchRct, Prsnt, PrsntEx, StVW, GtVW, StScsr, GtScsr;
-LPVOID GtRTDt, GtSrfcDsc, GtRTDsc, GtBck, GtDpth, StDpth, GtTrgt, StTrgt, RTLOck, RTUnlock;
-LPVOID UPdateHDSrfc, UPdateHDTxtr;
-LPVOID HDSrfc, HDZSrfc, SDSrfc, SDZSrfc, HlfSrfc;
-LPVOID Srfcs;
-LPVOID vrtx;
-BOOL Pow2;
-BOOL FixvPos;
-LPVOID vPosFix;
-DWORD Fltr;
-LPVOID StSS;
-LPVOID End; LPVOID Callback; LPVOID Font; DWORD fntx,fnty,fntw,fnth; LPCTSTR tex; DWORD color;
-LPVOID t; LPVOID px; DWORD tx,ty,tw,th; LPVOID SetTexture; LPVOID ReleaseShader; LPCTSTR dump;
-LPVOID pIDirect3DDevice9_CreateTexture;
-LPVOID pIDirect3DDevice9_UpdateTexture;
-LPVOID UpdtSrfc;
-LPVOID pIDirect3DDevice9_StretchRect;
-LPVOID pIDirect3DDevice9_SetTexture;
-LPVOID pIDirect3DTexture9_GetSurfaceLevel;
-LPVOID pIDirect3DTexture9_LockRect;
-LPVOID pIDirect3DTexture9_UnlockRect;
-LPVOID pIDirect3DTexture9_QueryInterface;
-LPVOID pIDirect3DTexture9_Release;
-LPVOID pIDirect3DSurface9_LockRect;
-LPVOID pIDirect3DSurface9_UnlockRect;
-LPVOID pIDirect3DSurface9_Release;
-LPVOID RTRelease;
-LPVOID CbtRls;
-LPVOID CbsRls;
-LPVOID pTextureFound;
-BOOL   autodmp;
-BOOl   dyntxts;
-BOOL   safe;
-BOOL   ignore_release;
-BOOL   searching;
-LPVOID Currentexture9;
-LPVOID Textures;
-LPVOID Surfaces;
-LPVOID Replacements;
-LPVOID Paths;
-LPVOID Dev9;
-LPVOID CreatePixelShader;
-LPVOID SetPixelShader;
-LPVOID GetFunction;
-LPVOID Release;
-LPVOID pShaderFound;
-LPVOID Override;
-BOOL   s_ignore_release;
-BOOL   srchng;
-BOOL   enabled;
-LPVOID IsSelected;
-LPVOID CurrentSelectedShader;
-LPVOID Current;
-LPVOID Shaders;
-LPVOID Overrides;
-LPVOID Blobs;
-DWORD  SDumpsSize;
-LPVOID SDumps;
-LPCTSTR SPath;
-LPCTSTR StxtPath;
-"
-)
-global D3D9_HOOKS := struct(D3D9_HOOKS)
-global D3D9_RECT  := struct("LPVOID t; LPVOID Px; DWORD x, y, w, h; LPVOID SetTx; LPVOID ShdrRelease;")
-D3D9_HOOKS.color  := 0x00ffffff
-g_.p.DrawRect9    := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "D3D9_DrawRect", uint)
-global g_tswap9 := {}
-Global DDSD_CAPS        := 0x00000001
-Global DDSD_HEIGHT      := 0x00000002
-Global DDSD_PITCH       := 0x00000008
-Global DDSD_PIXELFORMAT := 0x00001000
-Global DDSD_WIDTH       := 0x00000004
-_TS9Init()
-{
-logerr(IDirect3DDevice9.dllHook("CreateTexture", "CreateTexture9Hook"))
-logerr(IDirect3DDevice9.dllHook("SetTexture", "SetTexture9Hook"))
-logerr(IDirect3DTexture9.dllHook("Release", "ReleaseTexture9Hook"))
-logerr(IDirect3DSurface9.dllHook("Release", "ReleaseSurface9Hook"))
-logerr(IDirect3DDevice9.dllHook("UpdateSurface", "UpdateSurface9Hook"))
-D3D9_HOOKS.pIDirect3DDevice9_CreateTexture := IDirect3DDevice9.CreateTexture
-D3D9_HOOKS.pIDirect3DDevice9_SetTexture    := IDirect3DDevice9.SetTexture
-D3D9_HOOKS.pIDirect3DTexture9_Release      := IDirect3DTexture9.Release
-D3D9_HOOKS.pIDirect3DSurface9_Release      := IDirect3DSurface9.Release
-D3D9_HOOKS.UpdtSrfc                        := IDirect3DDevice9.UpdateSurface
-g_tswap9.textures        := new Collection()
-D3D9_HOOKS.Textures      := g_tswap9.textures.pc
-g_tswap9.Replacements    := new Collection()
-D3D9_HOOKS.Replacements  := g_tswap9.Replacements.pc
-g_tswap9.Surfaces        := new Collection()
-D3D9_HOOKS.Surfaces      := g_tswap9.Surfaces.pc
-g_tswap9.paths           := new Collection()
-D3D9_HOOKS.Paths         := g_tswap9.paths.pc
+dllcall(IDirect3DDevice8.GetBackBuffer, uint, g_.pDevice8, uint, 0, uint, 0, "uint*", b:=0)
+dllcall(IDirect3DDevice8.SetRenderTarget, uint, g_.pDevice8, uint, b, uint, 0, uint)
+b ? Release(b)
 }
-TS9Init(byref cfg)
+global g_tswap8 := {}
+_TS8Init()
 {
-g_tswap9      := parsecfg(cfg)
-g_tswap9.srch := False
-g_tswap9.path := g_.cfg.path g_tswap9.path
-if ! g_tswap9.path
+logerr(IDirect3DDevice8.dllHook("CreateTexture", "CreateTexture8Hook"))
+logerr(IDirect3DDevice8.dllHook("SetTexture", "SetTexture8Hook"))
+logerr(IDirect3DTexture8.dllHook("Release", "ReleaseTexture8Hook"))
+logerr(IDirect3DTexture8.dllHook("GetSurfaceLevel", "GetSurfaceLevel8Hook"))
+logerr(IDirect3DSurface8.dllHook("Release", "ReleaseSurface8Hook"))
+D3D8_HOOKS.pIDirect3DDevice8_CreateTexture    := IDirect3DDevice8.CreateTexture
+D3D8_HOOKS.pIDirect3DDevice8_SetTexture       := IDirect3DDevice8.SetTexture
+D3D8_HOOKS.pIDirect3DTexture8_Release         := IDirect3DTexture8.Release
+D3D8_HOOKS.pIDirect3DTexture8_GetSurfaceLevel := IDirect3DTexture8.GetSurfaceLevel
+D3D8_HOOKS.pIDirect3DSurface8_Release         := IDirect3DSurface8.Release
+g_tswap8.textures            := new Collection()
+D3D8_HOOKS.Textures          := g_tswap8.textures.pc
+g_tswap8.Replacements        := new Collection()
+D3D8_HOOKS.Replacements      := g_tswap8.Replacements.pc
+g_tswap8.Surfaces            := new Collection()
+D3D8_HOOKS.Surfaces          := g_tswap8.Surfaces.pc
+}
+TS8Init(byref cfg)
+{
+g_tswap8         := parsecfg(cfg)
+g_tswap8.srch    := False
+g_tswap8.f_rct   := struct("LONG x, y, w, h;")
+g_tswap8.t_rct   := struct("LONG x, y, w, h;")
+g_tswap8.t_rct.h := g_tswap8.sz
+g_tswap8.t_rct.w := g_tswap8.sz
+g_tswap8.f_rct.y := g_tswap8.t_rct.h + 10
+g_tswap8.f_rct.h := g_tswap8.f_rct.y + g_tswap8.sz
+g_tswap8.f_rct.w := g_tswap8.sz
+if not g_tswap8.path
 return
+g_tswap8.path := g_.cfg.path g_tswap8.path
 if (g_.cfg.common_path)
-g_tswap9.path := g_.cfg.Mydocs "\WineHooks\Games\Textures"
+g_tswap8.path := g_.cfg.Mydocs "\WineHooks\Games\Textures"
 for k, v in ["Dumps", "Replacements"]
 {
-if not fileexist(g_tswap9.path "\" v)
+if not fileexist(g_tswap8.path "\" v)
 {
-path := g_tswap9.path
+path := g_tswap8.path
 FileCreateDir, %path%\%v%
 }
 }
-D3D9_HOOKS.dyntxts := g_tswap9.l
-g_tswap9.entry     := struct("LPVOID pTexture; DWORD ww; DWORD hh; DWORD type; DWORD format; LPVOID pData;"
-. " DWORD pitch; DWORD bypp; BOOL DXT; LPVOID level0; BOOL warn; LPVOID hwnd")
-dllcall("peixoto.dll\SetSampleCount", uint, g_tswap9.s)
-dllcall("peixoto.dll\SetTexturePaths", str, g_tswap9.path "/dumps/", astr, g_.cfg.MyDocs "\WineHooks\checkerboard.dds")
-if fileexist((comp := g_tswap9.path "\Dumps\dump._dds"))
+g_tswap8.entry   := struct("LPVOID pTexture; DWORD ww; DWORD hh; DWORD type; DWORD format; LPVOID pData; DWORD pitch; DWORD bypp; BOOL DXT; LPVOID Level0")
+g_tswap8.s_entry := struct("LPVOID pSrfc; LPVOID Prnt; DWORD ww; DWORD hh; DWORD type; DWORD Frmt;")
+dllcall("peixoto.dll\SetSampleCount", uint, g_tswap8.s)
+if fileexist((comp := g_tswap8.path "\Dumps\dump._dds"))
 LoadCompiledDumpCollection(comp, lst := [])
-else LoadDumpCollection(g_tswap9.path "\Dumps", lst := [])
-g_tswap9.dumps := []
-D3D9_HOOKS.pTextureFound := RegisterCallback("TextSwap9LoadReplacement", "F")
-D3D9_HOOKS.autodmp       := g_tswap9.a
-_TS9Init()
-return
-logerr(IDirect3DDevice9.dllHook("UpdateTexture", "UpdateTexture9Hook"))
-logerr(IDirect3DMTexture9.dllHook("GetSurfaceLevel", "GetSurfaceLevel9Hook"))
-logerr(IDirect3DMTexture9.dllHook("LockRect", "LockTexture9RectHook"))
-logerr(IDirect3DMTexture9.dllHook("UnLockRect", "UnLockTexture9RectHook"))
-logerr(IDirect3DMSurface9.dllHook("LockRect", "LockManagedSurface9RectHook"))
-logerr(IDirect3DMSurface9.dllHook("UnLockRect", "UnLockManagedSurface9RectHook"))
-D3D9_HOOKS.pIDirect3DDevice9_UpdateTexture     := IDirect3DDevice9.UpdateTexture
-D3D9_HOOKS.pIDirect3DMTexture9_GetSurfaceLevel := IDirect3DMTexture9.GetSurfaceLevel
-D3D9_HOOKS.pIDirect3DMTexture9_LockRect        := IDirect3DMTexture9.LockRect
-D3D9_HOOKS.pIDirect3DMTexture9_UnLockRect      := IDirect3DMTexture9.UnLockRect
-D3D9_HOOKS.pIDirect3DMSurface9_LockRect        := IDirect3DMSurface9.LockRect
-D3D9_HOOKS.pIDirect3DMSurface9_UnLockRect      := IDirect3DMSurface9.UnLockRect
+else LoadDumpCollection(g_tswap8.path "\Dumps", lst := [])
+g_tswap8.dumps              := []
+D3D8_HOOKS.pTextureFound    := RegisterCallback("TextSwap8LoadReplacement", "F")
+D3D8_HOOKS.Samples          := g_tswap8.s
+if (g_tswap8.a)
+D3D8_HOOKS.pDumpTexture := RegisterCallback("AutoDump8", "F")
+D3D8_HOOKS.pIDirect3DSurface8_LockRect     := IDirect3DSurface8.LockRect
+D3D8_HOOKS.pIDirect3DSurface8_UnLockRect   := IDirect3DSurface8.UnLockRect
+IDirect3DSurface8.LockRect                 := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, str, "LockSurface8RectHook")
+IDirect3DSurface8.UnLockRect               := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, str, "UnLockSurface8RectHook")
+logerr(IDirect3DTexture8.dllHook("LockRect", "LockTexture8RectHook"))
+logerr(IDirect3DTexture8.dllHook("UnLockRect", "UnLockTexture8RectHook"))
+D3D8_HOOKS.pIDirect3DTexture8_LockRect    := IDirect3DTexture8.LockRect
+D3D8_HOOKS.pIDirect3DTexture8_UnLockRect  := IDirect3DTexture8.UnLockRect
+logerr(IDirect3DDevice8.dllHook("UpdateTexture", "UpdateTexture8Hook"))
+D3D8_HOOKS.pIDirect3DDevice8_UpdateTexture := IDirect3DDevice8.UpdateTexture
+_TS8Init()
 }
-TextSwap9LoadReplacement(index, pOriginal)
+BrowseTextures8(pDevice, clr)
 {
-printl("Found " index " " pOriginal)
-if (tex := D3D9LoadManagedTexture(g_.pDevice9, g_tswap9.dumps[index].replacement))
-{
-dllcall(g_.p_Critical, uint, 1)
-if (old := g_tswap9.Replacements.value(pOriginal))
-dllcall(IDirect3DTexture9.release, uint, old)
-g_tswap9.Replacements._add(pOriginal, tex)
-dllcall(g_.p_Critical, uint, 0)
-}
+static currentindex:=0, _type:=0
+_type ?: _type := ["Video memory", "Managed", "System memory (don't dump)", "Scratch", "Dynamic"]
+if (currentindex >= g_tswap8.textures.Count())
+currentindex := 0
+else if (currentindex < 0 )
+currentindex := g_tswap8.textures.Count() - 1
+_func := getkeystate(g_tswap8.q) ? "getkeystate" : "keyevent"
+if not (g_tswap8.entry[] := g_tswap8.textures.ValueAt(currentindex))
 return
-}
-BrowseTextures9(pDevice)
+if %_func%(g_tswap8.n)
+currentindex += 1
+else if %_func%(g_tswap8.p)
+currentindex -= 1
+else if keyevent(g_tswap8.d)
 {
-static idx :=0, _type := ["Video memory", "Managed", "System memory (don't dump)", "Scratch (don't dump)", "Dynamic"]
-(idx >= g_tswap9.textures.Count()) ? idx := 0 : (idx < 0 )
-?idx := g_tswap9.textures.Count() - 1
-fnc := getkeystate(g_tswap9.q, "p") ? "getkeystate" : "keyevent"
-e   := g_tswap9.entry
-if ! (e[] := g_tswap9.textures.ValueAt(idx))
-return
-dump := 0
-if %fnc%(g_tswap9.n, "p")
-idx += 1
-else if %fnc%(g_tswap9.p, "p")
-idx -= 1
-else if keyevent(g_tswap9.d)
-{
-dump := 1
-n    := 0
+n := 0
 file := "dump" n ".dds"
-while fileexist(g_tswap9.path "\dumps\" file)
+while (fileexist(g_tswap8.path "\dumps\" file) or IsDump(g_tswap8.dumps, file))
 {
 n += 1
 file := "dump" n ".dds"
 }
-D3D9_HOOKS.dump := g_tswap9.path "\dumps\" file
+LOGERR("dumping " file " - " DumpTexture8(g_tswap8.entry.pTexture, g_tswap8.entry.format, g_tswap8.path "\dumps\" file))
 }
-keyevent(g_tswap9.c) ? D3D9_HOOKS.color := CicleColor(D3D9_HOOKS.color)
-tx     := e.pTexture
-fmt    := D3D9GetPixelFormat(e.format)
-count  := g_tswap9.textures.Count()
-DXT    := e.DXT
-draw   := (e.type < 2)
-warn   := (e.warn) ? "Can't dump. Activate search before the texture is loaded`n" : _type[e.type+1] "`n"
-level0 := (e.level0) ? "Level0: OK" : "Level0: NO"
-D3D9_HOOKS.Currentexture9 := e.pTexture
-D3D9_HOOKS.t              := e.pTexture
-D3D9_HOOKS.tex            := "D3D9 - "  g_tswap9.Replacements.count() " replacements`n"
-. "Texture " idx "/" count " - " e.format " " fmt "(" DXT ")"  e.ww "x" e.hh "`n" warn . level0 ", active surfaces: " . count "`n" e.ww "x" e.hh
-. "`nReplacement: " g_tswap9.Replacements.Value(e.pTexture)
-return ((e.type = 2) || (e.type = 3)) ? 3 : dump+1
+vs     := 0
+ps     := 0
+level0 := (g_tswap8.entry.level0) ? "Level0: OK" : "Level0: NO"
+dllcall(IDirect3DDevice8.GetVertexShader, uint, pDevice, "uint*", vs)
+dllcall(IDirect3DDevice8.SetVertexShader, uint, pDevice, uint, 0x104)
+dllcall(IDirect3DDevice8.GetPixelShader, uint, pDevice, "uint*", ps)
+dllcall(IDirect3DDevice8.SetPixelShader, uint, pDevice, uint, g_tswap8.shader)
+D3D8_HOOKS.Currentexture8 := g_tswap8.entry.pTexture
+D3D8_HOOKS.searching      := False
+dllcall("peixoto.dll\_D3D8DrawRect", uint, pDevice, uint, g_tswap8.entry.pTexture, uint, g_tswap8.t_rct[], uint, g_tswap8.shader, uint, 0)
+dllcall(IDirect3DDevice8.SetPixelShader, uint, pDevice, uint, 0)
+dllcall("peixoto.dll\_D3D8Write", uint, pDevice, uint, g_tswap8.shader, astr
+, "D3D8, texture " currentindex "/" g_tswap8.textures.Count() " - " D3D8GetPixelFormat(g_tswap8.entry.format) "(" g_tswap8.entry.DXT ")`n"
+. _type[g_tswap8.entry.type+1] "`n"
+.  level0 ", active surfaces: " g_tswap8.Surfaces.count(), uint, g_tswap8.t_rct[])
+D3D8_HOOKS.searching      := True
+dllcall(IDirect3DDevice8.SetPixelShader, uint, pDevice, uint, ps)
+dllcall(IDirect3DDevice8.SetVertexShader, uint, pDevice, uint, vs)
 }
-global g_pswap9 := {}
-PS9LdDmps(d)
+TextSwap8LoadReplacement(index, pOiginal)
 {
-n := g_pswap9.dumps.Length() + 1
+fileexist(f:=strget(index+0, "CP0")) ?: f := g_.cfg.MyDocs "\WineHooks\checkerboard.dds"
+if (tex := D3D8LoadManagedTexture(g_.pDevice8, f))
+{
+dllcall("peixoto.dll\D3D8Replacetexture", ptr, pOiginal, ptr, tex)
+}
+}
+AutoDump8(t, fmt)
+{
+n    := 0
+file := "dump" n ".dds"
+while (fileexist(g_tswap8.path "\dumps\" file) or IsDump("", file))
+{
+n += 1
+file := "dump" n ".dds"
+}
+LOGERR("dumping " g_tswap8.path "\dumps\" file " - " DumpTexture8(t, fmt, g_tswap8.path "\dumps\" file))
+dllcall("peixoto.dll\AppendDump", astr, g_tswap8.path "\dumps\" file)
+}
+DumpTexture8(texture, format, file)
+{
+d := struct(D3DSURFACE_DESC)
+dllcall(IDirect3DTexture8.GetLevelDesc, ptr, texture, uint, 0, ptr, d[])
+if (er := dllcall(IDirect3DTexture8.GetSurfaceLevel, uint, texture, uint, 0, "uint*", pTargetSurface))
+return LOGERR("Failed to get the target texture level 0 " er " " D3D8.err[er . ""])
+if (d.Pool = 0)
+{
+if dllcall(IDirect3DDevice8.CreateImageSurface, uint, g_.pDevice8, uint, d.width, uint, d.height, uint, format, "uint*", sys:=0)
+return LOGERR("IDirect3DDevice8::CreateImageSurface FAILED")
+if dllcall(IDirect3DDevice8.CopyRects, ptr, g_.pDevice8, ptr, pTargetSurface, ptr, 0, uint, 0, ptr, sys, ptr, 0)
+return LOGERR("IDirect3DDevice8::CopyRects FAILED")
+dllcall(IDirect3DSurface8.release, uint, pTargetSurface)
+pTargetSurface := sys
+s := new ComInterfaceWrapper(D3D8.IDirect3DSurface8, pTargetSurface, True)
+} else s :=	IDirect3DSurface8
+if not (pixelformat := D3D8GetPixelFormat(format))
+return LOGERR("Unsupported format " pixelformat)
+lrect := struct("UINT pitch; UINT pbytes;")
+if (er := dllcall(s.LockRect, uint, pTargetSurface, ptr, lrect[], uint, 0, uint, 0) )
+return LOGERR("Failed to lock system surface for dumping" er " " D3D8.err[er . ""])
+logerr("DumpDDS " dllcall("peixoto.dll\DumpDDS", str, file, astr, pixelformat, uint, d.width, uint, d.height, uint, lrect.pbytes, uint, lrect.pitch))
+dllcall(s.UnLockRect, uint, pTargetSurface, uint, 0)
+dllcall(s.release, uint, pTargetSurface)
+return d.width "x" d.height " " pixelformat " " lrect.pbytes " " lrect.pitch " " d.Pool
+}
+global g_pswap8 := {}
+PS8LdDmps(d)
+{
+n := g_pswap8.dumps.Length() + 1
 loop, %d%\*.bin, 0, 0
 {
-f := fileopen(A_loopfilefullpath, "r")
-p := dllcall("VirtualAlloc", uint, 0, uint, f.Length+4, "Int", 0x1000, uint, (PAGE_READWRITE := 0x04))
-printl("file " A_loopfilename " " g_pswap9[A_loopfilename] " " f.Length)
+f  := fileopen(A_loopfilefullpath, "r")
+p  := dllcall("VirtualAlloc", uint, 0, uint, f.Length+4, "int", 0x00001000, uint, 0x04)
+printl("File: " A_loopfilename " " g_pswap8[A_loopfilename] " " f.Length)
 numput(f.Length, p+0, "uint")
 f.RawRead(p+4, f.Length)
-if fileexist( (file := strsplit(A_loopfilefullpath, ".bin")[1] ".hlsl") )
+if fileexist( (file := strsplit(A_loopfilefullpath, ".bin")[1] ".txt") )
 {
 fileread, code, %file%
-g_pswap9.dumps[n] := {"p" : p, "mode" : "hlsl", "code" : code}
-r := D3DX9.HLSLtoDXBC(code, "main", blob)
-if (r)
-logerr("Compilation failed " r)
-else
-{
-logerr("HLSL shader OK =) " n ", blob:" blob ", count: " g_pswap9.Blobs._add(n, blob) )
+stringreplace, code, code, ps_1_, ps.1.
+g_pswap8.dumps[n] := {"p" : p, "mode" : "Asm", "code" : code}
 }
-}
-else if fileexist( (file := strsplit(A_loopfilefullpath, ".bin")[1] ".txt") )
-{
-fileread, code, %file%
-g_pswap9.dumps[n] := {"p" : p, "mode" : "Asm", "code" : code}
-r := D3DX9.Asm2DXBC(code, blob)
-if (r)
-logerr(r)
-else
-{
-logerr("Asm shader OK =)")
-g_pswap9.Blobs._add(n, blob)
-}
-}
-else g_pswap9.dumps[n] := {"p" : p, "mode" : ""}
+else g_pswap8.dumps[n] := {"p" : p, "mode" : g_pswap8[A_loopfilename]}
 n += 1
 f.close()
 }
-logerr(g_pswap9.Blobs.Count() " Shaders " IsObject(g_pswap9.Blobs) " " IsObject(g_pswap9.shaders))
+return n
 }
-_PS9Init()
+PS8Init(byref cfg)
 {
-logerr(IDirect3DDevice9.dllHook("CreatePixelShader", "CreatePixelShader9Hook"))
-logerr(IDirect3DDevice9.dllHook("SetPixelShader", (g_pswap9.dev) ? "SetPixelShader9HookD" : "SetPixelShader9Hook"))
-logerr(IDirect3DPixelShader9.dllHook("Release", "ReleasePixelShader9Hook"))
-D3D9_HOOKS.CreatePixelShader       := IDirect3DDevice9.CreatePixelShader
-D3D9_HOOKS.SetPixelShader          := IDirect3DDevice9.SetPixelShader
-D3D9_HOOKS.Release                 := IDirect3DPixelShader9.release
-g_pswap9.shaders       := new Collection()
-D3D9_HOOKS.Shaders     := g_pswap9.shaders.pc
-g_pswap9.Overrides     := new Collection()
-D3D9_HOOKS.Overrides   := g_pswap9.Overrides.pc
-g_pswap9.Blobs         := new Collection()
-D3D9_HOOKS.Blobs       := g_pswap9.Blobs.pc
-}
-PS9Init(byref cfg)
+g_pswap8       := parsecfg(cfg)
+g_pswap8.rct   := struct("DWORD x, y, w, h")
+g_pswap8.rct.x := 0
+g_pswap8.rct.w := 384
+g_pswap8.rct.y := 16
+g_pswap8.rct.h := 80
+g_pswap8.user_path := g_.cfg.path "pixelshaders"
+if ! fileexist(g_pswap8.user_path)
 {
-g_pswap9           := parsecfg(cfg)
-g_pswap9.code      := "sampler s0 : register(s0);`nfloat4 main(float2 tex: TEXCOORD0) : COLOR0`n{`nreturn tex2D(s0, tex);`n};"
-D3D9_HOOKS.enabled := 1
-g_pswap9.user_path := g_.cfg.path "pixelshaders"
-if ! fileexist(g_pswap9.user_path)
-{
-path := g_pswap9.user_path
+path := g_pswap8.user_path
 FileCreateDir, %path%
 }
-name           := g_.cfg.target_name
-StringLower, name, name
-name           := strsplit(name, ".exe")[1]
-g_pswap9.path  := g_.cfg.injector_dir "\patches\" name
-logerr("Shader dumps Path: " g_pswap9.path " " g_pswap9.user_path)
-_PS9Init()
-g_pswap9.dumps := []
-PS9LdDmps(g_pswap9.path)
-PS9LdDmps(g_pswap9.user_path)
-n := g_pswap9.dumps.Length()
-D3D9_HOOKS.SDumpsSize := n
-D3D9_HOOKS.Sdumps     := dllcall("VirtualAlloc", uint, 0, uint, n*4, "Int", 0x1000, uint, (PAGE_READWRITE := 0x04))
-for k, v in g_pswap9.dumps
+name           := strsplit(g_.cfg.target_name, ".exe")[1]
+g_pswap8.path  := g_.cfg.injector_dir "\patches\" name
+printl("Shader dumps Path: " g_pswap8.path " " g_pswap8.user_path)
+g_pswap8.dumps := []
+PS8LdDmps(g_pswap8.path)
+PS8LdDmps(g_pswap8.user_path)
+n := g_pswap8.dumps.Length()
+D3D8_HOOKS.ShaderDumpsSize := n
+D3D8_HOOKS.ShaderDumps     := dllcall("VirtualAlloc", uint, 0, uint, n*4, "int", 0x00001000, uint, (PAGE_READWRITE := 0x04))
+for k, v in g_pswap8.dumps
 {
-numput(v.p, D3D9_HOOKS.Sdumps + (k-1)*4, "uint")
+numput(v.p, D3D8_HOOKS.ShaderDumps + (k-1)*4, "uint")
+logerr("Data ptr " v.p " " numget(v.p , "uint"))
 }
-D3D9_HOOKS.pShaderFound := RegisterCallback("d3D9ShaderFound", "f")
-}
-D3D9ShaderFound(index, Original, sz, szb)
-{
-logerr("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-if (g_pswap9.dumps[index].mode = "Asm")
-{
-err := D3DX9.AssembleShader(g_.pDevice9, g_pswap9.dumps[index].code, pShader)
-if ! err
-g_pswap9.Overrides._add(Original, pShader)
-printl("Shader substitution: " err "`n" g_pswap9.dumps[index].code)
-}
-else if (g_pswap9.dumps[index].mode = "hlsl")
-{
-err := D3DX9.CompileShader(g_.pDevice9, g_pswap9.dumps[index].code, "main", pShader)
-if ! err
-g_pswap9.Overrides._add(Original, pShader)
-printl("Shader hlsl substitution: " err "`n" g_pswap9.dumps[index].code)
-}
-}
-BrowseShaders9(pDevice)
-{
-static i = 0
-fn := getkeystate(g_pswap9.q, "p") ? "getkeystate" : "keyevent"
-if ! ( c := g_pswap9.shaders.ValueAt(i))
+logerr(IDirect3DDevice8.dllHook("CreatePixelShader", "CreatePixelShader8Hook"))
+logerr(IDirect3DDevice8.dllHook("DeletePixelShader", "DeletePixelShader8Hook"))
+logerr(IDirect3DDevice8.dllHook("SetPixelShader", "SetPixelShader8Hook"))
+D3D8_HOOKS.pShaderFound        := RegisterCallback("D3D8ShaderFound", "f")
+D3D8_HOOKS.CreatePixelShader   := IDirect3DDevice8.CreatePixelShader
+D3D8_HOOKS.DeletePixelShader   := IDirect3DDevice8.DeletePixelShader
+D3D8_HOOKS.SetPixelShader      := IDirect3DDevice8.SetPixelShader
+g_pswap8.shaders               := new Collection()
+D3D8_HOOKS.Shaders             := g_pswap8.shaders.pc
+g_pswap8.Overrides             := new Collection()
+D3D8_HOOKS.Overrides           := g_pswap8.Overrides.pc
+g_pswap8.DDI_Overrides         := new Collection()
+D3D8_HOOKS.DDI_Overrides       := g_pswap8.DDI_Overrides.pc
 return
-D3D9_HOOKS.CurrentSelectedShader := c
-if %fn%(g_pswap9.n, "p")
-{
-i += 1
-if (i >= g_pswap9.shaders.Count())
-i := 0
 }
-else if %fn%(g_pswap9.p, "p")
+D3D8ShaderFound(index, Original, sz, szb)
 {
-i -= 1
-if (i < 0)
-i := g_pswap9.shaders.Count() - 1
+if (g_pswap8.dumps[index].mode = "Asm")
+{
+h := D3D8CreatePixelShader(g_pswap8.dumps[index].code, g_.pDevice8)
+if h is number
+g_pswap8.Overrides._add(Original, h)
+logerr("Shader substitution: " h "`n" g_pswap8.dumps[index].code )
 }
-else if keyevent(g_pswap9.d)
+}
+GetShdr8Fnc(pDev, hS, byref Dt)
 {
+if ! dllcall(IDirect3DDevice8.GetPixelShaderFunction, uint, pDev, uint, hS, uint, 0, "uint*", s := 0)
+{
+VarSetCapacity(Dt, s)
+dllcall(IDirect3DDevice8.GetPixelShaderFunction, uint, pDev, uint, hS, uint, &Dt, "uint*", s)
+return s
+}
+return 0
+}
+BrowseShaders8(pD, clr)
+{
+static code = "", indx = 0, update = True
+if (indx >= g_pswap8.shaders.Count())
+indx := 0
+else if (indx < 0 )
+indx := g_pswap8.shaders.Count() - 1
+_func := getkeystate(g_pswap8.q, "p") ? "getkeystate" : "keyevent"
+if not ( c := g_pswap8.shaders.ValueAt(indx))
+{
+if (g_pswap8.shaders.count() = 0)
+{
+dllcall(IDirect3DDevice8.GetPixelShader, uint, g_.pDevice8, "uint*", ps:=0)
+dllcall(IDirect3DDevice8.SetPixelShader, uint, g_.pDevice8, uint, 0)
+dllcall("peixoto.dll\_D3D8Write", uint, pD, uint, g_tswap8.shader, astr, "No pixel shaders`n", uint, g_pswap8.rct[])
+dllcall(IDirect3DDevice8.SetPixelShader, uint, g_.pDevice8, uint, ps)
+}
+return
+}
+D3D8_HOOKS.Current := c
+if update
+{
+if GetShdr8Fnc(pD, c, Dt)
+code      := D3DX9.DisassembleShader(&Dt)
+else code := ""
+update    := False
+}
+if %_func%(g_pswap8.n, "p")
+{
+update := True
+indx   += 1
+}
+else if %_func%(g_pswap8.p, "p")
+{
+update := true
+indx   -= 1
+}
+else if keyevent(g_pswap8.d)
+{
+s     := GetShdr8Fnc(pD, c, Dt)
+code  := D3DX9.DisassembleShader(&Dt)
 n     := 0
-file  := g_pswap9.path "\dump" n ".bin"
-ufile := g_pswap9.user_path "\dump" n ".bin"
+file  := g_pswap8.path "\dump" n ".bin"
+ufile := g_pswap8.user_path "\dump" n ".bin"
 while fileexist(file) or fileexist(ufile)
 {
 n     += 1
-file  := g_pswap9.path "\dump" n ".bin"
-ufile := g_pswap9.user_path "\dump" n ".bin"
+file  := g_pswap8.path "\dump" n ".bin"
+ufile := g_pswap8.user_path "\dump" n ".bin"
 }
-D3D9_HOOKS.SPath := ufile
-stringreplace, ufile, ufile, .bin, .txt
-D3D9_HOOKS.StxtPath := ufile
-return 5
 f := FileOpen(ufile, "w")
-f.RawWrite(&d, sz)
+f.RawWrite(&Dt, s)
 f.close()
-code := D3DX9.DisassembleShader(&d)
-logerr("Disassembled")
 stringreplace, ufile, ufile, .bin, .txt
 if not fileexist(ufile)
 fileappend, % code, % ufile
 }
-return 4
-D3DX9.DrawText(g_.D3D9Font, "shader " i "/" g_pswap9.shaders.Count() " " current
-, 0xFFFF0000,"0|0|255|255")
+dllcall(IDirect3DDevice8.GetPixelShader, uint, g_.pDevice8, "uint*", ps:=0)
+dllcall(IDirect3DDevice8.SetPixelShader, uint, g_.pDevice8, uint, 0)
+dllcall("peixoto.dll\_D3D8Write", uint, pD, uint, g_tswap8.shader, astr, indx "/" g_pswap8.shaders.count() "shaders`n" code, uint, g_pswap8.rct[])
+dllcall(IDirect3DDevice8.SetPixelShader, uint, g_.pDevice8, uint, ps)
+return
 }
-test := new Collection()
-test._add(1, 1)
-test._add(2, 2)
-global VW9 := struct(D3DVIEWPORT9)
-D3D9_HOOKS.vrtx := dllcall("VirtualAlloc", uint, 0, uint, 2097152, Int, 0x00001000, uint, 0x04)
-D3D9CreateHook(p1){
-logerr("==================================================================")
-D3DPRESENT_PARAMETERS.hDeviceWindow := ""
-g_.Proxies     := {}
-g_.pDevice9    := ""
-D3D9_HOOKS.sdk := p1
-return dllcall(g_.pD3D9Create, uint, p1)
+D3DDDI_CreatePixelShader(p, p2){
+return
 }
-D3D9CreateExHook(p1, p2){
-logerr("==================================================================")
-D3DPRESENT_PARAMETERS.hDeviceWindow := ""
-g_.Proxies     := {}
-g_.pDevice9    := ""
-D3D9_HOOKS.sdk := p1
-return dllcall(g_.pD3D9CreateEx, uint, p1, ptr, p2)
+D3DDDI_SetShaderOverride(p){
+return
 }
-HookD3D9Create(){
-VarSetCapacity(SysDir, 261)
-DllCall("GetSystemDirectoryW", Str, SysDir, UInt, 261)
-logerr("D3D9Create Hook: " InstallHook(isfunc("AltD3D9Create") ? "AltD3D9Create" : "D3D9CreateHook", p, SysDir "\d3d9.dll", "Direct3DCreate9"))
-g_.pD3D9Create   := p
-logerr("D3D9Create Hook: " InstallHook(isfunc("AltD3D9CreateEx") ? "AltD3D9CreateEx" : "D3D9CreateExHook", pEx, SysDir "\d3d9.dll", "Direct3DCreate9Ex"))
-g_.pD3D9CreateEx := pEx
+D3DDDI_RestoreShader(){
+return
 }
-D3D9IsLinux(){
-if (!FileExist(GetSystemDir() "\wined3d.dll"))
-return False
+D3DDDI_Init(){
+return
+}
+D3D8IsLinux(){
+if (FileExist(GetSystemDir() "\wined3d.dll"))
+return true
 if (dllcall("LoadLibraryW", str, "wined3d.dll"))
 {
 if (h_d3d9 := dllcall("LoadLibraryW", str, "d3d9.dll"))
 {
 if dllcall("GetProcAddress", uint, h_d3d9, astr, "Direct3DCreate9On12")
 {
-dllcall("peixoto.dll\D3D12Config", astr, "DXVK", uint, 9)
+dllcall("peixoto.dll\D3D12Config", astr, "DXVK", uint, 8)
 return "dxvk"
 }
 return "wined"
 }
 }
-RETURN False
+RETURN ""
 }
-D3D9LoadWine(){
-logerr("Linux: " D3D9IsLinux() " SysDir: " GetSystemDir() " Exists: " FileExist(GetSystemDir() "\wined3d.dll"))
-if (D3D9IsLinux())
-return
-logerr("Loading WineD3D")
-arch  := A_PtrSize = 8 ? "System32" : "SysWOW64"
-if (g_.cfg.dxvk)
-h_wined3d9  := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\dxvk\" . g_.cfg.dxvkv "\" arch "\d3d9.dll")
+HookD3D8Create()
+{
+D3D8Create := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", str, A_windir "\SysWOW64\D3D8.dll"), astr, "Direct3DCreate8")
+hook       := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "Direct3DCreate8")
+logerr("D3D8Create Hook: " AltInstallHook(hook, D3D8Create))
+}
+Direct3DCreate8_hook(p1){
+D3DPRESENT_PARAMETERS.hDeviceWindow := ""
+g_.Proxies     := {}
+g_.Proxie.clr  := ""
+g_.pDevice8    := ""
+return dllcall(g_.pDirect3DCreate8, uint, 0xdc)
+}
+g_.p.ddiCreatePx      := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiCreatePxShader")
+g_.p.ddiDeletePx      := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiDeletePxShader")
+g_.p.ddiSetOvrrd      := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "d3dddiSetOverride")
+g_.cfg.layer := ""
+if (g_.cfg.layer)
+HookD3D8Create()
+else
+{
+VarSetCapacity(SysDir, 261)
+DllCall("GetSystemDirectoryW", Str, SysDir, UInt, 261)
+logerr("Direct3DCreate8 Hook: " InstallHook(isfunc("AltDirect3DCreate8") ? "AltDirect3DCreate8" : "Direct3DCreate8_hook", pDirect3DCreate8, SysDir "\d3d8.dll", "Direct3DCreate8"))
+g_.pDirect3DCreate8 := pDirect3DCreate8
+logerr("Linux: " D3D8IsLinux() " SysDir: " GetSystemDir() " Exists: " FileExist(GetSystemDir() "\wined3d.dll"))
+if (! D3D8IsLinux()) {
+arch        := A_PtrSize == 8 ? "System32" : "SysWOW64"
+if (g_.cfg.dxvk){
+h_wined3d8    := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch "\d3d8.dll")
+p_dxvkCreate9 := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\dxvk\"  g_.cfg.dxvkv "\" arch "\d3d9.dll"), astr, "Direct3DCreate9", ptr)
+p_msCreate9   := dllcall("GetProcAddress", ptr, dllcall("LoadLibraryW", str, "d3d9.dll"), astr, "Direct3DCreate9", ptr)
+logerr("dcvk D3D9 Hook: " AltInstallHook(p_dxvkCreate9, p_msCreate9))
+dllcall("peixoto.dll\D3D12Config", astr, "DXVK", uint, 8)
+}
 else {
 dllcall("LoadLibraryW", str,  g_.cfg.injector_dir . "\wined3d\"  g_.cfg.wine "\" arch "\wined3d.dll")
-h_wined3d9  := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\wined3d\" . g_.cfg.wine . "\" arch "\d3d9.dll")
+h_wined3d8  := dllcall("LoadLibraryW", str, g_.cfg.injector_dir . "\wined3d\" . g_.cfg.wine . "\" arch "\d3d8.dll")
 }
-g_.pD3D9Create   :=  dllcall("GetProcAddress", ptr, h_wined3d9, astr, "Direct3DCreate9")
-g_.pD3D9CreateEx :=  dllcall("GetProcAddress", ptr, h_wined3d9, astr, "Direct3DCreate9Ex")
+g_.pDirect3DCreate8 := dllcall("GetProcAddress", ptr, h_wined3d8, astr, "Direct3DCreate8")
 }
-D3D9IniHooks()
-D3D9IniHooks()
-{
-dllcall(g_.p.Critical, uint, 1)
-HookD3D9Create()
-D3D9LoadWine()
-logerr(GetDirect3D9())
-logerr(IDirect3D9.Hook("CreateDevice"))
-logerr(IDirect3D9Ex.hook("CreateDeviceEx"))
-logerr(IDirect3DDevice9.Hook("Reset"))
-logerr(IDirect3DDevice9Ex.Hook("ResetEx"))
-logerr(IDirect3DDevice9.Hook("BeginStateBlock"))
-logerr(IDirect3DDevice9.dllHook("EndScene", "D3D9_EndSceneHook"))
-D3D9_HOOKS.End        := IDirect3DDevice9.EndScene
-D3D9_HOOKS.Callback   := Registercallback(Isfunc("Alt_EndScene") ? "Alt_EndScene" : "IDirect3DDevice9_EndScene", "F")
-D3D9_HOOKS.AhkDvc     := IDirect3DDevice9.p
-D3D9_HOOKS.BLNK       := g_.cfg.BLNK
-D3D9_HOOKS.BLNK       := 0
-(parsecfg(g_.cfg.TextSwap).e) ? TS9Init(g_.cfg.TextSwap)
-(parsecfg(g_.cfg.PxSwap).e)   ? PS9Init(g_.cfg.PxSwap)
-GetKeyState(g_tswap9.sw, "P") ? g_tswap9.srch := True
-D3D9_RECT.SetTx       := IDirect3DDevice9.SetTexture
-D3D9_RECT.ShdrRelease := IDirect3DPixelShader9.Release
+logerr(GetDirect3D8())
+logerr(IDirect3D8.Hook("CreateDevice"))
+logerr(IDirect3DDevice8.Hook("EndScene"))
+(g_.cfg.TextSwap) ? TS8Init(g_.cfg.TextSwap)
+(g_.cfg.PxSwap)   ? PS8Init(g_.cfg.PxSwap)
+GetKeyState(g_tswap8.sw, "P") ? g_tswap8.srch := True
+}
+g_.p.GtCntnr8 := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "GetContainer8S", uint)
+g_.p.GtCbFc   := dllcall("GetProcAddress", uint, g_.h_PeixotoDll, astr, "GetFaceAndLevel8", uint)
 g_.cfg.FLTR := ""
-if (g_.cfg.xBR)
-g_.cfg.FLTR := 1
-if (g_.cfg.TxlSz)
+if (g_.cfg.FLTR)
+logerr(IDirect3DDevice8.Hook("SetTextureStageState"))
+if (g_.cfg.HD && !g_.cfg.layer)
 {
-D3D9_HOOKS.DblTxlSz := g_.cfg.TxlSz+1
-if (g_.cfg.TxlSz > 2)
-D3D9_HOOKS.DblTxlSz := D3D9_HOOKS.DblTxlSz-2 | 0xf0
-}
-D3D9_HOOKS.Fltr |= g_.cfg.FLTR
-(g_tswap9.Fltr) ? D3D9_HOOKS.Fltr |= 0xf0
-if (D3D9_HOOKS.Fltr)
-{
-logerr(IDirect3DDevice9.dllHook("SetSamplerState", "SetSamplerState9Hook"))
-D3D9_HOOKS.StSS := IDirect3DDevice9.SetSamplerState
-}
-if (g_.cfg.HD)
-{
-d := desk()
-D3D9_HOOKS.HD_W := d.W
-D3D9_HOOKS.HD_H := d.H
-D3D9_HOOKS.W := d.W
-D3D9_HOOKS.H := d.H
-if (g_.cfg.RLMT)
-{
-r := strsplit(["640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440", "3840x2160"][g_.cfg.RLMT], "x" )
-D3D9_HOOKS.W := r[1]
-D3D9_HOOKS.H := r[2]
-}
-if (!g_.cfg.dxvk and !(D3D9IsLinux()="dxvk") )
-logerr(IDirect3DSwapChain9.Hook("Present"))
-logerr(IDirect3DDevice9.dllHook("Present", (g_.cfg.xBR) ? "xBRPresent9Hook":"Present9Hook"))
-D3D9_HOOKS.Prsnt     := IDirect3DDevice9.Present
-logerr(IDirect3DDevice9Ex.dllHook("PresentEx", "Present9ExHook"))
-D3D9_HOOKS.PrsntEx   := IDirect3DDevice9Ex.PresentEx
-logerr(IDirect3DDevice9.dllHook("StretchRect", "StretchRect9Hook"))
-D3D9_HOOKS.StrtchRct := IDirect3DDevice9.StretchRect
-logerr(IDirect3DDevice9.dllHook("GetBackBuffer", "GetBackBuffer9Hook"))
-D3D9_HOOKS.GtBck     := IDirect3DDevice9.GetBackBuffer
-logerr(IDirect3DSurface9.dllHook("GetDesc", "GetDesc9Hook"))
-D3D9_HOOKS.GtSrfcDsc := IDirect3DSurface9.GetDesc
-logerr(IDirect3DDevice9.dllHook("GetDepthStencilSurface", "GetDepthStencilSurface9Hook"))
-D3D9_HOOKS.GtDpth  := IDirect3DDevice9.GetDepthStencilSurface
-logerr(IDirect3DDevice9.dllHook("SetDepthStencilSurface", "SetDepthStencilSurface9Hook"))
-D3D9_HOOKS.StDpth  := IDirect3DDevice9.SetDepthStencilSurface
-logerr(IDirect3DDevice9.dllHook("SetRenderTarget", "SetRenderTarget9Hook"))
-D3D9_HOOKS.StTrgt  := IDirect3DDevice9.SetRenderTarget
-logerr(IDirect3DDevice9.dllHook("GetRenderTarget", "GetRenderTarget9Hook"))
-D3D9_HOOKS.GtTrgt  := IDirect3DDevice9.GetRenderTarget
-logerr(IDirect3DDevice9.dllHook("GetViewPort", "GetViewPort9Hook"))
-D3D9_HOOKS.GtVW    := IDirect3DDevice9.GetViewPort
-logerr(IDirect3DDevice9.dllHook("SetViewPort", "SetViewPort9Hook"))
-D3D9_HOOKS.StVW    := IDirect3DDevice9.SetViewPort
-logerr(IDirect3DDevice9.dllHook("SetScissorRect", "SetScissorRect9Hook"))
-D3D9_HOOKS.StScsr  := IDirect3DDevice9.SetScissorRect
-logerr(IDirect3DDevice9.dllHook("GetScissorRect", "GetScissorRect9Hook"))
-D3D9_HOOKS.GtScsr  := IDirect3DDevice9.SetScissorRect
-logerr(IDirect3D9.hook("EnumAdapterModes"))
-logerr(IDirect3D9.hook("GetAdapterDisplaymode"))
-logerr(IDirect3DDevice9.dllHook("GetDisplaymode", "D3D9_GetDisplayModeHook"))
-D3D9_HOOKS.GetDisplayMode  := IDirect3DDevice9.GetDisplayMode
-logerr(IDirect3DDevice9.dllHook("Clear", "Clear9Hook"))
-D3D9_HOOKS.Clr    := IDirect3DDevice9.Clear
-logerr(IDirect3DDevice9.dllHook("ColorFill", "ColorFill9Hook"))
-D3D9_HOOKS.CFill  := IDirect3DDevice9.ColorFill
-D3D9_HOOKS.CrtIdxB  := IDirect3DDevice9.CreateIndexBuffer
-D3D9_HOOKS.CrtVtxB  := IDirect3DDevice9.CreateVertexBuffer
-logerr(IDirect3DDevice9.dllHook("GetRenderTargetData", "GetRenderTargetData9Hook"))
-D3D9_HOOKS.GtRTDt := IDirect3DDevice9.GetRenderTargetData
-(parsecfg(g_.cfg.TextSwap).e) ?: _TS9Init()
-(parsecfg(g_.cfg.PxSwap).e)   ?: _PS9Init()
-D3D9_HOOKS.DrawUp    := IDirect3DDevice9.DrawPrimitiveUp
-D3D9_HOOKS.Draw      := IDirect3DDevice9.DrawPrimitive
-D3D9_HOOKS.DrawIdx   := IDirect3DDevice9.DrawIndexedPrimitive
-D3D9_HOOKS.DrawIdxUp := IDirect3DDevice9.DrawIndexedPrimitiveUp
-pex := A_ptrsize = 4 ? "peixoto.dll" : "peixoto64.dll"
-if (!g_.cfg.xBR)
-{
-Hook := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "CreateTx9HD")
-H    :=	dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "CreateTexture9Hook")
-logerr("CreateTexture Hook: " AltInstallHook(Hook, H))
-D3D9_HOOKS.CreateTxHD := H
-Hook := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "UpdateHDSurface9Hook")
-H    :=	dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "UpdateSurface9Hook")
-logerr("UpdateSurface Hook: " AltInstallHook(Hook, H))
-D3D9_HOOKS.UPdateHDSrfc := H
-logerr(IDirect3DDevice9.dllHook("CreateCubeTexture", "CreateCubeTexture9Hook"))
-D3D9_HOOKS.CreateCube := IDirect3DDevice9.CreateCubeTexture
-logerr(IDirect3DDevice9.dllHook("CreateRenderTarget", "CreateRenderTarget9Hook"))
-D3D9_HOOKS.CreateRT   := IDirect3DDevice9.CreateRenderTarget
-logerr(IDirect3DDevice9.dllHook("CreateDepthStencilSurface", "CreateDepthStencilSurface9Hook"))
-D3D9_HOOKS.CreateZS   := IDirect3DDevice9.CreateDepthStencilSurface
-logerr(IDirect3DDevice9Ex.dllHook("CreateDepthStencilSurfaceEx", "CreateDepthStencilSurface9ExHook"))
-D3D9_HOOKS.CreateZSEx := IDirect3DDevice9Ex.CreateDepthStencilSurfaceEX
-logerr(IDirect3DDevice9.dllHook("DrawPrimitiveUp", "DrawPrimitiveUp9Hook"))
-D3D9_HOOKS.DrawUp    := IDirect3DDevice9.DrawPrimitiveUp
-logerr(IDirect3DDevice9.dllHook("DrawPrimitive", "DrawPrimitive9Hook"))
-D3D9_HOOKS.Draw      := IDirect3DDevice9.DrawPrimitive
-logerr(IDirect3DDevice9.dllHook("DrawIndexedPrimitive", "DrawIndexedPrimitive9Hook"))
-D3D9_HOOKS.DrawIdx   := IDirect3DDevice9.DrawIndexedPrimitive
-logerr(IDirect3DDevice9.dllHook("DrawIndexedPrimitiveUp", "DrawIndexedPrimitiveUP9Hook"))
-D3D9_HOOKS.DrawIdxUp := IDirect3DDevice9.DrawIndexedPrimitiveUp
-D3D9_HOOKS.EndBlck   := IDirect3DDevice9.EndStateBlock
-D3D9_HOOKS.ApplyBlck := IDirect3DStateBlock9.Apply
-D3D9_HOOKS.RlsBlck   := IDirect3DStateBlock9.Release
-D3D9_HOOKS.STVxShdr  := IDirect3DDevice9.SetVertexShader
-logerr(IDirect3DCubeTexture9.dllHook("Release", "ReleaseCubeTexture9Hook"))
-D3D9_HOOKS.CbtRls    := IDirect3DCubeTexture9.Release
-D3D9_HOOKS.POW2    := (g_.cfg.POW2) ? 1 : 0
-D3D9_HOOKS.FixvPos := (g_.cfg.vPos) ? 1 : 0
-D3D9_HOOKS.vPosFix := RegisterCallback("vPosFix", "F")
-}
-if g_.cfg.RLMT
-{
-h := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "D3D9GetMonitorInfoAHook", ptr)
-f := dllcall("GetProcAddress", ptr, dllcall("GetModuleHandleA", astr, "User32.dll", ptr), astr, "GetMonitorInfoA", ptr)
-D3D9_HOOKS.GtMntrNfoA := f
-logerr("GetMonitorInfoA Hook: " s)
-h := dllcall("GetProcAddress", ptr, g_.h_PeixotoDll, astr, "D3D9GetSystemMetricsHook", ptr)
-f := dllcall("GetProcAddress", ptr, dllcall("GetModuleHandleA", astr, "User32.dll", ptr), astr, "GetSystemMetrics", ptr)
-D3D9_HOOKS.GtSysMtrcs := f
-logerr("GetSystemMetrics Hook: " s)
-d            := strsplit(["640x480", "800x600", "1024x768", "960x540", "1280x720", "1366x768", "1920x1080"][g_.cfg.RLMT], "x" )
-D3D9_HOOKS.W := d[1]
-D3D9_HOOKS.H := d[2]
-}
-(g_.cfg.MHKS) ? dllcall("Peixoto.dll\InitMouseHooks")
+global G_HD, g_HD := {}
+G_HD := (g_.cfg.HD = True) ? Desk()
+: {"w" : trim(strsplit(g_.cfg.HD, "x")[1]), "h" : trim(strsplit(g_.cfg.HD, "x")[2])}
+G_HD.HD_W := G_HD.W
+G_HD.HD_H := G_HD.H
+logerr("Max Primitives " (max_primitives := dllcall("Peixoto.dll\D3D8GetmaxPrimitiveCount", uint, IDirect3D8.p)))
+D3D8_HOOKS.vertex_data := dllcall("VirtualAlloc", uint, 0, uint, 67108864, Int, 0x00001000, uint, 0x04)
+logerr(IDirect3D8.hook("EnumAdapterModes"))
+logerr(IDirect3D8.Hook("GetAdapterDisplayMode"))
+logerr(IDirect3DDevice8.Hook("SetRenderTarget"))
+logerr(IDirect3DDevice8.Hook("GetRenderTarget"))
+logerr(IDirect3DDevice8.Hook("GetDepthStencilSurface"))
+logerr(IDirect3DDevice8.Hook("GetBackBuffer"))
+logerr(IDirect3DDevice8.Hook("Present"))
+logerr(IDirect3DDevice8.Hook("SetViewPort"))
+logerr(IDirect3DDevice8.Hook("GetViewPort"))
+logerr(IDirect3DDevice8.Hook("Reset"))
+logErr(IDirect3DDevice8.hook("Clear"))
+logerr(IDirect3DSurface8.Hook("LockRect"))
+logerr(IDirect3DSurface8.Hook("UnLockRect"))
+logerr(IDirect3DSurface8.Hook("GetDesc"))
+logerr(IDirect3DDevice8.dllHook("SetVertexShader", "SetVertexShader8Hook"))
+logerr(IDirect3DDevice8.dllHook("SetStreamSource", "SetStreamSource8Hook"))
+logerr(IDirect3DDevice8.dllHook("DrawPrimitiveUp", "DrawPrimitiveUp8Hook"))
+logerr(IDirect3DDevice8.dllHook("DrawPrimitive", "DrawPrimitive8Hook"))
+logerr(IDirect3DDevice8.dllHook("DrawIndexedPrimitiveUp", "DrawIndexedPrimitiveUP8Hook"))
+logerr(IDirect3DDevice8.dllHook("DrawIndexedPrimitive", "DrawIndexedPrimitive8Hook"))
+logerr(IDirect3DDevice8.dllHook("CreateVertexBuffer", "CreateVertexBuffer8Hook"))
+logerr(IDirect3DDevice8.Hook("GetDisplaymode"))
+D3D8_HOOKS.SetVertexShader          := IDirect3DDevice8.SetVertexShader
+D3D8_HOOKS.SetStreamSource          := IDirect3DDevice8.SetStreamSource
+D3D8_HOOKS.p_DrawPrimitiveUP        := IDirect3DDevice8.DrawPrimitiveUp
+D3D8_HOOKS.p_DrawPrimitive          := IDirect3DDevice8.DrawPrimitive
+D3D8_HOOKS.p_DrawIndexedPrimitiveUP := IDirect3DDevice8.DrawIndexedPrimitiveUp
+D3D8_HOOKS.p_DrawIndexedPrimitive   := IDirect3DDevice8.DrawIndexedPrimitive
+D3D8_HOOKS.CreateVertexBuffer       := IDirect3DDevice8.CreateVertexBuffer
+D3D8_HOOKS.VbLock                   := IDirect3DVertexBuffer8.Lock
+D3D8_HOOKS.VbUnLock                 := IDirect3DVertexBuffer8.Unlock
+D3D8_HOOKS.MVbLock                  := IDirect3DMVertexBuffer8.Lock
+D3D8_HOOKS.MVbUnLock                := IDirect3DMVertexBuffer8.Unlock
+g_HD.trgts                       := new Collection()
+D3D8_HOOKS.RTrgs                 := g_HD.trgts.pc
+g_HD.VbLocks                     := new Collection()
+D3D8_HOOKS.VbLocks               := g_HD.VbLocks.pc
+D3D8_HOOKS.HLFPX                 := g_.cfg.HLFPX
+D3D8_HOOKS.SglCore               := g_.cfg.SNGL
+(g_.cfg.TextSwap)                ?: _TS8Init()
+(g_.cfg.MHKS)                    ? dllcall("Peixoto.dll\InitMouseHooks")
+} else if (g_.cfg.SXTY)
+logerr(IDirect3DDevice8.Hook("Present"))
+D3D8_HOOKS.p_DrawPrimitiveUP  := IDirect3DDevice8.DrawPrimitiveUp
+D3D8_HOOKS.end                := IDirect3DDevice8.EndScene
+D3D8_HOOKS.SetPixelShader     := IDirect3DDevice8.SetPixelShader
+D3DX9.__new("d3dx9_43.dll")
+IDirect3DDevice8.__Release()
+IDirect3D8.__Release()
 g_.WnAPI := {}
-logerr("ChangeDisplaySettingsA Hook: " InstallHook("D3D9ChangeDisplaySettingsA", pChangeDisplaySettingsA, "User32.dll", "ChangeDisplaySettingsA"))
 if (g_.cfg.MCLP)
 {
-logerr("ClipCursor Hook" InstallHook("ClipCursor9", p, "User32.dll", "ClipCursor"))
+logerr("ClipCursor Hook" InstallHook("ClipCursor8", p, "User32.dll", "ClipCursor"))
 g_.WnAPI.ClpCrsr := p
 }
 else g_.WnAPI.ClpCrsr := dllcall("GetProcAddress", uint, dllcall("GetModuleHandleA", astr, "User32.dll", uint), astr, "ClipCursor")
-if (g_.cfg.WHKS=2)
+IDirect3D8_EnumAdapterModes(p1, p2, p3, p4)
 {
-InstallHook("SetWindowPos9", p, "User32.dll", "SetWindowPos")
-g_.WnAPI.SetWindowPos := p
-InstallHook("MoveWindow9", p, "User32.dll", "MoveWindow")
-g_.WnAPI.MoveWindow := p
-}
-}
-D3D9_HOOKS.StFVF    := IDirect3DDevice9.SetFVF
-D3D9_HOOKS.STVxShdr := IDirect3DDevice9.SetVertexShader
-D3D9_HOOKS.STVxDcl  := IDirect3DDevice9.SetVertexDeclaration
-D3D9_HOOKS.StStream := IDirect3DDevice9.SetStreamSource
-for k, v in g_.WnAPI
-printl(k " " v)
-g_.RTrgts        := new Collection()
-D3D9_HOOKS.Srfcs := g_.RTrgts.pc
-f := g_.cfg.HD
-if (g_.cfg.RLMT)
-f |= 0xf0
-dllcall("Peixoto.dll\InitHDHooks9", ptr, D3D9_HOOKS[], uint, f)
-if (g_.cfg.console)
-dllcall("peixoto.dll\D3D12Config", astr, "DBUG", uint, 1)
-if (g_.cfg.dxvk)
-dllcall("peixoto.dll\D3D12Config", astr, "DXVK", uint, 9)
-if (g_.cfg.WHKS)
-dllcall("peixoto.dll\D3D12Config", astr, "FIXWINSIZE", uint, 1)
-if (g_.cfg.FLTR)
-logerr(IDirect3DDevice9.Hook("SetSamplerState"))
-ReleaseDirect3D9()
-dllcall(g_.p.Critical, uint, 0)
-}
-vPosFix(asm)
-{
-logerr("vPos shader found")
-static n := 0
-s := strget(asm+0, "cp0")
-if instr(s, " vPos", 2)
-{
-n += 1
-logerr(n "vPos shaders found")
-s := "    ps_3_0" . strsplit(s, "ps_3_0")[2]
-c  := 0
-while instr(s, "c" . c)
-c  += 1
-p  := instr(s, "dcl_")
-v  := 1/D3D9_HOOKS.scale
-ss := SubStr(s, 1, p-1) . "def c" c ", " v ", " v ", " v ", " v
-. "`n    " SubStr(s, p)
-r := 1
-while instr(s, "r" . r)
-r += 1
-p := instr(ss, "dcl_", ,-1)
-p := instr(ss, "`n", ,p)
-s := SubStr(ss, 1, p-1) . "`n    mul r" r ".xy, c" c ".xy, vPos"
-ss := SubStr(ss, p)
-stringreplace, ss, ss, vPos.x, r%r%.x, 1
-stringreplace, ss, ss, vPos.y, r%r%.y, 1
-stringreplace, ss, ss, vPos.xy, r%r%.xy, 1
-stringreplace, ss, ss, vPos, r%r%.xy, 1
-s .= ss
-logerr("...." s)
-err := D3DX9.Asm2DXBC(s, blob)
-if (err)
-logerr("vPos fix: " err "`n" s)
-else
-{
-logerr("vPos fix: OK =)" s)
-return blob
-}
-}
-}
-D3D9ChangeDisplaySettingsA(p1, p2)
-{
-if (!p1)
-{
-w := D3D9_HOOKS.HD_W
-h := D3D9_HOOKS.HD_H
-} else {
-w := numget(p3+108, "int")
-h := numget(p3+112, "int")
-}
-return 0
-}
-IDirect3D9_GetAdapterDisplaymode(p1, p2, p3)
-{
-r := dllcall(IDirect3D9.GetAdapterDisplaymode, uint, p1, uint, p2, uint, p3)
-if (r)
-return r
-DMD   := struct("UINT w, h, r, f;")
-DMD[] := p3
-DMD.w := D3D9_HOOKS.w
-DMD.h := D3D9_HOOKS.h
-return r
-}
-IDirect3D9_EnumAdapterModes(p1, p2, p3, p4, p5)
-{
-r := dllcall(IDirect3D9.EnumAdapterModes, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5)
+r := dllcall(IDirect3D8.EnumAdapterModes, uint, p1, uint, p2, uint, p3, uint, p4)
 if (r=0)
 {
 DMD   := struct("UINT w, h;")
-DMD[] := p5
+DMD[] := p4
 if (DMD.w = 720)
 {
 if (DMD.h = 480)
 {
 DMD.h := 540
-DMD.w := 540*D3D9_HOOKS.HD_W/D3D9_HOOKS.HD_H
+DMD.w := 540*G_HD.HD_W/G_HD.HD_H
 }
 else if (DMD.h = 576)
 {
@@ -4392,436 +3747,402 @@ DMD.h := 540
 DMD.w := DMD.h *4/3
 }
 }
-if (g_.cfg.RLMT)
+if (p3 = 0x00EFFFFF)
 {
-r := strsplit(g_.cfg.res_lmt_lts[g_.cfg.RLMT], "x" )
-if (DMD.h > r[2])
-DMD.h := r[2]
-if (DMD.w > r[1])
-DMD.w := r[1]
+DMD.h := G_HD.H
+DMD.w := G_HD.W
 }
 }
 return r
 }
-IDirect3DSwapChain9_GetBackBuffer(p1, p2, p3, p4)
+IDirect3D8_GetAdapterDisplayMode(p1, p2, p3)
 {
-if (dllcall(IDirect3DSwapChain9.GetDevice, ptr, p1, "ptr*", Dvc:=0))
-return dllcall(IDirect3DSwapChain9.GetBackBuffer, ptr, p1, uint, p2, uint, p3, ptr, p4)
-dllcall(IDirect3DDevice9.release, ptr, Dvc)
-return dllcall("peixoto.dll\GetBackBuffer9Hook", ptr, Dvc, uint, 0, uint, p2, uint, p3, ptr, p4)
-}
-IDirect3DSwapChain9_Present(p1, p2, p3, p4, p5, p6)
-{
-if (dllcall(IDirect3DSwapChain9.GetDevice, ptr, p1, "ptr*", Dvc:=0))
-return dllcall(IDirect3DSwapChain9.Present, ptr, p1, ptr, p2, ptr, p3, ptr, p4, ptr, p5, uint, p6)
-dllcall(IDirect3DDevice9.release, ptr, Dvc)
-return dllcall("peixoto.dll\Present9Hook", uint, Dvc, uint, 0, uint, 0, uint, 0, uint, 0)
-return dllcall("peixoto.dll\Present9Hook", uint, g_.pDevice9, uint, 0, uint, 0, uint, 0, uint, 0)
-}
-IDirect3DDevice9_BeginStateBlock(p1)
-{
-logerr("BeginStateBlock")
-d 		    := new ComInterfaceWrapper(D3D9.IDirect3DDevice9, p1, True)
-d.released  := True
-r           := d.reset
-hr          := dllcall(IDirect3DDevice9.BeginStateBlock, uint, p1)
-d 		    := new ComInterfaceWrapper(D3D9.IDirect3DDevice9, p1, True)
-d.released  := True
-if (d.reset != r)
-{
-logerr(d.hook("Reset", isfunc("Alt_Reset") ? "Alt_Reset" : "IDirect3DDevice9_reset"))
-logerr(IDirect3DDevice9.Unhook("BeginStateBlock"))
-IDirect3DDevice9.reset := d.reset
-}
-return hr
-}
-IDirect3DDevice9_GetDisplaymode(p1, p2, p3)
-{
-if (p3=0)
-return 	D3DERR_INVALIDCALL
-D       := struct(D3DDISPLAYMODE)
-D[]     := p3
-D.Width  := D3D9_HOOKS.W
-D.Height := D3D9_HOOKS.H
-D.Format := D3D9SetPixelFormat("X8RGB")
+r := dllcall(IDirect3D8.GetAdapterDisplayMode, ptr, p1, uint, p2, ptr, p3)
+if (r)
 return r
-}
-D3D9CleanUp(pp)
-{
-if ( g_.cfg.HD && pp )
-{
-D3D9_HOOKS.Srfc	 := 0
-D3D9_HOOKS.ZSrfc := 0
-D3D9_HOOKS.Txtr  := 0
-D3D9_HOOKS.ZTxtr := 0
-D3D9_HOOKS.W := D3DPRESENT_PARAMETERS.BackBufferWidth
-D3D9_HOOKS.H := D3DPRESENT_PARAMETERS.BackBufferHeight
-D3D9_HOOKS.scale :=  D3D9_HOOKS.HD_H/D3DPRESENT_PARAMETERS.BackBufferHeight
-D3D9_HOOKS.HD_X  := (D3D9_HOOKS.HD_W - D3DPRESENT_PARAMETERS.BackBufferWidth*D3D9_HOOKS.scale)/2
-D3D9_HOOKS.rx  := 0
-D3D9_HOOKS.rw  := D3DPRESENT_PARAMETERS.BackBufferWidth * D3D9_HOOKS.scale
-D3D9_HOOKS.rh  := D3D9_HOOKS.HD_H
-dllcall("Peixoto.dll\SetMouseHooksParams", float, D3D9_HOOKS.HD_W/D3D9_HOOKS.w, float, D3D9_HOOKS.scale
-, uint, D3D9_HOOKS.HD_X, uint, D3D9_HOOKS.w, uint, D3D9_HOOKS.h)
-D3DPRESENT_PARAMETERS.BackBufferWidth   := D3D9_HOOKS.HD_W
-D3DPRESENT_PARAMETERS.BackBufferHeight  := D3D9_HOOKS.HD_H
-DllCall("Peixoto.dll\D3D9HDSetUP", uint, D3D9_HOOKS.W, uint, D3D9_HOOKS.h)
-}
-g_.D3D9Font          := ""
-D3D9_HOOKS.Font      := ""
-(D3D9_HOOKS.override) ? D3D9_HOOKS.override := dllcall(IDirect3DPixelShader9.release, uint, D3D9_HOOKS.override)
-(D3D9_HOOKS.px)       ? D3D9_HOOKS.px       := dllcall(IDirect3DPixelShader9.release, uint, D3D9_HOOKS.px)
-(D3D9_HOOKS.xBR)      ? D3D9_HOOKS.xBR      := dllcall(IDirect3DPixelShader9.release, uint, D3D9_HOOKS.xBR)
-}
-D3D9Setup()
-{
-dllcall("peixoto.dll\D3D12Config", str, "HWND", ptr, D3DPRESENT_PARAMETERS.hDeviceWindow)
-if (D3D9_HOOKS.Fltr & 0xf)
-{
-loop, 4
-dllcall(IDirect3DDevice9.SetSamplerState, uint, g_.pDevice9, uint, A_index-1, uint, 5, uint, D3D9_HOOKS.Fltr & 0xf)
-}
-if (D3D9_HOOKS.Fltr & 0xf0)
-{
-loop, 4
-{
-dllcall(IDirect3DDevice9.SetSamplerState, uint, g_.pDevice9, uint, A_index-1, uint, 6, uint, 3)
-dllcall(IDirect3DDevice9.SetSamplerState, uint, g_.pDevice9, uint, A_index-1, uint, 10, uint, 16)
-dllcall(IDirect3DDevice9.SetSamplerState, uint, g_.pDevice9, uint, A_index-1, uint, 7, uint, 2)
-}
-}
-fileread, xBR, % g_.cfg.injector_dir "\Shaders\xBRz.fx"
-if (parsecfg(g_.cfg.PxSwap).e)
-{
-logerr(g_pswap9.code)
-logerr("Compiling shader " D3DX9.CompileShader(g_.pDevice9, g_pswap9.code, "main", pShader))
-}
-logerr("Compiling shader " D3DX9.CompileShader(g_.pDevice9, xBR, "main_fragment", hxBR) )
-D3D9_HOOKS.xBR      := hxBR
-D3D9_HOOKS.override := pShader
-D3D9_HOOKS.Dev9     := g_.pDevice9
-D3D9_HOOKS.px       := tShader
-D3D9_HOOKS.fntx := 0
-D3D9_HOOKS.fnty := g_tswap9.sz
-D3D9_HOOKS.fntw := g_tswap9.sz
-D3D9_HOOKS.fnth := g_tswap9.sz+64
-D3D9_HOOKS.tx := 0
-D3D9_HOOKS.ty := 0
-D3D9_HOOKS.tw := g_tswap9.sz
-D3D9_HOOKS.th := g_tswap9.sz
-D3D9_HOOKS.SetTexture    := IDirect3DDevice9.SetTexture
-D3D9_HOOKS.ReleaseShader := IDirect3DPixelShader9.Release
-if g_.cfg.HD
-{
-p := D3DPRESENT_PARAMETERS
-if (p.BackBufferFormat =0)
-p.BackBufferFormat:=22
-if (g_.cfg.SSAA)
-D3D9_HOOKS.scale := g_.cfg.SSAA * ceil(D3D9_HOOKS.scale)
-if (g_.cfg.xBR)
-D3D9_HOOKS.scale := 1
-w := D3D9_HOOKS.w*D3D9_HOOKS.scale
-h := D3D9_HOOKS.h*D3D9_HOOKS.scale
-g_.Proxies.hlf   := ""
-if (g_.cfg.SSAA)
-g_.Proxies.hlf := new SProxie9(w/2, h/2, p.BackBufferFormat, 0, 0)
-g_.Proxies.rt    := ""
-if (g_.cfg.xBR)
-g_.Proxies.rt    := new Proxie9(w, h, p.BackBufferFormat, p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "")
-else
-g_.Proxies.rt    := new SProxie9(w, h, p.BackBufferFormat, p.MultiSampleType, p.MultiSampleQuality
-, p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "", p.Flags & 0x2)
-g_.Proxies.rt.Set()
-D3D9_HOOKS.HlfSrfc   := g_.Proxies.hlf.s
-D3D9_HOOKS.HDSrfc	 := g_.Proxies.rt.s
-D3D9_HOOKS.HDZSrfc   := g_.Proxies.rt.zs
-D3D9_HOOKS.rx  += D3D9_HOOKS.HD_X
-D3D9_HOOKS.rw  += D3D9_HOOKS.HD_X
-logerr(D3D9_HOOKS.rw "x" D3D9_HOOKS.rh "x" D3D9_HOOKS.rx ":" D3D9_HOOKS.scale " " p.BackBufferFormat)
-if ! isobject(g_.Proxies.clr)
-{
-isobject(g_.Proxies.clr := new Proxie9(1, 1, p.BackBufferFormat, ,1))
-? :      g_.Proxies.clr := new Proxie9(1, 1, p.BackBufferFormat, ,0)
-isobject(g_.Proxies.z   := new Proxie9(1, 1, p.BackBufferFormat, ,1))
-? :      g_.Proxies.z   := new Proxie9(1, 1, p.BackBufferFormat, ,0)
-D3D9_HOOKS.SDSrfc  := g_.Proxies.clr.s
-D3D9_HOOKS.SDZSrfc := g_.Proxies.z.s
-}
-logerr("SDSrfc  " D3D9_HOOKS.SDSrfc)
-logerr("SDZSrfc " D3D9_HOOKS.SDZSrfc)
-dllcall("Peixoto.dll\SetRenderTarget9Hook", uint, g_.pDevice9, UINT, 0, UINT, g_.Proxies.clr.s)
-logerr("Requested  " D3D9_HOOKS.W " x "	D3D9_HOOKS.H)
-logerr("Real       " D3D9_HOOKS.HD_W " x "	D3D9_HOOKS.HD_H)
-logerr("Scale      " D3D9_HOOKS.scale)
-logerr("Viewport X " D3D9_HOOKS.HD_X)
-logerr("Rect:      " D3D9_HOOKS.rx " " D3D9_HOOKS.ry " " D3D9_HOOKS.rw " " D3D9_HOOKS.rh " ")
-dllcall("peixoto.dll\ResetViewPortPort9", uint)
-if g_.cfg.MCLP
-ClipCursor9(0)
-}
-}
-IDirect3D9_CreateDevice(p1, p2, p3, p4, p5, p6, p7)
-{
-dllcall(g_.p.Critical, uint, 1)
-Logerr("CREATE DEVICE")
-if (p6)
-dllcall("RtlMoveMemory", ptr, D3DPRESENT_PARAMETERS[], ptr, p6, int, D3DPRESENT_PARAMETERS.size())
-D3D9CleanUp(p6)
-if (g_.cfg.hd)
-{
-if (!D3DPRESENT_PARAMETERS.hDeviceWindow)
-D3DPRESENT_PARAMETERS.hDeviceWindow             := p4
-p5 &= ~ 0x00000010
-if (g_.cfg.WNWM = 2)
-D3DPRESENT_PARAMETERS.Windowed := 0
-else if (g_.cfg.WNWM = 1)
-{
-D3DPRESENT_PARAMETERS.Windowed                   := 1
-D3DPRESENT_PARAMETERS.BackBufferCount            := 1
-D3DPRESENT_PARAMETERS.SwapEffect                 := 2
-D3DPRESENT_PARAMETERS.FullScreen_RefreshRateInHz := 0
-}
-}
-(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.AddRef, uint, g_.pDevice9))
-logerr("About to create device:"), g_.proxies := {}
-(g_tswap9.Replacements) ? logerr(g_tswap9.Replacements.count() " Replacements")
-(g_.RTrgts)             ? logerr(g_.RTrgts.count() " Render surfaces")
-(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.release, uint, g_.pDevice9))
-for k, v in D3DPRESENT_PARAMETERS
-logerr(k "->" v)
-logerr("Focus " p4)
-D3DPRESENT_PARAMETERS.PresentationInterval := 1
-if (g_.cfg.SYNC)
-D3DPRESENT_PARAMETERS.BackBufferCount := 2
-logerr(IDirect3D9Ex.Unhook("CreateDeviceEx"))
-if ! (r := dllcall(IDirect3D9.CreateDevice, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, D3DPRESENT_PARAMETERS[], uint, p7, uint))
-{
-D3D9_HOOKS.safe := (p5 & D3DCREATE_MULTITHREADED) ? 1: 0
-g_.pDevice9 := numget(p7+0, "ptr")
-d 		    := new ComInterfaceWrapper(D3D9.IDirect3DDevice9, g_.pDevice9, True)
-d.released  := True
-logerr("multithread " D3D9_HOOKS.safe)
-D3D9Setup()
-if (g_.cfg.WHKSEX && g_.cfg.HD)
-{
-logerr("MoveWindow " dllcall("MoveWindow", ptr, D3DPRESENT_PARAMETERS.hDeviceWindow, uint, 0, uint, 0, uint, D3D9_HOOKS.HD_W, uint, D3D9_HOOKS.HD_H, uint, 0))
-dllcall("SendMessage", ptr, D3DPRESENT_PARAMETERS.hDeviceWindow, uint, 0x5, ptr, 0, ptr, D3D9_HOOKS.W|(D3D9_HOOKS.H<<16))
-dllcall("peixoto.dll\D3D12Config", astr, "HWND", ptr,  D3DPRESENT_PARAMETERS.hDeviceWindow)
-}
-if (g_.cfg.FLTR){
-loop, 4 {
-IDirect3DDevice9_SetSamplerState(numget(p7+0, "ptr"), A_index-1, 5, 1)
-IDirect3DDevice9_SetSamplerState(numget(p7+0, "ptr"), A_index-1, 6, 3)
-IDirect3DDevice9_SetSamplerState(numget(p7+0, "ptr"), A_index-1, 10, 16)
-}
-}
-} else Logerr("CREATE DEVICE FAILED")
-logerr(IDirect3D9Ex.hook("CreateDeviceEx"))
-dllcall(g_.p.Critical, uint, 0)
-return r
-}
-IDirect3D9Ex_CreateDeviceEx(p1, p2, p3, p4, p5, p6, p7, p8)
-{
-Logerr("CREATE DEVICEEX")
-if (p6)
-dllcall("RtlMoveMemory", ptr, D3DPRESENT_PARAMETERS[], ptr, p6, int, D3DPRESENT_PARAMETERS.size())
-if (p7)
-dllcall("RtlMoveMemory", ptr, D3DDISPLAYMODEEX[], ptr, p7, int, D3DDISPLAYMODEEX.size())
-D3D9CleanUp(p6)
-if (g_.cfg.hd)
-{
-if (!D3DPRESENT_PARAMETERS.hDeviceWindow)
-D3DPRESENT_PARAMETERS.hDeviceWindow             := p4
-p5 &= ~ 0x00000010
-if (g_.cfg.WNWM = 2)
-D3DPRESENT_PARAMETERS.Windowed := 0
-else if (g_.cfg.WNWM = 1)
-{
-D3DPRESENT_PARAMETERS.Windowed                   := 1
-D3DPRESENT_PARAMETERS.BackBufferCount            := 1
-D3DPRESENT_PARAMETERS.SwapEffect                 := 2
-D3DPRESENT_PARAMETERS.FullScreen_RefreshRateInHz := 0
-}
-D3DDISPLAYMODEEX.Width            := D3D9_HOOKS.HD_W
-D3DDISPLAYMODEEX.Height           := D3D9_HOOKS.HD_H
-}
-(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.AddRef, uint, g_.pDevice9))
-logerr("About to create device:"), g_.proxies := {}
-(g_tswap9.Replacements) ? logerr(g_tswap9.Replacements.count() " Replacements")
-(g_.RTrgts)             ? logerr(g_.RTrgts.count() " Render surfaces")
-(g_.pDevice9)           ? logerr("Ref: " dllcall(IDirect3DDevice9.release, uint, g_.pDevice9))
-for k, v in D3DDISPLAYMODEEX
-logerr("D3DDISPLAYMODEEX" k "->" v)
-for k, v in D3DPRESENT_PARAMETERS
-logerr("D3DPRESENT_PARAMETERS" k "->" v)
-logerr("Focus " p4)
-D3DPRESENT_PARAMETERS.PresentationInterval := 1
-if (g_.cfg.SYNC)
-D3DPRESENT_PARAMETERS.BackBufferCount := 2
-r := dllcall(IDirect3D9Ex.CreateDeviceEX, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5
-, uint, D3DPRESENT_PARAMETERS[], uint, p7? D3DDISPLAYMODEEX[]:p7, uint, p8, uint)
-if (r=0)
-{
-GUID_FromString(dvc_guid, D3D9.IID_IDirect3DDevice9)
-if (dllcall(IDirect3DDevice9.QueryInterface, ptr, numget(p8+0, "ptr"), ptr, &dvc_guid, "ptr*", pDvc9:=0) != 0){
-logerr("Failed to query the IDirect3DDevice9")
-}
-g_.pDevice9     := pDvc9
-D3D9_HOOKS.safe := (p5 & D3DCREATE_MULTITHREADED) ? 1: 0
-logerr("multithread " D3D9_HOOKS.safe)
-D3D9Setup()
-if (g_.cfg.WHKSEX && g_.cfg.HD)
-{
-logerr("MoveWindow " dllcall("MoveWindow", ptr, D3DPRESENT_PARAMETERS.hDeviceWindow, uint, 0, uint, 0, uint, D3D9_HOOKS.HD_W, uint, D3D9_HOOKS.HD_H, uint, 0))
-dllcall("SendMessage", ptr, D3DPRESENT_PARAMETERS.hDeviceWindow, uint, 0x5, ptr, 0, ptr, D3D9_HOOKS.W|(D3D9_HOOKS.H<<16))
-dllcall("peixoto.dll\D3D12Config", astr, "HWND", ptr,  D3DPRESENT_PARAMETERS.hDeviceWindow)
-}
-if (g_.cfg.FLTR){
-loop, 4 {
-IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 5, 1)
-IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 6, 3)
-IDirect3DDevice9_SetSamplerState(numget(p8+0, "ptr"), A_index-1, 10, 16)
-}
-}
-} else Logerr("CREATE DEVICEEX FAILED " r  " " d3d9.err[r . ""])
-return r
-}
-IDirect3DDevice9_Reset(p1, p2)
-{
-dllcall(g_.p.Critical, uint, 1)
-g_.pDevice9  := p1
-Logerr("RESET " p2)
-if g_.cfg.HD
-{
-hwin := D3DPRESENT_PARAMETERS.hDeviceWindow
-if (p2)
-{
-dllcall("RtlMoveMemory", ptr, D3DPRESENT_PARAMETERS[], ptr, p2, int, D3DPRESENT_PARAMETERS.size())
-if (!D3DPRESENT_PARAMETERS.hDeviceWindow)
-D3DPRESENT_PARAMETERS.hDeviceWindow := hwin
-}
-D3D9CleanUp(p2)
-D3D9Setup()
-dllcall("peixoto.dll\vPosReset9", uint, p1)
-} else	r := dllcall(IDirect3DDevice9.Reset, uint, p1, uint, p2)
-dllcall(g_.p.Critical, uint, 0)
-return r
-}
-IDirect3DDevice9Ex_ResetEx(p1, p2, p3)
-{
-dllcall(g_.p.Critical, uint, 1)
-g_.pDevice9  := p1
-Logerr("RESETEx " p2)
-if g_.cfg.HD
-{
-hwin := D3DPRESENT_PARAMETERS.hDeviceWindow
-if (p2)
-{
-dllcall("RtlMoveMemory", ptr, D3DPRESENT_PARAMETERS[], ptr, p2, int, D3DPRESENT_PARAMETERS.size())
-if (!D3DPRESENT_PARAMETERS.hDeviceWindow)
-D3DPRESENT_PARAMETERS.hDeviceWindow := hwin
-}
-D3D9CleanUp(p2)
-D3D9Setup()
-dllcall("peixoto.dll\vPosReset9", uint, p1)
-} else	r := dllcall(IDirect3DDevice9Ex.ResetEx, uint, p1, uint, p2)
-dllcall(g_.p.Critical, uint, 0)
-return r
-}
-IDirect3DDevice9_EndScene(p1)
-{
-keyevent(g_tswap9.sw)
-? g_tswap9.srch        := (g_tswap9.srch) ? False : True
-, D3D9_HOOKS.searching :=  g_tswap9.srch
-keyevent(g_pswap9.sw)
-? g_pswap9.srch        := (g_pswap9.srch) ? False : True
-, D3D9_HOOKS.srchng    := g_pswap9.srch
-if (g_pswap9.srch)
-return BrowseShaders9(p1)
-if (g_tswap9.srch)
-return BrowseTextures9(p1)
+mode        := struct("UINT Width; UINT Height; UINT RefreshRate; UINT Format;")
+mode[]      := p3
+mode.Width  := G_HD.W
+mode.Height := G_HD.H
 return 0
 }
-ClipCursor9(p1)
+IDirect3DDevice8_GetDisplaymode(p1, p2)
+{
+r := dllcall(IDirect3DDevice8.GetDisplaymode, ptr, p1, ptr, p2)
+if (r)
+return r
+mode        := struct("UINT Width; UINT Height; UINT RefreshRate; UINT Format;")
+mode[]      := p2
+mode.Width  := G_HD.W
+mode.Height := G_HD.H
+return 0
+}
+CleanUp8(pp)
+{
+if ( (g_.cfg.HD) and (D3DPRESENT_PARAMETERS[] := pp) )
+{
+g_.Proxies       := {}
+G_HD.W := D3DPRESENT_PARAMETERS.BackBufferWidth
+G_HD.H := D3DPRESENT_PARAMETERS.BackBufferHeight
+D3D8_HOOKS.scale := G_HD.HD_H/D3DPRESENT_PARAMETERS.BackBufferHeight
+D3D8_HOOKS.HD_X  := (G_HD.HD_W - D3DPRESENT_PARAMETERS.BackBufferWidth*D3D8_HOOKS.scale)/2
+G_HD.rct    := struct("DWORD x, y, w, h;")
+G_HD.rct.w  := D3DPRESENT_PARAMETERS.BackBufferWidth * D3D8_HOOKS.scale
+G_HD.rct.h  := G_HD.HD_H
+dllcall("Peixoto.dll\SetMouseHooksParams", float, G_HD.HD_W/D3DPRESENT_PARAMETERS.BackBufferWidth, float, D3D8_HOOKS.scale
+, uint, D3D8_HOOKS.HD_X, uint, D3DPRESENT_PARAMETERS.BackBufferWidth
+, uint, D3DPRESENT_PARAMETERS.BackBufferHeight)
+D3DPRESENT_PARAMETERS.BackBufferWidth   := G_HD.HD_W
+D3DPRESENT_PARAMETERS.BackBufferHeight  := G_HD.HD_H
+DllCall("Peixoto.dll\D3D8HDSetUP", uint, G_HD.W, uint, G_HD.H)
+}
+if ( (g_.cfg.SXTY) and (D3DPRESENT_PARAMETERS[] := pp) )
+{
+if (!D3DPRESENT_PARAMETERS.Windowed)
+D3DPRESENT_PARAMETERS.FullScreen_RefreshRateInHz := 60
+}
+if (!D3DPRESENT_PARAMETERS.Windowed)
+D3DPRESENT_PARAMETERS.FullScreen_PresentationInterval := 1
+}
+Setup8(pD)
+{
+static h
+g_.pDevice8  := pD
+if (g_.cfg.HD)
+{
+logerr("Resquested " G_HD.W " x " G_HD.H)
+fmt := D3D8SetPixelFormat("X8RGB")
+if (g_.cfg.SSAA)
+D3D8_HOOKS.scale := g_.cfg.SSAA * ceil(D3D8_HOOKS.scale)
+p              := D3DPRESENT_PARAMETERS
+if (g_.cfg.SSAA=4)
+g_.Proxies.hlf := new Proxie8(G_HD.W*D3D8_HOOKS.scale/2, G_HD.H*D3D8_HOOKS.scale/2, fmt)
+if (m := p.MultiSampleType)
+g_.Proxies.rt  := new SProxie8(G_HD.W*D3D8_HOOKS.scale, G_HD.H*D3D8_HOOKS.scale, m, fmt, p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "")
+else
+g_.Proxies.rt  := new Proxie8(G_HD.W*D3D8_HOOKS.scale, G_HD.H*D3D8_HOOKS.scale, fmt, p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "")
+g_.Proxies.lck := new Proxie8(G_HD.W, G_HD.H, p.BackBufferFormat,,1)
+SetTargets(g_.Proxies.rt)
+s8             := new ComInterfaceWrapper(D3D8.IDirect3DSurface8, g_.Proxies.rt.s, True)
+s8.released    := 1
+if ! isobject(g_.Proxies.clr)
+{
+g_.Proxies.clr := new Proxie8(1, 1, p.BackBufferFormat, p.EnableAutoDepthStencil ? p.AutoDepthStencilFormat : "")
+g_.Proxies.z   := new Proxie8(1, 1, p.BackBufferFormat, ,1)
+}
+g_.proxies.prms     := Struct("Float[12]")
+g_.proxies.prms[7]  := G_HD.W*D3D8_HOOKS.scale
+g_.proxies.prms[8]  := G_HD.H*D3D8_HOOKS.scale
+g_.proxies.prms[5]  := 1/g_.proxies.prms[7]
+g_.proxies.prms[6]  := 1/g_.proxies.prms[8]
+g_.proxies.prms[11] := g_.proxies.prms[7]/2
+g_.proxies.prms[12] := g_.proxies.prms[8]/2
+g_.proxies.prms[9]  := 1/g_.proxies.prms[11]
+g_.proxies.prms[10] := 1/g_.proxies.prms[12]
+G_HD.rct.X     += D3D8_HOOKS.HD_X
+G_HD.rct.W     += D3D8_HOOKS.HD_X
+G_HD.hrct      := struct(G_HD.rct)
+G_HD.hrct.W    := G_HD.W*D3D8_HOOKS.scale/2
+G_HD.hrct.H    := G_HD.H*D3D8_HOOKS.scale/2
+D3DVIEWPORT8.Width  := G_HD.W
+D3DVIEWPORT8.Height := G_HD.H
+D3DVIEWPORT8.X      := 0
+D3DVIEWPORT8.Y      := 0
+}
+if g_.cfg.MCLP
+ClipCursor8(0)
+}
+IDirect3DDevice8_Reset(p1, p2)
+{
+CleanUp8(p2)
+Setup8(p1)
+}
+IDirect3D8_CreateDevice(p1, p2, p3, p4, p5, p6, p7)
+{
+CleanUp8(p6)
+(g_tswap8.shader)     ? g_tswap8.shader  := dllcall(IDirect3DDevice8.DeletePixelShader, uint, g_.pDevice8, uint, g_tswap8.shader)
+(g_pswap8.over)       ? g_pswap8.over    := dllcall(IDirect3DDevice8.DeletePixelShader, uint, g_.pDevice8, uint, g_pswap8.over)
+(g_pswap8._over)      ? g_pswap8._over   := dllcall(IDirect3DDevice8.DeletePixelShader, uint, g_.pDevice8, uint, g_pswap8.over)
+(G_HD.HD_HS)          ? G_HD.HD_HS       := dllcall(IDirect3DDevice8.DeletePixelShader, uint, g_.pDevice8, uint, G_HD.HD_HS)
+logerr("IDirect3D8_CreateDevice D3DCREATE_MULTITHREADED " p5&D3DCREATE_MULTITHREADED)
+if (g_.cfg.safe)
+p5|=D3DCREATE_MULTITHREADED
+fmt := D3DPRESENT_PARAMETERS.BackBufferFormat
+if ! (r := dllcall(IDirect3D8.CreateDevice, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7, uint))
+{
+(hWin := D3DPRESENT_PARAMETERS.hDeviceWindow) ?: hWin := p4
+if (g_.cfg.HD)
+{
+dllcall("SetWindowPos", uint, hWin, int, 0, uint, 0, uint, 0, uint, G_HD.HD_W, uint, G_HD.HD_H, uint, 0x0454)
+dllcall("SendMessage", ptr, hWin, uint, 0x5, ptr, 0, ptr, G_HD.W|(G_HD.H<<16))
+dllcall("peixoto.dll\D3D12Config", astr, "HWND", ptr, hWin)
+D3DPRESENT_PARAMETERS.BackBufferFormat := fmt
+}
+Setup8(numget(p7+0, "ptr"))
+g_tswap8.shader     := D3D8CreatePixelShader("ps.1.0`ntex t0`nmov r0, t0", g_.pDevice8)
+g_pswap8.over	    := D3D8CreatePixelShader("ps.1.0`ntex t0`nmov r0, t0", g_.pDevice8)
+g_pswap8._over      := D3D8CreatePixelShader("ps.1.0`nmov r0, v0", g_.pDevice8)
+D3D8_HOOKS.Override := g_pswap8.over
+if (g_.cfg.HD)
+G_HD.HD_HS := D3D8CreatePixelShader("ps.1.0`ntex t0`nmov r0, t0", g_.pDevice8)
+if (g_.cfg.FLTR){
+loop, 4 {
+IDirect3DDevice8_SetTextureStageState(numget(p7+0, "ptr"), A_index-1, 16, 1)
+IDirect3DDevice8_SetTextureStageState(numget(p7+0, "ptr"), A_index-1, 17, 3)
+IDirect3DDevice8_SetTextureStageState(numget(p7+0, "ptr"), A_index-1, 21, 16)
+}
+}
+}
+return r
+}
+IDirect3DDevice8_SetRenderTarget(p1, p2, p3)
+{
+if (p2) and (p2 != g_.Proxies.rt.s)
+{
+if (c := FindSrfc8(p2, 1))
+p2 := c
+}
+if (p3) and (p3 != g_.Proxies.rt.zs)
+{
+if (z := FindSrfc8(p3, 2))
+p3 := z
+}
+r := dllcall(IDirect3DDevice8.SetRenderTarget, uint, p1, uint, p2, uint, p3)
+c ? dllcall(numget(numget(c+0, "ptr")+A_PtrSize*2, "ptr"), uint, c)
+z ? dllcall(numget(numget(z+0, "ptr")+A_PtrSize*2, "ptr"), uint, z)
+return r
+}
+IDirect3DDevice8_GetDepthStencilSurface(p1, p2)
+{
+dllcall(IDirect3DDevice8.GetDepthStencilSurface, uint, p1, "uint*", z:=0)
+if (SD := FindSDSrfc(z, 2))
+{
+dllcall(numget(numget(z+0, "ptr")+8, "ptr"), uint, z)
+numput(SD, p2+0, "ptr")
+return 0
+}
+return 0
+}
+IDirect3DDevice8_GetRenderTarget(p1, p2)
+{
+dllcall(IDirect3DDevice8.GetRenderTarget, uint, p1, "uint*", rt:=0)
+if (SD := FindSDSrfc(rt, 1))
+{
+dllcall(numget(numget(rt+0, "ptr")+8, "ptr"), uint, rt)
+numput(SD, p2+0, "ptr")
+return 0
+}
+return 0
+}
+IDirect3DDevice8_GetBackBuffer(p1, p2, p3, p4)
+{
+dllcall(numget(numget(g_.proxies.clr.s+0, "ptr")+4, "ptr"), uint, g_.proxies.clr.s)
+numput(g_.Proxies.clr.s, p4+0, "ptr")
+return 0
+}
+IDirect3DDevice8_Clear(p1, p2, p3, p4, p5, p6, p7)
+{
+if !p3
+return dllcall(IDirect3DDevice8.Clear, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7)
+r   := struct(D3D8_RECT)
+sz  := VarSetCapacity(rr, r.size()*p2)
+r[] := &rr
+dllcall("RtlMoveMemory", ptr, &rr, ptr, p3, int, sz)
+loop, % p2
+{
+r.left   *= D3D8_HOOKS.scale
+r.right  *= D3D8_HOOKS.scale
+r.bottom *= D3D8_HOOKS.scale
+r.top    *= D3D8_HOOKS.scale
+r[] += r.size()
+}
+return dllcall(IDirect3DDevice8.Clear, uint, p1, uint, p2, uint, &rr, uint, p4, uint, p5, uint, p6, uint, p7)
+}
+IDirect3DDevice8_SetViewPort(p1, p2)
+{
+if p2
+{
+vw  := struct(D3DVIEWPORT8)
+dllcall("RtlMoveMemory", ptr, vw[], ptr, p2, int, vw.size())
+dllcall("RtlMoveMemory", ptr, D3DVIEWPORT8[], ptr, p2, int, vw.size())
+vw.Width  *= D3D8_HOOKS.scale
+vw.Height *= D3D8_HOOKS.scale
+vw.X      *= D3D8_HOOKS.scale
+vw.Y      *= D3D8_HOOKS.scale
+}
+r := dllcall(IDirect3DDevice8.SetViewport, uint, p1, uint, vw[])
+return 0
+}
+IDirect3DDevice8_GetViewPort(p1, p2)
+{
+if p2
+{
+dllcall("RtlMoveMemory", ptr, p2, ptr, D3DVIEWPORT8[], int, D3DVIEWPORT8.size())
+return 0
+}
+return dllcall(IDirect3DDevice8.GetViewport, uint, g_.pDevice8, uint, p2)
+}
+IDirect3DDevice8_EndScene(p1)
+{
+if (g_.cfg.SNGL)
+dllcall("peixoto.dll\SetThreAdffinity", int, -1)
+static clr := 0xFFFFFFFF
+keyevent(g_tswap8.c) or keyevent(g_pswap8.c)
+? clr                  := cicleColor(clr&~0xff000000) | 0xff000000
+keyevent(g_tswap8.sw)
+? g_tswap8.srch        := (g_tswap8.srch) ? False : True
+, D3D8_HOOKS.searching :=  g_tswap8.srch
+keyevent(g_pswap8.sw)
+? g_pswap8.srch        := (g_pswap8.srch) ? False : True
+, D3D8_HOOKS.srchng    := g_pswap8.srch
+keyevent(g_pswap8.s)
+? D3D8_HOOKS.OVerride  := (D3D8_HOOKS.Override = g_pswap8.over)
+? g_pswap8._over : g_pswap8.over
+(g_tswap8.srch)   ? BrowseTextures8(p1, clr)
+(g_pswap8.srch)   ? BrowseShaders8(p1, clr)
+return dllcall(IDirect3DDevice8.EndScene, uint, p1)
+}
+VBlank(d)
+{
+return
+while !(s & 0xffffffff)
+dllcall(IDirect3DDevice8.GetRasterStatus, uint, d, "uint64*", s:=0)
+}
+IDirect3DDevice8_Present(p1, p2, p3, p4, p5)
+{
+if (g_.cfg.HD)
+{
+t := GetTargets()
+if (g_.cfg.SSAA=4)
+{
+SetTargets(g_.Proxies.hlf)
+dllcall(G_D3DDDI.SetPixelShaderConst, uint, D3DDDI_HOOKS.hDev, "uint64*", 223 | 1<<32, uint, g_.proxies.prms[]+16)
+dllcall("peixoto.dll\__D3D8DrawRect", uint, p1, uint, g_.Proxies.rt.tx(), uint, G_HD.hrct[], uint, G_HD.HD_HS, uint, 0, uint, 2)
+SetTargets()
+dllcall(G_D3DDDI.SetPixelShaderConst, uint, D3DDDI_HOOKS.hDev, "uint64*", 223 | 1<<32, uint, g_.proxies.prms[]+32)
+dllcall("peixoto.dll\__D3D8DrawRect", uint, p1, uint, g_.Proxies.hlf.tx(), uint, G_HD.rct[], uint, G_HD.HD_HS, uint, 0, uint, 2)
+} else {
+SetTargets()
+if (g_.cfg.SSAA)
+{
+}
+dllcall("peixoto.dll\__D3D8DrawRect", uint, p1, uint, g_.Proxies.rt.tx(), uint, G_HD.rct[], uint, G_HD.HD_HS, uint, 0, uint, 2)
+}
+SetTargets(t)
+(t.s)  ? printl("RELEASE clr surface " dllcall(numget(numget(t.s+0, "ptr")+A_PtrSize*2, "ptr"),  uint, t.s))
+(t.zs) ? printl("RELEASE z surface   " dllcall(numget(numget(t.zs+0, "ptr")+A_PtrSize*2, "ptr"), uint, t.zs))
+if (g_.cfg.SYNC)
+VBlank(p1)
+r := dllcall(IDirect3DDevice8.Present, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5)
+return r
+dllcall(IDirect3DDevice8.GetBackBuffer, uint, p1, uint, 0, uint, 0, "uint*", s:=0)
+dllcall(IDirect3DDevice8.CopyRects, uint, p1, uint, g_.Proxie.s, uint, G_HD.rct[], uint, 1, uint, s, "uint64*", D3D8_HOOKS.HD_X)
+s ?  dllcall(numget(numget(s+0, "ptr")+A_PtrSize*2, "ptr"))
+}
+if (g_.cfg.SYNC)
+VBlank(p1)
+return dllcall(IDirect3DDevice8.Present, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5)
+}
+IDirect3DDevice8_CopyRects(p1, p2, p3, p4, p5, p6)
+{
+logerr("...")
+d := struct(D3DSURFACE_DESC)
+dllcall(IDirect3DSurface.GetDesc, ptr, p2, uint, 0, ptr, d[])
+if (d.Pool=0)
+{
+if (g_.cfg.HD)
+{
+if (rs := FindSrfc8(p5))
+p5 := rs
+if (rd := FindSrfc8(p2))
+p2 := rd
+r  := dllcall(IDirect3DDevice8.CopyRects, uint, p1, uint, p2, uint, 0, uint, 0, uint, p5, uint, 0)
+rs ? dllcall(dllcall(numget(numget(rs+0, "ptr")+A_PtrSize*2, "ptr"), uint, z), uint, rs)
+rd ? dllcall(dllcall(numget(numget(rd+0, "ptr")+A_PtrSize*2, "ptr"), uint, z), uint, rd)
+dllcall(IDirect3DDevice8.SetRenderState, uint, p1, uint, 26, uint, 1)
+dllcall(IDirect3DDevice8.SetRenderState, uint, p1, uint, 154, float, D3D8_HOOKS.scale*D3D8_HOOKS.scale)
+}
+} else if (d.Pool>1)
+{
+if (g_.cfg.TextSwap)
+{
+r  := dllcall(IDirect3DDevice8.CopyRects, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, 0)
+if (r)
+return r
+dllcall("peixoto.dll\CopyRects8Check")
+return r
+}
+} return dllcall(IDirect3DDevice8.CopyRects, uint, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, 0)
+return 0
+}
+IDirect3DSurface8_LockRect(p1, p2, p3, p4)
+{
+if (p1 != g_.proxies.clr.s)
+return dllcall(IDirect3DSurface8.LockRect, uint, p1, uint, p2, uint, p3, uint, p4)
+D := struct(D3DSURFACE_DESC)
+dllcall(IDirect3DSurface8.GetDesc, uint, p1, ptr, D[])
+p := new Proxie8(G_HD.W, G_HD.H, D.Format)
+g_.Proxies.lck := new Proxie8(G_HD.W, G_HD.H, D.Format,,1)
+dst   := struct("DWORD x, y, w, h;")
+dst.w := G_HD.W
+dst.h := G_HD.H
+SetTargets(p)
+dllcall("peixoto.dll\_D3D8DrawRect", uint, g_.pDevice8, uint, g_.Proxies.rt.t, uint, dst[], uint, G_HD.HD_HS, uint, 0)
+dllcall(IDirect3DDevice8.CopyRects, uint, g_.pDevice8, uint, p.s, uint, dst[], uint, 1, uint, g_.Proxies.lck.s, "uint64*", pnt:=0)
+SetTargets(g_.Proxies.rt)
+return dllcall(IDirect3DSurface8.LockRect, uint, g_.Proxies.lck.s, uint, p2, uint, p3, uint, p4)
+}
+IDirect3DSurface8_UnLockRect(p1)
+{
+if (p1 != g_.proxies.clr.s)
+return dllcall(IDirect3DSurface8.UnLockRect, uint, p1)
+if (r := dllcall(IDirect3DSurface8.UnLockRect, uint, g_.Proxies.lck.s))
+return r
+SetTargets(g_.Proxies.rt)
+dst   := struct("DWORD x, y, w, h;")
+dst.w := G_HD.W*D3D8_HOOKS.scale
+dst.h := G_HD.H*D3D8_HOOKS.scale
+dllcall("peixoto.dll\_D3D8DrawRect", uint, g_.pDevice8, uint, g_.Proxies.lck.t, uint, dst[], uint, G_HD.HD_HS, uint, 0)
+return
+}
+IDirect3DSurface8_GetDesc(p1, p2)
+{
+if (r := dllcall(IDirect3DSurface8.GetDesc, uint, p1, uint, p2))
+return r
+if ( p1 = g_.proxies.z.s ||  p1 = g_.proxies.clr.s )
+{
+D   := struct(D3DSURFACE_DESC)
+D[] := p2
+D.Width  := G_HD.W
+D.Height := G_HD.H
+}
+return r
+}
+ClipCursor8(p1)
 {
 if (g_.cfg.MCLP=2)
 {
 VarSetCapacity(r, 8, 0)
-numput(D3D9_HOOKS.HD_X-1, &r+08, "uint")
-numput(D3D9_HOOKS.HD_W-D3D9_HOOKS.HD_X, &r+08, "uint")
-numput(D3D9_HOOKS.HD_H-1, &r+12, "uint")
+numput(D3D8_HOOKS.HD_X-1, &r+08, "uint")
+numput(G_HD.HD_W-D3D8_HOOKS.HD_X, &r+08, "uint")
+numput(G_HD.HD_H-1, &r+12, "uint")
 return dllcall(g_.WnAPI.ClpCrsr, uint, &r)
 }
 VarSetCapacity(r, 8, 0)
-numput(D3D9_HOOKS.HD_W/D3D9_HOOKS.scale-1, &r+08, "uint")
-numput(D3D9_HOOKS.HD_H/D3D9_HOOKS.scale-1, &r+12, "uint")
+numput(G_HD.HD_W/D3D8_HOOKS.scale-1, &r+08, "uint")
+numput(G_HD.HD_H/D3D8_HOOKS.scale-1, &r+12, "uint")
 return dllcall(g_.WnAPI.ClpCrsr, uint, &r)
 }
-MoveWindow9(p1, p2, p3, p4, p5, p6)
+IDirect3DDevice8_SetTextureStageState(p1, p2, p3, p4)
 {
-if (p1 = D3DPRESENT_PARAMETERS.hDeviceWindow)
-{
-p5 := D3D9_HOOKS.HD_H
-p4 := D3D9_HOOKS.HD_W
-p3 := 0
-p2 := 0
+p4 := p3 = 16 ? 1 : p3 = 17 ? 3 : p3 = 21 ? 16 : p4
+return dllcall(IDirect3DDevice8.SetTextureStageState, ptr, p1, uint, p2, uint, p3, uint, p4)
 }
-r := dllcall(g_.WnAPI.MoveWindow, ptr, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6)
-return r
-}
-SetWindowPos9(p1, p2, p3, p4, p5, p6, p7)
-{
-if (p1 = D3DPRESENT_PARAMETERS.hDeviceWindow)
-{
-p6 := D3D9_HOOKS.HD_H
-p5 := D3D9_HOOKS.HD_W
-p4 := 0
-p3 := 0
-}
-r := dllcall(g_.WnAPI.SetWindowPos, ptr, p1, uint, p2, uint, p3, uint, p4, uint, p5, uint, p6, uint, p7)
-return r
-}
-GetClientRect9(h, rr)
-{
-if (h = D3DPRESENT_PARAMETERS.hDeviceWindow)
-{
-r    := struct("DWORD x, y, w, h")
-r[]  := rr
-r.x  :=
-r.y  := 0
-r.w  := D3D9_HOOKS.W
-r.h  := D3D9_HOOKS.H
-return 1
-}
-return dllcall(g_.WnAPI.GetClientRect, uint, h, uint, rr)
-}
-GetWindowRect9(h, rr)
-{
-if (h = D3DPRESENT_PARAMETERS.hDeviceWindow)
-{
-r    := struct("DWORD x, y, w, h")
-r[]  := rr
-r.x  :=
-r.y  := 0
-r.w  := D3D9_HOOKS.W
-r.h  := D3D9_HOOKS.H
-return 1
-}
-return dllcall(g_.WnAPI.GetWindowRect, uint, h, uint, rr)
-}
-GetDeviceCaps9(p1, p2)
-{
-if      (p2 = 8)
-return D3D9_HOOKS.W
-else if	(p2 = 10)
-return D3D9_HOOKS.H
-return dllcall(g_.WnAPI.GetDeviceCaps9, uint, p1, uint, p2)
-}
-IDirect3DDevice9_SetSamplerState(p1, p2, p3, p4)
-{
-p4 := p3 = 5 ? 1 : p3 = 6 ? 3 : p3 = 10 ? 16 : p4
-return dllcall(IDirect3DDevice9.SetSamplerState, ptr, p1, uint, p2, uint, p3, uint, p4)
-}
+
+
+logerr(IDirect3DSurface8.UnHook("LockRect"))		
+logerr(IDirect3DSurface8.UnHook("UnLockRect"))	
+
 
 printl()
 resume()

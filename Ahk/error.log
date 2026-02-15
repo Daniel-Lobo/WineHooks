@@ -1,37 +1,39 @@
 Peixotos's patch remote settings:
-Command Line: "G:\Games\Castlevania - Lords of Shadow UE\bin\CastlevaniaLoSUE.exe" 
+Command Line: "E:\Games\Enclave\Enclave.exe" 
 common_path: 1
-D3D: 9
-D3D_Driver: 
-dsk: 2560x1080
+D3D: 8
+D3D_Driver: C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_0afec3f2050014a0\nvldumd.dll
+dsk: 1366x768
+Dsnd: CRSR=false;S3D=false;STTR=false;
 dxvkv: 2_6
-e: dsnd=true;
-error_log: Z:\home\gotardo\Code\WineHooks\Ahk\error.log
-hd: 1
-injector_dir: Z:\home\gotardo\Code\WineHooks\Ahk
-J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;rs=False;u=false;FF=False;
-k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;
-max_4x3_res: 1152x864
-Mydocs: C:\users\gotardo\Documents
+error_log: C:\Users\dllob\Documents\Code\WineHooks\Ahk\error.log
+HD: 1
+injector_dir: C:\Users\dllob\Documents\Code\WineHooks\Ahk
+J2K: mds=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;a=,,,,,,,,,,,,,,,,,,,;b=,,,,,,,,,,,,,,,,,,,;x=,,,,,,,,,,,,,,,,,,,;y=,,,,,,,,,,,,,,,,,,,;FF=False;u=false;
+k2k: r0e=false;r1e=false;s0e=false;s1e=false;s2e=false;s3e=false;s4e=false;s5e=false;t0e=false;t1e=false;
+max_4x3_res: 1440x1080
+Mydocs: C:\Users\dllob\Documents
 os_version: 10.000000
-path: C:\users\gotardo\Documents\WineHooks\Games\Dev\
-pow2: 1
-PxSwap: e=true;sw=End;n=>;p=<;q=Q;d=Home;
+path: C:\Users\dllob\Documents\WineHooks\Games\Enclave\
+PxSwap: e=false;sw=Del;n=>;p=<;d=Home;
 res_lmt_lts: 
-rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1280x720 1280x800 1280x1024 1600x900 1680x1050 1920x1080 2560x1080 2560x1440 3840x2160 
-script_hwnd: 0xa00c4
-ssaa: 2
-Target: G:\Games\Castlevania - Lords of Shadow UE\bin\CastlevaniaLoSUE.exe
-target_dir: G:\Games\Castlevania - Lords of Shadow UE\bin
-target_name: CastlevaniaLoSUE.exe
-Textswap: e=false;sw=Ins;n=>;p=<;d=Del;q=Shift;sz=256;s=4;path=TexturesVOKSI;
-vpos: 1
+rlst: 640x480 720x480 720x576 800x600 1024x768 1152x864 1176x664 1280x720 1280x768 1280x800 1280x960 1280x1024 1360x768 1366x768 1440x1080 1600x900 1600x1024 1680x1050 1920x1080 1440x900 
+script: scripts\Enclave.ahk
+script_hwnd: 0x30710
+SXTY: 1
+SYNC: 1
+Target: E:\Games\Enclave\Enclave.exe
+target_dir: E:\Games\Enclave
+target_name: Enclave.exe
+Textswap: e=false;sw=End;n=>;p=<;d=Home;q=Shift;sz=384;s=4;path=Textures\VOKSI;a=false;l=false;
+wiki: https://www.pcgamingwiki.com/wiki/Enclave
 wine: 10_0
+WNMM: MCI=false;
 
-Working directory: G:\Games\Castlevania - Lords of Shadow UE\bin
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+Working directory: E:\Games\Enclave
+C:\Users\dllob\Documents\WineHooks\Games\Enclave\cfgFiles: 
 HasFiles 0
-C:\users\gotardo\Documents\WineHooks\Games\Dev\cfgFiles: 
+C:\Users\dllob\Documents\WineHooks\Games\Enclave\cfgFiles: 
 HasFiles 0
 Init: SUCCEEDED TO GET THE SHGetFolderLocation ENTRYPOINT ON Shell32.dll
 Init: SUCCEEDED TO GET THE SHGetFolderPathA ENTRYPOINT ON shfolder.dll
@@ -44,61 +46,6 @@ CreateProcessA Hook: 0
 CreateProcessW Hook: 0
 ShellExecuteA Hook  :0
 ShellExecuteExW Hook  :0
-D3D9Create Hook: 0
-D3D9Create Hook: 0
-Linux: dxvk SysDir: C:\windows\system32 Exists: A
-CreateD3D9Interfaces: SUCCEEDED TO GET THE D3DXCompileShader ENTRYPOINT
-==================================================================
-Z:\home\gotardo\Code\WineHooks\Ahk\D3DCompilers\x86\d3dx9_43.dll loaded
-Create D3D9 Interfaces: S_OK
-Succeeded to hook IDirect3D9::CreateDevice
-Succeeded to hook IDirect3D9Ex::CreateDeviceEx
-Succeeded to hook IDirect3DDevice9::Reset
-Succeeded to hook IDirect3DDevice9Ex::ResetEx
-Succeeded to hook IDirect3DDevice9::BeginStateBlock
-Succeeded to hook IDirect3DDevice9::EndScene
-Shader dumps Path: Z:\home\gotardo\Code\WineHooks\Ahk\patches\castlevanialosue C:\users\gotardo\Documents\WineHooks\Games\Dev\pixelshaders
-Succeeded to hook IDirect3DDevice9::CreatePixelShader
-Succeeded to hook IDirect3DDevice9::SetPixelShader
-Succeeded to hook IDirect3DPixelShader9::Release
-0 Shaders 1 1
-0 Shaders 1 1
-Succeeded to hook IDirect3DDevice9::Present
-Succeeded to hook IDirect3DDevice9Ex::PresentEx
-Succeeded to hook IDirect3DDevice9::StretchRect
-Succeeded to hook IDirect3DDevice9::GetBackBuffer
-Succeeded to hook IDirect3DSurface9::GetDesc
-Succeeded to hook IDirect3DDevice9::GetDepthStencilSurface
-Succeeded to hook IDirect3DDevice9::SetDepthStencilSurface
-Succeeded to hook IDirect3DDevice9::SetRenderTarget
-Succeeded to hook IDirect3DDevice9::GetRenderTarget
-Succeeded to hook IDirect3DDevice9::GetViewPort
-Succeeded to hook IDirect3DDevice9::SetViewPort
-Succeeded to hook IDirect3DDevice9::SetScissorRect
-Succeeded to hook IDirect3DDevice9::GetScissorRect
-Succeeded to hook IDirect3D9::EnumAdapterModes
-Succeeded to hook IDirect3D9::GetAdapterDisplaymode
-Succeeded to hook IDirect3DDevice9::GetDisplaymode
-Succeeded to hook IDirect3DDevice9::Clear
-Succeeded to hook IDirect3DDevice9::ColorFill
-Succeeded to hook IDirect3DDevice9::GetRenderTargetData
-Succeeded to hook IDirect3DDevice9::CreateTexture
-Succeeded to hook IDirect3DDevice9::SetTexture
-Succeeded to hook IDirect3DTexture9::Release
-Succeeded to hook IDirect3DSurface9::Release
-Succeeded to hook IDirect3DDevice9::UpdateSurface
-CreateTexture Hook: 0
-UpdateSurface Hook: 0
-Succeeded to hook IDirect3DDevice9::CreateCubeTexture
-Succeeded to hook IDirect3DDevice9::CreateRenderTarget
-Succeeded to hook IDirect3DDevice9::CreateDepthStencilSurface
-Succeeded to hook IDirect3DDevice9Ex::CreateDepthStencilSurfaceEx
-Succeeded to hook IDirect3DDevice9::DrawPrimitiveUp
-Succeeded to hook IDirect3DDevice9::DrawPrimitive
-Succeeded to hook IDirect3DDevice9::DrawIndexedPrimitive
-Succeeded to hook IDirect3DDevice9::DrawIndexedPrimitiveUp
-Succeeded to hook IDirect3DCubeTexture9::Release
-ChangeDisplaySettingsA Hook: 0
 Init: INITIALIZING
 Init: SUCCEEDED TO GET THE DirectDrawCreate ENTRYPOINT ON ddraw.dll
 Init: SUCCEEDED TO GET THE CreateDXGIFactory ENTRYPOINT ON dxgi.dll
@@ -111,32 +58,31 @@ Init: SUCCEEDED TO GET THE D3D11CreateDeviceAndSwapChain ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D11On12CreateDevice ENTRYPOINT ON d3d11.dll
 Init: SUCCEEDED TO GET THE D3D12CreateDevice ENTRYPOINT ON d3d12.dll
 Init: SUCCEEDED TO GET THE D3D12GetDebugInterface ENTRYPOINT ON d3d12.dll
-Init: Using MS Compilers
-Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT
-Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT
-Init: 2560x1080
+Init: Using System Compilers
+Init: SUCCEEDED TO GET THE D3DReflect ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DDisassemble ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DCompile ENTRYPOINT ON D3dcompiler_47.dll
+Init: SUCCEEDED TO GET THE D3DXGetFVFVertexSize ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXCreateBuffer ENTRYPOINT ON d3dx9_43.dll
+Init: SUCCEEDED TO GET THE D3DXDisassembleShader ENTRYPOINT ON d3dx9_43.dll
+Init: 1366x768
 Init: 144
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
-CompileDXBC: Z:\home\gotardo\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\PxDummy OK
-InitHDHooks9: SUCCEEDED TO HOOK IDirect3DDevice9::ProcessVertices
-Setup: D3D9 Requested mode    : 2560x1080
-Setup: D3D9 Scale             : 1.000000
-Setup: D3D9 Viewport XOffset  : 0
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\TXAAFIX OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\DownScaleBlt OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\CSBlt OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\FSR OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAA OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/CS_5.0.hlsl\SSAAHQ OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltPx OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\VMirrorBltPx OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\BltVx OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx2 OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\SSAAx9 OK
+CompileDXBC: C:\Users\dllob\Documents\Code\WineHooks\Ahk/Shaders/HLSL_4.0.hlsl\PxDummy OK
+Setup: D3D8 Requested mode    : 1366x768
+Setup: D3D8 Scale             : 1.000000
+Setup: D3D8 Viewport XOffset  : 0
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetSystemMetricsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12SystemParametersInfoWHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12EnumDisplaySettingsExWHook
@@ -147,927 +93,76 @@ ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetMonitorInfoAHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetDeviceCapsHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetClientRectHook
 ApplyCommonHooks: SUCCEEDED TO HOOK (void*)D3D12GetWindowRectHook
-==================================================================
-CREATE DEVICEEX
-Setup: D3D9 Requested mode    : 1280x720
-Setup: D3D9 Scale             : 1.500000
-Setup: D3D9 Viewport XOffset  : 320
-About to create device:
-0 Replacements
-0 Render surfaces
-D3DDISPLAYMODEEXSize->24
-D3DDISPLAYMODEEXWidth->2560
-D3DDISPLAYMODEEXHeight->1080
-D3DDISPLAYMODEEXRefreshRate->0
-D3DDISPLAYMODEEXFormat->22
-D3DDISPLAYMODEEXScanLineOrdering->1
-D3DPRESENT_PARAMETERSBackBufferWidth->2560
-D3DPRESENT_PARAMETERSBackBufferHeight->1080
-D3DPRESENT_PARAMETERSBackBufferFormat->22
-D3DPRESENT_PARAMETERSBackBufferCount->2
-D3DPRESENT_PARAMETERSMultiSampleType->0
-D3DPRESENT_PARAMETERSMultiSampleQuality->0
-D3DPRESENT_PARAMETERSSwapEffect->1
-D3DPRESENT_PARAMETERShDeviceWindow->22282712
-D3DPRESENT_PARAMETERSWindowed->0
-D3DPRESENT_PARAMETERSEnableAutoDepthStencil->1
-D3DPRESENT_PARAMETERSAutoDepthStencilFormat->75
-D3DPRESENT_PARAMETERSFlags->0
-D3DPRESENT_PARAMETERSFullScreen_RefreshRateInHz->0
-D3DPRESENT_PARAMETERSPresentationInterval->1
-Focus 22282712
-multithread 0
-sampler s0 : register(s0);
-float4 main(float2 tex: TEXCOORD0) : COLOR0
-{
-return tex2D(s0, tex);
-};
-Compiling shader 0
-Compiling shader 0
-Proxie: z buffer:             0 5120.000000 x 2880.000000 D24S8 
-set target 0 38177544
-set Z 0 38177640
-2240x1080x320:4.000000 22
-Proxie: color buffer:         0  1x1 X8RGB
+Direct3DCreate8 Hook: 0
+Linux:  SysDir: C:\Windows\system32 Exists: 
+Succeeded to create Direct3D8
+Succeeded to hook IDirect3D8::CreateDevice
+Succeeded to hook IDirect3DDevice8::EndScene
+Succeeded to hook IDirect3DTexture8::LockRect
+Succeeded to hook IDirect3DTexture8::UnLockRect
+Succeeded to hook IDirect3DDevice8::UpdateTexture
+Succeeded to hook IDirect3DDevice8::CreateTexture
+Succeeded to hook IDirect3DDevice8::SetTexture
+Succeeded to hook IDirect3DTexture8::Release
+Succeeded to hook IDirect3DTexture8::GetSurfaceLevel
+Succeeded to hook IDirect3DSurface8::Release
+Succeeded to hook IDirect3DDevice8::CreatePixelShader
+Succeeded to hook IDirect3DDevice8::DeletePixelShader
+Succeeded to hook IDirect3DDevice8::SetPixelShader
+Max Primitives 5592405
+Succeeded to hook IDirect3D8::EnumAdapterModes
+Succeeded to hook IDirect3D8::GetAdapterDisplayMode
+Succeeded to hook IDirect3DDevice8::SetRenderTarget
+Succeeded to hook IDirect3DDevice8::GetRenderTarget
+Succeeded to hook IDirect3DDevice8::GetDepthStencilSurface
+Succeeded to hook IDirect3DDevice8::GetBackBuffer
+Succeeded to hook IDirect3DDevice8::Present
+Succeeded to hook IDirect3DDevice8::SetViewPort
+Succeeded to hook IDirect3DDevice8::GetViewPort
+Succeeded to hook IDirect3DDevice8::Reset
+Succeeded to hook IDirect3DDevice8::Clear
+Succeeded to hook IDirect3DSurface8::LockRect
+Succeeded to hook IDirect3DSurface8::UnLockRect
+Succeeded to hook IDirect3DSurface8::GetDesc
+Succeeded to hook IDirect3DDevice8::SetVertexShader
+Succeeded to hook IDirect3DDevice8::SetStreamSource
+Succeeded to hook IDirect3DDevice8::DrawPrimitiveUp
+Succeeded to hook IDirect3DDevice8::DrawPrimitive
+Succeeded to hook IDirect3DDevice8::DrawIndexedPrimitiveUp
+Succeeded to hook IDirect3DDevice8::DrawIndexedPrimitive
+Succeeded to hook IDirect3DDevice8::CreateVertexBuffer
+Succeeded to hook IDirect3DDevice8::GetDisplaymode
+C:\Users\dllob\Documents\Code\WineHooks\Ahk\D3DCompilers\x86\d3dx9_43.dll loaded
+unhook 1940833744
+Succeeded to unhook IDirect3DSurface8::LockRect
+unhook 1940833744
+Succeeded to unhook IDirect3DSurface8::UnLockRect
+Setup: D3D8 Requested mode    : 1366x768
+Setup: D3D8 Scale             : 1.000000
+Setup: D3D8 Viewport XOffset  : 0
+IDirect3D8_CreateDevice D3DCREATE_MULTITHREADED 0
+Resquested 1366 x 768
+Proxie: color buffer:         0 
 Proxie: color buffer level 0: 0
-D3D9SetRenderSurfaceProxy: INSERTED 226749248 to 226749152
-D3D9SetRenderSurfaceProxy: INSERTED 226749632 to 226749536
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-D3D9GetTexture: GetPrivateData FAILED
-FindSDSurface9: UNKNOWN HD TEXTURE
-FindHDSurface9: SetRenderTarget9Hook UNKNOWN SD TEXTURE
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Create z0 194656368 1366x768
+Setup: D3D8 Requested mode    : 960x540
+Setup: D3D8 Scale             : 1.422222
+Setup: D3D8 Viewport XOffset  : 0
+Resquested 960 x 540
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Proxie: color buffer:         0 
+Proxie: color buffer level 0: 0
+Create z0 496625664 1366x768
+Created texture 256x256
+Created texture 256x256

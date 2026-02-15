@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>8</ID>
+      <Description>"Table Help"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"H - inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(player_hit, "DarksidersGenesis-Win64-Shipping.exe", F3 0F 10 83 7C 03 00 00 41) // should be unique
+alloc(player_hit_new, 128, "DarksidersGenesis-Win64-Shipping.exe"+5869E3)
+label(player_hit_ret)
+registersymbol(player_hit)
+
+player_hit_new:
+  movss xmm0,[rbx+380]
+  movss [rbx+37C],xmm0
+  movss xmm0,[rbx+37C]
+  movss xmm0,[rbx+0000037C]
+jmp player_hit_ret
+
+player_hit:
+  jmp player_hit_new
+  nop 3
+player_hit_ret:
+
+
+[DISABLE]
+player_hit:
+  db F3 0F 10 83 7C 03 00 00
+unregistersymbol(player_hit)
+dealloc(player_hit_new)
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"K - easy Kills"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(enemy_hit, DarksidersGenesis-Win64-Shipping.exe, F3 44 0F 10 87 84 03 00 00) // should be unique
+alloc(enemy_hit_new, 128, "DarksidersGenesis-Win64-Shipping.exe"+6A3096)
+label(enemy_hit_new_ret)
+registersymbol(enemy_hit)
+
+enemy_hit_new:
+  mov [rdi+00000384],(float)999999
+  movss xmm8,[rdi+00000384]
+jmp enemy_hit_new_ret
+
+enemy_hit:
+  jmp enemy_hit_new
+  nop 4
+enemy_hit_new_ret:
+
+[DISABLE]
+
+enemy_hit:
+  db F3 44 0F 10 87 84 03 00 00
+unregistersymbol(enemy_hit)
+dealloc(enemy_hit_new)
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Z - inf horse Stamina"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(horse, DarksidersGenesis-Win64-Shipping.exe, F3 0F 10 81 C0 09 00 00) // should be unique
+alloc(horse_new, 128, "DarksidersGenesis-Win64-Shipping.exe"+5E9693)
+label(horse_ret)
+registersymbol(horse)
+
+horse_new:
+  movss xmm0,[rcx+9C4]
+  movss [rcx+9C0],xmm0
+  movss xmm0,[rcx+000009C0]
+jmp horse_ret
+
+horse:
+  jmp horse_new
+  nop 3
+horse_ret:
+
+
+[DISABLE]
+horse:
+  db F3 0F 10 81 C0 09 00 00
+unregistersymbol(horse)
+dealloc(horse_new)
+
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Auto"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(souls, DarksidersGenesis-Win64-Shipping.exe, 24 00 48 8B 83 78 05 00 00 8B 00 48 83 C4 20) // should be unique
+alloc(souls_new, 128, "DarksidersGenesis-Win64-Shipping.exe"+56F3C9)
+label(souls_add)
+label(souls_ret)
+label(souls_new_code)
+registersymbol(souls_add)
+registersymbol(souls)
+
+souls_new:
+souls_add:
+  db 00 00 00 00 00 00 00 00
+souls_new_code:
+  mov [souls_add],rax
+  mov eax,[rax]
+  add rsp,20
+jmp souls_ret
+
+souls+09:
+  jmp souls_new_code
+  nop
+souls_ret:
+
+[DISABLE]
+souls+09:
+  db 8B 00 48 83 C4 20
+unregistersymbol(*)
+dealloc(souls_new)
+
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"souls"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>souls_add</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"coins"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>souls_add</Address>
+          <Offsets>
+            <Offset>4</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"G - Gain souls"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"B - gain Boatman coin"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
