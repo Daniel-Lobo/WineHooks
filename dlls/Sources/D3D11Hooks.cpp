@@ -736,6 +736,11 @@ void D3D11Present(IDXGISwapChain * Iface, UINT sync, UINT flags)
     ID3D11Texture2D * proxy_tx = nullptr;
     if (Iface->GetPrivateData((GUID &)g_.D3D11TextImp, &sz, &privatedata) == 0)
     {        
+        if (privatedata == nullptr)
+        {
+            DBUG_WARN("GetPrivateData returned NULL")
+            return;
+        }
         if (privatedata->QueryInterface(__uuidof(ID3D11Texture2D), (void**)&proxy_tx) != 0)
         {
             DBUG_WARN("QueryInterface::(__uuidof(ID3D11Texture2D)...)FAILED")
