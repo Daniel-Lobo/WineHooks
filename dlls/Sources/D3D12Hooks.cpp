@@ -53,7 +53,8 @@ void D3D12_HOOKS::Setup(DWORD w, DWORD h, char * Caller)
     D3D12LOG((std::string(Caller) + " Scale             : " + std::to_string(mScl->Get())).c_str());
     D3D12LOG((std::string(Caller) + " Viewport XOffset  : " + std::to_string(HD_X->Get())).c_str());    
     if (g_d3d.MOUSEHOOKS)
-       SetMouseHooksParams(HD_W/m_WW->Get(), mScl->Get(), HD_X->Get(), m_WW->Get(), m_WW->Get());
+       SetMouseHooksParams((float)HD_W/(float)m_WW->Get(), mScl->Get(), HD_X->Get(),
+                           m_WW->Get(), m_HH->Get());
     if (g_d3d.MOUSECLIP) D3D12ClipCursorHook(nullptr);
 }
 
