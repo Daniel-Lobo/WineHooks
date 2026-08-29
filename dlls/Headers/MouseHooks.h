@@ -27,5 +27,8 @@ void InitMouseHooks();
 extern "C" __declspec(dllexport)
 DWORD SetMouseHooksParams(float, float,DWORD, DWORD, DWORD);
 
+extern "C" __declspec(dllexport)
+void SetCursorScale(float);
+
 #endif // MOUSEHOOKS_H
 

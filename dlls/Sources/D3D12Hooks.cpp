@@ -56,6 +56,7 @@ void D3D12_HOOKS::Setup(DWORD w, DWORD h, char * Caller)
        SetMouseHooksParams((float)HD_W/(float)m_WW->Get(), mScl->Get(), HD_X->Get(),
                            m_WW->Get(), m_HH->Get());
     if (g_d3d.MOUSECLIP) D3D12ClipCursorHook(nullptr);
+    if (g_d3d.CURSORSCALE) SetCursorScale(mScl->Get());
 }
 
 void D3D12_HOOKS::CompileDXBC(const char* srcfile, D3D_SHADER_MACRO * defs, const char* entrypoint, const char* target, ID3DBlob ** bytecode)
@@ -182,6 +183,7 @@ extern "C" __declspec(dllexport) void __stdcall D3D12Config(char * option, void*
     else if (Option == "FIXWINSIZE")               g_d3d.FIXWINSIZE                 = (DWORD)value;
     else if (Option == "MOUSEHOOKS")               g_d3d.MOUSEHOOKS                 = (DWORD)value;
     else if (Option == "MOUSECLIP")                g_d3d.MOUSECLIP                  = *(DWORD*)value;
+    else if (Option == "CURSORSCALE")              g_d3d.CURSORSCALE                = (DWORD)value;
     else if (Option == "RESLMT")                   g_d3d.RESOLUTIONLIMIT            = (DWORD)value;
     else if (Option == "GAMMA")                    g_d3d.GAMMAFIX                   = (DWORD)value;
     else if (Option == "VSNC")                     g_d3d.VSYNC                      = (DWORD)value;
