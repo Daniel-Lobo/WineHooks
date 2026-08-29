@@ -21,6 +21,24 @@
 D3D12_HOOKS g_d3d;
 void D3D12_HOOKS::Setup(DWORD w, DWORD h, char * Caller)
 {
+    /* The requested size drives the upscale factor (mScl = HD_H/h), so the
+       forced resolution only holds while the game keeps asking for the limit.
+       It stops doing so in two common cases:
+         - after DXGI drops exclusive fullscreen on focus loss (alt-tab), the
+           swapchain resizes to the desktop size and the factor collapses to 1.0
+         - in borderless, the game never requests a display mode at all and
+           sizes to its own window, leaving the factor at whatever that was
+       Both silently disable forced resolution. Pin to the configured limit so
+       it survives; GetClientRect reports m_WW/m_HH back to the game, so the
+       requested size then settles on the limit instead of drifting.
+       MaxW/MaxH default to the desktop size, so when no limit is configured
+       this degrades to a plain clamp and changes nothing. */
+    if (MaxW && MaxH)
+    {
+        if (MaxW != HD_W || MaxH != HD_H) { w = MaxW; h = MaxH; }
+        else { if (w > MaxW) w = MaxW; if (h > MaxH) h = MaxH; }
+    }
+
     m_WW->Set(w);
     m_HH->Set(h);
     mScl->Set((float)HD_H/(float)h);
