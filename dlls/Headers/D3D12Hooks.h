@@ -155,6 +155,7 @@ public:
     DWORD                 FIXWINSIZE                 = 0;
     DWORD                 MOUSEHOOKS                 = 0;
     DWORD                 MOUSECLIP                  = 0;
+    DWORD                 CURSORSCALE                = 0;
     DWORD                 RESOLUTIONLIMIT            = 0;
     DWORD                 GAMMAFIX                   = 0;
     DWORD                 VSYNC                      = 0;

@@ -21,6 +21,24 @@
 D3D12_HOOKS g_d3d;
 void D3D12_HOOKS::Setup(DWORD w, DWORD h, char * Caller)
 {
+    /* The requested size drives the upscale factor (mScl = HD_H/h), so the
+       forced resolution only holds while the game keeps asking for the limit.
+       It stops doing so in two common cases:
+         - after DXGI drops exclusive fullscreen on focus loss (alt-tab), the
+           swapchain resizes to the desktop size and the factor collapses to 1.0
+         - in borderless, the game never requests a display mode at all and
+           sizes to its own window, leaving the factor at whatever that was
+       Both silently disable forced resolution. Pin to the configured limit so
+       it survives; GetClientRect reports m_WW/m_HH back to the game, so the
+       requested size then settles on the limit instead of drifting.
+       MaxW/MaxH default to the desktop size, so when no limit is configured
+       this degrades to a plain clamp and changes nothing. */
+    if (MaxW && MaxH)
+    {
+        if (MaxW != HD_W || MaxH != HD_H) { w = MaxW; h = MaxH; }
+        else { if (w > MaxW) w = MaxW; if (h > MaxH) h = MaxH; }
+    }
+
     m_WW->Set(w);
     m_HH->Set(h);
     mScl->Set((float)HD_H/(float)h);
@@ -35,8 +53,10 @@ void D3D12_HOOKS::Setup(DWORD w, DWORD h, char * Caller)
     D3D12LOG((std::string(Caller) + " Scale             : " + std::to_string(mScl->Get())).c_str());
     D3D12LOG((std::string(Caller) + " Viewport XOffset  : " + std::to_string(HD_X->Get())).c_str());    
     if (g_d3d.MOUSEHOOKS)
-       SetMouseHooksParams(HD_W/m_WW->Get(), mScl->Get(), HD_X->Get(), m_WW->Get(), m_WW->Get());
+       SetMouseHooksParams((float)HD_W/(float)m_WW->Get(), mScl->Get(), HD_X->Get(),
+                           m_WW->Get(), m_HH->Get());
     if (g_d3d.MOUSECLIP) D3D12ClipCursorHook(nullptr);
+    if (g_d3d.CURSORSCALE) SetCursorScale(mScl->Get());
 }
 
 void D3D12_HOOKS::CompileDXBC(const char* srcfile, D3D_SHADER_MACRO * defs, const char* entrypoint, const char* target, ID3DBlob ** bytecode)
@@ -163,6 +183,7 @@ extern "C" __declspec(dllexport) void __stdcall D3D12Config(char * option, void*
     else if (Option == "FIXWINSIZE")               g_d3d.FIXWINSIZE                 = (DWORD)value;
     else if (Option == "MOUSEHOOKS")               g_d3d.MOUSEHOOKS                 = (DWORD)value;
     else if (Option == "MOUSECLIP")                g_d3d.MOUSECLIP                  = *(DWORD*)value;
+    else if (Option == "CURSORSCALE")              g_d3d.CURSORSCALE                = (DWORD)value;
     else if (Option == "RESLMT")                   g_d3d.RESOLUTIONLIMIT            = (DWORD)value;
     else if (Option == "GAMMA")                    g_d3d.GAMMAFIX                   = (DWORD)value;
     else if (Option == "VSNC")                     g_d3d.VSYNC                      = (DWORD)value;
