@@ -63,9 +63,11 @@ Cheats tables:
     - Cocoon
     - Jusant
 	- Indika
+	- Lana 1 and 2
+	- Plague tale 1 and 2
     
 -> FIX
-    - GoW and GoW Ragnarok, add gain XP, improve heuristics
+    - GoW and GoW Ragnarok, add gain XP, ez kills/HP based on stats
     - TLOU 2: add gain supplements and spare parts (supplements, string ??), TLOU 1 and 2: add table info    
     - Silver: add inf mana, inf arrows and quick cooldown for specials
     - Fix trouble to attach on RTCW (partial fix, needs manual attach)
@@ -86,9 +88,10 @@ Cheats tables:
     - AVP 1 e 2: inf predator energy
     - Brothers: improve brother detection
 	- Darksiders 2: gain xp, Darksiders 3 respwan on last death location
+	- Halo MCC. Individual tables as forcing loading dlls causes crashes
 	
 
 	Lastested (unpublished) changes:
 - Fixed hangs with GDI hooks on Linux
-
+- Fixed bug downloading profiles
 
